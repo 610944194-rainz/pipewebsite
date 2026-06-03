@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import SiteFooter from "../components/SiteFooter";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { filters, pipeProducts } from "../../data/pipes";
 import type { PipeProduct } from "../../data/pipes";
@@ -399,6 +400,8 @@ export default function ProductsPage() {
           </div>
         )}
       </div>
+
+      <SiteFooter />
     </main>
   );
 }

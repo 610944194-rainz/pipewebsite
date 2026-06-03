@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import SiteFooter from "../components/SiteFooter";
 import { useMemo, useState } from "react";
 import { siteConfig } from "../../data/site";
 
@@ -237,6 +238,8 @@ export default function RequestPage() {
           页面库存、价格、运费及税费信息仅供参考，最终以人工确认为准。
         </footer>
       </section>
+
+      <SiteFooter />
     </main>
   );
 }

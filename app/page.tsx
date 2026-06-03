@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteFooter from "./components/SiteFooter";
 import { pipeProducts } from "../data/pipes";
 import type { PipeProduct } from "../data/pipes";
 
@@ -399,6 +400,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <SiteFooter />
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#4a2f20] bg-[#100a07]/95 px-4 py-3 backdrop-blur sm:hidden">
         <div className="grid grid-cols-2 gap-3">

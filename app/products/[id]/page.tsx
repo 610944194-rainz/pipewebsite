@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import SiteFooter from "../../components/SiteFooter";
 import { pipeProducts } from "../../../data/pipes";
 import ProductGallery from "./ProductGallery";
 
@@ -232,6 +233,8 @@ export default async function ProductDetailPage({
           </div>
         </section>
       </div>
+
+      <SiteFooter />
     </main>
   );
 }
