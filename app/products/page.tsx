@@ -3,7 +3,13 @@
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { type FormEvent, useEffect, useMemo, useState } from "react";
+import {
+  type FormEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { filters, pipeProducts } from "../../data/pipes";
 import type { PipeProduct } from "../../data/pipes";
 
@@ -13,6 +19,10 @@ type SortMode =
   | "priceDesc"
   | "newest"
   | "galleryFirst";
+
+type PaginationItem = number | "ellipsis";
+
+const PAGE_SIZE = 15;
 
 function isSoldProduct(pipe: PipeProduct) {
   return (
@@ -83,6 +93,41 @@ function sortProducts(products: PipeProduct[], sortMode: SortMode) {
   });
 }
 
+function getPaginationItems(
+  currentPage: number,
+  totalPages: number
+): PaginationItem[] {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  if (currentPage <= 4) {
+    return [1, 2, 3, 4, 5, "ellipsis", totalPages];
+  }
+
+  if (currentPage >= totalPages - 3) {
+    return [
+      1,
+      "ellipsis",
+      totalPages - 4,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+
+  return [
+    1,
+    "ellipsis",
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    "ellipsis",
+    totalPages,
+  ];
+}
+
 function ProductCard({ pipe }: { pipe: PipeProduct }) {
   const galleryCount = getGalleryCount(pipe);
   const isSold = isSoldProduct(pipe);
@@ -136,16 +181,12 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
 
           <div className="hidden items-center justify-between gap-3 sm:flex">
             <span className="text-[#75695F]">来源</span>
-            <span className="font-semibold text-[#2B211C]">
-              {pipe.source}
-            </span>
+            <span className="font-semibold text-[#2B211C]">{pipe.source}</span>
           </div>
 
           <div className="flex items-center justify-between gap-3">
             <span className="text-[#75695F]">库存</span>
-            <span className="font-semibold text-[#2B211C]">
-              {pipe.status}
-            </span>
+            <span className="font-semibold text-[#2B211C]">{pipe.status}</span>
           </div>
         </div>
 
@@ -189,6 +230,10 @@ export default function ProductsPage() {
   const [activeSearchText, setActiveSearchText] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("recommended");
   const [hideSold, setHideSold] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const productListRef = useRef<HTMLDivElement | null>(null);
+  const shouldScrollToListRef = useRef(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -197,6 +242,23 @@ export default function ProductsPage() {
 
     return () => window.clearTimeout(timer);
   }, [inputSearchText]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedFilter, activeSearchText, sortMode, hideSold]);
+
+  useEffect(() => {
+    if (!shouldScrollToListRef.current) return;
+
+    shouldScrollToListRef.current = false;
+
+    requestAnimationFrame(() => {
+      productListRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }, [currentPage]);
 
   const totalCount = pipeProducts.length;
 
@@ -220,9 +282,21 @@ export default function ProductsPage() {
     return sortProducts(filtered, sortMode);
   }, [selectedFilter, activeSearchText, sortMode, hideSold]);
 
+  const totalPages = Math.max(1, Math.ceil(visibleProducts.length / PAGE_SIZE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
+  const endIndex = Math.min(startIndex + PAGE_SIZE, visibleProducts.length);
+
+  const paginatedProducts = visibleProducts.slice(startIndex, endIndex);
+  const paginationItems = getPaginationItems(safeCurrentPage, totalPages);
+
+  const visibleStart = visibleProducts.length === 0 ? 0 : startIndex + 1;
+  const visibleEnd = visibleProducts.length === 0 ? 0 : endIndex;
+
   function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setActiveSearchText(inputSearchText);
+    setCurrentPage(1);
   }
 
   function clearFilters() {
@@ -231,6 +305,14 @@ export default function ProductsPage() {
     setSelectedFilter("全部");
     setHideSold(false);
     setSortMode("recommended");
+    setCurrentPage(1);
+  }
+
+  function goToPage(page: number) {
+    if (page < 1 || page > totalPages || page === safeCurrentPage) return;
+
+    shouldScrollToListRef.current = true;
+    setCurrentPage(page);
   }
 
   return (
@@ -278,9 +360,9 @@ export default function ProductsPage() {
             </div>
 
             <div className="rounded-[16px] border border-[#E5D7C5] bg-[#FAF7F0] p-3">
-              <p className="text-[11px] text-[#75695F]">筛选状态</p>
-              <p className="mt-1 text-[13px] font-semibold leading-none text-[#9A6530]">
-                {selectedFilter}
+              <p className="text-[11px] text-[#75695F]">总页数</p>
+              <p className="mt-1 text-[23px] font-bold leading-none text-[#9A6530]">
+                {totalPages}
               </p>
             </div>
           </div>
@@ -322,7 +404,9 @@ export default function ProductsPage() {
 
               <select
                 value={sortMode}
-                onChange={(event) => setSortMode(event.target.value as SortMode)}
+                onChange={(event) =>
+                  setSortMode(event.target.value as SortMode)
+                }
                 className="h-10 w-full rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] text-[#2B211C] outline-none transition focus:border-[#A9682B]"
               >
                 <option value="recommended">推荐排序</option>
@@ -392,9 +476,13 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[13px] text-[#75695F]">
             当前显示{" "}
+            <span className="font-bold text-[#9A6530]">
+              {visibleStart}–{visibleEnd}
+            </span>{" "}
+            /{" "}
             <span className="font-bold text-[#9A6530]">
               {visibleProducts.length}
             </span>{" "}
@@ -405,7 +493,7 @@ export default function ProductsPage() {
             <button
               type="button"
               onClick={clearFilters}
-              className="text-[13px] font-semibold text-[#9A6530] hover:text-[#A9682B]"
+              className="self-start text-[13px] font-semibold text-[#9A6530] hover:text-[#A9682B] sm:self-auto"
             >
               清空筛选
             </button>
@@ -413,14 +501,97 @@ export default function ProductsPage() {
         </div>
 
         {visibleProducts.length > 0 ? (
-          <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
-            {visibleProducts.map((pipe) => (
-              <ProductCard
-                key={`${pipe.id}-${pipe.sourceUrl}-${pipe.name}`}
-                pipe={pipe}
-              />
-            ))}
-          </div>
+          <>
+            <div
+              ref={productListRef}
+              className="grid scroll-mt-4 gap-3.5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5"
+            >
+              {paginatedProducts.map((pipe) => (
+                <ProductCard
+                  key={`${pipe.id}-${pipe.sourceUrl}-${pipe.name}`}
+                  pipe={pipe}
+                />
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <nav
+                className="mt-6 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-3 shadow-[0_4px_14px_rgba(43,33,28,0.03)]"
+                aria-label="商品分页"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-center text-[12px] text-[#75695F] sm:text-left">
+                    第{" "}
+                    <span className="font-bold text-[#9A6530]">
+                      {safeCurrentPage}
+                    </span>{" "}
+                    / {totalPages} 页
+                  </p>
+
+                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => goToPage(safeCurrentPage - 1)}
+                      disabled={safeCurrentPage === 1}
+                      className={[
+                        "h-9 rounded-full border px-3 text-[12px] font-semibold transition",
+                        safeCurrentPage === 1
+                          ? "cursor-not-allowed border-[#E5D7C5] bg-[#F6F1E8] text-[#B8AA9D]"
+                          : "border-[#D8C5AE] bg-white text-[#2B211C] hover:border-[#A9682B]",
+                      ].join(" ")}
+                    >
+                      上一页
+                    </button>
+
+                    {paginationItems.map((item, index) => {
+                      if (item === "ellipsis") {
+                        return (
+                          <span
+                            key={`ellipsis-${index}`}
+                            className="flex h-9 w-8 items-center justify-center text-[12px] font-semibold text-[#75695F]"
+                          >
+                            …
+                          </span>
+                        );
+                      }
+
+                      const isActive = item === safeCurrentPage;
+
+                      return (
+                        <button
+                          key={item}
+                          type="button"
+                          onClick={() => goToPage(item)}
+                          className={[
+                            "h-9 min-w-9 rounded-full border px-3 text-[12px] font-semibold transition",
+                            isActive
+                              ? "border-[#A9682B] bg-[#A9682B] text-white"
+                              : "border-[#D8C5AE] bg-white text-[#2B211C] hover:border-[#A9682B]",
+                          ].join(" ")}
+                        >
+                          {item}
+                        </button>
+                      );
+                    })}
+
+                    <button
+                      type="button"
+                      onClick={() => goToPage(safeCurrentPage + 1)}
+                      disabled={safeCurrentPage === totalPages}
+                      className={[
+                        "h-9 rounded-full border px-3 text-[12px] font-semibold transition",
+                        safeCurrentPage === totalPages
+                          ? "cursor-not-allowed border-[#E5D7C5] bg-[#F6F1E8] text-[#B8AA9D]"
+                          : "border-[#D8C5AE] bg-white text-[#2B211C] hover:border-[#A9682B]",
+                      ].join(" ")}
+                    >
+                      下一页
+                    </button>
+                  </div>
+                </div>
+              </nav>
+            )}
+          </>
         ) : (
           <div className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-8 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)]">
             <p className="text-[20px] font-bold text-[#2B211C]">
