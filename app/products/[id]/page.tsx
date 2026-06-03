@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
+import { getBrandByName } from "../../../data/brands";
 import { pipeProducts } from "../../../data/pipes";
 import ProductGallery from "./ProductGallery";
 
@@ -46,6 +47,7 @@ export default async function ProductDetailPage({
   const galleryImages = product.galleryImages ?? [];
   const specsText = product.specsText ?? [];
   const tags = product.tags ?? [];
+  const brand = getBrandByName(product.brand);
 
   return (
     <main className="min-h-screen bg-[#100a07] text-[#fff8ec]">
@@ -159,6 +161,37 @@ export default async function ProductDetailPage({
                 </div>
               </div>
             </section>
+
+            {brand && (
+              <section className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-5">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <h3 className="text-xl font-black">品牌信息</h3>
+                  <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs font-bold text-[#d1934a]">
+                    {brand.country}
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs font-bold text-[#fff8ec]">
+                    {brand.name}
+                  </span>
+                  <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs font-bold text-[#d8b58a]">
+                    {brand.level}
+                  </span>
+                </div>
+
+                <p className="mt-4 text-sm leading-7 text-[#d8b58a]">
+                  {brand.summary}
+                </p>
+
+                <Link
+                  href={`/brands/${brand.slug}`}
+                  className="mt-5 flex min-h-11 items-center justify-center rounded-full border border-[#6b422b] px-4 text-sm font-bold text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
+                >
+                  查看品牌介绍
+                </Link>
+              </section>
+            )}
 
             {specsText.length > 0 && (
               <section className="rounded-[1.5rem] border border-[#4a2f20] bg-[#21150f] p-5 sm:p-6">

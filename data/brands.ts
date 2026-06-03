@@ -158,3 +158,17 @@ export const pipeBrands: PipeBrand[] = [
 export function getBrandBySlug(slug: string) {
   return pipeBrands.find((brand) => brand.slug === slug);
 }
+
+function normalizeBrandName(value: string) {
+  return value.trim().toLowerCase();
+}
+
+export function getBrandByName(name: string) {
+  const normalizedName = normalizeBrandName(name);
+
+  return pipeBrands.find((brand) => {
+    const brandNames = [brand.name, ...brand.aliases].map(normalizeBrandName);
+
+    return brandNames.includes(normalizedName);
+  });
+}
