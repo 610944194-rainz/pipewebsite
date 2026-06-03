@@ -88,76 +88,85 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
   const isSold = isSoldProduct(pipe);
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-[#4a2f20] bg-[#21150f]">
-      <div className="flex aspect-[4/3] items-center justify-center bg-white p-5">
+    <article className="grid grid-cols-[112px_1fr] overflow-hidden rounded-[20px] border border-[#E5D7C5] bg-[#FFFDF8] shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:flex sm:h-full sm:flex-col">
+      <div className="flex min-h-[132px] items-center justify-center bg-white p-3 sm:aspect-[4/3] sm:min-h-0">
         <img
           src={pipe.imageUrl}
           alt={pipe.name}
-          className="h-auto max-h-[94%] w-auto max-w-[98%] object-contain"
+          className="h-auto max-h-[92%] w-auto max-w-[96%] object-contain"
           draggable={false}
         />
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <div className="mb-3 flex min-h-24 items-start justify-between gap-3">
-          <div>
-            <p className="mb-1 text-sm text-[#d1934a]">{pipe.brand}</p>
-            <h3 className="text-xl font-black leading-snug text-[#fff8ec]">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 border-l border-[#F0E6D8] p-3.5 sm:border-l-0 sm:border-t">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="mb-0.5 text-[11px] font-semibold text-[#9A6530]">
+              {pipe.brand}
+            </p>
+
+            <h3 className="text-[15px] font-bold leading-snug text-[#2B211C] sm:text-[16px]">
               {pipe.name}
             </h3>
           </div>
 
-          <span className="shrink-0 rounded-full bg-[#2a1a12] px-3 py-1 text-xs text-[#d1934a]">
+          <span className="shrink-0 rounded-full bg-[#F6F1E8] px-2 py-0.5 text-[11px] font-medium text-[#75695F]">
             {pipe.condition}
           </span>
         </div>
 
-        <p className="mb-5 line-clamp-3 text-sm leading-7 text-[#f1dfc5]">
+        <p className="hidden text-[13px] leading-6 text-[#75695F] sm:block">
           {pipe.comment}
         </p>
 
-        <div className="mb-4 space-y-3 border-t border-[#342116] pt-4 text-sm">
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-[#b99b7d]">海外原价</span>
-            <span className="font-bold text-[#f6c177]">
+        <div className="space-y-1.5 border-t border-[#F0E6D8] pt-2 text-[12px]">
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[#75695F]">海外原价</span>
+            <span className="font-semibold text-[#9A6530]">
               {pipe.originalPrice}
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-[#b99b7d]">人民币参考</span>
-            <span className="font-bold">{pipe.estimatedCny}</span>
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[#75695F]">人民币参考</span>
+            <span className="font-bold text-[#2B211C]">
+              {pipe.estimatedCny}
+            </span>
           </div>
 
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-[#b99b7d]">来源</span>
-            <span className="font-bold">{pipe.source}</span>
+          <div className="hidden items-center justify-between gap-3 sm:flex">
+            <span className="text-[#75695F]">来源</span>
+            <span className="font-semibold text-[#2B211C]">
+              {pipe.source}
+            </span>
           </div>
 
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-[#b99b7d]">库存</span>
-            <span className="font-bold">{pipe.status}</span>
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[#75695F]">库存</span>
+            <span className="font-semibold text-[#2B211C]">
+              {pipe.status}
+            </span>
           </div>
         </div>
 
-        <div className="mb-5 flex min-h-20 flex-wrap content-start gap-2">
-          {pipe.tags?.slice(0, 4).map((tag) => (
+        <div className="flex flex-wrap gap-1.5 pt-0.5">
+          {pipe.tags?.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-[#160d09] px-3 py-1 text-xs text-[#d8b58a]"
+              className="rounded-full bg-[#F6F1E8] px-2 py-0.5 text-[11px] font-medium text-[#75695F]"
             >
               {tag}
             </span>
           ))}
 
           {galleryCount > 1 && (
-            <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs text-[#d1934a]">
+            <span className="rounded-full bg-[#F6F1E8] px-2 py-0.5 text-[11px] font-medium text-[#9A6530]">
               {galleryCount} 图
             </span>
           )}
 
           {isSold && (
-            <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs text-[#f6c177]">
+            <span className="rounded-full bg-[#F6F1E8] px-2 py-0.5 text-[11px] font-medium text-[#9A6530]">
               已售参考
             </span>
           )}
@@ -165,7 +174,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
 
         <Link
           href={`/products/${pipe.id}`}
-          className="mt-auto flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-5 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
+          className="mt-auto flex h-9 items-center justify-center rounded-full bg-[#A9682B] px-4 text-[12px] font-semibold text-white transition hover:bg-[#8F5522]"
         >
           查看详情 / 咨询
         </Link>
@@ -225,47 +234,65 @@ export default function ProductsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#100a07] text-[#fff8ec]">
+    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
       <SiteHeader />
 
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-10">
-        <header className="mb-8 border-b border-[#3a2419] pb-6">
-          <div className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-10">
+        <header className="mb-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="mb-3 text-xs uppercase tracking-[0.45em] text-[#c9904c]">
+              <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
                 OVERSEAS STOCK
               </p>
 
-              <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
+              <h1 className="text-[30px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-5xl">
                 海外烟斗库存精选
               </h1>
 
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-[#d8b58a] sm:text-base">
+              <p className="mt-3 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
                 当前为 The Danish Pipe Shop 公开页面采集数据。库存、价格、国际运费和预计税费仅供参考，最终以下单前人工确认为准。
               </p>
             </div>
 
             <Link
               href="/service"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#6b422b] px-6 text-sm font-bold text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
+              className="inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
             >
               了解代购流程
             </Link>
           </div>
 
-          <div className="rounded-[1.5rem] border border-[#3a2419] bg-[#1a100b] p-5">
-            <p className="text-sm text-[#b99b7d]">总商品数</p>
-            <p className="mt-2 text-4xl font-black">{totalCount}</p>
+          <div className="mt-5 grid grid-cols-3 gap-2.5">
+            <div className="rounded-[16px] border border-[#E5D7C5] bg-[#FAF7F0] p-3">
+              <p className="text-[11px] text-[#75695F]">总商品数</p>
+              <p className="mt-1 text-[23px] font-bold leading-none text-[#2B211C]">
+                {totalCount}
+              </p>
+            </div>
+
+            <div className="rounded-[16px] border border-[#E5D7C5] bg-[#FAF7F0] p-3">
+              <p className="text-[11px] text-[#75695F]">当前显示</p>
+              <p className="mt-1 text-[23px] font-bold leading-none text-[#2B211C]">
+                {visibleProducts.length}
+              </p>
+            </div>
+
+            <div className="rounded-[16px] border border-[#E5D7C5] bg-[#FAF7F0] p-3">
+              <p className="text-[11px] text-[#75695F]">筛选状态</p>
+              <p className="mt-1 text-[13px] font-semibold leading-none text-[#9A6530]">
+                {selectedFilter}
+              </p>
+            </div>
           </div>
         </header>
 
-        <section className="mb-8 rounded-[1.5rem] border border-[#3a2419] bg-[#1a100b] p-4 sm:p-5">
+        <section className="mb-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
           <form
             onSubmit={handleSearchSubmit}
-            className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr_0.75fr]"
+            className="grid gap-3 lg:grid-cols-[1.25fr_0.75fr_0.75fr]"
           >
             <label className="block">
-              <span className="mb-2 block text-xs font-bold text-[#b99b7d]">
+              <span className="mb-1.5 block text-[12px] font-semibold text-[#75695F]">
                 搜索品牌 / 型号 / 标签
               </span>
 
@@ -275,13 +302,13 @@ export default function ProductsPage() {
                   enterKeyHint="search"
                   value={inputSearchText}
                   onChange={(event) => setInputSearchText(event.target.value)}
-                  placeholder="例如 Anne Julie、Berggreen、Castello、高端收藏"
-                  className="h-12 min-w-0 flex-1 rounded-full border border-[#4a2f20] bg-[#100a07] px-5 text-sm text-[#fff8ec] outline-none transition placeholder:text-[#7f6754] focus:border-[#d1934a]"
+                  placeholder="例如 Anne Julie、Berggreen、Castello"
+                  className="h-10 min-w-0 flex-1 rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] text-[#2B211C] outline-none transition placeholder:text-[#A09387] focus:border-[#A9682B]"
                 />
 
                 <button
                   type="submit"
-                  className="h-12 shrink-0 rounded-full bg-[#d1934a] px-5 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
+                  className="h-10 shrink-0 rounded-full bg-[#A9682B] px-4 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
                 >
                   搜索
                 </button>
@@ -289,14 +316,14 @@ export default function ProductsPage() {
             </label>
 
             <label className="block">
-              <span className="mb-2 block text-xs font-bold text-[#b99b7d]">
+              <span className="mb-1.5 block text-[12px] font-semibold text-[#75695F]">
                 排序方式
               </span>
 
               <select
                 value={sortMode}
                 onChange={(event) => setSortMode(event.target.value as SortMode)}
-                className="h-12 w-full rounded-full border border-[#4a2f20] bg-[#100a07] px-5 text-sm text-[#fff8ec] outline-none transition focus:border-[#d1934a]"
+                className="h-10 w-full rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] text-[#2B211C] outline-none transition focus:border-[#A9682B]"
               >
                 <option value="recommended">推荐排序</option>
                 <option value="priceAsc">价格从低到高</option>
@@ -310,10 +337,10 @@ export default function ProductsPage() {
               <label
                 htmlFor="hide-sold-toggle"
                 className={[
-                  "flex min-h-12 w-full cursor-pointer select-none items-center justify-between rounded-full border px-5 text-sm font-bold transition",
+                  "flex h-10 w-full cursor-pointer select-none items-center justify-between rounded-full border px-4 text-[13px] font-semibold transition",
                   hideSold
-                    ? "border-[#d1934a] bg-[#d1934a] text-[#120b08]"
-                    : "border-[#4a2f20] bg-[#100a07] text-[#fff8ec]",
+                    ? "border-[#A9682B] bg-[#A9682B] text-white"
+                    : "border-[#D8C5AE] bg-white text-[#2B211C]",
                 ].join(" ")}
               >
                 <span>{hideSold ? "已隐藏已售参考" : "隐藏已售参考"}</span>
@@ -323,17 +350,17 @@ export default function ProductsPage() {
                   type="checkbox"
                   checked={hideSold}
                   onChange={(event) => setHideSold(event.target.checked)}
-                  className="h-5 w-5 accent-[#d1934a]"
+                  className="h-4 w-4 accent-[#A9682B]"
                 />
               </label>
             </div>
           </form>
 
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-[#b99b7d]">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] text-[#75695F]">
             {activeSearchText.trim() ? (
               <span>
                 当前搜索：
-                <strong className="text-[#f6c177]">
+                <strong className="text-[#9A6530]">
                   {activeSearchText.trim()}
                 </strong>
               </span>
@@ -342,7 +369,7 @@ export default function ProductsPage() {
             )}
           </div>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {filters.map((filter) => {
               const isActive = selectedFilter === filter;
 
@@ -352,10 +379,10 @@ export default function ProductsPage() {
                   type="button"
                   onClick={() => setSelectedFilter(filter)}
                   className={[
-                    "rounded-full border px-4 py-2 text-sm font-bold transition",
+                    "rounded-full border px-3 py-1.5 text-[12px] font-semibold transition",
                     isActive
-                      ? "border-[#d1934a] bg-[#d1934a] text-[#120b08]"
-                      : "border-[#4a2f20] bg-[#160d09] text-[#fff8ec] hover:border-[#d1934a] hover:text-[#d1934a]",
+                      ? "border-[#A9682B] bg-[#A9682B] text-white"
+                      : "border-[#E5D7C5] bg-white text-[#75695F] hover:border-[#A9682B] hover:text-[#9A6530]",
                   ].join(" ")}
                 >
                   {filter}
@@ -365,10 +392,10 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <div className="mb-5 flex items-center justify-between">
-          <p className="text-sm text-[#b99b7d]">
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-[13px] text-[#75695F]">
             当前显示{" "}
-            <span className="font-bold text-[#f6c177]">
+            <span className="font-bold text-[#9A6530]">
               {visibleProducts.length}
             </span>{" "}
             只烟斗
@@ -378,7 +405,7 @@ export default function ProductsPage() {
             <button
               type="button"
               onClick={clearFilters}
-              className="text-sm font-bold text-[#d1934a] hover:text-[#f6c177]"
+              className="text-[13px] font-semibold text-[#9A6530] hover:text-[#A9682B]"
             >
               清空筛选
             </button>
@@ -386,7 +413,7 @@ export default function ProductsPage() {
         </div>
 
         {visibleProducts.length > 0 ? (
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
             {visibleProducts.map((pipe) => (
               <ProductCard
                 key={`${pipe.id}-${pipe.sourceUrl}-${pipe.name}`}
@@ -395,9 +422,11 @@ export default function ProductsPage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-[1.5rem] border border-[#3a2419] bg-[#1a100b] p-10 text-center">
-            <p className="text-xl font-black">暂无匹配结果</p>
-            <p className="mt-3 text-sm leading-7 text-[#b99b7d]">
+          <div className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-8 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)]">
+            <p className="text-[20px] font-bold text-[#2B211C]">
+              暂无匹配结果
+            </p>
+            <p className="mt-2 text-[13px] leading-6 text-[#75695F]">
               可以尝试减少关键词，或者切换到“全部”分类查看完整库存。
             </p>
           </div>

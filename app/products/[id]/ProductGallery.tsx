@@ -34,12 +34,15 @@ export default function ProductGallery({
   name,
   imageUrl,
   galleryImages = [],
+  initialIndex = 0,
 }: ProductGalleryProps) {
   const images = useMemo(() => {
     return uniqueImages([imageUrl, ...galleryImages]);
   }, [imageUrl, galleryImages]);
 
   const galleryId = `pipe-gallery-${productId || safeId(name) || "item"}`;
+  const safeInitialIndex =
+    initialIndex >= 0 && initialIndex < images.length ? initialIndex : 0;
 
   const dynamicCss = images
     .map((_, index) => {
@@ -49,8 +52,9 @@ export default function ProductGallery({
         }
 
         #${galleryId}-radio-${index}:checked ~ .${galleryId}-thumbs label[for="${galleryId}-radio-${index}"] {
-          border-color: #d1934a;
-          box-shadow: 0 0 0 2px rgba(209, 147, 74, 0.38);
+          border-color: #A9682B;
+          box-shadow: 0 0 0 2px rgba(169, 104, 43, 0.18);
+          background: #FFFDF8;
         }
       `;
     })
@@ -58,11 +62,8 @@ export default function ProductGallery({
 
   if (images.length === 0) {
     return (
-      <section
-        id="gallery"
-        className="rounded-[2rem] border border-[#4a2f20] bg-[#21150f] p-3 sm:p-5"
-      >
-        <div className="flex aspect-[4/3] items-center justify-center rounded-[1.5rem] bg-white text-sm tracking-[0.35em] text-[#c9904c]">
+      <section id="gallery" className="bg-[#FFFDF8] p-3 sm:p-4">
+        <div className="flex aspect-[4/3] items-center justify-center rounded-[20px] border border-[#E5D7C5] bg-white text-[12px] font-medium tracking-[0.3em] text-[#9A6530]">
           PIPE IMAGE
         </div>
       </section>
@@ -70,10 +71,7 @@ export default function ProductGallery({
   }
 
   return (
-    <section
-      id="gallery"
-      className="rounded-[2rem] border border-[#4a2f20] bg-[#21150f] p-3 sm:p-5"
-    >
+    <section id="gallery" className="bg-[#FFFDF8] p-3 sm:p-4">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -92,18 +90,18 @@ export default function ProductGallery({
           id={`${galleryId}-radio-${index}`}
           name={`${galleryId}-radio`}
           type="radio"
-          defaultChecked={index === 0}
+          defaultChecked={index === safeInitialIndex}
           className="sr-only"
         />
       ))}
 
       <div
-        className={`${galleryId}-main pipe-image-surface aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-white p-1 sm:p-2`}
+        className={`${galleryId}-main aspect-[4/3] overflow-hidden rounded-[20px] border border-[#E5D7C5] bg-white p-2`}
       >
         {images.map((image, index) => (
           <div
             key={`${image}-main-${index}`}
-            className={`${galleryId}-main-image ${galleryId}-main-image-${index} pipe-image-surface h-full w-full items-center justify-center bg-white`}
+            className={`${galleryId}-main-image ${galleryId}-main-image-${index} h-full w-full items-center justify-center bg-white`}
           >
             <img
               src={image}
@@ -117,14 +115,14 @@ export default function ProductGallery({
 
       {images.length > 1 && (
         <div
-          className={`${galleryId}-thumbs mt-4 grid grid-cols-4 gap-3 sm:mt-5 sm:grid-cols-5`}
+          className={`${galleryId}-thumbs mt-3 grid grid-cols-4 gap-2.5 sm:grid-cols-5`}
         >
           {images.map((image, index) => (
             <label
               key={`${image}-thumb-${index}`}
               htmlFor={`${galleryId}-radio-${index}`}
               className={[
-                "pipe-image-surface flex aspect-square cursor-pointer select-none items-center justify-center overflow-hidden rounded-2xl border border-[#4a2f20] bg-white p-1 transition",
+                "flex aspect-square cursor-pointer select-none items-center justify-center overflow-hidden rounded-[16px] border border-[#E5D7C5] bg-white p-1 transition",
                 "active:scale-[0.98]",
               ].join(" ")}
               aria-label={`查看 ${name} 第 ${index + 1} 张图片`}

@@ -30,9 +30,9 @@ function getBrandProducts(brand: PipeBrand) {
 
 function InfoBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex min-h-12 items-center justify-between gap-3 border-b border-[#342116] py-3 last:border-b-0 sm:block sm:border-b-0 sm:border-r sm:px-4 sm:py-0 sm:last:border-r-0">
-      <p className="text-xs font-bold text-[#b99b7d]">{label}</p>
-      <p className="text-sm font-black text-[#fff8ec] sm:mt-1 sm:text-base">
+    <div className="flex min-h-11 items-center justify-between gap-3 border-b border-[#F0E6D8] py-2.5 last:border-b-0 sm:block sm:border-b-0 sm:border-r sm:px-4 sm:py-0 sm:last:border-r-0">
+      <p className="text-[11px] font-medium text-[#75695F]">{label}</p>
+      <p className="text-[14px] font-bold text-[#2B211C] sm:mt-1 sm:text-[15px]">
         {value}
       </p>
     </div>
@@ -41,11 +41,11 @@ function InfoBox({ label, value }: { label: string; value: string }) {
 
 function TextList({ items }: { items: string[] }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-1.5">
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-full bg-[#160d09] px-3 py-2 text-xs font-bold leading-5 text-[#fff8ec] sm:text-sm"
+          className="rounded-full bg-[#F6F1E8] px-2.5 py-1 text-[12px] font-medium leading-5 text-[#75695F]"
         >
           {item}
         </span>
@@ -56,38 +56,40 @@ function TextList({ items }: { items: string[] }) {
 
 function StockCard({ product }: { product: PipeProduct }) {
   return (
-    <article className="grid grid-cols-[112px_minmax(0,1fr)] overflow-hidden rounded-[1.2rem] border border-[#4a2f20] bg-[#21150f] sm:flex sm:h-full sm:flex-col">
-      <div className="flex min-h-28 items-center justify-center bg-white p-2 sm:aspect-[4/3] sm:min-h-0 sm:p-3">
+    <article className="grid grid-cols-[104px_minmax(0,1fr)] overflow-hidden rounded-[20px] border border-[#E5D7C5] bg-[#FFFDF8] shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:flex sm:h-full sm:flex-col">
+      <div className="flex min-h-[122px] items-center justify-center bg-white p-2.5 sm:aspect-[4/3] sm:min-h-0 sm:p-3">
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="h-auto max-h-[94%] w-auto max-w-[98%] object-contain"
+          className="h-auto max-h-[92%] w-auto max-w-[96%] object-contain"
           draggable={false}
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
-        <h3 className="text-sm font-black leading-snug text-[#fff8ec] sm:text-base">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 border-l border-[#F0E6D8] p-3.5 sm:border-l-0 sm:border-t">
+        <h3 className="text-[14px] font-bold leading-snug text-[#2B211C] sm:text-[15px]">
           {product.name}
         </h3>
 
-        <div className="space-y-2 border-t border-[#342116] pt-3 text-xs sm:text-sm">
+        <div className="space-y-1.5 border-t border-[#F0E6D8] pt-2 text-[12px]">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[#b99b7d]">人民币参考价</span>
-            <span className="font-bold text-[#f6c177]">
+            <span className="text-[#75695F]">人民币参考价</span>
+            <span className="font-bold text-[#9A6530]">
               {product.estimatedCny}
             </span>
           </div>
 
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[#b99b7d]">库存状态</span>
-            <span className="font-bold">{product.status}</span>
+            <span className="text-[#75695F]">库存状态</span>
+            <span className="font-semibold text-[#2B211C]">
+              {product.status}
+            </span>
           </div>
         </div>
 
         <Link
           href={`/products/${product.id}`}
-          className="mt-auto flex min-h-10 items-center justify-center rounded-full bg-[#d1934a] px-4 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
+          className="mt-auto flex h-9 items-center justify-center rounded-full bg-[#A9682B] px-4 text-[12px] font-semibold text-white transition hover:bg-[#8F5522]"
         >
           查看商品
         </Link>
@@ -113,109 +115,118 @@ export default async function BrandDetailPage({ params }: PageProps) {
   const relatedProducts = getBrandProducts(brand);
 
   return (
-    <main className="min-h-screen bg-[#100a07] text-[#fff8ec]">
+    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
       <SiteHeader />
 
-      <section className="px-4 py-7 sm:px-6 sm:py-8 lg:px-10">
+      <section className="px-4 py-5 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <header className="mb-6 border-b border-[#3a2419] pb-6">
+          <header className="mb-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
             <Link
               href="/brands"
-              className="mb-5 inline-flex min-h-10 items-center justify-center rounded-full border border-[#6b422b] px-4 text-sm font-bold text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
+              className="mb-4 inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
             >
               返回品牌库
             </Link>
 
-            <p className="mb-3 text-xs uppercase tracking-[0.45em] text-[#c9904c]">
+            <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
               BRAND PROFILE
             </p>
 
-            <h1 className="text-4xl font-black tracking-tight sm:text-6xl">
+            <h1 className="text-[34px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-6xl">
               {brand.name}
             </h1>
 
-            <p className="mt-4 max-w-3xl text-base leading-8 text-[#d8b58a] sm:text-lg">
+            <p className="mt-3 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
               {brand.summary}
             </p>
           </header>
 
-          <section className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-4 sm:p-5">
-            <div className="sm:flex">
+          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
+            <div className="rounded-[18px] border border-[#E5D7C5] bg-[#FAF7F0] p-3 sm:flex sm:p-4">
               <InfoBox label="国家 / 地区" value={brand.country} />
               <InfoBox label="创立时间" value={brand.founded} />
               <InfoBox label="定位" value={brand.level} />
             </div>
 
-            <div className="mt-4 rounded-[1rem] border border-[#4a2f20] bg-[#160d09] p-4">
-              <p className="mb-2 text-sm font-black text-[#d1934a]">
+            <div className="mt-4 rounded-[18px] border border-[#E5D7C5] bg-white p-4">
+              <p className="mb-2 text-[13px] font-bold text-[#9A6530]">
                 品牌资料待完善
               </p>
-              <p className="text-sm leading-7 text-[#d8b58a]">
+              <p className="text-[13px] leading-6 text-[#75695F]">
                 {brand.story}
               </p>
             </div>
           </section>
 
-          <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr]">
-            <div className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-4 sm:p-5">
-              <h2 className="mb-3 text-xl font-black">品牌特点</h2>
+          <section className="mt-4 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-[22px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:p-5">
+              <h2 className="mb-3 text-[20px] font-bold text-[#2B211C]">
+                品牌特点
+              </h2>
               <TextList items={brand.features} />
             </div>
 
-            <div className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-4 sm:p-5">
-              <h2 className="mb-3 text-xl font-black">代表风格</h2>
+            <div className="rounded-[22px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:p-5">
+              <h2 className="mb-3 text-[20px] font-bold text-[#2B211C]">
+                代表风格
+              </h2>
               <TextList items={brand.representativeStyles} />
             </div>
           </section>
 
-          <section className="mt-5 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-4 sm:p-5">
-              <h2 className="mb-3 text-xl font-black">适合人群与价格</h2>
-              <p className="text-sm leading-7 text-[#d8b58a]">
+          <section className="mt-4 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[22px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:p-5">
+              <h2 className="mb-3 text-[20px] font-bold text-[#2B211C]">
+                适合人群与价格
+              </h2>
+              <p className="text-[13px] leading-6 text-[#75695F]">
                 {brand.suitableFor}
               </p>
 
-              <div className="mt-4 border-t border-[#342116] pt-4">
-                <p className="mb-2 text-sm text-[#b99b7d]">价格区间</p>
-                <p className="font-black text-[#f6c177]">
+              <div className="mt-4 border-t border-[#F0E6D8] pt-3">
+                <p className="mb-1 text-[12px] text-[#75695F]">价格区间</p>
+                <p className="text-[15px] font-bold text-[#9A6530]">
                   {brand.priceRange}
                 </p>
               </div>
             </div>
 
-            <div className="rounded-[1.4rem] border border-[#4a2f20] bg-[#21150f] p-4 sm:p-5">
-              <h2 className="mb-3 text-xl font-black">资料来源</h2>
+            <div className="rounded-[22px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)] sm:p-5">
+              <h2 className="mb-3 text-[20px] font-bold text-[#2B211C]">
+                资料来源
+              </h2>
+
               {brand.sourceUrls.length > 0 ? (
-                <div className="grid gap-3">
+                <div className="grid gap-2.5">
                   {brand.sourceUrls.map((url) => (
                     <a
                       key={url}
                       href={url}
                       target="_blank"
                       rel="noreferrer"
-                      className="break-all rounded-2xl bg-[#160d09] px-4 py-3 text-sm font-bold leading-6 text-[#d1934a] transition hover:text-[#f6c177]"
+                      className="break-all rounded-[16px] border border-[#E5D7C5] bg-white px-3 py-2.5 text-[12px] font-medium leading-5 text-[#9A6530] transition hover:border-[#A9682B] hover:text-[#A9682B]"
                     >
                       {url}
                     </a>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm leading-7 text-[#d8b58a]">
+                <p className="text-[13px] leading-6 text-[#75695F]">
                   资料来源待补充
                 </p>
               )}
             </div>
           </section>
 
-          <section className="mt-7">
+          <section className="mt-6">
             <div className="mb-4 flex items-end justify-between gap-4">
               <div>
-                <p className="mb-1 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+                <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
                   RELATED STOCK
                 </p>
-                <h2 className="text-2xl font-black sm:text-3xl">
+                <h2 className="text-[22px] font-bold text-[#2B211C] sm:text-3xl">
                   当前相关库存
-                  <span className="ml-2 text-base text-[#f6c177]">
+                  <span className="ml-2 text-[15px] font-bold text-[#9A6530]">
                     {relatedProducts.length} 件
                   </span>
                 </h2>
@@ -223,7 +234,7 @@ export default async function BrandDetailPage({ params }: PageProps) {
             </div>
 
             {relatedProducts.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {relatedProducts.map((product) => (
                   <StockCard
                     key={`${product.id}-${product.sourceUrl}`}
@@ -232,7 +243,7 @@ export default async function BrandDetailPage({ params }: PageProps) {
                 ))}
               </div>
             ) : (
-              <div className="rounded-[1.5rem] border border-[#4a2f20] bg-[#21150f] p-8 text-center text-sm leading-7 text-[#d8b58a]">
+              <div className="rounded-[22px] border border-[#E5D7C5] bg-[#FFFDF8] p-8 text-center text-[13px] leading-6 text-[#75695F] shadow-[0_4px_14px_rgba(43,33,28,0.03)]">
                 当前暂无关联库存。
               </div>
             )}
