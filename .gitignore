@@ -39,3 +39,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Browser profile / crawler runtime cache
+.browser/
+
+# Next.js
+.next/
+
+# Dependencies
+node_modules/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Temporary screenshots
+data/danish-detail-screenshots/
