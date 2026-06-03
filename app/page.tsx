@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
 import { pipeProducts } from "../data/pipes";
 import type { PipeProduct } from "../data/pipes";
 
@@ -223,26 +224,10 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#100a07] pb-24 text-[#fff8ec] sm:pb-0">
+      <SiteHeader />
+
       <section className="px-4 pt-6 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <header className="mb-6 flex items-center justify-between">
-            <Link href="/" className="group">
-              <div className="text-lg font-black tracking-tight text-[#fff8ec]">
-                Pipe Stock
-              </div>
-              <div className="text-xs tracking-[0.28em] text-[#c9904c]">
-                OVERSEAS SELECT
-              </div>
-            </Link>
-
-            <Link
-              href="/products"
-              className="rounded-full border border-[#6b422b] px-4 py-2 text-sm font-bold text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
-            >
-              商品库
-            </Link>
-          </header>
-
           <section className="rounded-[2rem] border border-[#4a2f20] bg-[#1a100b] p-5 sm:p-8 lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:p-10">
             <div className="flex flex-col justify-center">
               <p className="mb-4 text-xs uppercase tracking-[0.45em] text-[#c9904c]">

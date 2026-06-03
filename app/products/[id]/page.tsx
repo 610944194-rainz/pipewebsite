@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
+import SiteHeader from "../../components/SiteHeader";
 import { pipeProducts } from "../../../data/pipes";
 import ProductGallery from "./ProductGallery";
 
@@ -47,8 +48,10 @@ export default async function ProductDetailPage({
   const tags = product.tags ?? [];
 
   return (
-    <main className="min-h-screen bg-[#100a07] px-4 py-6 text-[#fff8ec] sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-7xl">
+    <main className="min-h-screen bg-[#100a07] text-[#fff8ec]">
+      <SiteHeader />
+
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-10">
         <header className="mb-8 border-b border-[#3a2419] pb-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>

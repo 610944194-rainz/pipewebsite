@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
+import SiteHeader from "../components/SiteHeader";
 import { useMemo, useState } from "react";
 import { siteConfig } from "../../data/site";
 
@@ -47,6 +48,8 @@ export default function RequestPage() {
 
   return (
     <main className="min-h-screen bg-[#15100c] text-[#f5efe6]">
+      <SiteHeader />
+
       <section className="mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:px-10">
         <header className="flex items-center justify-between border-b border-[#3a2a1f] pb-5">
           <div>
