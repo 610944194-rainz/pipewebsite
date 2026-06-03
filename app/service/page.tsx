@@ -12,10 +12,10 @@ function StepCard({
   desc: string;
 }) {
   return (
-    <div className="rounded-[1.5rem] border border-[#4a2f20] bg-[#21150f] p-5">
-      <p className="mb-3 text-sm font-black text-[#d1934a]">{index}</p>
-      <h3 className="mb-2 text-lg font-black text-[#fff8ec]">{title}</h3>
-      <p className="text-sm leading-7 text-[#d8b58a]">{desc}</p>
+    <div className="rounded-[20px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)]">
+      <p className="mb-2 text-[12px] font-semibold text-[#9A6530]">{index}</p>
+      <h3 className="mb-1.5 text-[17px] font-bold text-[#2B211C]">{title}</h3>
+      <p className="text-[13px] leading-6 text-[#75695F]">{desc}</p>
     </div>
   );
 }
@@ -28,9 +28,9 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-[#342116] py-4 last:border-b-0">
-      <span className="shrink-0 text-sm text-[#b99b7d]">{label}</span>
-      <span className="text-right text-sm font-bold leading-6 text-[#fff8ec]">
+    <div className="flex items-start justify-between gap-4 border-b border-[#F0E6D8] py-3 last:border-b-0">
+      <span className="shrink-0 text-[13px] text-[#75695F]">{label}</span>
+      <span className="text-right text-[13px] font-semibold leading-6 text-[#2B211C]">
         {value}
       </span>
     </div>
@@ -45,46 +45,65 @@ function FaqCard({
   answer: string;
 }) {
   return (
-    <div className="rounded-[1.4rem] bg-[#160d09] p-5">
-      <h3 className="mb-2 text-base font-black text-[#fff8ec]">{question}</h3>
-      <p className="text-sm leading-7 text-[#d8b58a]">{answer}</p>
+    <div className="rounded-[20px] border border-[#E5D7C5] bg-white p-4 shadow-[0_4px_14px_rgba(43,33,28,0.025)]">
+      <h3 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
+        {question}
+      </h3>
+      <p className="text-[13px] leading-6 text-[#75695F]">{answer}</p>
+    </div>
+  );
+}
+
+function BoundaryCard({
+  title,
+  desc,
+}: {
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div className="rounded-[18px] border border-[#E5D7C5] bg-white p-4">
+      <h3 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
+        {title}
+      </h3>
+      <p className="text-[13px] leading-6 text-[#75695F]">{desc}</p>
     </div>
   );
 }
 
 export default function ServicePage() {
   return (
-    <main className="min-h-screen bg-[#100a07] pb-24 text-[#fff8ec] sm:pb-0">
+    <main className="min-h-screen bg-[#FAF7F0] pb-24 text-[#2B211C] sm:pb-0">
       <SiteHeader />
 
-      <section className="px-4 pt-6 sm:px-6 lg:px-10">
+      <section className="px-4 pt-5 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <section className="rounded-[2rem] border border-[#4a2f20] bg-[#1a100b] p-5 sm:p-8 lg:p-10">
-            <p className="mb-4 text-xs uppercase tracking-[0.45em] text-[#c9904c]">
+          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_6px_22px_rgba(43,33,28,0.035)] sm:p-8 lg:p-10">
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
               HOW IT WORKS
             </p>
 
-            <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-6xl">
+            <h1 className="text-[30px] font-bold leading-[1.15] tracking-tight text-[#2B211C] sm:text-5xl">
               海外烟斗代购，
               <br />
               先确认，再决定。
             </h1>
 
-            <p className="mt-5 max-w-3xl text-base leading-8 text-[#d8b58a] sm:text-lg">
+            <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
               本站整理海外烟斗网站的公开库存信息，帮助你快速查看商品、图片、价格和参数。页面展示并不代表实时库存，实际购买前需要人工重新确认。
             </p>
 
-            <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
+            <div className="mt-5 grid gap-2.5 sm:flex sm:flex-wrap">
               <Link
                 href="/products"
-                className="flex min-h-13 items-center justify-center rounded-full bg-[#d1934a] px-7 text-base font-black text-[#120b08] transition hover:bg-[#e3a85c]"
+                className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-7 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
               >
                 查看海外库存
               </Link>
 
               <a
                 href="#contact"
-                className="flex min-h-13 items-center justify-center rounded-full border border-[#6b422b] px-7 text-base font-black text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
+                className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
               >
                 咨询找斗
               </a>
@@ -93,19 +112,19 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section className="px-4 py-8 sm:px-6 lg:px-10">
+      <section className="px-4 py-6 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-5">
-            <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+          <div className="mb-4">
+            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
               PROCESS
             </p>
 
-            <h2 className="text-2xl font-black sm:text-3xl">
+            <h2 className="text-[22px] font-bold text-[#2B211C] sm:text-3xl">
               代购流程
             </h2>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-3.5 md:grid-cols-4">
             <StepCard
               index="01"
               title="浏览库存"
@@ -133,14 +152,16 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section className="px-4 pb-8 sm:px-6 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-[2rem] border border-[#4a2f20] bg-[#21150f] p-5 sm:p-7">
-            <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+      <section className="px-4 pb-6 sm:px-6 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
+            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
               COST
             </p>
 
-            <h2 className="mb-5 text-2xl font-black">费用构成</h2>
+            <h2 className="mb-4 text-[22px] font-bold text-[#2B211C]">
+              费用构成
+            </h2>
 
             <div>
               <InfoRow label="海外原价" value="以原站下单前实时页面为准" />
@@ -151,56 +172,46 @@ export default function ServicePage() {
             </div>
           </section>
 
-          <section className="rounded-[2rem] border border-[#4a2f20] bg-[#21150f] p-5 sm:p-7">
-            <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
+            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
               BOUNDARY
             </p>
 
-            <h2 className="mb-5 text-2xl font-black">服务边界</h2>
+            <h2 className="mb-4 text-[22px] font-bold text-[#2B211C]">
+              服务边界
+            </h2>
 
             <div className="grid gap-3">
-              <div className="rounded-2xl bg-[#160d09] p-4">
-                <h3 className="mb-2 font-black text-[#fff8ec]">
-                  页面信息不是实时承诺
-                </h3>
-                <p className="text-sm leading-7 text-[#d8b58a]">
-                  商品库展示的是采集时信息，海外网站库存和价格可能随时变化。
-                </p>
-              </div>
+              <BoundaryCard
+                title="页面信息不是实时承诺"
+                desc="商品库展示的是采集时信息，海外网站库存和价格可能随时变化。"
+              />
 
-              <div className="rounded-2xl bg-[#160d09] p-4">
-                <h3 className="mb-2 font-black text-[#fff8ec]">
-                  已售商品仍有参考价值
-                </h3>
-                <p className="text-sm leading-7 text-[#d8b58a]">
-                  已售商品可用于判断品牌、斗型、价格区间，也可以作为寻找类似款式的方向。
-                </p>
-              </div>
+              <BoundaryCard
+                title="已售商品仍有参考价值"
+                desc="已售商品可用于判断品牌、斗型、价格区间，也可以作为寻找类似款式的方向。"
+              />
 
-              <div className="rounded-2xl bg-[#160d09] p-4">
-                <h3 className="mb-2 font-black text-[#fff8ec]">
-                  购买前一定人工确认
-                </h3>
-                <p className="text-sm leading-7 text-[#d8b58a]">
-                  是否有货、是否可寄送、最终价格、运费和税费都需要在购买前重新确认。
-                </p>
-              </div>
+              <BoundaryCard
+                title="购买前一定人工确认"
+                desc="是否有货、是否可寄送、最终价格、运费和税费都需要在购买前重新确认。"
+              />
             </div>
           </section>
         </div>
       </section>
 
-      <section className="px-4 pb-8 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#4a2f20] bg-[#1a100b] p-5 sm:p-8">
-          <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+      <section className="px-4 pb-6 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
+          <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
             FAQ
           </p>
 
-          <h2 className="mb-5 text-2xl font-black sm:text-3xl">
+          <h2 className="mb-4 text-[22px] font-bold text-[#2B211C] sm:text-3xl">
             常见问题
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-3.5 md:grid-cols-2">
             <FaqCard
               question="为什么页面显示有货，还要人工确认？"
               answer="因为海外网站库存可能变化较快，页面采集信息只能作为参考。下单前需要重新确认商品是否仍然可购买。"
@@ -224,33 +235,33 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section id="contact" className="px-4 pb-10 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#4a2f20] bg-[#21150f] p-6 text-center sm:p-10">
-          <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[#c9904c]">
+      <section id="contact" className="px-4 pb-8 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-white p-5 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-10">
+          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
             CONTACT
           </p>
 
-          <h2 className="text-2xl font-black leading-tight sm:text-4xl">
+          <h2 className="text-[22px] font-bold leading-tight text-[#2B211C] sm:text-4xl">
             看到感兴趣的斗，
             <br className="sm:hidden" />
             先发来确认。
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#d8b58a] sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-[13px] leading-6 text-[#75695F] sm:text-base">
             你可以发送商品名称、详情页链接或截图。建议同时说明预算、是否接受已售同款参考、是否接受类似品牌替代。
           </p>
 
-          <div className="mt-7 grid gap-3 sm:flex sm:justify-center">
+          <div className="mt-5 grid gap-2.5 sm:flex sm:justify-center">
             <Link
               href="/products"
-              className="flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-7 text-sm font-black text-[#120b08] transition hover:bg-[#e3a85c]"
+              className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-7 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
             >
               去商品库挑选
             </Link>
 
             <Link
               href="/"
-              className="flex min-h-12 items-center justify-center rounded-full border border-[#6b422b] px-7 text-sm font-black text-[#fff8ec] transition hover:border-[#d1934a] hover:text-[#d1934a]"
+              className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
             >
               回到首页
             </Link>
@@ -260,18 +271,18 @@ export default function ServicePage() {
 
       <SiteFooter />
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#4a2f20] bg-[#100a07]/95 px-4 py-3 backdrop-blur sm:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5D7C5] bg-[#FAF7F0]/95 px-4 py-2.5 backdrop-blur sm:hidden">
         <div className="grid grid-cols-2 gap-3">
           <Link
             href="/products"
-            className="flex min-h-11 items-center justify-center rounded-full bg-[#d1934a] text-sm font-black text-[#120b08]"
+            className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] text-[13px] font-semibold text-white"
           >
             查看库存
           </Link>
 
           <a
             href="#contact"
-            className="flex min-h-11 items-center justify-center rounded-full border border-[#6b422b] text-sm font-black text-[#fff8ec]"
+            className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white text-[13px] font-semibold text-[#2B211C]"
           >
             咨询说明
           </a>
