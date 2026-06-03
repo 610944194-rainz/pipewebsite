@@ -98,7 +98,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="mb-3 flex min-h-24 items-start justify-between gap-3">
           <div>
             <p className="mb-1 text-sm text-[#d1934a]">{pipe.brand}</p>
             <h3 className="text-xl font-black leading-snug text-[#fff8ec]">
@@ -115,7 +115,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
           {pipe.comment}
         </p>
 
-        <div className="mb-4 mt-auto space-y-3 border-t border-[#342116] pt-4 text-sm">
+        <div className="mb-4 space-y-3 border-t border-[#342116] pt-4 text-sm">
           <div className="flex items-center justify-between gap-4">
             <span className="text-[#b99b7d]">海外原价</span>
             <span className="font-bold text-[#f6c177]">
@@ -139,7 +139,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
           </div>
         </div>
 
-        <div className="mb-5 flex flex-wrap gap-2">
+        <div className="mb-5 flex min-h-20 flex-wrap content-start gap-2">
           {pipe.tags?.slice(0, 4).map((tag) => (
             <span
               key={tag}
@@ -164,7 +164,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
 
         <Link
           href={`/products/${pipe.id}`}
-          className="flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-5 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
+          className="mt-auto flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-5 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
         >
           查看详情 / 咨询
         </Link>

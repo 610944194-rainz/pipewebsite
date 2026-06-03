@@ -48,7 +48,7 @@ function FeaturedSlideCard({
   const galleryCount = getGalleryCount(pipe);
 
   return (
-    <article className="min-w-full snap-center overflow-hidden rounded-[1.8rem] border border-[#4a2f20] bg-[#21150f]">
+    <article className="flex min-w-full snap-center flex-col overflow-hidden rounded-[1.8rem] border border-[#4a2f20] bg-[#21150f]">
       <div className="flex aspect-[4/3] items-center justify-center bg-white p-3">
         <img
           src={pipe.imageUrl}
@@ -58,8 +58,8 @@ function FeaturedSlideCard({
         />
       </div>
 
-      <div className="space-y-4 p-5">
-        <div className="flex flex-wrap gap-2">
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        <div className="flex min-h-8 flex-wrap gap-2">
           <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs text-[#d1934a]">
             今日精选 {index + 1}/{total}
           </span>
@@ -75,7 +75,7 @@ function FeaturedSlideCard({
           )}
         </div>
 
-        <div>
+        <div className="min-h-24">
           <p className="mb-1 text-sm text-[#d1934a]">{pipe.brand}</p>
 
           <h2 className="text-2xl font-black leading-snug text-[#fff8ec]">
@@ -94,7 +94,7 @@ function FeaturedSlideCard({
 
         <Link
           href={`/products/${pipe.id}`}
-          className="flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-5 text-sm font-black text-[#120b08] transition hover:bg-[#e3a85c]"
+          className="mt-auto flex min-h-12 items-center justify-center rounded-full bg-[#d1934a] px-5 text-sm font-black text-[#120b08] transition hover:bg-[#e3a85c]"
         >
           查看这只斗
         </Link>
@@ -146,7 +146,7 @@ function ProductMiniCard({ pipe }: { pipe: PipeProduct }) {
   const galleryCount = getGalleryCount(pipe);
 
   return (
-    <article className="overflow-hidden rounded-[1.6rem] border border-[#4a2f20] bg-[#21150f]">
+    <article className="flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-[#4a2f20] bg-[#21150f]">
       <div className="flex aspect-[4/3] items-center justify-center bg-white p-3">
         <img
           src={pipe.imageUrl}
@@ -156,8 +156,8 @@ function ProductMiniCard({ pipe }: { pipe: PipeProduct }) {
         />
       </div>
 
-      <div className="space-y-3 p-4">
-        <div>
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        <div className="min-h-20">
           <p className="mb-1 text-xs font-bold text-[#d1934a]">
             {pipe.brand}
           </p>
@@ -174,7 +174,7 @@ function ProductMiniCard({ pipe }: { pipe: PipeProduct }) {
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex min-h-16 flex-wrap content-start gap-2">
           <span className="rounded-full bg-[#160d09] px-3 py-1 text-xs text-[#d8b58a]">
             {pipe.status}
           </span>
@@ -188,7 +188,7 @@ function ProductMiniCard({ pipe }: { pipe: PipeProduct }) {
 
         <Link
           href={`/products/${pipe.id}`}
-          className="flex min-h-11 items-center justify-center rounded-full bg-[#d1934a] px-4 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
+          className="mt-auto flex min-h-11 items-center justify-center rounded-full bg-[#d1934a] px-4 text-sm font-bold text-[#120b08] transition hover:bg-[#e3a85c]"
         >
           查看详情
         </Link>
