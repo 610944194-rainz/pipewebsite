@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
+import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
 const inputPath = path.join(process.cwd(), "data", "danish-sample.json");
@@ -37,7 +38,7 @@ function firstNonEmpty(...values) {
   return values.map(normalizeText).find(Boolean) || "";
 }
 
-function parsePipeCondition(textSources) {
+export function parsePipeCondition(textSources) {
   const sources = (Array.isArray(textSources) ? textSources : [textSources])
     .map((source) => {
       if (typeof source === "string") {
@@ -1050,7 +1051,8 @@ async function main() {
   await context.close();
 }
 
-main().catch((error) => {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
   const failurePayload = {
     source: "The Danish Pipe Shop",
     detailCollectedAt: new Date().toISOString(),
@@ -1074,5 +1076,6 @@ main().catch((error) => {
   }
 
   console.error("详情页采集失败：", error);
-  process.exit(1);
-});
+    process.exit(1);
+  });
+}
