@@ -14,8 +14,13 @@ const startUrl = normalizeText(process.env.DANISH_START_URL) || defaultStartUrl;
 const targetCount = readIntegerEnv("DANISH_TARGET_COUNT", 50, { min: 1 });
 const maxListPages = readIntegerEnv("DANISH_MAX_LIST_PAGES", 20, { min: 1 });
 const detailDelayMs = readIntegerEnv("DANISH_DETAIL_DELAY_MS", 1200, { min: 0 });
+const maxLoadMoreClicks = readIntegerEnv("DANISH_MAX_LOAD_MORE_CLICKS", 20, { min: 0 });
+const loadMoreDelayMs = readIntegerEnv("DANISH_LOAD_MORE_DELAY_MS", 1800, { min: 0 });
 const outputPath = resolveOutputPath(process.env.DANISH_OUTPUT, defaultOutputPath);
 const scraperProxy = normalizeText(process.env.SCRAPER_PROXY);
+const saveScreenshots = readBooleanEnv("DANISH_SAVE_SCREENSHOTS", false);
+const checkpointEvery = readIntegerEnv("DANISH_CHECKPOINT_EVERY", 10, { min: 0 });
+const partialOutputPath = getPartialOutputPath(outputPath);
 
 const browserExecutableCandidates = [
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -143,10 +148,40 @@ function normalizeAvailabilityStatus({ detailStatus, listStatus, textSources = [
   return "可购买";
 }
 
+function buildImageQualityWarnings(imageValidation) {
+  const status = imageValidation?.imageMatchStatus || "missing";
+
+  if (status === "unverified") {
+    return ["imageUnverified"];
+  }
+
+  if (status === "mismatch") {
+    return ["imageMismatch"];
+  }
+
+  if (status === "missing") {
+    return ["imageMissing"];
+  }
+
+  if (status === "pageScoped") {
+    return ["imagePageScoped"];
+  }
+
+  return [];
+}
+
+
 function normalizeProductOutput({ product, normalizedDetail, stableFieldReport, extra = {} }) {
   const galleryImages = Array.isArray(normalizedDetail.galleryImages)
     ? normalizedDetail.galleryImages
     : [];
+  const rawGalleryImages = Array.isArray(normalizedDetail.rawGalleryImages)
+    ? normalizedDetail.rawGalleryImages
+    : [];
+  const outputMissingFields = normalizeOutputMissingFields(
+    stableFieldReport.missingFields,
+    normalizedDetail
+  );
 
   return {
     ...product,
@@ -156,7 +191,7 @@ function normalizeProductOutput({ product, normalizedDetail, stableFieldReport, 
     price: normalizedDetail.price,
     status: normalizedDetail.status,
     href: firstNonEmpty(product.href, normalizedDetail.sourceUrl),
-    imageUrl: firstNonEmpty(product.imageUrl, normalizedDetail.mainImage, galleryImages[0]),
+    imageUrl: firstNonEmpty(normalizedDetail.listImageUrl, normalizedDetail.mainImage, galleryImages[0]),
     detailImageUrl: firstNonEmpty(normalizedDetail.mainImage, galleryImages[0]),
     galleryImages,
     galleryCount: galleryImages.length,
@@ -166,12 +201,37 @@ function normalizeProductOutput({ product, normalizedDetail, stableFieldReport, 
     conditionLabel: normalizedDetail.conditionLabel,
     conditionSource: normalizedDetail.conditionSource,
     conditionNotes: normalizedDetail.conditionNotes,
-    missingFields: stableFieldReport.missingFields,
+    imageMatchStatus: normalizedDetail.imageMatchStatus || "missing",
+    imageMatchNotes: normalizedDetail.imageMatchNotes || "",
+    qualityWarnings: normalizedDetail.qualityWarnings || [],
+    ...(rawGalleryImages.length > 0 ? { rawGalleryImages } : {}),
+    missingFields: outputMissingFields,
     optionalMissingFields: stableFieldReport.optionalMissingFields,
     v17: normalizedDetail,
     stableFieldReport,
     ...extra,
   };
+}
+
+function normalizeOutputMissingFields(missingFields, detail) {
+  const galleryImages = Array.isArray(detail.galleryImages) ? detail.galleryImages : [];
+  const normalizedFields = new Set(
+    (missingFields || []).filter((field) => field !== "mainImage")
+  );
+
+  if (!firstNonEmpty(detail.listImageUrl, detail.mainImage, galleryImages[0])) {
+    normalizedFields.add("imageUrl");
+  }
+
+  if (!firstNonEmpty(detail.mainImage, galleryImages[0])) {
+    normalizedFields.add("detailImageUrl");
+  }
+
+  if (galleryImages.length === 0) {
+    normalizedFields.add("galleryImages");
+  }
+
+  return Array.from(normalizedFields);
 }
 
 function readIntegerEnv(name, fallback, options = {}) {
@@ -196,6 +256,23 @@ function readIntegerEnv(name, fallback, options = {}) {
   }
 
   return parsedValue;
+}
+
+function readBooleanEnv(name, fallback = false) {
+  const rawValue = normalizeText(process.env[name]).toLowerCase();
+
+  if (!rawValue) {
+    return Boolean(fallback);
+  }
+
+  return ["1", "true", "yes", "y", "on"].includes(rawValue);
+}
+
+function getPartialOutputPath(filePath) {
+  const ext = path.extname(filePath) || ".json";
+  const baseName = path.basename(filePath, ext);
+
+  return path.join(path.dirname(filePath), baseName + ".partial" + ext);
 }
 
 function resolveOutputPath(value, fallback) {
@@ -289,6 +366,63 @@ function normalizeSlug(text) {
     .replace(/['']/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function getProductIdFromUrl(url) {
+  const match = String(url || "").match(/-i(\d+)\.html/i);
+  return match ? match[1] : "";
+}
+
+function getProductSlugFromUrl(url) {
+  const match = String(url || "").match(/\/d\/-zh\/(.+?)-i\d+\.html/i);
+  return match ? normalizeSlug(decodeURIComponent(match[1])) : "";
+}
+
+function getImageSlugFromUrl(url) {
+  const match = String(url || "").match(/\/img\/(.+?)-img-\d+/i);
+  const rawSlug = match ? match[1] : "";
+
+  return rawSlug && rawSlug !== "-" ? normalizeSlug(decodeURIComponent(rawSlug)) : "";
+}
+
+function getSlugTokens(slug) {
+  const stopWords = new Set(["the", "pipe", "pipes", "with", "and", "for", "smooth", "bent", "classic"]);
+
+  return String(slug || "")
+    .split("-")
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 3)
+    .filter((token) => !stopWords.has(token));
+}
+
+function slugMatchesProduct(imageSlug, productSlug) {
+  if (!imageSlug || !productSlug) {
+    return false;
+  }
+
+  if (imageSlug.includes(productSlug) || productSlug.includes(imageSlug)) {
+    return true;
+  }
+
+  const tokens = getSlugTokens(productSlug);
+
+  if (tokens.length === 0) {
+    return false;
+  }
+
+  const matchedCount = tokens.filter((token) => imageSlug.includes(token)).length;
+  return tokens.length <= 2 ? matchedCount >= 1 : matchedCount >= 2;
+}
+
+function validateProductPageUrl(actualUrl, expectedUrl) {
+  const expectedId = getProductIdFromUrl(expectedUrl);
+  const actualId = getProductIdFromUrl(actualUrl);
+
+  return {
+    expectedId,
+    actualId,
+    matches: Boolean(expectedId && actualId && expectedId === actualId),
+  };
 }
 
 function getProductTokens(productName) {
@@ -428,23 +562,273 @@ function chooseBestEnlargeResult(results, productName) {
 
 function uniqueByImageId(urls) {
   const groups = new Map();
+  const seenUrls = new Set();
 
   for (const url of urls) {
     if (!url || isBadImageUrl(url) || !isDanishImageUrl(url)) {
       continue;
     }
 
-    const id = getImageId(url);
+    const normalizedUrl = String(url).trim();
+
+    if (seenUrls.has(normalizedUrl)) {
+      continue;
+    }
+
+    seenUrls.add(normalizedUrl);
+
+    const id = getImageId(normalizedUrl);
 
     if (!id || groups.has(id)) {
       continue;
     }
 
-    groups.set(id, url);
+    groups.set(id, normalizedUrl);
   }
 
   return Array.from(groups.values());
 }
+
+function strictSlugMatchesProduct(imageSlug, productSlug) {
+  return Boolean(imageSlug && productSlug && imageSlug.includes(productSlug));
+}
+
+function looselyRelatedSlug(imageSlug, productSlug) {
+  if (!imageSlug || !productSlug) {
+    return false;
+  }
+
+  const tokens = getSlugTokens(productSlug);
+
+  if (tokens.length === 0) {
+    return false;
+  }
+
+  const matchedCount = tokens.filter((token) => imageSlug.includes(token)).length;
+  const brandMatches = tokens[0] && imageSlug.includes(tokens[0]);
+
+  return Boolean(brandMatches && matchedCount >= 2);
+}
+
+function validateProductImages({ productHref, detailImageUrl, galleryImages, listImageUrl }) {
+  const productSlug = getProductSlugFromUrl(productHref);
+  const allDetailImages = [detailImageUrl, ...galleryImages].filter(Boolean);
+  const mismatchedImages = [];
+  const matchedImages = [];
+  const unknownImages = [];
+
+  for (const imageUrl of allDetailImages) {
+    const imageSlug = getImageSlugFromUrl(imageUrl);
+
+    if (!imageSlug) {
+      unknownImages.push(imageUrl);
+      continue;
+    }
+
+    if (slugMatchesProduct(imageSlug, productSlug)) {
+      matchedImages.push(imageUrl);
+      continue;
+    }
+
+    mismatchedImages.push(imageUrl);
+  }
+
+  if (mismatchedImages.length > 0) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "mismatch",
+      imageMatchNotes:
+        `图片 slug 与当前商品不匹配，已清空图片字段。productSlug=${productSlug}; mismatched=${mismatchedImages.join(", ")}`,
+    };
+  }
+
+  if (matchedImages.length > 0) {
+    const safeGalleryImages = galleryImages.filter((imageUrl) => {
+      const imageSlug = getImageSlugFromUrl(imageUrl);
+      return imageSlug && slugMatchesProduct(imageSlug, productSlug);
+    });
+    const listImageSlug = getImageSlugFromUrl(listImageUrl);
+
+    return {
+      safeDetailImageUrl: matchedImages[0],
+      safeGalleryImages,
+      safeListImageUrl: listImageSlug && slugMatchesProduct(listImageSlug, productSlug) ? listImageUrl : "",
+      imageMatchStatus: "matched",
+      imageMatchNotes: "详情页图片 slug 与当前商品匹配。",
+    };
+  }
+
+  if (allDetailImages.length > 0) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "unknown",
+      imageMatchNotes:
+        `图片 URL 缺少可校验商品 slug，未输出详情图片，避免跨商品串档。productSlug=${productSlug}`,
+    };
+  }
+
+  const listImageSlug = getImageSlugFromUrl(listImageUrl);
+
+  if (listImageSlug && !slugMatchesProduct(listImageSlug, productSlug)) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "mismatch",
+      imageMatchNotes:
+        `列表缩略图 slug 与当前商品不匹配，已清空图片字段。productSlug=${productSlug}; listImage=${listImageUrl}`,
+    };
+  }
+
+  return {
+    safeDetailImageUrl: "",
+    safeGalleryImages: [],
+    safeListImageUrl: listImageSlug ? listImageUrl : "",
+    imageMatchStatus: listImageSlug ? "fallback" : "unknown",
+    imageMatchNotes: listImageSlug
+      ? "仅保留与当前商品匹配的列表缩略图。"
+      : "当前商品未提取到可校验图片。",
+  };
+}
+
+function validateProductImagesV2({
+  productHref,
+  detailImageUrl,
+  galleryImages,
+  listImageUrl,
+  galleryScoped = false,
+}) {
+  const productSlug = getProductSlugFromUrl(productHref);
+  const rawGalleryImages = uniqueByImageId(
+    [detailImageUrl, ...(Array.isArray(galleryImages) ? galleryImages : [])].filter(Boolean)
+  );
+  const cleanListImageUrl =
+    listImageUrl && isDanishImageUrl(listImageUrl) && !isBadImageUrl(listImageUrl)
+      ? String(listImageUrl).trim()
+      : "";
+  const rawImageCandidates = uniqueByImageId(
+    [...rawGalleryImages, cleanListImageUrl].filter(Boolean)
+  );
+
+  if (galleryScoped && rawGalleryImages.length > 0) {
+    return {
+      safeDetailImageUrl: rawGalleryImages[0] || "",
+      safeGalleryImages: rawGalleryImages,
+      safeListImageUrl: "",
+      imageMatchStatus: "galleryScoped",
+      imageMatchNotes:
+        "\u56fe\u7247\u6765\u81ea Danish \u5546\u54c1\u8be6\u60c5\u4e3b\u56fe/\u7f29\u7565\u56fe\u533a\u57df\uff0c\u5e76\u901a\u8fc7 enlargemedia \u89e3\u6790\u3002",
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  const imageRecords = rawGalleryImages.map((imageUrl) => {
+    const imageSlug = getImageSlugFromUrl(imageUrl);
+
+    return {
+      imageUrl,
+      imageSlug,
+      strict: strictSlugMatchesProduct(imageSlug, productSlug),
+      loose: looselyRelatedSlug(imageSlug, productSlug),
+      hasSlug: Boolean(imageSlug),
+    };
+  });
+
+  const listImageSlug = getImageSlugFromUrl(cleanListImageUrl);
+  const listStrict = strictSlugMatchesProduct(listImageSlug, productSlug);
+  const listLoose = looselyRelatedSlug(listImageSlug, productSlug);
+
+  const strictImages = imageRecords
+    .filter((record) => record.strict)
+    .map((record) => record.imageUrl);
+
+  const looseImages = imageRecords
+    .filter((record) => !record.strict && record.loose)
+    .map((record) => record.imageUrl);
+
+  const sluglessImages = imageRecords
+    .filter((record) => !record.imageSlug)
+    .map((record) => record.imageUrl);
+
+  const mismatchImages = imageRecords
+    .filter((record) => record.imageSlug && !record.strict && !record.loose)
+    .map((record) => record.imageUrl);
+
+  if (strictImages.length > 0 || listStrict) {
+    return {
+      safeDetailImageUrl: strictImages[0] || (listStrict ? cleanListImageUrl : ""),
+      safeGalleryImages: strictImages,
+      safeListImageUrl: listStrict ? cleanListImageUrl : "",
+      imageMatchStatus: "matched",
+      imageMatchNotes: `图片 URL 严格包含当前商品 slug。productSlug=${productSlug}`,
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  if (sluglessImages.length > 0) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "pageScoped",
+      imageMatchNotes:
+        `图片 URL 无商品 slug，但来自商品详情主图区域，且已排除相似产品/最近浏览区域。productSlug=${productSlug}`,
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  if (looseImages.length > 0 || listLoose) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "unverified",
+      imageMatchNotes:
+        `图片 URL 未严格匹配当前商品 slug，疑似同品牌/同系列图，未进入正式图片字段，需人工确认。productSlug=${productSlug}`,
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  if (mismatchImages.length > 0 || (listImageSlug && !listStrict && !listLoose)) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "mismatch",
+      imageMatchNotes:
+        `图片 URL 与当前商品 slug 明显不匹配，已清空正式图片字段。productSlug=${productSlug}; mismatched=${[...mismatchImages, cleanListImageUrl].filter(Boolean).join(", ")}`,
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  if (cleanListImageUrl && !listImageSlug) {
+    return {
+      safeDetailImageUrl: "",
+      safeGalleryImages: [],
+      safeListImageUrl: "",
+      imageMatchStatus: "pageScoped",
+      imageMatchNotes:
+        `列表图片 URL 无商品 slug，但没有发现冲突证据，作为保守兜底图使用。productSlug=${productSlug}`,
+      rawGalleryImages: rawImageCandidates,
+    };
+  }
+
+  return {
+    safeDetailImageUrl: "",
+    safeGalleryImages: [],
+    safeListImageUrl: "",
+    imageMatchStatus: "missing",
+    imageMatchNotes: rawImageCandidates.length > 0
+      ? `图片 URL 缺少可校验的商品 slug，且未通过主图区域可信规则。productSlug=${productSlug}`
+      : `当前商品未提取到可用图片。productSlug=${productSlug}`,
+    rawGalleryImages: rawImageCandidates,
+  };
+}
+
 
 const pageJunkPatterns = [
   /cookie information/i,
@@ -603,8 +987,268 @@ function cleanDescriptionText(candidates) {
   return cleanProductDetailText(candidates, 900);
 }
 
+async function getPageImageCandidatesLegacy(tab) {
+  return await tab.evaluate(() => {
+    const excludedSectionPatterns = [
+      /similar\s+products?/i,
+      /recently\s+viewed/i,
+      /related\s+products?/i,
+      /相似产品/,
+      /最近浏览过/,
+      /相关商品/,
+      /推荐商品/,
+      /品牌更多产品/,
+      /\bfooter\b/i,
+    ];
+    const preferredContainerPatterns = [
+      /product/i,
+      /gallery/i,
+      /image/i,
+      /media/i,
+      /photo/i,
+      /thumb/i,
+      /enlarge/i,
+    ];
+
+    function normalize(text) {
+      return String(text || "").replace(/\s+/g, " ").trim();
+    }
+
+    function absoluteUrl(url) {
+      if (!url) return "";
+
+      try {
+        return new URL(url, location.origin).href;
+      } catch {
+        return "";
+      }
+    }
+
+    function getRect(element) {
+      const rect = element.getBoundingClientRect();
+
+      return {
+        width: rect.width,
+        height: rect.height,
+        area: rect.width * rect.height,
+        top: rect.top + window.scrollY,
+        left: rect.left + window.scrollX,
+      };
+    }
+
+    function getElementMeta(element) {
+      if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+        return "";
+      }
+
+      return normalize([
+        element.tagName,
+        typeof element.className === "string" ? element.className : "",
+        element.id || "",
+        element.getAttribute("aria-label") || "",
+        element.getAttribute("role") || "",
+        element.getAttribute("data-name") || "",
+        element.getAttribute("data-title") || "",
+      ].join(" "));
+    }
+
+    function hasExcludedText(text) {
+      return excludedSectionPatterns.some((pattern) => pattern.test(text));
+    }
+
+    function hasPreferredText(text) {
+      return preferredContainerPatterns.some((pattern) => pattern.test(text));
+    }
+
+    function getShortElementText(element, maxLength = 1600) {
+      const text = normalize(element?.innerText || element?.textContent || "");
+      return text.length <= maxLength ? text : "";
+    }
+
+    function isInsideExcludedSection(element) {
+      if (element.closest?.("footer")) {
+        return true;
+      }
+
+      let current = element;
+
+      while (current && current.nodeType === Node.ELEMENT_NODE && current !== document.body) {
+        const meta = getElementMeta(current);
+
+        if (hasExcludedText(meta)) {
+          return true;
+        }
+
+        const text = getShortElementText(current);
+
+        if (text && hasExcludedText(text)) {
+          return true;
+        }
+
+        current = current.parentElement;
+      }
+
+      return false;
+    }
+
+    function getFirstExcludedHeadingTop() {
+      const headingSelectors = [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "[class*='title']",
+        "[class*='heading']",
+        "[class*='headline']",
+      ].join(",");
+      const tops = Array.from(document.querySelectorAll(headingSelectors))
+        .map((element) => {
+          const text = getShortElementText(element, 140);
+
+          if (!text || !hasExcludedText(text)) {
+            return null;
+          }
+
+          const rect = getRect(element);
+          return rect.top;
+        })
+        .filter((value) => Number.isFinite(value));
+
+      return tops.length > 0 ? Math.min(...tops) : Number.POSITIVE_INFINITY;
+    }
+
+    function getProductImageScope(img, rect, excludedStartTop) {
+      if (isInsideExcludedSection(img)) {
+        return null;
+      }
+
+      if (Number.isFinite(excludedStartTop) && rect.top >= excludedStartTop - 8) {
+        return null;
+      }
+
+      let current = img;
+
+      while (current && current.nodeType === Node.ELEMENT_NODE && current !== document.body) {
+        const meta = getElementMeta(current);
+
+        if (hasPreferredText(meta)) {
+          return { name: "product-media-container", priority: 100 };
+        }
+
+        current = current.parentElement;
+      }
+
+      const topMainLimit = Math.max(window.innerHeight * 1.5, 1100);
+
+      if (rect.top <= topMainLimit && rect.area >= 1800) {
+        return { name: "top-main-area", priority: 60 };
+      }
+
+      return null;
+    }
+
+    function getUrlsFromSrcset(srcset) {
+      if (!srcset) return [];
+
+      return srcset
+        .split(",")
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .map((part) => part.split(/\s+/)[0])
+        .filter(Boolean);
+    }
+
+    const candidates = [];
+    const excludedStartTop = getFirstExcludedHeadingTop();
+    const images = [];
+
+    for (const img of images) {
+      const rect = getRect(img);
+      const scope = getProductImageScope(img, rect, excludedStartTop);
+
+      if (!scope) {
+        continue;
+      }
+
+      const urls = [];
+      const attrs = ["src", "data-src", "data-original", "data-lazy", "data-full", "data-large"];
+
+      for (const attr of attrs) {
+        const value = img.getAttribute(attr);
+
+        if (value) {
+          urls.push(value);
+        }
+      }
+
+      urls.push(...getUrlsFromSrcset(img.getAttribute("srcset")));
+      urls.push(...getUrlsFromSrcset(img.getAttribute("data-srcset")));
+
+      const alt =
+        img.getAttribute("alt") ||
+        img.getAttribute("title") ||
+        img.getAttribute("aria-label") ||
+        "";
+
+      for (const rawUrl of urls) {
+        const url = absoluteUrl(rawUrl);
+
+        if (!url) continue;
+
+        candidates.push({
+          url,
+          alt,
+          area: rect.area,
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+          scope: scope.name,
+          scopePriority: scope.priority,
+        });
+      }
+    }
+
+    return candidates;
+  });
+}
+
 async function getPageImageCandidates(tab) {
   return await tab.evaluate(() => {
+    const excludedSectionPatterns = [
+      /similar\s+products?/i,
+      /recently\s+viewed/i,
+      /related\s+products?/i,
+      /\u76f8\u4f3c\u4ea7\u54c1/,
+      /\u6700\u8fd1\u6d4f\u89c8\u8fc7/,
+      /\u76f8\u5173\u5546\u54c1/,
+      /\u63a8\u8350\u5546\u54c1/,
+      /\u54c1\u724c\u66f4\u591a\u4ea7\u54c1/,
+      /\bfooter\b/i,
+    ];
+    const productImageSelectors = [
+      "a.nn5-srcset-image img",
+      ".nn5-flexlist img",
+      "a[href*='enlargemedia'] img",
+      ".product-gallery img",
+      ".product-image img",
+      ".product-images img",
+      ".gallery img",
+      ".image-gallery img",
+      ".thumb img",
+      ".thumbnail img",
+      "[class*='gallery'] img",
+      "[class*='thumb'] img",
+      "[class*='image'] img",
+      "[class*='media'] img",
+    ];
+
+    function normalize(text) {
+      return String(text || "").replace(/\s+/g, " ").trim();
+    }
+
     function absoluteUrl(url) {
       if (!url) return "";
 
@@ -638,10 +1282,201 @@ async function getPageImageCandidates(tab) {
         .filter(Boolean);
     }
 
-    const candidates = [];
-    const images = Array.from(document.querySelectorAll("img"));
+    function getShortElementText(element, maxLength = 1600) {
+      const text = normalize(element?.innerText || element?.textContent || "");
+      return text.length <= maxLength ? text : "";
+    }
 
-    for (const img of images) {
+    function hasExcludedText(text) {
+      return excludedSectionPatterns.some((pattern) => pattern.test(text));
+    }
+
+    function getElementMeta(element) {
+      if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+        return "";
+      }
+
+      return normalize([
+        element.tagName,
+        typeof element.className === "string" ? element.className : "",
+        element.id || "",
+        element.getAttribute("aria-label") || "",
+        element.getAttribute("role") || "",
+        element.getAttribute("data-name") || "",
+        element.getAttribute("data-title") || "",
+      ].join(" "));
+    }
+
+    function isInsideExcludedSection(element) {
+      if (element.closest?.("footer")) {
+        return true;
+      }
+
+      let current = element;
+
+      while (current && current.nodeType === Node.ELEMENT_NODE && current !== document.body) {
+        if (hasExcludedText(getElementMeta(current))) {
+          return true;
+        }
+
+        const text = getShortElementText(current);
+
+        if (text && hasExcludedText(text)) {
+          return true;
+        }
+
+        current = current.parentElement;
+      }
+
+      return false;
+    }
+
+    function getFirstExcludedHeadingTop() {
+      const headingSelectors = [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "[class*='title']",
+        "[class*='heading']",
+        "[class*='headline']",
+      ].join(",");
+      const tops = Array.from(document.querySelectorAll(headingSelectors))
+        .map((element) => {
+          const text = getShortElementText(element, 140);
+
+          if (!text || !hasExcludedText(text)) {
+            return null;
+          }
+
+          return getRect(element).top;
+        })
+        .filter((value) => Number.isFinite(value));
+
+      return tops.length > 0 ? Math.min(...tops) : Number.POSITIVE_INFINITY;
+    }
+
+    function getProductRoot() {
+      const primaryRoot = document.querySelector(".detail-container .row .col-xs-12.col-md-7");
+
+      if (primaryRoot) {
+        return { element: primaryRoot, scope: "detail-main-column", priority: 120 };
+      }
+
+      const detailRoot = document.querySelector(".detail-container");
+
+      if (detailRoot) {
+        return { element: detailRoot, scope: "detail-container", priority: 90 };
+      }
+
+      return { element: document.body, scope: "document-body-fallback", priority: 20 };
+    }
+
+    function getScopedImages(rootInfo) {
+      const seen = new Set();
+      const images = [];
+
+      for (const selector of productImageSelectors) {
+        for (const img of Array.from(rootInfo.element.querySelectorAll(selector))) {
+          if (!seen.has(img)) {
+            seen.add(img);
+            images.push(img);
+          }
+        }
+      }
+
+      if (rootInfo.scope === "detail-main-column") {
+        for (const img of Array.from(rootInfo.element.querySelectorAll("img"))) {
+          if (!seen.has(img)) {
+            seen.add(img);
+            images.push(img);
+          }
+        }
+      }
+
+      return images;
+    }
+
+    function getImageScope(img, rect, rootInfo, excludedStartTop) {
+      // The Danish product gallery is explicitly scoped by:
+      // .detail-container .row .col-xs-12.col-md-7
+      // Do not run broad ancestor-text exclusion here, because large parent
+      // containers can include "similar products" / "recently viewed" text and
+      // incorrectly exclude the real product gallery.
+      if (rootInfo.scope === "detail-main-column") {
+        return { name: "detail-main-column", priority: rootInfo.priority };
+      }
+
+      if (isInsideExcludedSection(img)) {
+        return null;
+      }
+
+      if (Number.isFinite(excludedStartTop) && rect.top >= excludedStartTop - 8) {
+        return null;
+      }
+
+      if (img.closest?.("a.nn5-srcset-image, a[href*='enlargemedia']")) {
+        return { name: `${rootInfo.scope}:enlargemedia-link`, priority: rootInfo.priority + 20 };
+      }
+
+      if (img.closest?.(".nn5-flexlist")) {
+        return { name: `${rootInfo.scope}:thumb-list`, priority: rootInfo.priority + 10 };
+      }
+
+      let current = img;
+
+      while (current && current.nodeType === Node.ELEMENT_NODE && current !== document.body) {
+        if (/(gallery|image|media|photo|thumb|enlarge|product)/i.test(getElementMeta(current))) {
+          return { name: `${rootInfo.scope}:media-container`, priority: rootInfo.priority };
+        }
+
+        current = current.parentElement;
+      }
+
+      return null;
+    }
+
+    function extractImageIdFromText(text) {
+      const value = String(text || "");
+      const match = value.match(/[?&]imageid=(\d+)/i) || value.match(/\bimageid\s*=\s*(\d+)/i);
+
+      return match ? match[1] : "";
+    }
+
+    function getImageIdFromElement(img) {
+      const anchor = img.closest("a");
+      const values = [
+        anchor?.getAttribute("href"),
+        anchor?.getAttribute("onclick"),
+        img.getAttribute("data-nn5-imageid"),
+        img.getAttribute("data-imageid"),
+      ];
+
+      for (const value of values) {
+        const imageId = extractImageIdFromText(value);
+
+        if (imageId) {
+          return imageId;
+        }
+      }
+
+      return "";
+    }
+
+    const candidates = [];
+    const rootInfo = getProductRoot();
+    const excludedStartTop = getFirstExcludedHeadingTop();
+
+    for (const img of getScopedImages(rootInfo)) {
+      const rect = getRect(img);
+      const scope = getImageScope(img, rect, rootInfo, excludedStartTop);
+
+      if (!scope) {
+        continue;
+      }
+
       const urls = [];
       const attrs = ["src", "data-src", "data-original", "data-lazy", "data-full", "data-large"];
 
@@ -656,26 +1491,33 @@ async function getPageImageCandidates(tab) {
       urls.push(...getUrlsFromSrcset(img.getAttribute("srcset")));
       urls.push(...getUrlsFromSrcset(img.getAttribute("data-srcset")));
 
-      const rect = getRect(img);
       const alt =
         img.getAttribute("alt") ||
         img.getAttribute("title") ||
         img.getAttribute("aria-label") ||
         "";
+      const imageId = getImageIdFromElement(img);
 
       for (const rawUrl of urls) {
         const url = absoluteUrl(rawUrl);
 
-        if (!url) continue;
+        if (!url) {
+          continue;
+        }
 
         candidates.push({
           url,
+          imageId,
           alt,
           area: rect.area,
           top: rect.top,
           left: rect.left,
           width: rect.width,
           height: rect.height,
+          scope: scope.name,
+          scopePriority: scope.priority,
+          rootScope: rootInfo.scope,
+          galleryScoped: rootInfo.scope !== "document-body-fallback",
         });
       }
     }
@@ -691,12 +1533,19 @@ function prepareCandidatePayloads(candidates, productName) {
     .filter((candidate) => !isBadImageUrl(candidate.url))
     .map((candidate) => ({
       ...candidate,
-      imageId: getImageId(candidate.url),
+      imageId: candidate.imageId || getImageId(candidate.url),
       ratio: getRatioFromUrl(candidate.url),
       productMatch: textMatchesProduct([candidate.url, candidate.alt].join(" "), productName),
     }))
     .filter((candidate) => candidate.imageId)
     .sort((a, b) => {
+      const aPriority = Number(a.scopePriority || 0);
+      const bPriority = Number(b.scopePriority || 0);
+
+      if (aPriority !== bPriority) {
+        return bPriority - aPriority;
+      }
+
       if (a.productMatch !== b.productMatch) {
         return Number(b.productMatch) - Number(a.productMatch);
       }
@@ -724,6 +1573,10 @@ function prepareCandidatePayloads(candidates, productName) {
       sourceUrl: item.url,
       productMatch: item.productMatch,
       area: item.area,
+      scope: item.scope || "",
+      scopePriority: Number(item.scopePriority || 0),
+      rootScope: item.rootScope || "",
+      galleryScoped: Boolean(item.galleryScoped),
     });
   }
 
@@ -781,6 +1634,9 @@ async function fetchEnlargeMedia(tab, payload) {
   return {
     candidateImageId: payload.imageId,
     candidateSourceUrl: payload.sourceUrl,
+    candidateScope: payload.scope || "",
+    candidateRootScope: payload.rootScope || "",
+    galleryScoped: Boolean(payload.galleryScoped),
     querystring,
     ok: result.ok,
     status: result.status,
@@ -1209,7 +2065,25 @@ async function ensureManualVerificationIfNeeded(tab) {
   return true;
 }
 
-async function discoverProductLinks(tab, listUrl, pageIndex) {
+async function waitForExpectedProductPage(tab, expectedHref) {
+  await tab.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+  await tab.waitForTimeout(500).catch(() => {});
+
+  let validation = validateProductPageUrl(tab.url(), expectedHref);
+
+  for (let attempt = 0; attempt < 4 && !validation.matches; attempt++) {
+    await tab.waitForTimeout(500).catch(() => {});
+    validation = validateProductPageUrl(tab.url(), expectedHref);
+  }
+
+  return {
+    ...validation,
+    actualUrl: tab.url(),
+    expectedUrl: expectedHref,
+  };
+}
+
+async function discoverProductLinksLegacy(tab, listUrl, pageIndex) {
   await tab.goto(listUrl, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
@@ -1312,6 +2186,179 @@ async function discoverProductLinks(tab, listUrl, pageIndex) {
   }));
 }
 
+async function collectProductLinksFromCurrentListPage(tab, listUrl, pageIndex) {
+  const links = await tab.evaluate(() => {
+    function normalize(text) {
+      return String(text || "").replace(/\s+/g, " ").trim();
+    }
+
+    function absoluteUrl(url) {
+      if (!url) return "";
+
+      try {
+        return new URL(url, location.origin).href;
+      } catch {
+        return "";
+      }
+    }
+
+    function firstNonEmptyInPage(...values) {
+      return values.map(normalize).find(Boolean) || "";
+    }
+
+    function getImageUrl(card) {
+      const img = card.querySelector("img");
+
+      if (!img) return "";
+
+      const attrs = ["src", "data-src", "data-original", "data-lazy"];
+
+      for (const attr of attrs) {
+        const value = img.getAttribute(attr);
+
+        if (value) {
+          return absoluteUrl(value);
+        }
+      }
+
+      const srcset = img.getAttribute("srcset") || img.getAttribute("data-srcset") || "";
+      const firstSrcsetUrl = srcset
+        .split(",")
+        .map((part) => part.trim().split(/\s+/)[0])
+        .find(Boolean);
+
+      return absoluteUrl(firstSrcsetUrl);
+    }
+
+    function getStatus(text) {
+      if (/\u5df2\u552e|sold\s*out|\bsold\b|out\s*of\s*stock/i.test(text)) {
+        return "\u5df2\u552e";
+      }
+
+      if (/\u73b0\u5728\u8d2d\u4e70|add\s+to\s+(?:basket|cart)|buy\s+now|\u53ef\u8d2d\u4e70|in\s+stock/i.test(text)) {
+        return "\u53ef\u8d2d\u4e70";
+      }
+
+      return "";
+    }
+
+    function getPrice(text) {
+      return (text.match(/[$€£¥]\s?[\d.,-]+/) || [""])[0];
+    }
+
+    return Array.from(document.querySelectorAll("#list-container-inner .list-item"))
+      .map((card) => {
+        const anchors = Array.from(card.querySelectorAll("a[href]"));
+        const anchor = anchors.find((item) => {
+          const href = absoluteUrl(item.getAttribute("href"));
+          return /\/d\/-zh\/.*-i\d+\.html(?:[?#].*)?$/i.test(href);
+        });
+
+        if (!anchor) {
+          return null;
+        }
+
+        const href = absoluteUrl(anchor.getAttribute("href"));
+        const img = card.querySelector("img") || anchor.querySelector("img");
+        const imageAlt = normalize(img?.getAttribute("alt") || "");
+        const anchorText = normalize(anchor.textContent || "");
+        const title = normalize(anchor.getAttribute("title") || img?.getAttribute("title") || "");
+        const cardText = normalize(card.innerText || card.textContent || "");
+
+        return {
+          href,
+          name: firstNonEmptyInPage(imageAlt, title, anchorText, cardText),
+          imageAlt,
+          imageUrl: getImageUrl(card),
+          price: getPrice(cardText),
+          status: getStatus(cardText),
+          rawText: cardText,
+        };
+      })
+      .filter(Boolean);
+  });
+
+  return links.map((item, index) => ({
+    ...item,
+    listPageUrl: listUrl,
+    listPageIndex: pageIndex,
+    listPosition: index + 1,
+  }));
+}
+
+async function discoverProductLinks(tab, listUrl, pageIndex) {
+  await tab.goto(listUrl, {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+  });
+  await tab.waitForTimeout(1800);
+
+  if (!(await ensureManualVerificationIfNeeded(tab))) {
+    throw new Error("Robot / verification page remained during list discovery.");
+  }
+
+  return await collectProductLinksFromCurrentListPage(tab, listUrl, pageIndex);
+}
+
+async function getCurrentListItemCount(tab) {
+  return await tab.locator("#list-container-inner .list-item").count().catch(() => 0);
+}
+
+async function hasLoadMoreButton(tab) {
+  return await tab.evaluate(() => {
+    const button = document.querySelector("#show-more-button");
+
+    if (!button) {
+      return false;
+    }
+
+    const style = window.getComputedStyle(button);
+    const rect = button.getBoundingClientRect();
+
+    return (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      Number(style.opacity || 1) !== 0 &&
+      rect.width > 0 &&
+      rect.height > 0
+    );
+  }).catch(() => false);
+}
+
+async function clickLoadMoreAndWait(tab, beforeCount) {
+  const button = tab.locator("#show-more-button").first();
+  const buttonCount = await button.count().catch(() => 0);
+
+  if (buttonCount === 0 || !(await hasLoadMoreButton(tab))) {
+    return { clicked: false, beforeCount, afterCount: beforeCount, reason: "missing" };
+  }
+
+  await button.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => {});
+
+  try {
+    await button.click({ timeout: 10000 });
+  } catch (error) {
+    return {
+      clicked: false,
+      beforeCount,
+      afterCount: beforeCount,
+      reason: error?.message || String(error),
+    };
+  }
+
+  if (loadMoreDelayMs > 0) {
+    await tab.waitForFunction(
+      (count) => document.querySelectorAll("#list-container-inner .list-item").length > count,
+      beforeCount,
+      { timeout: loadMoreDelayMs }
+    ).catch(() => {});
+  }
+
+  const afterCount = await getCurrentListItemCount(tab);
+
+  return { clicked: true, beforeCount, afterCount, reason: "" };
+}
+
 async function findNextListPageUrl(tab, currentUrl, visitedListUrls) {
   const nextUrl = await tab.evaluate(() => {
     function normalize(text) {
@@ -1382,49 +2429,110 @@ async function discoverProducts(context) {
   const discovered = [];
   const seenProductUrls = new Set();
   const visitedListUrls = new Set();
-  let currentListUrl = startUrl;
 
-  try {
-    for (let pageIndex = 1; pageIndex <= maxListPages && currentListUrl; pageIndex++) {
-      const normalizedListUrl = new URL(currentListUrl).href;
+  function addDiscoveredProducts(pageProducts) {
+    for (const item of pageProducts) {
+      const normalizedProductUrl = new URL(item.href).href;
 
-      if (visitedListUrls.has(normalizedListUrl)) {
-        break;
+      if (seenProductUrls.has(normalizedProductUrl)) {
+        continue;
       }
 
-      visitedListUrls.add(normalizedListUrl);
-      console.log(`Scanning list page ${pageIndex}/${maxListPages}: ${normalizedListUrl}`);
-
-      const pageProducts = await discoverProductLinks(tab, normalizedListUrl, pageIndex);
-
-      for (const item of pageProducts) {
-        const normalizedProductUrl = new URL(item.href).href;
-
-        if (seenProductUrls.has(normalizedProductUrl)) {
-          continue;
-        }
-
-        seenProductUrls.add(normalizedProductUrl);
-        discovered.push({
-          ...item,
-          href: normalizedProductUrl,
-        });
-
-        if (discovered.length >= targetCount) {
-          break;
-        }
-      }
-
-      console.log(`Discovered ${discovered.length}/${targetCount} product links.`);
+      seenProductUrls.add(normalizedProductUrl);
+      discovered.push({
+        ...item,
+        href: normalizedProductUrl,
+      });
 
       if (discovered.length >= targetCount) {
         break;
       }
+    }
+  }
 
-      currentListUrl = await findNextListPageUrl(tab, normalizedListUrl, visitedListUrls);
+  try {
+    const normalizedStartUrl = new URL(startUrl).href;
+    visitedListUrls.add(normalizedStartUrl);
+    console.log(`Scanning list page 1/${maxListPages}: ${normalizedStartUrl}`);
+
+    await tab.goto(normalizedStartUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await tab.waitForTimeout(1800);
+
+    if (!(await ensureManualVerificationIfNeeded(tab))) {
+      throw new Error("Robot / verification page remained during list discovery.");
+    }
+
+    addDiscoveredProducts(
+      await collectProductLinksFromCurrentListPage(tab, normalizedStartUrl, 1)
+    );
+    console.log(`Discovered ${discovered.length}/${targetCount} product links.`);
+
+    for (
+      let clickIndex = 1;
+      clickIndex <= maxLoadMoreClicks && discovered.length < targetCount;
+      clickIndex++
+    ) {
+      const beforeCount = await getCurrentListItemCount(tab);
+
+      if (!(await hasLoadMoreButton(tab))) {
+        console.log("No show-more button found; stopping load-more discovery.");
+        break;
+      }
+
+      const loadMoreResult = await clickLoadMoreAndWait(tab, beforeCount);
+      const afterCount = loadMoreResult.afterCount;
+
+      addDiscoveredProducts(
+        await collectProductLinksFromCurrentListPage(tab, normalizedStartUrl, 1)
+      );
+
+      console.log(
+        `load more click ${clickIndex}/${maxLoadMoreClicks}: before=${beforeCount}, after=${afterCount}, unique=${discovered.length}/${targetCount}`
+      );
+
+      if (!loadMoreResult.clicked) {
+        console.log(`Show-more click failed or disappeared: ${loadMoreResult.reason}`);
+        break;
+      }
+
+      if (afterCount <= beforeCount) {
+        console.log("Show-more did not increase product count; stopping load-more discovery.");
+        break;
+      }
+    }
+
+    if (discovered.length < targetCount) {
+      let currentListUrl = await findNextListPageUrl(tab, normalizedStartUrl, visitedListUrls);
 
       if (!currentListUrl) {
-        console.log("No next list page found; stopping discovery.");
+        console.log("No next list page found; stopping fallback discovery.");
+      }
+
+      for (let pageIndex = 2; pageIndex <= maxListPages && currentListUrl; pageIndex++) {
+        const normalizedListUrl = new URL(currentListUrl).href;
+
+        if (visitedListUrls.has(normalizedListUrl)) {
+          break;
+        }
+
+        visitedListUrls.add(normalizedListUrl);
+        console.log(`Scanning fallback list page ${pageIndex}/${maxListPages}: ${normalizedListUrl}`);
+
+        addDiscoveredProducts(await discoverProductLinks(tab, normalizedListUrl, pageIndex));
+        console.log(`Discovered ${discovered.length}/${targetCount} product links.`);
+
+        if (discovered.length >= targetCount) {
+          break;
+        }
+
+        currentListUrl = await findNextListPageUrl(tab, normalizedListUrl, visitedListUrls);
+
+        if (!currentListUrl) {
+          console.log("No next list page found; stopping fallback discovery.");
+        }
       }
     }
   } finally {
@@ -1449,8 +2557,20 @@ async function collectDetail(context, product, index) {
       throw new Error("Robot / verification page remained during detail collection.");
     }
 
+    const pageValidation = await waitForExpectedProductPage(tab, product.href);
+
+    if (!pageValidation.matches) {
+      throw new Error(
+        `Product page id mismatch: expected i${pageValidation.expectedId}, got i${pageValidation.actualId || "unknown"} at ${pageValidation.actualUrl}`
+      );
+    }
+
+    const detailFields = await getDetailFields(tab, product);
+    const title = firstNonEmpty(detailFields.title, product.name, product.imageAlt);
+    const productNameForImage = firstNonEmpty(title, product.name, product.imageAlt, product.href);
+
     const candidates = await getPageImageCandidates(tab);
-    const payloads = prepareCandidatePayloads(candidates, product.name);
+    const payloads = prepareCandidatePayloads(candidates, productNameForImage);
     const enlargeResults = [];
 
     for (const payload of payloads) {
@@ -1461,9 +2581,10 @@ async function collectDetail(context, product, index) {
       }
     }
 
-    const bestResult = chooseBestEnlargeResult(enlargeResults, product.name);
+    const bestResult = chooseBestEnlargeResult(enlargeResults, productNameForImage);
     let galleryImages = [];
     let galleryImageInfos = [];
+    let galleryScoped = false;
 
     if (bestResult) {
       galleryImageInfos = bestResult.imageInfos;
@@ -1472,6 +2593,7 @@ async function collectDetail(context, product, index) {
           .map((info) => imageInfoToUrl(info, 500))
           .filter(Boolean)
       );
+      galleryScoped = Boolean(bestResult.galleryScoped && galleryImages.length > 0);
     }
 
     if (galleryImages.length === 0) {
@@ -1483,11 +2605,12 @@ async function collectDetail(context, product, index) {
       galleryImages = uniqueByImageId(fallbackImages).slice(0, 1);
     }
 
-    const screenshotPath = path.join(screenshotDir, `detail-${index + 1}.png`);
-    await tab.screenshot({ path: screenshotPath, fullPage: true }).catch(() => {});
+    if (saveScreenshots) {
+      const screenshotPath = path.join(screenshotDir, `detail-${index + 1}.png`);
+      await tab.screenshot({ path: screenshotPath, fullPage: true }).catch(() => {});
+    }
 
     const specsText = await getSpecsText(tab);
-    const detailFields = await getDetailFields(tab, product);
     const detailBodyTextStart = await tab.evaluate(() => document.body.innerText.slice(0, 2500));
     const detailPageTitle = await tab.title();
 
@@ -1507,7 +2630,6 @@ async function collectDetail(context, product, index) {
       productDetailText,
       description,
     ];
-    const title = firstNonEmpty(detailFields.title, product.name);
     const productCode = extractProductCodeFromDetailText(detailTextSources);
     const brand = firstNonEmpty(
       extractBrandFromDetailText(detailTextSources),
@@ -1527,6 +2649,15 @@ async function collectDetail(context, product, index) {
         product.name,
       ],
     });
+    const rawDetailImageUrl = firstNonEmpty(galleryImages[0], detailFields.mainImage);
+    const imageValidation = validateProductImagesV2({
+      productHref: product.href,
+      detailImageUrl: rawDetailImageUrl,
+      galleryImages,
+      listImageUrl: product.imageUrl,
+      galleryScoped,
+    });
+    galleryImages = imageValidation.safeGalleryImages;
 
     const normalizedDetail = {
       title,
@@ -1534,8 +2665,13 @@ async function collectDetail(context, product, index) {
       productCode,
       price: firstNonEmpty(detailFields.price, product.price),
       status,
-      mainImage: firstNonEmpty(galleryImages[0], detailFields.mainImage),
+      mainImage: imageValidation.safeDetailImageUrl,
+      listImageUrl: imageValidation.safeListImageUrl,
       galleryImages,
+      rawGalleryImages: imageValidation.rawGalleryImages,
+      imageMatchStatus: imageValidation.imageMatchStatus,
+      imageMatchNotes: imageValidation.imageMatchNotes,
+      qualityWarnings: buildImageQualityWarnings(imageValidation),
       specsText,
       sourceUrl: firstNonEmpty(detailFields.sourceUrl, product.href),
       rawText: productDetailText,
@@ -1576,9 +2712,17 @@ async function collectDetail(context, product, index) {
         detailPageUrl: product.href,
         detailImageDebug: {
         version: "v17",
+        pageValidation,
+        productNameForImage,
+        imageMatchStatus: imageValidation.imageMatchStatus,
+        imageMatchNotes: imageValidation.imageMatchNotes,
+        rawGalleryImages: imageValidation.rawGalleryImages,
+        galleryScoped,
         candidatePayloads: payloads,
         enlargeResultCount: enlargeResults.length,
         bestCandidateImageId: bestResult?.candidateImageId || 0,
+        bestCandidateScope: bestResult?.candidateScope || "",
+        bestCandidateRootScope: bestResult?.candidateRootScope || "",
         bestQuerystring: bestResult?.querystring || "",
         imageInfoCount: galleryImageInfos.length,
         galleryIds: galleryImages.map(getImageId),
@@ -1656,7 +2800,11 @@ function buildNormalizedFailedProduct(product, error) {
       textSources: [product.rawText, title],
     }),
     mainImage: "",
+    listImageUrl: "",
     galleryImages: [],
+    imageMatchStatus: "missing",
+    imageMatchNotes: "详情采集失败，未进行图片匹配校验。",
+    qualityWarnings: ["imageMissing"],
     specsText: [],
     sourceUrl: firstNonEmpty(product.href),
     rawText: "",
@@ -1689,6 +2837,44 @@ function buildNormalizedFailedProduct(product, error) {
   });
 }
 
+function buildOutputPayload({ discoveredProducts, products, errors, collectedAt, completedAt = "" }) {
+  const failCount = errors.length;
+  const successCount = products.length - failCount;
+
+  return {
+    source: "The Danish Pipe Shop",
+    startUrl,
+    collectedAt,
+    completedAt,
+    targetCount,
+    discoveredCount: discoveredProducts.length,
+    successCount,
+    failCount,
+    products,
+    errors,
+  };
+}
+
+function writeCollectorOutput(filePath, payload) {
+  ensureDir(path.dirname(filePath));
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), "utf8");
+}
+
+function writeCheckpoint({ discoveredProducts, products, errors, collectedAt }) {
+  const payload = buildOutputPayload({
+    discoveredProducts,
+    products,
+    errors,
+    collectedAt,
+    completedAt: new Date().toISOString(),
+  });
+
+  payload.checkpoint = true;
+  payload.checkpointAt = new Date().toISOString();
+  writeCollectorOutput(partialOutputPath, payload);
+  console.log("Checkpoint written: " + partialOutputPath);
+}
+
 async function main() {
   ensureDir(path.dirname(outputPath));
   ensureDir(screenshotDir);
@@ -1698,8 +2884,13 @@ async function main() {
   console.log(`DANISH_START_URL=${startUrl}`);
   console.log(`DANISH_TARGET_COUNT=${targetCount}`);
   console.log(`DANISH_MAX_LIST_PAGES=${maxListPages}`);
+  console.log(`DANISH_MAX_LOAD_MORE_CLICKS=${maxLoadMoreClicks}`);
+  console.log(`DANISH_LOAD_MORE_DELAY_MS=${loadMoreDelayMs}`);
   console.log(`DANISH_DETAIL_DELAY_MS=${detailDelayMs}`);
   console.log(`DANISH_OUTPUT=${outputPath}`);
+  console.log(`DANISH_SAVE_SCREENSHOTS=${saveScreenshots ? "1" : "0"}`);
+  console.log(`DANISH_CHECKPOINT_EVERY=${checkpointEvery}`);
+  console.log(`DANISH_PARTIAL_OUTPUT=${partialOutputPath}`);
 
   const executablePath = getLocalBrowserExecutablePath();
   const context = await chromium.launchPersistentContext(
@@ -1740,26 +2931,19 @@ async function main() {
       }
     }
 
-    const failCount = errors.length;
-    const successCount = products.length - failCount;
-    const payload = {
-      source: "The Danish Pipe Shop",
-      startUrl,
-      collectedAt,
-      completedAt: new Date().toISOString(),
-      targetCount,
-      discoveredCount: discoveredProducts.length,
-      successCount,
-      failCount,
+    const payload = buildOutputPayload({
+      discoveredProducts,
       products,
       errors,
-    };
+      collectedAt,
+      completedAt: new Date().toISOString(),
+    });
 
-    fs.writeFileSync(outputPath, JSON.stringify(payload, null, 2), "utf8");
+    writeCollectorOutput(outputPath, payload);
 
     console.log(`v17 output written: ${outputPath}`);
-    console.log(`successCount=${successCount}`);
-    console.log(`failCount=${failCount}`);
+    console.log(`successCount=${payload.successCount}`);
+    console.log(`failCount=${payload.failCount}`);
   } finally {
     await context.close().catch(() => {});
   }
