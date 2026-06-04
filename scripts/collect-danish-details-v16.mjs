@@ -37,6 +37,145 @@ function firstNonEmpty(...values) {
   return values.map(normalizeText).find(Boolean) || "";
 }
 
+function parsePipeCondition(textSources) {
+  const sources = (Array.isArray(textSources) ? textSources : [textSources])
+    .map((source) => {
+      if (typeof source === "string") {
+        return {
+          source: "text",
+          text: source,
+        };
+      }
+
+      return {
+        source: normalizeText(source?.source || "text"),
+        text: normalizeText(source?.text || ""),
+      };
+    })
+    .filter((source) => source.text);
+
+  const keywordMatchers = [
+    { key: "estatePipe", label: "estate pipe", regex: /\bestate\s+pipe\b/i },
+    { key: "estate", label: "Estate", regex: /\bestate\b/i },
+    { key: "preSmoked", label: "pre-smoked", regex: /\bpre[-\s]?smoked\b/i },
+    { key: "unsmoked", label: "unsmoked", regex: /\bunsmoked\b/i },
+    { key: "newPipe", label: "new pipe", regex: /\bnew\s+pipes?\b/i },
+    { key: "goodCondition", label: "good condition", regex: /\bgood\s+condition\b/i },
+    { key: "condition", label: "condition", regex: /\bcondition\b/i },
+    { key: "restored", label: "restored", regex: /\brestored\b/i },
+    { key: "refurbished", label: "refurbished", regex: /\brefurbished\b/i },
+    { key: "excellent", label: "excellent", regex: /\bexcellent\b/i },
+    { key: "smoked", label: "smoked", regex: /\bsmoked\b/i },
+    { key: "new", label: "new", regex: /\bnew\b/i },
+  ];
+
+  const matches = [];
+
+  for (const matcher of keywordMatchers) {
+    for (const source of sources) {
+      if (matcher.regex.test(source.text)) {
+        matches.push({
+          key: matcher.key,
+          label: matcher.label,
+          source: source.source,
+        });
+        break;
+      }
+    }
+  }
+
+  const hasKeyword = (key) => matches.some((match) => match.key === key);
+  const matchedLabels = Array.from(new Set(matches.map((match) => match.label)));
+
+  const isBroadPageText = (source) => {
+    const lowered = String(source || "").toLowerCase();
+    return lowered.includes("rawtext") || lowered.includes("visible");
+  };
+
+  const hasFocusedNew = matches.some(
+    (match) => match.key === "new" && !isBroadPageText(match.source)
+  );
+  const hasFocusedNewPipe = matches.some(
+    (match) => match.key === "newPipe" && !isBroadPageText(match.source)
+  );
+
+  const hasEstate = hasKeyword("estate") || hasKeyword("estatePipe");
+  const hasPreSmoked = hasKeyword("preSmoked");
+  const hasUnsmoked = hasKeyword("unsmoked");
+  const hasSmoked = hasKeyword("smoked") && !hasPreSmoked;
+  const hasNew = hasFocusedNewPipe || hasFocusedNew;
+
+  if (hasEstate && hasUnsmoked) {
+    return {
+      conditionType: "estate",
+      smokedStatus: "unsmoked",
+      conditionLabel: "Estate 未使用",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 Estate 与 Unsmoked，按规则判断为 Estate 未使用；仍建议人工核对原站状态。",
+    };
+  }
+
+  if (hasEstate && hasPreSmoked) {
+    return {
+      conditionType: "estate",
+      smokedStatus: "preSmoked",
+      conditionLabel: "Estate 已使用",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 Estate 与 Pre-smoked，按规则判断为 Estate 已使用。",
+    };
+  }
+
+  if (hasEstate && hasSmoked) {
+    return {
+      conditionType: "estate",
+      smokedStatus: "smoked",
+      conditionLabel: "Estate 已使用",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 Estate 与 Smoked，按规则判断为 Estate 已使用。",
+    };
+  }
+
+  if (hasEstate) {
+    return {
+      conditionType: "estate",
+      smokedStatus: "unknown",
+      conditionLabel: "Estate 二手斗",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 Estate，但未稳定命中是否抽过；保留为 Estate 二手斗，使用状态待人工确认。",
+    };
+  }
+
+  if (hasNew) {
+    return {
+      conditionType: "new",
+      smokedStatus: "unsmoked",
+      conditionLabel: "新斗",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 New / New pipe 且未命中 Estate，按规则判断为新斗。",
+    };
+  }
+
+  if (hasUnsmoked) {
+    return {
+      conditionType: "unknown",
+      smokedStatus: "unsmoked",
+      conditionLabel: "未使用，来源待确认",
+      conditionRawText: matchedLabels,
+      conditionNotes: "命中 Unsmoked，但无法确认是否 Estate；保留来源待确认。",
+    };
+  }
+
+  return {
+    conditionType: "unknown",
+    smokedStatus: "unknown",
+    conditionLabel: "状态待确认",
+    conditionRawText: matchedLabels,
+    conditionNotes: matchedLabels.length
+      ? "仅命中泛化状态词，证据不足以判断新斗、Estate 或是否抽过，保留为待确认。"
+      : "未命中可稳定判断烟斗成色 / 使用状态的关键词，保留为待确认。",
+  };
+}
+
 function getLocalBrowserExecutablePath() {
   return browserExecutableCandidates.find((candidate) => fs.existsSync(candidate)) || "";
 }
@@ -552,6 +691,22 @@ async function getDetailFields(tab, listProduct) {
     }
 
     const rawText = normalize(document.body?.innerText || "");
+    const breadcrumbText = firstText([
+      ".breadcrumb",
+      ".breadcrumbs",
+      "[class*='breadcrumb']",
+      "nav[aria-label='breadcrumb']",
+      "nav[aria-label='Breadcrumb']",
+      ".crumbs",
+      ".path",
+    ]);
+
+    const categoryText = firstText([
+      ".category",
+      ".product-category",
+      "[class*='category']",
+    ]);
+
     const titleText = firstText([
       "h1",
       ".product-title",
@@ -602,6 +757,9 @@ async function getDetailFields(tab, listProduct) {
       mainImage: absoluteUrl(ogImage),
       rawText,
       description,
+      breadcrumbText,
+      categoryText,
+      visibleText: rawText,
       sourceUrl: location.href,
       pageTitle: document.title,
     };
@@ -620,6 +778,10 @@ function buildStableFieldReport(detail) {
     "sourceUrl",
     "rawText",
     "description",
+    "conditionType",
+    "smokedStatus",
+    "conditionLabel",
+    "conditionNotes",
   ];
 
   const missingFields = requiredFields.filter((field) => {
@@ -780,6 +942,23 @@ async function main() {
       description: firstNonEmpty(detailFields.description, product.rawText),
     };
 
+    Object.assign(
+      normalizedDetail,
+      parsePipeCondition([
+        { source: "title", text: normalizedDetail.title },
+        {
+          source: "breadcrumb/category",
+          text: [detailFields.breadcrumbText, detailFields.categoryText]
+            .filter(Boolean)
+            .join(" "),
+        },
+        { source: "specsText", text: specsText.join("\n") },
+        { source: "rawText", text: normalizedDetail.rawText },
+        { source: "description", text: normalizedDetail.description },
+        { source: "visibleText", text: detailFields.visibleText },
+      ])
+    );
+
     const stableFieldReport = buildStableFieldReport(normalizedDetail);
 
     enrichedProducts.push({
@@ -809,6 +988,9 @@ async function main() {
     console.log(`图库数量：${galleryImages.length}`);
     console.log(`字段状态：${stableFieldReport.status}`);
     console.log(`缺失字段：${stableFieldReport.missingFields.join(", ") || "无"}`);
+    console.log(`成色判断：${normalizedDetail.conditionLabel}`);
+    console.log("成色命中词：");
+    console.log(normalizedDetail.conditionRawText);
     console.log("图库编号：");
     console.log(galleryImages.map(getImageId));
     console.log("图库预览：");
@@ -830,6 +1012,10 @@ async function main() {
       sourceUrl: item.href,
       status: item.stableFieldReport.status,
       missingFields: item.stableFieldReport.missingFields,
+      conditionType: item.v16?.conditionType || "unknown",
+      smokedStatus: item.v16?.smokedStatus || "unknown",
+      conditionLabel: item.v16?.conditionLabel || "状态待确认",
+      conditionRawText: item.v16?.conditionRawText || [],
     })),
   };
 
@@ -851,6 +1037,10 @@ async function main() {
         galleryCount: item.detailGalleryImages.length,
         galleryIds: item.detailGalleryImages.map(getImageId),
         galleryImages: item.detailGalleryImages,
+        conditionType: item.v16.conditionType,
+        smokedStatus: item.v16.smokedStatus,
+        conditionLabel: item.v16.conditionLabel,
+        conditionRawText: item.v16.conditionRawText,
         href: item.href,
         missingFields: item.stableFieldReport.missingFields,
       }))
