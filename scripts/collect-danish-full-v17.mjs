@@ -44,6 +44,136 @@ function firstNonEmpty(...values) {
   return values.map(normalizeText).find(Boolean) || "";
 }
 
+function getBrandFromCommaName(text) {
+  const value = normalizeText(text);
+
+  if (!value.includes(",")) {
+    return "";
+  }
+
+  const [brand] = value.split(",");
+  return normalizeText(brand);
+}
+
+function cleanDetailFieldValue(value) {
+  return normalizeText(value)
+    .replace(/^[：:\s]+/, "")
+    .replace(/[，,;；。.\s]+$/, "");
+}
+
+function extractDetailField(textSources, labelPattern) {
+  const nextLabelPattern = [
+    "品牌",
+    "Brand",
+    "产品编号",
+    "Product\\s*(?:No\\.?|Number|Code)",
+    "Item\\s*(?:No\\.?|Number)",
+    "SKU",
+    "价格",
+    "状态",
+    "滤芯",
+    "滤嘴",
+    "斗嘴材质",
+    "材质",
+    "斗型",
+    "长度",
+    "高度",
+    "重量",
+    "Filter",
+    "Material",
+    "Shape",
+    "Length",
+    "Height",
+    "Weight",
+  ].join("|");
+  const fieldRegex = new RegExp(
+    `(?:^|\\s)(?:${labelPattern})\\s*[:：]\\s*(.*?)(?=\\s+(?:${nextLabelPattern})\\s*[:：]|$)`,
+    "i"
+  );
+  const candidates = textSources
+    .flatMap((text) => splitCleanTextLines(text))
+    .filter(Boolean);
+
+  for (const candidate of candidates) {
+    const match = candidate.match(fieldRegex);
+    const value = cleanDetailFieldValue(match?.[1] || "");
+
+    if (value) {
+      return value;
+    }
+  }
+
+  return "";
+}
+
+function extractBrandFromDetailText(textSources) {
+  return extractDetailField(textSources, "品牌|Brand");
+}
+
+function extractProductCodeFromDetailText(textSources) {
+  return extractDetailField(
+    textSources,
+    "产品编号|Product\\s*(?:No\\.?|Number|Code)|Item\\s*(?:No\\.?|Number)|SKU"
+  );
+}
+
+function hasSoldEvidence(...values) {
+  return values.some((value) => /已售|sold\s*out|\bsold\b|out\s*of\s*stock/i.test(String(value || "")));
+}
+
+function hasAvailableEvidence(...values) {
+  return values.some((value) => /现在购买|add\s+to\s+(?:basket|cart)|buy\s+now|可购买|in\s+stock/i.test(String(value || "")));
+}
+
+function normalizeAvailabilityStatus({ detailStatus, listStatus, textSources = [] }) {
+  const status = firstNonEmpty(detailStatus, listStatus);
+
+  if (hasSoldEvidence(status, ...textSources)) {
+    return "已售";
+  }
+
+  if (hasAvailableEvidence(status, ...textSources)) {
+    return "可购买";
+  }
+
+  if (status) {
+    return status;
+  }
+
+  return "可购买";
+}
+
+function normalizeProductOutput({ product, normalizedDetail, stableFieldReport, extra = {} }) {
+  const galleryImages = Array.isArray(normalizedDetail.galleryImages)
+    ? normalizedDetail.galleryImages
+    : [];
+
+  return {
+    ...product,
+    name: firstNonEmpty(normalizedDetail.title, product.name),
+    brand: normalizedDetail.brand,
+    productCode: normalizeText(normalizedDetail.productCode),
+    price: normalizedDetail.price,
+    status: normalizedDetail.status,
+    href: firstNonEmpty(product.href, normalizedDetail.sourceUrl),
+    imageUrl: firstNonEmpty(product.imageUrl, normalizedDetail.mainImage, galleryImages[0]),
+    detailImageUrl: firstNonEmpty(normalizedDetail.mainImage, galleryImages[0]),
+    galleryImages,
+    galleryCount: galleryImages.length,
+    specsText: normalizedDetail.specsText || [],
+    conditionType: normalizedDetail.conditionType,
+    smokedStatus: normalizedDetail.smokedStatus,
+    conditionLabel: normalizedDetail.conditionLabel,
+    conditionSource: normalizedDetail.conditionSource,
+    conditionNotes: normalizedDetail.conditionNotes,
+    missingFields: stableFieldReport.missingFields,
+    optionalMissingFields: stableFieldReport.optionalMissingFields,
+    v17: normalizedDetail,
+    stableFieldReport,
+    ...extra,
+  };
+}
+
 function readIntegerEnv(name, fallback, options = {}) {
   const rawValue = normalizeText(process.env[name]);
 
@@ -780,6 +910,65 @@ async function getDetailFields(tab, listProduct) {
         .filter(Boolean);
     }
 
+    function uniqueTexts(values) {
+      const seen = new Set();
+      const result = [];
+
+      for (const value of values.map(normalize).filter(Boolean)) {
+        const key = value.toLowerCase();
+
+        if (seen.has(key)) {
+          continue;
+        }
+
+        seen.add(key);
+        result.push(value);
+      }
+
+      return result;
+    }
+
+    function getDetailFieldTextCandidates() {
+      const labelPattern = /品牌|产品编号|Product\s*(?:No\.?|Number|Code)|Item\s*(?:No\.?|Number)|SKU|Brand/i;
+      const texts = [];
+
+      for (const row of Array.from(document.querySelectorAll("tr"))) {
+        const cells = Array.from(row.querySelectorAll("th, td"))
+          .map((cell) => normalize(cell.innerText || cell.textContent || ""))
+          .filter(Boolean);
+
+        if (cells.length >= 2) {
+          texts.push(`${cells[0]}: ${cells.slice(1).join(" ")}`);
+        } else if (cells.length === 1) {
+          texts.push(cells[0]);
+        }
+      }
+
+      for (const dl of Array.from(document.querySelectorAll("dl"))) {
+        const children = Array.from(dl.children);
+
+        for (let index = 0; index < children.length; index++) {
+          if (children[index].tagName.toLowerCase() !== "dt") {
+            continue;
+          }
+
+          const label = normalize(children[index].innerText || children[index].textContent || "");
+          const value = normalize(children[index + 1]?.innerText || children[index + 1]?.textContent || "");
+          texts.push([label, value].filter(Boolean).join(": "));
+        }
+      }
+
+      texts.push(
+        ...Array.from(document.querySelectorAll("li, p, div, span"))
+          .map((element) => normalize(element.innerText || element.textContent || ""))
+          .filter((text) => text.length <= 260)
+      );
+
+      return uniqueTexts(texts)
+        .filter((text) => labelPattern.test(text))
+        .slice(0, 80);
+    }
+
     function metaContent(selectors) {
       for (const selector of selectors) {
         const element = document.querySelector(selector);
@@ -858,6 +1047,7 @@ async function getDetailFields(tab, listProduct) {
       "#description",
       "#product",
     ]);
+    const detailFieldTextCandidates = getDetailFieldTextCandidates();
 
     const priceText =
       firstText([
@@ -887,6 +1077,7 @@ async function getDetailFields(tab, listProduct) {
       description: descriptionCandidates[0] || "",
       descriptionCandidates,
       productDetailTextCandidates,
+      detailFieldTextCandidates,
       breadcrumbText,
       categoryText,
       sourceUrl: location.href,
@@ -1044,17 +1235,66 @@ async function discoverProductLinks(tab, listUrl, pageIndex) {
       }
     }
 
+    function getImageUrl(anchor) {
+      const img = anchor.querySelector("img");
+
+      if (!img) return "";
+
+      const attrs = ["src", "data-src", "data-original", "data-lazy"];
+
+      for (const attr of attrs) {
+        const value = img.getAttribute(attr);
+
+        if (value) {
+          return absoluteUrl(value);
+        }
+      }
+
+      const srcset = img.getAttribute("srcset") || img.getAttribute("data-srcset") || "";
+      const firstSrcsetUrl = srcset.split(",").map((part) => part.trim().split(/\s+/)[0]).find(Boolean);
+      return absoluteUrl(firstSrcsetUrl);
+    }
+
+    function getCardText(anchor) {
+      const card =
+        anchor.closest("article, li, tr, .product, .product-item, .productbox, .product-list-item, .item, .col") ||
+        anchor.parentElement;
+
+      return normalize(card?.innerText || card?.textContent || anchor.textContent || "");
+    }
+
+    function getStatus(text) {
+      if (/已售|sold\s*out|\bsold\b|out\s*of\s*stock/i.test(text)) {
+        return "已售";
+      }
+
+      if (/现在购买|add\s+to\s+(?:basket|cart)|buy\s+now|可购买|in\s+stock/i.test(text)) {
+        return "可购买";
+      }
+
+      return "";
+    }
+
+    function getPrice(text) {
+      return (text.match(/[$€£]\s?[\d.,-]+/) || [""])[0];
+    }
+
     return Array.from(document.querySelectorAll("a[href]"))
       .map((anchor) => {
         const href = absoluteUrl(anchor.getAttribute("href"));
         const imageAlt = normalize(anchor.querySelector("img")?.getAttribute("alt") || "");
         const text = normalize(anchor.textContent || "");
         const title = normalize(anchor.getAttribute("title") || "");
+        const cardText = getCardText(anchor);
 
         return {
           href,
           name: firstNonEmptyInPage(text, title, imageAlt),
           imageAlt,
+          imageUrl: getImageUrl(anchor),
+          price: getPrice(cardText),
+          status: getStatus(cardText),
+          rawText: cardText,
         };
       })
       .filter((item) => /\/d\/-zh\/.*-i\d+\.html(?:[?#].*)?$/i.test(item.href));
@@ -1260,12 +1500,40 @@ async function collectDetail(context, product, index) {
       description,
       specsText.join("\n"),
     ]);
+    const detailTextSources = [
+      ...(detailFields.detailFieldTextCandidates || []),
+      ...(detailFields.productDetailTextCandidates || []),
+      specsText.join("\n"),
+      productDetailText,
+      description,
+    ];
+    const title = firstNonEmpty(detailFields.title, product.name);
+    const productCode = extractProductCodeFromDetailText(detailTextSources);
+    const brand = firstNonEmpty(
+      extractBrandFromDetailText(detailTextSources),
+      getBrandFromCommaName(title),
+      getBrandFromCommaName(product.name),
+      getBrandFromCommaName(product.imageAlt),
+      detailFields.brand,
+      product.brand
+    );
+    const status = normalizeAvailabilityStatus({
+      detailStatus: detailFields.status,
+      listStatus: product.status,
+      textSources: [
+        detailFields.rawText,
+        product.rawText,
+        title,
+        product.name,
+      ],
+    });
 
     const normalizedDetail = {
-      title: firstNonEmpty(detailFields.title, product.name),
-      brand: firstNonEmpty(detailFields.brand, product.imageAlt),
-      price: firstNonEmpty(detailFields.price),
-      status: firstNonEmpty(detailFields.status),
+      title,
+      brand,
+      productCode,
+      price: firstNonEmpty(detailFields.price, product.price),
+      status,
       mainImage: firstNonEmpty(galleryImages[0], detailFields.mainImage),
       galleryImages,
       specsText,
@@ -1296,18 +1564,17 @@ async function collectDetail(context, product, index) {
 
     const stableFieldReport = buildStableFieldReport(normalizedDetail);
 
-    return {
-      ...product,
-      name: firstNonEmpty(normalizedDetail.title, product.name),
-      v17: normalizedDetail,
+    return normalizeProductOutput({
+      product,
+      normalizedDetail,
       stableFieldReport,
-      detailPageTitle,
-      detailImageUrl: normalizedDetail.mainImage,
-      detailGalleryImages: galleryImages,
-      detailSpecsText: specsText,
-      detailBodyTextStart,
-      detailPageUrl: product.href,
-      detailImageDebug: {
+      extra: {
+        detailPageTitle,
+        detailGalleryImages: galleryImages,
+        detailSpecsText: specsText,
+        detailBodyTextStart,
+        detailPageUrl: product.href,
+        detailImageDebug: {
         version: "v17",
         candidatePayloads: payloads,
         enlargeResultCount: enlargeResults.length,
@@ -1318,7 +1585,8 @@ async function collectDetail(context, product, index) {
         galleryImages,
         imageInfos: galleryImageInfos,
       },
-    };
+      },
+    });
   } finally {
     await tab.close().catch(() => {});
   }
@@ -1366,6 +1634,61 @@ function buildFailedProduct(product, error) {
   };
 }
 
+function buildNormalizedFailedProduct(product, error) {
+  const errorInfo = {
+    href: product.href,
+    name: product.name || "",
+    message: error?.message || String(error),
+    nameOfError: error?.name || "Error",
+  };
+  const title = firstNonEmpty(product.name);
+  const normalizedDetail = {
+    title,
+    brand: firstNonEmpty(
+      getBrandFromCommaName(title),
+      getBrandFromCommaName(product.imageAlt),
+      product.imageAlt
+    ),
+    productCode: "",
+    price: firstNonEmpty(product.price),
+    status: normalizeAvailabilityStatus({
+      listStatus: product.status,
+      textSources: [product.rawText, title],
+    }),
+    mainImage: "",
+    galleryImages: [],
+    specsText: [],
+    sourceUrl: firstNonEmpty(product.href),
+    rawText: "",
+    description: "",
+    productDetailText: "",
+    conditionType: "unknown",
+    smokedStatus: "unknown",
+    conditionLabel: "状态待确认",
+    conditionRawText: [],
+    conditionNotes: "单条商品详情采集失败，未获得足够文本证据判断成色。",
+    conditionSource: "unknown",
+    estateStatus: null,
+    estateRatingStars: null,
+    estateRatingLabel: "",
+    estateRatingNotes: "未识别 Danish Estate 星级成色。",
+  };
+  const stableFieldReport = {
+    status: "partial",
+    missingFields: ["productDetailError"],
+    optionalMissingFields: [],
+  };
+
+  return normalizeProductOutput({
+    product,
+    normalizedDetail,
+    stableFieldReport,
+    extra: {
+      error: errorInfo,
+    },
+  });
+}
+
 async function main() {
   ensureDir(path.dirname(outputPath));
   ensureDir(screenshotDir);
@@ -1407,7 +1730,7 @@ async function main() {
         console.error(`Detail failed, continuing: ${product.href}`);
         console.error(error);
 
-        const failedProduct = buildFailedProduct(product, error);
+        const failedProduct = buildNormalizedFailedProduct(product, error);
         products.push(failedProduct);
         errors.push(failedProduct.error);
       }
