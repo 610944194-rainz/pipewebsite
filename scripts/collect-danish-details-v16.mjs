@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import readline from "node:readline/promises";
+import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
@@ -634,19 +634,266 @@ async function fetchEnlargeMedia(tab, payload) {
   };
 }
 
+const pageJunkPatterns = [
+  /cookie information/i,
+  /google analytics/i,
+  /youtube/i,
+  /privacy policy/i,
+  /asp\.?net_sessionid/i,
+  /dpscurrentlanguage/i,
+  /nn5shopportalcookie/i,
+  /internet explorer/i,
+  /microsoft edge/i,
+  /mozilla firefox/i,
+  /google chrome/i,
+  /\bopera\b/i,
+  /\bsafari\b/i,
+  /登录/,
+  /联系我们/,
+  /语言/,
+  /\bZH\s+USD\b/i,
+];
+
+const productSpecPatterns = [
+  /\bshape\b/i,
+  /\bmodel\b/i,
+  /\bmaterial\b/i,
+  /\bfilter\b/i,
+  /\bstem\b/i,
+  /\bmouthpiece\b/i,
+  /\bfinish\b/i,
+  /\blength\b/i,
+  /\bheight\b/i,
+  /\bweight\b/i,
+  /\bchamber\b/i,
+  /\bbowl\b/i,
+  /\bdiameter\b/i,
+  /\bdepth\b/i,
+  /\bwidth\b/i,
+  /\bcountry\b/i,
+  /\borigin\b/i,
+  /\bmade in\b/i,
+  /\bgrade\b/i,
+  /\bcondition\b/i,
+  /\bestate\b/i,
+  /\bunsmoked\b/i,
+  /\bpre[-\s]?smoked\b/i,
+  /\bsmoked\b/i,
+  /\brestored\b/i,
+  /\brefurbished\b/i,
+  /产地/,
+  /长度/,
+  /高度/,
+  /重量/,
+  /滤嘴/,
+  /材质/,
+  /斗型/,
+  /钵径/,
+  /烟钵/,
+  /斗钵/,
+  /深度/,
+  /口径/,
+  /成色/,
+  /状态/,
+  /品牌/,
+  /编号/,
+];
+
+const productDetailPatterns = [
+  ...productSpecPatterns,
+  /\bpipe\b/i,
+  /\bbriar\b/i,
+  /\bsandblast(?:ed)?\b/i,
+  /\bsmooth\b/i,
+  /\brusticat(?:ed|ion)?\b/i,
+  /\bacrylic\b/i,
+  /\bebonite\b/i,
+  /\bvulcanite\b/i,
+  /\bbilliard\b/i,
+  /\bbent\b/i,
+  /\bstraight\b/i,
+  /烟斗/,
+  /石楠/,
+  /斗柄/,
+  /斗嘴/,
+  /喷砂/,
+  /光面/,
+];
+
+function hasPattern(text, patterns) {
+  return patterns.some((pattern) => pattern.test(text));
+}
+
+function isPageJunkText(text) {
+  return hasPattern(String(text || ""), pageJunkPatterns);
+}
+
+function splitCleanTextLines(text) {
+  return compactLines(text)
+    .map((line) => line.replace(/\s*[:：]\s*/g, ": "))
+    .map(normalizeText)
+    .filter(Boolean);
+}
+
+function hasMeasurementHint(text) {
+  return /\b\d+(?:[.,]\d+)?\s?(?:mm|cm|g|gr|gram|grams|inch|inches|")\b/i.test(text);
+}
+
+function isLikelySpecLine(text) {
+  const line = normalizeText(text);
+
+  if (!line || line.length < 3 || line.length > 220 || isPageJunkText(line)) {
+    return false;
+  }
+
+  return hasPattern(line, productSpecPatterns) || hasMeasurementHint(line);
+}
+
+function isLikelyProductDetailLine(text) {
+  const line = normalizeText(text);
+
+  if (!line || line.length < 12 || line.length > 650 || isPageJunkText(line)) {
+    return false;
+  }
+
+  return hasPattern(line, productDetailPatterns) || hasMeasurementHint(line);
+}
+
+function dedupePreserveOrder(values) {
+  const seen = new Set();
+  const result = [];
+
+  for (const value of values.map(normalizeText).filter(Boolean)) {
+    const key = value.toLowerCase();
+
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(value);
+  }
+
+  return result;
+}
+
+function cleanSpecsText(candidates) {
+  const lines = candidates.flatMap(splitCleanTextLines).filter(isLikelySpecLine);
+  return dedupePreserveOrder(lines).slice(0, 18);
+}
+
+function cleanProductDetailText(candidates, maxLength = 1800) {
+  const lines = candidates.flatMap(splitCleanTextLines).filter(isLikelyProductDetailLine);
+  return dedupePreserveOrder(lines).join(" ").slice(0, maxLength).trim();
+}
+
+function cleanDescriptionText(candidates) {
+  return cleanProductDetailText(candidates, 900);
+}
+
 async function getSpecsText(tab) {
-  return await tab.evaluate(() => {
+  const candidates = await tab.evaluate(() => {
     function normalize(text) {
       return (text || "").replace(/\s+/g, " ").trim();
     }
 
-    return Array.from(
-      document.querySelectorAll("table, dl, ul, .specs, .product-info, .product-data")
-    )
-      .map((element) => normalize(element.innerText))
-      .filter((text) => text.length > 10)
-      .slice(0, 10);
+    function getText(element) {
+      return normalize(element?.innerText || element?.textContent || "");
+    }
+
+    function getScopedRoots() {
+      const selectors = [
+        "[itemtype*='Product']",
+        "[itemscope][itemtype*='Product']",
+        ".product",
+        ".product-detail",
+        ".productdetails",
+        ".product-detail-page",
+        ".product-info",
+        ".product-data",
+        ".product-description",
+        "#product",
+        "main",
+      ];
+
+      const roots = selectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)));
+      return roots.length > 0 ? roots : [document.body].filter(Boolean);
+    }
+
+    const specSelectors = [
+      "table",
+      "dl",
+      ".specs",
+      ".product-info",
+      ".product-data",
+      ".product-attributes",
+      ".attributes",
+      ".product-specifications",
+      ".properties",
+      ".details",
+      ".facts",
+    ];
+
+    const elements = new Set();
+
+    for (const root of getScopedRoots()) {
+      for (const selector of specSelectors) {
+        for (const element of root.querySelectorAll(selector)) {
+          elements.add(element);
+        }
+      }
+    }
+
+    if (elements.size === 0) {
+      for (const selector of ["table", "dl", ".specs", ".product-data", ".product-specifications"]) {
+        for (const element of document.querySelectorAll(selector)) {
+          elements.add(element);
+        }
+      }
+    }
+
+    const texts = [];
+
+    for (const element of elements) {
+      const tagName = element.tagName.toLowerCase();
+
+      if (tagName === "table") {
+        texts.push(
+          ...Array.from(element.querySelectorAll("tr"))
+            .map(getText)
+            .filter(Boolean)
+        );
+        continue;
+      }
+
+      if (tagName === "dl") {
+        const children = Array.from(element.children);
+
+        for (let index = 0; index < children.length; index++) {
+          if (children[index].tagName.toLowerCase() !== "dt") {
+            continue;
+          }
+
+          const label = getText(children[index]);
+          const value = getText(children[index + 1]);
+          texts.push([label, value].filter(Boolean).join(": "));
+        }
+        continue;
+      }
+
+      texts.push(
+        ...Array.from(element.querySelectorAll("li"))
+          .map(getText)
+          .filter(Boolean)
+      );
+
+      texts.push(getText(element));
+    }
+
+    return texts.filter(Boolean);
   });
+
+  return cleanSpecsText(candidates);
 }
 
 async function getDetailFields(tab, listProduct) {
@@ -668,6 +915,13 @@ async function getDetailFields(tab, listProduct) {
       return "";
     }
 
+    function allTexts(selectors) {
+      return selectors
+        .flatMap((selector) => Array.from(document.querySelectorAll(selector)))
+        .map((element) => normalize(element?.innerText || element?.textContent || ""))
+        .filter(Boolean);
+    }
+
     function metaContent(selectors) {
       for (const selector of selectors) {
         const element = document.querySelector(selector);
@@ -679,6 +933,13 @@ async function getDetailFields(tab, listProduct) {
       }
 
       return "";
+    }
+
+    function metaContents(selectors) {
+      return selectors
+        .map((selector) => document.querySelector(selector))
+        .map((element) => normalize(element?.getAttribute("content") || ""))
+        .filter(Boolean);
     }
 
     function absoluteUrl(url) {
@@ -716,18 +977,38 @@ async function getDetailFields(tab, listProduct) {
       "[itemprop='name']",
     ]);
 
-    const description =
-      metaContent([
+    const descriptionCandidates = [
+      ...metaContents([
         "meta[name='description']",
         "meta[property='og:description']",
-      ]) ||
-      firstText([
+      ]),
+      ...allTexts([
         "[itemprop='description']",
-        ".description",
         ".product-description",
         ".producttext",
-        ".text",
-      ]);
+        ".product-description-text",
+        ".product-detail-description",
+        "#description",
+      ]),
+    ];
+
+    const productDetailTextCandidates = allTexts([
+      "[itemtype*='Product']",
+      "[itemscope][itemtype*='Product']",
+      ".product-description",
+      ".producttext",
+      ".product-detail-description",
+      ".product-detail",
+      ".productdetails",
+      ".product-info",
+      ".product-data",
+      ".product-tabs",
+      ".tab-content",
+      "#description",
+      "#product",
+    ]);
+
+    const description = descriptionCandidates[0] || "";
 
     const priceText =
       firstText([
@@ -758,9 +1039,10 @@ async function getDetailFields(tab, listProduct) {
       mainImage: absoluteUrl(ogImage),
       rawText,
       description,
+      descriptionCandidates,
+      productDetailTextCandidates,
       breadcrumbText,
       categoryText,
-      visibleText: rawText,
       sourceUrl: location.href,
       pageTitle: document.title,
     };
@@ -801,6 +1083,78 @@ function buildStableFieldReport(detail) {
   };
 }
 
+async function isRobotVerificationPage(tab) {
+  return await tab.evaluate(() => {
+    const text = [
+      document.title || "",
+      document.body?.innerText || "",
+    ].join("\n").toLowerCase();
+
+    return (
+      text.includes("i am not a robot") ||
+      text.includes("confirm that you are not a robot") ||
+      text.includes("not a robot") ||
+      text.includes("verification") ||
+      text.includes("verify you are human") ||
+      text.includes("checking your browser") ||
+      text.includes("captcha")
+    );
+  });
+}
+
+async function waitForManualVerification() {
+  const terminal = createInterface({ input, output });
+
+  try {
+    await terminal.question("请在弹出的浏览器中手动完成验证，完成后回到终端按 Enter 继续。");
+  } finally {
+    terminal.close();
+  }
+}
+
+async function recordVerificationFailure(enrichedProducts, product, tab) {
+  const detailPageTitle = await tab.title().catch(() => "");
+  const stableFieldReport = {
+    status: "partial",
+    missingFields: ["robotVerification"],
+  };
+
+  const normalizedDetail = {
+    title: firstNonEmpty(product.name),
+    brand: firstNonEmpty(product.imageAlt?.split(",")?.[0]),
+    price: firstNonEmpty(product.price),
+    status: firstNonEmpty(product.status),
+    mainImage: firstNonEmpty(product.imageUrl),
+    galleryImages: [],
+    specsText: [],
+    sourceUrl: firstNonEmpty(product.href),
+    rawText: "",
+    description: firstNonEmpty(product.rawText),
+    conditionType: "unknown",
+    smokedStatus: "unknown",
+    conditionLabel: "状态待确认",
+    conditionRawText: [],
+    conditionNotes:
+      "Robot / verification page remained after manual verification; stopped without bypassing verification.",
+  };
+
+  enrichedProducts.push({
+    ...product,
+    v16: normalizedDetail,
+    stableFieldReport,
+    detailPageTitle,
+    detailImageUrl: normalizedDetail.mainImage,
+    detailGalleryImages: [],
+    detailSpecsText: [],
+    detailBodyTextStart: "",
+    detailPageUrl: product.href,
+    detailImageDebug: {
+      version: "v16",
+      error: "robotVerification",
+    },
+  });
+}
+
 async function main() {
   ensureDir(screenshotDir);
 
@@ -818,7 +1172,7 @@ async function main() {
   const scraperProxy = normalizeText(process.env.SCRAPER_PROXY);
 
   const launchOptions = {
-    headless: true,
+    headless: false,
     viewport: { width: 1440, height: 1000 },
     ...(executablePath ? { executablePath } : {}),
     ...(scraperProxy ? { proxy: { server: scraperProxy } } : {}),
@@ -844,7 +1198,7 @@ async function main() {
     timeout: 60000,
   });
 
-  console.log("v16 测试脚本不等待人工确认；如遇 Cookie / 年龄 / robot 页面，会记录 partial 后停止。");
+  console.log("v16 测试脚本如遇 Cookie / 年龄 / robot / verification 页面，会等待人工处理后继续。");
 
   const enrichedProducts = [];
 
@@ -863,20 +1217,23 @@ async function main() {
 
     await tab.waitForTimeout(2200);
 
-    const robotDetected = await tab.evaluate(() => {
-      const text = document.body.innerText.toLowerCase();
-
-      return (
-        text.includes("i am not a robot") ||
-        text.includes("confirm that you are not a robot") ||
-        text.includes("not a robot")
-      );
-    });
+    const robotDetected = await isRobotVerificationPage(tab);
 
     if (robotDetected) {
-      console.log("检测到 robot 验证页。脚本不会绕过验证。请你手动通过后重新运行。");
-      await tab.close();
-      break;
+      console.log("检测到 robot / verification 页面。脚本不会绕过验证，也不会自动点击验证按钮。");
+      await waitForManualVerification();
+      await tab.reload({
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      });
+      await tab.waitForTimeout(2200);
+
+      if (await isRobotVerificationPage(tab)) {
+        console.error("人工验证后仍检测到 robot / verification 页面，记录错误并停止采集。");
+        await recordVerificationFailure(enrichedProducts, product, tab);
+        await tab.close();
+        break;
+      }
     }
 
     const candidates = await getPageImageCandidates(tab);
@@ -939,6 +1296,16 @@ async function main() {
     });
 
     const detailPageTitle = await tab.title();
+    const description = cleanDescriptionText([
+      ...(detailFields.descriptionCandidates || []),
+      detailFields.description,
+      product.rawText,
+    ]);
+    const productDetailText = cleanProductDetailText([
+      ...(detailFields.productDetailTextCandidates || []),
+      description,
+      specsText.join("\n"),
+    ]);
 
     const normalizedDetail = {
       title: firstNonEmpty(detailFields.title, product.name),
@@ -949,14 +1316,16 @@ async function main() {
       galleryImages,
       specsText,
       sourceUrl: firstNonEmpty(detailFields.sourceUrl, product.href),
-      rawText: detailFields.rawText || detailBodyTextStart,
-      description: firstNonEmpty(detailFields.description, product.rawText),
+      rawText: productDetailText,
+      description,
+      productDetailText,
     };
 
     Object.assign(
       normalizedDetail,
       parsePipeCondition([
         { source: "title", text: normalizedDetail.title },
+        { source: "productName", text: product.name },
         {
           source: "breadcrumb/category",
           text: [detailFields.breadcrumbText, detailFields.categoryText]
@@ -964,9 +1333,8 @@ async function main() {
             .join(" "),
         },
         { source: "specsText", text: specsText.join("\n") },
-        { source: "rawText", text: normalizedDetail.rawText },
         { source: "description", text: normalizedDetail.description },
-        { source: "visibleText", text: detailFields.visibleText },
+        { source: "productDetailText", text: normalizedDetail.productDetailText },
       ])
     );
 
