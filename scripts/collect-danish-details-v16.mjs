@@ -815,12 +815,22 @@ async function main() {
 
   const userDataDir = path.join(process.cwd(), "data", "debug", "danish-profile-v16");
   const executablePath = getLocalBrowserExecutablePath();
+  const scraperProxy = normalizeText(process.env.SCRAPER_PROXY);
 
-  const context = await chromium.launchPersistentContext(userDataDir, {
+  const launchOptions = {
     headless: true,
     viewport: { width: 1440, height: 1000 },
     ...(executablePath ? { executablePath } : {}),
-  });
+    ...(scraperProxy ? { proxy: { server: scraperProxy } } : {}),
+  };
+
+  if (scraperProxy) {
+    console.log(`Using scraper proxy: ${scraperProxy}`);
+  } else {
+    console.log("No scraper proxy configured");
+  }
+
+  const context = await chromium.launchPersistentContext(userDataDir, launchOptions);
 
   const bootstrapTab = context.pages()[0] ?? (await context.newPage());
 
