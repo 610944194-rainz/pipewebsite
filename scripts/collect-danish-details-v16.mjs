@@ -56,18 +56,30 @@ export function parsePipeCondition(textSources) {
     .filter((source) => source.text);
 
   const keywordMatchers = [
+    {
+      key: "brandNewEstatePipe",
+      label: "brand new estate pipes",
+      regex: /\bbrand\s+new\s+estate\s+pipes?\b/i,
+    },
+    { key: "brandNewPipe", label: "brand new pipe", regex: /\bbrand\s+new\s+pipes?\b/i },
     { key: "estatePipe", label: "estate pipe", regex: /\bestate\s+pipe\b/i },
     { key: "estate", label: "Estate", regex: /\bestate\b/i },
-    { key: "preSmoked", label: "pre-smoked", regex: /\bpre[-\s]?smoked\b/i },
+    { key: "presmoked", label: "Presmoked", regex: /\bpresmoked\b/i },
+    { key: "preSmoked", label: "pre-smoked", regex: /\bpre[-\s]smoked\b/i },
     { key: "unsmoked", label: "unsmoked", regex: /\bunsmoked\b/i },
     { key: "newPipe", label: "new pipe", regex: /\bnew\s+pipes?\b/i },
+    { key: "newInnerCoating", label: "new inner coating", regex: /\bnew\s+inner\s+coating\b/i },
+    { key: "newHome", label: "new home", regex: /\bnew\s+home\b/i },
+    { key: "asNew", label: "as new", regex: /\bas\s+new\b/i },
+    { key: "veryGoodCondition", label: "very good condition", regex: /\bvery\s+good\s+condition\b/i },
     { key: "goodCondition", label: "good condition", regex: /\bgood\s+condition\b/i },
+    { key: "normalCondition", label: "normal condition", regex: /\bnormal\s+condition\b/i },
+    { key: "acceptableCondition", label: "acceptable condition", regex: /\bacceptable\s+condition\b/i },
     { key: "condition", label: "condition", regex: /\bcondition\b/i },
     { key: "restored", label: "restored", regex: /\brestored\b/i },
     { key: "refurbished", label: "refurbished", regex: /\brefurbished\b/i },
     { key: "excellent", label: "excellent", regex: /\bexcellent\b/i },
     { key: "smoked", label: "smoked", regex: /\bsmoked\b/i },
-    { key: "new", label: "new", regex: /\bnew\b/i },
   ];
 
   const matches = [];
@@ -88,93 +100,210 @@ export function parsePipeCondition(textSources) {
   const hasKeyword = (key) => matches.some((match) => match.key === key);
   const matchedLabels = Array.from(new Set(matches.map((match) => match.label)));
 
-  const isBroadPageText = (source) => {
-    const lowered = String(source || "").toLowerCase();
-    return lowered.includes("rawtext") || lowered.includes("visible");
+  const ratingLabels = {
+    1: "1 星可接受成色",
+    2: "2 星普通成色",
+    3: "3 星良好成色",
+    4: "4 星非常好成色",
+    5: "5 星近似全新",
   };
 
-  const hasFocusedNew = matches.some(
-    (match) => match.key === "new" && !isBroadPageText(match.source)
-  );
-  const hasFocusedNewPipe = matches.some(
-    (match) => match.key === "newPipe" && !isBroadPageText(match.source)
-  );
+  function findEstateRating() {
+    const ratingMatches = [];
 
-  const hasEstate = hasKeyword("estate") || hasKeyword("estatePipe");
-  const hasPreSmoked = hasKeyword("preSmoked");
-  const hasUnsmoked = hasKeyword("unsmoked");
-  const hasSmoked = hasKeyword("smoked") && !hasPreSmoked;
-  const hasNew = hasFocusedNewPipe || hasFocusedNew;
+    function addRating(stars, rawText) {
+      if (!stars || stars < 1 || stars > 5) {
+        return;
+      }
 
-  if (hasEstate && hasUnsmoked) {
+      ratingMatches.push({
+        stars,
+        rawText,
+      });
+    }
+
+    for (const source of sources) {
+      const text = source.text;
+      const trimmed = text.trim();
+
+      if (/\bas\s+new\b/i.test(text)) {
+        addRating(5, "as new");
+      }
+
+      if (/\bvery\s+good\s+condition\b/i.test(text)) {
+        addRating(4, "very good condition");
+      } else if (/\bgood\s+condition\b/i.test(text)) {
+        addRating(3, "good condition");
+      }
+
+      if (/\bnormal\s+condition\b/i.test(text)) {
+        addRating(2, "normal condition");
+      }
+
+      if (/\bacceptable\s+condition\b/i.test(text)) {
+        addRating(1, "acceptable condition");
+      }
+
+      const digitStarMatch =
+        text.match(/\b([1-5])\s*(?:stars?|star\s+rating|rating)\b/i) ||
+        text.match(/\brating\s*[:：]?\s*([1-5])\b/i);
+
+      if (digitStarMatch) {
+        addRating(Number(digitStarMatch[1]), digitStarMatch[0]);
+      }
+
+      const exactDigitMatch = trimmed.match(/^[1-5]$/);
+
+      if (exactDigitMatch) {
+        addRating(Number(exactDigitMatch[0]), exactDigitMatch[0]);
+      }
+
+      const starTextMatch =
+        trimmed.match(/^\*{1,5}$/) ||
+        text.match(/(?:rating|condition)\s*[:：]?\s*(\*{1,5})(?=\s|$)/i);
+
+      if (starTextMatch) {
+        const rawStars = starTextMatch[1] || starTextMatch[0];
+        addRating(rawStars.length, rawStars);
+      }
+    }
+
+    if (ratingMatches.length === 0) {
+      return {
+        estateRatingStars: null,
+        estateRatingLabel: "",
+        estateRatingNotes: "未识别 Danish Estate 星级成色。",
+        estateRatingRawText: "",
+      };
+    }
+
+    const bestRating = ratingMatches.sort((a, b) => b.stars - a.stars)[0];
+
     return {
+      estateRatingStars: bestRating.stars,
+      estateRatingLabel: ratingLabels[bestRating.stars],
+      estateRatingNotes: `命中 Danish Estate rating：${bestRating.rawText}，按 ${ratingLabels[bestRating.stars]} 记录。`,
+      estateRatingRawText: bestRating.rawText,
+    };
+  }
+
+  function buildResult({
+    conditionType,
+    smokedStatus,
+    conditionLabel,
+    conditionNotes,
+    estateStatus,
+  }) {
+    const rating = findEstateRating();
+    const { estateRatingRawText, ...ratingFields } = rating;
+    const conditionRawText = Array.from(
+      new Set([...matchedLabels, estateRatingRawText].filter(Boolean))
+    );
+
+    return {
+      conditionType,
+      smokedStatus,
+      conditionLabel,
+      conditionRawText,
+      conditionNotes,
+      estateStatus,
+      ...ratingFields,
+    };
+  }
+
+  const hasFocusedKeyword = (key) => {
+    return matches.some((match) => {
+      if (match.key !== key) {
+        return false;
+      }
+
+      const loweredSource = String(match.source || "").toLowerCase();
+      return !loweredSource.includes("rawtext") && !loweredSource.includes("visible");
+    });
+  };
+
+  const hasBrandNewEstatePipe = hasKeyword("brandNewEstatePipe");
+  const hasEstate = hasKeyword("estate") || hasKeyword("estatePipe") || hasBrandNewEstatePipe;
+  const hasPresmoked = hasKeyword("presmoked") || hasKeyword("preSmoked");
+  const hasUnsmoked = hasKeyword("unsmoked");
+  const hasSmoked = hasKeyword("smoked") && !hasPresmoked && !hasUnsmoked;
+  const hasExplicitNewPipe =
+    (hasFocusedKeyword("newPipe") || hasFocusedKeyword("brandNewPipe")) &&
+    !hasKeyword("newInnerCoating") &&
+    !hasKeyword("newHome") &&
+    !hasBrandNewEstatePipe;
+  const hasEstateUnsmoked = hasUnsmoked || hasBrandNewEstatePipe;
+
+  if (hasEstate && hasEstateUnsmoked) {
+    return buildResult({
       conditionType: "estate",
       smokedStatus: "unsmoked",
       conditionLabel: "Estate 未使用",
-      conditionRawText: matchedLabels,
       conditionNotes: "命中 Estate 与 Unsmoked，按规则判断为 Estate 未使用；仍建议人工核对原站状态。",
-    };
+      estateStatus: "unsmoked",
+    });
   }
 
-  if (hasEstate && hasPreSmoked) {
-    return {
+  if (hasEstate && (hasPresmoked || hasSmoked)) {
+    return buildResult({
       conditionType: "estate",
       smokedStatus: "preSmoked",
       conditionLabel: "Estate 已使用",
-      conditionRawText: matchedLabels,
-      conditionNotes: "命中 Estate 与 Pre-smoked，按规则判断为 Estate 已使用。",
-    };
-  }
-
-  if (hasEstate && hasSmoked) {
-    return {
-      conditionType: "estate",
-      smokedStatus: "smoked",
-      conditionLabel: "Estate 已使用",
-      conditionRawText: matchedLabels,
-      conditionNotes: "命中 Estate 与 Smoked，按规则判断为 Estate 已使用。",
-    };
+      conditionNotes: "命中 Estate 与 Presmoked / Smoked，按 Danish 说明判断为 Estate 已使用。",
+      estateStatus: "presmoked",
+    });
   }
 
   if (hasEstate) {
-    return {
+    return buildResult({
       conditionType: "estate",
       smokedStatus: "unknown",
       conditionLabel: "Estate 二手斗",
-      conditionRawText: matchedLabels,
-      conditionNotes: "命中 Estate，但未稳定命中是否抽过；保留为 Estate 二手斗，使用状态待人工确认。",
-    };
+      conditionNotes:
+        "命中 Estate，但未稳定命中 Presmoked 或 Unsmoked；保留为 Estate 二手斗，使用状态待人工确认。",
+      estateStatus: "unknown",
+    });
   }
 
-  if (hasNew) {
-    return {
+  if (hasExplicitNewPipe) {
+    return buildResult({
       conditionType: "new",
       smokedStatus: "unsmoked",
       conditionLabel: "新斗",
-      conditionRawText: matchedLabels,
-      conditionNotes: "命中 New / New pipe 且未命中 Estate，按规则判断为新斗。",
-    };
+      conditionNotes: "明确命中 New pipe / Brand new pipe 且未命中 Estate，按普通新斗记录。",
+      estateStatus: null,
+    });
   }
 
   if (hasUnsmoked) {
-    return {
+    return buildResult({
       conditionType: "unknown",
       smokedStatus: "unsmoked",
       conditionLabel: "未使用，来源待确认",
-      conditionRawText: matchedLabels,
       conditionNotes: "命中 Unsmoked，但无法确认是否 Estate；保留来源待确认。",
-    };
+      estateStatus: null,
+    });
   }
 
-  return {
+  if (hasPresmoked || hasSmoked) {
+    return buildResult({
+      conditionType: "unknown",
+      smokedStatus: "preSmoked",
+      conditionLabel: "已使用，来源待确认",
+      conditionNotes: "命中 Presmoked / Smoked，但无法确认是否 Estate；保留来源待确认。",
+      estateStatus: null,
+    });
+  }
+
+  return buildResult({
     conditionType: "unknown",
     smokedStatus: "unknown",
     conditionLabel: "状态待确认",
-    conditionRawText: matchedLabels,
     conditionNotes: matchedLabels.length
-      ? "仅命中泛化状态词，证据不足以判断新斗、Estate 或是否抽过，保留为待确认。"
+      ? "仅命中星级、成色描述或泛化状态词，证据不足以判断普通新斗、Estate 或是否抽过，保留为待确认。"
       : "未命中可稳定判断烟斗成色 / 使用状态的关键词，保留为待确认。",
-  };
+    estateStatus: null,
+  });
 }
 
 function getLocalBrowserExecutablePath() {
@@ -1065,6 +1194,8 @@ function buildStableFieldReport(detail) {
     "smokedStatus",
     "conditionLabel",
     "conditionNotes",
+    "estateStatus",
+    "estateRatingNotes",
   ];
 
   const missingFields = requiredFields.filter((field) => {
@@ -1136,6 +1267,10 @@ async function recordVerificationFailure(enrichedProducts, product, tab) {
     conditionRawText: [],
     conditionNotes:
       "Robot / verification page remained after manual verification; stopped without bypassing verification.",
+    estateStatus: null,
+    estateRatingStars: null,
+    estateRatingLabel: "",
+    estateRatingNotes: "未识别 Danish Estate 星级成色。",
   };
 
   enrichedProducts.push({
@@ -1395,6 +1530,9 @@ async function main() {
       smokedStatus: item.v16?.smokedStatus || "unknown",
       conditionLabel: item.v16?.conditionLabel || "状态待确认",
       conditionRawText: item.v16?.conditionRawText || [],
+      estateStatus: item.v16?.estateStatus ?? null,
+      estateRatingStars: item.v16?.estateRatingStars ?? null,
+      estateRatingLabel: item.v16?.estateRatingLabel || "",
     })),
   };
 
@@ -1420,6 +1558,9 @@ async function main() {
         smokedStatus: item.v16.smokedStatus,
         conditionLabel: item.v16.conditionLabel,
         conditionRawText: item.v16.conditionRawText,
+        estateStatus: item.v16.estateStatus,
+        estateRatingStars: item.v16.estateRatingStars,
+        estateRatingLabel: item.v16.estateRatingLabel,
         href: item.href,
         missingFields: item.stableFieldReport.missingFields,
       }))

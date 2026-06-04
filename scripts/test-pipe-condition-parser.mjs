@@ -8,6 +8,19 @@ const cases = [
       conditionType: "estate",
       smokedStatus: "unsmoked",
       conditionLabel: "Estate 未使用",
+      estateStatus: "unsmoked",
+      estateRatingStars: null,
+    },
+  },
+  {
+    name: "Estate + Presmoked",
+    input: ["Estate", "Presmoked"],
+    expected: {
+      conditionType: "estate",
+      smokedStatus: "preSmoked",
+      conditionLabel: "Estate 已使用",
+      estateStatus: "presmoked",
+      estateRatingStars: null,
     },
   },
   {
@@ -17,6 +30,8 @@ const cases = [
       conditionType: "estate",
       smokedStatus: "preSmoked",
       conditionLabel: "Estate 已使用",
+      estateStatus: "presmoked",
+      estateRatingStars: null,
     },
   },
   {
@@ -26,6 +41,8 @@ const cases = [
       conditionType: "estate",
       smokedStatus: "unknown",
       conditionLabel: "Estate 二手斗",
+      estateStatus: "unknown",
+      estateRatingStars: null,
     },
   },
   {
@@ -35,6 +52,66 @@ const cases = [
       conditionType: "new",
       smokedStatus: "unsmoked",
       conditionLabel: "新斗",
+      estateStatus: null,
+      estateRatingStars: null,
+    },
+  },
+  {
+    name: "Brand new estate pipes",
+    input: ["Brand new estate pipes"],
+    expected: {
+      conditionType: "estate",
+      smokedStatus: "unsmoked",
+      conditionLabel: "Estate 未使用",
+      estateStatus: "unsmoked",
+      estateRatingStars: null,
+    },
+  },
+  {
+    name: "New inner coating",
+    input: ["New inner coating"],
+    expected: {
+      conditionType: "unknown",
+      smokedStatus: "unknown",
+      conditionLabel: "状态待确认",
+      estateStatus: null,
+      estateRatingStars: null,
+    },
+  },
+  {
+    name: "As new",
+    input: ["As new"],
+    expected: {
+      conditionType: "unknown",
+      smokedStatus: "unknown",
+      conditionLabel: "状态待确认",
+      estateStatus: null,
+      estateRatingStars: 5,
+      estateRatingLabel: "5 星近似全新",
+    },
+  },
+  {
+    name: "Estate + As new",
+    input: ["Estate", "As new"],
+    expected: {
+      conditionType: "estate",
+      smokedStatus: "unknown",
+      conditionLabel: "Estate 二手斗",
+      estateStatus: "unknown",
+      estateRatingStars: 5,
+      estateRatingLabel: "5 星近似全新",
+    },
+  },
+  {
+    name: "Estate + 4 stars / Very good condition",
+    input: ["Estate", "4 stars", "Very good condition"],
+    expected: {
+      conditionType: "estate",
+      smokedStatus: "unknown",
+      conditionLabel: "Estate 二手斗",
+      estateStatus: "unknown",
+      estateRatingStars: 4,
+      estateRatingLabel: "4 星非常好成色",
     },
   },
   {
@@ -44,15 +121,8 @@ const cases = [
       conditionType: "unknown",
       smokedStatus: "unsmoked",
       conditionLabel: "未使用，来源待确认",
-    },
-  },
-  {
-    name: "Excellent restored condition",
-    input: ["Excellent condition", "restored"],
-    expected: {
-      conditionType: "unknown",
-      smokedStatus: "unknown",
-      conditionLabel: "状态待确认",
+      estateStatus: null,
+      estateRatingStars: null,
     },
   },
   {
@@ -62,6 +132,8 @@ const cases = [
       conditionType: "unknown",
       smokedStatus: "unknown",
       conditionLabel: "状态待确认",
+      estateStatus: null,
+      estateRatingStars: null,
     },
   },
 ];
@@ -72,6 +144,9 @@ function formatResult(result) {
     smokedStatus: result.smokedStatus,
     conditionLabel: result.conditionLabel,
     conditionRawText: result.conditionRawText,
+    estateStatus: result.estateStatus,
+    estateRatingStars: result.estateRatingStars,
+    estateRatingLabel: result.estateRatingLabel,
   };
 }
 
