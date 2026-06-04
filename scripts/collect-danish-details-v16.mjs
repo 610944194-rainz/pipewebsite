@@ -6,11 +6,16 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
 const inputPath = path.join(process.cwd(), "data", "danish-sample.json");
-const outputPath = path.join(process.cwd(), "data", "danish-details-v16-sample.json");
+const defaultOutputPath = path.join(process.cwd(), "data", "danish-details-v16-sample.json");
 const screenshotDir = path.join(process.cwd(), "data", "debug", "danish-detail-v16-screenshots");
 
 // v16 只做 5 条详情页字段测试，不覆盖正式详情样本。
 const DETAIL_LIMIT = 5;
+const detailLimit = readIntegerEnv("DETAIL_LIMIT", 5, { min: 1 });
+const detailOffset = readIntegerEnv("DETAIL_OFFSET", 0, { min: 0 });
+const detailDelayMs = readIntegerEnv("DETAIL_DELAY_MS", 1000, { min: 0 });
+const outputPath = resolveOutputPath(process.env.DETAIL_OUTPUT, defaultOutputPath);
+
 const browserExecutableCandidates = [
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
@@ -21,6 +26,60 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
+}
+
+function readIntegerEnv(name, fallback, options = {}) {
+  const rawValue = normalizeText(process.env[name]);
+
+  if (!rawValue) {
+    return fallback;
+  }
+
+  const parsedValue = Number.parseInt(rawValue, 10);
+
+  if (!Number.isFinite(parsedValue)) {
+    console.warn(`${name} is invalid, using default ${fallback}.`);
+    return fallback;
+  }
+
+  const min = Number.isFinite(options.min) ? options.min : 0;
+
+  if (parsedValue < min) {
+    console.warn(`${name} is below ${min}, using ${min}.`);
+    return min;
+  }
+
+  return parsedValue;
+}
+
+function resolveOutputPath(value, fallback) {
+  const normalizedValue = normalizeText(value);
+
+  if (!normalizedValue) {
+    return fallback;
+  }
+
+  return path.isAbsolute(normalizedValue)
+    ? normalizedValue
+    : path.join(process.cwd(), normalizedValue);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function buildBatchInfo({ startedAt, completedAt, successCount, failCount } = {}) {
+  const now = new Date().toISOString();
+
+  return {
+    limit: detailLimit,
+    offset: detailOffset,
+    output: outputPath,
+    startedAt: startedAt || now,
+    completedAt: completedAt || now,
+    successCount: Number(successCount || 0),
+    failCount: Number(failCount || 0),
+  };
 }
 
 function normalizeText(text) {
@@ -1367,6 +1426,10 @@ async function recordVerificationFailure(enrichedProducts, product, tab) {
 
   enrichedProducts.push({
     ...product,
+    error: {
+      name: "RobotVerification",
+      message: "Robot / verification page remained after manual verification.",
+    },
     v16: normalizedDetail,
     stableFieldReport,
     detailPageTitle,
@@ -1382,8 +1445,64 @@ async function recordVerificationFailure(enrichedProducts, product, tab) {
   });
 }
 
+async function recordProductFailure(enrichedProducts, product, error, tab) {
+  const detailPageTitle = tab ? await tab.title().catch(() => "") : "";
+  const errorInfo = {
+    name: error?.name || "Error",
+    message: error?.message || String(error),
+  };
+
+  const stableFieldReport = {
+    status: "partial",
+    missingFields: ["productDetailError"],
+    optionalMissingFields: [],
+  };
+
+  const normalizedDetail = {
+    title: firstNonEmpty(product.name),
+    brand: firstNonEmpty(product.imageAlt?.split(",")?.[0]),
+    price: firstNonEmpty(product.price),
+    status: firstNonEmpty(product.status),
+    mainImage: firstNonEmpty(product.imageUrl),
+    galleryImages: [],
+    specsText: [],
+    sourceUrl: firstNonEmpty(product.href),
+    rawText: "",
+    description: firstNonEmpty(product.rawText),
+    conditionType: "unknown",
+    smokedStatus: "unknown",
+    conditionLabel: "状态待确认",
+    conditionRawText: [],
+    conditionNotes: "单条商品详情采集失败，未获得足够文本证据判断成色。",
+    conditionSource: "unknown",
+    estateStatus: null,
+    estateRatingStars: null,
+    estateRatingLabel: "",
+    estateRatingNotes: "未识别 Danish Estate 星级成色。",
+  };
+
+  enrichedProducts.push({
+    ...product,
+    error: errorInfo,
+    v16: normalizedDetail,
+    stableFieldReport,
+    detailPageTitle,
+    detailImageUrl: normalizedDetail.mainImage,
+    detailGalleryImages: [],
+    detailSpecsText: [],
+    detailBodyTextStart: "",
+    detailPageUrl: product.href,
+    detailImageDebug: {
+      version: "v16",
+      error: errorInfo,
+    },
+  });
+}
+
 async function main() {
   ensureDir(screenshotDir);
+  ensureDir(path.dirname(outputPath));
+  const batchStartedAt = new Date().toISOString();
 
   if (!fs.existsSync(inputPath)) {
     console.error(`找不到文件：${inputPath}`);
@@ -1392,7 +1511,8 @@ async function main() {
   }
 
   const sourceData = JSON.parse(fs.readFileSync(inputPath, "utf8"));
-  const products = sourceData.products.slice(0, DETAIL_LIMIT);
+  const allProducts = Array.isArray(sourceData.products) ? sourceData.products : [];
+  const products = allProducts.slice(detailOffset, detailOffset + detailLimit);
 
   const userDataDir = path.join(process.cwd(), "data", "debug", "danish-profile-v16");
   const executablePath = getLocalBrowserExecutablePath();
@@ -1405,11 +1525,12 @@ async function main() {
     ...(scraperProxy ? { proxy: { server: scraperProxy } } : {}),
   };
 
-  if (scraperProxy) {
-    console.log(`Using scraper proxy: ${scraperProxy}`);
-  } else {
-    console.log("No scraper proxy configured");
-  }
+  console.log("v16 batch parameters:");
+  console.log(`DETAIL_LIMIT=${detailLimit}`);
+  console.log(`DETAIL_OFFSET=${detailOffset}`);
+  console.log(`DETAIL_OUTPUT=${outputPath}`);
+  console.log(`DETAIL_DELAY_MS=${detailDelayMs}`);
+  console.log(`SCRAPER_PROXY=${scraperProxy ? "enabled" : "disabled"}`);
 
   const context = await chromium.launchPersistentContext(userDataDir, launchOptions);
 
@@ -1419,6 +1540,8 @@ async function main() {
   console.log("准备打开 Danish 详情页采集 v16。");
   console.log("这版继续请求 enlargemedia，并解析 data-nn5-imageinfo；只测试前 5 条。");
   console.log("");
+
+  console.log(`Batch slice: offset ${detailOffset}, limit ${detailLimit}, selected ${products.length} products.`);
 
   await bootstrapTab.goto("https://www.danishpipeshop.com/", {
     waitUntil: "domcontentloaded",
@@ -1431,7 +1554,10 @@ async function main() {
 
   for (let index = 0; index < products.length; index++) {
     const product = products[index];
-    const tab = await context.newPage();
+    let tab;
+
+    try {
+      tab = await context.newPage();
 
     console.log("");
     console.log(`正在抓取 ${index + 1}/${products.length}: ${product.name}`);
@@ -1458,8 +1584,7 @@ async function main() {
       if (await isRobotVerificationPage(tab)) {
         console.error("人工验证后仍检测到 robot / verification 页面，记录错误并停止采集。");
         await recordVerificationFailure(enrichedProducts, product, tab);
-        await tab.close();
-        break;
+        continue;
       }
     }
 
@@ -1508,7 +1633,7 @@ async function main() {
 
     const mainImage = galleryImages[0] || "";
 
-    const screenshotPath = path.join(screenshotDir, `detail-${index + 1}.png`);
+    const screenshotPath = path.join(screenshotDir, `detail-${detailOffset + index + 1}.png`);
 
     await tab.screenshot({
       path: screenshotPath,
@@ -1606,21 +1731,44 @@ async function main() {
     console.log("图库预览：");
     console.log(galleryImages);
 
-    await tab.close();
+    } catch (error) {
+      console.error(`单条商品采集失败，继续下一条：${product.name}`);
+      console.error(error);
+      await recordProductFailure(enrichedProducts, product, error, tab);
+    } finally {
+      if (tab) {
+        await tab.close().catch(() => {});
+      }
+
+      if (detailDelayMs > 0 && index < products.length - 1) {
+        await sleep(detailDelayMs);
+      }
+    }
   }
 
   await bootstrapTab.close().catch(() => {});
 
+  const completedAt = new Date().toISOString();
+  const failCount = enrichedProducts.filter((item) => item.error).length;
+  const successCount = enrichedProducts.length - failCount;
+
   const payload = {
     source: "The Danish Pipe Shop",
     baseCollectedAt: sourceData.baseCollectedAt || sourceData.collectedAt,
-    detailCollectedAt: new Date().toISOString(),
+    detailCollectedAt: completedAt,
     count: enrichedProducts.length,
+    batchInfo: buildBatchInfo({
+      startedAt: batchStartedAt,
+      completedAt,
+      successCount,
+      failCount,
+    }),
     products: enrichedProducts,
     fieldSummary: enrichedProducts.map((item) => ({
       name: item.name,
       sourceUrl: item.href,
       status: item.stableFieldReport.status,
+      error: item.error || null,
       missingFields: item.stableFieldReport.missingFields,
       optionalMissingFields: item.stableFieldReport.optionalMissingFields,
       conditionType: item.v16?.conditionType || "unknown",
@@ -1640,6 +1788,9 @@ async function main() {
   console.log(`详情页增强采集完成：${outputPath}`);
   console.log(`采集数量：${enrichedProducts.length}`);
   console.log("");
+
+  console.log(`Success count: ${successCount}`);
+  console.log(`Fail count: ${failCount}`);
 
   if (enrichedProducts.length > 0) {
     console.log("前 5 条预览：");
@@ -1677,6 +1828,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     detailCollectedAt: new Date().toISOString(),
     version: "v16",
     count: 0,
+    batchInfo: buildBatchInfo({
+      successCount: 0,
+      failCount: 1,
+    }),
     products: [],
     fieldSummary: [],
     error: {
