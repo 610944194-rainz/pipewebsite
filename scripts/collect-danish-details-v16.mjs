@@ -193,6 +193,7 @@ export function parsePipeCondition(textSources) {
     conditionLabel,
     conditionNotes,
     estateStatus,
+    conditionSource,
   }) {
     const rating = findEstateRating();
     const { estateRatingRawText, ...ratingFields } = rating;
@@ -207,6 +208,7 @@ export function parsePipeCondition(textSources) {
       conditionRawText,
       conditionNotes,
       estateStatus,
+      conditionSource,
       ...ratingFields,
     };
   }
@@ -233,6 +235,26 @@ export function parsePipeCondition(textSources) {
     !hasKeyword("newHome") &&
     !hasBrandNewEstatePipe;
   const hasEstateUnsmoked = hasUnsmoked || hasBrandNewEstatePipe;
+  const estateRating = findEstateRating();
+  const hasEstateRating = estateRating.estateRatingStars !== null;
+  const hasNormalPipesCategory = sources.some((source) => {
+    const text = source.text.replace(/\\/g, "/");
+    return /\/l\/[^/\s]+\/pipes1(?:[/?#\s]|$)/i.test(text);
+  });
+  const hasConditionEvidence =
+    hasEstate ||
+    hasPresmoked ||
+    hasUnsmoked ||
+    hasSmoked ||
+    hasEstateRating ||
+    hasKeyword("asNew") ||
+    hasKeyword("restored") ||
+    hasKeyword("refurbished") ||
+    hasKeyword("excellent") ||
+    hasKeyword("veryGoodCondition") ||
+    hasKeyword("goodCondition") ||
+    hasKeyword("normalCondition") ||
+    hasKeyword("acceptableCondition");
 
   if (hasEstate && hasEstateUnsmoked) {
     return buildResult({
@@ -241,6 +263,7 @@ export function parsePipeCondition(textSources) {
       conditionLabel: "Estate 未使用",
       conditionNotes: "命中 Estate 与 Unsmoked，按规则判断为 Estate 未使用；仍建议人工核对原站状态。",
       estateStatus: "unsmoked",
+      conditionSource: "explicit",
     });
   }
 
@@ -251,6 +274,7 @@ export function parsePipeCondition(textSources) {
       conditionLabel: "Estate 已使用",
       conditionNotes: "命中 Estate 与 Presmoked / Smoked，按 Danish 说明判断为 Estate 已使用。",
       estateStatus: "presmoked",
+      conditionSource: "explicit",
     });
   }
 
@@ -262,6 +286,7 @@ export function parsePipeCondition(textSources) {
       conditionNotes:
         "命中 Estate，但未稳定命中 Presmoked 或 Unsmoked；保留为 Estate 二手斗，使用状态待人工确认。",
       estateStatus: "unknown",
+      conditionSource: "explicit",
     });
   }
 
@@ -272,6 +297,7 @@ export function parsePipeCondition(textSources) {
       conditionLabel: "新斗",
       conditionNotes: "明确命中 New pipe / Brand new pipe 且未命中 Estate，按普通新斗记录。",
       estateStatus: null,
+      conditionSource: "explicit",
     });
   }
 
@@ -282,6 +308,7 @@ export function parsePipeCondition(textSources) {
       conditionLabel: "未使用，来源待确认",
       conditionNotes: "命中 Unsmoked，但无法确认是否 Estate；保留来源待确认。",
       estateStatus: null,
+      conditionSource: "explicit",
     });
   }
 
@@ -292,6 +319,31 @@ export function parsePipeCondition(textSources) {
       conditionLabel: "已使用，来源待确认",
       conditionNotes: "命中 Presmoked / Smoked，但无法确认是否 Estate；保留来源待确认。",
       estateStatus: null,
+      conditionSource: "explicit",
+    });
+  }
+
+  if (hasConditionEvidence) {
+    return buildResult({
+      conditionType: "unknown",
+      smokedStatus: "unknown",
+      conditionLabel: "状态待确认",
+      conditionNotes:
+        "命中星级、成色描述或修复整理词，但证据不足以判断普通新斗、Estate 或是否抽过，保留为待确认。",
+      estateStatus: null,
+      conditionSource: "explicit",
+    });
+  }
+
+  if (hasNormalPipesCategory) {
+    return buildResult({
+      conditionType: "new",
+      smokedStatus: "unsmoked",
+      conditionLabel: "新斗",
+      conditionNotes:
+        "按 Danish 普通 Pipes 栏目判断，详情页未见 Estate / Presmoked / Unsmoked / 星级成色标记，购买前仍建议人工确认。",
+      estateStatus: null,
+      conditionSource: "category",
     });
   }
 
@@ -303,6 +355,7 @@ export function parsePipeCondition(textSources) {
       ? "仅命中星级、成色描述或泛化状态词，证据不足以判断普通新斗、Estate 或是否抽过，保留为待确认。"
       : "未命中可稳定判断烟斗成色 / 使用状态的关键词，保留为待确认。",
     estateStatus: null,
+    conditionSource: "unknown",
   });
 }
 
@@ -1194,6 +1247,7 @@ function buildStableFieldReport(detail) {
     "smokedStatus",
     "conditionLabel",
     "conditionNotes",
+    "conditionSource",
     "estateStatus",
     "estateRatingNotes",
   ];
@@ -1267,6 +1321,7 @@ async function recordVerificationFailure(enrichedProducts, product, tab) {
     conditionRawText: [],
     conditionNotes:
       "Robot / verification page remained after manual verification; stopped without bypassing verification.",
+    conditionSource: "unknown",
     estateStatus: null,
     estateRatingStars: null,
     estateRatingLabel: "",
@@ -1467,6 +1522,9 @@ async function main() {
             .filter(Boolean)
             .join(" "),
         },
+        { source: "listPageUrl", text: sourceData.pageUrl },
+        { source: "productListPageUrl", text: product.pageUrl || product.listPageUrl || "" },
+        { source: "sourceUrl", text: normalizedDetail.sourceUrl },
         { source: "specsText", text: specsText.join("\n") },
         { source: "description", text: normalizedDetail.description },
         { source: "productDetailText", text: normalizedDetail.productDetailText },
@@ -1503,6 +1561,7 @@ async function main() {
     console.log(`字段状态：${stableFieldReport.status}`);
     console.log(`缺失字段：${stableFieldReport.missingFields.join(", ") || "无"}`);
     console.log(`成色判断：${normalizedDetail.conditionLabel}`);
+    console.log(`成色来源：${normalizedDetail.conditionSource}`);
     console.log("成色命中词：");
     console.log(normalizedDetail.conditionRawText);
     console.log("图库编号：");
@@ -1530,6 +1589,7 @@ async function main() {
       smokedStatus: item.v16?.smokedStatus || "unknown",
       conditionLabel: item.v16?.conditionLabel || "状态待确认",
       conditionRawText: item.v16?.conditionRawText || [],
+      conditionSource: item.v16?.conditionSource || "unknown",
       estateStatus: item.v16?.estateStatus ?? null,
       estateRatingStars: item.v16?.estateRatingStars ?? null,
       estateRatingLabel: item.v16?.estateRatingLabel || "",
@@ -1558,6 +1618,7 @@ async function main() {
         smokedStatus: item.v16.smokedStatus,
         conditionLabel: item.v16.conditionLabel,
         conditionRawText: item.v16.conditionRawText,
+        conditionSource: item.v16.conditionSource,
         estateStatus: item.v16.estateStatus,
         estateRatingStars: item.v16.estateRatingStars,
         estateRatingLabel: item.v16.estateRatingLabel,
