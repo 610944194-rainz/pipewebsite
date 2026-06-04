@@ -1232,7 +1232,7 @@ async function getDetailFields(tab, listProduct) {
 }
 
 function buildStableFieldReport(detail) {
-  const requiredFields = [
+  const criticalFields = [
     "title",
     "brand",
     "price",
@@ -1240,19 +1240,13 @@ function buildStableFieldReport(detail) {
     "mainImage",
     "galleryImages",
     "specsText",
-    "sourceUrl",
-    "rawText",
-    "description",
     "conditionType",
     "smokedStatus",
     "conditionLabel",
-    "conditionNotes",
     "conditionSource",
-    "estateStatus",
-    "estateRatingNotes",
   ];
 
-  const missingFields = requiredFields.filter((field) => {
+  function isMissingField(field) {
     const value = detail[field];
 
     if (Array.isArray(value)) {
@@ -1260,15 +1254,35 @@ function buildStableFieldReport(detail) {
     }
 
     return !normalizeText(value);
-  });
+  }
+
+  const missingFields = criticalFields.filter(isMissingField);
+
+  if (detail.conditionType === "estate" && isMissingField("estateStatus")) {
+    missingFields.push("estateStatus");
+  }
+
+  const optionalMissingFields = ["description"].filter(isMissingField);
 
   return {
     status: missingFields.length === 0 ? "complete" : "partial",
     missingFields,
+    optionalMissingFields,
   };
 }
 
-async function isRobotVerificationPage(tab) {
+function isRobotCheckNavigationError(error) {
+  const message = String(error?.message || error || "").toLowerCase();
+
+  return (
+    message.includes("execution context was destroyed") ||
+    message.includes("cannot find context") ||
+    message.includes("target closed") ||
+    message.includes("frame was detached")
+  );
+}
+
+async function evaluateRobotVerificationPage(tab) {
   return await tab.evaluate(() => {
     const text = [
       document.title || "",
@@ -1287,6 +1301,28 @@ async function isRobotVerificationPage(tab) {
   });
 }
 
+async function isRobotVerificationPage(tab) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      return await evaluateRobotVerificationPage(tab);
+    } catch (error) {
+      const shouldRetry = attempt === 0 && isRobotCheckNavigationError(error);
+
+      if (shouldRetry) {
+        await tab.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+        await tab.waitForTimeout(800).catch(() => {});
+        continue;
+      }
+
+      console.warn("Robot check skipped because page was navigating.");
+      return false;
+    }
+  }
+
+  console.warn("Robot check skipped because page was navigating.");
+  return false;
+}
+
 async function waitForManualVerification() {
   const terminal = createInterface({ input, output });
 
@@ -1302,6 +1338,7 @@ async function recordVerificationFailure(enrichedProducts, product, tab) {
   const stableFieldReport = {
     status: "partial",
     missingFields: ["robotVerification"],
+    optionalMissingFields: [],
   };
 
   const normalizedDetail = {
@@ -1585,6 +1622,7 @@ async function main() {
       sourceUrl: item.href,
       status: item.stableFieldReport.status,
       missingFields: item.stableFieldReport.missingFields,
+      optionalMissingFields: item.stableFieldReport.optionalMissingFields,
       conditionType: item.v16?.conditionType || "unknown",
       smokedStatus: item.v16?.smokedStatus || "unknown",
       conditionLabel: item.v16?.conditionLabel || "状态待确认",
@@ -1624,6 +1662,7 @@ async function main() {
         estateRatingLabel: item.v16.estateRatingLabel,
         href: item.href,
         missingFields: item.stableFieldReport.missingFields,
+        optionalMissingFields: item.stableFieldReport.optionalMissingFields,
       }))
     );
   }
