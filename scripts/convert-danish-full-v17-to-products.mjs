@@ -161,7 +161,19 @@ function isSuccessfulInput(product) {
   return !product?.error;
 }
 
+function isExcludedDisplayProduct(product) {
+  const href = normalizeText(product?.href || product?.sourceUrl || product?.originalUrl);
+  const id = getProductIdFromUrl(href);
+  const name = normalizeText(product?.name);
+
+  return id === 32447 || /i32447\b/i.test(href) || name === "BPK, Barry, Seven (7) Pipes";
+}
+
 function shouldSkipProduct(product) {
+  if (isExcludedDisplayProduct(product)) {
+    return "excludedBpkBarrySeven";
+  }
+
   if (!isSuccessfulInput(product)) {
     return "detailError";
   }
@@ -217,6 +229,14 @@ function buildTags(product, galleryImages, specsText, status, brand) {
   ]);
 }
 
+function buildDisplayTags(product, status, brand) {
+  return dedupe([
+    product.conditionLabel,
+    status,
+    brand,
+  ]).slice(0, 3);
+}
+
 function mapProduct(product, collectedAt) {
   const id = getProductIdFromUrl(product.href || product.sourceUrl);
   const brand = firstNonEmpty(product.brand, getBrandFromName(product.name));
@@ -254,7 +274,7 @@ function mapProduct(product, collectedAt) {
     audience: getAudience(product, cnyValue),
     comment: getComment(product),
     detail: getDetail(product),
-    tags: buildTags(product, galleryImages, specsText, status, brand),
+    tags: buildDisplayTags(product, status, brand),
     detailImageUrl: normalizeText(product.detailImageUrl),
     productCode: normalizeText(product.productCode),
     originalUrl: sourceUrl,

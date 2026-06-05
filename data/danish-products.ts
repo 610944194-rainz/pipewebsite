@@ -60,11 +60,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, Unica Blowfish 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-Unica-Blowfish-The-Danish-Pipe-Shop-img-170953-w500-h281.jpg",
     "productCode": "AJ54",
@@ -123,11 +121,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, Unica Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-Unica-Brandy-The-Danish-Pipe-Shop-img-170943-w500-h335.jpg",
     "productCode": "AJ53",
@@ -183,11 +179,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Plateaux Top Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Plateaux-Top-Dublin-The-Danish-Pipe-Shop-img-192379-w500-h179.jpg",
     "productCode": "bay329",
@@ -243,11 +237,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Rusticated Billard w. Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Rusticated-Billard-w-Horn-The-Danish-Pipe-Shop-img-192415-w500-h180.jpg",
     "productCode": "bay336",
@@ -303,11 +295,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Rusticated Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Rusticated-Horn-The-Danish-Pipe-Shop-img-192409-w500-h191.jpg",
     "productCode": "bay335",
@@ -363,11 +353,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Shield w. Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Shield-w-Horn-The-Danish-Pipe-Shop-img-192373-w500-h238.jpg",
     "productCode": "Bay328",
@@ -423,11 +411,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Berggreen Pipes, Facet Bulldog w. bog oak 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Facet-Bulldog-w-bog-oak-The-Danish-Pipe-Shop-img-191330-w500-h178.jpg",
     "productCode": "IB119",
@@ -483,11 +469,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Facet Bulldog w. box wood 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Facet-Bulldog-w-box-wood-The-Danish-Pipe-Shop-img-191324-w500-h177.jpg",
     "productCode": "IB118",
@@ -543,11 +527,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, The Stealth w. bog oak 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-The-Stealth-w-bog-oak-The-Danish-Pipe-Shop-img-191342-w500-h162.jpg",
     "productCode": "IB121",
@@ -597,11 +579,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK Smooth Churchwarden Pipe, Classic Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Smooth Churchwarden Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK Smooth Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Classic-Bent-Billard-The-Danish-Pipe-Shop-img-35651-w500-h296.jpg",
     "productCode": "73-41 S",
@@ -658,11 +638,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Le Dune, Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Le-Dune-Bulldog-The-Danish-Pipe-Shop-img-165813-w500-h246.jpg",
     "productCode": "cas1066",
@@ -718,11 +696,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Old Antiquari, Billard, KK 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Old-Antiquari-Billard-KK-The-Danish-Pipe-Shop-img-188497-w500-h193.jpg",
     "productCode": "cas1128",
@@ -778,11 +754,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Old Antiquari, Dublin, 4K, Virgin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Old-Antiquari-Dublin-4K-Virgin-The-Danish-Pipe-Shop-img-188463-w500-h197.jpg",
     "productCode": "cas1124",
@@ -834,11 +808,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina Mat 110, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-Mat-110-Billard-The-Danish-Pipe-Shop-img-172315-w500-h167.jpg",
     "productCode": "Alpina Mat 110",
@@ -894,11 +866,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maïtre De Pipier, Matte Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maitre-De-Pipier-Matte-Brown-The-Danish-Pipe-Shop-img-171153-w500-h153.jpg",
     "productCode": "MDP mat",
@@ -954,11 +924,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maïtre De Pipier, Natural Shiny 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maitre-De-Pipier-Natural-Shiny-The-Danish-Pipe-Shop-img-171159-w500-h157.jpg",
     "productCode": "MDP nat",
@@ -1014,11 +982,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maïtre De Pipier, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maitre-De-Pipier-Sand-The-Danish-Pipe-Shop-img-171147-w500-h154.jpg",
     "productCode": "MDP sand",
@@ -1072,11 +1038,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, New Gentleman, 1095, Bent Acorn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1095-Bent-Acorn-The-Danish-Pipe-Shop-img-168110-w500-h213.jpg",
     "productCode": "CNG1095",
@@ -1128,11 +1092,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Old Briar 106, Billard, Acajou/Mahogany 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Old-Briar-106-Billard-Acajou-Mahogany-The-Danish-Pipe-Shop-img-153267-w500-h154.jpg",
     "productCode": "Old Briar 106, Acajou",
@@ -1188,11 +1150,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Royal 8, Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Royal-8-Bulldog-The-Danish-Pipe-Shop-img-171137-w500-h156.jpg",
     "productCode": "Royale 8",
@@ -1249,11 +1209,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Skipper 394, Bent Bulldog, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Skipper-394-Bent-Bulldog-Smooth-The-Danish-Pipe-Shop-img-187619-w500-h169.jpg",
     "productCode": "394",
@@ -1307,11 +1265,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 156, Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-156-Poker-The-Danish-Pipe-Shop-img-159323-w500-h210.jpg",
     "productCode": "spigot 156 brun",
@@ -1366,11 +1322,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 185, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-185-Billard-The-Danish-Pipe-Shop-img-54094-w500-h190.jpg",
     "productCode": "spigot 185 brun",
@@ -1426,11 +1380,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Natural 156, Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Natural-156-Poker-The-Danish-Pipe-Shop-img-185910-w500-h203.jpg",
     "productCode": "Spigot 156 Natural",
@@ -1486,11 +1438,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Natural 185, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Natural-185-Billard-The-Danish-Pipe-Shop-img-188242-w500-h173.jpg",
     "productCode": "Spigot 185 Natural",
@@ -1544,11 +1494,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sablée 156, Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sablee-156-Poker-The-Danish-Pipe-Shop-img-159319-w500-h205.jpg",
     "productCode": "spigot 156 sand",
@@ -1599,11 +1547,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Starter Set, Bent Billard, bag etc. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Starter-Set-Bent-Billard-bag-etc-The-Danish-Pipe-Shop-img-61324-w500-h301.jpg",
     "productCode": "Chacom, Trousse, Bent Billard Set",
@@ -1657,11 +1603,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Starter Set, Bent Brandy, bag etc. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Starter-Set-Bent-Brandy-bag-etc-The-Danish-Pipe-Shop-img-48993-w500-h298.jpg",
     "productCode": "Chacom, Trousse, Bent Brandy Set",
@@ -1715,11 +1659,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, Green stem 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-Green-stem-The-Danish-Pipe-Shop-img-168262-w500-h120.jpg",
     "productCode": "TFP, Green",
@@ -1774,11 +1716,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 10, Liverpool, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-10-Liverpool-Smooth-The-Danish-Pipe-Shop-img-143270-w500-h175.jpg",
     "productCode": "TFP, 10 Smooth",
@@ -1833,11 +1773,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 7, Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-7-Billard-Smooth-The-Danish-Pipe-Shop-img-168869-w500-h173.jpg",
     "productCode": "TFP, 7 Smooth",
@@ -1894,11 +1832,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, P8 Shot Glass Poker, Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P8-Shot-Glass-Poker-Brown-The-Danish-Pipe-Shop-img-190384-w500-h236.jpg",
     "productCode": "SG8BROR 2026",
@@ -1954,11 +1890,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 5101F, Apple, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-5101F-Apple-9-mm-The-Danish-Pipe-Shop-img-172198-w500-h178.jpg",
     "productCode": "2711dun",
@@ -2014,11 +1948,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 5103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-5103-Billard-The-Danish-Pipe-Shop-img-187083-w500-h182.jpg",
     "productCode": "3106dun",
@@ -2074,11 +2006,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Shell 5110F, RG Liverpool, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Shell-5110F-RG-Liverpool-9-mm-The-Danish-Pipe-Shop-img-186894-w500-h190.jpg",
     "productCode": "3068dun",
@@ -2136,12 +2066,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Estate Bentley by Former, Billard, Unsmoked 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Estate Bentley by Former",
-      "可购买",
       "Estate 未使用",
-      "Estate",
-      "多图完整"
+      "可购买",
+      "Estate Bentley by Former"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Bentley-by-Former-Billard-Unsmoked-The-Danish-Pipe-Shop-img-180571-w500-h193.jpg",
     "productCode": "est13812",
@@ -2199,12 +2126,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Estate Bentley by Former, Pot-Billard, Unsmoked 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Estate Bentley by Former",
-      "可购买",
       "Estate 未使用",
-      "Estate",
-      "多图完整"
+      "可购买",
+      "Estate Bentley by Former"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Bentley-by-Former-Pot-Billard-Unsmoked-The-Danish-Pipe-Shop-img-180559-w500-h171.jpg",
     "productCode": "est13814",
@@ -2262,12 +2186,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Estate Georg Jensen, Straight Grain, Brandy, Pres. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Estate Georg Jensen",
-      "已售",
       "Estate 二手斗",
-      "Estate",
-      "多图完整"
+      "已售",
+      "Estate Georg Jensen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Georg-Jensen-Straight-Grain-Brandy-Pres-The-Danish-Pipe-Shop-img-191493-w500-h192.jpg",
     "productCode": "est14236",
@@ -2325,12 +2246,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Estate S. Bang, Billard w. silver, Presmoked 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Estate S. Bang",
-      "可购买",
       "Estate 已使用",
-      "Estate",
-      "多图完整"
+      "可购买",
+      "Estate S. Bang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-S-Bang-Billard-w-silver-Presmoked-The-Danish-Pipe-Shop-img-190647-w500-h191.jpg",
     "productCode": "est14179",
@@ -2388,12 +2306,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Estate Stanwell, Brass Band, Canadian Presmoked 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Estate Stanwell",
-      "已售",
       "Estate 已使用",
-      "Estate",
-      "多图完整"
+      "已售",
+      "Estate Stanwell"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Stanwell-Brass-Band-Canadian-Presmoked-The-Danish-Pipe-Shop-img-191469-w500-h163.jpg",
     "productCode": "est14231",
@@ -2449,11 +2364,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Flavia-Rodrigues-Smooth-Dublin-with-Blue-Stem-The-Danish-Pipe-Shop-img-187827-w500-h180.jpg",
     "productCode": "Flav5",
@@ -2510,11 +2423,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "George Boyadjiev, Grade A, Army Mount Blowfish 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "George Boyadjiev",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "George Boyadjiev"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/George-Boyadjiev-Grade-A-Army-Mount-Blowfish-The-Danish-Pipe-Shop-img-185036-w500-h198.jpg",
     "productCode": "gbp130",
@@ -2570,11 +2481,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "George Boyadjiev, Grade RS, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "George Boyadjiev",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "George Boyadjiev"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/George-Boyadjiev-Grade-RS-Dublin-The-Danish-Pipe-Shop-img-184987-w500-h187.jpg",
     "productCode": "gbp127",
@@ -2630,11 +2539,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "George Boyadjiev, Grade RS, Smooth Top Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "George Boyadjiev",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "George Boyadjiev"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/George-Boyadjiev-Grade-RS-Smooth-Top-Dublin-The-Danish-Pipe-Shop-img-184993-w500-h165.jpg",
     "productCode": "gbp128",
@@ -2691,11 +2598,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Hans Former Nielsen, Freehand Pickaxe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Hans Former Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Hans Former Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Hans-Former-Nielsen-Freehand-Pickaxe-The-Danish-Pipe-Shop-img-189654-w500-h312.jpg",
     "productCode": "F26-19",
@@ -2752,11 +2657,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Hans Former Nielsen, Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Hans Former Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Hans Former Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Hans-Former-Nielsen-Rhodesian-The-Danish-Pipe-Shop-img-186100-w500-h175.jpg",
     "productCode": "F26-6",
@@ -2813,11 +2716,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Hans Former Nielsen, Signature Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Hans Former Nielsen",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Hans Former Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Hans-Former-Nielsen-Signature-Apple-The-Danish-Pipe-Shop-img-191819-w500-h187.jpg",
     "productCode": "F26-27",
@@ -2873,11 +2774,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Henri Pipes, Apple w. horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Henri Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Henri Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Henri-Pipes-Apple-w-horn-The-Danish-Pipe-Shop-img-185710-w500-h194.jpg",
     "productCode": "Henri186",
@@ -2933,11 +2832,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Henri Pipes, Slight Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Henri Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Henri Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Henri-Pipes-Slight-Bent-Brandy-The-Danish-Pipe-Shop-img-185728-w500-h204.jpg",
     "productCode": "Henri189",
@@ -2993,11 +2890,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Johs Pipes, Bent Brandy, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Johs Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Johs Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Johs-Pipes-Bent-Brandy-9-mm-The-Danish-Pipe-Shop-img-191990-w500-h203.jpg",
     "productCode": "johs505",
@@ -3053,11 +2948,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Johs Pipes, Squat Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Johs Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Johs Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Johs-Pipes-Squat-Bulldog-The-Danish-Pipe-Shop-img-191973-w500-h173.jpg",
     "productCode": "johs498",
@@ -3113,11 +3006,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Kai Nielsen, Jewel X, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Kai Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Kai Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Kai-Nielsen-Jewel-X-Bent-Brandy-The-Danish-Pipe-Shop-img-191630-w500-h198.jpg",
     "productCode": "kai219",
@@ -3173,11 +3064,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Kai Nielsen, Jewel X, Bent Canted Tulip 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Kai Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Kai Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Kai-Nielsen-Jewel-X-Bent-Canted-Tulip-The-Danish-Pipe-Shop-img-182208-w500-h378.jpg",
     "productCode": "kai216",
@@ -3233,11 +3122,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Kai Nielsen, Jewel X, Bent Danish Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Kai Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Kai Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Kai-Nielsen-Jewel-X-Bent-Danish-Dublin-The-Danish-Pipe-Shop-img-191636-w500-h176.jpg",
     "productCode": "kai220",
@@ -3293,11 +3180,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Kai Nielsen, Jewel X, Full Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Kai Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Kai Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Kai-Nielsen-Jewel-X-Full-Bent-Brandy-The-Danish-Pipe-Shop-img-192129-w500-h321.jpg",
     "productCode": "kai229",
@@ -3353,11 +3238,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Kai Nielsen, Jewel X, Quarter Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Kai Nielsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Kai Nielsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Kai-Nielsen-Jewel-X-Quarter-Bent-Billard-The-Danish-Pipe-Shop-img-182220-w500-h224.jpg",
     "productCode": "kai213",
@@ -3413,11 +3296,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Ken Dederichs, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Ken Dederichs",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Ken Dederichs"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ken-Dederichs-Bent-Brandy-The-Danish-Pipe-Shop-img-191127-w500-h178.jpg",
     "productCode": "ken147",
@@ -3474,11 +3355,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Ken Dederichs, Soft Pickaxe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Ken Dederichs",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Ken Dederichs"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ken-Dederichs-Soft-Pickaxe-The-Danish-Pipe-Shop-img-191120-w500-h230.jpg",
     "productCode": "ken146",
@@ -3535,11 +3414,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Ken Pipes, Canted Rhodesian, 25627 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Ken Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Ken Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ken-Pipes-Canted-Rhodesian-25627-The-Danish-Pipe-Shop-img-171520-w500-h168.jpg",
     "productCode": "kp25-7",
@@ -3595,11 +3472,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Luiz Lavos, Strawberry w. horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Luiz Lavos",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Luiz Lavos"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Luiz-Lavos-Strawberry-w-horn-The-Danish-Pipe-Shop-img-188337-w500-h172.jpg",
     "productCode": "LL44",
@@ -3655,11 +3530,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Luiz Lavos, Virgin Acorn w. Jupati 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Luiz Lavos",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Luiz Lavos"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Luiz-Lavos-Virgin-Acorn-w-Jupati-The-Danish-Pipe-Shop-img-188343-w500-h249.jpg",
     "productCode": "LL45",
@@ -3719,11 +3592,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Nanna Ivarsson, Pipe 05 26, Brandy with gold 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nanna Ivarsson",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Nanna Ivarsson"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nanna-Ivarsson-Pipe-05-26-Brandy-with-gold-The-Danish-Pipe-Shop-img-186366-w500-h182.jpg",
     "productCode": "NI39",
@@ -3779,11 +3650,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Nuttens Pipes, Bing Crosby Pipe, Smooth, B3 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Bing-Crosby-Pipe-Smooth-B3-The-Danish-Pipe-Shop-img-187957-w500-h158.jpg",
     "productCode": "bru223",
@@ -3839,11 +3708,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Nuttens Pipes, Handmade, Apple-Billard, A 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Handmade-Apple-Billard-A-The-Danish-Pipe-Shop-img-187910-w500-h212.jpg",
     "productCode": "bru215",
@@ -3899,11 +3766,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Nuttens Pipes, Handmade, Billard, AAA 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Handmade-Billard-AAA-The-Danish-Pipe-Shop-img-148565-w500-h195.jpg",
     "productCode": "bru151",
@@ -3959,11 +3824,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Nuttens Pipes, Handmade, Billard, AAA 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Handmade-Billard-AAA-The-Danish-Pipe-Shop-img-187892-w500-h195.jpg",
     "productCode": "bru212",
@@ -4019,11 +3882,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Nuttens Pipes, Handmade, Dublin, AA 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Handmade-Dublin-AA-The-Danish-Pipe-Shop-img-187880-w500-h175.jpg",
     "productCode": "bru210",
@@ -4079,11 +3940,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Nuttens Pipes, Handmade, Dublin, AA 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Nuttens Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Nuttens Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Nuttens-Pipes-Handmade-Dublin-AA-The-Danish-Pipe-Shop-img-187886-w500-h198.jpg",
     "productCode": "bru211",
@@ -4139,11 +3998,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Peder Jeppesen, Ida Gr. 3, Bent Egg, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Peder Jeppesen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Peder Jeppesen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Peder-Jeppesen-Ida-Gr-3-Bent-Egg-9-mm-The-Danish-Pipe-Shop-img-188963-w500-h249.jpg",
     "productCode": "pj2502",
@@ -4199,11 +4056,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Peder Jeppesen, Ida Gr. 3, Freehand Sitter, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Peder Jeppesen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Peder Jeppesen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Peder-Jeppesen-Ida-Gr-3-Freehand-Sitter-9-mm-The-Danish-Pipe-Shop-img-188951-w500-h222.jpg",
     "productCode": "pj2500",
@@ -4259,11 +4114,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Peder Jeppesen, Ida Gr. 5, Bent Billard, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Peder Jeppesen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Peder Jeppesen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Peder-Jeppesen-Ida-Gr-5-Bent-Billard-9-mm-The-Danish-Pipe-Shop-img-189012-w500-h254.jpg",
     "productCode": "pj2510",
@@ -4320,11 +4173,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Peter Heding, Bent Mushroom w. Brass, Diamond 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Peter Heding",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Peter Heding"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-188666-w500-h178.jpg",
     "productCode": "Ph286",
@@ -4380,11 +4231,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Peterson, Barley Spigot 701, Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Peterson",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Peterson"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Peterson-Barley-Spigot-701-Poker-The-Danish-Pipe-Shop-img-190274-w500-h187.jpg",
     "productCode": "pet786",
@@ -4439,11 +4288,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Minuto 310 Sand, Pocket Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Minuto-310-Sand-Pocket-Poker-The-Danish-Pipe-Shop-img-19242-w500-h235.jpg",
     "productCode": "Minuto 310, Sand",
@@ -4500,11 +4347,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, ONE Starter Kit, 601, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-ONE-Starter-Kit-601-Smooth-The-Danish-Pipe-Shop-img-147042-w500-h243.jpg",
     "productCode": "ONE 601 SMO",
@@ -4561,11 +4406,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 110, Billard Sitter, 197/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-110-Billard-Sitter-197-300-The-Danish-Pipe-Shop-img-192220-w500-h175.jpg",
     "productCode": "savi26-38",
@@ -4622,11 +4465,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 316 KS, Bent Dublin, 17/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-316-KS-Bent-Dublin-17-300-The-Danish-Pipe-Shop-img-192184-w500-h175.jpg",
     "productCode": "savi26-32",
@@ -4683,11 +4524,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 601, Bent Billard, 239/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-601-Bent-Billard-239-300-The-Danish-Pipe-Shop-img-192238-w500-h296.jpg",
     "productCode": "savi26-41",
@@ -4744,11 +4583,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 609, Bent Billard, 227/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-609-Bent-Billard-227-300-The-Danish-Pipe-Shop-img-192226-w500-h337.jpg",
     "productCode": "savi26-39",
@@ -4804,11 +4641,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 613, Bent Billard, 71/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-613-Bent-Billard-71-300-The-Danish-Pipe-Shop-img-192279-w500-h390.jpg",
     "productCode": "savi26-48",
@@ -4865,11 +4700,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Savinelli, Punto Oro, 702, Billard Sitter, 256/300 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Savinelli",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Savinelli"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Savinelli-Punto-Oro-702-Billard-Sitter-256-300-The-Danish-Pipe-Shop-img-192202-w500-h180.jpg",
     "productCode": "savi26-35",
@@ -4925,11 +4758,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Suhr Pipes, Bent Brandy w. mammoth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Suhr Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Suhr Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Suhr-Pipes-Bent-Brandy-w-mammoth-The-Danish-Pipe-Shop-img-190805-w500-h215.jpg",
     "productCode": "suhr187",
@@ -4985,11 +4816,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Suhr Pipes, Canted brandy w. mammoth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Suhr Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Suhr Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Suhr-Pipes-Canted-brandy-w-mammoth-The-Danish-Pipe-Shop-img-188875-w500-h229.jpg",
     "productCode": "suhr183",
@@ -5045,11 +4874,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Suhr Pipes, Canted Tulip w. horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Suhr Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Suhr Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Suhr-Pipes-Canted-Tulip-w-horn-The-Danish-Pipe-Shop-img-188857-w500-h196.jpg",
     "productCode": "suhr180",
@@ -5105,11 +4932,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Suhr Pipes, Pear w. horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Suhr Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Suhr Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Suhr-Pipes-Pear-w-horn-The-Danish-Pipe-Shop-img-188863-w500-h193.jpg",
     "productCode": "suhr181",
@@ -5165,11 +4990,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Tao, Straight Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tao",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Tao"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tao-Straight-Rhodesian-The-Danish-Pipe-Shop-img-186026-w500-h211.jpg",
     "productCode": "tao244",
@@ -5225,11 +5048,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Tao, The Tao Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tao",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Tao"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tao-The-Tao-Bulldog-The-Danish-Pipe-Shop-img-186032-w500-h232.jpg",
     "productCode": "tao245",
@@ -5286,11 +5107,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Tine Balleby, Bent Brandy w. Box Wood, Virgin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tine Balleby",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Tine Balleby"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tine-Balleby-Bent-Brandy-w-Box-Wood-Virgin-The-Danish-Pipe-Shop-img-173461-w500-h323.jpg",
     "productCode": "tb12",
@@ -5347,11 +5166,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Tine Balleby, Canted Facet Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tine Balleby",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Tine Balleby"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tine-Balleby-Canted-Facet-Bulldog-The-Danish-Pipe-Shop-img-173449-w500-h215.jpg",
     "productCode": "tb10",
@@ -5410,11 +5227,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Tom Eltang, Ant w. stand, SNAIL 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tom Eltang",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Tom Eltang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tom-Eltang-Ant-w-stand-SNAIL-The-Danish-Pipe-Shop-img-187428-w500-h277.jpg",
     "productCode": "TE1725",
@@ -5470,11 +5285,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Tom Eltang, Empire State Volcano, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tom Eltang",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Tom Eltang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tom-Eltang-Empire-State-Volcano-Sand-The-Danish-Pipe-Shop-img-190756-w500-h246.jpg",
     "productCode": "TE1758",
@@ -5530,11 +5343,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Tom Eltang, Empire State Volcano, SNAIL 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tom Eltang",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Tom Eltang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tom-Eltang-Empire-State-Volcano-SNAIL-The-Danish-Pipe-Shop-img-190762-w500-h208.jpg",
     "productCode": "TE1759",
@@ -5590,11 +5401,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Tom Eltang, Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tom Eltang",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Tom Eltang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tom-Eltang-Horn-The-Danish-Pipe-Shop-img-188391-w500-h163.jpg",
     "productCode": "TE1756",
@@ -5651,11 +5460,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Tom Eltang, Panelled Dublin Sitter, SNAIL 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Tom Eltang",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Tom Eltang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Tom-Eltang-Panelled-Dublin-Sitter-SNAIL-The-Danish-Pipe-Shop-img-190768-w500-h202.jpg",
     "productCode": "TE1760",
@@ -5712,11 +5519,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Vauen, Pipe of the year 2026, Rhodesian, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Vauen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Vauen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Vauen-Pipe-of-the-year-2026-Rhodesian-Smooth-The-Danish-Pipe-Shop-img-192330-w500-h318.jpg",
     "productCode": "JP26-01",
@@ -5773,11 +5578,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Volkan, 2025 Limited Edition, \"Tony\", 38/80 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Volkan",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Volkan"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Volkan-2025-Limited-Edition-Tony-38-80-The-Danish-Pipe-Shop-img-190932-w500-h265.jpg",
     "productCode": "vp260",
@@ -5833,11 +5636,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Volkan, Grade Pheonix, Rhodesian w. Olive Wood 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Volkan",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Volkan"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Volkan-Grade-Pheonix-Rhodesian-w-Olive-Wood-The-Danish-Pipe-Shop-img-190952-w500-h180.jpg",
     "productCode": "vp263",
@@ -5893,11 +5694,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Volkan, Grade Phoenix, Ilsted Facet Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Volkan",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Volkan"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Volkan-Grade-Phoenix-Ilsted-Facet-Bulldog-The-Danish-Pipe-Shop-img-166804-w500-h171.jpg",
     "productCode": "vp248",
@@ -5954,11 +5753,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Volkan, VIP, Brandy w. Cultural Amber, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Volkan",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Volkan"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Volkan-VIP-Brandy-w-Cultural-Amber-9-mm-The-Danish-Pipe-Shop-img-190939-w500-h301.jpg",
     "productCode": "vp261",
@@ -6017,11 +5814,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 140, Dublin, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-140-Dublin-Black-Brown-The-Danish-Pipe-Shop-img-189270-w500-h191.jpg",
     "productCode": "wol124",
@@ -6080,11 +5875,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 29, Billard, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-29-Billard-Black-Brown-The-Danish-Pipe-Shop-img-190177-w500-h186.jpg",
     "productCode": "wol153",
@@ -6143,11 +5936,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 29, Billard, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-29-Billard-Black-Brown-The-Danish-Pipe-Shop-img-191000-w500-h190.jpg",
     "productCode": "wol173",
@@ -6206,11 +5997,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 62, Freehand, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-62-Freehand-Black-Brown-The-Danish-Pipe-Shop-img-189856-w500-h193.jpg",
     "productCode": "wol133",
@@ -6269,11 +6058,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 62, Freehand, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-62-Freehand-Black-Brown-The-Danish-Pipe-Shop-img-191241-w500-h206.jpg",
     "productCode": "wol205",
@@ -6332,11 +6119,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 62, Freehand, Flawless 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-62-Freehand-Flawless-The-Danish-Pipe-Shop-img-189174-w500-h206.jpg",
     "productCode": "wol117",
@@ -6395,11 +6180,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 62, Freehand, Flawless 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-62-Freehand-Flawless-The-Danish-Pipe-Shop-img-189183-w500-h195.jpg",
     "productCode": "wol118",
@@ -6457,11 +6240,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "W. O. Larsen, Model 62, Freehand, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-62-Freehand-Sand-The-Danish-Pipe-Shop-img-191941-w500-h208.jpg",
     "productCode": "wol232",
@@ -6520,11 +6301,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 83, B. Billard, Straight Grain 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-83-B-Billard-Straight-Grain-The-Danish-Pipe-Shop-img-189225-w500-h248.jpg",
     "productCode": "wol105",
@@ -6583,11 +6362,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "W. O. Larsen, Model 83, Billard, Black Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "W. O. Larsen",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "W. O. Larsen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/W-O-Larsen-Model-83-Billard-Black-Brown-The-Danish-Pipe-Shop-img-191204-w500-h242.jpg",
     "productCode": "wol199",
@@ -6642,11 +6419,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "罗普 Etudiant J20 斗牛犬型 喷砂款 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "罗普 Etudiant J20 斗牛犬型 喷砂款",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "罗普 Etudiant J20 斗牛犬型 喷砂款"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ropp-Buis-373-Bulldog-w-box-wood-Sand-9-mm-The-Danish-Pipe-Shop-img-190511-w500-h175.jpg",
     "productCode": "Ropp 373",
@@ -6700,11 +6475,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "罗普 Etudiant J20 斗牛犬型 喷砂款 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "罗普 Etudiant J20 斗牛犬型 喷砂款",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "罗普 Etudiant J20 斗牛犬型 喷砂款"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ropp-Etudiant-J20-Bulldog-Sand-The-Danish-Pipe-Shop-img-187593-w500-h160.jpg",
     "productCode": "Ropp J20",
@@ -6761,11 +6534,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, Silver Top Lady Leg 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-Silver-Top-Lady-Leg-The-Danish-Pipe-Shop-img-146663-w500-h208.jpg",
     "productCode": "AJ44",
@@ -6823,11 +6594,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, Straight Grain Freehand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-Straight-Grain-Freehand-The-Danish-Pipe-Shop-img-170936-w500-h253.jpg",
     "productCode": "AJ52",
@@ -6884,11 +6653,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, The Flower 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-The-Flower-The-Danish-Pipe-Shop-img-146669-w500-h227.jpg",
     "productCode": "AJ45",
@@ -6945,11 +6712,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Anne Julie, Tulip Lovat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Anne Julie",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Anne Julie"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Anne-Julie-Tulip-Lovat-The-Danish-Pipe-Shop-img-170928-w500-h225.jpg",
     "productCode": "AJ51",
@@ -7005,11 +6770,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Bent Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Bent-Rhodesian-The-Danish-Pipe-Shop-img-184909-w500-h271.jpg",
     "productCode": "bay315",
@@ -7065,11 +6828,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Classic Billard w. Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Classic-Billard-w-Horn-The-Danish-Pipe-Shop-img-192403-w500-h182.jpg",
     "productCode": "bay334",
@@ -7125,11 +6886,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Classic Dublin w. Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Classic-Dublin-w-Horn-The-Danish-Pipe-Shop-img-192397-w500-h195.jpg",
     "productCode": "bay332",
@@ -7185,11 +6944,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Dublin Sitter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Dublin-Sitter-The-Danish-Pipe-Shop-img-192385-w500-h315.jpg",
     "productCode": "bay330",
@@ -7244,11 +7001,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Full Bent Dublin w. bamboo 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Full-Bent-Dublin-w-bamboo-The-Danish-Pipe-Shop-img-184886-w500-h1090.jpg",
     "productCode": "bay311",
@@ -7304,11 +7059,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Hobo Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Hobo-Poker-The-Danish-Pipe-Shop-img-184968-w500-h236.jpg",
     "productCode": "Bay325",
@@ -7364,11 +7117,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Hobo Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Hobo-Poker-The-Danish-Pipe-Shop-img-192427-w500-h253.jpg",
     "productCode": "bay338",
@@ -7424,11 +7175,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Hobo Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Hobo-Poker-The-Danish-Pipe-Shop-img-192433-w500-h250.jpg",
     "productCode": "bay339",
@@ -7484,11 +7233,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Horn-The-Danish-Pipe-Shop-img-184915-w500-h175.jpg",
     "productCode": "bay316",
@@ -7544,11 +7291,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Horn w. Cumberland 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Horn-w-Cumberland-The-Danish-Pipe-Shop-img-192391-w500-h196.jpg",
     "productCode": "bay331",
@@ -7604,11 +7349,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Pumpkin Rusticated Billard w. horn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Pumpkin-Rusticated-Billard-w-horn-The-Danish-Pipe-Shop-img-184862-w500-h184.jpg",
     "productCode": "bay327",
@@ -7664,11 +7407,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Rusticated Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Rusticated-Bent-Billard-The-Danish-Pipe-Shop-img-192421-w500-h315.jpg",
     "productCode": "bay337",
@@ -7722,11 +7463,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Bay Denmark, Rusticated Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Bay Denmark",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Bay Denmark"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Bay-Denmark-Rusticated-Brandy-The-Danish-Pipe-Shop-img-134045-w500-h212.jpg",
     "productCode": "bay263",
@@ -7778,11 +7517,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 304S, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-304S-Bent-Billard-The-Danish-Pipe-Shop-img-79247-w500-h289.jpg",
     "productCode": "Arsenal 304S",
@@ -7836,11 +7573,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 403S, Classic Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-403S-Classic-Bulldog-The-Danish-Pipe-Shop-img-175875-w500-h178.jpg",
     "productCode": "Arsenal 403S",
@@ -7892,11 +7627,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BBB, Arsenal 606, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-606-Billard-The-Danish-Pipe-Shop-img-79259-w500-h185.jpg",
     "productCode": "Arsenal 606",
@@ -7948,11 +7681,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 607, Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-607-Rhodesian-The-Danish-Pipe-Shop-img-79267-w500-h173.jpg",
     "productCode": "Arsenal MBP",
@@ -8004,11 +7735,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 675, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-675-Billard-The-Danish-Pipe-Shop-img-79271-w500-h178.jpg",
     "productCode": "Arsenal 675",
@@ -8062,11 +7791,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BBB, Arsenal 722S, Bent Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-722S-Bent-Diplomat-The-Danish-Pipe-Shop-img-181935-w500-h164.jpg",
     "productCode": "Arsenal 722S N",
@@ -8118,11 +7845,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BBB, Arsenal 722S, Bent Stubby Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-722S-Bent-Stubby-Diplomat-The-Danish-Pipe-Shop-img-172829-w500-h193.jpg",
     "productCode": "Arsenal 722S S",
@@ -8174,11 +7899,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 745, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-745-Billard-The-Danish-Pipe-Shop-img-67030-w500-h211.jpg",
     "productCode": "Arsenal 745",
@@ -8230,11 +7953,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Arsenal 746, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Arsenal-746-Billard-The-Danish-Pipe-Shop-img-79275-w500-h175.jpg",
     "productCode": "Arsenal 746",
@@ -8286,11 +8007,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 304S, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-304S-Bent-Billard-The-Danish-Pipe-Shop-img-35834-w500-h322.jpg",
     "productCode": "Chelsea 304S",
@@ -8344,11 +8063,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 403S, Classic Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-403S-Classic-Bulldog-The-Danish-Pipe-Shop-img-175879-w500-h182.jpg",
     "productCode": "Chelsea 403S",
@@ -8400,11 +8117,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 606, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-606-Billard-The-Danish-Pipe-Shop-img-131046-w500-h177.jpg",
     "productCode": "Chelsea 606",
@@ -8456,11 +8171,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 607, Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-607-Rhodesian-The-Danish-Pipe-Shop-img-79251-w500-h179.jpg",
     "productCode": "Chelsea 607",
@@ -8512,11 +8225,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 675, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-675-Billard-The-Danish-Pipe-Shop-img-35842-w500-h213.jpg",
     "productCode": "Chelsea 675",
@@ -8568,11 +8279,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BBB, Chelsea 722S, Bent Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-722S-Bent-Diplomat-The-Danish-Pipe-Shop-img-38755-w500-h198.jpg",
     "productCode": "Chelsea 722S N",
@@ -8626,11 +8335,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 722S, Bent Stubby Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-722S-Bent-Stubby-Diplomat-The-Danish-Pipe-Shop-img-181943-w500-h186.jpg",
     "productCode": "Chelsea 722S S",
@@ -8682,11 +8389,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 745, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-745-Billard-The-Danish-Pipe-Shop-img-35846-w500-h221.jpg",
     "productCode": "Chelsea 745",
@@ -8738,11 +8443,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BBB, Chelsea 746, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BBB",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BBB"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BBB-Chelsea-746-Billard-The-Danish-Pipe-Shop-img-35850-w500-h217.jpg",
     "productCode": "Chelsea 746",
@@ -8799,11 +8502,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Benni Jørgensen, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Benni Jørgensen",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Benni Jørgensen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Benni-Joergensen-Bent-Brandy-The-Danish-Pipe-Shop-img-180742-w500-h211.jpg",
     "productCode": "benni101",
@@ -8860,11 +8561,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Barrel-Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Barrel-Billard-The-Danish-Pipe-Shop-img-191360-w500-h169.jpg",
     "productCode": "IB124",
@@ -8920,11 +8619,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Bent Apple w. Platan Ring 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Bent-Apple-w-Platan-Ring-The-Danish-Pipe-Shop-img-168683-w500-h221.jpg",
     "productCode": "IB100",
@@ -8980,11 +8677,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Bent-Brandy-The-Danish-Pipe-Shop-img-191336-w500-h203.jpg",
     "productCode": "IB120",
@@ -9040,11 +8735,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Bent-Brandy-The-Danish-Pipe-Shop-img-191373-w500-h195.jpg",
     "productCode": "IB126",
@@ -9098,11 +8791,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Bent Canoe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Bent-Canoe-The-Danish-Pipe-Shop-img-117422-w500-h274.jpg",
     "productCode": "IB60",
@@ -9158,11 +8849,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Bent Canoe, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Bent-Canoe-Sand-The-Danish-Pipe-Shop-img-191367-w500-h283.jpg",
     "productCode": "IB125",
@@ -9218,11 +8907,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Billard w. elk bone 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Billard-w-elk-bone-The-Danish-Pipe-Shop-img-191354-w500-h162.jpg",
     "productCode": "IB123",
@@ -9278,11 +8965,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Billard w. silver ring 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Billard-w-silver-ring-The-Danish-Pipe-Shop-img-168670-w500-h175.jpg",
     "productCode": "IB98",
@@ -9338,11 +9023,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Dublin w. brass 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Dublin-w-brass-The-Danish-Pipe-Shop-img-191348-w500-h155.jpg",
     "productCode": "IB122",
@@ -9398,11 +9081,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Model 86, Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Model-86-Diplomat-The-Danish-Pipe-Shop-img-171838-w500-h186.jpg",
     "productCode": "IB111",
@@ -9458,11 +9139,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Model 86, Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Model-86-Diplomat-The-Danish-Pipe-Shop-img-171850-w500-h188.jpg",
     "productCode": "IB113",
@@ -9518,11 +9197,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Model 86, Diplomat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Model-86-Diplomat-The-Danish-Pipe-Shop-img-171862-w500-h184.jpg",
     "productCode": "IB115",
@@ -9578,11 +9255,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Oval Dublin w. Stabilised Papyrus 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Oval-Dublin-w-Stabilised-Papyrus-The-Danish-Pipe-Shop-img-168664-w500-h159.jpg",
     "productCode": "IB97",
@@ -9638,11 +9313,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Poker w. Papyrus Ring 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Poker-w-Papyrus-Ring-The-Danish-Pipe-Shop-img-157936-w500-h224.jpg",
     "productCode": "IB95",
@@ -9698,11 +9371,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Berggreen Pipes, Pot w. bamboo 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Berggreen Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Berggreen Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Berggreen-Pipes-Pot-w-bamboo-The-Danish-Pipe-Shop-img-191318-w500-h126.jpg",
     "productCode": "IB117",
@@ -9752,11 +9423,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Brushed Churchwarden Pipe, Acorn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Brushed Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Brushed Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Acorn-The-Danish-Pipe-Shop-img-96611-w500-h254.jpg",
     "productCode": "69-679",
@@ -9806,11 +9475,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Brushed Churchwarden Pipe, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Brushed Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Brushed Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Bent-Billard-The-Danish-Pipe-Shop-img-96613-w500-h249.jpg",
     "productCode": "73-941",
@@ -9860,11 +9527,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Brushed Churchwarden Pipe, Medium Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Brushed Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Brushed Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Medium-Dublin-The-Danish-Pipe-Shop-img-144298-w500-h139.jpg",
     "productCode": "69-683",
@@ -9909,11 +9574,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Churchwarden's, Seven Day Set, Assorted 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Churchwarden's",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Churchwarden's"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwardens-Seven-Day-Set-Assorted-The-Danish-Pipe-Shop-img-144296-w500-h310.jpg",
     "productCode": "BPK-SET-MIX",
@@ -9965,11 +9628,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Mini Churchwarden Pipe, Mini Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Mini Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Mini Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Billard-The-Danish-Pipe-Shop-img-26391-w500-h123.jpg",
     "productCode": "69-01",
@@ -10021,11 +9682,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK Mini Churchwarden Pipe, Mini Dublin Rusticated 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Mini Churchwarden Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK Mini Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Dublin-Rusticated-The-Danish-Pipe-Shop-img-107517-w500-h117.jpg",
     "productCode": "63-611 Rust",
@@ -10079,11 +9738,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Mini Churchwarden Pipe, Mini Dublin Sandblast 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Mini Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Mini Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Dublin-Sandblast-The-Danish-Pipe-Shop-img-182037-w500-h121.jpg",
     "productCode": "63-911 Sand",
@@ -10133,11 +9790,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Rusticated Churchwarden Pipe, Medium Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Rusticated Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Rusticated Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Rusticated-Churchwarden-Pipe-Medium-Dublin-The-Danish-Pipe-Shop-img-144302-w500-h145.jpg",
     "productCode": "69-983",
@@ -10191,11 +9846,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Smooth Churchwarden Pipe, Classic Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Smooth Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Smooth Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Classic-Bent-Billard-The-Danish-Pipe-Shop-img-167591-w500-h343.jpg",
     "productCode": "73-35 S",
@@ -10245,11 +9898,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK Smooth Churchwarden Pipe, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK Smooth Churchwarden Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK Smooth Churchwarden Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Dublin-The-Danish-Pipe-Shop-img-35657-w500-h151.jpg",
     "productCode": "69-43 S",
@@ -10301,11 +9952,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6127-Billard-The-Danish-Pipe-Shop-img-167548-w500-h164.jpg",
     "productCode": "61-27B",
@@ -10357,11 +10006,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-6127-Billard-The-Danish-Pipe-Shop-img-167579-w500-h161.jpg",
     "productCode": "61-27V",
@@ -10413,11 +10060,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-6129-Slim-Stacked-Billard-The-Danish-Pipe-Shop-img-167581-w500-h169.jpg",
     "productCode": "61-29V",
@@ -10469,11 +10114,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6165-Robust-Brandy-The-Danish-Pipe-Shop-img-167550-w500-h174.jpg",
     "productCode": "61-65B",
@@ -10525,11 +10168,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-6165-Robust-Brandy-The-Danish-Pipe-Shop-img-167583-w500-h175.jpg",
     "productCode": "61-65V",
@@ -10581,11 +10222,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6179-Billard-The-Danish-Pipe-Shop-img-167552-w500-h173.jpg",
     "productCode": "61-79B",
@@ -10637,11 +10276,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-6179-Billard-The-Danish-Pipe-Shop-img-167585-w500-h179.jpg",
     "productCode": "61-79V",
@@ -10693,11 +10330,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6183-Billard-The-Danish-Pipe-Shop-img-167554-w500-h170.jpg",
     "productCode": "61-83B",
@@ -10749,11 +10384,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6187-Billard-The-Danish-Pipe-Shop-img-167556-w500-h180.jpg",
     "productCode": "61-87B",
@@ -10805,11 +10438,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-6187-Billard-The-Danish-Pipe-Shop-img-167587-w500-h182.jpg",
     "productCode": "61-87V",
@@ -10861,11 +10492,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-6246-Apple-The-Danish-Pipe-Shop-img-167558-w500-h161.jpg",
     "productCode": "62-46B",
@@ -10917,11 +10546,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-7341-Bent-Billard-The-Danish-Pipe-Shop-img-167560-w500-h268.jpg",
     "productCode": "73-41B",
@@ -10973,11 +10600,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Barry, 1 Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Vibel-7341-Bent-Billard-The-Danish-Pipe-Shop-img-167589-w500-h270.jpg",
     "productCode": "73-41V",
@@ -10995,67 +10620,6 @@ export const danishProducts: DanishPipeProduct[] = [
     "imageMatchStatus": "galleryScoped",
     "imageMatchNotes": "图片来自 Danish 商品详情主图/缩略图区域，并通过 enlargemedia 解析。",
     "galleryCount": 2
-  },
-  {
-    "id": 32447,
-    "brand": "BPK",
-    "name": "BPK, Barry, Seven (7) Pipes",
-    "originalPrice": "$ 290,16",
-    "originalCurrency": "USD",
-    "originalPriceValue": 290.16,
-    "estimatedCny": "约 ¥2,118",
-    "estimatedCnyValue": 2118,
-    "source": "The Danish Pipe Shop",
-    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/BPK-Barry-Seven-7-Pipes-i32447.html",
-    "imageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167562-w500-h196.jpg",
-    "galleryImages": [
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167562-w500-h196.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167563-w500-h164.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167564-w500-h158.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167565-w500-h174.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167566-w500-h181.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167567-w500-h173.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167568-w500-h175.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167569-w500-h170.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167572-w500-h165.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167573-w500-h180.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167574-w500-h184.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167575-w500-h161.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167576-w500-h160.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167577-w500-h268.jpg",
-      "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167578-w500-h283.jpg"
-    ],
-    "specsText": [],
-    "condition": "新斗",
-    "status": "可购买",
-    "updatedAt": "2026-06-05 07:53",
-    "audience": "海外烟斗器具关注者 / 人工确认咨询",
-    "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
-    "detail": "BPK, Barry, Seven (7) Pipes 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
-    "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
-      "新斗",
-      "多图完整",
-      "参数待补充"
-    ],
-    "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Barry-Seven-7-Pipes-The-Danish-Pipe-Shop-img-167562-w500-h196.jpg",
-    "productCode": "7Barry",
-    "originalUrl": "https://www.danishpipeshop.com/d/-zh/BPK-Barry-Seven-7-Pipes-i32447.html",
-    "price": "$ 290,16",
-    "conditionType": "new",
-    "smokedStatus": "unsmoked",
-    "conditionLabel": "新斗",
-    "conditionSource": "category",
-    "conditionNotes": "按 Danish 普通 Pipes 栏目判断，详情页未见 Estate / Presmoked / Unsmoked / 星级成色标记，购买前仍建议人工确认。",
-    "estateStatus": null,
-    "estateRatingStars": null,
-    "estateRatingLabel": "",
-    "estateRatingNotes": "未识别 Danish Estate 星级成色。",
-    "imageMatchStatus": "galleryScoped",
-    "imageMatchNotes": "图片来自 Danish 商品详情主图/缩略图区域，并通过 enlargemedia 解析。",
-    "galleryCount": 15
   },
   {
     "id": 6275,
@@ -11088,11 +10652,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Brushed Churchwarden Pipe, Squat Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Squat-Rhodesian-The-Danish-Pipe-Shop-img-144558-w500-h78.jpg",
     "productCode": "64-639",
@@ -11142,11 +10704,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Acorn, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Acorn-Smooth-The-Danish-Pipe-Shop-img-35597-w500-h247.jpg",
     "productCode": "69-79",
@@ -11196,11 +10756,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Apple, Brushed 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Apple-Brushed-The-Danish-Pipe-Shop-img-96605-w500-h93.jpg",
     "productCode": "62-925",
@@ -11250,11 +10808,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Apple, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Apple-Smooth-The-Danish-Pipe-Shop-img-31052-w500-h112.jpg",
     "productCode": "62-25 S",
@@ -11304,11 +10860,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Dublin, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Dublin-Smooth-The-Danish-Pipe-Shop-img-35655-w500-h187.jpg",
     "productCode": "69-83 S",
@@ -11358,11 +10912,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Rhodesian, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Rhodesian-Smooth-The-Danish-Pipe-Shop-img-35669-w500-h147.jpg",
     "productCode": "69-51 S",
@@ -11414,11 +10966,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Small Dublin, Rusticated 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Small-Dublin-Rusticated-The-Danish-Pipe-Shop-img-145291-w500-h235.jpg",
     "productCode": "69-933 Rustic",
@@ -11468,11 +11018,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Small Dublin, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Small-Dublin-Smooth-The-Danish-Pipe-Shop-img-79513-w500-h156.jpg",
     "productCode": "69-33 Smooth",
@@ -11522,11 +11070,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Churchwarden Pipe, Squat Rhodesian, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwarden-Pipe-Squat-Rhodesian-Smooth-The-Danish-Pipe-Shop-img-31056-w500-h95.jpg",
     "productCode": "64-39 S",
@@ -11581,11 +11127,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Dinky, Short Bent Apple, Dark 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Apple-Dark-The-Danish-Pipe-Shop-img-182529-w500-h281.jpg",
     "productCode": "73-29",
@@ -11639,11 +11183,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Dinky, Short Bent Apple, Light Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Apple-Light-Brown-The-Danish-Pipe-Shop-img-182065-w500-h273.jpg",
     "productCode": "73-29 LB",
@@ -11698,11 +11240,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Billard-The-Danish-Pipe-Shop-img-157195-w500-h189.jpg",
     "productCode": "73-28",
@@ -11757,11 +11297,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Dinky, Short Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Dublin-The-Danish-Pipe-Shop-img-157180-w500-h196.jpg",
     "productCode": "69-32",
@@ -11815,11 +11353,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Dinky, Short Bent Rhodesian, Dark 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Rhodesian-Dark-The-Danish-Pipe-Shop-img-96619-w500-h191.jpg",
     "productCode": "64-12 Dark",
@@ -11873,11 +11409,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Bent Rhodesian, Light Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Rhodesian-Light-Brown-The-Danish-Pipe-Shop-img-182049-w500-h182.jpg",
     "productCode": "64-12 LB",
@@ -11931,11 +11465,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Bent Rhodesian, Red Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Bent-Rhodesian-Red-Brown-The-Danish-Pipe-Shop-img-182061-w500-h185.jpg",
     "productCode": "64-12 Red",
@@ -11990,11 +11522,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Straight Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Straight-Dublin-The-Danish-Pipe-Shop-img-157190-w500-h195.jpg",
     "productCode": "63-08",
@@ -12048,11 +11578,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Straight Dublin, Light Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Straight-Dublin-Light-Brown-The-Danish-Pipe-Shop-img-182053-w500-h188.jpg",
     "productCode": "63-08 LB",
@@ -12106,11 +11634,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Dinky, Short Straight Dublin, Red Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Short-Straight-Dublin-Red-Brown-The-Danish-Pipe-Shop-img-182057-w500-h192.jpg",
     "productCode": "63-08 Red",
@@ -12164,11 +11690,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Dinky, Slight Bent Apple-Billard, Light Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Dinky-Slight-Bent-Apple-Billard-Light-Brown-The-Danish-Pipe-Shop-img-182045-w500-h179.jpg",
     "productCode": "62-12 LB",
@@ -12220,11 +11744,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Bent Acorn, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Bent-Acorn-9-mm-The-Danish-Pipe-Shop-img-55175-w500-h189.jpg",
     "productCode": "6915 S",
@@ -12276,11 +11798,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Bent Billard, Dark, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Bent-Billard-Dark-9-mm-The-Danish-Pipe-Shop-img-55167-w500-h305.jpg",
     "productCode": "7331dark",
@@ -12332,11 +11852,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Bent Billard, Red, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Bent-Billard-Red-9-mm-The-Danish-Pipe-Shop-img-55171-w500-h293.jpg",
     "productCode": "7331 RED",
@@ -12388,11 +11906,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "BPK, Kenvelo, Bent Dublin, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Bent-Dublin-9-mm-The-Danish-Pipe-Shop-img-55163-w500-h210.jpg",
     "productCode": "69-61",
@@ -12444,11 +11960,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Bent Saddle Stem Billard, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Bent-Saddle-Stem-Billard-9-mm-The-Danish-Pipe-Shop-img-55179-w500-h245.jpg",
     "productCode": "7366",
@@ -12502,11 +12016,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Saddle Stem Billard, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Saddle-Stem-Billard-9-mm-The-Danish-Pipe-Shop-img-182041-w500-h171.jpg",
     "productCode": "6164 Saddle",
@@ -12558,11 +12070,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Saddle Stem Billard, Dark, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Saddle-Stem-Billard-Dark-9-mm-The-Danish-Pipe-Shop-img-125940-w500-h173.jpg",
     "productCode": "6154 DARK",
@@ -12614,11 +12124,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Kenvelo, Saddle Stem Billard, Red, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Kenvelo-Saddle-Stem-Billard-Red-9-mm-The-Danish-Pipe-Shop-img-96597-w500-h180.jpg",
     "productCode": "6154 RED",
@@ -12670,11 +12178,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Mini Churchwarden Pipe, Mini Dublin, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Dublin-Smooth-The-Danish-Pipe-Shop-img-107513-w500-h111.jpg",
     "productCode": "63-11 Smooth",
@@ -12728,11 +12234,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Mini Churchwarden Pipe, Rhodesian, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Rhodesian-Smooth-The-Danish-Pipe-Shop-img-182033-w500-h94.jpg",
     "productCode": "64-03 Smooth",
@@ -12782,11 +12286,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "BPK, Rusticated Churchwarden Pipe, Acorn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "BPK",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Rusticated-Churchwarden-Pipe-Acorn-The-Danish-Pipe-Shop-img-144300-w500-h210.jpg",
     "productCode": "69-979",
@@ -12841,11 +12343,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Bent Egg w. helmet, Selected, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Bent-Egg-w-helmet-Selected-9-mm-The-Danish-Pipe-Shop-img-146837-w500-h481.jpg",
     "productCode": "breb191",
@@ -12900,11 +12400,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Bent Egg w. helmet, Selected, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Bent-Egg-w-helmet-Selected-9-mm-The-Danish-Pipe-Shop-img-146842-w500-h476.jpg",
     "productCode": "breb192",
@@ -12958,11 +12456,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Buzzi, Bent Hawkbill, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Buzzi-Bent-Hawkbill-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-146855-w500-h372.jpg",
     "productCode": "breb196",
@@ -13017,11 +12513,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Buzzi, Bent Hawkbill, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Buzzi-Bent-Hawkbill-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-147893-w500-h389.jpg",
     "productCode": "breb198",
@@ -13076,11 +12570,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-169946-w500-h348.jpg",
     "productCode": "breb222",
@@ -13135,11 +12627,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-169956-w500-h355.jpg",
     "productCode": "breb223",
@@ -13194,11 +12684,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-169967-w500-h332.jpg",
     "productCode": "breb224",
@@ -13253,11 +12741,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Rustic-9-mm-The-Danish-Pipe-Shop-img-170017-w500-h349.jpg",
     "productCode": "breb233",
@@ -13312,11 +12798,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Sand, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Sand-9-mm-The-Danish-Pipe-Shop-img-169987-w500-h370.jpg",
     "productCode": "breb230",
@@ -13371,11 +12855,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Selected, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Selected-9-mm-The-Danish-Pipe-Shop-img-169962-w500-h366.jpg",
     "productCode": "breb225",
@@ -13430,11 +12912,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Selected, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Selected-9-mm-The-Danish-Pipe-Shop-img-169972-w500-h351.jpg",
     "productCode": "breb227",
@@ -13489,11 +12969,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Selected, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Selected-9-mm-The-Danish-Pipe-Shop-img-170466-w500-h356.jpg",
     "productCode": "breb237",
@@ -13549,11 +13027,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, First 1997, Calabash, Virgin **, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-First-1997-Calabash-Virgin-9-mm-The-Danish-Pipe-Shop-img-191145-w500-h360.jpg",
     "productCode": "breb245",
@@ -13608,11 +13084,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, MPB, Naif 7069, Amber Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-MPB-Naif-7069-Amber-Smooth-9-mm-The-Danish-Pipe-Shop-img-145996-w500-h301.jpg",
     "productCode": "breb180",
@@ -13666,11 +13140,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, MPB, Naif 7069, Hybrid Rusticated, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-MPB-Naif-7069-Hybrid-Rusticated-9-mm-The-Danish-Pipe-Shop-img-145983-w500-h301.jpg",
     "productCode": "breb178",
@@ -13724,11 +13196,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, MPB, Naif 7069, Hybrid Rusticated, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-MPB-Naif-7069-Hybrid-Rusticated-9-mm-The-Danish-Pipe-Shop-img-145992-w500-h298.jpg",
     "productCode": "breb179",
@@ -13782,11 +13252,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7013, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7013-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-169919-w500-h194.jpg",
     "productCode": "breb216",
@@ -13840,11 +13308,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7013, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7013-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-169923-w500-h193.jpg",
     "productCode": "breb217",
@@ -13898,11 +13364,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7013, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7013-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-169927-w500-h198.jpg",
     "productCode": "breb218",
@@ -13956,11 +13420,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7013, Hybrid, Sand, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7013-Hybrid-Sand-9-mm-The-Danish-Pipe-Shop-img-169889-w500-h196.jpg",
     "productCode": "breb208",
@@ -14015,11 +13477,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-186195-w500-h295.jpg",
     "productCode": "breb243",
@@ -14074,11 +13534,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Dark Smooth, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Dark-Smooth-9-mm-The-Danish-Pipe-Shop-img-186200-w500-h303.jpg",
     "productCode": "breb244",
@@ -14133,11 +13591,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Pura, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Pura-9-mm-The-Danish-Pipe-Shop-img-169936-w500-h328.jpg",
     "productCode": "breb220",
@@ -14192,11 +13648,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Pura, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Pura-9-mm-The-Danish-Pipe-Shop-img-169941-w500-h339.jpg",
     "productCode": "breb221",
@@ -14250,11 +13704,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-169910-w500-h294.jpg",
     "productCode": "breb213",
@@ -14309,11 +13761,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-169914-w500-h304.jpg",
     "productCode": "breb214",
@@ -14368,11 +13818,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Rustic-9-mm-The-Danish-Pipe-Shop-img-170476-w500-h295.jpg",
     "productCode": "breb239",
@@ -14426,11 +13874,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Sand, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Sand-9-mm-The-Danish-Pipe-Shop-img-186187-w500-h322.jpg",
     "productCode": "breb241",
@@ -14484,11 +13930,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Brebbia, Naif 7069, Hybrid, Sand, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Brebbia",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Brebbia"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Brebbia-Naif-7069-Hybrid-Sand-9-mm-The-Danish-Pipe-Shop-img-186191-w500-h305.jpg",
     "productCode": "breb242",
@@ -14544,11 +13988,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Collection, Curvy Top Billard, KK 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Collection-Curvy-Top-Billard-KK-The-Danish-Pipe-Shop-img-188615-w500-h193.jpg",
     "productCode": "cas1132",
@@ -14604,11 +14046,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Old Antiquari, Billard Sitter, 4K 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Old-Antiquari-Billard-Sitter-4K-The-Danish-Pipe-Shop-img-170817-w500-h198.jpg",
     "productCode": "cas1084",
@@ -14664,11 +14104,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Old Antiquari, Opera, KK 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Old-Antiquari-Opera-KK-The-Danish-Pipe-Shop-img-181002-w500-h199.jpg",
     "productCode": "cas1102",
@@ -14724,11 +14162,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Old Antiquari, Stubby Liverpool, KK 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Old-Antiquari-Stubby-Liverpool-KK-The-Danish-Pipe-Shop-img-188509-w500-h230.jpg",
     "productCode": "cas1127",
@@ -14784,11 +14220,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Sea Rock, Canadian Sitter, 4K 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Sea-Rock-Canadian-Sitter-4K-The-Danish-Pipe-Shop-img-188415-w500-h224.jpg",
     "productCode": "cas1116",
@@ -14844,11 +14278,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Sea Rock, Dublin, 4K 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Sea-Rock-Dublin-4K-The-Danish-Pipe-Shop-img-188409-w500-h194.jpg",
     "productCode": "cas1115",
@@ -14904,11 +14336,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Sea Rock, Lovat, G 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Sea-Rock-Lovat-G-The-Danish-Pipe-Shop-img-188397-w500-h209.jpg",
     "productCode": "cas1113",
@@ -14964,11 +14394,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Castello, Sea Rock, Petite Army Mount Billard, KK 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Castello",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Castello"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Castello-Sea-Rock-Petite-Army-Mount-Billard-KK-The-Danish-Pipe-Shop-img-180993-w500-h162.jpg",
     "productCode": "cas1100",
@@ -15020,11 +14448,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina 99, Canted Egg 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-99-Canted-Egg-The-Danish-Pipe-Shop-img-130632-w500-h174.jpg",
     "productCode": "Alpina 99",
@@ -15076,11 +14502,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina Mat 13, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-Mat-13-Bent-Billard-The-Danish-Pipe-Shop-img-83464-w500-h260.jpg",
     "productCode": "Alpina Mat 13",
@@ -15132,11 +14556,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina Mat 157, Barrel Sitter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-Mat-157-Barrel-Sitter-The-Danish-Pipe-Shop-img-121052-w500-h182.jpg",
     "productCode": "Alpina 157 Mat",
@@ -15188,11 +14610,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina Mat 32, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-Mat-32-Dublin-The-Danish-Pipe-Shop-img-83468-w500-h181.jpg",
     "productCode": "Alpina Mat 32",
@@ -15246,11 +14666,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Alpina Mat 95, Bent Acorn Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Alpina-Mat-95-Bent-Acorn-Dublin-The-Danish-Pipe-Shop-img-85605-w500-h199.jpg",
     "productCode": "Alpina 95 Mat",
@@ -15306,11 +14724,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Anton, Canted Egg, Natural Brilliant 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Natural-Brilliant-The-Danish-Pipe-Shop-img-187613-w500-h175.jpg",
     "productCode": "Anton nature briliant",
@@ -15364,11 +14780,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Anton, Canted Egg, Natural Orange 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Natural-Orange-The-Danish-Pipe-Shop-img-130631-w500-h176.jpg",
     "productCode": "Anton Natural Orange",
@@ -15422,11 +14836,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Anton, Canted Egg, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Sand-The-Danish-Pipe-Shop-img-187625-w500-h176.jpg",
     "productCode": "Chacom, Anton, Sand",
@@ -15478,11 +14890,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Anton, Canted Egg, Smooth Grey 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Smooth-Grey-The-Danish-Pipe-Shop-img-41447-w500-h189.jpg",
     "productCode": "Chacom, Anton, Grey",
@@ -15534,11 +14944,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Anton, Canted Egg, Smooth Grey Matte 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Smooth-Grey-Matte-The-Danish-Pipe-Shop-img-28747-w500-h217.jpg",
     "productCode": "Chacom, Anton, Smooth Grey Matte",
@@ -15590,11 +14998,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Anton, Canted Egg, Smooth Matte Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Smooth-Matte-Brown-The-Danish-Pipe-Shop-img-41435-w500-h188.jpg",
     "productCode": "Chacom, Anton, Matte Brown",
@@ -15648,11 +15054,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Anton, Canted Egg, Smooth Red/Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Smooth-Red-Brown-The-Danish-Pipe-Shop-img-41439-w500-h181.jpg",
     "productCode": "Chacom, Anton, Smooth Red",
@@ -15706,11 +15110,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Anton, Canted Egg, Smooth Vine Peach 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Anton-Canted-Egg-Smooth-Vine-Peach-The-Danish-Pipe-Shop-img-163816-w500-h173.jpg",
     "productCode": "Chacom, Anton, Vine Peach",
@@ -15762,11 +15164,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Baccara 186, Straight Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Baccara-186-Straight-Billard-Sand-The-Danish-Pipe-Shop-img-117010-w500-h193.jpg",
     "productCode": "Bac186, Sand",
@@ -15818,11 +15218,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Baccara 186, Straight Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Baccara-186-Straight-Billard-Smooth-The-Danish-Pipe-Shop-img-117006-w500-h196.jpg",
     "productCode": "Bac186, Smooth",
@@ -15874,11 +15272,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Baccara 43, Bent Billard, Sandblasted 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Baccara-43-Bent-Billard-Sandblasted-The-Danish-Pipe-Shop-img-117002-w500-h283.jpg",
     "productCode": "Bac43, Sand",
@@ -15930,11 +15326,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Baccara 43, Bent Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Baccara-43-Bent-Billard-Smooth-The-Danish-Pipe-Shop-img-116998-w500-h278.jpg",
     "productCode": "Bac43, Smooth",
@@ -15988,11 +15382,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Berlingot 1513, Bent Billiard, Matte 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Berlingot-1513-Bent-Billiard-Matte-The-Danish-Pipe-Shop-img-185924-w500-h290.jpg",
     "productCode": "Chacom, Berlingot 1513, mat",
@@ -16046,11 +15438,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Berlingot 1595, Facet Rhodesian, Matte 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Berlingot-1595-Facet-Rhodesian-Matte-The-Danish-Pipe-Shop-img-179394-w500-h106.jpg",
     "productCode": "Chacom, Berlingot 1595, Facet Rhodesian, Matte",
@@ -16104,11 +15494,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Berlingot 22, Tulip, Matte 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Berlingot-22-Tulip-Matte-The-Danish-Pipe-Shop-img-179386-w500-h141.jpg",
     "productCode": "Chacom, Berlingot 22, mat",
@@ -16161,11 +15549,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 165, Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-165-Apple-The-Danish-Pipe-Shop-img-139933-w500-h135.jpg",
     "productCode": "classic165",
@@ -16219,11 +15605,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 275, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-275-Billard-The-Danish-Pipe-Shop-img-147276-w500-h165.jpg",
     "productCode": "classic275",
@@ -16276,11 +15660,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 31, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-31-Dublin-The-Danish-Pipe-Shop-img-139937-w500-h179.jpg",
     "productCode": "classic31",
@@ -16334,11 +15716,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 364, Squat Rhodesian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-364-Squat-Rhodesian-The-Danish-Pipe-Shop-img-140677-w500-h137.jpg",
     "productCode": "classic364",
@@ -16392,11 +15772,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 517, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-517-Bent-Dublin-The-Danish-Pipe-Shop-img-146222-w500-h276.jpg",
     "productCode": "classic517",
@@ -16449,11 +15827,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 521, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-521-Bent-Billard-The-Danish-Pipe-Shop-img-139941-w500-h251.jpg",
     "productCode": "classic521",
@@ -16506,11 +15882,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Classic 94, Bent Acorn 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Classic-94-Bent-Acorn-The-Danish-Pipe-Shop-img-139945-w500-h166.jpg",
     "productCode": "classic94",
@@ -16562,11 +15936,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Comfort 106, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-106-Billard-The-Danish-Pipe-Shop-img-65431-w500-h170.jpg",
     "productCode": "Comfort 106",
@@ -16618,11 +15990,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Comfort 13, Bent Billiard, Light Colour 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-13-Bent-Billiard-Light-Colour-The-Danish-Pipe-Shop-img-75677-w500-h282.jpg",
     "productCode": "Comfort 13 New",
@@ -16674,11 +16044,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Comfort 339, Straight Tomato 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-339-Straight-Tomato-The-Danish-Pipe-Shop-img-75685-w500-h144.jpg",
     "productCode": "Comfort 339",
@@ -16730,11 +16098,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Comfort 80, Bulldog, Light Colour 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-80-Bulldog-Light-Colour-The-Danish-Pipe-Shop-img-75681-w500-h176.jpg",
     "productCode": "Comfort 80",
@@ -16788,11 +16154,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Comfort 908, Quarter Bent Pot 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-908-Quarter-Bent-Pot-The-Danish-Pipe-Shop-img-78865-w500-h153.jpg",
     "productCode": "Comfort 908",
@@ -16844,11 +16208,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Comfort, 294, Bent Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Comfort-294-Bent-Bulldog-The-Danish-Pipe-Shop-img-48357-w500-h215.jpg",
     "productCode": "Comfort 294",
@@ -16902,11 +16264,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Éléments 390, Bulldog, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Elements-390-Bulldog-Sand-The-Danish-Pipe-Shop-img-171143-w500-h175.jpg",
     "productCode": "390 sand",
@@ -16965,11 +16325,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Éléments 390, Bulldog, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Elements-390-Bulldog-Smooth-The-Danish-Pipe-Shop-img-160738-w500-h187.jpg",
     "productCode": "390 smooth",
@@ -17025,11 +16383,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Éléments 560, Bent Bulldog, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Elements-560-Bent-Bulldog-Sand-The-Danish-Pipe-Shop-img-170100-w500-h234.jpg",
     "productCode": "560 Sandblasted",
@@ -17088,11 +16444,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Éléments 560, Bent Bulldog, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Elements-560-Bent-Bulldog-Smooth-The-Danish-Pipe-Shop-img-160756-w500-h219.jpg",
     "productCode": "560 smooth",
@@ -17147,11 +16501,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Ideal 155, Double Stem Poker, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-155-Double-Stem-Poker-Sand-The-Danish-Pipe-Shop-img-91689-w500-h198.jpg",
     "productCode": "Ideal 155 sand",
@@ -17206,11 +16558,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Ideal 155, Double Stem Poker, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-155-Double-Stem-Poker-Smooth-The-Danish-Pipe-Shop-img-98346-w500-h195.jpg",
     "productCode": "Ideal 155 smooth",
@@ -17267,11 +16617,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Ideal 227, Double Stem Dublin, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-227-Double-Stem-Dublin-Smooth-The-Danish-Pipe-Shop-img-152710-w500-h262.jpg",
     "productCode": "Ideal 227",
@@ -17326,11 +16674,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Ideal 42, Double Stem Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-42-Double-Stem-Billard-Sand-The-Danish-Pipe-Shop-img-91674-w500-h314.jpg",
     "productCode": "Ideal 42 sand",
@@ -17385,11 +16731,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Ideal 42, Double Stem Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-42-Double-Stem-Billard-Smooth-The-Danish-Pipe-Shop-img-91666-w500-h294.jpg",
     "productCode": "Ideal 42 smooth",
@@ -17446,11 +16790,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Ideal F4, Double Stem Zulu, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-F4-Double-Stem-Zulu-Sand-The-Danish-Pipe-Shop-img-181900-w500-h165.jpg",
     "productCode": "Ideal F4 sand",
@@ -17507,11 +16849,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Ideal F4, Double Stem Zulu, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Ideal-F4-Double-Stem-Zulu-Smooth-The-Danish-Pipe-Shop-img-98352-w500-h177.jpg",
     "productCode": "Ideal F4 smooth",
@@ -17563,11 +16903,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Lizon 165 mat, Featherweight Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-165-mat-Featherweight-Apple-The-Danish-Pipe-Shop-img-70760-w500-h145.jpg",
     "productCode": "Lizon 165 mat",
@@ -17619,11 +16957,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Lizon 275 mat, Featherweight Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-275-mat-Featherweight-Billard-The-Danish-Pipe-Shop-img-70768-w500-h155.jpg",
     "productCode": "Lizon 275 mat",
@@ -17677,11 +17013,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Lizon 517 mat, Featherweight Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-517-mat-Featherweight-Bent-Dublin-The-Danish-Pipe-Shop-img-80633-w500-h244.jpg",
     "productCode": "Lizon 517 mat",
@@ -17733,11 +17067,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Lizon 519 mat, Featherweight Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-519-mat-Featherweight-Dublin-The-Danish-Pipe-Shop-img-70764-w500-h151.jpg",
     "productCode": "Lizon 519 mat",
@@ -17789,11 +17121,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Lizon 520 mat, Featherw. Squat Tomato 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-520-mat-Featherw-Squat-Tomato-The-Danish-Pipe-Shop-img-70756-w500-h127.jpg",
     "productCode": "Lizon 520 mat",
@@ -17845,11 +17175,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Lizon 521 Mat, Featherweight Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Lizon-521-Mat-Featherweight-Bent-Billard-The-Danish-Pipe-Shop-img-75130-w500-h232.jpg",
     "productCode": "Lizon 521 Mat",
@@ -17905,11 +17233,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maigret, Big Billard, Brown Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maigret-Big-Billard-Brown-Sand-The-Danish-Pipe-Shop-img-92872-w500-h210.jpg",
     "productCode": "Maigret, Sand",
@@ -17963,11 +17289,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maigret, Big Billard, Matte Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maigret-Big-Billard-Matte-Brown-The-Danish-Pipe-Shop-img-41451-w500-h234.jpg",
     "productCode": "Maigret, Matte Brown",
@@ -18022,11 +17346,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maigret, Big Billard, Natural Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maigret-Big-Billard-Natural-Smooth-The-Danish-Pipe-Shop-img-152705-w500-h213.jpg",
     "productCode": "Maigret, Natural",
@@ -18082,11 +17404,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maigret, Billard, Morta wood 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maigret-Billard-Morta-wood-The-Danish-Pipe-Shop-img-184452-w500-h218.jpg",
     "productCode": "Maigret04",
@@ -18142,11 +17462,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Maigret, Billard, Morta wood 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Maigret-Billard-Morta-wood-The-Danish-Pipe-Shop-img-184464-w500-h229.jpg",
     "productCode": "Maigret06",
@@ -18200,11 +17518,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Mojito 401, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Mojito-401-Bent-Billard-The-Danish-Pipe-Shop-img-66466-w500-h238.jpg",
     "productCode": "Mojito 401",
@@ -18259,11 +17575,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Mojito 401, Bent Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Mojito-401-Bent-Billard-Sand-The-Danish-Pipe-Shop-img-190526-w500-h337.jpg",
     "productCode": "Mojito 401 Sand",
@@ -18318,11 +17632,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Mojito 95, Bent Acorn, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Mojito-95-Bent-Acorn-Sand-The-Danish-Pipe-Shop-img-190516-w500-h220.jpg",
     "productCode": "Mojito 95 Sand",
@@ -18377,11 +17689,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Mojito 99, Canted Egg, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Mojito-99-Canted-Egg-Sand-The-Danish-Pipe-Shop-img-190521-w500-h156.jpg",
     "productCode": "Mojito 99 Sand",
@@ -18433,11 +17743,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, New Gentleman, 1059, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1059-Bent-Dublin-The-Danish-Pipe-Shop-img-137481-w500-h192.jpg",
     "productCode": "CNG1059",
@@ -18489,11 +17797,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, New Gentleman, 1179, Oval Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1179-Oval-Brandy-The-Danish-Pipe-Shop-img-118205-w500-h178.jpg",
     "productCode": "CNG1179",
@@ -18545,11 +17851,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, New Gentleman, 1294, Bent Bulldog 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1294-Bent-Bulldog-The-Danish-Pipe-Shop-img-78026-w500-h190.jpg",
     "productCode": "CNG1294",
@@ -18603,11 +17907,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, New Gentleman, 1819, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1819-Bent-Brandy-The-Danish-Pipe-Shop-img-163847-w500-h186.jpg",
     "productCode": "CNG1819",
@@ -18661,11 +17963,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, New Gentleman, 1821, Bent Sitter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1821-Bent-Sitter-The-Danish-Pipe-Shop-img-80629-w500-h251.jpg",
     "productCode": "CNG1821",
@@ -18719,11 +18019,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, New Gentleman, 1822, Brandy Sitter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1822-Brandy-Sitter-The-Danish-Pipe-Shop-img-147665-w500-h184.jpg",
     "productCode": "CNG1822",
@@ -18775,11 +18073,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, New Gentleman, 1926, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-New-Gentleman-1926-Bent-Brandy-The-Danish-Pipe-Shop-img-70745-w500-h309.jpg",
     "productCode": "CNG1926",
@@ -18832,11 +18128,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Nougat 102, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Nougat-102-Bent-Dublin-The-Danish-Pipe-Shop-img-139949-w500-h330.jpg",
     "productCode": "nougat102",
@@ -18889,11 +18183,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Nougat 1245, Facet Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Nougat-1245-Facet-Apple-The-Danish-Pipe-Shop-img-185920-w500-h125.jpg",
     "productCode": "nougat1245",
@@ -18946,11 +18238,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Nougat 275, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Nougat-275-Billard-The-Danish-Pipe-Shop-img-139961-w500-h145.jpg",
     "productCode": "nougat275",
@@ -19002,11 +18292,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Old Briar 106, Billard, Black 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Old-Briar-106-Billard-Black-The-Danish-Pipe-Shop-img-41065-w500-h175.jpg",
     "productCode": "Old Briar 106, Black",
@@ -19060,11 +18348,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Old Briar 106, Billard, Natural, Polished 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Old-Briar-106-Billard-Natural-Polished-The-Danish-Pipe-Shop-img-48353-w500-h167.jpg",
     "productCode": "Old Briar 106, Nat",
@@ -19116,11 +18402,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Old Briar 159, Apple, Acajou/Mahogany 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Old-Briar-159-Apple-Acajou-Mahogany-The-Danish-Pipe-Shop-img-41038-w500-h166.jpg",
     "productCode": "Old Briar 159, Acajou",
@@ -19172,11 +18456,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Old Briar 159, Octagonal Apple, Black 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Old-Briar-159-Octagonal-Apple-Black-The-Danish-Pipe-Shop-img-41061-w500-h161.jpg",
     "productCode": "Old Briar 159, Black",
@@ -19231,11 +18513,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Black Sandblast 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Black-Sandblast-The-Danish-Pipe-Shop-img-39644-w500-h242.jpg",
     "productCode": "RC Black Sand",
@@ -19288,11 +18568,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Brown Sandblast 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Brown-Sandblast-The-Danish-Pipe-Shop-img-39624-w500-h233.jpg",
     "productCode": "RC Brown Blast",
@@ -19347,11 +18625,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Brown Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Brown-Smooth-The-Danish-Pipe-Shop-img-39634-w500-h256.jpg",
     "productCode": "RC Brune",
@@ -19405,11 +18681,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Orange 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Orange-The-Danish-Pipe-Shop-img-116957-w500-h225.jpg",
     "productCode": "RC Orange",
@@ -19462,11 +18736,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Rusticated 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Rusticated-The-Danish-Pipe-Shop-img-39629-w500-h241.jpg",
     "productCode": "RC Rusticated",
@@ -19521,11 +18793,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Shiny Red Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Shiny-Red-Brown-The-Danish-Pipe-Shop-img-92898-w500-h198.jpg",
     "productCode": "RC Marron brillant",
@@ -19580,11 +18850,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Straight, Matte Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Straight-Matte-Brown-The-Danish-Pipe-Shop-img-190531-w500-h194.jpg",
     "productCode": "Rev. Mat Brun",
@@ -19639,11 +18907,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Straight, Matte Orange 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Straight-Matte-Orange-The-Danish-Pipe-Shop-img-190536-w500-h191.jpg",
     "productCode": "Rev. Straight, Orange",
@@ -19698,11 +18964,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Reverse Calabash, Straight, Shiny Red 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Reverse-Calabash-Straight-Shiny-Red-The-Danish-Pipe-Shop-img-190541-w500-h195.jpg",
     "productCode": "Rev. Straight Shiny",
@@ -19757,11 +19021,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Rustic 235, Oom Paul, Rusticated 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Rustic-235-Oom-Paul-Rusticated-The-Danish-Pipe-Shop-img-92878-w500-h547.jpg",
     "productCode": "Rustic 235",
@@ -19816,11 +19078,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Skipper 283P, Facet Bulldog, Sandblast 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Skipper-283P-Facet-Bulldog-Sandblast-The-Danish-Pipe-Shop-img-124485-w500-h170.jpg",
     "productCode": "283P",
@@ -19875,11 +19135,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Skipper 394, Bent Bulldog, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Skipper-394-Bent-Bulldog-Sand-The-Danish-Pipe-Shop-img-187608-w500-h160.jpg",
     "productCode": "394 Sand",
@@ -19934,11 +19192,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Skipper 703, Billard, Sandblast 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Skipper-703-Billard-Sandblast-The-Danish-Pipe-Shop-img-124490-w500-h186.jpg",
     "productCode": "703",
@@ -19991,11 +19247,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 168, Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-168-Apple-The-Danish-Pipe-Shop-img-54089-w500-h175.jpg",
     "productCode": "spigot 168 brun",
@@ -20047,11 +19301,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 426, Rhod-Dub 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-426-Rhod-Dub-The-Danish-Pipe-Shop-img-98360-w500-h169.jpg",
     "productCode": "spigot 426 brun",
@@ -20106,11 +19358,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 851, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-851-Bent-Brandy-The-Danish-Pipe-Shop-img-54104-w500-h265.jpg",
     "productCode": "spigot 851 brun",
@@ -20163,11 +19413,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 862, S. B. Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-862-S-B-Apple-The-Danish-Pipe-Shop-img-54109-w500-h163.jpg",
     "productCode": "spigot 862 brun",
@@ -20220,11 +19468,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 863, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-863-Bent-Dublin-The-Danish-Pipe-Shop-img-54114-w500-h251.jpg",
     "productCode": "spigot 863 brun",
@@ -20278,11 +19524,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Matte Brown 88, Zulu 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Matte-Brown-88-Zulu-The-Danish-Pipe-Shop-img-130620-w500-h171.jpg",
     "productCode": "spigot 88 brun",
@@ -20334,11 +19578,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sablée 426, Rhod-Dub 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sablee-426-Rhod-Dub-The-Danish-Pipe-Shop-img-94253-w500-h168.jpg",
     "productCode": "spigot 426 sand",
@@ -20390,11 +19632,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sablée 851, Bent Brandy 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sablee-851-Bent-Brandy-The-Danish-Pipe-Shop-img-94257-w500-h230.jpg",
     "productCode": "spigot 851 sand",
@@ -20447,11 +19687,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sablée 862, S. B. Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sablee-862-S-B-Apple-The-Danish-Pipe-Shop-img-92893-w500-h147.jpg",
     "productCode": "spigot 862 sand",
@@ -20505,11 +19743,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sablée 863, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sablee-863-Bent-Dublin-The-Danish-Pipe-Shop-img-159315-w500-h275.jpg",
     "productCode": "spigot 863 sand",
@@ -20561,11 +19797,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sand 168, Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sand-168-Apple-The-Danish-Pipe-Shop-img-135570-w500-h166.jpg",
     "productCode": "spigot 168 sand",
@@ -20617,11 +19851,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Spigot Sand 185, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Spigot-Sand-185-Billard-The-Danish-Pipe-Shop-img-98364-w500-h185.jpg",
     "productCode": "spigot 185 sand",
@@ -20677,11 +19909,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Starter Set, Straight Apple, bag and more 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Starter-Set-Straight-Apple-bag-and-more-The-Danish-Pipe-Shop-img-184438-w500-h182.jpg",
     "productCode": "Chacom, Trousse, Straight Apple Set",
@@ -20733,11 +19963,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Starter Set, Straight Billard, bag etc. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Starter-Set-Straight-Billard-bag-etc-The-Danish-Pipe-Shop-img-48996-w500-h196.jpg",
     "productCode": "Chacom, Trousse, Straight Billard Set",
@@ -20792,11 +20020,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 1, Tulip, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-1-Tulip-Sand-The-Danish-Pipe-Shop-img-163839-w500-h187.jpg",
     "productCode": "TFP, 1 sand",
@@ -20850,11 +20076,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 1, Tulip, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-1-Tulip-Smooth-The-Danish-Pipe-Shop-img-139883-w500-h187.jpg",
     "productCode": "TFP, 1 smooth",
@@ -20909,11 +20133,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 10, Liverpool, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-10-Liverpool-Sand-The-Danish-Pipe-Shop-img-143274-w500-h167.jpg",
     "productCode": "TFP, 10 Sand",
@@ -20967,11 +20189,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 11, Scoop, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-11-Scoop-Sand-The-Danish-Pipe-Shop-img-139908-w500-h201.jpg",
     "productCode": "TFP, 11 sand",
@@ -21025,11 +20245,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 11, Scoop, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-11-Scoop-Smooth-The-Danish-Pipe-Shop-img-139913-w500-h203.jpg",
     "productCode": "TFP, 11 smooth",
@@ -21084,11 +20302,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 12, B. Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-12-B-Billard-Sand-The-Danish-Pipe-Shop-img-185957-w500-h304.jpg",
     "productCode": "TFP, 12 Sand",
@@ -21143,11 +20359,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 12, Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-12-Billard-Smooth-The-Danish-Pipe-Shop-img-185952-w500-h278.jpg",
     "productCode": "TFP, 12 Smooth",
@@ -21202,11 +20416,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 14, Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-14-Billard-Sand-The-Danish-Pipe-Shop-img-168136-w500-h372.jpg",
     "productCode": "TFP, 14 Sand",
@@ -21261,11 +20473,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 14, Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-14-Billard-Smooth-The-Danish-Pipe-Shop-img-168132-w500-h364.jpg",
     "productCode": "TFP, 14 Smooth",
@@ -21320,11 +20530,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 15, Apple-Pot, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-15-Apple-Pot-Sand-The-Danish-Pipe-Shop-img-190546-w500-h148.jpg",
     "productCode": "TFP, 15, Sand",
@@ -21379,11 +20587,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 15, Pot, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-15-Pot-Smooth-The-Danish-Pipe-Shop-img-185964-w500-h160.jpg",
     "productCode": "TFP, 15 Smooth",
@@ -21438,11 +20644,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 16, Canted Egg, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-16-Canted-Egg-Sand-The-Danish-Pipe-Shop-img-185968-w500-h165.jpg",
     "productCode": "TFP, 16 Sand",
@@ -21497,11 +20701,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 16, Egg, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-16-Egg-Smooth-The-Danish-Pipe-Shop-img-185972-w500-h166.jpg",
     "productCode": "TFP, 16 Smooth",
@@ -21556,11 +20758,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 2, Zulu, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-2-Zulu-Sand-The-Danish-Pipe-Shop-img-168124-w500-h197.jpg",
     "productCode": "TFP, 2 sand",
@@ -21615,11 +20815,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 2, Zulu, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-2-Zulu-Smooth-The-Danish-Pipe-Shop-img-168120-w500-h195.jpg",
     "productCode": "TFP, 2 Smooth",
@@ -21673,11 +20871,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, The French Pipe, No. 3, Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-3-Billard-Sand-The-Danish-Pipe-Shop-img-139893-w500-h193.jpg",
     "productCode": "TFP, 3 sand",
@@ -21732,11 +20928,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 4, Bent Acorn, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-4-Bent-Acorn-Sand-The-Danish-Pipe-Shop-img-159327-w500-h224.jpg",
     "productCode": "TFP, 4 Sand",
@@ -21791,11 +20985,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 4, Bent Acorn, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-4-Bent-Acorn-Smooth-The-Danish-Pipe-Shop-img-168128-w500-h205.jpg",
     "productCode": "TFP, 4 Smooth",
@@ -21850,11 +21042,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 5, Barrel, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-5-Barrel-Sand-The-Danish-Pipe-Shop-img-168291-w500-h184.jpg",
     "productCode": "TFP, 5 Sand",
@@ -21909,11 +21099,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 5, Barrel, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-5-Barrel-Smooth-The-Danish-Pipe-Shop-img-168287-w500-h180.jpg",
     "productCode": "TFP, 5 Smooth",
@@ -21968,11 +21156,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 6, Oval Egg, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-6-Oval-Egg-Sand-The-Danish-Pipe-Shop-img-143258-w500-h151.jpg",
     "productCode": "TFP, 6 sand",
@@ -22027,11 +21213,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 6, Oval Egg, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-6-Oval-Egg-Smooth-The-Danish-Pipe-Shop-img-143254-w500-h153.jpg",
     "productCode": "TFP, 6 smooth",
@@ -22086,11 +21270,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 7, Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-7-Billard-Sand-The-Danish-Pipe-Shop-img-185960-w500-h173.jpg",
     "productCode": "TFP, 7 Sand",
@@ -22144,11 +21326,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 8, Bulldog, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-8-Bulldog-Sand-The-Danish-Pipe-Shop-img-139898-w500-h149.jpg",
     "productCode": "TFP, 8 sand",
@@ -22202,11 +21382,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 8, Bulldog, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-8-Bulldog-Smooth-The-Danish-Pipe-Shop-img-139903-w500-h147.jpg",
     "productCode": "TFP, 8 smooth",
@@ -22261,11 +21439,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 9, B. Billard, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-9-B-Billard-Sand-The-Danish-Pipe-Shop-img-143262-w500-h282.jpg",
     "productCode": "TFP, 9 Sand",
@@ -22320,11 +21496,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, No. 9, B. Billard, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-No-9-B-Billard-Smooth-The-Danish-Pipe-Shop-img-143266-w500-h301.jpg",
     "productCode": "TFP, 9 smooth",
@@ -22378,11 +21552,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, Pink stem 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-Pink-stem-The-Danish-Pipe-Shop-img-182525-w500-h141.jpg",
     "productCode": "TFP, Pink",
@@ -22437,11 +21609,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, Red stem 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-Red-stem-The-Danish-Pipe-Shop-img-141429-w500-h136.jpg",
     "productCode": "TFP, Red",
@@ -22496,11 +21666,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, Turquoise stem 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-Turquoise-stem-The-Danish-Pipe-Shop-img-141433-w500-h134.jpg",
     "productCode": "TFP, Turquoise",
@@ -22554,11 +21722,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, The French Pipe, Violet stem 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-The-French-Pipe-Violet-stem-The-Danish-Pipe-Shop-img-179891-w500-h150.jpg",
     "productCode": "TFP, Violet",
@@ -22612,11 +21778,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Acajou/Mahogany, Mini 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Acajou-Mahogany-Mini-The-Danish-Pipe-Shop-img-163835-w500-h183.jpg",
     "productCode": "Oscar Mini - Acajou",
@@ -22668,11 +21832,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Brown Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Brown-Sand-The-Danish-Pipe-Shop-img-75574-w500-h174.jpg",
     "productCode": "Oscar Sand",
@@ -22726,11 +21888,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Chacom, Tom Eltang, Oscar Nature Brillant 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Nature-Brillant-The-Danish-Pipe-Shop-img-104788-w500-h173.jpg",
     "productCode": "Nature Brillant",
@@ -22784,11 +21944,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Nature Orange Mat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Nature-Orange-Mat-The-Danish-Pipe-Shop-img-127001-w500-h166.jpg",
     "productCode": "Nature Orange Mat",
@@ -22842,11 +22000,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Orange, Mini 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Orange-Mini-The-Danish-Pipe-Shop-img-163831-w500-h180.jpg",
     "productCode": "Oscar Mini - Orange",
@@ -22900,11 +22056,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Sablée noire et brune 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Sablee-noire-et-brune-The-Danish-Pipe-Shop-img-41423-w500-h189.jpg",
     "productCode": "Sablée noire et brune",
@@ -22960,11 +22114,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Chacom, Tom Eltang, Oscar Sand, Mini - Black/brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Chacom",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Chacom"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Chacom-Tom-Eltang-Oscar-Sand-Mini-The-Danish-Pipe-Shop-img-187629-w500-h182.jpg",
     "productCode": "Oscar Mini - Sablée",
@@ -23016,11 +22168,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Boone, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Boone-Bent-The-Danish-Pipe-Shop-img-105211-w500-h198.jpg",
     "productCode": "Boone bent",
@@ -23072,11 +22222,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Boone, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Boone-Straight-The-Danish-Pipe-Shop-img-105239-w500-h181.jpg",
     "productCode": "Boone straight",
@@ -23128,11 +22276,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Country Gentleman, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Country-Gentleman-Bent-The-Danish-Pipe-Shop-img-27142-w500-h236.jpg",
     "productCode": "Miss Country, Bent A",
@@ -23184,11 +22330,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Country Gentleman, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Country-Gentleman-Straight-The-Danish-Pipe-Shop-img-26884-w500-h221.jpg",
     "productCode": "Miss Country, Straight A",
@@ -23240,11 +22384,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Emerald, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Emerald-Bent-The-Danish-Pipe-Shop-img-79611-w500-h250.jpg",
     "productCode": "Miss Emerald Bent",
@@ -23298,11 +22440,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Horn Sitting Shire - Semi-Churchwarden 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Horn-Sitting-Shire-The-Danish-Pipe-Shop-img-188272-w500-h173.jpg",
     "productCode": "Horn Sitting Shire",
@@ -23356,11 +22496,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Little Devil Cutty 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Little-Devil-Cutty-The-Danish-Pipe-Shop-img-27134-w500-h227.jpg",
     "productCode": "Miss Devil Cutty",
@@ -23415,11 +22553,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, MacArthur Chimney Pipe - 5 Star Natural Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "状态待确认",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-MacArthur-Chimney-Pipe-The-Danish-Pipe-Shop-img-146911-w500-h238.jpg",
     "productCode": "MacArthur",
@@ -23471,11 +22607,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Mark Twain, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mark-Twain-Bent-The-Danish-Pipe-Shop-img-92235-w500-h199.jpg",
     "productCode": "Miss MT Bent",
@@ -23527,11 +22661,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Mark Twain, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mark-Twain-Straight-The-Danish-Pipe-Shop-img-92239-w500-h201.jpg",
     "productCode": "Miss MT Straight",
@@ -23583,11 +22715,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Mini 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mini-The-Danish-Pipe-Shop-img-46569-w500-h182.jpg",
     "productCode": "Corn Cob Pipe, Mini",
@@ -23637,11 +22767,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Missouri Legend, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Legend-Bent-The-Danish-Pipe-Shop-img-46576-w500-h213.jpg",
     "productCode": "Miss. Legend, Bent",
@@ -23693,11 +22821,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Missouri Legend, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Legend-Straight-The-Danish-Pipe-Shop-img-46580-w500-h210.jpg",
     "productCode": "Miss. Legend, Straight",
@@ -23748,11 +22874,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Missouri Pride, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Pride-Bent-The-Danish-Pipe-Shop-img-82976-w500-h176.jpg",
     "productCode": "Miss. Pride, Bent",
@@ -23803,11 +22927,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Missouri Pride, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Pride-Straight-The-Danish-Pipe-Shop-img-82979-w500-h178.jpg",
     "productCode": "Miss. Pride, Straight",
@@ -23863,11 +22985,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Corn Cob Pipe, Morgan Natural 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Morgan-Natural-The-Danish-Pipe-Shop-img-156986-w500-h195.jpg",
     "productCode": "Morgan Nat",
@@ -23920,11 +23040,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Washington, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Washington-Bent-The-Danish-Pipe-Shop-img-83047-w500-h176.jpg",
     "productCode": "Miss. Wash. Bent",
@@ -23976,11 +23094,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Corn Cob Pipe, Washington, Straight 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Corn Cob Pipe",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Corn Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Washington-Straight-The-Danish-Pipe-Shop-img-84208-w500-h173.jpg",
     "productCode": "Miss. Wash. Straight",
@@ -24034,11 +23150,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Ring of fire Poker 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Ring-of-fire-Poker-The-Danish-Pipe-Shop-img-182521-w500-h246.jpg",
     "productCode": "ROF, Poker",
@@ -24091,11 +23205,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2022, CWA Devil Anse, Sandblasted 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2022-CWA-Devil-Anse-Sandblasted-The-Danish-Pipe-Shop-img-107703-w500-h218.jpg",
     "productCode": "2022, Devil, Sand",
@@ -24148,11 +23260,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2022, CWA Devil Anse, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2022-CWA-Devil-Anse-Smooth-The-Danish-Pipe-Shop-img-107708-w500-h213.jpg",
     "productCode": "2022, Devil, Smooth",
@@ -24206,11 +23316,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2024, CWA Devil Anse, Danish Stain 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2024-CWA-Devil-Anse-Danish-Stain-The-Danish-Pipe-Shop-img-139852-w500-h217.jpg",
     "productCode": "2024, Devil Danish Stain",
@@ -24264,11 +23372,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2024, CWA Devil Anse, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2024-CWA-Devil-Anse-Smooth-The-Danish-Pipe-Shop-img-139877-w500-h223.jpg",
     "productCode": "2024, Devil Smooth",
@@ -24324,11 +23430,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, CWA Devil Anse, Black 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-CWA-Devil-Anse-Black-The-Danish-Pipe-Shop-img-175657-w500-h207.jpg",
     "productCode": "2025, Devil Black",
@@ -24384,11 +23488,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, CWA Devil Anse, Green 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-CWA-Devil-Anse-Green-The-Danish-Pipe-Shop-img-175663-w500-h218.jpg",
     "productCode": "2025, Devil Green",
@@ -24444,11 +23546,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, CWA Devil Anse, Red 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-CWA-Devil-Anse-Red-The-Danish-Pipe-Shop-img-175669-w500-h210.jpg",
     "productCode": "2025, Devil Red",
@@ -24503,11 +23603,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, Gavel Poker, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-Gavel-Poker-Sand-The-Danish-Pipe-Shop-img-162159-w500-h230.jpg",
     "productCode": "2025, Gavel Poker Brown",
@@ -24562,11 +23660,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, P1 Barrel, Black OMS Rustic 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-P1-Barrel-Black-OMS-Rustic-The-Danish-Pipe-Shop-img-175632-w500-h232.jpg",
     "productCode": "2025, P1 Barrel Black",
@@ -24621,11 +23717,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2025, P1 Barrel, Brown OMS Rustic 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2025-P1-Barrel-Brown-OMS-Rustic-The-Danish-Pipe-Shop-img-175637-w500-h238.jpg",
     "productCode": "2025, P1 Barrel Brown",
@@ -24682,11 +23776,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2026, CWA Devil Anse, Bio-Colour 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Bio-Colour-The-Danish-Pipe-Shop-img-190342-w500-h210.jpg",
     "productCode": "DeAnSR",
@@ -24743,11 +23835,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, 2026, CWA Devil Anse, Danish Stain 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Danish-Stain-The-Danish-Pipe-Shop-img-190335-w500-h210.jpg",
     "productCode": "DeAnSmDa",
@@ -24803,11 +23893,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, El-Dagner, Ball Dog, Sand 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-El-Dagner-Ball-Dog-Sand-The-Danish-Pipe-Shop-img-127442-w500-h211.jpg",
     "productCode": "El-Dag, brown sand",
@@ -24863,11 +23951,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, El-Dagner, Ball Dog, Sand, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-El-Dagner-Ball-Dog-Sand-9-mm-The-Danish-Pipe-Shop-img-127449-w500-h229.jpg",
     "productCode": "El-Dag, brown sand, 9 mm",
@@ -24924,11 +24010,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, EL-Dagner, Ball-Dog, Black Rustic 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-EL-Dagner-Ball-Dog-Black-Rustic-The-Danish-Pipe-Shop-img-190349-w500-h213.jpg",
     "productCode": "ElDaP8BOR",
@@ -24985,11 +24069,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, EL-Dagner, Ball-Dog, Rustic, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-EL-Dagner-Ball-Dog-Rustic-9-mm-The-Danish-Pipe-Shop-img-192135-w500-h213.jpg",
     "productCode": "ElDap8BOR, 9mm",
@@ -25045,11 +24127,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Gentlemen's Blunt, Semi-Rustic, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Semi-Rustic-9-mm-The-Danish-Pipe-Shop-img-192165-w500-h344.jpg",
     "productCode": "BLFSFR 2026, 9 mm",
@@ -25106,11 +24186,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, P1, Squat Bulldog, Rusticated 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P1-Squat-Bulldog-Rusticated-The-Danish-Pipe-Shop-img-127457-w500-h158.jpg",
     "productCode": "P1, Bulldog, rustic",
@@ -25165,11 +24243,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dagner Pipes, P1, Squat Bulldog, Smooth 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P1-Squat-Bulldog-Smooth-The-Danish-Pipe-Shop-img-127464-w500-h155.jpg",
     "productCode": "P1, Bulldog, smooth",
@@ -25226,11 +24302,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, P8 Shot Glass Poker, Black 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P8-Shot-Glass-Poker-Black-The-Danish-Pipe-Shop-img-190377-w500-h242.jpg",
     "productCode": "SG8BOR 2026",
@@ -25286,11 +24360,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, P8 Shot Glass Poker, Black, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P8-Shot-Glass-Poker-Black-9-mm-The-Danish-Pipe-Shop-img-192168-w500-h264.jpg",
     "productCode": "SG8BOR 2026, 9 mm",
@@ -25346,11 +24418,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, P8 Shot Glass Poker, Brown, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-P8-Shot-Glass-Poker-Brown-9-mm-The-Danish-Pipe-Shop-img-192173-w500-h266.jpg",
     "productCode": "SG8BROR 2026, 9 mm",
@@ -25407,11 +24477,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Pencil Shank Dublin, Biocolor 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Pencil-Shank-Dublin-Biocolor-The-Danish-Pipe-Shop-img-190363-w500-h179.jpg",
     "productCode": "PSDSBI",
@@ -25468,11 +24536,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Pencil Shank Dublin, Danish Stain 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Pencil-Shank-Dublin-Danish-Stain-The-Danish-Pipe-Shop-img-190356-w500-h198.jpg",
     "productCode": "PSDDS",
@@ -25529,11 +24595,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Pencil Shank Dublin, OMS Rustication 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Pencil-Shank-Dublin-OMS-Rustication-The-Danish-Pipe-Shop-img-190370-w500-h193.jpg",
     "productCode": "PSDBOR",
@@ -25588,11 +24652,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Shot Glass Poker, Black 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Shot-Glass-Poker-Black-The-Danish-Pipe-Shop-img-175642-w500-h265.jpg",
     "productCode": "2025, SG Poker, Black",
@@ -25647,11 +24709,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Shot Glass Poker, Brown 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Shot-Glass-Poker-Brown-The-Danish-Pipe-Shop-img-175647-w500-h277.jpg",
     "productCode": "2025, SG Poker, Brown",
@@ -25706,11 +24766,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Pipes, Shot Glass Poker, Green 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Pipes",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Pipes"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Pipes-Shot-Glass-Poker-Green-The-Danish-Pipe-Shop-img-175652-w500-h271.jpg",
     "productCode": "2025, SG Poker, Green",
@@ -25764,11 +24822,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Poker Cob Pipe 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Poker Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Poker Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Poker-Cob-Pipe-The-Danish-Pipe-Shop-img-27138-w500-h255.jpg",
     "productCode": "Dagner Poker Cob",
@@ -25822,11 +24878,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dagner Poker Cob Pipe, J Bird 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dagner Poker Cob Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dagner Poker Cob Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Poker-Cob-Pipe-J-Bird-The-Danish-Pipe-Shop-img-156982-w500-h250.jpg",
     "productCode": "J Bird",
@@ -25879,11 +24933,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dollar Kapten Pipe, Rustic, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dollar Kapten Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dollar Kapten Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dollar-Kapten-Pipe-Rustic-Bent-The-Danish-Pipe-Shop-img-49569-w500-h186.jpg",
     "productCode": "Dollar 6682",
@@ -25936,11 +24988,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dollar Kapten Pipe, Smooth, Bent 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dollar Kapten Pipe",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dollar Kapten Pipe"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dollar-Kapten-Pipe-Smooth-Bent-The-Danish-Pipe-Shop-img-49564-w500-h191.jpg",
     "productCode": "Dollar 6678",
@@ -25996,11 +25046,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Amber Flame*, Billard w. silver, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Amber-Flame-Billard-w-silver-9-mm-The-Danish-Pipe-Shop-img-186811-w500-h180.jpg",
     "productCode": "3085dun",
@@ -26056,11 +25104,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Amber Root 5101, Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Amber-Root-5101-Apple-The-Danish-Pipe-Shop-img-186942-w500-h174.jpg",
     "productCode": "3111dun",
@@ -26116,11 +25162,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Amber Root 5103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Amber-Root-5103-Billard-The-Danish-Pipe-Shop-img-186847-w500-h180.jpg",
     "productCode": "3077dun",
@@ -26176,11 +25220,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Amber Root 5122, Poker SItter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Amber-Root-5122-Poker-SItter-The-Danish-Pipe-Shop-img-186972-w500-h193.jpg",
     "productCode": "3110dun",
@@ -26241,11 +25283,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Amber Root, Zeppelin First Flight, 4/24 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Amber-Root-Zeppelin-First-Flight-4-24-The-Danish-Pipe-Shop-img-188830-w500-h518.jpg",
     "productCode": "3122dun",
@@ -26301,11 +25341,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Bruyere 4114, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Bruyere-4114-Bent-Dublin-The-Danish-Pipe-Shop-img-172042-w500-h231.jpg",
     "productCode": "2677dun",
@@ -26361,11 +25399,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Bruyere 4114, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Bruyere-4114-Bent-Dublin-The-Danish-Pipe-Shop-img-175057-w500-h248.jpg",
     "productCode": "2954dun",
@@ -26421,11 +25457,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Bruyere 4214, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Bruyere-4214-Bent-Dublin-The-Danish-Pipe-Shop-img-175051-w500-h245.jpg",
     "productCode": "2953dun",
@@ -26481,11 +25515,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dunhill, Bruyere 5203, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Bruyere-5203-Billard-The-Danish-Pipe-Shop-img-175290-w500-h182.jpg",
     "productCode": "2958dun",
@@ -26541,11 +25573,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dunhill, Chestnut 3, Quaint, Dublin w. silver 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Chestnut-3-Quaint-Dublin-w-silver-The-Danish-Pipe-Shop-img-186823-w500-h186.jpg",
     "productCode": "3088dun",
@@ -26601,11 +25631,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Chestnut 4105, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Chestnut-4105-Dublin-The-Danish-Pipe-Shop-img-187008-w500-h184.jpg",
     "productCode": "3098dun",
@@ -26661,11 +25689,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Chestnut 4109, Canadian 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Chestnut-4109-Canadian-The-Danish-Pipe-Shop-img-187002-w500-h165.jpg",
     "productCode": "3097dun",
@@ -26721,11 +25747,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Chestnut 4111, Lovat 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Chestnut-4111-Lovat-The-Danish-Pipe-Shop-img-186996-w500-h183.jpg",
     "productCode": "3096dun",
@@ -26781,11 +25805,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dunhill, Chestnut 4213, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Chestnut-4213-Bent-Billard-The-Danish-Pipe-Shop-img-186984-w500-h280.jpg",
     "productCode": "3094dun",
@@ -26841,11 +25863,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 3401, Silver Spigot Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-3401-Silver-Spigot-Apple-The-Danish-Pipe-Shop-img-186793-w500-h149.jpg",
     "productCode": "3083dun",
@@ -26901,11 +25921,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 3401, Silver Spigot Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-3401-Silver-Spigot-Apple-The-Danish-Pipe-Shop-img-187188-w500-h151.jpg",
     "productCode": "3101dun",
@@ -26961,11 +25979,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 3401, Silver Spigot Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-3401-Silver-Spigot-Apple-The-Danish-Pipe-Shop-img-187182-w500-h148.jpg",
     "productCode": "3102dun",
@@ -27021,11 +26037,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 3903, Nosewarmer Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-3903-Nosewarmer-Billard-The-Danish-Pipe-Shop-img-173355-w500-h265.jpg",
     "productCode": "2829dun",
@@ -27081,11 +26095,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-171735-w500-h123.jpg",
     "productCode": "2644dun",
@@ -27141,11 +26153,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-171741-w500-h115.jpg",
     "productCode": "2645dun",
@@ -27201,11 +26211,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-172302-w500-h133.jpg",
     "productCode": "2694dun",
@@ -27261,11 +26269,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-172297-w500-h133.jpg",
     "productCode": "2695dun",
@@ -27321,11 +26327,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-176716-w500-h132.jpg",
     "productCode": "3023dun",
@@ -27381,11 +26385,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-176722-w500-h124.jpg",
     "productCode": "3024dun",
@@ -27441,11 +26443,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-176728-w500-h133.jpg",
     "productCode": "3025dun",
@@ -27501,11 +26501,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-176764-w500-h133.jpg",
     "productCode": "3030dun",
@@ -27561,11 +26559,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4101F, Apple, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4101F-Apple-9-mm-The-Danish-Pipe-Shop-img-153946-w500-h176.jpg",
     "productCode": "2467dun",
@@ -27621,11 +26617,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4103-Billard-The-Danish-Pipe-Shop-img-157064-w500-h188.jpg",
     "productCode": "2560dun",
@@ -27681,11 +26675,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4103-Billard-The-Danish-Pipe-Shop-img-157082-w500-h176.jpg",
     "productCode": "2563dun",
@@ -27741,11 +26733,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4103-Billard-The-Danish-Pipe-Shop-img-157088-w500-h184.jpg",
     "productCode": "2564dun",
@@ -27801,11 +26791,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4103-Billard-The-Danish-Pipe-Shop-img-172162-w500-h174.jpg",
     "productCode": "2689dun",
@@ -27861,11 +26849,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4103, Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4103-Billard-The-Danish-Pipe-Shop-img-177127-w500-h176.jpg",
     "productCode": "3040dun",
@@ -27921,11 +26907,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4214, Bent Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4214-Bent-Dublin-The-Danish-Pipe-Shop-img-174967-w500-h269.jpg",
     "productCode": "2943dun",
@@ -27981,11 +26965,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 4934, Nosewarmer Tulip-Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-4934-Nosewarmer-Tulip-Billard-The-Danish-Pipe-Shop-img-176710-w500-h263.jpg",
     "productCode": "3022dun",
@@ -28041,11 +27023,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 5110F, Liverpool, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-5110F-Liverpool-9-mm-The-Danish-Pipe-Shop-img-153889-w500-h194.jpg",
     "productCode": "2465dun",
@@ -28101,11 +27081,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 5111, Lovat, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-5111-Lovat-9-mm-The-Danish-Pipe-Shop-img-174991-w500-h192.jpg",
     "productCode": "2946dun",
@@ -28161,11 +27139,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County 5115F, Bent Pot, 9 mm. 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-5115F-Bent-Pot-9-mm-The-Danish-Pipe-Shop-img-153883-w500-h235.jpg",
     "productCode": "2464dun",
@@ -28227,11 +27203,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County, Arthur Conan Doyle, 14/40 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-Arthur-Conan-Doyle-14-40-The-Danish-Pipe-Shop-img-156357-w500-h495.jpg",
     "productCode": "2552dun",
@@ -28292,11 +27266,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, County, Houdini, 14/35 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-County-Houdini-14-35-The-Danish-Pipe-Shop-img-156352-w500-h533.jpg",
     "productCode": "2547dun",
@@ -28352,11 +27324,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 3, Quaint, Hybrid 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-3-Quaint-Hybrid-The-Danish-Pipe-Shop-img-172869-w500-h168.jpg",
     "productCode": "2782dun",
@@ -28412,11 +27382,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 3401, Silver Spigot Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-3401-Silver-Spigot-Apple-The-Danish-Pipe-Shop-img-187014-w500-h145.jpg",
     "productCode": "3099dun",
@@ -28472,11 +27440,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "该商品采集时显示已售，可作为同品牌、同斗型和价格区间参考。",
     "detail": "Dunhill, Cumberland 3903, Nosewarmer Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "已售",
       "新斗",
-      "多图完整"
+      "已售",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-3903-Nosewarmer-Billard-The-Danish-Pipe-Shop-img-177109-w500-h259.jpg",
     "productCode": "3035dun",
@@ -28532,11 +27498,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4, Quaint, Dublin Sitter 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4-Quaint-Dublin-Sitter-The-Danish-Pipe-Shop-img-174291-w500-h186.jpg",
     "productCode": "2913dun",
@@ -28592,11 +27556,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-174285-w500-h128.jpg",
     "productCode": "2914dun",
@@ -28652,11 +27614,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4, Quaint, Star Trek 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4-Quaint-Star-Trek-The-Danish-Pipe-Shop-img-174279-w500-h129.jpg",
     "productCode": "2915dun",
@@ -28712,11 +27672,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4101, Apple 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4101-Apple-The-Danish-Pipe-Shop-img-174267-w500-h166.jpg",
     "productCode": "2917dun",
@@ -28772,11 +27730,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4103F, Billard, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4103F-Billard-9-mm-The-Danish-Pipe-Shop-img-153743-w500-h177.jpg",
     "productCode": "2454dun",
@@ -28832,11 +27788,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4105, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4105-Dublin-The-Danish-Pipe-Shop-img-172811-w500-h173.jpg",
     "productCode": "2790dun",
@@ -28892,11 +27846,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4105, Dublin 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4105-Dublin-The-Danish-Pipe-Shop-img-172805-w500-h169.jpg",
     "productCode": "2791dun",
@@ -28952,11 +27904,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4113, Bent Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4113-Bent-Billard-The-Danish-Pipe-Shop-img-187176-w500-h267.jpg",
     "productCode": "3103dun",
@@ -29012,11 +27962,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4127, Pear 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4127-Pear-The-Danish-Pipe-Shop-img-176045-w500-h163.jpg",
     "productCode": "2991dun",
@@ -29072,11 +28020,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4903, Nosewarmer Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4903-Nosewarmer-Billard-The-Danish-Pipe-Shop-img-172839-w500-h241.jpg",
     "productCode": "2787dun",
@@ -29132,11 +28078,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4903, Nosewarmer Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4903-Nosewarmer-Billard-The-Danish-Pipe-Shop-img-177097-w500-h248.jpg",
     "productCode": "3033dun",
@@ -29192,11 +28136,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4903, Nosewarmer Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4903-Nosewarmer-Billard-The-Danish-Pipe-Shop-img-177103-w500-h259.jpg",
     "productCode": "3034dun",
@@ -29252,11 +28194,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 4934, Nosewarmer Tulip-Billard 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-4934-Nosewarmer-Tulip-Billard-The-Danish-Pipe-Shop-img-176075-w500-h233.jpg",
     "productCode": "2997dun",
@@ -29312,11 +28252,9 @@ export const danishProducts: DanishPipeProduct[] = [
     "comment": "来自 The Danish Pipe Shop 的公开库存信息，价格、库存和品相需以人工确认为准。",
     "detail": "Dunhill, Cumberland 5, Quaint, Pot Hybrid, 9 mm 来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。",
     "tags": [
-      "The Danish Pipe Shop",
-      "Dunhill",
-      "可购买",
       "新斗",
-      "多图完整"
+      "可购买",
+      "Dunhill"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dunhill-Cumberland-5-Quaint-Pot-Hybrid-9-mm-The-Danish-Pipe-Shop-img-176655-w500-h177.jpg",
     "productCode": "3014dun",
