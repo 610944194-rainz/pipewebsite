@@ -376,6 +376,10 @@ export default function HomePage() {
             你可以按品牌、价格、图片完整度、库存状态筛选，也可以把已售商品当作斗型和预算参考。
           </p>
 
+          <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-[#75695F]">
+            合作入驻：斗商、斗师与工作室展示入口。
+          </p>
+
           <div className="mt-5 grid gap-2.5 sm:flex sm:justify-center">
             <Link
               href="/products"
@@ -389,6 +393,13 @@ export default function HomePage() {
               className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
             >
               查看服务说明
+            </Link>
+
+            <Link
+              href="/cooperate"
+              className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
+            >
+              合作入驻
             </Link>
           </div>
         </div>
