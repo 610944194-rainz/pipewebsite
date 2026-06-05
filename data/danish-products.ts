@@ -550,7 +550,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 276,
-    "brand": "BPK Smooth Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Smooth Churchwarden Pipe, Classic Bent Billard",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -581,7 +581,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "BPK Smooth Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Classic-Bent-Billard-The-Danish-Pipe-Shop-img-35651-w500-h296.jpg",
     "productCode": "73-41 S",
@@ -2029,7 +2029,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 34813,
-    "brand": "Estate Bentley by Former",
+    "brand": "Bentley by Former",
     "name": "Estate Bentley by Former, Billard, Unsmoked",
     "originalPrice": "$ 419,12",
     "originalCurrency": "USD",
@@ -2068,7 +2068,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "Estate 未使用",
       "可购买",
-      "Estate Bentley by Former"
+      "Bentley by Former"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Bentley-by-Former-Billard-Unsmoked-The-Danish-Pipe-Shop-img-180571-w500-h193.jpg",
     "productCode": "est13812",
@@ -2089,7 +2089,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 34817,
-    "brand": "Estate Bentley by Former",
+    "brand": "Bentley by Former",
     "name": "Estate Bentley by Former, Pot-Billard, Unsmoked",
     "originalPrice": "$ 419,12",
     "originalCurrency": "USD",
@@ -2128,7 +2128,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "Estate 未使用",
       "可购买",
-      "Estate Bentley by Former"
+      "Bentley by Former"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Bentley-by-Former-Pot-Billard-Unsmoked-The-Danish-Pipe-Shop-img-180559-w500-h171.jpg",
     "productCode": "est13814",
@@ -2149,7 +2149,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36710,
-    "brand": "Estate Georg Jensen",
+    "brand": "Georg Jensen",
     "name": "Estate Georg Jensen, Straight Grain, Brandy, Pres.",
     "originalPrice": "$ 251,47",
     "originalCurrency": "USD",
@@ -2188,7 +2188,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "Estate 二手斗",
       "已售",
-      "Estate Georg Jensen"
+      "Georg Jensen"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Georg-Jensen-Straight-Grain-Brandy-Pres-The-Danish-Pipe-Shop-img-191493-w500-h192.jpg",
     "productCode": "est14236",
@@ -2209,7 +2209,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36578,
-    "brand": "Estate S. Bang",
+    "brand": "S. Bang",
     "name": "Estate S. Bang, Billard w. silver, Presmoked",
     "originalPrice": "$ 1612,-",
     "originalCurrency": "USD",
@@ -2248,7 +2248,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "Estate 已使用",
       "可购买",
-      "Estate S. Bang"
+      "S. Bang"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-S-Bang-Billard-w-silver-Presmoked-The-Danish-Pipe-Shop-img-190647-w500-h191.jpg",
     "productCode": "est14179",
@@ -2269,7 +2269,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36705,
-    "brand": "Estate Stanwell",
+    "brand": "Stanwell",
     "name": "Estate Stanwell, Brass Band, Canadian Presmoked",
     "originalPrice": "$ 199,89",
     "originalCurrency": "USD",
@@ -2308,7 +2308,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "Estate 已使用",
       "已售",
-      "Estate Stanwell"
+      "Stanwell"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Estate-Stanwell-Brass-Band-Canadian-Presmoked-The-Danish-Pipe-Shop-img-191469-w500-h163.jpg",
     "productCode": "est14231",
@@ -2329,7 +2329,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36108,
-    "brand": "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗",
+    "brand": "Flávia Rodrigues",
     "name": "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗",
     "originalPrice": "$ 728,62",
     "originalCurrency": "USD",
@@ -2366,7 +2366,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗"
+      "Flávia Rodrigues"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Flavia-Rodrigues-Smooth-Dublin-with-Blue-Stem-The-Danish-Pipe-Shop-img-187827-w500-h180.jpg",
     "productCode": "Flav5",
@@ -6385,7 +6385,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36563,
-    "brand": "罗普 Etudiant J20 斗牛犬型 喷砂款",
+    "brand": "Ropp",
     "name": "罗普 Etudiant J20 斗牛犬型 喷砂款",
     "originalPrice": "$ 96,72",
     "originalCurrency": "USD",
@@ -6421,7 +6421,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "罗普 Etudiant J20 斗牛犬型 喷砂款"
+      "Ropp"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ropp-Buis-373-Bulldog-w-box-wood-Sand-9-mm-The-Danish-Pipe-Shop-img-190511-w500-h175.jpg",
     "productCode": "Ropp 373",
@@ -6442,7 +6442,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36069,
-    "brand": "罗普 Etudiant J20 斗牛犬型 喷砂款",
+    "brand": "Ropp",
     "name": "罗普 Etudiant J20 斗牛犬型 喷砂款",
     "originalPrice": "$ 76,73",
     "originalCurrency": "USD",
@@ -6477,7 +6477,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "罗普 Etudiant J20 斗牛犬型 喷砂款"
+      "Ropp"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Ropp-Etudiant-J20-Bulldog-Sand-The-Danish-Pipe-Shop-img-187593-w500-h160.jpg",
     "productCode": "Ropp J20",
@@ -9394,7 +9394,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 341,
-    "brand": "BPK Brushed Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Brushed Churchwarden Pipe, Acorn",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9425,7 +9425,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Brushed Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Acorn-The-Danish-Pipe-Shop-img-96611-w500-h254.jpg",
     "productCode": "69-679",
@@ -9446,7 +9446,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 343,
-    "brand": "BPK Brushed Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Brushed Churchwarden Pipe, Bent Billard",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9477,7 +9477,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Brushed Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Bent-Billard-The-Danish-Pipe-Shop-img-96613-w500-h249.jpg",
     "productCode": "73-941",
@@ -9498,7 +9498,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 28176,
-    "brand": "BPK Brushed Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Brushed Churchwarden Pipe, Medium Dublin",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9529,7 +9529,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Brushed Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Brushed-Churchwarden-Pipe-Medium-Dublin-The-Danish-Pipe-Shop-img-144298-w500-h139.jpg",
     "productCode": "69-683",
@@ -9550,7 +9550,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 232,
-    "brand": "BPK Churchwarden's",
+    "brand": "BPK",
     "name": "BPK Churchwarden's, Seven Day Set, Assorted",
     "originalPrice": "$ 303,06",
     "originalCurrency": "USD",
@@ -9576,7 +9576,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Churchwarden's"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Churchwardens-Seven-Day-Set-Assorted-The-Danish-Pipe-Shop-img-144296-w500-h310.jpg",
     "productCode": "BPK-SET-MIX",
@@ -9597,7 +9597,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 211,
-    "brand": "BPK Mini Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Mini Churchwarden Pipe, Mini Billard",
     "originalPrice": "$ 25,15",
     "originalCurrency": "USD",
@@ -9630,7 +9630,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Mini Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Billard-The-Danish-Pipe-Shop-img-26391-w500-h123.jpg",
     "productCode": "69-01",
@@ -9651,7 +9651,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 5400,
-    "brand": "BPK Mini Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Mini Churchwarden Pipe, Mini Dublin Rusticated",
     "originalPrice": "$ 25,15",
     "originalCurrency": "USD",
@@ -9684,7 +9684,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "BPK Mini Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Dublin-Rusticated-The-Danish-Pipe-Shop-img-107517-w500-h117.jpg",
     "productCode": "63-611 Rust",
@@ -9705,7 +9705,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 35078,
-    "brand": "BPK Mini Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Mini Churchwarden Pipe, Mini Dublin Sandblast",
     "originalPrice": "$ 25,15",
     "originalCurrency": "USD",
@@ -9740,7 +9740,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Mini Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Mini-Churchwarden-Pipe-Mini-Dublin-Sandblast-The-Danish-Pipe-Shop-img-182037-w500-h121.jpg",
     "productCode": "63-911 Sand",
@@ -9761,7 +9761,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 342,
-    "brand": "BPK Rusticated Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Rusticated Churchwarden Pipe, Medium Dublin",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9792,7 +9792,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Rusticated Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Rusticated-Churchwarden-Pipe-Medium-Dublin-The-Danish-Pipe-Shop-img-144302-w500-h145.jpg",
     "productCode": "69-983",
@@ -9813,7 +9813,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 32455,
-    "brand": "BPK Smooth Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Smooth Churchwarden Pipe, Classic Bent Billard",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9848,7 +9848,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Smooth Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Classic-Bent-Billard-The-Danish-Pipe-Shop-img-167591-w500-h343.jpg",
     "productCode": "73-35 S",
@@ -9869,7 +9869,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 271,
-    "brand": "BPK Smooth Churchwarden Pipe",
+    "brand": "BPK",
     "name": "BPK Smooth Churchwarden Pipe, Dublin",
     "originalPrice": "$ 50,94",
     "originalCurrency": "USD",
@@ -9900,7 +9900,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "BPK Smooth Churchwarden Pipe"
+      "BPK"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/BPK-Smooth-Churchwarden-Pipe-Dublin-The-Danish-Pipe-Shop-img-35657-w500-h151.jpg",
     "productCode": "69-43 S",
@@ -22137,7 +22137,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 21158,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Boone, Bent",
     "originalPrice": "$ 23,86",
     "originalCurrency": "USD",
@@ -22170,7 +22170,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Boone-Bent-The-Danish-Pipe-Shop-img-105211-w500-h198.jpg",
     "productCode": "Boone bent",
@@ -22191,7 +22191,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 21159,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Boone, Straight",
     "originalPrice": "$ 23,86",
     "originalCurrency": "USD",
@@ -22224,7 +22224,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Boone-Straight-The-Danish-Pipe-Shop-img-105239-w500-h181.jpg",
     "productCode": "Boone straight",
@@ -22245,7 +22245,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 5362,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Country Gentleman, Bent",
     "originalPrice": "$ 22,57",
     "originalCurrency": "USD",
@@ -22278,7 +22278,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Country-Gentleman-Bent-The-Danish-Pipe-Shop-img-27142-w500-h236.jpg",
     "productCode": "Miss Country, Bent A",
@@ -22299,7 +22299,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 5364,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Country Gentleman, Straight",
     "originalPrice": "$ 22,57",
     "originalCurrency": "USD",
@@ -22332,7 +22332,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Country-Gentleman-Straight-The-Danish-Pipe-Shop-img-26884-w500-h221.jpg",
     "productCode": "Miss Country, Straight A",
@@ -22353,7 +22353,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 16286,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Emerald, Bent",
     "originalPrice": "$ 51,58",
     "originalCurrency": "USD",
@@ -22386,7 +22386,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Emerald-Bent-The-Danish-Pipe-Shop-img-79611-w500-h250.jpg",
     "productCode": "Miss Emerald Bent",
@@ -22407,7 +22407,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 36199,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Horn Sitting Shire - Semi-Churchwarden",
     "originalPrice": "$ 58,03",
     "originalCurrency": "USD",
@@ -22442,7 +22442,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Horn-Sitting-Shire-The-Danish-Pipe-Shop-img-188272-w500-h173.jpg",
     "productCode": "Horn Sitting Shire",
@@ -22463,7 +22463,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 213,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Little Devil Cutty",
     "originalPrice": "$ 21,28",
     "originalCurrency": "USD",
@@ -22498,7 +22498,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Little-Devil-Cutty-The-Danish-Pipe-Shop-img-27134-w500-h227.jpg",
     "productCode": "Miss Devil Cutty",
@@ -22519,7 +22519,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 28671,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, MacArthur Chimney Pipe - 5 Star Natural Straight",
     "originalPrice": "$ 38,04",
     "originalCurrency": "USD",
@@ -22555,7 +22555,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "状态待确认",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-MacArthur-Chimney-Pipe-The-Danish-Pipe-Shop-img-146911-w500-h238.jpg",
     "productCode": "MacArthur",
@@ -22576,7 +22576,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 18776,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Mark Twain, Bent",
     "originalPrice": "$ 17,41",
     "originalCurrency": "USD",
@@ -22609,7 +22609,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mark-Twain-Bent-The-Danish-Pipe-Shop-img-92235-w500-h199.jpg",
     "productCode": "Miss MT Bent",
@@ -22630,7 +22630,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 18777,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Mark Twain, Straight",
     "originalPrice": "$ 17,41",
     "originalCurrency": "USD",
@@ -22663,7 +22663,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mark-Twain-Straight-The-Danish-Pipe-Shop-img-92239-w500-h201.jpg",
     "productCode": "Miss MT Straight",
@@ -22684,7 +22684,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 220,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Mini",
     "originalPrice": "$ 7,09",
     "originalCurrency": "USD",
@@ -22717,7 +22717,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Mini-The-Danish-Pipe-Shop-img-46569-w500-h182.jpg",
     "productCode": "Corn Cob Pipe, Mini",
@@ -22738,7 +22738,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 3409,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Missouri Legend, Bent",
     "originalPrice": "$ 12,90",
     "originalCurrency": "USD",
@@ -22769,7 +22769,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Legend-Bent-The-Danish-Pipe-Shop-img-46576-w500-h213.jpg",
     "productCode": "Miss. Legend, Bent",
@@ -22790,7 +22790,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 3442,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Missouri Legend, Straight",
     "originalPrice": "$ 12,90",
     "originalCurrency": "USD",
@@ -22823,7 +22823,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Legend-Straight-The-Danish-Pipe-Shop-img-46580-w500-h210.jpg",
     "productCode": "Miss. Legend, Straight",
@@ -22844,7 +22844,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 3438,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Missouri Pride, Bent",
     "originalPrice": "$ 10,96",
     "originalCurrency": "USD",
@@ -22876,7 +22876,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Pride-Bent-The-Danish-Pipe-Shop-img-82976-w500-h176.jpg",
     "productCode": "Miss. Pride, Bent",
@@ -22897,7 +22897,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 3408,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Missouri Pride, Straight",
     "originalPrice": "$ 10,96",
     "originalCurrency": "USD",
@@ -22929,7 +22929,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Missouri-Pride-Straight-The-Danish-Pipe-Shop-img-82979-w500-h178.jpg",
     "productCode": "Miss. Pride, Straight",
@@ -22950,7 +22950,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 30496,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Morgan Natural",
     "originalPrice": "$ 11,35",
     "originalCurrency": "USD",
@@ -22987,7 +22987,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Morgan-Natural-The-Danish-Pipe-Shop-img-156986-w500-h195.jpg",
     "productCode": "Morgan Nat",
@@ -23008,7 +23008,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 16996,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Washington, Bent",
     "originalPrice": "$ 12,25",
     "originalCurrency": "USD",
@@ -23042,7 +23042,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Washington-Bent-The-Danish-Pipe-Shop-img-83047-w500-h176.jpg",
     "productCode": "Miss. Wash. Bent",
@@ -23063,7 +23063,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 17196,
-    "brand": "Corn Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Corn Cob Pipe, Washington, Straight",
     "originalPrice": "$ 12,25",
     "originalCurrency": "USD",
@@ -23096,7 +23096,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "已售",
-      "Corn Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Corn-Cob-Pipe-Washington-Straight-The-Danish-Pipe-Shop-img-84208-w500-h173.jpg",
     "productCode": "Miss. Wash. Straight",
@@ -24789,7 +24789,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 119,
-    "brand": "Dagner Poker Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Dagner Poker Cob Pipe",
     "originalPrice": "$ 45,14",
     "originalCurrency": "USD",
@@ -24824,7 +24824,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Dagner Poker Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Poker-Cob-Pipe-The-Danish-Pipe-Shop-img-27138-w500-h255.jpg",
     "productCode": "Dagner Poker Cob",
@@ -24845,7 +24845,7 @@ export const danishProducts: DanishPipeProduct[] = [
   },
   {
     "id": 30495,
-    "brand": "Dagner Poker Cob Pipe",
+    "brand": "Missouri Meerschaum",
     "name": "Dagner Poker Cob Pipe, J Bird",
     "originalPrice": "$ 45,14",
     "originalCurrency": "USD",
@@ -24880,7 +24880,7 @@ export const danishProducts: DanishPipeProduct[] = [
     "tags": [
       "新斗",
       "可购买",
-      "Dagner Poker Cob Pipe"
+      "Missouri Meerschaum"
     ],
     "detailImageUrl": "https://www.danishpipeshop.com/img/Dagner-Poker-Cob-Pipe-J-Bird-The-Danish-Pipe-Shop-img-156982-w500-h250.jpg",
     "productCode": "J Bird",

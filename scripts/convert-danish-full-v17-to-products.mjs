@@ -59,6 +59,153 @@ function getBrandFromName(name) {
   return normalizeText(value.split(",")[0]);
 }
 
+const brandCorrections = new Map(
+  [
+    ["Corn Cob Pipe", "Missouri Meerschaum"],
+    ["Dagner Poker Cob Pipe", "Missouri Meerschaum"],
+    ["BPK Smooth Churchwarden Pipe", "BPK"],
+    ["BPK Brushed Churchwarden Pipe", "BPK"],
+    ["BPK Mini Churchwarden Pipe", "BPK"],
+    ["BPK Rusticated Churchwarden Pipe", "BPK"],
+    ["BPK Churchwarden", "BPK"],
+    ["BPK Churchwarden's", "BPK"],
+    ["Estate Bentley by Former", "Bentley by Former"],
+    ["Estate Georg Jensen", "Georg Jensen"],
+    ["Estate S. Bang", "S. Bang"],
+    ["Estate Stanwell", "Stanwell"],
+    ["Flávia Rodrigues 手工烟斗 | 巴西艺术烟斗", "Flávia Rodrigues"],
+    ["罗普 Etudiant J20 斗牛犬型 喷砂款", "Ropp"],
+  ].map(([from, to]) => [normalizeText(from).toLowerCase(), to])
+);
+
+const modelLikeBrandAllowList = new Set(
+  [
+    "Dagner Pipes",
+    "Berggreen Pipes",
+    "Nuttens Pipes",
+    "Henri Pipes",
+    "Johs Pipes",
+    "Ken Pipes",
+  ].map((brand) => normalizeText(brand).toLowerCase())
+);
+
+const brandsRequiringManualReview = new Set(
+  ["Dollar Kapten Pipe"].map((brand) => normalizeText(brand).toLowerCase())
+);
+
+function normalizeConvertedBrand(product) {
+  const originalBrand = firstNonEmpty(product.brand, getBrandFromName(product.name));
+  const correction = brandCorrections.get(originalBrand.toLowerCase());
+
+  if (correction) {
+    return {
+      brand: correction,
+      originalBrand,
+      correctionReason: "brandCorrection",
+    };
+  }
+
+  if (/^estate\s+/i.test(originalBrand)) {
+    return {
+      brand: normalizeText(originalBrand.replace(/^estate\s+/i, "")),
+      originalBrand,
+      correctionReason: "estatePrefixRemoved",
+    };
+  }
+
+  if (/^bpk\b.*churchwarden/i.test(originalBrand)) {
+    return {
+      brand: "BPK",
+      originalBrand,
+      correctionReason: "bpkChurchwardenNormalized",
+    };
+  }
+
+  return {
+    brand: originalBrand,
+    originalBrand,
+    correctionReason: "",
+  };
+}
+
+function isModelLikeBrand(brand) {
+  const normalizedBrand = normalizeText(brand).toLowerCase();
+
+  if (!normalizedBrand || modelLikeBrandAllowList.has(normalizedBrand)) {
+    return false;
+  }
+
+  return /\b(?:pipe|cob|churchwarden|smooth|brushed|mini|rusticated|etudiant|bulldog|poker|seven|set)\b/i.test(
+    brand
+  );
+}
+
+function getSuspiciousBrandWarnings(product, brandInfo) {
+  const warnings = [];
+  const name = normalizeText(product.name);
+  const originalBrand = normalizeText(brandInfo.originalBrand);
+  const normalizedBrand = normalizeText(brandInfo.brand);
+
+  if (!originalBrand) {
+    return warnings;
+  }
+
+  if (originalBrand.toLowerCase() === name.toLowerCase()) {
+    warnings.push({
+      reason: "brandEqualsName",
+      brand: originalBrand,
+      normalizedBrand,
+      name,
+      href: normalizeText(product.href),
+    });
+  }
+
+  if (/^estate\s+/i.test(originalBrand)) {
+    warnings.push({
+      reason: "estatePrefixBrand",
+      brand: originalBrand,
+      normalizedBrand,
+      name,
+      href: normalizeText(product.href),
+    });
+  }
+
+  if (isModelLikeBrand(originalBrand)) {
+    warnings.push({
+      reason: "modelLikeBrand",
+      brand: originalBrand,
+      normalizedBrand,
+      name,
+      href: normalizeText(product.href),
+    });
+  }
+
+  if (brandsRequiringManualReview.has(originalBrand.toLowerCase())) {
+    warnings.push({
+      reason: "manualReviewRequired",
+      brand: originalBrand,
+      normalizedBrand,
+      name,
+      href: normalizeText(product.href),
+    });
+  }
+
+  if (
+    brandInfo.correctionReason &&
+    originalBrand.toLowerCase() !== normalizedBrand.toLowerCase()
+  ) {
+    warnings.push({
+      reason: brandInfo.correctionReason,
+      brand: originalBrand,
+      normalizedBrand,
+      name,
+      href: normalizeText(product.href),
+    });
+  }
+
+  return warnings;
+}
+
 function parseCurrency(price) {
   const value = normalizeText(price);
 
@@ -237,9 +384,13 @@ function buildDisplayTags(product, status, brand) {
   ]).slice(0, 3);
 }
 
-function mapProduct(product, collectedAt) {
+function mapProduct(product, collectedAt, suspiciousBrandWarnings) {
   const id = getProductIdFromUrl(product.href || product.sourceUrl);
-  const brand = firstNonEmpty(product.brand, getBrandFromName(product.name));
+  const brandInfo = normalizeConvertedBrand(product);
+  const brand = brandInfo.brand;
+  suspiciousBrandWarnings.push(
+    ...getSuspiciousBrandWarnings(product, brandInfo)
+  );
   const price = normalizeText(product.price) || "价格待确认";
   const originalCurrency = parseCurrency(price);
   const originalPriceValue = parsePriceValue(price);
@@ -336,6 +487,7 @@ function main() {
   const successInputCount = inputProducts.filter(isSuccessfulInput).length;
   const skipped = [];
   const converted = [];
+  const suspiciousBrandWarnings = [];
 
   for (const product of inputProducts) {
     const skipReason = shouldSkipProduct(product);
@@ -349,14 +501,44 @@ function main() {
       continue;
     }
 
-    converted.push(mapProduct(product, raw.completedAt || raw.collectedAt));
+    converted.push(
+      mapProduct(product, raw.completedAt || raw.collectedAt, suspiciousBrandWarnings)
+    );
   }
 
+  const brandCounts = Object.entries(
+    countBy(converted.map((product) => product.brand))
+  ).sort((left, right) => {
+    if (right[1] !== left[1]) {
+      return right[1] - left[1];
+    }
+
+    return left[0].localeCompare(right[0], "en");
+  });
+  const uniqueSuspiciousBrandWarnings = Array.from(
+    new Map(
+      suspiciousBrandWarnings.map((warning) => [
+        [
+          warning.reason,
+          warning.brand,
+          warning.normalizedBrand,
+          warning.name,
+          warning.href,
+        ].join("|"),
+        warning,
+      ])
+    ).values()
+  );
   const summary = {
     inputCount: inputProducts.length,
     successInputCount,
     skippedCount: skipped.length,
     outputCount: converted.length,
+    brandCount: brandCounts.length,
+    topBrandCounts: brandCounts.slice(0, 80).map(([brand, count]) => ({
+      brand,
+      count,
+    })),
     imageMissingCount: converted.filter(
       (product) => !product.imageUrl || !product.detailImageUrl || product.galleryImages.length === 0
     ).length,
@@ -364,6 +546,7 @@ function main() {
     noProductCodeCount: converted.filter((product) => !product.productCode).length,
     noSpecsCount: converted.filter((product) => product.specsText.length === 0).length,
     conditionSummary: countBy(converted.map((product) => product.conditionLabel)),
+    suspiciousBrandWarnings: uniqueSuspiciousBrandWarnings,
     skipped,
   };
 

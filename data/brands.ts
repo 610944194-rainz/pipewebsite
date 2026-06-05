@@ -155,12 +155,54 @@ export const pipeBrands: PipeBrand[] = [
   },
 ];
 
-export function getBrandBySlug(slug: string) {
-  return pipeBrands.find((brand) => brand.slug === slug);
+export function normalizeBrandName(value: string) {
+  return value.trim().replace(/\s+/g, " ").toLowerCase();
 }
 
-function normalizeBrandName(value: string) {
-  return value.trim().toLowerCase();
+export function slugifyBrand(name: string) {
+  const slug = normalizeBrandName(name)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return slug || "unknown";
+}
+
+export function createFallbackBrand(name: string, slug = slugifyBrand(name)) {
+  return {
+    slug,
+    name,
+    aliases: [name],
+    country: "待补充",
+    founded: "待补充",
+    level: "库存品牌",
+    summary: "当前收录来自公开库存页的产品，品牌资料后续补充。",
+    story: "当前页面先用于展示该品牌的公开库存关联，品牌历史与工艺资料后续补充。",
+    features: ["库存品牌", "资料后续补充"],
+    representativeStyles: ["当前库存关联"],
+    suitableFor: "适合希望按品牌查看当前公开库存的用户。",
+    priceRange: "以当前库存页和人工确认为准",
+    sourceUrls: [],
+    status: "template",
+  } satisfies PipeBrand;
+}
+
+export function getBrandMetaBySlug(slug: string) {
+  const normalizedSlug = slugifyBrand(slug);
+
+  return pipeBrands.find((brand) => {
+    const candidateSlugs = [brand.slug, brand.name, ...brand.aliases].map(
+      slugifyBrand
+    );
+
+    return candidateSlugs.includes(normalizedSlug);
+  });
+}
+
+export function getBrandBySlug(slug: string) {
+  return getBrandMetaBySlug(slug);
 }
 
 export function getBrandByName(name: string) {
@@ -170,5 +212,48 @@ export function getBrandByName(name: string) {
     const brandNames = [brand.name, ...brand.aliases].map(normalizeBrandName);
 
     return brandNames.includes(normalizedName);
+  });
+}
+
+export function getProductBrandGroups<T extends { brand?: string }>(
+  products: T[]
+) {
+  const groups = new Map<
+    string,
+    {
+      name: string;
+      slug: string;
+      products: T[];
+    }
+  >();
+
+  products.forEach((product) => {
+    const brandName = String(product.brand || "").trim().replace(/\s+/g, " ");
+
+    if (!brandName) {
+      return;
+    }
+
+    const key = normalizeBrandName(brandName);
+    const existingGroup = groups.get(key);
+
+    if (existingGroup) {
+      existingGroup.products.push(product);
+      return;
+    }
+
+    groups.set(key, {
+      name: brandName,
+      slug: slugifyBrand(brandName),
+      products: [product],
+    });
+  });
+
+  return Array.from(groups.values()).sort((left, right) => {
+    if (right.products.length !== left.products.length) {
+      return right.products.length - left.products.length;
+    }
+
+    return left.name.localeCompare(right.name, "en");
   });
 }

@@ -20,7 +20,44 @@ type ProductWithExtras = (typeof pipeProducts)[number] & {
   specsText?: string[];
   tags?: string[];
   sourceUrl?: string;
+  conditionLabel?: string;
 };
+
+function getDisplayBadges(product: ProductWithExtras) {
+  const seen = new Set<string>();
+  const candidates = [
+    product.conditionLabel || product.condition,
+    product.status,
+  ];
+
+  return candidates
+    .map((badge) => String(badge || "").trim())
+    .filter(Boolean)
+    .filter((badge) => {
+      const key = badge.toLowerCase();
+
+      if (seen.has(key)) {
+        return false;
+      }
+
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 2);
+}
+
+function getDisplayTitle(product: ProductWithExtras) {
+  const name = String(product.name || "").trim();
+  const brand = String(product.brand || "").trim();
+  const brandPrefix = `${brand}, `;
+
+  if (brand && name.startsWith(brandPrefix)) {
+    const titleWithoutBrand = name.slice(brandPrefix.length).trim();
+    return titleWithoutBrand || name;
+  }
+
+  return name;
+}
 
 export function generateStaticParams() {
   return pipeProducts.map((product) => ({
@@ -46,8 +83,11 @@ export default async function ProductDetailPage({
 
   const galleryImages = product.galleryImages ?? [];
   const specsText = product.specsText ?? [];
-  const tags = product.tags ?? [];
+  const displayBadges = getDisplayBadges(product);
+  const displayTitle = getDisplayTitle(product);
   const brand = getBrandByName(product.brand);
+  const detailSummary =
+    "来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
 
   return (
     <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
@@ -102,24 +142,14 @@ export default async function ProductDetailPage({
           <div className="space-y-4">
             <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
               <div className="mb-4 flex flex-wrap gap-1.5">
-                <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium text-[#9A6530]">
-                  {product.condition}
-                </span>
-
-                <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium text-[#9A6530]">
-                  {product.status}
-                </span>
-
-                <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium text-[#75695F]">
-                  {product.source}
-                </span>
-
-                {tags.map((tag) => (
+                {displayBadges.map((badge, index) => (
                   <span
-                    key={tag}
-                    className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium text-[#75695F]"
+                    key={badge}
+                    className={`rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium ${
+                      index < 2 ? "text-[#9A6530]" : "text-[#75695F]"
+                    }`}
                   >
-                    {tag}
+                    {badge}
                   </span>
                 ))}
               </div>
@@ -129,11 +159,11 @@ export default async function ProductDetailPage({
               </p>
 
               <h2 className="max-w-3xl text-[28px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-4xl">
-                {product.name}
+                {displayTitle}
               </h2>
 
               <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[15px]">
-                {product.detail}
+                {detailSummary}
               </p>
             </section>
 

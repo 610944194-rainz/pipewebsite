@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
 import {
-  getBrandBySlug,
-  pipeBrands,
+  createFallbackBrand,
+  getBrandByName,
+  getBrandMetaBySlug,
+  getProductBrandGroups,
   type PipeBrand,
 } from "../../../data/brands";
 import { pipeProducts } from "../../../data/pipes";
@@ -16,16 +18,32 @@ type PageProps = {
   }>;
 };
 
-function normalizeBrandName(value: string) {
-  return value.trim().toLowerCase();
+type BrandProfile = PipeBrand & {
+  productCount: number;
+  products: PipeProduct[];
+};
+
+function getBrandProfiles(): BrandProfile[] {
+  return getProductBrandGroups(pipeProducts)
+    .map((group) => {
+      const brandMeta =
+        getBrandMetaBySlug(group.slug) ?? getBrandByName(group.name);
+      const fallbackBrand = createFallbackBrand(group.name, group.slug);
+
+      return {
+        ...fallbackBrand,
+        ...(brandMeta ?? {}),
+        name: group.name,
+        slug: group.slug,
+        productCount: group.products.length,
+        products: group.products,
+      };
+    })
+    .filter((brand) => brand.productCount > 0);
 }
 
-function getBrandProducts(brand: PipeBrand) {
-  const names = [brand.name, ...brand.aliases].map(normalizeBrandName);
-
-  return pipeProducts.filter((product: PipeProduct) =>
-    names.includes(normalizeBrandName(product.brand))
-  );
+function getBrandProfileBySlug(slug: string) {
+  return getBrandProfiles().find((brand) => brand.slug === slug);
 }
 
 function InfoBox({ label, value }: { label: string; value: string }) {
@@ -99,20 +117,20 @@ function StockCard({ product }: { product: PipeProduct }) {
 }
 
 export function generateStaticParams() {
-  return pipeBrands.map((brand) => ({
+  return getBrandProfiles().map((brand) => ({
     slug: brand.slug,
   }));
 }
 
 export default async function BrandDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const brand = getBrandBySlug(slug);
+  const brand = getBrandProfileBySlug(slug);
 
   if (!brand) {
     notFound();
   }
 
-  const relatedProducts = getBrandProducts(brand);
+  const relatedProducts = brand.products;
 
   return (
     <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
