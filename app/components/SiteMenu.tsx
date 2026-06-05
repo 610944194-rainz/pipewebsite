@@ -38,9 +38,9 @@ const menuGroups = [
         desc: "面向斗商、斗师与工作室",
       },
       {
+        href: "/domestic-makers",
         label: "国内斗师 / 工作室",
-        desc: "作品展示与作者主页筹备中",
-        status: "筹备中",
+        desc: "国内作品、工作室现货与合作渠道",
       },
       {
         label: "二手 / 回流斗",
@@ -123,7 +123,7 @@ export default function SiteMenu() {
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white text-[20px] leading-none text-[#2B211C] transition hover:border-[#A9682B]"
                 aria-label="关闭菜单"
               >
-                ×
+                x
               </button>
             </div>
 
