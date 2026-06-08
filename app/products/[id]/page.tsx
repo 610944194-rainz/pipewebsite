@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BackButton from "../../components/BackButton";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
 import { getBrandByName } from "../../../data/brands";
@@ -21,13 +22,24 @@ type ProductWithExtras = (typeof pipeProducts)[number] & {
   tags?: string[];
   sourceUrl?: string;
   conditionLabel?: string;
+  brandZh?: string;
+  brandChinese?: string;
+  nameZh?: string;
+  titleZh?: string;
+  translatedName?: string;
+  chineseName?: string;
 };
 
-function getDisplayBadges(product: ProductWithExtras) {
+type IconProps = {
+  className?: string;
+};
+
+function getDisplayBadges(product: ProductWithExtras, galleryCount: number) {
   const seen = new Set<string>();
   const candidates = [
     product.conditionLabel || product.condition,
     product.status,
+    galleryCount > 0 ? `${galleryCount} 图` : "",
   ];
 
   return candidates
@@ -43,7 +55,7 @@ function getDisplayBadges(product: ProductWithExtras) {
       seen.add(key);
       return true;
     })
-    .slice(0, 2);
+    .slice(0, 3);
 }
 
 function getDisplayTitle(product: ProductWithExtras) {
@@ -57,6 +69,85 @@ function getDisplayTitle(product: ProductWithExtras) {
   }
 
   return name;
+}
+
+function getProductChineseName(product: ProductWithExtras) {
+  return (
+    product.nameZh ||
+    product.titleZh ||
+    product.translatedName ||
+    product.chineseName ||
+    ""
+  );
+}
+
+function getBrandChineseName(
+  product: ProductWithExtras,
+  brand: ReturnType<typeof getBrandByName>
+) {
+  const brandRecord = brand as Record<string, unknown> | undefined;
+
+  const fromProduct = product.brandZh || product.brandChinese;
+
+  if (fromProduct) return String(fromProduct);
+
+  const fromBrand =
+    brandRecord?.nameZh ||
+    brandRecord?.brandZh ||
+    brandRecord?.chineseName ||
+    brandRecord?.nameChinese;
+
+  return typeof fromBrand === "string" ? fromBrand : "";
+}
+
+function getUniqueImageCount(product: ProductWithExtras) {
+  const seen = new Set<string>();
+
+  [product.imageUrl, ...(product.galleryImages || [])].forEach((image) => {
+    if (image) seen.add(image);
+  });
+
+  return seen.size;
+}
+
+function cleanSpecText(spec: string) {
+  return String(spec || "")
+    .replace(/^\s*[A-Z]\s*[:：]\s*/i, "")
+    .trim();
+}
+
+function translateSpecLabel(label: string) {
+  const normalized = label.trim().toLowerCase();
+
+  const dictionary: Record<string, string> = {
+    "button width": "咬嘴宽度",
+    "bit thickness": "咬嘴厚度",
+    length: "长度",
+    height: "高度",
+    weight: "重量",
+  };
+
+  return dictionary[normalized] || label.trim();
+}
+
+function parseSpec(spec: string) {
+  const cleaned = cleanSpecText(spec);
+  const parts = cleaned.split(/[:：]/);
+
+  if (parts.length >= 2) {
+    const label = translateSpecLabel(parts[0]);
+    const value = parts.slice(1).join(":").trim();
+
+    return {
+      label,
+      value,
+    };
+  }
+
+  return {
+    label: cleaned,
+    value: "",
+  };
 }
 
 export function generateStaticParams() {
@@ -83,53 +174,36 @@ export default async function ProductDetailPage({
 
   const galleryImages = product.galleryImages ?? [];
   const specsText = product.specsText ?? [];
-  const displayBadges = getDisplayBadges(product);
+  const galleryCount = getUniqueImageCount(product);
+  const displayBadges = getDisplayBadges(product, galleryCount);
   const displayTitle = getDisplayTitle(product);
+  const chineseProductName = getProductChineseName(product);
   const brand = getBrandByName(product.brand);
-  const detailSummary =
-    "来自 The Danish Pipe Shop 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
+  const brandChineseName = getBrandChineseName(product, brand);
+  const parsedSpecs = specsText.map(parseSpec).filter((spec) => spec.label);
+  const detailSummary = `来自 ${product.source} 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。`;
 
   return (
-    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
+    <main
+      className="min-h-screen bg-[#FBF7EF] text-[#1F1A16]"
+      style={{
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif',
+        fontVariantNumeric: "lining-nums",
+      }}
+    >
+      <TopNotice />
+
       <SiteHeader />
 
-      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-10">
-        <header className="mb-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
-                PIPE DETAIL
-              </p>
+      <div className="mx-auto max-w-6xl px-4 pb-10 pt-4 sm:px-6 lg:px-8">
+        <BackButton className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]">
+  <ArrowLeftIcon className="h-4 w-4" />
+  返回
+</BackButton>
 
-              <h1 className="text-[28px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-4xl">
-                烟斗详情
-              </h1>
-
-              <p className="mt-2 text-[13px] leading-6 text-[#75695F]">
-                页面信息为采集时参考，购买前需人工确认库存、价格、运费和预计税费。
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center">
-              <Link
-                href="/products"
-                className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-              >
-                返回商品库
-              </Link>
-
-              <Link
-                href="/"
-                className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-4 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-              >
-                回到首页
-              </Link>
-            </div>
-          </div>
-        </header>
-
-        <section className="grid gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
-          <div className="overflow-hidden rounded-[24px] border border-[#E5D7C5] bg-white shadow-[0_5px_18px_rgba(43,33,28,0.03)]">
+        <section className="grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
+          <div className="overflow-hidden rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <ProductGallery
               productId={product.id}
               name={product.name}
@@ -139,204 +213,246 @@ export default async function ProductDetailPage({
             />
           </div>
 
-          <div className="space-y-4">
-            <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-              <div className="mb-4 flex flex-wrap gap-1.5">
-                {displayBadges.map((badge, index) => (
-                  <span
-                    key={badge}
-                    className={`rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-medium ${
-                      index < 2 ? "text-[#9A6530]" : "text-[#75695F]"
-                    }`}
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </div>
+          <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+            <div className="mb-4 flex flex-wrap gap-2">
+              {displayBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
 
-              <p className="mb-1 text-[13px] font-semibold text-[#9A6530]">
+            <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+              <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
                 {product.brand}
               </p>
 
-              <h2 className="max-w-3xl text-[28px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-4xl">
-                {displayTitle}
-              </h2>
-
-              <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[15px]">
-                {detailSummary}
-              </p>
-            </section>
-
-            <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-              <h3 className="mb-4 text-[20px] font-bold text-[#2B211C]">
-                价格与库存参考
-              </h3>
-
-              <div className="space-y-2 text-[13px]">
-                <div className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] pb-2">
-                  <span className="text-[#75695F]">海外原价</span>
-                  <span className="font-semibold text-[#9A6530]">
-                    {product.originalPrice}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] pb-2">
-                  <span className="text-[#75695F]">人民币参考价</span>
-                  <span className="font-bold text-[#2B211C]">
-                    {product.estimatedCny}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] pb-2">
-                  <span className="text-[#75695F]">来源网站</span>
-                  <span className="font-semibold text-[#2B211C]">
-                    {product.source}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] pb-2">
-                  <span className="text-[#75695F]">库存状态</span>
-                  <span className="font-semibold text-[#2B211C]">
-                    {product.status}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-[#75695F]">更新时间</span>
-                  <span className="font-semibold text-[#2B211C]">
-                    {product.updatedAt}
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            {brand && (
-              <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-                <div className="mb-3 flex items-center justify-between gap-4">
-                  <h3 className="text-[20px] font-bold text-[#2B211C]">
-                    品牌信息
-                  </h3>
-                  <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-semibold text-[#9A6530]">
-                    {brand.country}
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[12px] font-semibold text-[#2B211C]">
-                    {brand.name}
-                  </span>
-                  <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[12px] font-medium text-[#75695F]">
-                    {brand.level}
-                  </span>
-                </div>
-
-                <p className="mt-3 text-[13px] leading-6 text-[#75695F]">
-                  {brand.summary}
+              {brandChineseName ? (
+                <p className="text-[13px] font-semibold text-[#8A5D26]">
+                  {brandChineseName}
                 </p>
-
-                <Link
-                  href={`/brands/${brand.slug}`}
-                  className="mt-4 flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-                >
-                  查看品牌介绍
-                </Link>
-              </section>
-            )}
-
-            {specsText.length > 0 && (
-              <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-                <h3 className="mb-4 text-[20px] font-bold text-[#2B211C]">
-                  参数信息
-                </h3>
-
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {specsText.map((spec) => (
-                    <div
-                      key={spec}
-                      className="rounded-[16px] border border-[#F0E6D8] bg-[#FAF7F0] px-3 py-2.5 text-[13px] font-semibold leading-6 text-[#2B211C]"
-                    >
-                      {spec}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            <div className="grid gap-2.5 sm:grid-cols-2">
-              {product.sourceUrl && (
-                <a
-                  href={product.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-11 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-                >
-                  查看原站链接
-                </a>
-              )}
-
-              <a
-                href="#consult"
-                className="flex h-11 items-center justify-center rounded-full bg-[#A9682B] px-5 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-              >
-                咨询这只斗
-              </a>
+              ) : null}
             </div>
+
+            <h1 className="text-[28px] font-bold leading-tight tracking-tight text-[#1F1A16] sm:text-4xl">
+              {displayTitle}
+            </h1>
+
+            {chineseProductName ? (
+              <p className="mt-3 text-[19px] font-semibold leading-7 text-[#A97838]">
+                {chineseProductName}
+              </p>
+            ) : null}
+
+            <p className="mt-4 text-[14px] leading-7 text-[#746A5F] sm:text-[15px]">
+              {detailSummary}
+            </p>
+          </section>
+        </section>
+
+        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+          <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
+            价格与库存参考
+          </h2>
+
+          <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4">
+            <InfoItem label="海外原价" value={product.originalPrice} gold />
+            <InfoItem label="人民币参考" value={product.estimatedCny} strong />
+            <InfoItem label="库存状态" value={product.status} strong />
+            <InfoItem label="来源网站" value={product.source} />
+          </div>
+
+          <div className="mt-4 border-t border-[#F0E6D8] pt-3">
+            <InfoItem label="更新时间" value={product.updatedAt} horizontal />
           </div>
         </section>
 
-        <section
-          id="consult"
-          className="mt-6 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6"
-        >
-          <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-            SERVICE NOTE
+        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+          <Link
+            href={`/request?product=${encodeURIComponent(String(product.id))}`}
+            className="flex h-12 items-center justify-center rounded-full bg-[#063B32] px-5 text-[15px] font-semibold tracking-[0.06em] text-[#E7C48A] transition hover:bg-[#0A4A3E]"
+          >
+            <ChatIcon className="mr-2 h-5 w-5" />
+            咨询这只斗
+          </Link>
+
+          <p className="mt-3 text-center text-[12px] leading-5 text-[#746A5F]">
+            人工为您确认库存、最终价格、国际运费与预计税费。
+          </p>
+        </section>
+
+        {parsedSpecs.length > 0 ? (
+          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+            <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
+              参数信息
+            </h2>
+
+            <div className="grid gap-x-6 sm:grid-cols-2">
+              {parsedSpecs.map((spec, index) => (
+                <div
+                  key={`${spec.label}-${index}`}
+                  className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] py-2.5 text-[13px]"
+                >
+                  <span className="text-[#746A5F]">{spec.label}</span>
+                  {spec.value ? (
+                    <span className="font-semibold text-[#1F1A16]">
+                      {spec.value}
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {brand ? (
+          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-[20px] font-bold text-[#1F1A16]">
+                品牌信息
+              </h2>
+
+              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]">
+                {brand.country}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#1F1A16]">
+                {brand.name}
+              </span>
+
+              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-medium text-[#746A5F]">
+                {brand.level}
+              </span>
+            </div>
+
+            <p className="mt-3 text-[13px] leading-7 text-[#746A5F]">
+              {brand.summary}
+            </p>
+
+            <Link
+              href={`/brands/${brand.slug}`}
+              className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"
+            >
+              查看品牌介绍
+            </Link>
+          </section>
+        ) : null}
+
+        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.26em] text-[#A97838]">
+            Service Boundary
           </p>
 
-          <h3 className="mb-4 text-[22px] font-bold text-[#2B211C]">
-            咨询代购说明
-          </h3>
+          <h2 className="text-[20px] font-bold text-[#1F1A16]">
+            服务边界说明
+          </h2>
 
-          <div className="grid gap-3.5 md:grid-cols-3">
-            <div className="rounded-[20px] border border-[#E5D7C5] bg-white p-4">
-              <p className="mb-2 text-[12px] font-semibold text-[#9A6530]">
-                01
-              </p>
-              <h4 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
-                人工确认库存
-              </h4>
-              <p className="text-[13px] leading-6 text-[#75695F]">
-                页面展示的是采集时信息，下单前需要人工重新确认是否仍有库存。
-              </p>
-            </div>
-
-            <div className="rounded-[20px] border border-[#E5D7C5] bg-white p-4">
-              <p className="mb-2 text-[12px] font-semibold text-[#9A6530]">
-                02
-              </p>
-              <h4 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
-                确认最终成本
-              </h4>
-              <p className="text-[13px] leading-6 text-[#75695F]">
-                最终价格会结合原站价格、国际运费、预计税费与服务费综合确认。
-              </p>
-            </div>
-
-            <div className="rounded-[20px] border border-[#E5D7C5] bg-white p-4">
-              <p className="mb-2 text-[12px] font-semibold text-[#9A6530]">
-                03
-              </p>
-              <h4 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
-                适合找斗参考
-              </h4>
-              <p className="text-[13px] leading-6 text-[#75695F]">
-                已售商品也可以作为品牌、斗型、价格区间参考，用于寻找相近库存。
-              </p>
-            </div>
-          </div>
+          <p className="mt-3 text-[13px] leading-7 text-[#746A5F]">
+            本页展示的是海外公开页面采集时的烟斗器具库存信息与参考价格，不提供站内支付。
+            实际入手前需人工确认库存状态、最终价格、国际运费、预计税费与代购服务费用。
+            已售商品可作为品牌、斗型和价格区间参考。
+          </p>
         </section>
       </div>
 
       <SiteFooter />
     </main>
+  );
+}
+
+function TopNotice() {
+  return (
+    <div className="bg-[#063B32] px-4 py-2 text-center text-[12px] tracking-[0.12em] text-[#E7C48A] sm:text-[13px]">
+      <span className="mx-2 text-[#B8863B]">•</span>
+      精选海外烟斗库存 · 人工选品咨询
+      <span className="mx-2 text-[#B8863B]">•</span>
+    </div>
+  );
+}
+
+function InfoItem({
+  label,
+  value,
+  gold = false,
+  strong = false,
+  horizontal = false,
+}: {
+  label: string;
+  value: string;
+  gold?: boolean;
+  strong?: boolean;
+  horizontal?: boolean;
+}) {
+  if (horizontal) {
+    return (
+      <div className="flex items-center justify-between gap-4 text-[13px]">
+        <span className="text-[#746A5F]">{label}</span>
+        <span className="font-semibold text-[#1F1A16]">{value}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <p className="text-[12px] text-[#746A5F]">{label}</p>
+      <p
+        className={[
+          "mt-1 leading-tight",
+          gold
+            ? "text-[22px] font-medium text-[#A97838]"
+            : strong
+              ? "text-[16px] font-bold text-[#1F1A16]"
+              : "text-[14px] font-semibold text-[#1F1A16]",
+        ].join(" ")}
+        style={
+          gold
+            ? {
+                fontFamily: '"Georgia", "Times New Roman", serif',
+                fontVariantNumeric: "lining-nums",
+              }
+            : undefined
+        }
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function ArrowLeftIcon({ className = "" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M19 12H5M11 6l-6 6 6 6"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ChatIcon({ className = "" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M6.2 17.2 5 20l3.1-1.2c1.1.6 2.4.9 3.9.9 4.4 0 7.8-3 7.8-6.8S16.4 6.1 12 6.1s-7.8 3-7.8 6.8c0 1.6.7 3.1 2 4.3Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.5 12.2h7M8.5 14.8h4.8"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
