@@ -1,3 +1,8 @@
+import {
+  canonicalizeBrandName,
+  shouldHideBrandFromIndex,
+} from "./brand-aliases";
+
 export type PipeBrand = {
   slug: string;
   name: string;
@@ -159,8 +164,18 @@ export function normalizeBrandName(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
 }
 
+function transliterateBrandSlugText(value: string) {
+  return value
+    .replace(/ø/g, "o")
+    .replace(/Ø/g, "O")
+    .replace(/æ/g, "ae")
+    .replace(/Æ/g, "AE")
+    .replace(/å/g, "a")
+    .replace(/Å/g, "A");
+}
+
 export function slugifyBrand(name: string) {
-  const slug = normalizeBrandName(name)
+  const slug = normalizeBrandName(transliterateBrandSlugText(name))
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/&/g, " and ")
@@ -206,7 +221,7 @@ export function getBrandBySlug(slug: string) {
 }
 
 export function getBrandByName(name: string) {
-  const normalizedName = normalizeBrandName(name);
+  const normalizedName = normalizeBrandName(canonicalizeBrandName(name));
 
   return pipeBrands.find((brand) => {
     const brandNames = [brand.name, ...brand.aliases].map(normalizeBrandName);
@@ -224,21 +239,26 @@ export function getProductBrandGroups<T extends { brand?: string }>(
       name: string;
       slug: string;
       products: T[];
+      hideFromBrandIndex: boolean;
     }
   >();
 
   products.forEach((product) => {
-    const brandName = String(product.brand || "").trim().replace(/\s+/g, " ");
+    const rawBrandName = String(product.brand || "").trim().replace(/\s+/g, " ");
+    const brandName = canonicalizeBrandName(rawBrandName);
 
     if (!brandName) {
       return;
     }
 
     const key = normalizeBrandName(brandName);
+    const hideFromBrandIndex = shouldHideBrandFromIndex(rawBrandName);
     const existingGroup = groups.get(key);
 
     if (existingGroup) {
       existingGroup.products.push(product);
+      existingGroup.hideFromBrandIndex =
+        existingGroup.hideFromBrandIndex || hideFromBrandIndex;
       return;
     }
 
@@ -246,10 +266,11 @@ export function getProductBrandGroups<T extends { brand?: string }>(
       name: brandName,
       slug: slugifyBrand(brandName),
       products: [product],
+      hideFromBrandIndex,
     });
   });
 
-  return Array.from(groups.values()).sort((left, right) => {
+  return Array.from(groups.values()).filter((group) => !group.hideFromBrandIndex).sort((left, right) => {
     if (right.products.length !== left.products.length) {
       return right.products.length - left.products.length;
     }
