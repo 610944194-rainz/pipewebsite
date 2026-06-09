@@ -1,0 +1,30 @@
+{
+  "source": "The Danish Pipe Shop",
+  "startUrl": "https://www.danishpipeshop.com/l/-zh/Pipes1",
+  "collectedAt": "2026-06-09T13:43:13.601Z",
+  "completedAt": "2026-06-09T14:49:51.020Z",
+  "failCount": 3,
+  "errorSummary": {
+    "Error": 3
+  },
+  "errors": [
+    {
+      "href": "https://www.danishpipeshop.com/d/-zh/Estate-Erik-Nording-Rustic-Canadian-Presmoked-i36845.html",
+      "name": "Estate Erik Nording, Rustic Canadian, Presmoked",
+      "message": "page.goto: net::ERR_CONNECTION_ABORTED at https://www.danishpipeshop.com/d/-zh/Estate-Erik-Nording-Rustic-Canadian-Presmoked-i36845.html\nCall log:\n\u001b[2m  - navigating to \"https://www.danishpipeshop.com/d/-zh/Estate-Erik-Nording-Rustic-Canadian-Presmoked-i36845.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "nameOfError": "Error"
+    },
+    {
+      "href": "https://www.danishpipeshop.com/d/-zh/Savinelli-150-Anni-Carlo-Sandblasted-131-150-i36509.html",
+      "name": "Savinelli, 150 Anni Carlo, Sandblasted, 131/150",
+      "message": "Product page id mismatch: expected i36509, got iunknown at https://www.danishpipeshop.com/",
+      "nameOfError": "Error"
+    },
+    {
+      "href": "https://www.danishpipeshop.com/d/-zh/Savinelli-150-Anni-Carlo-Sandblasted-72-150-i36505.html",
+      "name": "Savinelli, 150 Anni Carlo, Sandblasted, 72/150",
+      "message": "Product page id mismatch: expected i36505, got iunknown at https://www.danishpipeshop.com/",
+      "nameOfError": "Error"
+    }
+  ]
+}

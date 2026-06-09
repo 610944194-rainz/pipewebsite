@@ -1,7 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const defaultInputPath = path.join(process.cwd(), "data", "danish-full-v17-test-500.json");
+const preferredDefaultInputPath = path.join(process.cwd(), "data", "danish-details-full.json");
+const legacyDefaultInputPath = path.join(process.cwd(), "data", "danish-full-v17-test-500.json");
+const defaultInputPath = fs.existsSync(preferredDefaultInputPath)
+  ? preferredDefaultInputPath
+  : legacyDefaultInputPath;
 const defaultOutputPath = path.join(process.cwd(), "data", "danish-products.ts");
 const inputPath = resolvePath(process.env.DANISH_FULL_INPUT, defaultInputPath);
 const outputPath = resolvePath(process.env.DANISH_PRODUCTS_OUTPUT, defaultOutputPath);

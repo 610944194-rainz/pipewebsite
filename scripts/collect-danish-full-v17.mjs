@@ -7,16 +7,23 @@ import { chromium } from "playwright";
 import { parsePipeCondition } from "./collect-danish-details-v16.mjs";
 
 const defaultStartUrl = "https://www.danishpipeshop.com/l/-zh/Pipes1";
-const defaultOutputPath = path.join(process.cwd(), "data", "danish-full-v17-output.json");
+const defaultListOutputPath = path.join(process.cwd(), "data", "danish-list-full.json");
+const defaultOutputPath = path.join(process.cwd(), "data", "danish-details-full.json");
+const defaultErrorsOutputPath = path.join(process.cwd(), "data", "danish-details-errors.json");
 const screenshotDir = path.join(process.cwd(), "data", "debug", "danish-full-v17-screenshots");
 
 const startUrl = normalizeText(process.env.DANISH_START_URL) || defaultStartUrl;
 const targetCount = readIntegerEnv("DANISH_TARGET_COUNT", 50, { min: 1 });
 const maxListPages = readIntegerEnv("DANISH_MAX_LIST_PAGES", 20, { min: 1 });
-const detailDelayMs = readIntegerEnv("DANISH_DETAIL_DELAY_MS", 1200, { min: 0 });
+const fixedDetailDelayMs = readIntegerEnv("DANISH_DETAIL_DELAY_MS", 0, { min: 0 });
+const minDetailDelayMs = fixedDetailDelayMs || readIntegerEnv("DANISH_DETAIL_MIN_DELAY_MS", 2000, { min: 0 });
+const maxDetailDelayMs = fixedDetailDelayMs || readIntegerEnv("DANISH_DETAIL_MAX_DELAY_MS", 5000, { min: minDetailDelayMs });
 const maxLoadMoreClicks = readIntegerEnv("DANISH_MAX_LOAD_MORE_CLICKS", 20, { min: 0 });
 const loadMoreDelayMs = readIntegerEnv("DANISH_LOAD_MORE_DELAY_MS", 1800, { min: 0 });
 const outputPath = resolveOutputPath(process.env.DANISH_OUTPUT, defaultOutputPath);
+const listOutputPath = resolveOutputPath(process.env.DANISH_LIST_OUTPUT, defaultListOutputPath);
+const errorsOutputPath = resolveOutputPath(process.env.DANISH_ERRORS_OUTPUT, defaultErrorsOutputPath);
+const collectorMode = normalizeText(process.env.DANISH_MODE || "full").toLowerCase();
 const scraperProxy = normalizeText(process.env.SCRAPER_PROXY);
 const saveScreenshots = readBooleanEnv("DANISH_SAVE_SCREENSHOTS", false);
 const checkpointEvery = readIntegerEnv("DANISH_CHECKPOINT_EVERY", 10, { min: 0 });
@@ -289,6 +296,17 @@ function resolveOutputPath(value, fallback) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getRandomDelayMs(minMs, maxMs) {
+  const min = Math.max(0, Number(minMs) || 0);
+  const max = Math.max(min, Number(maxMs) || min);
+
+  if (max === min) {
+    return min;
+  }
+
+  return Math.floor(min + Math.random() * (max - min + 1));
 }
 
 function getLocalBrowserExecutablePath() {
@@ -2837,6 +2855,94 @@ function buildNormalizedFailedProduct(product, error) {
   });
 }
 
+function readJsonIfExists(filePath, fallback = null) {
+  if (!fs.existsSync(filePath)) {
+    return fallback;
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    console.warn(`Could not read JSON file ${filePath}: ${error?.message || error}`);
+    return fallback;
+  }
+}
+
+function getPayloadProducts(payload) {
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+
+  return Array.isArray(payload?.products) ? payload.products : [];
+}
+
+function getProductHref(product) {
+  return firstNonEmpty(
+    product?.href,
+    product?.sourceUrl,
+    product?.originalUrl,
+    product?.error?.href
+  );
+}
+
+function normalizeHrefForSet(href) {
+  const value = normalizeText(href);
+
+  if (!value) {
+    return "";
+  }
+
+  try {
+    return new URL(value).href;
+  } catch {
+    return value;
+  }
+}
+
+function getProductErrors(products) {
+  return products
+    .map((product) => product?.error)
+    .filter(Boolean);
+}
+
+function summarizeErrorReasons(errors) {
+  return errors.reduce((acc, error) => {
+    const key = normalizeText(error?.nameOfError || error?.message || "Unknown error");
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function buildListOutputPayload({ products, collectedAt, completedAt = "" }) {
+  const invalidLinkCount = products.filter(
+    (product) => !/\/d\/-zh\/.*-i\d+\.html(?:[?#].*)?$/i.test(product.href || "")
+  ).length;
+
+  return {
+    source: "The Danish Pipe Shop",
+    startUrl,
+    collectedAt,
+    completedAt,
+    targetCount,
+    totalCount: products.length,
+    dedupedCount: new Set(products.map((product) => product.href)).size,
+    invalidLinkCount,
+    products,
+  };
+}
+
+function buildErrorsPayload({ errors, collectedAt, completedAt = "" }) {
+  return {
+    source: "The Danish Pipe Shop",
+    startUrl,
+    collectedAt,
+    completedAt,
+    failCount: errors.length,
+    errorSummary: summarizeErrorReasons(errors),
+    errors,
+  };
+}
+
 function buildOutputPayload({ discoveredProducts, products, errors, collectedAt, completedAt = "" }) {
   const failCount = errors.length;
   const successCount = products.length - failCount;
@@ -2860,6 +2966,50 @@ function writeCollectorOutput(filePath, payload) {
   fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), "utf8");
 }
 
+function writeListOutput({ products, collectedAt }) {
+  const payload = buildListOutputPayload({
+    products,
+    collectedAt,
+    completedAt: new Date().toISOString(),
+  });
+
+  writeCollectorOutput(listOutputPath, payload);
+  console.log(`List output written: ${listOutputPath}`);
+  console.log(
+    `list total=${payload.totalCount}, deduped=${payload.dedupedCount}, invalid=${payload.invalidLinkCount}`
+  );
+}
+
+function writeErrorOutput({ errors, collectedAt }) {
+  const payload = buildErrorsPayload({
+    errors,
+    collectedAt,
+    completedAt: new Date().toISOString(),
+  });
+
+  writeCollectorOutput(errorsOutputPath, payload);
+  console.log(`Errors output written: ${errorsOutputPath}`);
+}
+
+function writeDetailsOutput({ discoveredProducts, products, errors, collectedAt, checkpoint = false }) {
+  const payload = buildOutputPayload({
+    discoveredProducts,
+    products,
+    errors,
+    collectedAt,
+    completedAt: new Date().toISOString(),
+  });
+
+  if (checkpoint) {
+    payload.checkpoint = true;
+    payload.checkpointAt = new Date().toISOString();
+  }
+
+  writeCollectorOutput(outputPath, payload);
+  writeErrorOutput({ errors, collectedAt });
+  return payload;
+}
+
 function writeCheckpoint({ discoveredProducts, products, errors, collectedAt }) {
   const payload = buildOutputPayload({
     discoveredProducts,
@@ -2877,17 +3027,28 @@ function writeCheckpoint({ discoveredProducts, products, errors, collectedAt }) 
 
 async function main() {
   ensureDir(path.dirname(outputPath));
+  ensureDir(path.dirname(listOutputPath));
+  ensureDir(path.dirname(errorsOutputPath));
   ensureDir(screenshotDir);
 
+  if (!["full", "list", "details"].includes(collectorMode)) {
+    throw new Error(`Unsupported DANISH_MODE: ${collectorMode}. Use full, list, or details.`);
+  }
+
   console.log("Danish full collector v17 parameters:");
+  console.log(`DANISH_MODE=${collectorMode}`);
   console.log(`SCRAPER_PROXY=${scraperProxy ? "enabled" : "disabled"}`);
   console.log(`DANISH_START_URL=${startUrl}`);
   console.log(`DANISH_TARGET_COUNT=${targetCount}`);
   console.log(`DANISH_MAX_LIST_PAGES=${maxListPages}`);
   console.log(`DANISH_MAX_LOAD_MORE_CLICKS=${maxLoadMoreClicks}`);
   console.log(`DANISH_LOAD_MORE_DELAY_MS=${loadMoreDelayMs}`);
-  console.log(`DANISH_DETAIL_DELAY_MS=${detailDelayMs}`);
+  console.log(`DANISH_DETAIL_DELAY_MS=${fixedDetailDelayMs || "random"}`);
+  console.log(`DANISH_DETAIL_MIN_DELAY_MS=${minDetailDelayMs}`);
+  console.log(`DANISH_DETAIL_MAX_DELAY_MS=${maxDetailDelayMs}`);
+  console.log(`DANISH_LIST_OUTPUT=${listOutputPath}`);
   console.log(`DANISH_OUTPUT=${outputPath}`);
+  console.log(`DANISH_ERRORS_OUTPUT=${errorsOutputPath}`);
   console.log(`DANISH_SAVE_SCREENSHOTS=${saveScreenshots ? "1" : "0"}`);
   console.log(`DANISH_CHECKPOINT_EVERY=${checkpointEvery}`);
   console.log(`DANISH_PARTIAL_OUTPUT=${partialOutputPath}`);
@@ -2903,43 +3064,103 @@ async function main() {
     }
   );
 
-  const products = [];
-  const errors = [];
   const collectedAt = new Date().toISOString();
 
   try {
-    const discoveredProducts = await discoverProducts(context);
-    console.log(`Discovery complete: ${discoveredProducts.length} links.`);
+    let discoveredProducts = [];
+
+    if (collectorMode === "details") {
+      const listPayload = readJsonIfExists(listOutputPath);
+      discoveredProducts = getPayloadProducts(listPayload).slice(0, targetCount);
+      console.log(`Loaded ${discoveredProducts.length} product links from: ${listOutputPath}`);
+
+      if (discoveredProducts.length === 0) {
+        throw new Error("No product links found in DANISH_LIST_OUTPUT.");
+      }
+    } else {
+      discoveredProducts = await discoverProducts(context);
+      console.log(`Discovery complete: ${discoveredProducts.length} links.`);
+      writeListOutput({ products: discoveredProducts, collectedAt });
+
+      if (collectorMode === "list") {
+        return;
+      }
+    }
+
+    const previousPayload = readJsonIfExists(outputPath);
+    const products = getPayloadProducts(previousPayload);
+    const processedHrefs = new Set(
+      products
+        .map(getProductHref)
+        .map(normalizeHrefForSet)
+        .filter(Boolean)
+    );
+    const errors = getProductErrors(products);
+    let processedThisRun = 0;
+
+    if (products.length > 0) {
+      console.log(`Resume enabled: ${products.length} existing detail records loaded.`);
+    }
 
     for (let index = 0; index < discoveredProducts.length; index++) {
       const product = discoveredProducts[index];
+      const normalizedHref = normalizeHrefForSet(product.href);
+
+      if (processedHrefs.has(normalizedHref)) {
+        console.log(`Skipping already collected detail ${index + 1}: ${product.name || product.href}`);
+        continue;
+      }
 
       try {
         const detail = await collectDetail(context, product, index);
         products.push(detail);
+        processedHrefs.add(normalizedHref);
       } catch (error) {
         console.error(`Detail failed, continuing: ${product.href}`);
         console.error(error);
 
         const failedProduct = buildNormalizedFailedProduct(product, error);
         products.push(failedProduct);
+        processedHrefs.add(normalizedHref);
         errors.push(failedProduct.error);
       }
 
-      if (detailDelayMs > 0 && index < discoveredProducts.length - 1) {
-        await sleep(detailDelayMs);
+      processedThisRun++;
+
+      if (checkpointEvery > 0 && processedThisRun % checkpointEvery === 0) {
+        const checkpointPayload = writeDetailsOutput({
+          discoveredProducts,
+          products,
+          errors,
+          collectedAt,
+          checkpoint: true,
+        });
+        writeCheckpoint({ discoveredProducts, products, errors, collectedAt });
+        console.log(
+          `Checkpoint saved after ${processedThisRun} new records: successCount=${checkpointPayload.successCount}, failCount=${checkpointPayload.failCount}`
+        );
+      }
+
+      const hasMorePending = discoveredProducts
+        .slice(index + 1)
+        .some((nextProduct) => !processedHrefs.has(normalizeHrefForSet(nextProduct.href)));
+
+      if (hasMorePending) {
+        const delayMs = getRandomDelayMs(minDetailDelayMs, maxDetailDelayMs);
+
+        if (delayMs > 0) {
+          console.log(`Waiting ${delayMs}ms before next detail.`);
+          await sleep(delayMs);
+        }
       }
     }
 
-    const payload = buildOutputPayload({
+    const payload = writeDetailsOutput({
       discoveredProducts,
       products,
       errors,
       collectedAt,
-      completedAt: new Date().toISOString(),
     });
-
-    writeCollectorOutput(outputPath, payload);
 
     console.log(`v17 output written: ${outputPath}`);
     console.log(`successCount=${payload.successCount}`);
