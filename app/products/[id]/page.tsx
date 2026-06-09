@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import BackButton from "../../components/BackButton";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
+import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../../utils/price";
 import { getBrandByName } from "../../../data/brands";
 import { pipeProducts } from "../../../data/pipes";
 import ProductGallery from "./ProductGallery";
@@ -180,6 +181,9 @@ export default async function ProductDetailPage({
   const chineseProductName = getProductChineseName(product);
   const brand = getBrandByName(product.brand);
   const brandChineseName = getBrandChineseName(product, brand);
+  const rmbReferencePrice = getRmbReferencePrice(
+    product as unknown as Record<string, unknown>
+  );
   const parsedSpecs = specsText.map(parseSpec).filter((spec) => spec.label);
   const detailSummary = `来自 ${product.source} 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。`;
 
@@ -258,9 +262,8 @@ export default async function ProductDetailPage({
             价格与库存参考
           </h2>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4">
-            <InfoItem label="海外原价" value={product.originalPrice} gold />
-            <InfoItem label="人民币参考" value={product.estimatedCny} strong />
+          <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3">
+            <InfoItem label={RMB_REFERENCE_LABEL} value={rmbReferencePrice} strong />
             <InfoItem label="库存状态" value={product.status} strong />
             <InfoItem label="来源网站" value={product.source} />
           </div>

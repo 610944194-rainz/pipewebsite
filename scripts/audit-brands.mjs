@@ -5,6 +5,7 @@ const rootDir = process.cwd();
 const danishProductsPath = path.join(rootDir, "data", "danish-products.ts");
 const brandsPath = path.join(rootDir, "data", "brands.ts");
 const brandAliasesPath = path.join(rootDir, "data", "brand-aliases.ts");
+const brandProfilesPath = path.join(rootDir, "data", "brand-profiles.ts");
 const outputPath = path.join(rootDir, "data", "brand-audit.json");
 
 function normalizeText(value) {
@@ -248,6 +249,23 @@ function parseBrandProfiles() {
   }));
 }
 
+function parseManualBrandProfiles() {
+  const content = readFile(brandProfilesPath);
+  const arrayText = extractExportedArray(content, "brandProfiles");
+
+  return splitTopLevelObjects(arrayText).map((objectText) => ({
+    name: extractStringField(objectText, "name"),
+    nameZh: extractStringField(objectText, "nameZh"),
+    countryZh: extractStringField(objectText, "countryZh"),
+    country: extractStringField(objectText, "country"),
+    regionZh: extractStringField(objectText, "regionZh"),
+    profileStatus: extractStringField(objectText, "profileStatus"),
+    translationStatus: extractStringField(objectText, "translationStatus"),
+    brandType: extractStringField(objectText, "brandType"),
+    noteZh: extractStringField(objectText, "noteZh"),
+  }));
+}
+
 function getBrandProfileLookup(brandProfiles) {
   const lookup = new Map();
 
@@ -343,26 +361,34 @@ function buildBrandGroups(products, aliasConfig) {
 
 function buildAudit() {
   const products = parseDanishProducts();
-  const brandProfiles = parseBrandProfiles();
+  const staticBrandProfiles = parseBrandProfiles();
+  const manualBrandProfiles = parseManualBrandProfiles();
   const aliasConfig = parseBrandAliasConfig();
-  const profileLookup = getBrandProfileLookup(brandProfiles);
+  const staticProfileLookup = getBrandProfileLookup(staticBrandProfiles);
+  const manualProfileLookup = getBrandProfileLookup(manualBrandProfiles);
   const rawBrandCount = buildRawBrandCount(products);
   const brandGroups = buildBrandGroups(products, aliasConfig);
 
   const audit = brandGroups.map((group) => {
-    const profile = findBrandProfile(group.brand, profileLookup);
+    const staticProfile = findBrandProfile(group.brand, staticProfileLookup);
+    const manualProfile = findBrandProfile(group.brand, manualProfileLookup);
     const productCount = group.products.length;
     const hideFromBrandIndex = Boolean(group.hideFromBrandIndex);
     const currentCountry =
-      profile && !isMissingText(profile.country) ? profile.country : "";
-    const currentSummary = profile?.summary || "";
-    const currentNameZh = profile?.nameZh || "";
+      manualProfile?.countryZh ||
+      manualProfile?.country ||
+      (staticProfile && !isMissingText(staticProfile.country)
+        ? staticProfile.country
+        : "");
+    const currentSummary = staticProfile?.summary || "";
+    const currentNameZh = manualProfile?.nameZh || staticProfile?.nameZh || "";
+    const profileStatus = manualProfile?.profileStatus || "";
     const needsChineseName = !hideFromBrandIndex && !currentNameZh;
     const needsCountry = !hideFromBrandIndex && !currentCountry;
     const needsProfile = hideFromBrandIndex
       ? false
-      : !profile ||
-        profile.status !== "verified" ||
+      : !staticProfile ||
+        staticProfile.status !== "verified" ||
         isMissingText(currentSummary);
 
     return {
@@ -377,10 +403,11 @@ function buildAudit() {
             .filter(Boolean)
         )
       ).slice(0, 5),
-      hasBrandProfile: Boolean(profile),
+      hasBrandProfile: Boolean(staticProfile || manualProfile),
       currentNameZh,
       currentCountry,
       currentSummary,
+      profileStatus,
       needsChineseName,
       needsCountry,
       needsProfile,

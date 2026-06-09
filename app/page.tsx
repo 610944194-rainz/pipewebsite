@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "./components/SiteHeader";
+import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "./utils/price";
 import { pipeProducts } from "@/data/pipes";
 
 type PipeLike = Record<string, unknown>;
@@ -51,6 +52,8 @@ function getImage(item: PipeLike) {
 }
 
 function getPrice(item: PipeLike) {
+  return getRmbReferencePrice(item);
+
   const rawPrice = getText(item, ["price", "displayPrice", "rawPrice"], "");
 
   if (!rawPrice) return "价格待确认";
@@ -68,8 +71,8 @@ function getPrice(item: PipeLike) {
 
   if (!match) return cleaned;
 
-  const symbol = match[1];
-  const numberPart = match[2];
+  const symbol = match?.[1] || "";
+  const numberPart = match?.[2] || "";
 
   // 处理欧洲价格格式：644,80 / 1128,40
   if (/^\d+,\d{2}$/.test(numberPart)) {
@@ -440,21 +443,12 @@ function ProductCard({ item }: { item: PipeLike }) {
         <p className="line-clamp-1 text-[11px] text-[#746A5F]">{meta}</p>
 
         <div className="pt-1">
-          <p
-            className="leading-none text-[#A97838]"
-            style={{
-              fontFamily: '"Georgia", "Times New Roman", "PingFang SC", serif',
-              fontSize: "18px",
-              fontWeight: 400,
-              letterSpacing: "0.005em",
-              fontVariantNumeric: "lining-nums",
-            }}
-          >
-            {price}
+          <p className="text-[11px] leading-5 text-[#8A8176]">
+            {RMB_REFERENCE_LABEL}
           </p>
 
-          <p className="mt-1 text-[10px] leading-4 tracking-[0.04em] text-[#746A5F]">
-            原站参考价
+          <p className="text-[13px] font-semibold leading-5 text-[#1F1A16]">
+            {price}
           </p>
         </div>
       </div>

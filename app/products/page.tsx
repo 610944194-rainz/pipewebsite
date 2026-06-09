@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
+import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../utils/price";
 import {
   type FormEvent,
   useEffect,
@@ -207,23 +208,9 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
 
           <div className="mt-2 space-y-1 border-t border-[#F0E6D8] pt-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] text-[#746A5F]">海外原价</span>
-              <span
-                className="text-[12px] font-medium text-[#A97838]"
-                style={{
-                  fontFamily:
-                    '"Georgia", "Times New Roman", "PingFang SC", serif',
-                  fontVariantNumeric: "lining-nums",
-                }}
-              >
-                {pipe.originalPrice}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] text-[#746A5F]">人民币参考</span>
+              <span className="text-[10px] text-[#746A5F]">{RMB_REFERENCE_LABEL}</span>
               <span className="text-[11px] font-semibold text-[#1F1A16]">
-                {pipe.estimatedCny}
+                {getRmbReferencePrice(pipe as unknown as Record<string, unknown>)}
               </span>
             </div>
           </div>

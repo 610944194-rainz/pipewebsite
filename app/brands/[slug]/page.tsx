@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BackButton from "../../components/BackButton";
 import SiteHeader from "../../components/SiteHeader";
+import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../../utils/price";
 import {
   createFallbackBrand,
   getBrandByName,
@@ -460,9 +461,9 @@ function StockCard({ product }: { product: PipeProduct }) {
 
           <div className="mt-2 space-y-1 border-t border-[#F0E6D8] pt-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] text-[#746A5F]">人民币参考</span>
+              <span className="text-[10px] text-[#746A5F]">{RMB_REFERENCE_LABEL}</span>
               <span className="text-[11px] font-semibold text-[#1F1A16]">
-                {product.estimatedCny}
+                {getRmbReferencePrice(product as unknown as Record<string, unknown>)}
               </span>
             </div>
 
@@ -475,7 +476,7 @@ function StockCard({ product }: { product: PipeProduct }) {
           </div>
 
           <span className="mt-3 flex h-8 items-center justify-center rounded-full bg-[#063B32] text-[12px] font-semibold tracking-[0.04em] text-[#E7C48A] transition group-hover:bg-[#0A4A3E]">
-            查看商品
+            查看详情
           </span>
         </div>
       </article>

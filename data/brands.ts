@@ -2,6 +2,11 @@ import {
   canonicalizeBrandName,
   shouldHideBrandFromIndex,
 } from "./brand-aliases";
+import {
+  getBrandProfileByName,
+  getBrandProfileBySlug,
+  type BrandProfile,
+} from "./brand-profiles";
 
 export type PipeBrand = {
   slug: string;
@@ -18,6 +23,14 @@ export type PipeBrand = {
   priceRange: string;
   sourceUrls: string[];
   status: "template" | "verified";
+  nameZh?: string;
+  countryZh?: string;
+  countryEn?: string;
+  regionZh?: string;
+  profileStatus?: BrandProfile["profileStatus"];
+  translationStatus?: BrandProfile["translationStatus"];
+  brandType?: BrandProfile["brandType"];
+  noteZh?: string;
 };
 
 const templateStory =
@@ -185,8 +198,38 @@ export function slugifyBrand(name: string) {
   return slug || "unknown";
 }
 
-export function createFallbackBrand(name: string, slug = slugifyBrand(name)) {
+function applyManualBrandProfile(brand: PipeBrand) {
+  const profile =
+    getBrandProfileByName(brand.name) || getBrandProfileBySlug(brand.slug);
+
+  if (!profile) {
+    return brand;
+  }
+
   return {
+    ...brand,
+    nameZh: profile.nameZh,
+    country: profile.countryZh || brand.country,
+    countryZh: profile.countryZh,
+    countryEn: profile.country,
+    regionZh: profile.regionZh,
+    profileStatus: profile.profileStatus,
+    translationStatus: profile.translationStatus,
+    brandType: profile.brandType,
+    noteZh: profile.noteZh,
+    story: profile.profileStatus === "needs_review" ? "" : brand.story,
+    features: profile.profileStatus === "needs_review" ? [] : brand.features,
+    representativeStyles:
+      profile.profileStatus === "needs_review"
+        ? []
+        : brand.representativeStyles,
+    suitableFor:
+      profile.profileStatus === "needs_review" ? "" : brand.suitableFor,
+  };
+}
+
+export function createFallbackBrand(name: string, slug = slugifyBrand(name)) {
+  return applyManualBrandProfile({
     slug,
     name,
     aliases: [name],
@@ -201,19 +244,27 @@ export function createFallbackBrand(name: string, slug = slugifyBrand(name)) {
     priceRange: "以当前库存页和人工确认为准",
     sourceUrls: [],
     status: "template",
-  } satisfies PipeBrand;
+  } satisfies PipeBrand);
 }
 
 export function getBrandMetaBySlug(slug: string) {
   const normalizedSlug = slugifyBrand(slug);
 
-  return pipeBrands.find((brand) => {
+  const staticBrand = pipeBrands.find((brand) => {
     const candidateSlugs = [brand.slug, brand.name, ...brand.aliases].map(
       slugifyBrand
     );
 
     return candidateSlugs.includes(normalizedSlug);
   });
+
+  if (staticBrand) {
+    return applyManualBrandProfile(staticBrand);
+  }
+
+  const profile = getBrandProfileBySlug(slug);
+
+  return profile ? createFallbackBrand(profile.name, slugifyBrand(profile.name)) : undefined;
 }
 
 export function getBrandBySlug(slug: string) {
@@ -221,13 +272,22 @@ export function getBrandBySlug(slug: string) {
 }
 
 export function getBrandByName(name: string) {
-  const normalizedName = normalizeBrandName(canonicalizeBrandName(name));
+  const canonicalName = canonicalizeBrandName(name);
+  const normalizedName = normalizeBrandName(canonicalName);
 
-  return pipeBrands.find((brand) => {
+  const staticBrand = pipeBrands.find((brand) => {
     const brandNames = [brand.name, ...brand.aliases].map(normalizeBrandName);
 
     return brandNames.includes(normalizedName);
   });
+
+  if (staticBrand) {
+    return applyManualBrandProfile(staticBrand);
+  }
+
+  const profile = getBrandProfileByName(canonicalName);
+
+  return profile ? createFallbackBrand(profile.name) : undefined;
 }
 
 export function getProductBrandGroups<T extends { brand?: string }>(

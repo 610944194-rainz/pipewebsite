@@ -90,7 +90,7 @@ export default function ServicePage() {
             </h1>
 
             <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
-              本站整理海外烟斗网站的公开库存信息，帮助你快速查看商品、图片、价格和参数。页面展示并不代表实时库存，实际购买前需要人工重新确认。
+              本站整理海外烟斗网站的公开库存信息，帮助你快速浏览库存、图片、价格和参数。页面展示并不代表实时库存，实际购买前需要人工重新确认。
             </p>
 
             <div className="mt-5 grid gap-2.5 sm:flex sm:flex-wrap">
@@ -140,7 +140,7 @@ export default function ServicePage() {
             <StepCard
               index="03"
               title="确认成本"
-              desc="下单前重新确认库存、原站价格、国际运费、预计税费和服务费用。"
+              desc="下单前重新确认库存、人民币参考价、国际运费、预计税费和服务费用。"
             />
 
             <StepCard
@@ -164,7 +164,7 @@ export default function ServicePage() {
             </h2>
 
             <div>
-              <InfoRow label="海外原价" value="以原站下单前实时页面为准" />
+              <InfoRow label="人民币参考价" value="页面展示为采集时人民币参考价信息，购买前需人工确认" />
               <InfoRow label="国际运费" value="根据商家、目的地和包裹重量确认" />
               <InfoRow label="预计税费" value="根据实际申报、物流和目的地规则预估" />
               <InfoRow label="服务费" value="按商品情况、沟通成本和代购难度确认" />
