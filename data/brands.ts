@@ -1,5 +1,6 @@
 import {
   canonicalizeBrandName,
+  normalizeBrandForIndex,
   shouldHideBrandFromIndex,
 } from "./brand-aliases";
 import {
@@ -7,6 +8,10 @@ import {
   getBrandProfileBySlug,
   type BrandProfile,
 } from "./brand-profiles";
+import {
+  brandContentProfiles,
+  type BrandContentProfile,
+} from "./brand-content";
 
 export type PipeBrand = {
   slug: string;
@@ -29,8 +34,19 @@ export type PipeBrand = {
   regionZh?: string;
   profileStatus?: BrandProfile["profileStatus"];
   translationStatus?: BrandProfile["translationStatus"];
-  brandType?: BrandProfile["brandType"];
+  brandType?: BrandProfile["brandType"] | string;
+  priority?: string;
+  brandIndexStatus?: string;
+  reviewStatus?: string;
+  detailIntro?: string;
   noteZh?: string;
+};
+
+type BrandContentEntry = {
+  profile: BrandContentProfile;
+  canonicalName: string;
+  canonicalSlug: string;
+  aliases: string[];
 };
 
 const templateStory =
@@ -198,6 +214,117 @@ export function slugifyBrand(name: string) {
   return slug || "unknown";
 }
 
+export const BRAND_INDEX_STATUS_VISIBLE = "品牌库显示";
+export const BRAND_INDEX_STATUS_NAME_ONLY = "仅展示品牌名";
+
+function isExplicitlyVisibleBrandContent(profile: BrandContentProfile) {
+  return (
+    profile.brandIndexStatus === BRAND_INDEX_STATUS_VISIBLE ||
+    profile.brandIndexStatus === BRAND_INDEX_STATUS_NAME_ONLY
+  );
+}
+
+function shouldUseBrandContentProfile(profile: BrandContentProfile) {
+  if (shouldHideBrandFromIndex(profile.name)) {
+    return false;
+  }
+
+  if (profile.reviewStatus === "暂不展示") {
+    return isExplicitlyVisibleBrandContent(profile);
+  }
+
+  return isExplicitlyVisibleBrandContent(profile);
+}
+
+function getBrandContentSlug(profile: BrandContentProfile) {
+  return normalizeBrandForIndex(profile.name).canonicalSlug;
+}
+
+const brandContentProfilesForIndex = brandContentProfiles.filter(
+  shouldUseBrandContentProfile
+);
+
+function getContentProfileRank(profile: BrandContentProfile) {
+  if (profile.brandIndexStatus === BRAND_INDEX_STATUS_VISIBLE) return 0;
+  if (profile.reviewStatus === "可入库") return 1;
+  return 2;
+}
+
+function uniqueText(items: string[]) {
+  return Array.from(
+    new Set(items.map((item) => item.trim()).filter(Boolean))
+  );
+}
+
+const brandContentEntriesBySlug = new Map<string, BrandContentEntry>();
+
+for (const profile of brandContentProfilesForIndex) {
+  const canonical = normalizeBrandForIndex(profile.name);
+  const existing = brandContentEntriesBySlug.get(canonical.canonicalSlug);
+  const aliases = uniqueText([profile.name, profile.slug]);
+
+  if (!existing) {
+    brandContentEntriesBySlug.set(canonical.canonicalSlug, {
+      profile,
+      canonicalName: canonical.canonicalName,
+      canonicalSlug: canonical.canonicalSlug,
+      aliases,
+    });
+    continue;
+  }
+
+  existing.aliases = uniqueText([...existing.aliases, ...aliases]);
+
+  if (getContentProfileRank(profile) < getContentProfileRank(existing.profile)) {
+    existing.profile = profile;
+  }
+}
+
+const brandContentEntries = Array.from(brandContentEntriesBySlug.values());
+
+const brandContentBySlug = new Map<string, BrandContentEntry>();
+const brandContentByName = new Map<string, BrandContentEntry>();
+
+for (const entry of brandContentEntries) {
+  brandContentBySlug.set(entry.canonicalSlug, entry);
+  brandContentByName.set(normalizeBrandName(entry.canonicalName), entry);
+
+  for (const alias of entry.aliases) {
+    brandContentBySlug.set(slugifyBrand(alias), entry);
+    brandContentByName.set(normalizeBrandName(canonicalizeBrandName(alias)), entry);
+    brandContentByName.set(normalizeBrandName(alias), entry);
+  }
+}
+
+export function isNameOnlyBrand(brand: Pick<PipeBrand, "brandIndexStatus">) {
+  return brand.brandIndexStatus === BRAND_INDEX_STATUS_NAME_ONLY;
+}
+
+export function getBrandContentProfileBySlug(slug: string) {
+  const canonicalSlug = normalizeBrandForIndex(slug.replace(/-/g, " "))
+    .canonicalSlug;
+  return (
+    brandContentBySlug.get(canonicalSlug)?.profile ||
+    brandContentBySlug.get(slugifyBrand(slug))?.profile
+  );
+}
+
+export function getBrandContentProfileByName(name: string) {
+  const canonicalName = canonicalizeBrandName(name);
+  return (
+    brandContentByName.get(normalizeBrandName(canonicalName))?.profile ||
+    brandContentByName.get(normalizeBrandName(name))?.profile
+  );
+}
+
+export function getCanonicalBrandSlugForInput(value: string) {
+  return normalizeBrandForIndex(value.replace(/-/g, " ")).canonicalSlug;
+}
+
+function getBrandContentAliasesForSlug(slug: string) {
+  return brandContentEntriesBySlug.get(slug)?.aliases || [];
+}
+
 function applyManualBrandProfile(brand: PipeBrand) {
   const profile =
     getBrandProfileByName(brand.name) || getBrandProfileBySlug(brand.slug);
@@ -228,8 +355,57 @@ function applyManualBrandProfile(brand: PipeBrand) {
   };
 }
 
+function applyBrandContentProfile(brand: PipeBrand) {
+  const content =
+    getBrandContentProfileBySlug(brand.slug) ||
+    getBrandContentProfileByName(brand.name);
+
+  if (!content) {
+    return brand;
+  }
+
+  const nameOnly = content.brandIndexStatus === BRAND_INDEX_STATUS_NAME_ONLY;
+
+  return {
+    ...brand,
+    nameZh: content.nameZh || brand.nameZh,
+    country: content.country || brand.country,
+    countryZh: content.country || brand.countryZh,
+    countryEn: content.countryEn || brand.countryEn,
+    brandType: content.brandType || brand.brandType,
+    priority: content.priority || brand.priority,
+    brandIndexStatus: content.brandIndexStatus || brand.brandIndexStatus,
+    reviewStatus: content.reviewStatus || brand.reviewStatus,
+    detailIntro: nameOnly ? "" : content.detailIntro || brand.detailIntro || "",
+    summary: nameOnly ? "" : content.summary || brand.summary,
+    story: nameOnly ? "" : content.story || brand.story,
+    features: nameOnly
+      ? []
+      : content.features.length > 0
+        ? content.features
+        : brand.features,
+    representativeStyles: nameOnly
+      ? []
+      : content.representativeStyles.length > 0
+        ? content.representativeStyles
+        : brand.representativeStyles,
+    suitableFor: nameOnly ? "" : content.suitableFor || brand.suitableFor,
+    sourceUrls: nameOnly
+      ? []
+      : content.sourceUrls.length > 0
+        ? content.sourceUrls
+        : brand.sourceUrls,
+    noteZh: content.noteZh || brand.noteZh,
+    status: content.reviewStatus === "可入库" ? "verified" : brand.status,
+  };
+}
+
+function applyBrandProfiles(brand: PipeBrand) {
+  return applyBrandContentProfile(applyManualBrandProfile(brand));
+}
+
 export function createFallbackBrand(name: string, slug = slugifyBrand(name)) {
-  return applyManualBrandProfile({
+  return applyBrandProfiles({
     slug,
     name,
     aliases: [name],
@@ -259,7 +435,17 @@ export function getBrandMetaBySlug(slug: string) {
   });
 
   if (staticBrand) {
-    return applyManualBrandProfile(staticBrand);
+    return applyBrandProfiles(staticBrand);
+  }
+
+  const contentProfile = getBrandContentProfileBySlug(slug);
+
+  if (contentProfile) {
+    const canonical = normalizeBrandForIndex(contentProfile.name);
+    return createFallbackBrand(
+      canonical.canonicalName,
+      canonical.canonicalSlug
+    );
   }
 
   const profile = getBrandProfileBySlug(slug);
@@ -282,12 +468,31 @@ export function getBrandByName(name: string) {
   });
 
   if (staticBrand) {
-    return applyManualBrandProfile(staticBrand);
+    return applyBrandProfiles(staticBrand);
+  }
+
+  const contentProfile = getBrandContentProfileByName(canonicalName);
+
+  if (contentProfile) {
+    const canonical = normalizeBrandForIndex(contentProfile.name);
+    return createFallbackBrand(
+      canonical.canonicalName,
+      canonical.canonicalSlug
+    );
   }
 
   const profile = getBrandProfileByName(canonicalName);
 
   return profile ? createFallbackBrand(profile.name) : undefined;
+}
+
+export function getBrandContentBrandsForIndex() {
+  return brandContentEntries.map((entry) => ({
+    ...createFallbackBrand(entry.canonicalName, entry.canonicalSlug),
+    name: entry.canonicalName,
+    slug: entry.canonicalSlug,
+    aliases: uniqueText([entry.canonicalName, ...entry.aliases]),
+  }));
 }
 
 export function getProductBrandGroups<T extends { brand?: string }>(
@@ -300,18 +505,20 @@ export function getProductBrandGroups<T extends { brand?: string }>(
       slug: string;
       products: T[];
       hideFromBrandIndex: boolean;
+      aliases: string[];
     }
   >();
 
   products.forEach((product) => {
     const rawBrandName = String(product.brand || "").trim().replace(/\s+/g, " ");
-    const brandName = canonicalizeBrandName(rawBrandName);
+    const canonicalBrand = normalizeBrandForIndex(rawBrandName);
+    const brandName = canonicalBrand.canonicalName;
 
     if (!brandName) {
       return;
     }
 
-    const key = normalizeBrandName(brandName);
+    const key = canonicalBrand.canonicalSlug;
     const hideFromBrandIndex = shouldHideBrandFromIndex(rawBrandName);
     const existingGroup = groups.get(key);
 
@@ -319,14 +526,20 @@ export function getProductBrandGroups<T extends { brand?: string }>(
       existingGroup.products.push(product);
       existingGroup.hideFromBrandIndex =
         existingGroup.hideFromBrandIndex || hideFromBrandIndex;
+      existingGroup.aliases = uniqueText([
+        ...existingGroup.aliases,
+        rawBrandName,
+        ...getBrandContentAliasesForSlug(key),
+      ]);
       return;
     }
 
     groups.set(key, {
       name: brandName,
-      slug: slugifyBrand(brandName),
+      slug: canonicalBrand.canonicalSlug,
       products: [product],
       hideFromBrandIndex,
+      aliases: uniqueText([rawBrandName, ...getBrandContentAliasesForSlug(key)]),
     });
   });
 

@@ -24,13 +24,43 @@ type StatusMode = "all" | "available" | "sold" | "gallery";
 
 type PaginationItem = number | "ellipsis";
 
+type FilterKind =
+  | "brand"
+  | "country"
+  | "shape"
+  | "condition"
+  | "weight"
+  | "finish"
+  | "stemMaterial"
+  | "sort";
+
+type FilterOption = {
+  label: string;
+  value: string;
+};
+
+type ProductFilterOptions = {
+  brands: FilterOption[];
+  countries: FilterOption[];
+  shapes: FilterOption[];
+  conditions: FilterOption[];
+  weights: FilterOption[];
+  finishes: FilterOption[];
+  stemMaterials: FilterOption[];
+};
+
 type IconProps = {
   className?: string;
 };
 
 const PAGE_SIZE = 20;
 
-const futureFilterItems = ["国家", "斗型", "品牌", "价格区间", "材质"];
+const WEIGHT_RANGE_LABELS: Record<string, string> = {
+  light: "轻量 ≤35g",
+  medium: "中等 36–55g",
+  heavy: "偏重 56–75g",
+  "extra-heavy": "重型 >75g",
+};
 
 const statusFilterItems: Array<{
   label: string;
@@ -40,6 +70,17 @@ const statusFilterItems: Array<{
   { label: "在售", value: "available" },
   { label: "已售参考", value: "sold" },
   { label: "多图完整", value: "gallery" },
+];
+
+const sortItems: Array<{
+  label: string;
+  value: SortMode;
+}> = [
+  { label: "推荐", value: "recommended" },
+  { label: "价格从低到高", value: "priceAsc" },
+  { label: "价格从高到低", value: "priceDesc" },
+  { label: "最新更新", value: "newest" },
+  { label: "多图优先", value: "galleryFirst" },
 ];
 
 function isSoldProduct(pipe: PipeProduct) {
@@ -54,17 +95,123 @@ function getGalleryCount(pipe: PipeProduct) {
   return pipe.galleryImages?.length || 0;
 }
 
+function isKnownFilterValue(value: unknown) {
+  const text = String(value || "").trim();
+  return Boolean(text) && text.toLowerCase() !== "unknown";
+}
+
+function uniqueOptions(
+  products: PipeProduct[],
+  valueGetter: (pipe: PipeProduct) => string | undefined,
+  labelGetter?: (pipe: PipeProduct) => string | undefined
+) {
+  const optionMap = new Map<string, string>();
+
+  products.forEach((pipe) => {
+    const value = String(valueGetter(pipe) || "").trim();
+    if (!isKnownFilterValue(value)) return;
+
+    const label = String(labelGetter?.(pipe) || value).trim();
+    optionMap.set(value, label || value);
+  });
+
+  return [...optionMap.entries()]
+    .map(([value, label]) => ({ value, label }))
+    .sort((a, b) => a.label.localeCompare(b.label, "zh-Hans-CN"));
+}
+
+function getShapeFilterLabel(pipe: PipeProduct) {
+  return String(pipe.shapeZh || pipe.shape || "")
+    .replace(/^弯式/, "")
+    .replace(/^直式/, "")
+    .trim();
+}
+
+function getConditionFilterLabel(pipe: PipeProduct) {
+  if (pipe.conditionType === "new") return "新斗";
+  if (pipe.conditionType === "estate") return "Estate";
+  return pipe.conditionLabel || pipe.condition || "";
+}
+
+function getWeightRangeLabel(value: string | undefined) {
+  return value ? WEIGHT_RANGE_LABELS[value] || value : "";
+}
+
+function buildProductFilterOptions(products: PipeProduct[]): ProductFilterOptions {
+  return {
+    brands: uniqueOptions(products, (pipe) => pipe.canonicalBrand || pipe.brand),
+    countries: uniqueOptions(products, (pipe) => pipe.brandCountry),
+    shapes: uniqueOptions(
+      products,
+      (pipe) => pipe.shape,
+      (pipe) => getShapeFilterLabel(pipe)
+    ),
+    conditions: uniqueOptions(
+      products,
+      (pipe) => pipe.conditionType,
+      (pipe) => getConditionFilterLabel(pipe)
+    ),
+    weights: uniqueOptions(
+      products,
+      (pipe) => pipe.weightRange,
+      (pipe) => getWeightRangeLabel(pipe.weightRange)
+    ),
+    finishes: uniqueOptions(
+      products,
+      (pipe) => pipe.finish,
+      (pipe) => pipe.finishZh || pipe.finish
+    ),
+    stemMaterials: uniqueOptions(
+      products,
+      (pipe) => pipe.stemMaterial,
+      (pipe) => pipe.stemMaterialZh || pipe.stemMaterial
+    ),
+  };
+}
+
+function getCardMetaTags(pipe: PipeProduct) {
+  return [
+    pipe.brandCountry,
+    pipe.conditionLabel || pipe.condition,
+    pipe.shapeZh,
+    getWeightRangeLabel(pipe.weightRange),
+    pipe.finishZh,
+    pipe.stemMaterialZh,
+  ]
+    .map((value) => String(value || "").trim())
+    .filter((value) => isKnownFilterValue(value))
+    .slice(0, 3);
+}
+
 function getSearchText(pipe: PipeProduct) {
   return [
     pipe.brand,
+    pipe.canonicalBrand,
     pipe.name,
+    pipe.nameZh,
+    pipe.brandCountry,
+    pipe.brandCountryEn,
+    pipe.shape,
+    pipe.shapeZh,
+    pipe.finish,
+    pipe.finishZh,
+    pipe.material,
+    pipe.materialZh,
+    pipe.stemMaterial,
+    pipe.stemMaterialZh,
+    pipe.engineeringFeature,
+    pipe.engineeringFeatureZh,
+    pipe.grainPattern,
+    pipe.grainPatternZh,
     pipe.source,
     pipe.status,
     pipe.condition,
+    pipe.conditionLabel,
     pipe.audience,
     pipe.comment,
     pipe.detail,
     ...(pipe.tags || []),
+    ...(pipe.parsedTags || []),
     ...(pipe.specsText || []),
   ]
     .join(" ")
@@ -159,6 +306,9 @@ function getStatusClass(pipe: PipeProduct) {
 function ProductCard({ pipe }: { pipe: PipeProduct }) {
   const galleryCount = getGalleryCount(pipe);
   const statusLabel = getStatusLabel(pipe);
+  const displayName = pipe.nameZh || pipe.name;
+  const englishName = pipe.nameZh ? pipe.name : "";
+  const metaTags = getCardMetaTags(pipe);
 
   return (
     <Link
@@ -169,7 +319,7 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
         <div className="relative h-[122px] bg-[#F8F4EC] sm:h-[150px]">
           <img
             src={pipe.imageUrl}
-            alt={pipe.name}
+            alt={displayName}
             className="h-full w-full object-contain p-2.5"
             draggable={false}
             loading="lazy"
@@ -197,14 +347,20 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
 
         <div className="flex flex-1 flex-col p-2.5">
           <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-[#9A6530]">
-            {pipe.brand}
+            {pipe.canonicalBrand || pipe.brand}
           </p>
 
           <h3 className="mt-1 line-clamp-2 min-h-[36px] text-[13px] font-semibold leading-[1.35] text-[#1F1A16]">
-            {pipe.name}
+            {displayName}
           </h3>
 
-          
+          {englishName ? (
+            <p className="mt-1 line-clamp-1 min-h-5 text-[11px] leading-5 text-[#8A8176]">
+              {englishName}
+            </p>
+          ) : (
+            <span className="mt-1 block min-h-5" aria-hidden="true" />
+          )}
 
           <div className="mt-2 space-y-1 border-t border-[#F0E6D8] pt-2">
             <div className="flex items-center justify-between gap-2">
@@ -215,18 +371,22 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
             </div>
           </div>
 
-          <div className="mt-2 flex flex-wrap gap-1">
-            {pipe.tags?.slice(0, 2).map((tag) => (
+          {metaTags.length > 0 ? (
+            <div className="mt-2 flex min-h-[42px] flex-wrap content-start gap-1 overflow-hidden">
+              {metaTags.map((tag) => (
               <span
                 key={tag}
                 className="rounded-full bg-[#F7F3EA] px-1.5 py-0.5 text-[10px] text-[#746A5F]"
               >
                 {tag}
               </span>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <span className="mt-2 block min-h-[42px]" aria-hidden="true" />
+          )}
 
-          <span className="mt-3 flex h-8 items-center justify-center rounded-full bg-[#063B32] text-[12px] font-semibold tracking-[0.04em] text-[#E7C48A] transition group-hover:bg-[#0A4A3E]">
+          <span className="mt-auto flex h-8 items-center justify-center rounded-full bg-[#063B32] text-[12px] font-semibold tracking-[0.04em] text-[#E7C48A] transition group-hover:bg-[#0A4A3E]">
             查看详情
           </span>
         </div>
@@ -240,10 +400,21 @@ export default function ProductsPage() {
   const [activeSearchText, setActiveSearchText] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("recommended");
   const [statusMode, setStatusMode] = useState<StatusMode>("all");
+  const [brandFilter, setBrandFilter] = useState("");
+  const [countryFilter, setCountryFilter] = useState("");
+  const [shapeFilter, setShapeFilter] = useState("");
+  const [conditionFilter, setConditionFilter] = useState("");
+  const [weightFilter, setWeightFilter] = useState("");
+  const [finishFilter, setFinishFilter] = useState("");
+  const [stemMaterialFilter, setStemMaterialFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const productListRef = useRef<HTMLDivElement | null>(null);
   const shouldScrollToListRef = useRef(false);
+  const productFilterOptions = useMemo(
+    () => buildProductFilterOptions(pipeProducts),
+    []
+  );
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -255,7 +426,18 @@ export default function ProductsPage() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [activeSearchText, sortMode, statusMode]);
+  }, [
+    activeSearchText,
+    sortMode,
+    statusMode,
+    brandFilter,
+    countryFilter,
+    shapeFilter,
+    conditionFilter,
+    weightFilter,
+    finishFilter,
+    stemMaterialFilter,
+  ]);
 
   useEffect(() => {
     if (!shouldScrollToListRef.current) return;
@@ -284,11 +466,45 @@ export default function ProductsPage() {
         (statusMode === "sold" && isSoldProduct(pipe)) ||
         (statusMode === "gallery" && getGalleryCount(pipe) > 1);
 
-      return matchesSearch && matchesStatus;
+      const matchesBrand =
+        !brandFilter || (pipe.canonicalBrand || pipe.brand) === brandFilter;
+      const matchesCountry =
+        !countryFilter || pipe.brandCountry === countryFilter;
+      const matchesShape = !shapeFilter || pipe.shape === shapeFilter;
+      const matchesCondition =
+        !conditionFilter || pipe.conditionType === conditionFilter;
+      const matchesWeight =
+        !weightFilter || pipe.weightRange === weightFilter;
+      const matchesFinish = !finishFilter || pipe.finish === finishFilter;
+      const matchesStemMaterial =
+        !stemMaterialFilter || pipe.stemMaterial === stemMaterialFilter;
+
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesBrand &&
+        matchesCountry &&
+        matchesShape &&
+        matchesCondition &&
+        matchesWeight &&
+        matchesFinish &&
+        matchesStemMaterial
+      );
     });
 
     return sortProducts(filtered, sortMode);
-  }, [activeSearchText, sortMode, statusMode]);
+  }, [
+    activeSearchText,
+    sortMode,
+    statusMode,
+    brandFilter,
+    countryFilter,
+    shapeFilter,
+    conditionFilter,
+    weightFilter,
+    finishFilter,
+    stemMaterialFilter,
+  ]);
 
   const totalPages = Math.max(1, Math.ceil(visibleProducts.length / PAGE_SIZE));
   const safeCurrentPage = Math.min(currentPage, totalPages);
@@ -309,6 +525,13 @@ export default function ProductsPage() {
     setActiveSearchText("");
     setStatusMode("all");
     setSortMode("recommended");
+    setBrandFilter("");
+    setCountryFilter("");
+    setShapeFilter("");
+    setConditionFilter("");
+    setWeightFilter("");
+    setFinishFilter("");
+    setStemMaterialFilter("");
     setCurrentPage(1);
   }
 
@@ -322,7 +545,14 @@ export default function ProductsPage() {
   const hasActiveFilter =
     activeSearchText.trim() ||
     statusMode !== "all" ||
-    sortMode !== "recommended";
+    sortMode !== "recommended" ||
+    brandFilter ||
+    countryFilter ||
+    shapeFilter ||
+    conditionFilter ||
+    weightFilter ||
+    finishFilter ||
+    stemMaterialFilter;
 
   return (
     <main
@@ -347,6 +577,21 @@ export default function ProductsPage() {
           handleSearchSubmit={handleSearchSubmit}
           statusMode={statusMode}
           setStatusMode={setStatusMode}
+          brandFilter={brandFilter}
+          setBrandFilter={setBrandFilter}
+          countryFilter={countryFilter}
+          setCountryFilter={setCountryFilter}
+          shapeFilter={shapeFilter}
+          setShapeFilter={setShapeFilter}
+          conditionFilter={conditionFilter}
+          setConditionFilter={setConditionFilter}
+          weightFilter={weightFilter}
+          setWeightFilter={setWeightFilter}
+          finishFilter={finishFilter}
+          setFinishFilter={setFinishFilter}
+          stemMaterialFilter={stemMaterialFilter}
+          setStemMaterialFilter={setStemMaterialFilter}
+          productFilterOptions={productFilterOptions}
           sortMode={sortMode}
           setSortMode={setSortMode}
           clearFilters={clearFilters}
@@ -437,6 +682,21 @@ function SearchFilterCard({
   handleSearchSubmit,
   statusMode,
   setStatusMode,
+  brandFilter,
+  setBrandFilter,
+  countryFilter,
+  setCountryFilter,
+  shapeFilter,
+  setShapeFilter,
+  conditionFilter,
+  setConditionFilter,
+  weightFilter,
+  setWeightFilter,
+  finishFilter,
+  setFinishFilter,
+  stemMaterialFilter,
+  setStemMaterialFilter,
+  productFilterOptions,
   sortMode,
   setSortMode,
   clearFilters,
@@ -448,11 +708,129 @@ function SearchFilterCard({
   handleSearchSubmit: (event: FormEvent<HTMLFormElement>) => void;
   statusMode: StatusMode;
   setStatusMode: (value: StatusMode) => void;
+  brandFilter: string;
+  setBrandFilter: (value: string) => void;
+  countryFilter: string;
+  setCountryFilter: (value: string) => void;
+  shapeFilter: string;
+  setShapeFilter: (value: string) => void;
+  conditionFilter: string;
+  setConditionFilter: (value: string) => void;
+  weightFilter: string;
+  setWeightFilter: (value: string) => void;
+  finishFilter: string;
+  setFinishFilter: (value: string) => void;
+  stemMaterialFilter: string;
+  setStemMaterialFilter: (value: string) => void;
+  productFilterOptions: ProductFilterOptions;
   sortMode: SortMode;
   setSortMode: (value: SortMode) => void;
   clearFilters: () => void;
   hasActiveFilter: boolean;
 }) {
+  const [activeSheet, setActiveSheet] = useState<FilterKind | null>(null);
+  const [draftValue, setDraftValue] = useState("");
+  const [sheetSearchText, setSheetSearchText] = useState("");
+
+  const filterLabels: Record<FilterKind, string> = {
+    brand: "品牌",
+    country: "国家",
+    shape: "斗型",
+    condition: "新旧",
+    weight: "重量",
+    finish: "表面工艺",
+    stemMaterial: "斗嘴材质",
+    sort: "排序",
+  };
+
+  const getCurrentValue = (kind: FilterKind) => {
+    if (kind === "brand") return brandFilter;
+    if (kind === "country") return countryFilter;
+    if (kind === "shape") return shapeFilter;
+    if (kind === "condition") return conditionFilter;
+    if (kind === "weight") return weightFilter;
+    if (kind === "finish") return finishFilter;
+    if (kind === "stemMaterial") return stemMaterialFilter;
+    return sortMode;
+  };
+
+  const getOptions = (kind: FilterKind): FilterOption[] => {
+    if (kind === "brand") return productFilterOptions.brands;
+    if (kind === "country") return productFilterOptions.countries;
+    if (kind === "shape") return productFilterOptions.shapes;
+    if (kind === "condition") return productFilterOptions.conditions;
+    if (kind === "weight") return productFilterOptions.weights;
+    if (kind === "finish") return productFilterOptions.finishes;
+    if (kind === "stemMaterial") return productFilterOptions.stemMaterials;
+    return sortItems;
+  };
+
+  const getSelectedLabel = (kind: FilterKind) => {
+    const value = getCurrentValue(kind);
+    const label = getOptions(kind).find((option) => option.value === value)?.label;
+    return value ? label || value : "";
+  };
+
+  const setValue = (kind: FilterKind, value: string) => {
+    if (kind === "brand") setBrandFilter(value);
+    if (kind === "country") setCountryFilter(value);
+    if (kind === "shape") setShapeFilter(value);
+    if (kind === "condition") setConditionFilter(value);
+    if (kind === "weight") setWeightFilter(value);
+    if (kind === "finish") setFinishFilter(value);
+    if (kind === "stemMaterial") setStemMaterialFilter(value);
+    if (kind === "sort") setSortMode(value as SortMode);
+  };
+
+  const openSheet = (kind: FilterKind) => {
+    setActiveSheet(kind);
+    setDraftValue(getCurrentValue(kind));
+    setSheetSearchText("");
+  };
+
+  const closeSheet = () => {
+    setActiveSheet(null);
+    setDraftValue("");
+    setSheetSearchText("");
+  };
+
+  const applySheet = () => {
+    if (!activeSheet) return;
+    setValue(activeSheet, draftValue);
+    closeSheet();
+  };
+
+  const clearSheet = () => {
+    setDraftValue(activeSheet === "sort" ? "recommended" : "");
+  };
+
+  const sheetOptions = activeSheet ? getOptions(activeSheet) : [];
+  const filteredSheetOptions = sheetSearchText.trim()
+    ? sheetOptions.filter((option) =>
+        `${option.label} ${option.value}`
+          .toLowerCase()
+          .includes(sheetSearchText.trim().toLowerCase())
+      )
+    : sheetOptions;
+  const sheetNeedsSearch =
+    activeSheet === "brand" ||
+    activeSheet === "country" ||
+    activeSheet === "shape" ||
+    sheetOptions.length > 18;
+  const primaryFilterButtons: Array<{
+    kind: FilterKind;
+    label: string;
+    compact?: boolean;
+  }> = [
+    { kind: "brand", label: "品牌" },
+    { kind: "country", label: "国家" },
+    { kind: "shape", label: "斗型" },
+    { kind: "condition", label: "新旧" },
+    { kind: "weight", label: "重量" },
+    { kind: "finish", label: "表面工艺" },
+    { kind: "stemMaterial", label: "更多", compact: true },
+  ];
+
   return (
     <section className="mt-5 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)] sm:p-5">
       <div className="grid gap-4 lg:grid-cols-[160px_1fr] lg:items-center">
@@ -494,17 +872,47 @@ function SearchFilterCard({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-5">
-        {futureFilterItems.map((item) => (
-          <button
-            key={item}
-            type="button"
-            className="flex h-10 items-center justify-center gap-1 rounded-full border border-[#E7DDD0] bg-white px-3 text-[13px] font-medium text-[#1F1A16] transition hover:border-[#A97838] hover:text-[#8A5D26]"
-          >
-            {item}
-            <ChevronDownIcon className="h-3.5 w-3.5 text-[#8A8176]" />
-          </button>
-        ))}
+      <div className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <button
+          type="button"
+          onClick={clearFilters}
+          className={[
+            "h-9 shrink-0 rounded-full border px-4 text-[13px] font-semibold transition",
+            hasActiveFilter
+              ? "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]"
+              : "border-[#063B32] bg-[#063B32] text-[#E7C48A]",
+          ].join(" ")}
+        >
+          全部
+        </button>
+
+        {primaryFilterButtons
+          .filter((item) =>
+            item.kind === "stemMaterial"
+              ? productFilterOptions.stemMaterials.length > 0
+              : true
+          )
+          .map((item) => {
+            const selectedLabel = getSelectedLabel(item.kind);
+            const isActive = Boolean(getCurrentValue(item.kind));
+
+            return (
+              <button
+                key={item.kind}
+                type="button"
+                onClick={() => openSheet(item.kind)}
+                className={[
+                  "flex h-9 shrink-0 items-center gap-1 rounded-full border px-4 text-[13px] font-semibold transition",
+                  isActive
+                    ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
+                    : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
+                ].join(" ")}
+              >
+                {selectedLabel ? `${item.label} · ${selectedLabel}` : item.label}
+                <ChevronDownIcon className="h-3.5 w-3.5" />
+              </button>
+            );
+          })}
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
@@ -541,25 +949,116 @@ function SearchFilterCard({
             </button>
           ) : null}
 
-          <label className="relative">
-            <span className="sr-only">排序方式</span>
-
-            <select
-              value={sortMode}
-              onChange={(event) => setSortMode(event.target.value as SortMode)}
-              className="h-10 appearance-none rounded-full border border-[#E7DDD0] bg-white pl-4 pr-9 text-[13px] font-medium text-[#1F1A16] outline-none transition focus:border-[#A97838]"
-            >
-              <option value="recommended">排序：推荐</option>
-              <option value="priceAsc">价格从低到高</option>
-              <option value="priceDesc">价格从高到低</option>
-              <option value="newest">最新更新</option>
-              <option value="galleryFirst">多图优先</option>
-            </select>
-
-            <ChevronDownIcon className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A8176]" />
-          </label>
+          <button
+            type="button"
+            onClick={() => openSheet("sort")}
+            className="flex h-10 items-center gap-1 rounded-full border border-[#E7DDD0] bg-white px-4 text-[13px] font-semibold text-[#1F1A16] transition hover:border-[#A97838] hover:text-[#8A5D26]"
+          >
+            排序 · {getSelectedLabel("sort") || "推荐"}
+            <ChevronDownIcon className="h-4 w-4 text-[#8A8176]" />
+          </button>
         </div>
       </div>
+
+      {activeSheet ? (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-[#1F1A16]/26 px-3 pb-3 sm:items-center sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`选择${filterLabels[activeSheet]}`}
+        >
+          <button
+            type="button"
+            className="absolute inset-0 cursor-default"
+            aria-label="关闭筛选"
+            onClick={closeSheet}
+          />
+
+          <div className="relative z-10 flex max-h-[82vh] w-full max-w-xl flex-col overflow-hidden rounded-[28px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_22px_60px_rgba(31,26,22,0.18)]">
+            <div className="flex items-center justify-between gap-3 border-b border-[#EFE3D4] px-5 py-4">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.24em] text-[#A97838]">
+                  Filter
+                </p>
+                <h3 className="mt-1 text-[18px] font-bold text-[#1F1A16]">
+                  选择{filterLabels[activeSheet]}
+                </h3>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeSheet}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E7DDD0] bg-white text-[18px] font-semibold text-[#746A5F]"
+                aria-label="关闭"
+              >
+                ×
+              </button>
+            </div>
+
+            {sheetNeedsSearch ? (
+              <div className="border-b border-[#EFE3D4] px-5 py-3">
+                <div className="flex h-10 items-center gap-2 rounded-full border border-[#E7DDD0] bg-white px-4">
+                  <SearchIcon className="h-4 w-4 text-[#8A8176]" />
+                  <input
+                    type="search"
+                    value={sheetSearchText}
+                    onChange={(event) => setSheetSearchText(event.target.value)}
+                    placeholder={`搜索${filterLabels[activeSheet]}`}
+                    className="min-w-0 flex-1 bg-transparent text-[13px] text-[#1F1A16] outline-none placeholder:text-[#8A8176]"
+                  />
+                </div>
+              </div>
+            ) : null}
+
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+              {filteredSheetOptions.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {filteredSheetOptions.map((option) => {
+                    const isSelected = draftValue === option.value;
+
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setDraftValue(option.value)}
+                        className={[
+                          "rounded-full border px-4 py-2 text-[13px] font-semibold transition",
+                          isSelected
+                            ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
+                            : "border-[#E7DDD0] bg-white text-[#1F1A16] hover:border-[#A97838] hover:text-[#8A5D26]",
+                        ].join(" ")}
+                      >
+                        {option.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="py-8 text-center text-[13px] text-[#746A5F]">
+                  没有匹配选项
+                </p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 border-t border-[#EFE3D4] bg-[#FBF7EF] px-5 py-4">
+              <button
+                type="button"
+                onClick={clearSheet}
+                className="h-11 rounded-full border border-[#D8CFC2] bg-white text-[14px] font-semibold text-[#746A5F]"
+              >
+                清除
+              </button>
+              <button
+                type="button"
+                onClick={applySheet}
+                className="h-11 rounded-full bg-[#063B32] text-[14px] font-semibold text-[#E7C48A]"
+              >
+                确认
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

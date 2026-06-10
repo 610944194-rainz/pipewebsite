@@ -2,9 +2,11 @@ import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
 import {
   createFallbackBrand,
+  getBrandContentBrandsForIndex,
   getBrandByName,
   getBrandMetaBySlug,
   getProductBrandGroups,
+  isNameOnlyBrand,
   type PipeBrand,
 } from "../../data/brands";
 import { pipeProducts } from "../../data/pipes";
@@ -30,25 +32,61 @@ type IconProps = {
 const PAGE_SIZE = 12;
 
 function getBrandCards(): BrandCard[] {
-  return getProductBrandGroups(pipeProducts)
-    .map((group) => {
-      const brandMeta =
-        getBrandMetaBySlug(group.slug) ?? getBrandByName(group.name);
-      const fallbackBrand = createFallbackBrand(group.name, group.slug);
+  const cards = new Map<string, BrandCard>();
 
-      return {
-        ...fallbackBrand,
-        ...(brandMeta ?? {}),
-        name: group.name,
-        slug: group.slug,
-        productCount: group.products.length,
-      };
-    })
-    .filter((brand) => brand.productCount > 0);
+  getProductBrandGroups(pipeProducts).forEach((group) => {
+    const brandMeta =
+      getBrandMetaBySlug(group.slug) ?? getBrandByName(group.name);
+    const fallbackBrand = createFallbackBrand(group.name, group.slug);
+
+    cards.set(group.slug, {
+      ...fallbackBrand,
+      ...(brandMeta ?? {}),
+      name: group.name,
+      slug: group.slug,
+      aliases: Array.from(
+        new Set([
+          ...fallbackBrand.aliases,
+          ...(brandMeta?.aliases ?? []),
+          ...group.aliases,
+        ])
+      ),
+      productCount: group.products.length,
+    });
+  });
+
+  getBrandContentBrandsForIndex().forEach((brand) => {
+    const existing = cards.get(brand.slug);
+
+    cards.set(brand.slug, {
+      ...(existing ?? { productCount: 0 }),
+      ...brand,
+      productCount: existing?.productCount ?? 0,
+    });
+  });
+
+  return Array.from(cards.values());
+}
+
+function getPriorityRank(priority?: string) {
+  const normalizedPriority = String(priority || "").toLowerCase();
+
+  if (normalizedPriority === "high") return 0;
+  if (normalizedPriority === "medium") return 1;
+  if (normalizedPriority === "low") return 2;
+
+  return 3;
 }
 
 function sortBrandCards(brands: BrandCard[]) {
   return [...brands].sort((left, right) => {
+    const priorityDiff =
+      getPriorityRank(left.priority) - getPriorityRank(right.priority);
+
+    if (priorityDiff !== 0) {
+      return priorityDiff;
+    }
+
     if (right.productCount !== left.productCount) {
       return right.productCount - left.productCount;
     }
@@ -120,12 +158,18 @@ function getBrandChineseName(brand: BrandCard) {
   return typeof value === "string" ? value : "";
 }
 
+function getChineseSummary(summary?: string) {
+  return String(summary || "")
+    .split(/[｜|]\s*EN[:：]/)[0]
+    .trim();
+}
+
 function getSearchText(brand: BrandCard) {
   return [
     brand.name,
     getBrandChineseName(brand),
     brand.country,
-    brand.summary,
+    getChineseSummary(brand.summary),
     ...brand.aliases,
   ]
     .join(" ")
@@ -447,6 +491,9 @@ function BrandCardItem({ brand }: { brand: BrandCard }) {
   const logoUrl = getBrandLogoUrl(brand);
   const chineseName = getBrandChineseName(brand);
   const shortName = getBrandShortName(brand.name);
+  const brandSummary = isNameOnlyBrand(brand)
+    ? ""
+    : getChineseSummary(brand.summary);
 
   return (
     <article className="flex h-full flex-col rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_8px_22px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(31,26,22,0.1)] sm:p-5">
@@ -496,12 +543,17 @@ function BrandCardItem({ brand }: { brand: BrandCard }) {
               {chineseName}
             </p>
           ) : null}
+
         </div>
       </div>
 
-      <p className="mt-4 flex-1 text-[13px] leading-7 text-[#746A5F]">
-        {brand.summary}
-      </p>
+      {brandSummary ? (
+        <p className="mt-4 flex-1 text-[13px] leading-7 text-[#746A5F]">
+          {brandSummary}
+        </p>
+      ) : (
+        <div className="flex-1" />
+      )}
 
       <div className="mt-4 border-t border-[#F0E6D8] pt-4">
         <Link

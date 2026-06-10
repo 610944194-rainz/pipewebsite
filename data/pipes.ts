@@ -21,6 +21,41 @@ export type PipeProduct = {
   comment: string;
   detail: string;
   tags: string[];
+  nameZh?: string;
+  canonicalBrand?: string;
+  canonicalBrandSlug?: string;
+  brandCountry?: string;
+  brandCountryEn?: string;
+  shape?: string;
+  shapeZh?: string;
+  shapeGroup?: string;
+  bendType?: string;
+  finish?: string;
+  finishZh?: string;
+  material?: string;
+  materialZh?: string;
+  stemMaterial?: string;
+  stemMaterialZh?: string;
+  engineeringFeature?: string;
+  engineeringFeatureZh?: string;
+  grainPattern?: string;
+  grainPatternZh?: string;
+  weightGrams?: number | null;
+  weightRange?: string;
+  dimensions?: {
+    bowlOuterDiameterMm: number | null;
+    chamberDiameterMm: number | null;
+    chamberDepthMm: number | null;
+    heightMm: number | null;
+    lengthMm: number | null;
+    buttonWidthMm: number | null;
+    bitThicknessMm: number | null;
+  };
+  parsedTags?: string[];
+  parseWarnings?: string[];
+  conditionType?: string;
+  smokedStatus?: string;
+  conditionLabel?: string;
 };
 
 export const filters = [

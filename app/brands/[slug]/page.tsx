@@ -1,13 +1,16 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import BackButton from "../../components/BackButton";
 import SiteHeader from "../../components/SiteHeader";
 import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../../utils/price";
 import {
   createFallbackBrand,
+  getCanonicalBrandSlugForInput,
+  getBrandContentBrandsForIndex,
   getBrandByName,
   getBrandMetaBySlug,
   getProductBrandGroups,
+  isNameOnlyBrand,
   type PipeBrand,
 } from "../../../data/brands";
 import { pipeProducts } from "../../../data/pipes";
@@ -36,22 +39,42 @@ type PaginationItem = number | "ellipsis";
 const RELATED_STOCK_PAGE_SIZE = 12;
 
 function getBrandProfiles(): BrandProfile[] {
-  return getProductBrandGroups(pipeProducts)
-    .map((group) => {
-      const brandMeta =
-        getBrandMetaBySlug(group.slug) ?? getBrandByName(group.name);
-      const fallbackBrand = createFallbackBrand(group.name, group.slug);
+  const profiles = new Map<string, BrandProfile>();
 
-      return {
-        ...fallbackBrand,
-        ...(brandMeta ?? {}),
-        name: group.name,
-        slug: group.slug,
-        productCount: group.products.length,
-        products: group.products,
-      };
-    })
-    .filter((brand) => brand.productCount > 0);
+  getProductBrandGroups(pipeProducts).forEach((group) => {
+    const brandMeta =
+      getBrandMetaBySlug(group.slug) ?? getBrandByName(group.name);
+    const fallbackBrand = createFallbackBrand(group.name, group.slug);
+
+    profiles.set(group.slug, {
+      ...fallbackBrand,
+      ...(brandMeta ?? {}),
+      name: group.name,
+      slug: group.slug,
+      aliases: Array.from(
+        new Set([
+          ...fallbackBrand.aliases,
+          ...(brandMeta?.aliases ?? []),
+          ...group.aliases,
+        ])
+      ),
+      productCount: group.products.length,
+      products: group.products,
+    });
+  });
+
+  getBrandContentBrandsForIndex().forEach((brand) => {
+    const existing = profiles.get(brand.slug);
+
+    profiles.set(brand.slug, {
+      ...(existing ?? { productCount: 0, products: [] }),
+      ...brand,
+      productCount: existing?.productCount ?? 0,
+      products: existing?.products ?? [],
+    });
+  });
+
+  return Array.from(profiles.values());
 }
 
 function getBrandProfileBySlug(slug: string) {
@@ -129,6 +152,14 @@ function isPlaceholderText(value?: string) {
 function getMeaningfulText(value?: string) {
   const text = String(value || "").trim();
   return isPlaceholderText(text) ? "" : text;
+}
+
+function getChineseText(value?: string) {
+  const text = getMeaningfulText(value)
+    .split(/[｜|]\s*EN[:：]/)[0]
+    .trim();
+
+  return text;
 }
 
 function getMeaningfulList(items?: string[]) {
@@ -244,9 +275,10 @@ function BrandLogoBlock({ brand }: { brand: BrandProfile }) {
 function BrandHeroCard({ brand }: { brand: BrandProfile }) {
   const chineseName = getBrandChineseName(brand);
   const country = getMeaningfulText(brand.country);
+  const nameOnly = isNameOnlyBrand(brand);
   const summary =
-    getMeaningfulText(brand.summary) ||
-    "当前收录该品牌的海外公开库存，品牌资料将随整理持续补充。";
+    !nameOnly &&
+    (getChineseText(brand.detailIntro) || getChineseText(brand.summary));
 
   return (
     <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
@@ -285,7 +317,11 @@ function BrandHeroCard({ brand }: { brand: BrandProfile }) {
         </div>
       </div>
 
-      <p className="mt-5 text-[13px] leading-7 text-[#746A5F]">{summary}</p>
+      {summary ? (
+        <p className="mt-5 text-[13px] leading-7 text-[#746A5F]">
+          {summary}
+        </p>
+      ) : null}
     </section>
   );
 }
@@ -328,7 +364,7 @@ function BrandFacts({ brand }: { brand: BrandProfile }) {
 }
 
 function BrandStory({ brand }: { brand: BrandProfile }) {
-  const story = getMeaningfulText(brand.story);
+  const story = getChineseText(brand.story);
 
   if (!story) return null;
 
@@ -369,7 +405,7 @@ function TextListSection({
 }
 
 function SuitableForSection({ brand }: { brand: BrandProfile }) {
-  const suitableFor = getMeaningfulText(brand.suitableFor);
+  const suitableFor = getChineseText(brand.suitableFor);
 
   if (!suitableFor) return null;
 
@@ -674,6 +710,16 @@ export default async function BrandDetailPage({
   const brand = getBrandProfileBySlug(slug);
 
   if (!brand) {
+    const canonicalSlug = getCanonicalBrandSlugForInput(slug);
+
+    if (canonicalSlug && canonicalSlug !== slug) {
+      const canonicalBrand = getBrandProfileBySlug(canonicalSlug);
+
+      if (canonicalBrand) {
+        redirect(`/brands/${canonicalSlug}`);
+      }
+    }
+
     notFound();
   }
 
@@ -702,6 +748,7 @@ export default async function BrandDetailPage({
 
   const features = getMeaningfulList(brand.features);
   const representativeStyles = getMeaningfulList(brand.representativeStyles);
+  const nameOnly = isNameOnlyBrand(brand);
 
   return (
     <main
@@ -724,14 +771,15 @@ export default async function BrandDetailPage({
 
         <BrandHeroCard brand={brand} />
 
-        <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <BrandFacts brand={brand} />
-          <BrandStory brand={brand} />
-          <TextListSection title="品牌特点" items={features} />
-          <TextListSection title="代表风格" items={representativeStyles} />
-          <SuitableForSection brand={brand} />
-          <SourceSection brand={brand} />
-        </div>
+        {!nameOnly ? (
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <BrandFacts brand={brand} />
+            <BrandStory brand={brand} />
+            <TextListSection title="品牌特点" items={features} />
+            <TextListSection title="代表风格" items={representativeStyles} />
+            <SuitableForSection brand={brand} />
+          </div>
+        ) : null}
 
         <RelatedStockSection
           slug={slug}

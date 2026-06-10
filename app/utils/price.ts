@@ -5,6 +5,7 @@ export const RMB_REFERENCE_UNKNOWN = "人工确认";
 
 export const PRICE_CALCULATION_CONFIG = {
   danishPipeShop: {
+    danishVatRate: 0.25,
     taxFactor: 1.2,
     shippingUsd: 21,
     freeShippingThresholdUsd: 260,
@@ -134,13 +135,15 @@ function calculateDanishPipeShopRmb(product: Record<string, unknown>) {
   }
 
   const { danishPipeShop } = PRICE_CALCULATION_CONFIG;
+  const netExportPriceUsd =
+    overseasPriceUsd / (1 + danishPipeShop.danishVatRate);
   const shippingUsd =
-    overseasPriceUsd > danishPipeShop.freeShippingThresholdUsd
+    netExportPriceUsd > danishPipeShop.freeShippingThresholdUsd
       ? 0
       : danishPipeShop.shippingUsd;
-  const baseCost =
-    overseasPriceUsd * usdToCny * danishPipeShop.taxFactor +
-    shippingUsd * usdToCny;
+  const taxableCost = netExportPriceUsd * usdToCny * danishPipeShop.taxFactor;
+  const shippingCny = shippingUsd * usdToCny;
+  const baseCost = taxableCost + shippingCny;
   const serviceFee = Math.max(
     baseCost * danishPipeShop.serviceFeeRate,
     danishPipeShop.minServiceFeeCny

@@ -61,12 +61,17 @@ function getDisplayBadges(product: ProductWithExtras, galleryCount: number) {
 
 function getDisplayTitle(product: ProductWithExtras) {
   const name = String(product.name || "").trim();
-  const brand = String(product.brand || "").trim();
-  const brandPrefix = `${brand}, `;
+  const brandNames = [product.canonicalBrand, product.brand]
+    .map((brand) => String(brand || "").trim())
+    .filter(Boolean);
 
-  if (brand && name.startsWith(brandPrefix)) {
-    const titleWithoutBrand = name.slice(brandPrefix.length).trim();
-    return titleWithoutBrand || name;
+  for (const brand of brandNames) {
+    const brandPrefix = `${brand}, `;
+
+    if (name.startsWith(brandPrefix)) {
+      const titleWithoutBrand = name.slice(brandPrefix.length).trim();
+      return titleWithoutBrand || name;
+    }
   }
 
   return name;
@@ -80,6 +85,43 @@ function getProductChineseName(product: ProductWithExtras) {
     product.chineseName ||
     ""
   );
+}
+
+function isKnownDetailValue(value: unknown) {
+  const text = String(value || "").trim();
+  return Boolean(text) && text.toLowerCase() !== "unknown";
+}
+
+function formatMillimeter(value: number | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value)
+    ? `${value} mm`
+    : "";
+}
+
+function formatWeight(value: number | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value) ? `${value} g` : "";
+}
+
+function getStructuredSpecs(product: ProductWithExtras) {
+  const dimensions = product.dimensions;
+  const rows = [
+    { label: "品牌", value: product.canonicalBrand || product.brand },
+    { label: "国家", value: product.brandCountry },
+    { label: "斗型", value: product.shapeZh },
+    { label: "状态", value: product.conditionLabel || product.condition },
+    { label: "表面工艺", value: product.finishZh },
+    { label: "材质", value: product.materialZh },
+    { label: "斗嘴材质", value: product.stemMaterialZh },
+    { label: "结构特征", value: product.engineeringFeatureZh },
+    { label: "木纹", value: product.grainPatternZh },
+    { label: "重量", value: formatWeight(product.weightGrams) },
+    { label: "长度", value: formatMillimeter(dimensions?.lengthMm) },
+    { label: "斗钵室内径", value: formatMillimeter(dimensions?.chamberDiameterMm) },
+    { label: "斗钵室深", value: formatMillimeter(dimensions?.chamberDepthMm) },
+    { label: "高度", value: formatMillimeter(dimensions?.heightMm) },
+  ];
+
+  return rows.filter((row) => isKnownDetailValue(row.value));
 }
 
 function getBrandChineseName(
@@ -177,13 +219,17 @@ export default async function ProductDetailPage({
   const specsText = product.specsText ?? [];
   const galleryCount = getUniqueImageCount(product);
   const displayBadges = getDisplayBadges(product, galleryCount);
-  const displayTitle = getDisplayTitle(product);
   const chineseProductName = getProductChineseName(product);
-  const brand = getBrandByName(product.brand);
+  const englishProductName = getDisplayTitle(product);
+  const displayTitle = chineseProductName || englishProductName;
+  const subtitleTitle = chineseProductName ? englishProductName : "";
+  const displayBrand = product.canonicalBrand || product.brand;
+  const brand = getBrandByName(displayBrand);
   const brandChineseName = getBrandChineseName(product, brand);
   const rmbReferencePrice = getRmbReferencePrice(
     product as unknown as Record<string, unknown>
   );
+  const structuredSpecs = getStructuredSpecs(product);
   const parsedSpecs = specsText.map(parseSpec).filter((spec) => spec.label);
   const detailSummary = `来自 ${product.source} 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。`;
 
@@ -231,7 +277,7 @@ export default async function ProductDetailPage({
 
             <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1">
               <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
-                {product.brand}
+                {displayBrand}
               </p>
 
               {brandChineseName ? (
@@ -245,9 +291,9 @@ export default async function ProductDetailPage({
               {displayTitle}
             </h1>
 
-            {chineseProductName ? (
-              <p className="mt-3 text-[19px] font-semibold leading-7 text-[#A97838]">
-                {chineseProductName}
+            {subtitleTitle ? (
+              <p className="mt-3 text-[15px] font-medium leading-7 text-[#746A5F]">
+                {subtitleTitle}
               </p>
             ) : null}
 
@@ -287,10 +333,32 @@ export default async function ProductDetailPage({
           </p>
         </section>
 
+        {structuredSpecs.length > 0 ? (
+          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+            <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
+              结构化参数
+            </h2>
+
+            <div className="grid gap-x-6 sm:grid-cols-2">
+              {structuredSpecs.map((spec) => (
+                <div
+                  key={spec.label}
+                  className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] py-2.5 text-[13px]"
+                >
+                  <span className="text-[#746A5F]">{spec.label}</span>
+                  <span className="font-semibold text-[#1F1A16]">
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         {parsedSpecs.length > 0 ? (
           <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
-              参数信息
+              原站参数
             </h2>
 
             <div className="grid gap-x-6 sm:grid-cols-2">
