@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import BackButton from "../../components/BackButton";
 import SiteHeader from "../../components/SiteHeader";
+import { parseBrandSummary } from "../../utils/display";
 import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../../utils/price";
 import {
   createFallbackBrand,
@@ -156,10 +157,14 @@ function getMeaningfulText(value?: string) {
 
 function getChineseText(value?: string) {
   const text = getMeaningfulText(value)
-    .split(/[｜|]\s*EN[:：]/)[0]
+    .split(/[｜|]\s*(?:EN|English)[:：]/i)[0]
     .trim();
 
   return text;
+}
+
+function getSummaryParts(value?: string) {
+  return parseBrandSummary(getMeaningfulText(value));
 }
 
 function getMeaningfulList(items?: string[]) {
@@ -276,9 +281,7 @@ function BrandHeroCard({ brand }: { brand: BrandProfile }) {
   const chineseName = getBrandChineseName(brand);
   const country = getMeaningfulText(brand.country);
   const nameOnly = isNameOnlyBrand(brand);
-  const summary =
-    !nameOnly &&
-    (getChineseText(brand.detailIntro) || getChineseText(brand.summary));
+  const summary = nameOnly ? { zh: "", en: "" } : getSummaryParts(brand.summary);
 
   return (
     <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
@@ -317,10 +320,20 @@ function BrandHeroCard({ brand }: { brand: BrandProfile }) {
         </div>
       </div>
 
-      {summary ? (
-        <p className="mt-5 text-[13px] leading-7 text-[#746A5F]">
-          {summary}
-        </p>
+      {summary.zh || summary.en ? (
+        <div className="mt-5 space-y-2">
+          {summary.zh ? (
+            <p className="text-[13px] leading-7 text-[#746A5F]">
+              {summary.zh}
+            </p>
+          ) : null}
+
+          {summary.en ? (
+            <p className="text-[12px] leading-6 text-[#9A8F84]">
+              {summary.en}
+            </p>
+          ) : null}
+        </div>
       ) : null}
     </section>
   );

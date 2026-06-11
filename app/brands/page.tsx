@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
+import { parseBrandSummary } from "../utils/display";
 import {
   createFallbackBrand,
   getBrandContentBrandsForIndex,
@@ -159,17 +160,22 @@ function getBrandChineseName(brand: BrandCard) {
 }
 
 function getChineseSummary(summary?: string) {
-  return String(summary || "")
-    .split(/[｜|]\s*EN[:：]/)[0]
-    .trim();
+  return parseBrandSummary(summary).zh;
+}
+
+function getBrandSummaryParts(summary?: string) {
+  return parseBrandSummary(summary);
 }
 
 function getSearchText(brand: BrandCard) {
+  const summary = getBrandSummaryParts(brand.summary);
+
   return [
     brand.name,
     getBrandChineseName(brand),
     brand.country,
-    getChineseSummary(brand.summary),
+    summary.zh,
+    summary.en,
     ...brand.aliases,
   ]
     .join(" ")
@@ -492,8 +498,8 @@ function BrandCardItem({ brand }: { brand: BrandCard }) {
   const chineseName = getBrandChineseName(brand);
   const shortName = getBrandShortName(brand.name);
   const brandSummary = isNameOnlyBrand(brand)
-    ? ""
-    : getChineseSummary(brand.summary);
+    ? { zh: "", en: "" }
+    : getBrandSummaryParts(brand.summary);
 
   return (
     <article className="flex h-full flex-col rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_8px_22px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(31,26,22,0.1)] sm:p-5">
@@ -547,10 +553,20 @@ function BrandCardItem({ brand }: { brand: BrandCard }) {
         </div>
       </div>
 
-      {brandSummary ? (
-        <p className="mt-4 flex-1 text-[13px] leading-7 text-[#746A5F]">
-          {brandSummary}
-        </p>
+      {brandSummary.zh || brandSummary.en ? (
+        <div className="mt-4 flex-1 space-y-2">
+          {brandSummary.zh ? (
+            <p className="text-[13px] leading-7 text-[#746A5F]">
+              {brandSummary.zh}
+            </p>
+          ) : null}
+
+          {brandSummary.en ? (
+            <p className="text-[12px] leading-6 text-[#9A8F84]">
+              {brandSummary.en}
+            </p>
+          ) : null}
+        </div>
       ) : (
         <div className="flex-1" />
       )}

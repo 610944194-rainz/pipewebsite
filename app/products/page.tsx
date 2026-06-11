@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
+import {
+  getConditionDisplayLabel,
+  getProductChineseTitle,
+  getProductEnglishTitle,
+} from "../utils/display";
 import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../utils/price";
 import {
   type FormEvent,
@@ -31,7 +36,6 @@ type FilterKind =
   | "condition"
   | "weight"
   | "finish"
-  | "stemMaterial"
   | "sort";
 
 type FilterOption = {
@@ -46,7 +50,6 @@ type ProductFilterOptions = {
   conditions: FilterOption[];
   weights: FilterOption[];
   finishes: FilterOption[];
-  stemMaterials: FilterOption[];
 };
 
 type IconProps = {
@@ -129,7 +132,7 @@ function getShapeFilterLabel(pipe: PipeProduct) {
 
 function getConditionFilterLabel(pipe: PipeProduct) {
   if (pipe.conditionType === "new") return "新斗";
-  if (pipe.conditionType === "estate") return "Estate";
+  if (pipe.conditionType === "estate") return "回流";
   return pipe.conditionLabel || pipe.condition || "";
 }
 
@@ -161,18 +164,13 @@ function buildProductFilterOptions(products: PipeProduct[]): ProductFilterOption
       (pipe) => pipe.finish,
       (pipe) => pipe.finishZh || pipe.finish
     ),
-    stemMaterials: uniqueOptions(
-      products,
-      (pipe) => pipe.stemMaterial,
-      (pipe) => pipe.stemMaterialZh || pipe.stemMaterial
-    ),
   };
 }
 
 function getCardMetaTags(pipe: PipeProduct) {
   return [
     pipe.brandCountry,
-    pipe.conditionLabel || pipe.condition,
+    getConditionDisplayLabel(pipe),
     pipe.shapeZh,
     getWeightRangeLabel(pipe.weightRange),
     pipe.finishZh,
@@ -303,16 +301,24 @@ function getStatusClass(pipe: PipeProduct) {
     : "bg-[#063B32] text-white";
 }
 
-function ProductCard({ pipe }: { pipe: PipeProduct }) {
+function ProductCard({
+  pipe,
+  returnTo,
+}: {
+  pipe: PipeProduct;
+  returnTo: string;
+}) {
   const galleryCount = getGalleryCount(pipe);
   const statusLabel = getStatusLabel(pipe);
-  const displayName = pipe.nameZh || pipe.name;
-  const englishName = pipe.nameZh ? pipe.name : "";
+  const chineseTitle = getProductChineseTitle(pipe);
+  const englishTitle = getProductEnglishTitle(pipe);
+  const displayName = chineseTitle || englishTitle || pipe.name;
+  const englishName = chineseTitle ? englishTitle : "";
   const metaTags = getCardMetaTags(pipe);
 
   return (
     <Link
-      href={`/products/${pipe.id}`}
+      href={`/products/${pipe.id}?returnTo=${encodeURIComponent(returnTo)}`}
       className="group block h-full overflow-hidden rounded-[18px] border border-[#E7DDD0] bg-white shadow-[0_6px_18px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(31,26,22,0.1)]"
     >
       <article className="flex h-full flex-col">
@@ -395,6 +401,64 @@ function ProductCard({ pipe }: { pipe: PipeProduct }) {
   );
 }
 
+function readProductsQueryFromUrl() {
+  if (typeof window === "undefined") {
+    return new URLSearchParams();
+  }
+
+  return new URLSearchParams(window.location.search);
+}
+
+function buildProductsHref({
+  searchText,
+  statusMode,
+  sortMode,
+  brandFilter,
+  countryFilter,
+  shapeFilter,
+  conditionFilter,
+  weightFilter,
+  finishFilter,
+  page,
+}: {
+  searchText: string;
+  statusMode: StatusMode;
+  sortMode: SortMode;
+  brandFilter: string;
+  countryFilter: string;
+  shapeFilter: string;
+  conditionFilter: string;
+  weightFilter: string;
+  finishFilter: string;
+  page: number;
+}) {
+  const params = new URLSearchParams();
+
+  if (searchText.trim()) params.set("q", searchText.trim());
+  if (statusMode !== "all") params.set("status", statusMode);
+  if (sortMode !== "recommended") params.set("sort", sortMode);
+  if (brandFilter) params.set("brand", brandFilter);
+  if (countryFilter) params.set("country", countryFilter);
+  if (shapeFilter) params.set("shape", shapeFilter);
+  if (conditionFilter) params.set("condition", conditionFilter);
+  if (weightFilter) params.set("weight", weightFilter);
+  if (finishFilter) params.set("finish", finishFilter);
+  if (page > 1) params.set("page", String(page));
+
+  const queryString = params.toString();
+  return queryString ? `/products?${queryString}` : "/products";
+}
+
+function isStatusMode(value: string): value is StatusMode {
+  return ["all", "available", "sold", "gallery"].includes(value);
+}
+
+function isSortMode(value: string): value is SortMode {
+  return ["recommended", "priceAsc", "priceDesc", "newest", "galleryFirst"].includes(
+    value
+  );
+}
+
 export default function ProductsPage() {
   const [inputSearchText, setInputSearchText] = useState("");
   const [activeSearchText, setActiveSearchText] = useState("");
@@ -406,15 +470,38 @@ export default function ProductsPage() {
   const [conditionFilter, setConditionFilter] = useState("");
   const [weightFilter, setWeightFilter] = useState("");
   const [finishFilter, setFinishFilter] = useState("");
-  const [stemMaterialFilter, setStemMaterialFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isQueryReady, setIsQueryReady] = useState(false);
 
   const productListRef = useRef<HTMLDivElement | null>(null);
   const shouldScrollToListRef = useRef(false);
+  const skipNextPageResetRef = useRef(false);
   const productFilterOptions = useMemo(
     () => buildProductFilterOptions(pipeProducts),
     []
   );
+
+  useEffect(() => {
+    const params = readProductsQueryFromUrl();
+    const query = params.get("q") || "";
+    const status = params.get("status") || "";
+    const sort = params.get("sort") || "";
+    const page = Number.parseInt(params.get("page") || "1", 10);
+
+    skipNextPageResetRef.current = true;
+    setInputSearchText(query);
+    setActiveSearchText(query);
+    if (isStatusMode(status)) setStatusMode(status);
+    if (isSortMode(sort)) setSortMode(sort);
+    setBrandFilter(params.get("brand") || "");
+    setCountryFilter(params.get("country") || "");
+    setShapeFilter(params.get("shape") || "");
+    setConditionFilter(params.get("condition") || "");
+    setWeightFilter(params.get("weight") || "");
+    setFinishFilter(params.get("finish") || "");
+    setCurrentPage(Number.isFinite(page) && page > 0 ? page : 1);
+    setIsQueryReady(true);
+  }, []);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -425,6 +512,11 @@ export default function ProductsPage() {
   }, [inputSearchText]);
 
   useEffect(() => {
+    if (skipNextPageResetRef.current) {
+      skipNextPageResetRef.current = false;
+      return;
+    }
+
     setCurrentPage(1);
   }, [
     activeSearchText,
@@ -436,7 +528,41 @@ export default function ProductsPage() {
     conditionFilter,
     weightFilter,
     finishFilter,
-    stemMaterialFilter,
+  ]);
+
+  useEffect(() => {
+    if (!isQueryReady) return;
+
+    const href = buildProductsHref({
+      searchText: activeSearchText,
+      statusMode,
+      sortMode,
+      brandFilter,
+      countryFilter,
+      shapeFilter,
+      conditionFilter,
+      weightFilter,
+      finishFilter,
+      page: currentPage,
+    });
+
+    const currentHref = `${window.location.pathname}${window.location.search}`;
+
+    if (href !== currentHref) {
+      window.history.replaceState(null, "", href);
+    }
+  }, [
+    activeSearchText,
+    statusMode,
+    sortMode,
+    brandFilter,
+    countryFilter,
+    shapeFilter,
+    conditionFilter,
+    weightFilter,
+    finishFilter,
+    currentPage,
+    isQueryReady,
   ]);
 
   useEffect(() => {
@@ -476,8 +602,6 @@ export default function ProductsPage() {
       const matchesWeight =
         !weightFilter || pipe.weightRange === weightFilter;
       const matchesFinish = !finishFilter || pipe.finish === finishFilter;
-      const matchesStemMaterial =
-        !stemMaterialFilter || pipe.stemMaterial === stemMaterialFilter;
 
       return (
         matchesSearch &&
@@ -487,8 +611,7 @@ export default function ProductsPage() {
         matchesShape &&
         matchesCondition &&
         matchesWeight &&
-        matchesFinish &&
-        matchesStemMaterial
+        matchesFinish
       );
     });
 
@@ -503,7 +626,6 @@ export default function ProductsPage() {
     conditionFilter,
     weightFilter,
     finishFilter,
-    stemMaterialFilter,
   ]);
 
   const totalPages = Math.max(1, Math.ceil(visibleProducts.length / PAGE_SIZE));
@@ -513,6 +635,18 @@ export default function ProductsPage() {
 
   const paginatedProducts = visibleProducts.slice(startIndex, endIndex);
   const paginationItems = getPaginationItems(safeCurrentPage, totalPages);
+  const currentProductsHref = buildProductsHref({
+    searchText: activeSearchText,
+    statusMode,
+    sortMode,
+    brandFilter,
+    countryFilter,
+    shapeFilter,
+    conditionFilter,
+    weightFilter,
+    finishFilter,
+    page: safeCurrentPage,
+  });
 
   function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -531,7 +665,6 @@ export default function ProductsPage() {
     setConditionFilter("");
     setWeightFilter("");
     setFinishFilter("");
-    setStemMaterialFilter("");
     setCurrentPage(1);
   }
 
@@ -551,8 +684,7 @@ export default function ProductsPage() {
     shapeFilter ||
     conditionFilter ||
     weightFilter ||
-    finishFilter ||
-    stemMaterialFilter;
+    finishFilter;
 
   return (
     <main
@@ -572,6 +704,7 @@ export default function ProductsPage() {
 
         <SearchFilterCard
           totalCount={totalCount}
+          resultCount={visibleProducts.length}
           inputSearchText={inputSearchText}
           setInputSearchText={setInputSearchText}
           handleSearchSubmit={handleSearchSubmit}
@@ -589,8 +722,6 @@ export default function ProductsPage() {
           setWeightFilter={setWeightFilter}
           finishFilter={finishFilter}
           setFinishFilter={setFinishFilter}
-          stemMaterialFilter={stemMaterialFilter}
-          setStemMaterialFilter={setStemMaterialFilter}
           productFilterOptions={productFilterOptions}
           sortMode={sortMode}
           setSortMode={setSortMode}
@@ -620,6 +751,7 @@ export default function ProductsPage() {
                   <ProductCard
                     key={`${pipe.id}-${pipe.sourceUrl}-${pipe.name}`}
                     pipe={pipe}
+                    returnTo={currentProductsHref}
                   />
                 ))}
               </div>
@@ -677,6 +809,7 @@ function PageTitleCard() {
 
 function SearchFilterCard({
   totalCount,
+  resultCount,
   inputSearchText,
   setInputSearchText,
   handleSearchSubmit,
@@ -694,8 +827,6 @@ function SearchFilterCard({
   setWeightFilter,
   finishFilter,
   setFinishFilter,
-  stemMaterialFilter,
-  setStemMaterialFilter,
   productFilterOptions,
   sortMode,
   setSortMode,
@@ -703,6 +834,7 @@ function SearchFilterCard({
   hasActiveFilter,
 }: {
   totalCount: number;
+  resultCount: number;
   inputSearchText: string;
   setInputSearchText: (value: string) => void;
   handleSearchSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -720,8 +852,6 @@ function SearchFilterCard({
   setWeightFilter: (value: string) => void;
   finishFilter: string;
   setFinishFilter: (value: string) => void;
-  stemMaterialFilter: string;
-  setStemMaterialFilter: (value: string) => void;
   productFilterOptions: ProductFilterOptions;
   sortMode: SortMode;
   setSortMode: (value: SortMode) => void;
@@ -739,7 +869,6 @@ function SearchFilterCard({
     condition: "新旧",
     weight: "重量",
     finish: "表面工艺",
-    stemMaterial: "斗嘴材质",
     sort: "排序",
   };
 
@@ -750,7 +879,6 @@ function SearchFilterCard({
     if (kind === "condition") return conditionFilter;
     if (kind === "weight") return weightFilter;
     if (kind === "finish") return finishFilter;
-    if (kind === "stemMaterial") return stemMaterialFilter;
     return sortMode;
   };
 
@@ -761,7 +889,6 @@ function SearchFilterCard({
     if (kind === "condition") return productFilterOptions.conditions;
     if (kind === "weight") return productFilterOptions.weights;
     if (kind === "finish") return productFilterOptions.finishes;
-    if (kind === "stemMaterial") return productFilterOptions.stemMaterials;
     return sortItems;
   };
 
@@ -778,7 +905,6 @@ function SearchFilterCard({
     if (kind === "condition") setConditionFilter(value);
     if (kind === "weight") setWeightFilter(value);
     if (kind === "finish") setFinishFilter(value);
-    if (kind === "stemMaterial") setStemMaterialFilter(value);
     if (kind === "sort") setSortMode(value as SortMode);
   };
 
@@ -828,14 +954,15 @@ function SearchFilterCard({
     { kind: "condition", label: "新旧" },
     { kind: "weight", label: "重量" },
     { kind: "finish", label: "表面工艺" },
-    { kind: "stemMaterial", label: "更多", compact: true },
   ];
 
   return (
     <section className="mt-5 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)] sm:p-5">
       <div className="grid gap-4 lg:grid-cols-[160px_1fr] lg:items-center">
         <div className="rounded-2xl border border-[#E7DDD0] bg-[#FBF7EF] p-4">
-          <p className="text-[12px] text-[#746A5F]">总商品数</p>
+          <p className="text-[12px] text-[#746A5F]">
+            {hasActiveFilter ? "符合条件" : "总商品数"}
+          </p>
 
           <p
             className="mt-1 text-[34px] font-semibold leading-none text-[#A97838]"
@@ -843,7 +970,7 @@ function SearchFilterCard({
               fontFamily: '"Georgia", "Times New Roman", serif',
             }}
           >
-            {totalCount}
+            {hasActiveFilter ? resultCount : totalCount}
           </p>
         </div>
 
@@ -872,51 +999,8 @@ function SearchFilterCard({
         </div>
       </div>
 
-      <div className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <button
-          type="button"
-          onClick={clearFilters}
-          className={[
-            "h-9 shrink-0 rounded-full border px-4 text-[13px] font-semibold transition",
-            hasActiveFilter
-              ? "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]"
-              : "border-[#063B32] bg-[#063B32] text-[#E7C48A]",
-          ].join(" ")}
-        >
-          全部
-        </button>
-
-        {primaryFilterButtons
-          .filter((item) =>
-            item.kind === "stemMaterial"
-              ? productFilterOptions.stemMaterials.length > 0
-              : true
-          )
-          .map((item) => {
-            const selectedLabel = getSelectedLabel(item.kind);
-            const isActive = Boolean(getCurrentValue(item.kind));
-
-            return (
-              <button
-                key={item.kind}
-                type="button"
-                onClick={() => openSheet(item.kind)}
-                className={[
-                  "flex h-9 shrink-0 items-center gap-1 rounded-full border px-4 text-[13px] font-semibold transition",
-                  isActive
-                    ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                    : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
-                ].join(" ")}
-              >
-                {selectedLabel ? `${item.label} · ${selectedLabel}` : item.label}
-                <ChevronDownIcon className="h-3.5 w-3.5" />
-              </button>
-            );
-          })}
-      </div>
-
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-4">
+        <div className="-mx-2 flex gap-2 overflow-x-auto px-2 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {statusFilterItems.map((item) => {
             const isActive = statusMode === item.value;
 
@@ -938,7 +1022,40 @@ function SearchFilterCard({
           })}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="-mx-2 mt-3 flex gap-2 overflow-x-auto px-2 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {primaryFilterButtons.map((item) => {
+            const selectedLabel = getSelectedLabel(item.kind);
+            const isActive = Boolean(getCurrentValue(item.kind));
+
+            return (
+              <button
+                key={item.kind}
+                type="button"
+                onClick={() => openSheet(item.kind)}
+                className={[
+                  "flex h-9 shrink-0 items-center gap-1 rounded-full border px-4 text-[13px] font-semibold transition",
+                  isActive
+                    ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
+                    : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
+                ].join(" ")}
+              >
+                {selectedLabel ? `${item.label} · ${selectedLabel}` : item.label}
+                <ChevronDownIcon className="h-3.5 w-3.5" />
+              </button>
+            );
+          })}
+
+          <button
+            type="button"
+            onClick={() => openSheet("sort")}
+            className="flex h-9 shrink-0 items-center gap-1 rounded-full border border-[#E7DDD0] bg-white px-4 text-[13px] font-semibold text-[#746A5F] transition hover:border-[#A97838] hover:text-[#8A5D26]"
+          >
+            更多
+            <ChevronDownIcon className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        <div className="mt-3 flex items-center justify-between gap-2">
           {hasActiveFilter ? (
             <button
               type="button"
