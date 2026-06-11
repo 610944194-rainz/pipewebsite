@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "prebuild": "node scripts/update-customs-exchange-rates.mjs",
     "build": "next build",
     "update:exchange-rates": "node scripts/update-customs-exchange-rates.mjs",
     "start": "next start",
