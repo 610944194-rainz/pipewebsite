@@ -1,17 +1,16 @@
 import { customsExchangeRates } from "../../data/exchange-rates";
+import smokingpipesPricing from "../../data/pricing/smokingpipes-pricing.json";
+import {
+  DANISH_PIPE_SHOP_PRICING_CONFIG,
+  calculateDanishPipeShopReferencePrice,
+  calculateSmokingpipesReferencePrice,
+} from "../../lib/pricing/reference-price.mjs";
 
 export const RMB_REFERENCE_LABEL = "人民币参考价";
 export const RMB_REFERENCE_UNKNOWN = "人工确认";
 
 export const PRICE_CALCULATION_CONFIG = {
-  danishPipeShop: {
-    danishVatRate: 0.25,
-    taxFactor: 1.2,
-    shippingUsd: 21,
-    freeShippingThresholdUsd: 260,
-    serviceFeeRate: 0.15,
-    minServiceFeeCny: 200,
-  },
+  danishPipeShop: DANISH_PIPE_SHOP_PRICING_CONFIG,
 } as const;
 
 const FALLBACK_RMB_FIELD_KEYS = [
@@ -124,6 +123,30 @@ function isDanishPipeShopProduct(product: Record<string, unknown>): boolean {
   );
 }
 
+function isSmokingpipesProduct(product: Record<string, unknown>): boolean {
+  const sourceText = [
+    product.source,
+    product.site,
+    product.sourceUrl,
+    product.originalUrl,
+    product.href,
+  ]
+    .map(normalizeText)
+    .join(" ")
+    .toLowerCase();
+
+  return sourceText.includes("smokingpipes");
+}
+
+function getCanonicalBrandName(product: Record<string, unknown>): string {
+  return normalizeText(
+    product.brandName ||
+      product.brand ||
+      product.canonicalBrandName ||
+      product.maker
+  );
+}
+
 function calculateDanishPipeShopRmb(product: Record<string, unknown>) {
   const overseasPriceUsd = getOriginalPriceValue(product);
   const usdToCny = getCustomsExchangeRate(
@@ -134,22 +157,26 @@ function calculateDanishPipeShopRmb(product: Record<string, unknown>) {
     return null;
   }
 
-  const { danishPipeShop } = PRICE_CALCULATION_CONFIG;
-  const netExportPriceUsd =
-    overseasPriceUsd / (1 + danishPipeShop.danishVatRate);
-  const shippingUsd =
-    netExportPriceUsd > danishPipeShop.freeShippingThresholdUsd
-      ? 0
-      : danishPipeShop.shippingUsd;
-  const taxableCost = netExportPriceUsd * usdToCny * danishPipeShop.taxFactor;
-  const shippingCny = shippingUsd * usdToCny;
-  const baseCost = taxableCost + shippingCny;
-  const serviceFee = Math.max(
-    baseCost * danishPipeShop.serviceFeeRate,
-    danishPipeShop.minServiceFeeCny
+  return calculateDanishPipeShopReferencePrice({
+    sourcePriceAmount: overseasPriceUsd,
+    usdToCny,
+    pricingConfig: PRICE_CALCULATION_CONFIG.danishPipeShop,
+  });
+}
+
+function calculateSmokingpipesRmb(product: Record<string, unknown>) {
+  const sourcePriceAmount = getOriginalPriceValue(product);
+  const usdToCny = getCustomsExchangeRate(
+    normalizeText(product.originalCurrency || product.sourcePriceCurrency) ||
+      "USD"
   );
 
-  return baseCost + serviceFee;
+  return calculateSmokingpipesReferencePrice({
+    sourcePriceAmount,
+    brandName: getCanonicalBrandName(product),
+    usdToCny,
+    pricingConfig: smokingpipesPricing,
+  }).siteDisplayAmount;
 }
 
 export function calculateRmbReferencePriceValue(
@@ -157,6 +184,10 @@ export function calculateRmbReferencePriceValue(
 ): number | null {
   if (isDanishPipeShopProduct(product)) {
     return calculateDanishPipeShopRmb(product);
+  }
+
+  if (isSmokingpipesProduct(product)) {
+    return calculateSmokingpipesRmb(product);
   }
 
   return getFallbackRmbValue(product);

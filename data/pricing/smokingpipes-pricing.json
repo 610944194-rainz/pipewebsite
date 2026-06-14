@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "source": "smokingpipes",
+  "taxFactor": 1.2,
+  "serviceFeeRate": 0.15,
+  "minServiceFeeCny": 200,
+  "defaultDiscountRate": 0,
+  "brandDiscountRates": {
+    "Peterson": 0.05,
+    "Savinelli": 0.05,
+    "Dunhill": 0.15
+  },
+  "shippingTiersUsd": [
+    {
+      "minPurchaseUsd": 0,
+      "maxPurchaseUsdExclusive": 150,
+      "shippingUsd": 6
+    },
+    {
+      "minPurchaseUsd": 150,
+      "maxPurchaseUsdExclusive": 400,
+      "shippingUsd": 19
+    },
+    {
+      "minPurchaseUsd": 400,
+      "maxPurchaseUsdExclusive": null,
+      "shippingUsd": 60
+    }
+  ]
+}

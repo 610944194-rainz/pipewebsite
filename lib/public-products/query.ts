@@ -397,11 +397,7 @@ function productMatchesState(
 }
 
 function productPrice(product: PublicCatalogProduct) {
-  return (
-    product.sortKeys?.price ??
-    product.sourcePriceAmount ??
-    Number.POSITIVE_INFINITY
-  );
+  return product.siteDisplayAmount ?? product.sortKeys?.price ?? Number.POSITIVE_INFINITY;
 }
 
 function sourceProductIdNumber(product: PublicCatalogProduct) {

@@ -115,7 +115,7 @@ export function formatSitePrice(product: PublicCatalogProduct) {
     return `约 ¥${Math.ceil(product.siteDisplayAmount).toLocaleString("zh-CN")}`;
   }
 
-  return formatSourcePrice(product);
+  return "价格待确认";
 }
 
 export function displayProductName(product: PublicCatalogProduct) {
