@@ -1,0 +1,3202 @@
+{
+  "schemaVersion": 1,
+  "inputs": {
+    "smokingpipesFieldAudit": "data/raw/smokingpipes-field-values-audit.json",
+    "smokingpipesDetails": "data/raw/smokingpipes-details-new-final.json",
+    "danishProducts": "data/products/danish-products.json",
+    "danishProductsWrapper": "data/danish-products.ts",
+    "pipesType": "data/pipes.ts",
+    "brandContent": "data/brand-content.ts",
+    "brandAliases": "data/taxonomy/brand-aliases.json",
+    "pipeShapes": "data/taxonomy/pipe-shapes.json",
+    "pipeFinishes": "data/taxonomy/pipe-finishes.json",
+    "pipeMaterials": "data/taxonomy/pipe-materials.json"
+  },
+  "sourceCounts": {
+    "smokingpipesProducts": 5136,
+    "danishProducts": 2165,
+    "smokingpipesBrandRawValueCount": 109,
+    "danishBrandRawValueCount": 110,
+    "smokingpipesShapeRawValueCount": 42,
+    "danishShapeRawValueCount": 22,
+    "smokingpipesFinishRawValueCount": 9,
+    "danishFinishRawValueCount": 9,
+    "smokingpipesBowlMaterialRawValueCount": 8,
+    "danishBowlMaterialRawValueCount": 5,
+    "smokingpipesStemMaterialRawValueCount": 6,
+    "danishStemMaterialRawValueCount": 2,
+    "smokingpipesFilterRawValueCount": 4,
+    "danishFilterRawValueCount": 0,
+    "canonicalBrandCount": 172,
+    "canonicalShapeCount": 41,
+    "canonicalFinishCount": 13,
+    "canonicalBowlMaterialCount": 8,
+    "canonicalStemMaterialCount": 6,
+    "brandReviewStatusCounts": {
+      "total": 172,
+      "confirmed": 156,
+      "provisional": 3,
+      "needs-review": 13
+    },
+    "shapeReviewStatusCounts": {
+      "total": 41,
+      "confirmed": 40,
+      "provisional": 1,
+      "needs-review": 0
+    },
+    "finishReviewStatusCounts": {
+      "total": 13,
+      "confirmed": 12,
+      "provisional": 1,
+      "needs-review": 0
+    },
+    "bowlMaterialReviewStatusCounts": {
+      "total": 8,
+      "confirmed": 7,
+      "provisional": 1,
+      "needs-review": 0
+    },
+    "stemMaterialReviewStatusCounts": {
+      "total": 6,
+      "confirmed": 5,
+      "provisional": 1,
+      "needs-review": 0
+    }
+  },
+  "coverage": {
+    "brands": {
+      "smokingpipes": {
+        "totalValueCount": 109,
+        "mappedValueCount": 109,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 0,
+        "coveragePercent": 100,
+        "excludedValues": [],
+        "mappedValues": [
+          {
+            "value": "Abe Herbaugh",
+            "canonicalName": "Abe Herbaugh",
+            "canonicalSlug": "abe-herbaugh",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Adam Davidson",
+            "canonicalName": "Adam Davidson",
+            "canonicalSlug": "adam-davidson",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "AKB",
+            "canonicalName": "AKB",
+            "canonicalSlug": "akb",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Alan",
+            "canonicalName": "Alan",
+            "canonicalSlug": "alan",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Alexander Hasty",
+            "canonicalName": "Alexander Hasty",
+            "canonicalSlug": "alexander-hasty",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ardor",
+            "canonicalName": "Ardor",
+            "canonicalSlug": "ardor",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ashton",
+            "canonicalName": "Ashton",
+            "canonicalSlug": "ashton",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Askwith",
+            "canonicalName": "Askwith",
+            "canonicalSlug": "askwith",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Austin Quinlan",
+            "canonicalName": "Austin Quinlan",
+            "canonicalSlug": "austin-quinlan",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Balleby",
+            "canonicalName": "Balleby",
+            "canonicalSlug": "balleby",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Barling",
+            "canonicalName": "Barling",
+            "canonicalSlug": "barling",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Becker",
+            "canonicalName": "Becker",
+            "canonicalSlug": "becker",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bill Shalosky",
+            "canonicalName": "Bill Shalosky",
+            "canonicalSlug": "bill-shalosky",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brebbia",
+            "canonicalName": "Brebbia",
+            "canonicalSlug": "brebbia",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Briarworks",
+            "canonicalName": "Briarworks",
+            "canonicalSlug": "briarworks",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brigham",
+            "canonicalName": "Brigham",
+            "canonicalSlug": "brigham",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brighton James",
+            "canonicalName": "Brighton James",
+            "canonicalSlug": "brighton-james",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brulor",
+            "canonicalName": "Brulor",
+            "canonicalSlug": "brulor",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bruno Nuttens",
+            "canonicalName": "Bruno Nuttens",
+            "canonicalSlug": "bruno-nuttens",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Caminetto",
+            "canonicalName": "Caminetto",
+            "canonicalSlug": "caminetto",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Castello",
+            "canonicalName": "Castello",
+            "canonicalSlug": "castello",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Cavicchi",
+            "canonicalName": "Cavicchi",
+            "canonicalSlug": "cavicchi",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Chacom",
+            "canonicalName": "Chacom",
+            "canonicalSlug": "chacom",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Chris Asteriou",
+            "canonicalName": "Chris Asteriou",
+            "canonicalSlug": "chris-asteriou",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Christian Ruetz",
+            "canonicalName": "Christian Ruetz",
+            "canonicalSlug": "christian-ruetz",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Clay Pipes",
+            "canonicalName": "Clay Pipes",
+            "canonicalSlug": "clay-pipes",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "David Huber",
+            "canonicalName": "David Huber",
+            "canonicalSlug": "david-huber",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Davide Iafisco",
+            "canonicalName": "Davide Iafisco",
+            "canonicalSlug": "davide-iafisco",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dirk Heinemann",
+            "canonicalName": "Dirk Heinemann",
+            "canonicalSlug": "dirk-heinemann",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Doctors",
+            "canonicalName": "Doctors",
+            "canonicalSlug": "doctors",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Duca",
+            "canonicalName": "Duca",
+            "canonicalSlug": "duca",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dunhill",
+            "canonicalName": "Dunhill",
+            "canonicalSlug": "dunhill",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Eltang",
+            "canonicalName": "Tom Eltang",
+            "canonicalSlug": "tom-eltang",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Eltang Basic",
+            "canonicalName": "Tom Eltang",
+            "canonicalSlug": "tom-eltang",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Emiliano",
+            "canonicalName": "Emiliano",
+            "canonicalSlug": "emiliano",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Erik Stokkebye 4th Generation",
+            "canonicalName": "Erik Stokkebye 4th Generation",
+            "canonicalSlug": "erik-stokkebye-4th-generation",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Falcon",
+            "canonicalName": "Falcon",
+            "canonicalSlug": "falcon",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Flavia Rodrigues",
+            "canonicalName": "Flávia Rodrigues",
+            "canonicalSlug": "flavia-rodrigues",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Florov",
+            "canonicalName": "Florov",
+            "canonicalSlug": "florov",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Former",
+            "canonicalName": "Former",
+            "canonicalSlug": "former",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "G Penzo",
+            "canonicalName": "G Penzo",
+            "canonicalSlug": "g-penzo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Genod",
+            "canonicalName": "Genod",
+            "canonicalSlug": "genod",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "GH Zhang",
+            "canonicalName": "GH Zhang",
+            "canonicalSlug": "gh-zhang",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Henri Sorensen",
+            "canonicalName": "Henri Sorensen",
+            "canonicalSlug": "henri-sorensen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Il Cerchio",
+            "canonicalName": "Il Cerchio",
+            "canonicalSlug": "il-cerchio",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Imp Meerschaum",
+            "canonicalName": "Imp Meerschaum",
+            "canonicalSlug": "imp-meerschaum",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Jacono",
+            "canonicalName": "Jacono",
+            "canonicalSlug": "jacono",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Jared Coles",
+            "canonicalName": "Jared Coles",
+            "canonicalSlug": "jared-coles",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Jerry Zenn",
+            "canonicalName": "Jerry Zenn",
+            "canonicalSlug": "jerry-zenn",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Jody Davis",
+            "canonicalName": "Jody Davis",
+            "canonicalSlug": "jody-davis",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Johs",
+            "canonicalName": "Johs",
+            "canonicalSlug": "johs",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Kai Nielsen",
+            "canonicalName": "Kai Nielsen",
+            "canonicalSlug": "kai-nielsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Konstantin",
+            "canonicalName": "Konstantin",
+            "canonicalSlug": "konstantin",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Lan Make",
+            "canonicalName": "Lan Make",
+            "canonicalSlug": "lan-make",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Lanatra",
+            "canonicalName": "Lanatra",
+            "canonicalSlug": "lanatra",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Li Zhesong",
+            "canonicalName": "Li Zhesong",
+            "canonicalSlug": "li-zhesong",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Lorenzetti",
+            "canonicalName": "Lorenzetti",
+            "canonicalSlug": "lorenzetti",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Luiz Lavos1",
+            "canonicalName": "Luiz Lavos",
+            "canonicalSlug": "luiz-lavos",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Lv Zelong",
+            "canonicalName": "Lv Zelong",
+            "canonicalSlug": "lv-zelong",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Manduela",
+            "canonicalName": "Manduela",
+            "canonicalSlug": "manduela",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Mark Tinsky",
+            "canonicalName": "Mark Tinsky",
+            "canonicalSlug": "mark-tinsky",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Martelo",
+            "canonicalName": "Martelo",
+            "canonicalSlug": "martelo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Mastro Geppetto",
+            "canonicalName": "Mastro Geppetto",
+            "canonicalSlug": "mastro-geppetto",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Micah Redmond",
+            "canonicalName": "Micah Redmond",
+            "canonicalSlug": "micah-redmond",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Michael Parks",
+            "canonicalName": "Michael Parks",
+            "canonicalSlug": "michael-parks",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Mike Sebastian Bay",
+            "canonicalName": "Mike Sebastian Bay",
+            "canonicalSlug": "mike-sebastian-bay",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Missourimeerschaum",
+            "canonicalName": "Missouri Meerschaum",
+            "canonicalSlug": "missouri-meerschaum",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Molina",
+            "canonicalName": "Molina",
+            "canonicalSlug": "molina",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Musico",
+            "canonicalName": "Musico",
+            "canonicalSlug": "musico",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Old Dominion",
+            "canonicalName": "Old Dominion",
+            "canonicalSlug": "old-dominion",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Pete Prevost",
+            "canonicalName": "Pete Prevost",
+            "canonicalSlug": "pete-prevost",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Peterson",
+            "canonicalName": "Peterson",
+            "canonicalSlug": "peterson",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Pohlmann",
+            "canonicalName": "Pohlmann",
+            "canonicalSlug": "pohlmann",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Radice",
+            "canonicalName": "Radice",
+            "canonicalSlug": "radice",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Randy Wiley",
+            "canonicalName": "Randy Wiley",
+            "canonicalSlug": "randy-wiley",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattrays",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rinaldo",
+            "canonicalName": "Rinaldo",
+            "canonicalSlug": "rinaldo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ropp",
+            "canonicalName": "Ropp",
+            "canonicalSlug": "ropp",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rossi",
+            "canonicalName": "Rossi",
+            "canonicalSlug": "rossi",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ryan Alden",
+            "canonicalName": "Ryan Alden",
+            "canonicalSlug": "ryan-alden",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sabina Santos",
+            "canonicalName": "Sabina Santos",
+            "canonicalSlug": "sabina-santos",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sam Adebayo",
+            "canonicalName": "Sam Adebayo",
+            "canonicalSlug": "sam-adebayo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sam Cui",
+            "canonicalName": "Sam Cui",
+            "canonicalSlug": "sam-cui",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sara_eltang",
+            "canonicalName": "Sara Eltang Pipes",
+            "canonicalSlug": "sara-eltang-pipes",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Savinelli",
+            "canonicalName": "Savinelli",
+            "canonicalSlug": "savinelli",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Savinelli Autograph",
+            "canonicalName": "Savinelli Autograph",
+            "canonicalSlug": "savinelli-autograph",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Scott Klein",
+            "canonicalName": "Scott Klein",
+            "canonicalSlug": "scott-klein",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Scott Thile",
+            "canonicalName": "Scott Thile",
+            "canonicalSlug": "scott-thile",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ser Jacopo",
+            "canonicalName": "Ser Jacopo",
+            "canonicalSlug": "ser-jacopo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Silver Gray",
+            "canonicalName": "Silver Gray",
+            "canonicalSlug": "silver-gray",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Skovgaard",
+            "canonicalName": "Skovgaard",
+            "canonicalSlug": "skovgaard",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Suhr",
+            "canonicalName": "Suhr",
+            "canonicalSlug": "suhr",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tao",
+            "canonicalName": "Tao",
+            "canonicalSlug": "tao",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "The French Pipe",
+            "canonicalName": "The French Pipe",
+            "canonicalSlug": "the-french-pipe",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Tine Balleby",
+            "canonicalName": "Tine Balleby",
+            "canonicalSlug": "tine-balleby",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Todd Johnson",
+            "canonicalName": "Todd Johnson",
+            "canonicalSlug": "todd-johnson",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Trey Rice",
+            "canonicalName": "Trey Rice",
+            "canonicalSlug": "trey-rice",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tsuge",
+            "canonicalName": "Tsuge",
+            "canonicalSlug": "tsuge",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tsuge Ikebana",
+            "canonicalName": "Tsuge Ikebana",
+            "canonicalSlug": "tsuge-ikebana",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Valbruna",
+            "canonicalName": "Valbruna",
+            "canonicalSlug": "valbruna",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Vauen",
+            "canonicalName": "Vauen",
+            "canonicalSlug": "vauen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Wandi Riyadi",
+            "canonicalName": "Wandi Riyadi",
+            "canonicalSlug": "wandi-riyadi",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Werner Mummert",
+            "canonicalName": "Werner Mummert",
+            "canonicalSlug": "werner-mummert",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "White Elephant",
+            "canonicalName": "White Elephant",
+            "canonicalSlug": "white-elephant",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Winslow",
+            "canonicalName": "Winsløw",
+            "canonicalSlug": "winslow",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Wojtek Pastuch",
+            "canonicalName": "Wojtek Pastuch",
+            "canonicalSlug": "wojtek-pastuch",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Yang Kun",
+            "canonicalName": "Yang Kun",
+            "canonicalSlug": "yang-kun",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Yuwei",
+            "canonicalName": "Yuwei",
+            "canonicalSlug": "yuwei",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      },
+      "danish": {
+        "totalValueCount": 110,
+        "mappedValueCount": 110,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 0,
+        "coveragePercent": 100,
+        "excludedValues": [],
+        "mappedValues": [
+          {
+            "value": "Anne Julie",
+            "canonicalName": "Anne Julie",
+            "canonicalSlug": "anne-julie",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ashton",
+            "canonicalName": "Ashton",
+            "canonicalSlug": "ashton",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ashton for Paul Olsen",
+            "canonicalName": "Ashton for Paul Olsen",
+            "canonicalSlug": "ashton-for-paul-olsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "B. Madsen",
+            "canonicalName": "B. Madsen",
+            "canonicalSlug": "b-madsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Barling",
+            "canonicalName": "Barling",
+            "canonicalSlug": "barling",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bay Denmark",
+            "canonicalName": "Bay Denmark",
+            "canonicalSlug": "bay-denmark",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "BBB",
+            "canonicalName": "BBB",
+            "canonicalSlug": "bbb",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Benner",
+            "canonicalName": "Benner",
+            "canonicalSlug": "benner",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Benni Jørgensen",
+            "canonicalName": "Benni Jørgensen",
+            "canonicalSlug": "benni-jorgensen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bentley by Former",
+            "canonicalName": "Bentley by Former",
+            "canonicalSlug": "bentley-by-former",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Berggreen Pipes",
+            "canonicalName": "Berggreen Pipes",
+            "canonicalSlug": "berggreen-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bjarne",
+            "canonicalName": "Bjarne",
+            "canonicalSlug": "bjarne",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "BPK",
+            "canonicalName": "BPK",
+            "canonicalSlug": "bpk",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brebbia",
+            "canonicalName": "Brebbia",
+            "canonicalSlug": "brebbia",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Butz-Choquin",
+            "canonicalName": "Butz-Choquin",
+            "canonicalSlug": "butz-choquin",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Castello",
+            "canonicalName": "Castello",
+            "canonicalSlug": "castello",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Celius",
+            "canonicalName": "Celius",
+            "canonicalSlug": "celius",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Chacom",
+            "canonicalName": "Chacom",
+            "canonicalSlug": "chacom",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Charatan's",
+            "canonicalName": "Charatan's",
+            "canonicalSlug": "charatans",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Comoy's",
+            "canonicalName": "Comoy's",
+            "canonicalSlug": "comoys",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dagner",
+            "canonicalName": "Dagner Pipes",
+            "canonicalSlug": "dagner-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dagner Pipes",
+            "canonicalName": "Dagner Pipes",
+            "canonicalSlug": "dagner-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dollar Kapten Pipe",
+            "canonicalName": "Dollar Kapten Pipe",
+            "canonicalSlug": "dollar-kapten-pipe",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Dunhill",
+            "canonicalName": "Dunhill",
+            "canonicalSlug": "dunhill",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Economy Pipe starter set",
+            "canonicalName": "Unbranded",
+            "canonicalSlug": "unbranded",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Eltang Basic",
+            "canonicalName": "Tom Eltang",
+            "canonicalSlug": "tom-eltang",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Eltang Basic Pipe",
+            "canonicalName": "Tom Eltang",
+            "canonicalSlug": "tom-eltang",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Erik Nording",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Eriksen Keystone filter pipe",
+            "canonicalName": "Eriksen Keystone filter pipe",
+            "canonicalSlug": "eriksen-keystone-filter-pipe",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Falcon",
+            "canonicalName": "Falcon",
+            "canonicalSlug": "falcon",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Finn Andersen",
+            "canonicalName": "Finn Andersen",
+            "canonicalSlug": "finn-andersen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Flávia Rodrigues",
+            "canonicalName": "Flávia Rodrigues",
+            "canonicalSlug": "flavia-rodrigues",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Flemming",
+            "canonicalName": "Flemming",
+            "canonicalSlug": "flemming",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Georg Jensen",
+            "canonicalName": "Georg Jensen",
+            "canonicalSlug": "georg-jensen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "George Boyadjiev",
+            "canonicalName": "George Boyadjiev",
+            "canonicalSlug": "george-boyadjiev",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Hans Former Nielsen",
+            "canonicalName": "Hans Former Nielsen",
+            "canonicalSlug": "hans-former-nielsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Hartmann",
+            "canonicalName": "Hartmann",
+            "canonicalSlug": "hartmann",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Henri Pipes",
+            "canonicalName": "Henri Pipes",
+            "canonicalSlug": "henri-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Herriot Pipes",
+            "canonicalName": "Herriot Pipes",
+            "canonicalSlug": "herriot-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Holtorp",
+            "canonicalName": "Holtorp",
+            "canonicalSlug": "holtorp",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ib Loran",
+            "canonicalName": "Ib Loran",
+            "canonicalSlug": "ib-loran",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Jakobsen",
+            "canonicalName": "Jakobsen",
+            "canonicalSlug": "jakobsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Johs Pipes",
+            "canonicalName": "Johs Pipes",
+            "canonicalSlug": "johs-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Kai Nielsen",
+            "canonicalName": "Kai Nielsen",
+            "canonicalSlug": "kai-nielsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Karl Erik",
+            "canonicalName": "Karl Erik",
+            "canonicalSlug": "karl-erik",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ken Dederichs",
+            "canonicalName": "Ken Dederichs",
+            "canonicalSlug": "ken-dederichs",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ken Pipes",
+            "canonicalName": "Ken Pipes",
+            "canonicalSlug": "ken-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Kriswill",
+            "canonicalName": "Kriswill",
+            "canonicalSlug": "kriswill",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "KS Pipe",
+            "canonicalName": "KS Pipe",
+            "canonicalSlug": "ks-pipe",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Lasse Skovgaard",
+            "canonicalName": "Lasse Skovgaard",
+            "canonicalSlug": "lasse-skovgaard",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Leopold",
+            "canonicalName": "Leopold",
+            "canonicalSlug": "leopold",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Luiz Lavos",
+            "canonicalName": "Luiz Lavos",
+            "canonicalSlug": "luiz-lavos",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Lyst Danmark",
+            "canonicalName": "Lyst Danmark",
+            "canonicalSlug": "lyst-danmark",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Manduela",
+            "canonicalName": "Manduela",
+            "canonicalSlug": "manduela",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Masta",
+            "canonicalName": "Masta",
+            "canonicalSlug": "masta",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Meerschaum",
+            "canonicalName": "Unknown Meerschaum",
+            "canonicalSlug": "unknown-meerschaum",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Missouri Meerschaum",
+            "canonicalName": "Missouri Meerschaum",
+            "canonicalSlug": "missouri-meerschaum",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Molina",
+            "canonicalName": "Molina",
+            "canonicalSlug": "molina",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Mr. Andersen",
+            "canonicalName": "Mr. Andersen",
+            "canonicalSlug": "mr-andersen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nanna Ivarsson",
+            "canonicalName": "Nanna Ivarsson",
+            "canonicalSlug": "nanna-ivarsson",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Neerup",
+            "canonicalName": "Neerup",
+            "canonicalSlug": "neerup",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "No Name",
+            "canonicalName": "Unbranded",
+            "canonicalSlug": "unbranded",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Nording",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nørding",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording - Hunting Pipe 2021",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Compass",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Hunting Pipe 2022",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Hunting Pipe 2023",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Keystone/Shorty",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Pipe",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nording Pipes",
+            "canonicalName": "Nørding",
+            "canonicalSlug": "nording",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Nuttens Pipes",
+            "canonicalName": "Nuttens Pipes",
+            "canonicalSlug": "nuttens-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Parker",
+            "canonicalName": "Parker",
+            "canonicalSlug": "parker",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Paul Olsen",
+            "canonicalName": "Poul Olsen",
+            "canonicalSlug": "poul-olsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Peder Jeppesen",
+            "canonicalName": "Peder Jeppesen",
+            "canonicalSlug": "peder-jeppesen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Peter Heding",
+            "canonicalName": "Peter Heding",
+            "canonicalSlug": "peter-heding",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Peterson",
+            "canonicalName": "Peterson",
+            "canonicalSlug": "peterson",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Pipe Key Ring",
+            "canonicalName": "Pipe Key Ring",
+            "canonicalSlug": "pipe-key-ring",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Pipepack",
+            "canonicalName": "Pipepack",
+            "canonicalSlug": "pipepack",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Poul Olsen",
+            "canonicalName": "Poul Olsen",
+            "canonicalSlug": "poul-olsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Poul Winsløw",
+            "canonicalName": "Winsløw",
+            "canonicalSlug": "winslow",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 200",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 201",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 202",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 203",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 204",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rattray's The Witch Brushed Red 205",
+            "canonicalName": "Rattray's",
+            "canonicalSlug": "rattrays",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Ropp",
+            "canonicalName": "Ropp",
+            "canonicalSlug": "ropp",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Royal Copenhagen",
+            "canonicalName": "Royal Copenhagen",
+            "canonicalSlug": "royal-copenhagen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "S. Bang",
+            "canonicalName": "S. Bang",
+            "canonicalSlug": "s-bang",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sara Eltang Pipes",
+            "canonicalName": "Sara Eltang Pipes",
+            "canonicalSlug": "sara-eltang-pipes",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Savinelli",
+            "canonicalName": "Savinelli",
+            "canonicalSlug": "savinelli",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "SON (Nording)",
+            "canonicalName": "SON (Nording)",
+            "canonicalSlug": "son-nording",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Søren Refbjerg",
+            "canonicalName": "Søren Refbjerg",
+            "canonicalSlug": "soren-refbjerg",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Stanwell",
+            "canonicalName": "Stanwell",
+            "canonicalSlug": "stanwell",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Suhr Pipes",
+            "canonicalName": "Suhr Pipes",
+            "canonicalSlug": "suhr-pipes",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Svendborg",
+            "canonicalName": "Svendborg",
+            "canonicalSlug": "svendborg",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tao",
+            "canonicalName": "Tao",
+            "canonicalSlug": "tao",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "TDPS",
+            "canonicalName": "TDPS",
+            "canonicalSlug": "tdps",
+            "reviewStatus": "needs-review"
+          },
+          {
+            "value": "Thurmann",
+            "canonicalName": "Thurmann",
+            "canonicalSlug": "thurmann",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tine Balleby",
+            "canonicalName": "Tine Balleby",
+            "canonicalSlug": "tine-balleby",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tom Eltang",
+            "canonicalName": "Tom Eltang",
+            "canonicalSlug": "tom-eltang",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Vauen",
+            "canonicalName": "Vauen",
+            "canonicalSlug": "vauen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Volkan",
+            "canonicalName": "Volkan",
+            "canonicalSlug": "volkan",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "W. O. Larsen",
+            "canonicalName": "W.Ø. Larsen",
+            "canonicalSlug": "wo-larsen",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "White Star",
+            "canonicalName": "White Star",
+            "canonicalSlug": "white-star",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "White Star Pipes",
+            "canonicalName": "White Star",
+            "canonicalSlug": "white-star",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Willbo",
+            "canonicalName": "Willbo",
+            "canonicalSlug": "willbo",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Winsløw Crown 200",
+            "canonicalName": "Winsløw",
+            "canonicalSlug": "winslow",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      }
+    },
+    "shapes": {
+      "smokingpipes": {
+        "totalValueCount": 41,
+        "mappedValueCount": 41,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "N/A"
+        ],
+        "mappedValues": [
+          {
+            "value": "Acorn/Pear",
+            "canonicalName": "Acorn/Pear",
+            "canonicalSlug": "acorn-pear",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Apple",
+            "canonicalName": "Apple",
+            "canonicalSlug": "apple",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Author",
+            "canonicalName": "Author",
+            "canonicalSlug": "author",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Apple",
+            "canonicalName": "Bent Apple",
+            "canonicalSlug": "bent-apple",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Ball",
+            "canonicalName": "Bent Ball",
+            "canonicalSlug": "bent-ball",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Billiard",
+            "canonicalName": "Bent Billiard",
+            "canonicalSlug": "bent-billiard",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Brandy",
+            "canonicalName": "Bent Brandy",
+            "canonicalSlug": "bent-brandy",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Bulldog",
+            "canonicalName": "Bent Bulldog",
+            "canonicalSlug": "bent-bulldog",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Dublin",
+            "canonicalName": "Bent Dublin",
+            "canonicalSlug": "bent-dublin",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Egg",
+            "canonicalName": "Bent Egg",
+            "canonicalSlug": "bent-egg",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bent Pot",
+            "canonicalName": "Bent Pot",
+            "canonicalSlug": "bent-pot",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Billiard",
+            "canonicalName": "Billiard",
+            "canonicalSlug": "billiard",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Blowfish",
+            "canonicalName": "Blowfish",
+            "canonicalSlug": "blowfish",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Brandy",
+            "canonicalName": "Brandy",
+            "canonicalSlug": "brandy",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bulldog",
+            "canonicalName": "Bulldog",
+            "canonicalSlug": "bulldog",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Calabash",
+            "canonicalName": "Calabash",
+            "canonicalSlug": "calabash",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Canadian",
+            "canonicalName": "Canadian",
+            "canonicalSlug": "canadian",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Cavalier",
+            "canonicalName": "Cavalier",
+            "canonicalSlug": "cavalier",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Chimney",
+            "canonicalName": "Chimney",
+            "canonicalSlug": "chimney",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Churchwarden",
+            "canonicalName": "Churchwarden",
+            "canonicalSlug": "churchwarden",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Cutty",
+            "canonicalName": "Cutty",
+            "canonicalSlug": "cutty",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Devil Anse",
+            "canonicalName": "Devil Anse",
+            "canonicalSlug": "devil-anse",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Dublin",
+            "canonicalName": "Dublin",
+            "canonicalSlug": "dublin",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Figural",
+            "canonicalName": "Figural",
+            "canonicalSlug": "figural",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Freehand",
+            "canonicalName": "Freehand",
+            "canonicalSlug": "freehand",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Hawkbill",
+            "canonicalName": "Hawkbill",
+            "canonicalSlug": "hawkbill",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Horn",
+            "canonicalName": "Horn",
+            "canonicalSlug": "horn",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Liverpool",
+            "canonicalName": "Liverpool",
+            "canonicalSlug": "liverpool",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Lovat",
+            "canonicalName": "Lovat",
+            "canonicalSlug": "lovat",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Lumberman",
+            "canonicalName": "Lumberman",
+            "canonicalSlug": "lumberman",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Oom Paul",
+            "canonicalName": "Oom Paul",
+            "canonicalSlug": "oom-paul",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Opera",
+            "canonicalName": "Opera",
+            "canonicalSlug": "opera",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Panel",
+            "canonicalName": "Panel",
+            "canonicalSlug": "panel",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Poker",
+            "canonicalName": "Poker",
+            "canonicalSlug": "poker",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Pot",
+            "canonicalName": "Pot",
+            "canonicalSlug": "pot",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Prince",
+            "canonicalName": "Prince",
+            "canonicalSlug": "prince",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rhodesian",
+            "canonicalName": "Rhodesian",
+            "canonicalSlug": "rhodesian",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Skater",
+            "canonicalName": "Skater",
+            "canonicalSlug": "skater",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Tomato",
+            "canonicalName": "Tomato",
+            "canonicalSlug": "tomato",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Volcano",
+            "canonicalName": "Volcano",
+            "canonicalSlug": "volcano",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Zulu",
+            "canonicalName": "Zulu",
+            "canonicalSlug": "zulu",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      },
+      "danish": {
+        "totalValueCount": 21,
+        "mappedValueCount": 21,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "unknown"
+        ],
+        "mappedValues": [
+          {
+            "value": "apple",
+            "canonicalName": "Apple",
+            "canonicalSlug": "apple",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "author",
+            "canonicalName": "Author",
+            "canonicalSlug": "author",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "billiard",
+            "canonicalName": "Billiard",
+            "canonicalSlug": "billiard",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "blowfish",
+            "canonicalName": "Blowfish",
+            "canonicalSlug": "blowfish",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "brandy",
+            "canonicalName": "Brandy",
+            "canonicalSlug": "brandy",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "bulldog",
+            "canonicalName": "Bulldog",
+            "canonicalSlug": "bulldog",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "calabash",
+            "canonicalName": "Calabash",
+            "canonicalSlug": "calabash",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "canadian",
+            "canonicalName": "Canadian",
+            "canonicalSlug": "canadian",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "churchwarden",
+            "canonicalName": "Churchwarden",
+            "canonicalSlug": "churchwarden",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "dublin",
+            "canonicalName": "Dublin",
+            "canonicalSlug": "dublin",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "egg",
+            "canonicalName": "Bent Egg",
+            "canonicalSlug": "bent-egg",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "freehand",
+            "canonicalName": "Freehand",
+            "canonicalSlug": "freehand",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "horn",
+            "canonicalName": "Horn",
+            "canonicalSlug": "horn",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "liverpool",
+            "canonicalName": "Liverpool",
+            "canonicalSlug": "liverpool",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "lovat",
+            "canonicalName": "Lovat",
+            "canonicalSlug": "lovat",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "poker",
+            "canonicalName": "Poker",
+            "canonicalSlug": "poker",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "pot",
+            "canonicalName": "Pot",
+            "canonicalSlug": "pot",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "prince",
+            "canonicalName": "Prince",
+            "canonicalSlug": "prince",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "rhodesian",
+            "canonicalName": "Rhodesian",
+            "canonicalSlug": "rhodesian",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "tomato",
+            "canonicalName": "Tomato",
+            "canonicalSlug": "tomato",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "volcano",
+            "canonicalName": "Volcano",
+            "canonicalSlug": "volcano",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      }
+    },
+    "finishes": {
+      "smokingpipes": {
+        "totalValueCount": 9,
+        "mappedValueCount": 9,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 0,
+        "coveragePercent": 100,
+        "excludedValues": [],
+        "mappedValues": [
+          {
+            "value": "Carved",
+            "canonicalName": "Carved",
+            "canonicalSlug": "carved",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Other",
+            "canonicalName": "Other",
+            "canonicalSlug": "other",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Partial Rusticated",
+            "canonicalName": "Partial Rusticated",
+            "canonicalSlug": "partial-rusticated",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Partial Sandblast",
+            "canonicalName": "Partial Sandblast",
+            "canonicalSlug": "partial-sandblast",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rusticated",
+            "canonicalName": "Rusticated",
+            "canonicalSlug": "rusticated",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Rusticated and Sandblasted",
+            "canonicalName": "Rusticated and Sandblasted",
+            "canonicalSlug": "rusticated-and-sandblasted",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Sandblast",
+            "canonicalName": "Sandblast",
+            "canonicalSlug": "sandblast",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Smooth",
+            "canonicalName": "Smooth",
+            "canonicalSlug": "smooth",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Spot Carved",
+            "canonicalName": "Spot Carved",
+            "canonicalSlug": "spot-carved",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      },
+      "danish": {
+        "totalValueCount": 8,
+        "mappedValueCount": 8,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "unknown"
+        ],
+        "mappedValues": [
+          {
+            "value": "brushed",
+            "canonicalName": "Brushed",
+            "canonicalSlug": "brushed",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "contrast",
+            "canonicalName": "Contrast",
+            "canonicalSlug": "contrast",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "matte",
+            "canonicalName": "Matte",
+            "canonicalSlug": "matte",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "natural",
+            "canonicalName": "Natural",
+            "canonicalSlug": "natural",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "polished",
+            "canonicalName": "Smooth",
+            "canonicalSlug": "smooth",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "rusticated",
+            "canonicalName": "Rusticated",
+            "canonicalSlug": "rusticated",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "sandblast",
+            "canonicalName": "Sandblast",
+            "canonicalSlug": "sandblast",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "smooth",
+            "canonicalName": "Smooth",
+            "canonicalSlug": "smooth",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      }
+    },
+    "bowlMaterials": {
+      "smokingpipes": {
+        "totalValueCount": 8,
+        "mappedValueCount": 8,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 0,
+        "coveragePercent": 100,
+        "excludedValues": [],
+        "mappedValues": [
+          {
+            "value": "Briar",
+            "canonicalName": "Briar",
+            "canonicalSlug": "briar",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Clay",
+            "canonicalName": "Clay",
+            "canonicalSlug": "clay",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Corn Cob",
+            "canonicalName": "Corn Cob",
+            "canonicalSlug": "corn-cob",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Meerschaum",
+            "canonicalName": "Meerschaum",
+            "canonicalSlug": "meerschaum",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Morta",
+            "canonicalName": "Morta",
+            "canonicalSlug": "morta",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Olivewood",
+            "canonicalName": "Olivewood",
+            "canonicalSlug": "olivewood",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Other",
+            "canonicalName": "Other",
+            "canonicalSlug": "other",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Strawberry Wood",
+            "canonicalName": "Strawberry Wood",
+            "canonicalSlug": "strawberry-wood",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      },
+      "danish": {
+        "totalValueCount": 4,
+        "mappedValueCount": 4,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "unknown"
+        ],
+        "mappedValues": [
+          {
+            "value": "briar",
+            "canonicalName": "Briar",
+            "canonicalSlug": "briar",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "corn-cob",
+            "canonicalName": "Corn Cob",
+            "canonicalSlug": "corn-cob",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "meerschaum",
+            "canonicalName": "Meerschaum",
+            "canonicalSlug": "meerschaum",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "morta",
+            "canonicalName": "Morta",
+            "canonicalSlug": "morta",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      }
+    },
+    "stemMaterials": {
+      "smokingpipes": {
+        "totalValueCount": 5,
+        "mappedValueCount": 5,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "N/A"
+        ],
+        "mappedValues": [
+          {
+            "value": "Acrylic",
+            "canonicalName": "Acrylic",
+            "canonicalSlug": "acrylic",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Bakelite",
+            "canonicalName": "Bakelite",
+            "canonicalSlug": "bakelite",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Horn",
+            "canonicalName": "Horn",
+            "canonicalSlug": "horn",
+            "reviewStatus": "confirmed"
+          },
+          {
+            "value": "Other",
+            "canonicalName": "Other",
+            "canonicalSlug": "other",
+            "reviewStatus": "provisional"
+          },
+          {
+            "value": "Vulcanite",
+            "canonicalName": "Vulcanite",
+            "canonicalSlug": "vulcanite",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      },
+      "danish": {
+        "totalValueCount": 1,
+        "mappedValueCount": 1,
+        "unmappedValueCount": 0,
+        "excludedValueCount": 1,
+        "coveragePercent": 100,
+        "excludedValues": [
+          "unknown"
+        ],
+        "mappedValues": [
+          {
+            "value": "cumberland",
+            "canonicalName": "Cumberland",
+            "canonicalSlug": "cumberland",
+            "reviewStatus": "confirmed"
+          }
+        ],
+        "unmappedValues": []
+      }
+    }
+  },
+  "unmappedValues": {
+    "smokingpipesBrands": [],
+    "danishBrands": [],
+    "smokingpipesShapes": [],
+    "danishShapes": [],
+    "smokingpipesFinishes": [],
+    "danishFinishes": [],
+    "smokingpipesBowlMaterials": [],
+    "danishBowlMaterials": [],
+    "smokingpipesStemMaterials": [],
+    "danishStemMaterials": []
+  },
+  "needsReview": {
+    "brands": [
+      {
+        "section": "brands",
+        "canonicalName": "Clay Pipes",
+        "canonicalSlug": "clay-pipes",
+        "aliases": [
+          "Clay Pipes"
+        ],
+        "notes": [
+          "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Country conflict from source data: Germany / United States.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Clay Pipes."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Doctors",
+        "canonicalSlug": "doctors",
+        "aliases": [
+          "Doctors"
+        ],
+        "notes": [
+          "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Doctors."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Dollar Kapten Pipe",
+        "canonicalSlug": "dollar-kapten-pipe",
+        "aliases": [
+          "Dollar Kapten Pipe"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Dollar Kapten Pipe."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Eriksen Keystone filter pipe",
+        "canonicalSlug": "eriksen-keystone-filter-pipe",
+        "aliases": [
+          "Eriksen Keystone filter pipe"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Eriksen Keystone filter pipe."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Imp Meerschaum",
+        "canonicalSlug": "imp-meerschaum",
+        "aliases": [
+          "Imp Meerschaum"
+        ],
+        "notes": [
+          "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Imp Meerschaum."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "KS Pipe",
+        "canonicalSlug": "ks-pipe",
+        "aliases": [
+          "KS Pipe"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: KS Pipe."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Pipe Key Ring",
+        "canonicalSlug": "pipe-key-ring",
+        "aliases": [
+          "Pipe Key Ring"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Pipe Key Ring."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Pipepack",
+        "canonicalSlug": "pipepack",
+        "aliases": [
+          "Pipepack"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Pipepack."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "SON (Nording)",
+        "canonicalSlug": "son-nording",
+        "aliases": [
+          "SON (Nording)"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: SON (Nording)."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "TDPS",
+        "canonicalSlug": "tdps",
+        "aliases": [
+          "TDPS"
+        ],
+        "notes": [
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: TDPS."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "The French Pipe",
+        "canonicalSlug": "the-french-pipe",
+        "aliases": [
+          "The French Pipe"
+        ],
+        "notes": [
+          "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+          "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+          "Chinese display name is not confirmed by local brand library.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: The French Pipe."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Unbranded",
+        "canonicalSlug": "unbranded",
+        "aliases": [
+          "Economy Pipe starter set",
+          "No Name",
+          "Unbranded"
+        ],
+        "notes": [
+          "Chinese display name is not confirmed by local brand library.",
+          "Generic non-brand labels are grouped as Unbranded.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Economy Pipe starter set."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Unknown Meerschaum",
+        "canonicalSlug": "unknown-meerschaum",
+        "aliases": [
+          "Meerschaum",
+          "Unknown Meerschaum"
+        ],
+        "notes": [
+          "Generic Meerschaum is not treated as a confirmed brand.",
+          "Possible non-brand, store/category, or generic value found in local evidence.",
+          "Possible series/category contamination: Unknown Meerschaum."
+        ]
+      }
+    ],
+    "shapes": [],
+    "finishes": [],
+    "bowlMaterials": [],
+    "stemMaterials": []
+  },
+  "provisional": {
+    "brands": [
+      {
+        "section": "brands",
+        "canonicalName": "Luiz Lavos",
+        "canonicalSlug": "luiz-lavos",
+        "aliases": [
+          "Luiz Lavos",
+          "Luiz Lavos1"
+        ],
+        "notes": [
+          "Chinese display name is not confirmed by local brand library.",
+          "Entity is usable, but alias or ownership boundary still needs light human confirmation.",
+          "Luiz Lavos1 is treated as a likely source typo but kept provisional."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Sara Eltang Pipes",
+        "canonicalSlug": "sara-eltang-pipes",
+        "aliases": [
+          "Sara Eltang Pipes",
+          "Sara_eltang"
+        ],
+        "notes": [
+          "Entity is usable, but alias or ownership boundary still needs light human confirmation.",
+          "Underscore variant is normalized provisionally to existing Danish brand spelling."
+        ]
+      },
+      {
+        "section": "brands",
+        "canonicalName": "Tom Eltang",
+        "canonicalSlug": "tom-eltang",
+        "aliases": [
+          "Eltang",
+          "Eltang Basic",
+          "Eltang Basic Pipe",
+          "Tom Eltang"
+        ],
+        "notes": [
+          "Country conflict from source data: Denmark / United States.",
+          "Eltang Basic appears as a product line; normalized provisionally to Tom Eltang for taxonomy coverage pending human confirmation.",
+          "Entity is usable, but alias or ownership boundary still needs light human confirmation."
+        ]
+      }
+    ],
+    "shapes": [
+      {
+        "section": "shapes",
+        "canonicalName": "Acorn/Pear",
+        "canonicalSlug": "acorn-pear",
+        "aliases": [
+          "Acorn/Pear"
+        ],
+        "notes": [
+          "Source shape retained as standalone canonical pending human review.",
+          "Source uses Acorn/Pear as a combined shape bucket; retained as standalone composite value."
+        ]
+      }
+    ],
+    "finishes": [
+      {
+        "section": "finishes",
+        "canonicalName": "Other",
+        "canonicalSlug": "other",
+        "aliases": [
+          "Other"
+        ],
+        "notes": [
+          "Source fallback category; not a precise finish."
+        ]
+      }
+    ],
+    "bowlMaterials": [
+      {
+        "section": "bowlMaterials",
+        "canonicalName": "Other",
+        "canonicalSlug": "other",
+        "aliases": [
+          "Other"
+        ],
+        "notes": [
+          "Source fallback category; not a precise bowl material."
+        ]
+      }
+    ],
+    "stemMaterials": [
+      {
+        "section": "stemMaterials",
+        "canonicalName": "Other",
+        "canonicalSlug": "other",
+        "aliases": [
+          "Other"
+        ],
+        "notes": [
+          "Source fallback category; not a precise stem material."
+        ]
+      }
+    ]
+  },
+  "aliasCollisions": [],
+  "slugCollisions": [],
+  "emptyChineseNames": [
+    {
+      "section": "brands",
+      "canonicalName": "Abe Herbaugh",
+      "slug": "abe-herbaugh"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Adam Davidson",
+      "slug": "adam-davidson"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "AKB",
+      "slug": "akb"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Alan",
+      "slug": "alan"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Alexander Hasty",
+      "slug": "alexander-hasty"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ardor",
+      "slug": "ardor"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ashton",
+      "slug": "ashton"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ashton for Paul Olsen",
+      "slug": "ashton-for-paul-olsen"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Askwith",
+      "slug": "askwith"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Austin Quinlan",
+      "slug": "austin-quinlan"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Balleby",
+      "slug": "balleby"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Barling",
+      "slug": "barling"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Becker",
+      "slug": "becker"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Bill Shalosky",
+      "slug": "bill-shalosky"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Bjarne",
+      "slug": "bjarne"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Briarworks",
+      "slug": "briarworks"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Brigham",
+      "slug": "brigham"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Brighton James",
+      "slug": "brighton-james"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Brulor",
+      "slug": "brulor"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Bruno Nuttens",
+      "slug": "bruno-nuttens"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Butz-Choquin",
+      "slug": "butz-choquin"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Caminetto",
+      "slug": "caminetto"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Cavicchi",
+      "slug": "cavicchi"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Charatan's",
+      "slug": "charatans"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Chris Asteriou",
+      "slug": "chris-asteriou"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Christian Ruetz",
+      "slug": "christian-ruetz"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Clay Pipes",
+      "slug": "clay-pipes"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Comoy's",
+      "slug": "comoys"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "David Huber",
+      "slug": "david-huber"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Davide Iafisco",
+      "slug": "davide-iafisco"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Dirk Heinemann",
+      "slug": "dirk-heinemann"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Doctors",
+      "slug": "doctors"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Dollar Kapten Pipe",
+      "slug": "dollar-kapten-pipe"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Duca",
+      "slug": "duca"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Emiliano",
+      "slug": "emiliano"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Erik Stokkebye 4th Generation",
+      "slug": "erik-stokkebye-4th-generation"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Eriksen Keystone filter pipe",
+      "slug": "eriksen-keystone-filter-pipe"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Florov",
+      "slug": "florov"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Former",
+      "slug": "former"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "G Penzo",
+      "slug": "g-penzo"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Genod",
+      "slug": "genod"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "GH Zhang",
+      "slug": "gh-zhang"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Henri Sorensen",
+      "slug": "henri-sorensen"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Herriot Pipes",
+      "slug": "herriot-pipes"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Il Cerchio",
+      "slug": "il-cerchio"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Imp Meerschaum",
+      "slug": "imp-meerschaum"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Jacono",
+      "slug": "jacono"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Jakobsen",
+      "slug": "jakobsen"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Jared Coles",
+      "slug": "jared-coles"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Jerry Zenn",
+      "slug": "jerry-zenn"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Jody Davis",
+      "slug": "jody-davis"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Johs",
+      "slug": "johs"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ken Dederichs",
+      "slug": "ken-dederichs"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ken Pipes",
+      "slug": "ken-pipes"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Konstantin",
+      "slug": "konstantin"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "KS Pipe",
+      "slug": "ks-pipe"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Lan Make",
+      "slug": "lan-make"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Lanatra",
+      "slug": "lanatra"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Leopold",
+      "slug": "leopold"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Li Zhesong",
+      "slug": "li-zhesong"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Lorenzetti",
+      "slug": "lorenzetti"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Luiz Lavos",
+      "slug": "luiz-lavos"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Lv Zelong",
+      "slug": "lv-zelong"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Mark Tinsky",
+      "slug": "mark-tinsky"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Martelo",
+      "slug": "martelo"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Mastro Geppetto",
+      "slug": "mastro-geppetto"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Micah Redmond",
+      "slug": "micah-redmond"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Michael Parks",
+      "slug": "michael-parks"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Mike Sebastian Bay",
+      "slug": "mike-sebastian-bay"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Musico",
+      "slug": "musico"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Old Dominion",
+      "slug": "old-dominion"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Pete Prevost",
+      "slug": "pete-prevost"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Pipe Key Ring",
+      "slug": "pipe-key-ring"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Pipepack",
+      "slug": "pipepack"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Pohlmann",
+      "slug": "pohlmann"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Radice",
+      "slug": "radice"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Randy Wiley",
+      "slug": "randy-wiley"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Rinaldo",
+      "slug": "rinaldo"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ropp",
+      "slug": "ropp"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Rossi",
+      "slug": "rossi"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ryan Alden",
+      "slug": "ryan-alden"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "S. Bang",
+      "slug": "s-bang"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Sabina Santos",
+      "slug": "sabina-santos"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Sam Adebayo",
+      "slug": "sam-adebayo"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Sam Cui",
+      "slug": "sam-cui"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Savinelli Autograph",
+      "slug": "savinelli-autograph"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Scott Klein",
+      "slug": "scott-klein"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Scott Thile",
+      "slug": "scott-thile"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Ser Jacopo",
+      "slug": "ser-jacopo"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Silver Gray",
+      "slug": "silver-gray"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Skovgaard",
+      "slug": "skovgaard"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "SON (Nording)",
+      "slug": "son-nording"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Suhr",
+      "slug": "suhr"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "The French Pipe",
+      "slug": "the-french-pipe"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Todd Johnson",
+      "slug": "todd-johnson"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Trey Rice",
+      "slug": "trey-rice"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Tsuge",
+      "slug": "tsuge"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Tsuge Ikebana",
+      "slug": "tsuge-ikebana"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Unbranded",
+      "slug": "unbranded"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Valbruna",
+      "slug": "valbruna"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Wandi Riyadi",
+      "slug": "wandi-riyadi"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Werner Mummert",
+      "slug": "werner-mummert"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "White Elephant",
+      "slug": "white-elephant"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Winsløw",
+      "slug": "winslow"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Wojtek Pastuch",
+      "slug": "wojtek-pastuch"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Yang Kun",
+      "slug": "yang-kun"
+    },
+    {
+      "section": "brands",
+      "canonicalName": "Yuwei",
+      "slug": "yuwei"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Acorn/Pear",
+      "slug": "acorn-pear"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Bent Ball",
+      "slug": "bent-ball"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Cavalier",
+      "slug": "cavalier"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Chimney",
+      "slug": "chimney"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Cutty",
+      "slug": "cutty"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Devil Anse",
+      "slug": "devil-anse"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Figural",
+      "slug": "figural"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Hawkbill",
+      "slug": "hawkbill"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Lumberman",
+      "slug": "lumberman"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Oom Paul",
+      "slug": "oom-paul"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Opera",
+      "slug": "opera"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Panel",
+      "slug": "panel"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Skater",
+      "slug": "skater"
+    },
+    {
+      "section": "shapes",
+      "canonicalName": "Zulu",
+      "slug": "zulu"
+    }
+  ],
+  "brandCountryConflicts": [
+    {
+      "canonicalSlug": "ashton",
+      "countries": [
+        "England",
+        "United Kingdom"
+      ],
+      "sourceValues": [
+        "danish:Ashton=>United Kingdom",
+        "smokingpipes:Ashton=>England"
+      ]
+    },
+    {
+      "canonicalSlug": "barling",
+      "countries": [
+        "England",
+        "Italy",
+        "United Kingdom",
+        "United States"
+      ],
+      "sourceValues": [
+        "danish:Barling=>United Kingdom",
+        "smokingpipes:Barling=>England",
+        "smokingpipes:Barling=>Italy",
+        "smokingpipes:Barling=>United States"
+      ]
+    },
+    {
+      "canonicalSlug": "brigham",
+      "countries": [
+        "France",
+        "Italy"
+      ],
+      "sourceValues": [
+        "smokingpipes:Brigham=>France",
+        "smokingpipes:Brigham=>Italy"
+      ]
+    },
+    {
+      "canonicalSlug": "clay-pipes",
+      "countries": [
+        "Germany",
+        "United States"
+      ],
+      "sourceValues": [
+        "smokingpipes:Clay Pipes=>Germany",
+        "smokingpipes:Clay Pipes=>United States"
+      ]
+    },
+    {
+      "canonicalSlug": "dunhill",
+      "countries": [
+        "England",
+        "United Kingdom"
+      ],
+      "sourceValues": [
+        "danish:Dunhill=>United Kingdom",
+        "smokingpipes:Dunhill=>England"
+      ]
+    },
+    {
+      "canonicalSlug": "erik-stokkebye-4th-generation",
+      "countries": [
+        "Denmark",
+        "France"
+      ],
+      "sourceValues": [
+        "smokingpipes:Erik Stokkebye 4th Generation=>Denmark",
+        "smokingpipes:Erik Stokkebye 4th Generation=>France"
+      ]
+    },
+    {
+      "canonicalSlug": "falcon",
+      "countries": [
+        "Turkey",
+        "United Kingdom"
+      ],
+      "sourceValues": [
+        "danish:Falcon=>United Kingdom",
+        "smokingpipes:Falcon=>Turkey"
+      ]
+    },
+    {
+      "canonicalSlug": "nording",
+      "countries": [
+        "Denmark",
+        "Ireland"
+      ],
+      "sourceValues": [
+        "danish:Erik Nording=>Denmark",
+        "danish:Nording - Hunting Pipe 2021=>Denmark",
+        "danish:Nording Compass=>Denmark",
+        "danish:Nording Hunting Pipe 2022=>Denmark",
+        "danish:Nording Hunting Pipe 2023=>Denmark",
+        "danish:Nording Keystone/Shorty=>Denmark",
+        "danish:Nording Pipe=>Denmark",
+        "danish:Nording Pipes=>Denmark",
+        "danish:Nording=>Denmark",
+        "danish:Nørding=>Denmark",
+        "smokingpipes:Nording=>Denmark",
+        "smokingpipes:Nording=>Ireland"
+      ]
+    },
+    {
+      "canonicalSlug": "rattrays",
+      "countries": [
+        "Germany",
+        "Italy",
+        "Scotland",
+        "United States"
+      ],
+      "sourceValues": [
+        "danish:Rattray's The Witch Brushed Red 200=>Scotland",
+        "danish:Rattray's The Witch Brushed Red 201=>Scotland",
+        "danish:Rattray's The Witch Brushed Red 202=>Scotland",
+        "danish:Rattray's The Witch Brushed Red 203=>Scotland",
+        "danish:Rattray's The Witch Brushed Red 204=>Scotland",
+        "danish:Rattray's The Witch Brushed Red 205=>Scotland",
+        "danish:Rattray's=>Scotland",
+        "smokingpipes:Rattrays=>Germany",
+        "smokingpipes:Rattrays=>Italy",
+        "smokingpipes:Rattrays=>United States"
+      ]
+    },
+    {
+      "canonicalSlug": "tom-eltang",
+      "countries": [
+        "Denmark",
+        "United States"
+      ],
+      "sourceValues": [
+        "danish:Eltang Basic Pipe=>Denmark",
+        "danish:Eltang Basic=>Denmark",
+        "danish:Tom Eltang=>Denmark",
+        "smokingpipes:Eltang Basic=>Denmark",
+        "smokingpipes:Eltang Basic=>United States",
+        "smokingpipes:Eltang=>Denmark"
+      ]
+    },
+    {
+      "canonicalSlug": "vauen",
+      "countries": [
+        "Germany",
+        "United States"
+      ],
+      "sourceValues": [
+        "danish:Vauen=>Germany",
+        "smokingpipes:Vauen=>Germany",
+        "smokingpipes:Vauen=>United States"
+      ]
+    },
+    {
+      "canonicalSlug": "white-elephant",
+      "countries": [
+        "Germany",
+        "Italy",
+        "United States"
+      ],
+      "sourceValues": [
+        "smokingpipes:White Elephant=>Germany",
+        "smokingpipes:White Elephant=>Italy",
+        "smokingpipes:White Elephant=>United States"
+      ]
+    }
+  ],
+  "businessRuleChecks": {
+    "estatePrefix": {
+      "ok": true,
+      "message": "Estate Savinelli resolves to Savinelli"
+    },
+    "billiardBillard": {
+      "ok": true,
+      "message": "Billiard => billiard, Billard => billiard"
+    },
+    "bentBilliard": {
+      "ok": true,
+      "message": "Bent Billiard => bent-billiard"
+    },
+    "straightBilliard": {
+      "ok": true,
+      "message": "Straight Billiard is not a current raw alias; no bend information is collapsed."
+    },
+    "notApplicable": {
+      "ok": true,
+      "message": "N/A normal shape mapping: none, stem mapping: none"
+    }
+  },
+  "validationErrors": [],
+  "validationWarnings": []
+}

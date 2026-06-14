@@ -1,6 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { sourceImageCandidates } from "@/lib/public-products/presentation";
 
 type ProductGalleryProps = {
   productId?: number | string;
@@ -14,16 +17,143 @@ type IconProps = {
   className?: string;
 };
 
+type ProductBackButtonProps = {
+  fallbackHref?: string;
+  className?: string;
+  children?: ReactNode;
+};
+
+type ResilientImageProps = {
+  src: string;
+  alt: string;
+  className: string;
+  eager?: boolean;
+};
+
 function uniqueImages(images: string[]) {
   const seen = new Set<string>();
 
   return images.filter((image) => {
-    if (!image) return false;
-    if (seen.has(image)) return false;
+    const value = String(image || "").trim();
+    if (!value || seen.has(value)) return false;
 
-    seen.add(image);
+    seen.add(value);
     return true;
   });
+}
+
+function ResilientImage({
+  src,
+  alt,
+  className,
+  eager = false,
+}: ResilientImageProps) {
+  const candidates = useMemo(() => sourceImageCandidates(src), [src]);
+  const [candidateIndex, setCandidateIndex] = useState(0);
+  const [failed, setFailed] = useState(candidates.length === 0);
+
+  const current = candidates[candidateIndex] || "";
+
+  function handleError() {
+    if (candidateIndex + 1 < candidates.length) {
+      setCandidateIndex((index) => index + 1);
+      return;
+    }
+
+    setFailed(true);
+  }
+
+  if (failed || !current) {
+    return (
+      <div className={`${className} flex items-center justify-center bg-white`}>
+        <span className="text-[10px] font-medium tracking-[0.16em] text-[#A97838]">
+          图片加载失败
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={current}
+      alt={alt}
+      className={className}
+      draggable={false}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : "auto"}
+      decoding="async"
+      referrerPolicy="no-referrer"
+      onError={handleError}
+    />
+  );
+}
+
+export function sanitizeProductReturnTo(value: string | null) {
+  const rawValue = String(value || "").trim();
+
+  if (!rawValue || !rawValue.startsWith("/")) return "";
+  if (
+    rawValue.startsWith("//") ||
+    rawValue.includes("\\") ||
+    /^\/%2f/i.test(rawValue)
+  ) {
+    return "";
+  }
+
+  try {
+    const url = new URL(rawValue, window.location.origin);
+    if (url.origin !== window.location.origin) return "";
+
+    const isProductsList = url.pathname === "/products";
+    const isBrandDetail = /^\/brands\/[a-z0-9][a-z0-9-]*$/i.test(
+      url.pathname
+    );
+
+    if (!isProductsList && !isBrandDetail) return "";
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return "";
+  }
+}
+
+export function ProductBackButton({
+  fallbackHref = "/products",
+  className = "",
+  children,
+}: ProductBackButtonProps) {
+  const router = useRouter();
+
+  function handleBack() {
+    const rawReturnTo =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("returnTo")
+        : null;
+    const returnTo = sanitizeProductReturnTo(rawReturnTo);
+
+    if (returnTo) {
+      router.push(returnTo, { scroll: false });
+      return;
+    }
+
+    if (rawReturnTo) {
+      router.push(fallbackHref, { scroll: false });
+      return;
+    }
+
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+      return;
+    }
+
+    router.push(fallbackHref, { scroll: false });
+  }
+
+  return (
+    <button type="button" onClick={handleBack} className={className}>
+      {children}
+    </button>
+  );
 }
 
 export default function ProductGallery(props: ProductGalleryProps) {
@@ -89,28 +219,29 @@ export default function ProductGallery(props: ProductGalleryProps) {
       <section id="gallery" className="bg-[#FFFDF8] p-3 sm:p-4">
         <div className="relative overflow-hidden rounded-[24px] border border-[#E5D7C5] bg-white">
           <div
-  className="relative aspect-[1.16/1] bg-white p-3 sm:aspect-[4/3] sm:p-4"
-  onTouchStart={(event) => {
-    touchStartXRef.current = event.touches[0]?.clientX ?? 0;
-  }}
-  onTouchEnd={(event) => {
-    const endX = event.changedTouches[0]?.clientX ?? 0;
-    const diff = touchStartXRef.current - endX;
+            className="relative aspect-[1.16/1] bg-white p-3 sm:aspect-[4/3] sm:p-4"
+            onTouchStart={(event) => {
+              touchStartXRef.current = event.touches[0]?.clientX ?? 0;
+            }}
+            onTouchEnd={(event) => {
+              const endX = event.changedTouches[0]?.clientX ?? 0;
+              const diff = touchStartXRef.current - endX;
 
-    if (Math.abs(diff) < 40) return;
+              if (Math.abs(diff) < 40) return;
 
-    if (diff > 0) {
-      goNext();
-    } else {
-      goPrevious();
-    }
-  }}
->
-            <img
+              if (diff > 0) {
+                goNext();
+              } else {
+                goPrevious();
+              }
+            }}
+          >
+            <ResilientImage
+              key={currentImage}
               src={currentImage}
               alt={name}
               className="h-full w-full object-contain"
-              draggable={false}
+              eager
             />
 
             <span className="absolute left-3 top-3 rounded-full bg-white/88 px-3 py-1 text-[12px] font-semibold text-[#1F1A16] shadow-[0_5px_16px_rgba(31,26,22,0.08)]">
@@ -168,11 +299,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
                           : "border-[#E5D7C5]",
                       ].join(" ")}
                     >
-                      <img
+                      <ResilientImage
                         src={image}
                         alt={`${name} 图片 ${index + 1}`}
                         className="h-full w-full object-contain"
-                        draggable={false}
                       />
                     </button>
                   );
@@ -202,11 +332,12 @@ export default function ProductGallery(props: ProductGalleryProps) {
             </div>
 
             <div className="relative flex min-h-0 flex-1 items-center justify-center rounded-[22px] bg-white">
-              <img
+              <ResilientImage
+                key={`${currentImage}-zoom`}
                 src={currentImage}
                 alt={name}
                 className="max-h-full max-w-full object-contain p-3"
-                draggable={false}
+                eager
               />
 
               {images.length > 1 ? (
@@ -249,11 +380,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
                           : "border-white/20 opacity-72",
                       ].join(" ")}
                     >
-                      <img
+                      <ResilientImage
                         src={image}
                         alt={`${name} 图片 ${index + 1}`}
                         className="h-full w-full object-contain"
-                        draggable={false}
                       />
                     </button>
                   );

@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "decisionStatus": "human-approved",
+  "mappings": [
+    {
+      "source": "danish",
+      "rawAlias": "Dollar Kapten Pipe",
+      "approvedCanonicalBrand": "Dollar Pipes",
+      "sourcePathPrefix": null,
+      "classification": "product-line",
+      "globalAliasAllowed": false,
+      "notes": "Kapten is retained as a product-line value."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Economy Pipe starter set",
+      "approvedCanonicalBrand": "Unbranded",
+      "sourcePathPrefix": null,
+      "classification": "product-line",
+      "globalAliasAllowed": false,
+      "notes": "Generic starter-set source value maps to Unbranded only within Danish source."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Eriksen Keystone filter pipe",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "series",
+      "globalAliasAllowed": false,
+      "notes": "Keystone is retained as product series/source text."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording - Hunting Pipe 2021",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "annual-edition",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Compass",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "series",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Hunting Pipe 2022",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "annual-edition",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Hunting Pipe 2023",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "annual-edition",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Keystone/Shorty",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "series",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Pipe",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "source-category",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Nording Pipes",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "source-category",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 200",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 201",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 202",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 203",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 204",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Rattray's The Witch Brushed Red 205",
+      "approvedCanonicalBrand": "Rattray's",
+      "sourcePathPrefix": null,
+      "classification": "series-model",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "SON (Nording)",
+      "approvedCanonicalBrand": "Nørding",
+      "sourcePathPrefix": null,
+      "classification": "source-label",
+      "globalAliasAllowed": false,
+      "notes": "SON is retained as raw source text."
+    },
+    {
+      "source": "danish",
+      "rawAlias": "Winsløw Crown 200",
+      "approvedCanonicalBrand": "Winsløw",
+      "sourcePathPrefix": null,
+      "classification": "series-grade",
+      "globalAliasAllowed": false,
+      "notes": "Human-approved source-scoped mapping."
+    },
+    {
+      "source": "smokingpipes",
+      "rawAlias": "Eltang",
+      "approvedCanonicalBrand": "Tom Eltang",
+      "sourcePathPrefix": "/pipes/new/eltang/",
+      "classification": "source-scoped-alias",
+      "globalAliasAllowed": false,
+      "notes": "Only Smokingpipes /pipes/new/eltang/ maps Eltang to Tom Eltang."
+    },
+    {
+      "source": "smokingpipes",
+      "rawAlias": "Luiz Lavos1",
+      "approvedCanonicalBrand": "Luiz Lavos",
+      "sourcePathPrefix": null,
+      "classification": "source-parser-artifact",
+      "globalAliasAllowed": false,
+      "notes": "Trailing 1 is a source parser artifact."
+    }
+  ]
+}

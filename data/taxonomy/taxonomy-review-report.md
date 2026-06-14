@@ -1,0 +1,500 @@
+# Pipe Taxonomy Review Report
+
+## Scope
+- Second local-evidence review for shared pipe taxonomy.
+- No Smokingpipes formal conversion was run.
+- No product/raw/page files were modified.
+
+## Review Status Definitions
+- confirmed: Canonical entity identity is clear and alias risk is low. zhName and country may still be null.
+- provisional: Canonical entity is likely usable, but alias, country, ownership, or boundary still needs light review.
+- needs-review: Substantive identity risk exists, such as possible series/category/store value, ambiguous abbreviation, or risky alias merge.
+
+## Status Counts Before / After
+- Brands before: {"total":172,"confirmed":67,"provisional":5,"needs-review":100}
+- Brands after: {"total":172,"confirmed":156,"provisional":3,"needs-review":13}
+- Shapes before: {"total":41,"confirmed":27,"provisional":0,"needs-review":14}
+- Shapes after: {"total":41,"confirmed":40,"provisional":1,"needs-review":0}
+
+## Brands Moved From Needs Review To Confirmed
+- Abe Herbaugh
+- Adam Davidson
+- AKB
+- Alan
+- Alexander Hasty
+- Ardor
+- Ashton for Paul Olsen
+- Askwith
+- Austin Quinlan
+- Balleby
+- Becker
+- Bill Shalosky
+- Briarworks
+- Brigham
+- Brighton James
+- Brulor
+- Bruno Nuttens
+- Caminetto
+- Cavicchi
+- Chris Asteriou
+- Christian Ruetz
+- David Huber
+- Davide Iafisco
+- Dirk Heinemann
+- Duca
+- Emiliano
+- Erik Stokkebye 4th Generation
+- Florov
+- Former
+- G Penzo
+- Genod
+- GH Zhang
+- Henri Pipes
+- Henri Sorensen
+- Herriot Pipes
+- Il Cerchio
+- Jacono
+- Jakobsen
+- Jared Coles
+- Jerry Zenn
+- Jody Davis
+- Johs
+- Ken Dederichs
+- Ken Pipes
+- Konstantin
+- Lan Make
+- Lanatra
+- Leopold
+- Li Zhesong
+- Lorenzetti
+- Lv Zelong
+- Mark Tinsky
+- Martelo
+- Mastro Geppetto
+- Micah Redmond
+- Michael Parks
+- Mike Sebastian Bay
+- Musico
+- Old Dominion
+- Pete Prevost
+- Pohlmann
+- Radice
+- Randy Wiley
+- Rinaldo
+- Rossi
+- Ryan Alden
+- Sabina Santos
+- Sam Adebayo
+- Sam Cui
+- Savinelli Autograph
+- Scott Klein
+- Scott Thile
+- Ser Jacopo
+- Silver Gray
+- Skovgaard
+- Suhr
+- Suhr Pipes
+- Todd Johnson
+- Trey Rice
+- Tsuge
+- ... 9 more
+
+## Brands Still Needs Review
+- Clay Pipes: Possible non-brand, store/category, or generic value found in local evidence.
+- Doctors: Possible non-brand, store/category, or generic value found in local evidence.
+- Dollar Kapten Pipe: Possible non-brand, store/category, or generic value found in local evidence.
+- Eriksen Keystone filter pipe: Possible non-brand, store/category, or generic value found in local evidence.
+- Imp Meerschaum: Possible non-brand, store/category, or generic value found in local evidence.
+- KS Pipe: Possible non-brand, store/category, or generic value found in local evidence.
+- Pipe Key Ring: Possible non-brand, store/category, or generic value found in local evidence.
+- Pipepack: Possible non-brand, store/category, or generic value found in local evidence.
+- SON (Nording): Possible non-brand, store/category, or generic value found in local evidence.
+- TDPS: Possible non-brand, store/category, or generic value found in local evidence.
+- The French Pipe: Possible non-brand, store/category, or generic value found in local evidence.
+- Unbranded: Possible non-brand, store/category, or generic value found in local evidence.
+- Unknown Meerschaum: Possible non-brand, store/category, or generic value found in local evidence.
+
+## Confirmed Brands With Null Chinese Name
+- Abe Herbaugh
+- Adam Davidson
+- AKB
+- Alan
+- Alexander Hasty
+- Ardor
+- Ashton
+- Ashton for Paul Olsen
+- Askwith
+- Austin Quinlan
+- Balleby
+- Barling
+- Becker
+- Bill Shalosky
+- Bjarne
+- Briarworks
+- Brigham
+- Brighton James
+- Brulor
+- Bruno Nuttens
+- Butz-Choquin
+- Caminetto
+- Cavicchi
+- Charatan's
+- Chris Asteriou
+- Christian Ruetz
+- Comoy's
+- David Huber
+- Davide Iafisco
+- Dirk Heinemann
+- Duca
+- Emiliano
+- Erik Stokkebye 4th Generation
+- Florov
+- Former
+- G Penzo
+- Genod
+- GH Zhang
+- Henri Sorensen
+- Herriot Pipes
+- Il Cerchio
+- Jacono
+- Jakobsen
+- Jared Coles
+- Jerry Zenn
+- Jody Davis
+- Johs
+- Ken Dederichs
+- Ken Pipes
+- Konstantin
+- Lan Make
+- Lanatra
+- Leopold
+- Li Zhesong
+- Lorenzetti
+- Lv Zelong
+- Mark Tinsky
+- Martelo
+- Mastro Geppetto
+- Micah Redmond
+- Michael Parks
+- Mike Sebastian Bay
+- Musico
+- Old Dominion
+- Pete Prevost
+- Pohlmann
+- Radice
+- Randy Wiley
+- Rinaldo
+- Ropp
+- Rossi
+- Ryan Alden
+- S. Bang
+- Sabina Santos
+- Sam Adebayo
+- Sam Cui
+- Savinelli Autograph
+- Scott Klein
+- Scott Thile
+- Ser Jacopo
+- ... 15 more
+
+## Confirmed Brands With Null Country
+- Abe Herbaugh
+- Adam Davidson
+- AKB
+- Alan
+- Alexander Hasty
+- Ardor
+- Askwith
+- Austin Quinlan
+- Balleby
+- Becker
+- Bill Shalosky
+- Briarworks
+- Brigham
+- Brighton James
+- Brulor
+- Bruno Nuttens
+- Caminetto
+- Cavicchi
+- Chris Asteriou
+- Christian Ruetz
+- David Huber
+- Davide Iafisco
+- Dirk Heinemann
+- Duca
+- Emiliano
+- Erik Stokkebye 4th Generation
+- Florov
+- Former
+- G Penzo
+- Genod
+- GH Zhang
+- Henri Sorensen
+- Il Cerchio
+- Jacono
+- Jared Coles
+- Jerry Zenn
+- Jody Davis
+- Johs
+- Konstantin
+- Lan Make
+- Lanatra
+- Li Zhesong
+- Lorenzetti
+- Lv Zelong
+- Mark Tinsky
+- Martelo
+- Mastro Geppetto
+- Micah Redmond
+- Michael Parks
+- Mike Sebastian Bay
+- Musico
+- Old Dominion
+- Pete Prevost
+- Pohlmann
+- Radice
+- Randy Wiley
+- Rinaldo
+- Rossi
+- Ryan Alden
+- Sabina Santos
+- Sam Adebayo
+- Sam Cui
+- Savinelli Autograph
+- Scott Klein
+- Scott Thile
+- Ser Jacopo
+- Silver Gray
+- Skovgaard
+- Suhr
+- Todd Johnson
+- Trey Rice
+- Tsuge
+- Tsuge Ikebana
+- Valbruna
+- Wandi Riyadi
+- Werner Mummert
+- White Elephant
+- Winsløw
+- Wojtek Pastuch
+- Yang Kun
+- ... 1 more
+
+## Brand Country Conflicts
+- Ashton: SP England; Danish United Kingdom; library United Kingdom; recommended United Kingdom; userConfirm=false
+- Barling: SP England / Italy / United States; Danish United Kingdom; library United Kingdom; recommended United Kingdom; userConfirm=false
+- Brigham: SP France / Italy; Danish none; library none; recommended null; userConfirm=true
+- Clay Pipes: SP Germany / United States; Danish none; library none; recommended null; userConfirm=true
+- Dunhill: SP England; Danish United Kingdom; library United Kingdom; recommended United Kingdom; userConfirm=false
+- Erik Stokkebye 4th Generation: SP Denmark / France; Danish none; library none; recommended null; userConfirm=true
+- Falcon: SP Turkey; Danish United Kingdom; library United Kingdom; recommended United Kingdom; userConfirm=false
+- Nørding: SP Denmark / Ireland; Danish Denmark; library Denmark; recommended Denmark; userConfirm=false
+- Rattray's: SP Germany / Italy / United States; Danish Scotland; library Scotland; recommended Scotland; userConfirm=false
+- Tom Eltang: SP Denmark / United States; Danish Denmark; library Denmark; recommended Denmark; userConfirm=false
+- Vauen: SP Germany / United States; Danish Germany; library Germany; recommended Germany; userConfirm=false
+- White Elephant: SP Germany / Italy / United States; Danish none; library none; recommended null; userConfirm=true
+
+## Possible Non-Brand Pollution Values
+- Clay Pipes: Clay Pipes
+- Doctors: Doctors
+- Dollar Kapten Pipe: Dollar Kapten Pipe
+- Eriksen Keystone filter pipe: Eriksen Keystone filter pipe
+- Imp Meerschaum: Imp Meerschaum
+- KS Pipe: KS Pipe
+- Pipe Key Ring: Pipe Key Ring
+- Pipepack: Pipepack
+- SON (Nording): SON (Nording)
+- TDPS: TDPS
+- The French Pipe: The French Pipe
+- Unbranded: Economy Pipe starter set
+- Unknown Meerschaum: Unknown Meerschaum
+
+## Alias Risk
+- Clay Pipes: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Doctors: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Dollar Kapten Pipe: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Eriksen Keystone filter pipe: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Imp Meerschaum: high; Possible non-brand, store/category, or generic value found in local evidence.
+- KS Pipe: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Luiz Lavos: medium; Entity is usable, but alias or ownership boundary still needs light human confirmation.
+- Nørding: medium; Canonical identity appears as an independent product brand value locally; missing Chinese name or country is not identity risk.
+- Pipe Key Ring: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Pipepack: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Rattray's: medium; Canonical identity appears as an independent product brand value locally; missing Chinese name or country is not identity risk.
+- Sara Eltang Pipes: medium; Entity is usable, but alias or ownership boundary still needs light human confirmation.
+- SON (Nording): high; Possible non-brand, store/category, or generic value found in local evidence.
+- TDPS: high; Possible non-brand, store/category, or generic value found in local evidence.
+- The French Pipe: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Tom Eltang: medium; Entity is usable, but alias or ownership boundary still needs light human confirmation.
+- Unbranded: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Unknown Meerschaum: high; Possible non-brand, store/category, or generic value found in local evidence.
+- Winsløw: medium; Canonical identity appears as an independent product brand value locally; missing Chinese name or country is not identity risk.
+
+## Shape Review
+- Acorn/Pear: composite-shape; needs-review -> provisional; Source uses Acorn/Pear as a combined shape bucket; retained as standalone composite value.
+- Bent Ball: bent-variant; needs-review -> confirmed; Source uses this as a stable bent variant; Chinese name can remain null.
+- Cavalier: functional-format; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Chimney: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Cutty: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Devil Anse: standard-shape; needs-review -> confirmed; Smokingpipes uses Devil Anse as a stable shape value; Chinese name remains null.
+- Figural: freehand-or-artistic; needs-review -> confirmed; Stable artistic/source shape category; retained independently.
+- Hawkbill: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Lumberman: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Oom Paul: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Opera: standard-shape; needs-review -> confirmed; Stable source shape; not merged with product model terms.
+- Panel: standard-shape; needs-review -> confirmed; Source uses Panel as an independent shape; not merged into Billiard or other shapes.
+- Skater: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+- Zulu: standard-shape; needs-review -> confirmed; Stable source shape; retained independently without forcing a Chinese name.
+
+## Key Shape Decisions
+- Acorn/Pear: composite-shape; Source uses Acorn/Pear as a combined shape bucket; retained as standalone composite value.
+- Figural: freehand-or-artistic; Stable artistic/source shape category; retained independently.
+- Panel: standard-shape; Source uses Panel as an independent shape; not merged into Billiard or other shapes.
+- Devil Anse: standard-shape; Smokingpipes uses Devil Anse as a stable shape value; Chinese name remains null.
+- Billiard: standard-shape; No status change recommended.
+- Bent Billiard: bent-variant; No status change recommended.
+- Straight Billiard: not present as a raw source value in the current taxonomy; no alias mapping is added, so no bend information is lost.
+
+## Finish Checks
+- Other fallback: OK - Other must remain a provisional source fallback category.
+- Rusticated and Sandblasted retained: OK - Mixed finish remains independent.
+- Partial finishes retained: OK - Partial Rusticated/Sandblast are not merged into broad finishes.
+
+## Material Checks
+- N/A excluded: OK - N/A is represented only in specialValues.
+- Horn stem not shape: OK - Horn remains a stem material only.
+- Strawberry Wood retained: OK - Strawberry Wood remains independent bowl material.
+- Morta retained: OK - Morta is not merged into generic wood.
+- Other fallback: OK - Other remains provisional fallback for bowl and stem material.
+
+## Conversion Readiness
+- Coverage is expected to remain 100% after validation.
+- The taxonomy can be used by a future converter, but needs-review/provisional values should remain flagged in product output.
+
+## Minimal Human Confirmation List
+- Resolve brand country conflicts where no brand-library country exists.
+- Confirm possible non-brand pollution values before exposing them as brand pages.
+- Confirm provisional aliases for Tom Eltang, Sara Eltang Pipes, Luiz Lavos, Unknown Meerschaum, and Unbranded.
+
+## Taxonomy Changes
+- Abe Herbaugh: country United States -> null
+- Abe Herbaugh: needs-review -> confirmed
+- Acorn/Pear: needs-review -> provisional
+- Adam Davidson: country United States -> null
+- Adam Davidson: needs-review -> confirmed
+- AKB: country Turkey -> null
+- AKB: needs-review -> confirmed
+- Alan: country United States -> null
+- Alan: needs-review -> confirmed
+- Alexander Hasty: country United States -> null
+- Alexander Hasty: needs-review -> confirmed
+- Ardor: country Italy -> null
+- Ardor: needs-review -> confirmed
+- Ashton for Paul Olsen: needs-review -> confirmed
+- Ashton: country null -> United Kingdom
+- Askwith: country England -> null
+- Askwith: needs-review -> confirmed
+- Austin Quinlan: country Ireland -> null
+- Austin Quinlan: needs-review -> confirmed
+- Balleby: country Denmark -> null
+- Balleby: needs-review -> confirmed
+- Barling: country null -> United Kingdom
+- Becker: country Italy -> null
+- Becker: needs-review -> confirmed
+- Bent Ball: needs-review -> confirmed
+- Bill Shalosky: country United States -> null
+- Bill Shalosky: needs-review -> confirmed
+- Briarworks: country United States -> null
+- Briarworks: needs-review -> confirmed
+- Brigham: needs-review -> confirmed
+- Brighton James: country United States -> null
+- Brighton James: needs-review -> confirmed
+- Brulor: country France -> null
+- Brulor: needs-review -> confirmed
+- Bruno Nuttens: country France -> null
+- Bruno Nuttens: needs-review -> confirmed
+- Caminetto: country Italy -> null
+- Caminetto: needs-review -> confirmed
+- Cavalier: needs-review -> confirmed
+- Cavicchi: country Italy -> null
+- Cavicchi: needs-review -> confirmed
+- Chimney: needs-review -> confirmed
+- Chris Asteriou: country Greece -> null
+- Chris Asteriou: needs-review -> confirmed
+- Christian Ruetz: country Austria -> null
+- Christian Ruetz: needs-review -> confirmed
+- Cutty: needs-review -> confirmed
+- David Huber: country United States -> null
+- David Huber: needs-review -> confirmed
+- Davide Iafisco: country Italy -> null
+- Davide Iafisco: needs-review -> confirmed
+- Devil Anse: needs-review -> confirmed
+- Dirk Heinemann: country Germany -> null
+- Dirk Heinemann: needs-review -> confirmed
+- Doctors: country Russia -> null
+- Duca: country Italy -> null
+- Duca: needs-review -> confirmed
+- Dunhill: country null -> United Kingdom
+- Emiliano: country Brazil -> null
+- Emiliano: needs-review -> confirmed
+- Erik Stokkebye 4th Generation: needs-review -> confirmed
+- Falcon: country null -> United Kingdom
+- Figural: needs-review -> confirmed
+- Florov: country United States -> null
+- Florov: needs-review -> confirmed
+- Former: country United States -> null
+- Former: needs-review -> confirmed
+- G Penzo: country Ireland -> null
+- G Penzo: needs-review -> confirmed
+- Genod: country France -> null
+- Genod: needs-review -> confirmed
+- GH Zhang: country China -> null
+- GH Zhang: needs-review -> confirmed
+- Hawkbill: needs-review -> confirmed
+- Henri Pipes: needs-review -> confirmed
+- Henri Sorensen: country Denmark -> null
+- Henri Sorensen: needs-review -> confirmed
+- Herriot Pipes: needs-review -> confirmed
+- Il Cerchio: country Italy -> null
+- Il Cerchio: needs-review -> confirmed
+- Imp Meerschaum: country Turkey -> null
+- Jacono: country Italy -> null
+- Jacono: needs-review -> confirmed
+- Jakobsen: needs-review -> confirmed
+- Jared Coles: country United States -> null
+- Jared Coles: needs-review -> confirmed
+- Jerry Zenn: country Taiwan -> null
+- Jerry Zenn: needs-review -> confirmed
+- Jody Davis: country United States -> null
+- Jody Davis: needs-review -> confirmed
+- Johs: country Denmark -> null
+- Johs: needs-review -> confirmed
+- Ken Dederichs: needs-review -> confirmed
+- Ken Pipes: needs-review -> confirmed
+- Konstantin: country Ukraine -> null
+- Konstantin: needs-review -> confirmed
+- Lan Make: country China -> null
+- Lan Make: needs-review -> confirmed
+- Lanatra: country Italy -> null
+- Lanatra: needs-review -> confirmed
+- Leopold: needs-review -> confirmed
+- Li Zhesong: country China -> null
+- Li Zhesong: needs-review -> confirmed
+- Lorenzetti: country Italy -> null
+- Lorenzetti: needs-review -> confirmed
+- Lumberman: needs-review -> confirmed
+- Lv Zelong: country China -> null
+- Lv Zelong: needs-review -> confirmed
+- Mark Tinsky: country United States -> null
+- Mark Tinsky: needs-review -> confirmed
+- Martelo: country Brazil -> null
+- Martelo: needs-review -> confirmed
+- Mastro Geppetto: country Italy -> null
+- Mastro Geppetto: needs-review -> confirmed
+- Micah Redmond: country United States -> null
+- Micah Redmond: needs-review -> confirmed
+- Michael Parks: country Canada -> null
+- Michael Parks: needs-review -> confirmed
+- Mike Sebastian Bay: country Denmark -> null
+- Mike Sebastian Bay: needs-review -> confirmed
+- ... 74 more

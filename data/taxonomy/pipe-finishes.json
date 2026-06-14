@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "specialValues": {
+    "unknown": [
+      "unknown"
+    ]
+  },
+  "finishes": [
+    {
+      "canonicalFinish": "Brushed",
+      "canonicalFinishSlug": "brushed",
+      "zhName": "拉丝",
+      "aliases": [
+        "brushed",
+        "Brushed"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Observed in Danish enrichment data."
+      ]
+    },
+    {
+      "canonicalFinish": "Carved",
+      "canonicalFinishSlug": "carved",
+      "zhName": "雕刻",
+      "aliases": [
+        "Carved"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Contrast",
+      "canonicalFinishSlug": "contrast",
+      "zhName": "对比染",
+      "aliases": [
+        "contrast",
+        "Contrast"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Observed in Danish enrichment data."
+      ]
+    },
+    {
+      "canonicalFinish": "Matte",
+      "canonicalFinishSlug": "matte",
+      "zhName": "哑光",
+      "aliases": [
+        "matte",
+        "Matte"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Observed in Danish enrichment data."
+      ]
+    },
+    {
+      "canonicalFinish": "Natural",
+      "canonicalFinishSlug": "natural",
+      "zhName": "自然色",
+      "aliases": [
+        "natural",
+        "Natural"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Observed in Danish enrichment data."
+      ]
+    },
+    {
+      "canonicalFinish": "Other",
+      "canonicalFinishSlug": "other",
+      "zhName": "其他",
+      "aliases": [
+        "Other"
+      ],
+      "reviewStatus": "provisional",
+      "notes": [
+        "Source fallback category; not a precise finish."
+      ]
+    },
+    {
+      "canonicalFinish": "Partial Rusticated",
+      "canonicalFinishSlug": "partial-rusticated",
+      "zhName": "局部锈刻",
+      "aliases": [
+        "Partial Rusticated"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Partial Sandblast",
+      "canonicalFinishSlug": "partial-sandblast",
+      "zhName": "局部喷砂",
+      "aliases": [
+        "Partial Sandblast"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Rusticated",
+      "canonicalFinishSlug": "rusticated",
+      "zhName": "锈刻",
+      "aliases": [
+        "rusticated",
+        "Rusticated"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Rusticated and Sandblasted",
+      "canonicalFinishSlug": "rusticated-and-sandblasted",
+      "zhName": "锈刻与喷砂混合",
+      "aliases": [
+        "Rusticated and Sandblasted"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Sandblast",
+      "canonicalFinishSlug": "sandblast",
+      "zhName": "喷砂",
+      "aliases": [
+        "sandblast",
+        "Sandblast"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalFinish": "Smooth",
+      "canonicalFinishSlug": "smooth",
+      "zhName": "光面",
+      "aliases": [
+        "polished",
+        "smooth",
+        "Smooth"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Polished is mapped to Smooth/光面 based on existing Danish enrichment rule."
+      ]
+    },
+    {
+      "canonicalFinish": "Spot Carved",
+      "canonicalFinishSlug": "spot-carved",
+      "zhName": "局部雕刻",
+      "aliases": [
+        "Spot Carved"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    }
+  ]
+}

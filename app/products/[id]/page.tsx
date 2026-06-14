@@ -1,77 +1,89 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import BackButton from "../../components/BackButton";
+import { notFound, redirect } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
+import { parseBrandSummary } from "../../utils/display";
+import { getBrandByName } from "@/data/brands";
 import {
-  getConditionDisplayLabel,
-  getProductChineseTitle,
-  getProductEnglishTitle,
-  parseBrandSummary,
-} from "../../utils/display";
-import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "../../utils/price";
-import { getBrandByName } from "../../../data/brands";
-import { pipeProducts } from "../../../data/pipes";
-import ProductGallery from "./ProductGallery";
+  conditionDisplayLabel,
+  countryLabel,
+  filterDisplayLabel,
+  formatSitePrice,
+  inventoryLabel,
+  shapeDisplayLabel,
+} from "@/lib/public-products/presentation";
+import {
+  getPublicProductDetailById,
+  resolvePublicProductId,
+} from "@/lib/public-products/server";
+import type {
+  PublicDetailProduct,
+  PublicDetailSpec,
+} from "@/lib/public-products/types";
+import ProductGallery, { ProductBackButton } from "./ProductGallery";
 
 type PageProps = {
   params: Promise<{
     id: string;
   }>;
-  searchParams?: Promise<{
-    img?: string;
-  }>;
-};
-
-type ProductWithExtras = (typeof pipeProducts)[number] & {
-  galleryImages?: string[];
-  specsText?: string[];
-  tags?: string[];
-  sourceUrl?: string;
-  conditionLabel?: string;
-  brandZh?: string;
-  brandChinese?: string;
-  nameZh?: string;
-  titleZh?: string;
-  translatedName?: string;
-  chineseName?: string;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 type IconProps = {
   className?: string;
 };
 
-function getDisplayBadges(product: ProductWithExtras, galleryCount: number) {
-  const seen = new Set<string>();
-  const candidates = [
-    getConditionDisplayLabel(product),
-    product.status,
-    galleryCount > 0 ? `${galleryCount} 图` : "",
-  ];
+type SpecRow = {
+  label: string;
+  value: string;
+};
 
-  return candidates
-    .map((badge) => String(badge || "").trim())
-    .filter(Boolean)
-    .filter((badge) => {
-      const key = badge.toLowerCase();
-
-      if (seen.has(key)) {
-        return false;
-      }
-
-      seen.add(key);
-      return true;
-    })
-    .slice(0, 3);
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
 }
 
-function getProductChineseName(product: ProductWithExtras) {
-  return getProductChineseTitle(product);
+function buildDetailHref(
+  id: string,
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const params = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    const first = firstParam(value);
+    if (first) params.set(key, first);
+  }
+
+  const query = params.toString();
+  return query ? `/products/${id}?${query}` : `/products/${id}`;
 }
 
-function isKnownDetailValue(value: unknown) {
-  const text = String(value || "").trim();
-  return Boolean(text) && text.toLowerCase() !== "unknown";
+function displayTitle(product: PublicDetailProduct) {
+  return (
+    product.displayNameZh ||
+    product.displayName ||
+    product.displayNameEn ||
+    product.rawTitle ||
+    product.id
+  );
+}
+
+function displaySubtitle(product: PublicDetailProduct) {
+  const title = displayTitle(product);
+
+  if (product.displayNameEn && product.displayNameEn !== title) {
+    return product.displayNameEn;
+  }
+
+  if (product.rawTitle && product.rawTitle !== title) {
+    return product.rawTitle;
+  }
+
+  return "";
+}
+
+function knownText(value: unknown) {
+  const text = String(value ?? "").trim();
+  return text && text.toLowerCase() !== "unknown" ? text : "";
 }
 
 function formatMillimeter(value: number | null | undefined) {
@@ -84,173 +96,164 @@ function formatWeight(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? `${value} g` : "";
 }
 
-function getStructuredSpecs(product: ProductWithExtras) {
-  const dimensions = product.dimensions;
-  const rows = [
-    { label: "品牌", value: product.canonicalBrand || product.brand },
-    { label: "国家", value: product.brandCountry },
-    { label: "斗型", value: product.shapeZh },
-    { label: "状态", value: getConditionDisplayLabel(product) },
-    { label: "重量", value: formatWeight(product.weightGrams) },
-    { label: "长度", value: formatMillimeter(dimensions?.lengthMm) },
-    { label: "高度", value: formatMillimeter(dimensions?.heightMm) },
-    { label: "斗钵室内径", value: formatMillimeter(dimensions?.chamberDiameterMm) },
-    { label: "斗钵室深", value: formatMillimeter(dimensions?.chamberDepthMm) },
-    { label: "斗钵壁直径", value: formatMillimeter(dimensions?.bowlOuterDiameterMm) },
-    { label: "咬嘴宽度", value: formatMillimeter(dimensions?.buttonWidthMm) },
-    { label: "咬嘴厚度", value: formatMillimeter(dimensions?.bitThicknessMm) },
-    { label: "表面工艺", value: product.finishZh },
-    { label: "木纹", value: product.grainPatternZh },
-    { label: "材质", value: product.materialZh },
-    { label: "斗嘴材质", value: product.stemMaterialZh },
-    { label: "工程结构", value: product.engineeringFeatureZh },
+function normalizeLabel(value: string) {
+  return value
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[\s_\-:/：]+/g, "")
+    .trim();
+}
+
+function humanizeSpecKey(key: string) {
+  const dictionary: Record<string, string> = {
+    buttonWidth: "咬嘴宽度",
+    bitWidth: "咬嘴宽度",
+    bitThickness: "咬嘴厚度",
+    grainPattern: "木纹",
+    engineeringFeature: "工程结构",
+    material: "材质",
+  };
+
+  if (dictionary[key]) return dictionary[key];
+
+  return key
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .trim();
+}
+
+function normalizedSpecValue(spec: PublicDetailSpec) {
+  const value = knownText(spec.value);
+  if (!value) return "";
+
+  const unit = knownText(spec.unit);
+  if (!unit || value.toLowerCase().endsWith(unit.toLowerCase())) return value;
+  return `${value} ${unit}`;
+}
+
+function structuredSpecRows(product: PublicDetailProduct): SpecRow[] {
+  const rows: Array<{ label: string; value: unknown }> = [
+    { label: "品牌", value: product.brandName },
+    { label: "国家 / 地区", value: countryLabel(product.brandCountry) },
+    { label: "斗型", value: shapeDisplayLabel(product.shape, product.shapeZh) },
+    {
+      label: "状态",
+      value: conditionDisplayLabel(product.conditionType, product.conditionLabel),
+    },
+    { label: "重量", value: formatWeight(product.measurements?.weightGrams) },
+    { label: "长度", value: formatMillimeter(product.measurements?.lengthMm) },
+    { label: "高度", value: formatMillimeter(product.measurements?.heightMm) },
+    {
+      label: "烟室内径",
+      value: formatMillimeter(product.measurements?.chamberDiameterMm),
+    },
+    {
+      label: "烟室深度",
+      value: formatMillimeter(product.measurements?.chamberDepthMm),
+    },
+    {
+      label: "斗钵外径",
+      value: formatMillimeter(product.measurements?.outsideDiameterMm),
+    },
+    { label: "表面工艺", value: product.finishZh || product.finish },
+    { label: "斗钵材质", value: product.bowlMaterialZh || product.bowlMaterial },
+    { label: "斗嘴材质", value: product.stemMaterialZh || product.stemMaterial },
+    {
+      label: "滤芯",
+      value: product.filterSizeMm
+        ? `${product.filterSizeMm} mm`
+        : filterDisplayLabel(product.filter),
+    },
   ];
 
-  return rows.filter((row) => isKnownDetailValue(row.value));
+  return rows
+    .map((row) => ({ label: row.label, value: knownText(row.value) }))
+    .filter((row) => row.value);
 }
 
-function getBrandChineseName(
-  product: ProductWithExtras,
-  brand: ReturnType<typeof getBrandByName>
-) {
-  const brandRecord = brand as Record<string, unknown> | undefined;
-
-  const fromProduct = product.brandZh || product.brandChinese;
-
-  if (fromProduct) return String(fromProduct);
-
-  const fromBrand =
-    brandRecord?.nameZh ||
-    brandRecord?.brandZh ||
-    brandRecord?.chineseName ||
-    brandRecord?.nameChinese;
-
-  return typeof fromBrand === "string" ? fromBrand : "";
-}
-
-function getUniqueImageCount(product: ProductWithExtras) {
-  const seen = new Set<string>();
-
-  [product.imageUrl, ...(product.galleryImages || [])].forEach((image) => {
-    if (image) seen.add(image);
-  });
-
-  return seen.size;
-}
-
-function cleanSpecText(spec: string) {
-  return String(spec || "")
-    .replace(/^\s*[A-Z]\s*[:：]\s*/i, "")
-    .trim();
-}
-
-function translateSpecLabel(label: string) {
-  const normalized = label.trim().toLowerCase();
-
-  const dictionary: Record<string, string> = {
-    "button width": "咬嘴宽度",
-    "bit thickness": "咬嘴厚度",
-    length: "长度",
-    height: "高度",
-    weight: "重量",
-  };
-
-  return dictionary[normalized] || label.trim();
-}
-
-function parseSpec(spec: string) {
-  const cleaned = cleanSpecText(spec);
-  const parts = cleaned.split(/[:：]/);
-
-  if (parts.length >= 2) {
-    const label = translateSpecLabel(parts[0]);
-    const value = parts.slice(1).join(":").trim();
-
-    return {
-      label,
-      value,
-    };
-  }
-
-  return {
-    label: cleaned,
-    value: "",
-  };
-}
-
-function normalizeSpecLabel(label: string) {
-  return String(label || "")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function isCoveredSpecLabel(label: string, structuredLabels: Set<string>) {
-  const normalized = normalizeSpecLabel(label);
-  const duplicatePatterns = [
+function additionalSpecRows(
+  product: PublicDetailProduct,
+  existingRows: SpecRow[]
+): SpecRow[] {
+  const existingLabels = new Set(
+    existingRows.map((row) => normalizeLabel(row.label))
+  );
+  const blockedKeys = new Set([
     "brand",
-    "品牌",
     "country",
-    "国家",
+    "source",
+    "sourceproductid",
+    "productcode",
+    "series",
+    "year",
     "shape",
-    "斗型",
     "condition",
     "status",
-    "状态",
     "weight",
-    "重量",
+    "weightgrams",
+    "weightg",
     "length",
-    "长度",
+    "lengthmm",
     "height",
-    "高度",
-    "chamber diameter",
-    "斗钵室内径",
-    "chamber depth",
-    "斗钵室深",
-    "bowl diameter",
-    "斗钵壁直径",
-    "斗钵直径",
-    "button width",
-    "bit width",
-    "咬嘴宽度",
-    "bit thickness",
-    "咬嘴厚度",
-    "filter",
-    "滤芯",
-    "material",
-    "材质",
+    "heightmm",
+    "chamberdiameter",
+    "chamberdiametermm",
+    "chamberdepth",
+    "chamberdepthmm",
+    "outsidediameter",
+    "outsidediametermm",
+    "bowldiameter",
+    "bowldiametermm",
     "finish",
-    "表面工艺",
+    "bowlmaterial",
+    "stemmaterial",
+    "filter",
+    "rawtitle",
+    "sourceurl",
+    "price",
+    "msrp",
+  ]);
+  const rows: SpecRow[] = [];
+
+  for (const spec of product.normalizedSpecs || []) {
+    const key = normalizeLabel(spec.key || "");
+    if (!key || blockedKeys.has(key)) continue;
+
+    const label = knownText(spec.labelZh) || humanizeSpecKey(spec.key);
+    const value = normalizedSpecValue(spec);
+    const normalized = normalizeLabel(label);
+
+    if (!label || !value || existingLabels.has(normalized)) continue;
+    existingLabels.add(normalized);
+    rows.push({ label, value });
+  }
+
+  return rows.slice(0, 12);
+}
+
+function productSpecRows(product: PublicDetailProduct) {
+  const structured = structuredSpecRows(product);
+  return [...structured, ...additionalSpecRows(product, structured)];
+}
+
+function displayBadges(product: PublicDetailProduct) {
+  const candidates = [
+    inventoryLabel(product.inventoryStatus),
+    product.conditionLabel,
+    product.galleryCount > 1 ? `${product.galleryCount} 图` : "",
   ];
+  const seen = new Set<string>();
 
-  return (
-    structuredLabels.has(normalized) ||
-    duplicatePatterns.some((pattern) =>
-      /[\u4e00-\u9fff]/.test(pattern)
-        ? normalized === pattern
-        : normalized.includes(pattern)
-    )
-  );
-}
-
-function getAdditionalSpecs(
-  specsText: string[],
-  structuredSpecs: Array<{ label: string; value: unknown }>
-) {
-  const structuredLabels = new Set(
-    structuredSpecs.map((spec) => normalizeSpecLabel(spec.label))
-  );
-
-  return specsText
-    .map(parseSpec)
-    .filter((spec) => spec.label)
-    .filter((spec) => !isCoveredSpecLabel(spec.label, structuredLabels));
-}
-
-export function generateStaticParams() {
-  return pipeProducts.map((product) => ({
-    id: String(product.id),
-  }));
+  return candidates
+    .map(knownText)
+    .filter(Boolean)
+    .filter((badge) => {
+      const key = badge.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 3);
 }
 
 export default async function ProductDetailPage({
@@ -259,34 +262,33 @@ export default async function ProductDetailPage({
 }: PageProps) {
   const { id } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : {};
-  const initialImageIndex = Number(resolvedSearchParams.img || 0);
+  const resolved = resolvePublicProductId(id);
 
-  const product = pipeProducts.find(
-    (item) => String(item.id) === String(id)
-  ) as ProductWithExtras | undefined;
+  if (!resolved) notFound();
 
-  if (!product) {
-    notFound();
+  if (resolved.legacy) {
+    redirect(buildDetailHref(resolved.id, resolvedSearchParams));
   }
 
-  const galleryImages = product.galleryImages ?? [];
-  const specsText = product.specsText ?? [];
-  const galleryCount = getUniqueImageCount(product);
-  const displayBadges = getDisplayBadges(product, galleryCount);
-  const chineseProductName = getProductChineseName(product);
-  const englishProductName = getProductEnglishTitle(product);
-  const displayTitle = chineseProductName || englishProductName;
-  const subtitleTitle = chineseProductName ? englishProductName : "";
-  const displayBrand = product.canonicalBrand || product.brand;
-  const brand = getBrandByName(displayBrand);
-  const rmbReferencePrice = getRmbReferencePrice(
-    product as unknown as Record<string, unknown>
+  const product = getPublicProductDetailById(resolved.id);
+  if (!product) notFound();
+
+  const initialImageIndex = Number.parseInt(
+    String(firstParam(resolvedSearchParams.img) || "0"),
+    10
   );
-  const structuredSpecs = getStructuredSpecs(product);
-  const additionalSpecs = getAdditionalSpecs(specsText, structuredSpecs);
-  const productSpecs = [...structuredSpecs, ...additionalSpecs];
+  const safeInitialImageIndex = Number.isFinite(initialImageIndex)
+    ? initialImageIndex
+    : 0;
+  const title = displayTitle(product);
+  const subtitle = displaySubtitle(product);
+  const brand = product.brandName ? getBrandByName(product.brandName) : undefined;
   const brandSummary = parseBrandSummary(brand?.summary);
-  const detailSummary = `来自 ${product.source} 公开页面。页面价格、库存状态、图片和参数为采集时参考信息。实际购买前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。`;
+  const brandSlug = product.brandSlug || brand?.slug || "";
+  const specs = productSpecRows(product);
+  const mainImage = product.mainImage || product.gallery[0] || "";
+  const detailSummary =
+    "页面价格、库存状态、图片和参数为采集时参考信息。实际入手前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
 
   return (
     <main
@@ -298,29 +300,31 @@ export default async function ProductDetailPage({
       }}
     >
       <TopNotice />
-
       <SiteHeader />
 
       <div className="mx-auto max-w-6xl px-4 pb-10 pt-4 sm:px-6 lg:px-8">
-        <BackButton className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]">
-  <ArrowLeftIcon className="h-4 w-4" />
-  返回
-</BackButton>
+        <ProductBackButton
+          fallbackHref="/products"
+          className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
+        >
+          <ArrowLeftIcon className="h-4 w-4" />
+          返回海外库存
+        </ProductBackButton>
 
         <section className="grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
           <div className="overflow-hidden rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <ProductGallery
               productId={product.id}
-              name={product.name}
-              imageUrl={product.imageUrl}
-              galleryImages={galleryImages}
-              initialIndex={initialImageIndex}
+              name={title}
+              imageUrl={mainImage}
+              galleryImages={product.gallery}
+              initialIndex={safeInitialImageIndex}
             />
           </div>
 
           <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <div className="mb-4 flex flex-wrap gap-2">
-              {displayBadges.map((badge) => (
+              {displayBadges(product).map((badge) => (
                 <span
                   key={badge}
                   className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]"
@@ -330,19 +334,17 @@ export default async function ProductDetailPage({
               ))}
             </div>
 
-            <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-              <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
-                {displayBrand}
-              </p>
-            </div>
+            <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
+              {product.brandName || "海外烟斗"}
+            </p>
 
-            <h1 className="text-[28px] font-bold leading-tight tracking-tight text-[#1F1A16] sm:text-4xl">
-              {displayTitle}
+            <h1 className="mt-2 break-words text-[24px] font-bold leading-[1.22] tracking-tight text-[#1F1A16] sm:text-4xl">
+              {title}
             </h1>
 
-            {subtitleTitle ? (
+            {subtitle ? (
               <p className="mt-3 text-[15px] font-medium leading-7 text-[#746A5F]">
-                {subtitleTitle}
+                {subtitle}
               </p>
             ) : null}
 
@@ -357,74 +359,67 @@ export default async function ProductDetailPage({
             价格与库存参考
           </h2>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3">
-            <InfoItem label={RMB_REFERENCE_LABEL} value={rmbReferencePrice} strong />
-            <InfoItem label="库存状态" value={product.status} strong />
-            <InfoItem label="来源网站" value={product.source} />
-          </div>
-
-          <div className="mt-4 border-t border-[#F0E6D8] pt-3">
-            <InfoItem label="更新时间" value={product.updatedAt} horizontal />
+          <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+            <InfoItem label="参考价格" value={formatSitePrice(product)} strong />
+            <InfoItem
+              label="库存状态"
+              value={inventoryLabel(product.inventoryStatus)}
+              strong
+            />
           </div>
         </section>
 
         <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
           <Link
-            href={`/request?product=${encodeURIComponent(String(product.id))}`}
+            href={`/request?product=${encodeURIComponent(product.id)}`}
             className="flex h-12 items-center justify-center rounded-full bg-[#063B32] px-5 text-[15px] font-semibold tracking-[0.06em] text-[#E7C48A] transition hover:bg-[#0A4A3E]"
           >
             <ChatIcon className="mr-2 h-5 w-5" />
             咨询这只斗
           </Link>
-
           <p className="mt-3 text-center text-[12px] leading-5 text-[#746A5F]">
             人工为您确认库存、最终价格、国际运费与预计税费。
           </p>
         </section>
 
-        {productSpecs.length > 0 ? (
+        {specs.length > 0 ? (
           <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
               产品参数
             </h2>
 
             <div className="grid gap-x-6 sm:grid-cols-2">
-              {productSpecs.map((spec, index) => (
+              {specs.map((spec, index) => (
                 <div
                   key={`${spec.label}-${index}`}
                   className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] py-2.5 text-[13px]"
                 >
                   <span className="text-[#746A5F]">{spec.label}</span>
-                  {spec.value ? (
-                    <span className="font-semibold text-[#1F1A16]">
-                      {spec.value}
-                    </span>
-                  ) : null}
+                  <span className="text-right font-semibold text-[#1F1A16]">
+                    {spec.value}
+                  </span>
                 </div>
               ))}
             </div>
           </section>
         ) : null}
 
-        {brand ? (
+        {brand && brandSlug ? (
           <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-[20px] font-bold text-[#1F1A16]">
                 品牌信息
               </h2>
-
-              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]">
-                {brand.country}
-              </span>
+              {knownText(brand.country) ? (
+                <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]">
+                  {countryLabel(brand.country)}
+                </span>
+              ) : null}
             </div>
 
             <div className="flex flex-wrap gap-2">
               <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#1F1A16]">
                 {brand.name}
-              </span>
-
-              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-medium text-[#746A5F]">
-                {brand.level}
               </span>
             </div>
 
@@ -435,7 +430,6 @@ export default async function ProductDetailPage({
                     {brandSummary.zh}
                   </p>
                 ) : null}
-
                 {brandSummary.en ? (
                   <p className="text-[12px] leading-6 text-[#9A8F84]">
                     {brandSummary.en}
@@ -445,7 +439,7 @@ export default async function ProductDetailPage({
             ) : null}
 
             <Link
-              href={`/brands/${brand.slug}`}
+              href={`/brands/${brandSlug}`}
               className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"
             >
               查看品牌介绍
@@ -457,15 +451,11 @@ export default async function ProductDetailPage({
           <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.26em] text-[#A97838]">
             Service Boundary
           </p>
-
           <h2 className="text-[20px] font-bold text-[#1F1A16]">
             服务边界说明
           </h2>
-
           <p className="mt-3 text-[13px] leading-7 text-[#746A5F]">
-            本页展示的是海外公开页面采集时的烟斗器具库存信息与参考价格，不提供站内支付。
-            实际入手前需人工确认库存状态、最终价格、国际运费、预计税费与代购服务费用。
-            已售商品可作为品牌、斗型和价格区间参考。
+            本页展示的是海外公开页面采集时的烟斗器具库存信息与参考价格，不提供站内支付。实际入手前需人工确认库存状态、最终价格、国际运费、预计税费与代购服务费用。已售商品可作为品牌、斗型和价格区间参考。
           </p>
         </section>
       </div>
@@ -488,45 +478,22 @@ function TopNotice() {
 function InfoItem({
   label,
   value,
-  gold = false,
   strong = false,
-  horizontal = false,
 }: {
   label: string;
   value: string;
-  gold?: boolean;
   strong?: boolean;
-  horizontal?: boolean;
 }) {
-  if (horizontal) {
-    return (
-      <div className="flex items-center justify-between gap-4 text-[13px]">
-        <span className="text-[#746A5F]">{label}</span>
-        <span className="font-semibold text-[#1F1A16]">{value}</span>
-      </div>
-    );
-  }
-
   return (
     <div>
       <p className="text-[12px] text-[#746A5F]">{label}</p>
       <p
         className={[
           "mt-1 leading-tight",
-          gold
-            ? "text-[22px] font-medium text-[#A97838]"
-            : strong
-              ? "text-[16px] font-bold text-[#1F1A16]"
-              : "text-[14px] font-semibold text-[#1F1A16]",
+          strong
+            ? "text-[16px] font-bold text-[#1F1A16]"
+            : "text-[14px] font-semibold text-[#1F1A16]",
         ].join(" ")}
-        style={
-          gold
-            ? {
-                fontFamily: '"Georgia", "Times New Roman", serif',
-                fontVariantNumeric: "lining-nums",
-              }
-            : undefined
-        }
       >
         {value}
       </p>

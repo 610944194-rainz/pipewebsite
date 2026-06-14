@@ -1,0 +1,3010 @@
+{
+  "schemaVersion": 1,
+  "normalizationRules": {
+    "trimWhitespace": true,
+    "caseInsensitiveMatch": true,
+    "stripLeadingEstatePrefix": true
+  },
+  "brands": [
+    {
+      "canonicalBrand": "Abe Herbaugh",
+      "canonicalBrandSlug": "abe-herbaugh",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Abe Herbaugh"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Adam Davidson",
+      "canonicalBrandSlug": "adam-davidson",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Adam Davidson"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "AKB",
+      "canonicalBrandSlug": "akb",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "AKB"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Alan",
+      "canonicalBrandSlug": "alan",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Alan"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Alexander Hasty",
+      "canonicalBrandSlug": "alexander-hasty",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Alexander Hasty"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Anne Julie",
+      "canonicalBrandSlug": "anne-julie",
+      "zhName": "安妮·朱莉",
+      "country": "Denmark",
+      "aliases": [
+        "Anne Julie"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Ardor",
+      "canonicalBrandSlug": "ardor",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Ardor"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Ashton",
+      "canonicalBrandSlug": "ashton",
+      "zhName": null,
+      "country": "United Kingdom",
+      "aliases": [
+        "Ashton"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Chinese display name is not confirmed by local brand library.",
+        "Country conflict from source data: England / United Kingdom.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Ashton for Paul Olsen",
+      "canonicalBrandSlug": "ashton-for-paul-olsen",
+      "zhName": null,
+      "country": "United Kingdom",
+      "aliases": [
+        "Ashton for Paul Olsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Askwith",
+      "canonicalBrandSlug": "askwith",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Askwith"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Austin Quinlan",
+      "canonicalBrandSlug": "austin-quinlan",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Austin Quinlan"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "B. Madsen",
+      "canonicalBrandSlug": "b-madsen",
+      "zhName": "布莱恩·马德森",
+      "country": "Denmark",
+      "aliases": [
+        "B. Madsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Balleby",
+      "canonicalBrandSlug": "balleby",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Balleby"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Barling",
+      "canonicalBrandSlug": "barling",
+      "zhName": null,
+      "country": "United Kingdom",
+      "aliases": [
+        "Barling"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed United Kingdom brand; product manufacturing-country values do not override brand country."
+      ]
+    },
+    {
+      "canonicalBrand": "Bay Denmark",
+      "canonicalBrandSlug": "bay-denmark",
+      "zhName": "贝伊",
+      "country": "Denmark",
+      "aliases": [
+        "Bay Denmark"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "BBB",
+      "canonicalBrandSlug": "bbb",
+      "zhName": "BBB",
+      "country": "United Kingdom",
+      "aliases": [
+        "BBB"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Becker",
+      "canonicalBrandSlug": "becker",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Becker"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Benner",
+      "canonicalBrandSlug": "benner",
+      "zhName": "本纳",
+      "country": "Denmark",
+      "aliases": [
+        "Benner"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Benni Jørgensen",
+      "canonicalBrandSlug": "benni-jorgensen",
+      "zhName": "本尼·约根森",
+      "country": "Denmark",
+      "aliases": [
+        "Benni Jørgensen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Bentley by Former",
+      "canonicalBrandSlug": "bentley-by-former",
+      "zhName": "宾利 by Former",
+      "country": "Denmark / Germany",
+      "aliases": [
+        "Bentley by Former"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Berggreen Pipes",
+      "canonicalBrandSlug": "berggreen-pipes",
+      "zhName": "贝格格林",
+      "country": "Denmark",
+      "aliases": [
+        "Berggreen Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Bill Shalosky",
+      "canonicalBrandSlug": "bill-shalosky",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Bill Shalosky"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Bjarne",
+      "canonicalBrandSlug": "bjarne",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Bjarne"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "BPK",
+      "canonicalBrandSlug": "bpk",
+      "zhName": "BPK",
+      "country": "Czech Republic",
+      "aliases": [
+        "BPK"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Brebbia",
+      "canonicalBrandSlug": "brebbia",
+      "zhName": "芭比",
+      "country": "Italy",
+      "aliases": [
+        "Brebbia"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Briarworks",
+      "canonicalBrandSlug": "briarworks",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Briarworks"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Brigham",
+      "canonicalBrandSlug": "brigham",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Brigham"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "Country conflict from source data: France / Italy.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Brighton James",
+      "canonicalBrandSlug": "brighton-james",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Brighton James"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Brulor",
+      "canonicalBrandSlug": "brulor",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Brulor"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Bruno Nuttens",
+      "canonicalBrandSlug": "bruno-nuttens",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Bruno Nuttens"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Butz-Choquin",
+      "canonicalBrandSlug": "butz-choquin",
+      "zhName": null,
+      "country": "France",
+      "aliases": [
+        "Butz-Choquin"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Caminetto",
+      "canonicalBrandSlug": "caminetto",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Caminetto"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Castello",
+      "canonicalBrandSlug": "castello",
+      "zhName": "卡斯特罗",
+      "country": "Italy",
+      "aliases": [
+        "Castello"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Cavicchi",
+      "canonicalBrandSlug": "cavicchi",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Cavicchi"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Celius",
+      "canonicalBrandSlug": "celius",
+      "zhName": "塞利乌斯",
+      "country": "Denmark",
+      "aliases": [
+        "Celius"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Chacom",
+      "canonicalBrandSlug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "aliases": [
+        "Chacom"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Charatan's",
+      "canonicalBrandSlug": "charatans",
+      "zhName": null,
+      "country": "United Kingdom",
+      "aliases": [
+        "Charatan's"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Chris Asteriou",
+      "canonicalBrandSlug": "chris-asteriou",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Chris Asteriou"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Christian Ruetz",
+      "canonicalBrandSlug": "christian-ruetz",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Christian Ruetz"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Comoy's",
+      "canonicalBrandSlug": "comoys",
+      "zhName": null,
+      "country": "France / United Kingdom",
+      "aliases": [
+        "Comoy's"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Dagner Pipes",
+      "canonicalBrandSlug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "aliases": [
+        "Dagner",
+        "Dagner Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Dagner short form is normalized to Dagner Pipes."
+      ]
+    },
+    {
+      "canonicalBrand": "David Huber",
+      "canonicalBrandSlug": "david-huber",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "David Huber"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Davide Iafisco",
+      "canonicalBrandSlug": "davide-iafisco",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Davide Iafisco"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Dirk Heinemann",
+      "canonicalBrandSlug": "dirk-heinemann",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Dirk Heinemann"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Doctor's Pipes",
+      "canonicalBrandSlug": "doctors-pipes",
+      "zhName": null,
+      "country": "Russia",
+      "aliases": [
+        "Doctor's",
+        "Doctor's Pipes",
+        "Doctors"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Doctors variants normalized to Doctor's Pipes."
+      ]
+    },
+    {
+      "canonicalBrand": "Dollar Pipes",
+      "canonicalBrandSlug": "dollar-pipes",
+      "zhName": null,
+      "country": "Sweden",
+      "aliases": [
+        "Dollar Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Dollar Kapten Pipe source value maps to Dollar Pipes; Kapten is retained as a product line."
+      ]
+    },
+    {
+      "canonicalBrand": "Duca",
+      "canonicalBrandSlug": "duca",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Duca"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Dunhill",
+      "canonicalBrandSlug": "dunhill",
+      "zhName": "登喜路",
+      "country": "United Kingdom",
+      "aliases": [
+        "Dunhill"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Country conflict from source data: England / United Kingdom.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Eltang Basic",
+      "canonicalBrandSlug": "eltang-basic",
+      "zhName": "艾尔唐 Basic",
+      "country": "Denmark",
+      "aliases": [
+        "Eltang Basic",
+        "Eltang Basic Pipe"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Independent canonical related to Tom Eltang."
+      ]
+    },
+    {
+      "canonicalBrand": "Emiliano",
+      "canonicalBrandSlug": "emiliano",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Emiliano"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Erik Stokkebye 4th Generation",
+      "canonicalBrandSlug": "erik-stokkebye-4th-generation",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Erik Stokkebye 4th Generation"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "Country conflict from source data: Denmark / France.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Falcon",
+      "canonicalBrandSlug": "falcon",
+      "zhName": "猎鹰",
+      "country": "United Kingdom",
+      "aliases": [
+        "Falcon"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed brand. Product components and six AKB cross-brand anomalies are controlled by publication overrides."
+      ]
+    },
+    {
+      "canonicalBrand": "Finn Andersen",
+      "canonicalBrandSlug": "finn-andersen",
+      "zhName": "芬恩·安德森",
+      "country": "Denmark",
+      "aliases": [
+        "Finn Andersen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Flemming",
+      "canonicalBrandSlug": "flemming",
+      "zhName": "弗莱明·雅各布森",
+      "country": "Denmark",
+      "aliases": [
+        "Flemming"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Florov",
+      "canonicalBrandSlug": "florov",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Florov"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Flávia Rodrigues",
+      "canonicalBrandSlug": "flavia-rodrigues",
+      "zhName": "弗拉维娅·罗德里格斯",
+      "country": "Brazil",
+      "aliases": [
+        "Flavia Rodrigues",
+        "Flávia Rodrigues"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Accent variant is normalized together."
+      ]
+    },
+    {
+      "canonicalBrand": "Former",
+      "canonicalBrandSlug": "former",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Former"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "G Penzo",
+      "canonicalBrandSlug": "g-penzo",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "G Penzo"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Genod",
+      "canonicalBrandSlug": "genod",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Genod"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Georg Jensen",
+      "canonicalBrandSlug": "georg-jensen",
+      "zhName": "乔治·杰森",
+      "country": "Denmark",
+      "aliases": [
+        "Georg Jensen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "George Boyadjiev",
+      "canonicalBrandSlug": "george-boyadjiev",
+      "zhName": "乔治·博雅杰夫",
+      "country": "Bulgaria",
+      "aliases": [
+        "George Boyadjiev"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "GH Zhang",
+      "canonicalBrandSlug": "gh-zhang",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "GH Zhang"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Hans Former Nielsen",
+      "canonicalBrandSlug": "hans-former-nielsen",
+      "zhName": "佛么",
+      "country": "Denmark",
+      "aliases": [
+        "Hans Former Nielsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Hartmann",
+      "canonicalBrandSlug": "hartmann",
+      "zhName": "哈特曼",
+      "country": "Denmark",
+      "aliases": [
+        "Hartmann"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Henri Pipes",
+      "canonicalBrandSlug": "henri-pipes",
+      "zhName": "亨利",
+      "country": "Denmark",
+      "aliases": [
+        "Henri Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Henri Sorensen",
+      "canonicalBrandSlug": "henri-sorensen",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Henri Sorensen"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Herriot Pipes",
+      "canonicalBrandSlug": "herriot-pipes",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Herriot Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Holtorp",
+      "canonicalBrandSlug": "holtorp",
+      "zhName": "霍尔托普",
+      "country": "Denmark",
+      "aliases": [
+        "Holtorp"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Ib Loran",
+      "canonicalBrandSlug": "ib-loran",
+      "zhName": "伊布·洛兰",
+      "country": "Denmark",
+      "aliases": [
+        "Ib Loran"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Il Cerchio",
+      "canonicalBrandSlug": "il-cerchio",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Il Cerchio"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "IMP Meerschaum",
+      "canonicalBrandSlug": "imp-meerschaum",
+      "zhName": "IMP 海泡石",
+      "country": "Turkey",
+      "aliases": [
+        "IMP Meerschaum"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Imp Meerschaum spelling is normalized to IMP Meerschaum by human approval."
+      ]
+    },
+    {
+      "canonicalBrand": "Jacono",
+      "canonicalBrandSlug": "jacono",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Jacono"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Jakobsen",
+      "canonicalBrandSlug": "jakobsen",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Jakobsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Jared Coles",
+      "canonicalBrandSlug": "jared-coles",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Jared Coles"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Jerry Zenn",
+      "canonicalBrandSlug": "jerry-zenn",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Jerry Zenn"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Jody Davis",
+      "canonicalBrandSlug": "jody-davis",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Jody Davis"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Johs",
+      "canonicalBrandSlug": "johs",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Johs"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Johs Pipes",
+      "canonicalBrandSlug": "johs-pipes",
+      "zhName": "约斯",
+      "country": "Denmark",
+      "aliases": [
+        "Johs Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Kai Nielsen",
+      "canonicalBrandSlug": "kai-nielsen",
+      "zhName": "凯·尼尔森",
+      "country": "Denmark",
+      "aliases": [
+        "Kai Nielsen"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Karl Erik",
+      "canonicalBrandSlug": "karl-erik",
+      "zhName": "卡尔·埃里克",
+      "country": "Denmark",
+      "aliases": [
+        "Karl Erik"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Ken Dederichs",
+      "canonicalBrandSlug": "ken-dederichs",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Ken Dederichs"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Ken Pipes",
+      "canonicalBrandSlug": "ken-pipes",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Ken Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Konstantin",
+      "canonicalBrandSlug": "konstantin",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Konstantin"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Kriswill",
+      "canonicalBrandSlug": "kriswill",
+      "zhName": "克里斯威尔",
+      "country": "Denmark",
+      "aliases": [
+        "Kriswill"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "KS Pipe",
+      "canonicalBrandSlug": "ks-pipe",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "KS Pipe"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": false,
+      "notes": [
+        "Non-brand unknown label; must not be auto-merged to Ascorti and is excluded from brand index."
+      ],
+      "entityType": "unknown"
+    },
+    {
+      "canonicalBrand": "Lan Make",
+      "canonicalBrandSlug": "lan-make",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Lan Make"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Lanatra",
+      "canonicalBrandSlug": "lanatra",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Lanatra"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Lasse Skovgaard",
+      "canonicalBrandSlug": "lasse-skovgaard",
+      "zhName": "拉塞·斯科夫高",
+      "country": "Denmark",
+      "aliases": [
+        "Lasse Skovgaard"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Leopold",
+      "canonicalBrandSlug": "leopold",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Leopold"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Li Zhesong",
+      "canonicalBrandSlug": "li-zhesong",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Li Zhesong"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Lorenzetti",
+      "canonicalBrandSlug": "lorenzetti",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Lorenzetti"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Luiz Lavos",
+      "canonicalBrandSlug": "luiz-lavos",
+      "zhName": null,
+      "country": "Brazil",
+      "aliases": [
+        "Luiz Lavos"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed independent canonical. Luiz Lavos1 is a source-scoped parser artifact."
+      ]
+    },
+    {
+      "canonicalBrand": "Lv Zelong",
+      "canonicalBrandSlug": "lv-zelong",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Lv Zelong"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Lyst Danmark",
+      "canonicalBrandSlug": "lyst-danmark",
+      "zhName": "Lyst Danmark",
+      "country": "Denmark",
+      "aliases": [
+        "Lyst Danmark"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Manduela",
+      "canonicalBrandSlug": "manduela",
+      "zhName": "曼杜埃拉",
+      "country": "Denmark",
+      "aliases": [
+        "Manduela"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Mark Tinsky",
+      "canonicalBrandSlug": "mark-tinsky",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Mark Tinsky"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Martelo",
+      "canonicalBrandSlug": "martelo",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Martelo"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Masta",
+      "canonicalBrandSlug": "masta",
+      "zhName": "马斯塔",
+      "country": "United Kingdom",
+      "aliases": [
+        "Masta"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Mastro Geppetto",
+      "canonicalBrandSlug": "mastro-geppetto",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Mastro Geppetto"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Micah Redmond",
+      "canonicalBrandSlug": "micah-redmond",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Micah Redmond"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Michael Parks",
+      "canonicalBrandSlug": "michael-parks",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Michael Parks"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Mike Sebastian Bay",
+      "canonicalBrandSlug": "mike-sebastian-bay",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Mike Sebastian Bay"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Missouri Meerschaum",
+      "canonicalBrandSlug": "missouri-meerschaum",
+      "zhName": "密苏里海泡石",
+      "country": "United States",
+      "aliases": [
+        "Missouri Meerschaum",
+        "Missourimeerschaum"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Smokingpipes compact spelling is normalized to Missouri Meerschaum."
+      ]
+    },
+    {
+      "canonicalBrand": "Molina",
+      "canonicalBrandSlug": "molina",
+      "zhName": "莫利纳",
+      "country": "Italy",
+      "aliases": [
+        "Molina"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Mr. Andersen",
+      "canonicalBrandSlug": "mr-andersen",
+      "zhName": "安德森先生",
+      "country": "Denmark",
+      "aliases": [
+        "Mr. Andersen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Musico",
+      "canonicalBrandSlug": "musico",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Musico"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Nanna Ivarsson",
+      "canonicalBrandSlug": "nanna-ivarsson",
+      "zhName": "南娜·伊瓦松",
+      "country": "Denmark",
+      "aliases": [
+        "Nanna Ivarsson"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Neerup",
+      "canonicalBrandSlug": "neerup",
+      "zhName": "尼鲁普",
+      "country": "Denmark",
+      "aliases": [
+        "Neerup"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Nuttens Pipes",
+      "canonicalBrandSlug": "nuttens-pipes",
+      "zhName": "努滕斯",
+      "country": "France",
+      "aliases": [
+        "Nuttens Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Nørding",
+      "canonicalBrandSlug": "nording",
+      "zhName": "诺丁",
+      "country": "Denmark",
+      "aliases": [
+        "Erik Nording",
+        "Nording",
+        "Nørding"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed Danish brand. Series, annual-edition and source-category values are source-scoped mappings, not global aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Old Dominion",
+      "canonicalBrandSlug": "old-dominion",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Old Dominion"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Old German Clay",
+      "canonicalBrandSlug": "old-german-clay",
+      "zhName": null,
+      "country": "Germany",
+      "aliases": [
+        "Clay Pipes",
+        "Old German Clay"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Clay Pipes is a source category value mapped to Old German Clay by human approval."
+      ]
+    },
+    {
+      "canonicalBrand": "Parker",
+      "canonicalBrandSlug": "parker",
+      "zhName": "帕克",
+      "country": "United Kingdom",
+      "aliases": [
+        "Parker"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Peder Jeppesen",
+      "canonicalBrandSlug": "peder-jeppesen",
+      "zhName": "佩德·耶佩森",
+      "country": "Denmark",
+      "aliases": [
+        "Peder Jeppesen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Pete Prevost",
+      "canonicalBrandSlug": "pete-prevost",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Pete Prevost"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Peter Heding",
+      "canonicalBrandSlug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "aliases": [
+        "Peter Heding"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Peterson",
+      "canonicalBrandSlug": "peterson",
+      "zhName": "彼得森",
+      "country": "Ireland",
+      "aliases": [
+        "Peterson"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Pipe Key Ring",
+      "canonicalBrandSlug": "pipe-key-ring",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Pipe Key Ring"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": false,
+      "notes": [
+        "Accessory label, not a brand; excluded from brand index and public pipe listing."
+      ],
+      "entityType": "accessory"
+    },
+    {
+      "canonicalBrand": "Pipepack",
+      "canonicalBrandSlug": "pipepack",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Pipepack"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": false,
+      "notes": [
+        "Product bundle label, not a brand; excluded from brand index and public pipe listing."
+      ],
+      "entityType": "bundle"
+    },
+    {
+      "canonicalBrand": "Pohlmann",
+      "canonicalBrandSlug": "pohlmann",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Pohlmann"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Poul Olsen",
+      "canonicalBrandSlug": "poul-olsen",
+      "zhName": "波尔·奥尔森",
+      "country": "Denmark",
+      "aliases": [
+        "Paul Olsen",
+        "Poul Olsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Paul Olsen spelling variant is normalized to Poul Olsen based on existing project rule."
+      ]
+    },
+    {
+      "canonicalBrand": "Radice",
+      "canonicalBrandSlug": "radice",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Radice"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Randy Wiley",
+      "canonicalBrandSlug": "randy-wiley",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Randy Wiley"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Rattray's",
+      "canonicalBrandSlug": "rattrays",
+      "zhName": "拉特雷",
+      "country": "Scotland",
+      "aliases": [
+        "Rattray's",
+        "Rattrays",
+        "Rattray’s"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed Scottish-origin brand. The Witch values are source-scoped series/model mappings."
+      ]
+    },
+    {
+      "canonicalBrand": "Rinaldo",
+      "canonicalBrandSlug": "rinaldo",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Rinaldo"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Ropp",
+      "canonicalBrandSlug": "ropp",
+      "zhName": null,
+      "country": "France",
+      "aliases": [
+        "Ropp"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Rossi",
+      "canonicalBrandSlug": "rossi",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Rossi"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Royal Copenhagen",
+      "canonicalBrandSlug": "royal-copenhagen",
+      "zhName": "皇家哥本哈根",
+      "country": "Denmark",
+      "aliases": [
+        "Royal Copenhagen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Ryan Alden",
+      "canonicalBrandSlug": "ryan-alden",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Ryan Alden"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "S. Bang",
+      "canonicalBrandSlug": "s-bang",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "S. Bang"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Sabina Santos",
+      "canonicalBrandSlug": "sabina-santos",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Sabina Santos"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Sam Adebayo",
+      "canonicalBrandSlug": "sam-adebayo",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Sam Adebayo"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Sam Cui",
+      "canonicalBrandSlug": "sam-cui",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Sam Cui"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Sara Eltang Pipes",
+      "canonicalBrandSlug": "sara-eltang-pipes",
+      "zhName": "萨拉·艾尔唐",
+      "country": "Denmark",
+      "aliases": [
+        "Sara Eltang Pipes",
+        "Sara_eltang"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed independent canonical related to Tom Eltang."
+      ]
+    },
+    {
+      "canonicalBrand": "Savinelli",
+      "canonicalBrandSlug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "aliases": [
+        "Savinelli"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Savinelli Autograph",
+      "canonicalBrandSlug": "savinelli-autograph",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Savinelli Autograph"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Scott Klein",
+      "canonicalBrandSlug": "scott-klein",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Scott Klein"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Scott Thile",
+      "canonicalBrandSlug": "scott-thile",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Scott Thile"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Ser Jacopo",
+      "canonicalBrandSlug": "ser-jacopo",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Ser Jacopo"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Chinese display name is not confirmed by local brand library.",
+        "High-frequency brand mapping passed round 2 closure review."
+      ],
+      "indexEligible": true
+    },
+    {
+      "canonicalBrand": "Silver Gray",
+      "canonicalBrandSlug": "silver-gray",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Silver Gray"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Skovgaard",
+      "canonicalBrandSlug": "skovgaard",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Skovgaard"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Stanwell",
+      "canonicalBrandSlug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "aliases": [
+        "Stanwell"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Suhr",
+      "canonicalBrandSlug": "suhr",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Suhr"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Suhr Pipes",
+      "canonicalBrandSlug": "suhr-pipes",
+      "zhName": "苏尔",
+      "country": "Denmark",
+      "aliases": [
+        "Suhr Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Svendborg",
+      "canonicalBrandSlug": "svendborg",
+      "zhName": "斯文堡",
+      "country": "Denmark",
+      "aliases": [
+        "Svendborg"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Søren Refbjerg",
+      "canonicalBrandSlug": "soren-refbjerg",
+      "zhName": "索伦·雷夫比耶",
+      "country": "Denmark",
+      "aliases": [
+        "Søren Refbjerg"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Tao",
+      "canonicalBrandSlug": "tao",
+      "zhName": "陶",
+      "country": "Denmark",
+      "aliases": [
+        "Tao"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "TDPS",
+      "canonicalBrandSlug": "tdps",
+      "zhName": "TDPS",
+      "country": "Denmark",
+      "aliases": [
+        "TDPS"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed Danish Pipe Shop house brand by human approval."
+      ]
+    },
+    {
+      "canonicalBrand": "The French Pipe",
+      "canonicalBrandSlug": "the-french-pipe",
+      "zhName": null,
+      "country": "France",
+      "aliases": [
+        "The French Pipe"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed brand by human approval."
+      ]
+    },
+    {
+      "canonicalBrand": "Thurmann",
+      "canonicalBrandSlug": "thurmann",
+      "zhName": "图尔曼",
+      "country": "Denmark",
+      "aliases": [
+        "Thurmann"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Tine Balleby",
+      "canonicalBrandSlug": "tine-balleby",
+      "zhName": "蒂娜·巴勒比",
+      "country": "Denmark",
+      "aliases": [
+        "Tine Balleby"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Todd Johnson",
+      "canonicalBrandSlug": "todd-johnson",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Todd Johnson"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Tom Eltang",
+      "canonicalBrandSlug": "tom-eltang",
+      "zhName": "汤姆·艾尔唐",
+      "country": "Denmark",
+      "aliases": [
+        "Tom Eltang"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed independent canonical brand. Eltang is source-scoped only."
+      ]
+    },
+    {
+      "canonicalBrand": "Trey Rice",
+      "canonicalBrandSlug": "trey-rice",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Trey Rice"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Tsuge",
+      "canonicalBrandSlug": "tsuge",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Tsuge"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Tsuge Ikebana",
+      "canonicalBrandSlug": "tsuge-ikebana",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Tsuge Ikebana"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Unbranded",
+      "canonicalBrandSlug": "unbranded",
+      "zhName": "无品牌",
+      "country": null,
+      "aliases": [
+        "No Name",
+        "Unbranded"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": false,
+      "notes": [
+        "Generic unbranded bucket; excluded from brand index."
+      ]
+    },
+    {
+      "canonicalBrand": "Unknown Meerschaum",
+      "canonicalBrandSlug": "unknown-meerschaum",
+      "zhName": "无品牌海泡石",
+      "country": null,
+      "aliases": [
+        "Meerschaum",
+        "Unbranded Meerschaum",
+        "Unknown Meerschaum"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": false,
+      "notes": [
+        "Unbranded meerschaum bucket; excluded from brand index. Product country must not become brand country."
+      ]
+    },
+    {
+      "canonicalBrand": "Valbruna",
+      "canonicalBrandSlug": "valbruna",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Valbruna"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Vauen",
+      "canonicalBrandSlug": "vauen",
+      "zhName": "华云",
+      "country": "Germany",
+      "aliases": [
+        "Vauen"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed German brand. Product-level country conflicts do not override brand country."
+      ]
+    },
+    {
+      "canonicalBrand": "Volkan",
+      "canonicalBrandSlug": "volkan",
+      "zhName": "沃尔坎",
+      "country": "Italy",
+      "aliases": [
+        "Volkan"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "W.Ø. Larsen",
+      "canonicalBrandSlug": "wo-larsen",
+      "zhName": "W.Ø. 拉森",
+      "country": "Denmark",
+      "aliases": [
+        "W. O. Larsen",
+        "W.O. Larsen",
+        "W.Ø. Larsen"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "O/Ø and spacing variants are normalized together."
+      ]
+    },
+    {
+      "canonicalBrand": "Wandi Riyadi",
+      "canonicalBrandSlug": "wandi-riyadi",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Wandi Riyadi"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Werner Mummert",
+      "canonicalBrandSlug": "werner-mummert",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Werner Mummert"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "White Elephant",
+      "canonicalBrandSlug": "white-elephant",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "White Elephant"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library.",
+        "Country conflict from source data: Germany / Italy / United States."
+      ]
+    },
+    {
+      "canonicalBrand": "White Star",
+      "canonicalBrandSlug": "white-star",
+      "zhName": "白星",
+      "country": "Denmark",
+      "aliases": [
+        "White Star",
+        "White Star Pipes"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "White Star Pipes is normalized to White Star."
+      ]
+    },
+    {
+      "canonicalBrand": "Willbo",
+      "canonicalBrandSlug": "willbo",
+      "zhName": "威尔博",
+      "country": "Denmark",
+      "aliases": [
+        "Willbo"
+      ],
+      "sources": [
+        "danish"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases."
+      ]
+    },
+    {
+      "canonicalBrand": "Winsløw",
+      "canonicalBrandSlug": "winslow",
+      "zhName": null,
+      "country": "Denmark",
+      "aliases": [
+        "Poul Winslow",
+        "Poul Winsløw",
+        "Winslow",
+        "Winsløw"
+      ],
+      "sources": [
+        "danish",
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "indexEligible": true,
+      "notes": [
+        "Confirmed Danish brand. Crown 200 is source-scoped as a series/grade value."
+      ]
+    },
+    {
+      "canonicalBrand": "Wojtek Pastuch",
+      "canonicalBrandSlug": "wojtek-pastuch",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Wojtek Pastuch"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Yang Kun",
+      "canonicalBrandSlug": "yang-kun",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Yang Kun"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    },
+    {
+      "canonicalBrand": "Yuwei",
+      "canonicalBrandSlug": "yuwei",
+      "zhName": null,
+      "country": null,
+      "aliases": [
+        "Yuwei"
+      ],
+      "sources": [
+        "smokingpipes"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+        "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+        "Chinese display name is not confirmed by local brand library."
+      ]
+    }
+  ]
+}

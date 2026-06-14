@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "specialValues": {
+    "notApplicable": [
+      "N/A"
+    ],
+    "unknown": [
+      "unknown"
+    ],
+    "other": [
+      "Other"
+    ]
+  },
+  "bowlMaterials": [
+    {
+      "canonicalMaterial": "Briar",
+      "canonicalMaterialSlug": "briar",
+      "zhName": "石楠木",
+      "aliases": [
+        "briar",
+        "Briar"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Clay",
+      "canonicalMaterialSlug": "clay",
+      "zhName": "陶土",
+      "aliases": [
+        "Clay"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Corn Cob",
+      "canonicalMaterialSlug": "corn-cob",
+      "zhName": "玉米芯",
+      "aliases": [
+        "Corn Cob",
+        "corn-cob"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Meerschaum",
+      "canonicalMaterialSlug": "meerschaum",
+      "zhName": "海泡石",
+      "aliases": [
+        "meerschaum",
+        "Meerschaum"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Morta",
+      "canonicalMaterialSlug": "morta",
+      "zhName": "沼泽木",
+      "aliases": [
+        "morta",
+        "Morta"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Olivewood",
+      "canonicalMaterialSlug": "olivewood",
+      "zhName": "橄榄木",
+      "aliases": [
+        "Olivewood"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Other",
+      "canonicalMaterialSlug": "other",
+      "zhName": "其他",
+      "aliases": [
+        "Other"
+      ],
+      "reviewStatus": "provisional",
+      "notes": [
+        "Source fallback category; not a precise bowl material."
+      ]
+    },
+    {
+      "canonicalMaterial": "Strawberry Wood",
+      "canonicalMaterialSlug": "strawberry-wood",
+      "zhName": "草莓木",
+      "aliases": [
+        "Strawberry Wood"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    }
+  ],
+  "stemMaterials": [
+    {
+      "canonicalMaterial": "Acrylic",
+      "canonicalMaterialSlug": "acrylic",
+      "zhName": "亚克力",
+      "aliases": [
+        "Acrylic"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Bakelite",
+      "canonicalMaterialSlug": "bakelite",
+      "zhName": "电木",
+      "aliases": [
+        "Bakelite"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalMaterial": "Cumberland",
+      "canonicalMaterialSlug": "cumberland",
+      "zhName": "坎伯兰",
+      "aliases": [
+        "cumberland",
+        "Cumberland"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Observed in Danish enrichment data."
+      ]
+    },
+    {
+      "canonicalMaterial": "Horn",
+      "canonicalMaterialSlug": "horn",
+      "zhName": "天然角质",
+      "aliases": [
+        "Horn"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": [
+        "Stem material only; do not confuse with Horn pipe shape."
+      ]
+    },
+    {
+      "canonicalMaterial": "Other",
+      "canonicalMaterialSlug": "other",
+      "zhName": "其他",
+      "aliases": [
+        "Other"
+      ],
+      "reviewStatus": "provisional",
+      "notes": [
+        "Source fallback category; not a precise stem material."
+      ]
+    },
+    {
+      "canonicalMaterial": "Vulcanite",
+      "canonicalMaterialSlug": "vulcanite",
+      "zhName": "硫化橡胶",
+      "aliases": [
+        "Vulcanite"
+      ],
+      "reviewStatus": "confirmed",
+      "notes": []
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+{
+  "schemaVersion": 1,
+  "specialValues": {
+    "notApplicable": [
+      "N/A"
+    ],
+    "unknown": [
+      "unknown"
+    ]
+  },
+  "shapes": [
+    {
+      "canonicalShape": "Acorn/Pear",
+      "canonicalShapeSlug": "acorn-pear",
+      "zhName": null,
+      "aliases": [
+        "Acorn/Pear"
+      ],
+      "bendType": "mixed",
+      "reviewStatus": "provisional",
+      "notes": [
+        "Source shape retained as standalone canonical pending human review.",
+        "Source uses Acorn/Pear as a combined shape bucket; retained as standalone composite value."
+      ]
+    },
+    {
+      "canonicalShape": "Apple",
+      "canonicalShapeSlug": "apple",
+      "zhName": "苹果斗",
+      "aliases": [
+        "apple",
+        "Apple"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Author",
+      "canonicalShapeSlug": "author",
+      "zhName": "作家斗",
+      "aliases": [
+        "author",
+        "Author"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Apple",
+      "canonicalShapeSlug": "bent-apple",
+      "zhName": "弯式苹果斗",
+      "aliases": [
+        "Bent Apple"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Ball",
+      "canonicalShapeSlug": "bent-ball",
+      "zhName": null,
+      "aliases": [
+        "Bent Ball"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Billiard",
+      "canonicalShapeSlug": "bent-billiard",
+      "zhName": "弯式撞球斗",
+      "aliases": [
+        "Bent Billiard"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Brandy",
+      "canonicalShapeSlug": "bent-brandy",
+      "zhName": "弯式白兰地斗",
+      "aliases": [
+        "Bent Brandy"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Bulldog",
+      "canonicalShapeSlug": "bent-bulldog",
+      "zhName": "弯式斗牛犬斗",
+      "aliases": [
+        "Bent Bulldog"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Dublin",
+      "canonicalShapeSlug": "bent-dublin",
+      "zhName": "弯式都柏林斗",
+      "aliases": [
+        "Bent Dublin"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Egg",
+      "canonicalShapeSlug": "bent-egg",
+      "zhName": "弯式蛋形斗",
+      "aliases": [
+        "Bent Egg",
+        "egg"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bent Pot",
+      "canonicalShapeSlug": "bent-pot",
+      "zhName": "弯式罐式斗",
+      "aliases": [
+        "Bent Pot"
+      ],
+      "bendType": "bent",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Billiard",
+      "canonicalShapeSlug": "billiard",
+      "zhName": "撞球斗",
+      "aliases": [
+        "Billard",
+        "billiard",
+        "Billiard"
+      ],
+      "bendType": "straight",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Blowfish",
+      "canonicalShapeSlug": "blowfish",
+      "zhName": "河豚斗",
+      "aliases": [
+        "blowfish",
+        "Blowfish"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Brandy",
+      "canonicalShapeSlug": "brandy",
+      "zhName": "白兰地斗",
+      "aliases": [
+        "brandy",
+        "Brandy"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Bulldog",
+      "canonicalShapeSlug": "bulldog",
+      "zhName": "斗牛犬斗",
+      "aliases": [
+        "bulldog",
+        "Bulldog"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Calabash",
+      "canonicalShapeSlug": "calabash",
+      "zhName": "葫芦斗",
+      "aliases": [
+        "calabash",
+        "Calabash"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Canadian",
+      "canonicalShapeSlug": "canadian",
+      "zhName": "加拿大斗",
+      "aliases": [
+        "canadian",
+        "Canadian"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Cavalier",
+      "canonicalShapeSlug": "cavalier",
+      "zhName": null,
+      "aliases": [
+        "Cavalier"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Chimney",
+      "canonicalShapeSlug": "chimney",
+      "zhName": null,
+      "aliases": [
+        "Chimney"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Churchwarden",
+      "canonicalShapeSlug": "churchwarden",
+      "zhName": "长杆斗",
+      "aliases": [
+        "churchwarden",
+        "Churchwarden"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Cutty",
+      "canonicalShapeSlug": "cutty",
+      "zhName": null,
+      "aliases": [
+        "Cutty"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Devil Anse",
+      "canonicalShapeSlug": "devil-anse",
+      "zhName": null,
+      "aliases": [
+        "Devil Anse"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Dublin",
+      "canonicalShapeSlug": "dublin",
+      "zhName": "都柏林斗",
+      "aliases": [
+        "dublin",
+        "Dublin"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Figural",
+      "canonicalShapeSlug": "figural",
+      "zhName": null,
+      "aliases": [
+        "Figural"
+      ],
+      "bendType": "mixed",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Freehand",
+      "canonicalShapeSlug": "freehand",
+      "zhName": "自由式斗",
+      "aliases": [
+        "freehand",
+        "Freehand"
+      ],
+      "bendType": "mixed",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Hawkbill",
+      "canonicalShapeSlug": "hawkbill",
+      "zhName": null,
+      "aliases": [
+        "Hawkbill"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Horn",
+      "canonicalShapeSlug": "horn",
+      "zhName": "号角斗",
+      "aliases": [
+        "horn",
+        "Horn"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Liverpool",
+      "canonicalShapeSlug": "liverpool",
+      "zhName": "利物浦斗",
+      "aliases": [
+        "liverpool",
+        "Liverpool"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Lovat",
+      "canonicalShapeSlug": "lovat",
+      "zhName": "罗瓦斗",
+      "aliases": [
+        "lovat",
+        "Lovat"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Lumberman",
+      "canonicalShapeSlug": "lumberman",
+      "zhName": null,
+      "aliases": [
+        "Lumberman"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Oom Paul",
+      "canonicalShapeSlug": "oom-paul",
+      "zhName": null,
+      "aliases": [
+        "Oom Paul"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Opera",
+      "canonicalShapeSlug": "opera",
+      "zhName": null,
+      "aliases": [
+        "Opera"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Panel",
+      "canonicalShapeSlug": "panel",
+      "zhName": null,
+      "aliases": [
+        "Panel"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Poker",
+      "canonicalShapeSlug": "poker",
+      "zhName": "扑克斗",
+      "aliases": [
+        "poker",
+        "Poker"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Pot",
+      "canonicalShapeSlug": "pot",
+      "zhName": "罐式斗",
+      "aliases": [
+        "pot",
+        "Pot"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Prince",
+      "canonicalShapeSlug": "prince",
+      "zhName": "王子斗",
+      "aliases": [
+        "prince",
+        "Prince"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Rhodesian",
+      "canonicalShapeSlug": "rhodesian",
+      "zhName": "牛头斗",
+      "aliases": [
+        "rhodesian",
+        "Rhodesian"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Skater",
+      "canonicalShapeSlug": "skater",
+      "zhName": null,
+      "aliases": [
+        "Skater"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Tomato",
+      "canonicalShapeSlug": "tomato",
+      "zhName": "番茄斗",
+      "aliases": [
+        "tomato",
+        "Tomato"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Volcano",
+      "canonicalShapeSlug": "volcano",
+      "zhName": "火山斗",
+      "aliases": [
+        "volcano",
+        "Volcano"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    },
+    {
+      "canonicalShape": "Zulu",
+      "canonicalShapeSlug": "zulu",
+      "zhName": null,
+      "aliases": [
+        "Zulu"
+      ],
+      "bendType": "unknown",
+      "reviewStatus": "confirmed",
+      "notes": []
+    }
+  ]
+}

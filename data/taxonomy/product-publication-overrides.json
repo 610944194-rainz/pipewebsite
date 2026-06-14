@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 1,
+  "decisionStatus": "human-approved",
+  "directOverrides": [
+    {
+      "source": "danish",
+      "sourceProductId": "167",
+      "entityType": "accessory",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1848",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1849",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1850",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1851",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1853",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1854",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1855",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1857",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "1858",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "3717",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "3718",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "3719",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "7254",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "7255",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "7256",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "7276",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "8654",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "9457",
+      "entityType": "component-stem",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "11949",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "16229",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "16230",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "16231",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "16232",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "16595",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "18594",
+      "entityType": "component-stem",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "18596",
+      "entityType": "component-stem",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "21759",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "21760",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "21761",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "21762",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "21763",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "29653",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "29654",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "32913",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "35238",
+      "entityType": "component-stem",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "35239",
+      "entityType": "component-stem",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36415",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36416",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36419",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36420",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36421",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "danish",
+      "sourceProductId": "36422",
+      "entityType": "component-bowl",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "组件或配件，不进入完整烟斗列表"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "427301",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "427315",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "427320",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "427322",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "479928",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    },
+    {
+      "source": "smokingpipes",
+      "sourceProductId": "479931",
+      "entityType": "brand-mismatch",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": true,
+      "reason": "第1轮已确认 Falcon/AKB 跨品牌错误关联"
+    }
+  ],
+  "ruleOverrides": [
+    {
+      "source": "danish",
+      "rawBrandEquals": "Pipepack",
+      "entityType": "bundle",
+      "listingEligible": false,
+      "brandIndexEligible": false,
+      "filterEligible": false,
+      "countsTowardAnomalyRate": false,
+      "reason": "Pipepack is a product bundle, not a standalone pipe."
+    }
+  ],
+  "classificationExclusions": [
+    {
+      "field": "finish",
+      "canonicalValue": "Other",
+      "replacement": null,
+      "reason": "Generic Other value is excluded from public filters."
+    },
+    {
+      "field": "bowlMaterial",
+      "canonicalValue": "Other",
+      "replacement": null,
+      "reason": "Generic Other value is excluded from public filters."
+    },
+    {
+      "field": "stemMaterial",
+      "canonicalValue": "Other",
+      "replacement": null,
+      "reason": "Generic Other value is excluded from public filters."
+    },
+    {
+      "field": "filter",
+      "canonicalValue": "other",
+      "replacement": null,
+      "reason": "Non-standard filter systems remain in source data but are excluded from concrete filter-size filters."
+    }
+  ]
+}
