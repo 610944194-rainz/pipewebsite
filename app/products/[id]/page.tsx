@@ -4,6 +4,7 @@ import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
 import { parseBrandSummary } from "../../utils/display";
 import { getBrandByName } from "@/data/brands";
+import { getProductDisplayName } from "@/lib/product-display-name";
 import {
   conditionDisplayLabel,
   countryLabel,
@@ -55,30 +56,6 @@ function buildDetailHref(
 
   const query = params.toString();
   return query ? `/products/${id}?${query}` : `/products/${id}`;
-}
-
-function displayTitle(product: PublicDetailProduct) {
-  return (
-    product.displayNameZh ||
-    product.displayName ||
-    product.displayNameEn ||
-    product.rawTitle ||
-    product.id
-  );
-}
-
-function displaySubtitle(product: PublicDetailProduct) {
-  const title = displayTitle(product);
-
-  if (product.displayNameEn && product.displayNameEn !== title) {
-    return product.displayNameEn;
-  }
-
-  if (product.rawTitle && product.rawTitle !== title) {
-    return product.rawTitle;
-  }
-
-  return "";
 }
 
 function knownText(value: unknown) {
@@ -280,8 +257,9 @@ export default async function ProductDetailPage({
   const safeInitialImageIndex = Number.isFinite(initialImageIndex)
     ? initialImageIndex
     : 0;
-  const title = displayTitle(product);
-  const subtitle = displaySubtitle(product);
+  const productDisplayName = getProductDisplayName(product);
+  const title = productDisplayName.title;
+  const subtitle = productDisplayName.subtitle;
   const brand = product.brandName ? getBrandByName(product.brandName) : undefined;
   const brandSummary = parseBrandSummary(brand?.summary);
   const brandSlug = product.brandSlug || brand?.slug || "";

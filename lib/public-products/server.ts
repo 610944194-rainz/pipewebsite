@@ -11,6 +11,7 @@ import type {
   PublicFilters,
   PublicLookupFile,
 } from "./types";
+import { withSafeDisplayName } from "../product-display-name-server";
 
 const ROOT = process.cwd();
 const PUBLIC_PRODUCTS_ROOT = path.join(
@@ -49,7 +50,9 @@ function assertShard(shard: string) {
 
 export function getPublicCatalog(): PublicCatalogProduct[] {
   if (!catalogCache) {
-    catalogCache = readJson<CatalogFile>(dataFile("catalog.json")).products;
+    catalogCache = readJson<CatalogFile>(dataFile("catalog.json")).products.map(
+      withSafeDisplayName
+    );
   }
 
   return catalogCache;
@@ -122,7 +125,10 @@ export function getPublicProductDetailById(
 
   if (!shard) return null;
 
-  return readPublicDetailShard(shard).find((product) => product.id === id) || null;
+  const product =
+    readPublicDetailShard(shard).find((entry) => entry.id === id) || null;
+
+  return product ? withSafeDisplayName(product) : null;
 }
 
 export function resolvePublicProductId(rawId: string):

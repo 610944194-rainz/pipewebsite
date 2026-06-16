@@ -1,4 +1,5 @@
 import type { PublicCatalogProduct } from "./types";
+import { getProductDisplayName } from "../product-display-name";
 
 const COUNTRY_ZH: Record<string, string> = {
   Brazil: "巴西",
@@ -119,20 +120,11 @@ export function formatSitePrice(product: PublicCatalogProduct) {
 }
 
 export function displayProductName(product: PublicCatalogProduct) {
-  return (
-    product.displayName ||
-    product.displayNameEn ||
-    product.rawTitle ||
-    product.id
-  );
+  return getProductDisplayName(product).title;
 }
 
 export function displayProductEnglishName(product: PublicCatalogProduct) {
-  if (product.displayName && product.displayNameEn) {
-    return product.displayNameEn;
-  }
-
-  return "";
+  return getProductDisplayName(product).subtitle || "";
 }
 
 export { shapeDisplayLabel } from "./shape";

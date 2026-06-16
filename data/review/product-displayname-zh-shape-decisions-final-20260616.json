@@ -1,0 +1,236 @@
+{
+  "version": "20260616-final-human-shape-decisions",
+  "rules": {
+    "useUserDecisionFirst": true,
+    "doNotInventShapeZh": true,
+    "keepEnglishWhenUserSaysNoDisplay": false,
+    "shapeSuffixShouldEndWithDouWhenApplicable": true,
+    "contextAwareHorn": true,
+    "doNotDisplayNonShapeKeywords": true
+  },
+  "shapeDecisions": {
+    "Freehand": {
+      "action": "translate",
+      "zh": "自由式斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 310
+    },
+    "Calabash": {
+      "action": "translate",
+      "zh": "葫芦斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 115
+    },
+    "Horn": {
+      "action": "translate-contextual",
+      "zh": "号角斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 107,
+      "contextRules": {
+        "asShapeWhen": [
+          "shape field equals Horn",
+          "original title uses Horn as standalone shape token"
+        ],
+        "notShapeWhen": [
+          "w. Horn",
+          "with Horn",
+          "w/Horn",
+          "Horn stem",
+          "Horn mount",
+          "Horn accent",
+          "Horn ferrule",
+          "horn application",
+          "horn material context"
+        ],
+        "notShapeAction": "treat-as-material-or-descriptor"
+      }
+    },
+    "Sitter": {
+      "action": "translate",
+      "zh": "坐斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 86
+    },
+    "Oom Paul": {
+      "action": "translate",
+      "zh": "匈牙利式斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 68
+    },
+    "Tomato": {
+      "action": "translate",
+      "zh": "番茄斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 66
+    },
+    "Volcano": {
+      "action": "translate",
+      "zh": "火山斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 62
+    },
+    "Nosewarmer": {
+      "action": "translate",
+      "zh": "暖鼻斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 59
+    },
+    "Reverse Calabash": {
+      "action": "translate",
+      "zh": "大气室斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 24,
+      "notes": [
+        "Reverse Calabash 也可理解为结构 / 气室设计，但商品展示中可作为识别性尾缀使用。"
+      ]
+    },
+    "Blowfish": {
+      "action": "translate",
+      "zh": "河豚斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 21
+    },
+    "Barrel": {
+      "action": "translate",
+      "zh": "酒桶斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 17
+    },
+    "Tulip": {
+      "action": "translate",
+      "zh": "郁金香斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 16
+    },
+    "Ball": {
+      "action": "translate",
+      "zh": "球形斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 9
+    },
+    "Pickaxe": {
+      "action": "translate",
+      "zh": "十字镐斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 8
+    },
+    "Diplomat": {
+      "action": "translate",
+      "zh": "外交官斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 7
+    },
+    "Stack": {
+      "action": "do-not-display",
+      "zh": null,
+      "isShape": false,
+      "display": false,
+      "decisionSource": "user-confirmed",
+      "count": 7,
+      "notes": [
+        "用户确认：不属于斗型，不展示。不得生成 Stack 斗。"
+      ]
+    },
+    "Cavalier": {
+      "action": "translate",
+      "zh": "骑士斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 6
+    },
+    "Skater": {
+      "action": "do-not-display",
+      "zh": null,
+      "isShape": false,
+      "display": false,
+      "decisionSource": "user-confirmed",
+      "count": 3,
+      "notes": [
+        "用户确认：不展示。不得生成 Skater 斗。"
+      ]
+    },
+    "Poker Sitter": {
+      "action": "translate",
+      "zh": "扑克斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 2,
+      "notes": [
+        "Poker Sitter 展示时按扑克斗处理，不额外显示坐斗。"
+      ]
+    },
+    "Shield": {
+      "action": "translate",
+      "zh": "盾牌斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 1
+    },
+    "Strawberry": {
+      "action": "translate",
+      "zh": "草莓斗",
+      "isShape": true,
+      "display": true,
+      "decisionSource": "user-confirmed",
+      "count": 1
+    }
+  },
+  "doNotDisplayShapeKeywords": [
+    "Stack",
+    "Skater"
+  ],
+  "contextualShapeKeywords": {
+    "Horn": {
+      "shapeZh": "号角斗",
+      "materialOrDescriptorContexts": [
+        "w. Horn",
+        "with Horn",
+        "w/Horn",
+        "Horn stem",
+        "Horn mount",
+        "Horn accent",
+        "Horn ferrule",
+        "horn application"
+      ]
+    }
+  },
+  "notes": [
+    "用户提供的当前处理列视为最终中文处理。",
+    "Stack 和 Skater 用户确认不展示，不得作为斗型尾缀。",
+    "Horn 必须做语境判断，不能把 w. Horn / with Horn 等材质语境误判为号角斗。",
+    "Reverse Calabash 虽偏结构词，但作为商品展示识别信息可显示为大气室斗。"
+  ]
+}

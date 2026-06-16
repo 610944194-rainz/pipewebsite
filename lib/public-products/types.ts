@@ -17,6 +17,17 @@ export type PublicProductSortKeys = {
   sourceProductId: string;
 };
 
+export type PublicProductDisplayNameQuality =
+  | "ready"
+  | "candidate"
+  | "fallback-original";
+
+export type PublicProductBrandZhSource =
+  | "taxonomy-confirmed"
+  | "danishpipe-confirmed"
+  | "keep-original-unconfirmed"
+  | "unknown";
+
 export type PublicCatalogProduct = {
   id: string;
   source: PublicSource;
@@ -27,6 +38,12 @@ export type PublicCatalogProduct = {
   displayName: string | null;
   displayNameEn: string | null;
   rawTitle: string | null;
+  safeDisplayNameZh?: string | null;
+  displayTitle?: string | null;
+  subtitleOriginalName?: string | null;
+  displayNameQuality?: PublicProductDisplayNameQuality | null;
+  displayNameWarnings?: string[];
+  brandZhSource?: PublicProductBrandZhSource | null;
   mainImage: string | null;
   sourcePriceAmount: number | null;
   sourcePriceCurrency: string | null;

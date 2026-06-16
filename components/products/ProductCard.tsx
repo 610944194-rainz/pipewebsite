@@ -185,11 +185,11 @@ export default function ProductCard({
 
           {!compact ? (
             subtitle ? (
-              <p className="mt-1 line-clamp-1 min-h-5 text-[11px] leading-5 text-[#8A8176]">
+              <p className="mt-1 line-clamp-2 min-h-[34px] text-[11px] leading-[17px] text-[#8A8176]">
                 {subtitle}
               </p>
             ) : (
-              <span className="mt-1 block min-h-5" aria-hidden="true" />
+              <span className="mt-1 block min-h-[34px]" aria-hidden="true" />
             )
           ) : null}
 

@@ -1,0 +1,238 @@
+{
+  "version": "20260616-final-human-brand-decisions-v2-researched",
+  "rules": {
+    "doNotInventBrandZh": true,
+    "useDanishPipeConfirmedFirst": true,
+    "useUserTop50DecisionFirst": true,
+    "useResearchedZhOnlyWhenReliable": true,
+    "keepOriginalWhenNoReliableZh": true,
+    "seriesMustNotBecomeBrand": true
+  },
+  "brandDecisions": {
+    "Barling": { "action": "translate", "zh": "巴林", "decisionSource": "user-top50" },
+    "AKB": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Cavicchi": { "action": "translate", "zh": "卡维奇", "decisionSource": "user-top50" },
+    "GH Zhang": { "action": "translate", "zh": "张国辉", "decisionSource": "user-top50" },
+    "Brigham": { "action": "translate", "zh": "布里格姆", "decisionSource": "user-top50" },
+    "Erik Stokkebye 4th Generation": { "action": "translate", "zh": "埃里克·斯托克比4代", "decisionSource": "user-top50" },
+    "Ser Jacopo": { "action": "translate", "zh": "雅克博", "decisionSource": "user-top50" },
+    "Rossi": { "action": "translate", "zh": "罗西", "decisionSource": "user-top50" },
+    "Lorenzetti": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Winsløw": { "action": "translate", "zh": "温斯洛", "decisionSource": "user-top50" },
+    "Old German Clay": { "action": "translate", "zh": "老德国陶土", "decisionSource": "user-top50" },
+    "Ashton": { "action": "translate", "zh": "阿什顿", "decisionSource": "user-top50" },
+    "Radice": { "action": "translate", "zh": "雷迪斯", "decisionSource": "user-top50" },
+    "Ropp": { "action": "translate", "zh": "罗普", "decisionSource": "user-top50" },
+    "White Elephant": { "action": "translate", "zh": "白象", "decisionSource": "user-top50" },
+    "Mastro Geppetto": { "action": "translate", "zh": "马斯特罗·杰佩托", "decisionSource": "user-top50" },
+    "Tsuge": { "action": "translate", "zh": "拓植", "decisionSource": "user-top50" },
+    "Caminetto": { "action": "translate", "zh": "白胡子", "decisionSource": "user-top50" },
+    "Musico": { "action": "translate", "zh": "音乐家", "decisionSource": "user-top50" },
+    "Jacono": { "action": "translate", "zh": "杰克诺", "decisionSource": "user-top50" },
+    "Rinaldo": { "action": "translate", "zh": "里纳尔多", "decisionSource": "user-top50" },
+    "Genod": { "action": "keep-original", "decisionSource": "user-top50" },
+    "The French Pipe": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Lanatra": { "action": "translate", "zh": "鸭子", "decisionSource": "user-top50" },
+    "Briarworks": { "action": "translate", "zh": "石楠工坊", "decisionSource": "user-top50" },
+    "Valbruna": { "action": "translate", "zh": "瓦尔布鲁纳", "decisionSource": "user-top50" },
+    "Bruno Nuttens": { "action": "translate", "zh": "布鲁诺·努滕斯", "decisionSource": "user-top50" },
+    "Randy Wiley": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Ardor": { "action": "translate", "zh": "阿道尔", "decisionSource": "user-top50" },
+    "Il Cerchio": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Davide Iafisco": { "action": "translate", "zh": "雅法", "decisionSource": "user-top50" },
+    "Duca": { "action": "translate", "zh": "杜卡", "decisionSource": "user-top50" },
+    "Jody Davis": { "action": "translate", "zh": "乔迪·戴维斯", "decisionSource": "user-top50" },
+    "Bill Shalosky": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Johs": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Mark Tinsky": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Todd Johnson": { "action": "translate", "zh": "托德·约翰逊", "decisionSource": "user-top50" },
+    "Jerry Zenn": { "action": "translate", "zh": "曾朝阳", "decisionSource": "user-top50" },
+    "Sam Adebayo": { "action": "translate", "zh": "山姆·阿德巴约", "decisionSource": "user-top50" },
+    "Skovgaard": { "action": "translate", "zh": "拉塞", "decisionSource": "user-top50" },
+    "Werner Mummert": { "action": "translate", "zh": "维纳·孟买特", "decisionSource": "user-top50" },
+    "Yang Kun": { "action": "translate", "zh": "杨坤", "decisionSource": "user-top50" },
+    "Ken Dederichs": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Luiz Lavos": { "action": "keep-original", "decisionSource": "user-top50" },
+    "Lv Zelong": { "action": "translate", "zh": "吕泽龙", "decisionSource": "user-top50" },
+    "Wojtek Pastuch": { "action": "translate", "zh": "帕斯图赫", "decisionSource": "user-top50" },
+    "Alan": { "action": "translate", "zh": "杰夫·阿兰", "decisionSource": "user-top50" },
+    "Askwith": { "action": "keep-original", "decisionSource": "user-top50" },
+
+    "Chris Asteriou": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Dirk Heinemann": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Jared Coles": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Mike Sebastian Bay": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Sabina Santos": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Abe Herbaugh": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Doctor's Pipes": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Emiliano": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+
+    "Former": {
+      "action": "translate",
+      "zh": "佛么",
+      "decisionSource": "researched-zh",
+      "notes": ["Hans Nielsen / Former 在中文烟斗资料中常见为“佛么”。"]
+    },
+
+    "Konstantin": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Lan Make": {
+      "action": "keep-original",
+      "decisionSource": "researched-insufficient",
+      "notes": ["疑似与中国斗师兰振军 / LanZhenjun Make 有关，但当前 canonical 为 Lan Make，证据不足，先保留英文。"]
+    },
+    "Silver Gray": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Herriot Pipes": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Martelo": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Pohlmann": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Yuwei": { "action": "keep-original", "decisionSource": "researched-insufficient" },
+    "Adam Davidson": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Austin Quinlan": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+
+    "Bjarne": {
+      "action": "translate",
+      "zh": "比耶恩",
+      "decisionSource": "researched-zh",
+      "aliasesZh": ["BJ比耶恩"],
+      "notes": ["DanishPipe 中文资料使用 BJ比耶恩烟斗 / Bjarne Pipes。"]
+    },
+
+    "Charatan's": {
+      "action": "translate",
+      "zh": "查拉坦",
+      "decisionSource": "researched-zh-with-variants",
+      "aliasesZh": ["查瑞坦", "查尔顿"],
+      "notes": ["中文资料存在查拉坦、查瑞坦、查尔顿多种叫法；本站采用用户烟斗圈口径“查拉坦”。"]
+    },
+
+    "Comoy's": {
+      "action": "translate",
+      "zh": "科莫伊",
+      "decisionSource": "researched-zh",
+      "notes": ["中文资料中 Comoy family 通常译作科莫伊家族。"]
+    },
+
+    "David Huber": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Dollar Kapten Pipe": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Florov": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "G Penzo": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Henri Sorensen": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Li Zhesong": {
+      "action": "keep-original",
+      "decisionSource": "researched-insufficient",
+      "notes": ["虽明显为中文姓名拼音，但未查到可靠汉字来源，不猜写。"]
+    },
+    "Ryan Alden": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+
+    "S. Bang": {
+      "action": "translate",
+      "zh": "斯邦",
+      "decisionSource": "researched-zh",
+      "notes": ["DanishPipe 中文页直接使用“斯邦烟斗 / S. Bang Pipes”。"]
+    },
+
+    "Sam Cui": {
+      "action": "keep-original",
+      "decisionSource": "researched-insufficient",
+      "notes": ["疑似中文姓氏 Cui，但未查到可靠汉字来源，不猜写。"]
+    },
+    "Scott Thile": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Suhr": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Trey Rice": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Wandi Riyadi": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Alexander Hasty": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+
+    "Balleby": {
+      "action": "translate",
+      "zh": "库尔特·巴拉比",
+      "decisionSource": "researched-zh",
+      "notes": ["中文资料使用 Kurt Balleby（库尔特·巴拉比）。"]
+    },
+
+    "Becker": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Brighton James": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Brulor": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+
+    "Butz-Choquin": {
+      "action": "translate",
+      "zh": "BC",
+      "decisionSource": "researched-zh",
+      "aliasesZh": ["Butz-Choquin"],
+      "notes": ["烟斗村品牌库中译名为 BC；不强行音译。"]
+    },
+
+    "Christian Ruetz": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Jakobsen": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Ken Pipes": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "KS Pipe": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Leopold": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Micah Redmond": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Michael Parks": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Old Dominion": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Pete Prevost": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" },
+    "Pipe Key Ring": {
+      "action": "keep-original",
+      "decisionSource": "researched-non-brand-or-accessory",
+      "notes": ["疑似配件/非烟斗品牌项，先保留英文，不作为品牌中文名沉淀。"]
+    },
+    "Pipepack": {
+      "action": "keep-original",
+      "decisionSource": "researched-non-brand-or-accessory",
+      "notes": ["疑似配件/非烟斗品牌项，先保留英文，不作为品牌中文名沉淀。"]
+    },
+    "Scott Klein": { "action": "keep-original", "decisionSource": "researched-no-reliable-zh" }
+  },
+  "brandAliasCorrections": {
+    "Savinelli Autograph": {
+      "action": "alias-to-brand-with-series",
+      "canonicalBrand": "Savinelli",
+      "brandZh": "沙芬",
+      "series": "Autograph",
+      "notes": ["Autograph 是 Savinelli 旗下系列/手工线，不是独立品牌。"]
+    },
+    "Tsuge Ikebana": {
+      "action": "alias-to-brand-with-series",
+      "canonicalBrand": "Tsuge",
+      "brandZh": "拓植",
+      "series": "Ikebana",
+      "notes": ["Ikebana 是 Tsuge 旗下高端手工系列，不是独立品牌。"]
+    },
+    "Eriksen Keystone filter pipe": {
+      "action": "alias-to-brand-with-series",
+      "canonicalBrand": "Nørding",
+      "brandZh": null,
+      "series": "Eriksen Keystone filter pipe",
+      "notes": ["按 Nørding 产品线/系列处理；Nørding 中文名必须从 taxonomy confirmed 读取，没有则保留 Nørding。"]
+    },
+    "Ashton for Paul Olsen": {
+      "action": "alias-to-brand-with-descriptor",
+      "canonicalBrand": "Ashton",
+      "brandZh": "阿什顿",
+      "descriptor": "for Paul Olsen",
+      "notes": ["按 Ashton 品牌 + for Paul Olsen 描述处理，不作为独立品牌。"]
+    },
+    "SON (Nording)": {
+      "action": "alias-to-brand-with-series",
+      "canonicalBrand": "Nørding",
+      "brandZh": null,
+      "series": "SON",
+      "notes": ["名称本身指向 Nording/Nørding；本轮不猜中文名，Nørding 中文名必须从 taxonomy confirmed 读取。"]
+    }
+  },
+  "reviewRequiredAfterApply": [
+    "Lan Make",
+    "Yuwei",
+    "Li Zhesong",
+    "Sam Cui",
+    "Pipe Key Ring",
+    "Pipepack",
+    "SON (Nording)"
+  ],
+  "notes": [
+    "Top 50 采用用户已确认结果，但 Savinelli Autograph 与 Tsuge Ikebana 改为品牌+系列边界修正。",
+    "51-105 已重新查找资料；只有可靠中文名或稳定烟斗圈叫法的项目才补中文名。",
+    "没有可靠中文来源的项目保留英文，不再偷懒式全量 keep-original，也不模型杜撰。",
+    "Charatan's 存在查拉坦、查瑞坦、查尔顿多种中文叫法，本站按用户口径采用查拉坦，并保留别名备注。",
+    "Butz-Choquin 采用 BC，不强行音译。",
+    "中文姓名拼音类品牌如 Li Zhesong、Sam Cui、Yuwei，未查到可靠汉字来源前不猜写。"
+  ]
+}

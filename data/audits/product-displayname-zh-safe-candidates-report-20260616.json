@@ -1,0 +1,818 @@
+{
+  "status": "completed",
+  "generatorVersion": "v3-final-postprocess-20260616",
+  "outputFiles": {
+    "candidates": "data/i18n/product-displayname-zh-safe-candidates.json",
+    "report": "data/audits/product-displayname-zh-safe-candidates-report-20260616.json",
+    "samples": "data/audits/product-displayname-zh-safe-candidates-samples-20260616.md"
+  },
+  "summary": {
+    "total": 7301,
+    "ready": 1001,
+    "candidate": 6136,
+    "fallback-original": 164,
+    "bySource": {
+      "danish": 2165,
+      "smokingpipes": 5136
+    },
+    "bySourceQuality": {
+      "danish": {
+        "candidate": 1939,
+        "fallback-original": 164,
+        "ready": 62
+      },
+      "smokingpipes": {
+        "candidate": 4197,
+        "ready": 939
+      }
+    }
+  },
+  "finalApplyStats": {
+    "brandFinalAppliedCount": 2211,
+    "shapeFinalAppliedCount": 677,
+    "aliasCorrectionAppliedCount": 55,
+    "doNotDisplayShapeSuppressedCount": 9,
+    "hornMaterialContextCount": 56,
+    "hornAsShapeCount": 50,
+    "changedTitleCount": 2013
+  },
+  "finalValidation": {
+    "titlesWithStackDouCount": 6,
+    "titlesWithSkaterDouCount": 0,
+    "titlesWithTulipDouCount": 0,
+    "titlesWithBallDouCount": 0,
+    "titlesWithBlowfishDouCount": 0,
+    "titlesWithSavinelliAutographAsBrandCount": 0,
+    "titlesWithTsugeIkebanaAsBrandCount": 0,
+    "emptyTitleCount": 0
+  },
+  "warningsTop20": [
+    {
+      "warning": "shortNameNeedsReview",
+      "count": 6027
+    },
+    {
+      "warning": "missingShapeFromOriginal",
+      "count": 4104
+    },
+    {
+      "warning": "missingModelNumberFromOriginal",
+      "count": 1813
+    },
+    {
+      "warning": "brandOnlyTitle",
+      "count": 895
+    },
+    {
+      "warning": "shapeMissingOrUnknown",
+      "count": 608
+    },
+    {
+      "warning": "shapeStillUnknown",
+      "count": 172
+    },
+    {
+      "warning": "fallbackRecommended",
+      "count": 164
+    },
+    {
+      "warning": "hornMaterialContext",
+      "count": 56
+    },
+    {
+      "warning": "unconfirmedShapeKeyword",
+      "count": 25
+    },
+    {
+      "warning": "brandUnconfirmed",
+      "count": 25
+    }
+  ],
+  "samples": {
+    "brandFinal": [
+      {
+        "id": "danish-34813",
+        "source": "danish",
+        "originalName": "Estate Bentley by Former, Billard, Unsmoked",
+        "beforeDisplayTitle": "宾利 by Former 撞球斗",
+        "afterDisplayTitle": "宾利 by 佛么 撞球斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "danish-34817",
+        "source": "danish",
+        "originalName": "Estate Bentley by Former, Pot-Billard, Unsmoked",
+        "beforeDisplayTitle": "宾利 by Former 撞球斗",
+        "afterDisplayTitle": "宾利 by 佛么 撞球斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "danish-36578",
+        "source": "danish",
+        "originalName": "Estate S. Bang, Billard w. silver, Presmoked",
+        "beforeDisplayTitle": "S. Bang Silver 撞球斗",
+        "afterDisplayTitle": "斯邦 Silver 撞球斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview"
+        ]
+      },
+      {
+        "id": "danish-36429",
+        "source": "danish",
+        "originalName": "Hans Former Nielsen, Freehand Pickaxe",
+        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
+        "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended"
+        ]
+      },
+      {
+        "id": "danish-36787",
+        "source": "danish",
+        "originalName": "Johs Pipes, Bent Brandy, 9 mm.",
+        "beforeDisplayTitle": "约斯 白兰地斗",
+        "afterDisplayTitle": "约斯 白兰地斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-36780",
+        "source": "danish",
+        "originalName": "Johs Pipes, Squat Bulldog",
+        "beforeDisplayTitle": "约斯 斗牛犬斗",
+        "afterDisplayTitle": "约斯 斗牛犬斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-36670",
+        "source": "danish",
+        "originalName": "Ken Dederichs, Bent Brandy",
+        "beforeDisplayTitle": "Ken Dederichs 白兰地斗",
+        "afterDisplayTitle": "Ken Dederichs 白兰地斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "danish-36669",
+        "source": "danish",
+        "originalName": "Ken Dederichs, Soft Pickaxe",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
+        "quality": "candidate",
+        "warnings": []
+      }
+    ],
+    "aliasCorrections": [
+      {
+        "id": "danish-1486",
+        "source": "danish",
+        "originalName": "Eriksen Keystone filter pipe, black/rusticated",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 Rusticated",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 Rusticated",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-31397",
+        "source": "danish",
+        "originalName": "Eriksen Keystone filter pipe, green/rusticated",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 Rusticated",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 Rusticated",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-1489",
+        "source": "danish",
+        "originalName": "Eriksen Keystone filter pipe, orange/rustic",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, orange/ 系列",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, orange/ 系列",
+        "quality": "candidate",
+        "warnings": [
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-7613",
+        "source": "danish",
+        "originalName": "Eriksen Keystone filter pipe, pistachio/rustic",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, pistachio/ 系列",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, pistachio/ 系列",
+        "quality": "candidate",
+        "warnings": [
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-34870",
+        "source": "danish",
+        "originalName": "Estate Ashton for Paul Olsen, Dublin, Presmoked",
+        "beforeDisplayTitle": "Ashton for Paul Olsen 都柏林斗",
+        "afterDisplayTitle": "阿什顿 都柏林斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "danish-33543",
+        "source": "danish",
+        "originalName": "Estate Savinelli, Autograph, Tall Freehand, Presm.",
+        "beforeDisplayTitle": "沙芬 Autograph 系列 自由式斗",
+        "afterDisplayTitle": "沙芬 Autograph 系列 自由式斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-36722",
+        "source": "danish",
+        "originalName": "Estate SON (Nording), Full Bent Egg, Presmoked",
+        "beforeDisplayTitle": "SON (Nording) Estate SON, Presmoked 系列 弯式蛋形斗",
+        "afterDisplayTitle": "Nørding Estate SON, Presmoked 系列 弯式蛋形斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "smokingpipes-477302",
+        "source": "smokingpipes",
+        "originalName": "Smooth Tomato with Horn (Fukuda) (R) (146) (2021) Tobacco Pipe",
+        "beforeDisplayTitle": "Tsuge Ikebana 146号 Smooth R 番茄斗",
+        "afterDisplayTitle": "拓植 146号 Smooth R 番茄斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal",
+          "hornMaterialContext"
+        ]
+      }
+    ],
+    "shapeFinal": [
+      {
+        "id": "danish-33109",
+        "source": "danish",
+        "originalName": "Anne Julie, Unica Blowfish",
+        "beforeDisplayTitle": "安妮·朱莉 Unica 系列 河豚斗",
+        "afterDisplayTitle": "安妮·朱莉 Unica 系列 河豚斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-36857",
+        "source": "danish",
+        "originalName": "Bay Denmark, Rusticated Horn",
+        "beforeDisplayTitle": "贝伊 Rusticated 号角斗",
+        "afterDisplayTitle": "贝伊 Rusticated 号角斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview"
+        ]
+      },
+      {
+        "id": "danish-36850",
+        "source": "danish",
+        "originalName": "Bay Denmark, Shield w. Horn",
+        "beforeDisplayTitle": "Bay Denmark, Shield w. Horn",
+        "afterDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended",
+          "hornMaterialContext",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-35639",
+        "source": "danish",
+        "originalName": "George Boyadjiev, Grade A, Army Mount Blowfish",
+        "beforeDisplayTitle": "乔治·博雅杰夫 Army 河豚斗",
+        "afterDisplayTitle": "乔治·博雅杰夫 Army 河豚斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-36429",
+        "source": "danish",
+        "originalName": "Hans Former Nielsen, Freehand Pickaxe",
+        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
+        "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended"
+        ]
+      },
+      {
+        "id": "danish-35095",
+        "source": "danish",
+        "originalName": "Kai Nielsen, Jewel X, Bent Canted Tulip",
+        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 Tulip 斗",
+        "afterDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
+        "quality": "candidate",
+        "warnings": []
+      },
+      {
+        "id": "danish-36669",
+        "source": "danish",
+        "originalName": "Ken Dederichs, Soft Pickaxe",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
+        "quality": "candidate",
+        "warnings": []
+      },
+      {
+        "id": "danish-36215",
+        "source": "danish",
+        "originalName": "Luiz Lavos, Strawberry w. horn",
+        "beforeDisplayTitle": "Luiz Lavos Strawberry w. horn 系列",
+        "afterDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
+        "quality": "candidate",
+        "warnings": [
+          "hornMaterialContext",
+          "shapeMissingOrUnknown"
+        ]
+      }
+    ],
+    "doNotDisplaySuppressed": [
+      {
+        "id": "smokingpipes-608617",
+        "source": "smokingpipes",
+        "originalName": "Dark Sandblasted Stack with Horn (Ping Zhan) (04) (2024) Tobacco Pipe",
+        "beforeDisplayTitle": "GH Zhang Dark 系列 04号 Sandblasted Stack 斗",
+        "afterDisplayTitle": "张国辉 Dark 系列 04号 Sandblasted Stack 斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "smokingpipes-608695",
+        "source": "smokingpipes",
+        "originalName": "Smooth Stack with Horn (Ping Zhan) (04) (2024) Tobacco Pipe",
+        "beforeDisplayTitle": "GH Zhang 04号 Smooth Stack 斗",
+        "afterDisplayTitle": "张国辉 04号 Smooth Stack 斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "smokingpipes-673651",
+        "source": "smokingpipes",
+        "originalName": "Pawn Stack Sitter (Checkmate) (2024) Tobacco Pipe",
+        "beforeDisplayTitle": "Jacono Pawn 系列 2024号 Stack 斗",
+        "afterDisplayTitle": "杰克诺 Pawn 系列 2024号 Stack 坐斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown"
+        ]
+      },
+      {
+        "id": "smokingpipes-694039",
+        "source": "smokingpipes",
+        "originalName": "Knight Stack (Checkmate) (2025) Tobacco Pipe",
+        "beforeDisplayTitle": "Jacono Knight 系列 2025号 Stack 斗",
+        "afterDisplayTitle": "杰克诺 Knight 系列 2025号 Stack 斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown"
+        ]
+      },
+      {
+        "id": "smokingpipes-722481",
+        "source": "smokingpipes",
+        "originalName": "Smooth Bent Stack with Boxwood (D) Tobacco Pipe",
+        "beforeDisplayTitle": "Duca Boxwood 系列 Smooth Stack 斗",
+        "afterDisplayTitle": "杜卡 Boxwood 系列 Smooth Stack 斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview"
+        ]
+      },
+      {
+        "id": "smokingpipes-722660",
+        "source": "smokingpipes",
+        "originalName": "Smooth Skater (Mcinar) (with Case) Tobacco Pipe",
+        "beforeDisplayTitle": "AKB Smooth",
+        "afterDisplayTitle": "AKB Smooth",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "smokingpipes-722665",
+        "source": "smokingpipes",
+        "originalName": "Rusticated Skater (with Case) Tobacco Pipe",
+        "beforeDisplayTitle": "AKB Rusticated",
+        "afterDisplayTitle": "AKB Rusticated",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "smokingpipes-723083",
+        "source": "smokingpipes",
+        "originalName": "Lattice Stack (with Case) Tobacco Pipe",
+        "beforeDisplayTitle": "AKB Lattice 系列 Stack 斗",
+        "afterDisplayTitle": "AKB Lattice 系列 Stack 斗",
+        "quality": "candidate",
+        "warnings": [
+          "shapeStillUnknown"
+        ]
+      }
+    ],
+    "hornMaterialContext": [
+      {
+        "id": "danish-36858",
+        "source": "danish",
+        "originalName": "Bay Denmark, Rusticated Billard w. Horn",
+        "beforeDisplayTitle": "贝伊 Rusticated 撞球斗",
+        "afterDisplayTitle": "贝伊 Rusticated 撞球斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "danish-36850",
+        "source": "danish",
+        "originalName": "Bay Denmark, Shield w. Horn",
+        "beforeDisplayTitle": "Bay Denmark, Shield w. Horn",
+        "afterDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended",
+          "hornMaterialContext",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-35776",
+        "source": "danish",
+        "originalName": "Henri Pipes, Apple w. horn",
+        "beforeDisplayTitle": "亨利 苹果斗",
+        "afterDisplayTitle": "亨利 苹果斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "danish-36215",
+        "source": "danish",
+        "originalName": "Luiz Lavos, Strawberry w. horn",
+        "beforeDisplayTitle": "Luiz Lavos Strawberry w. horn 系列",
+        "afterDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
+        "quality": "candidate",
+        "warnings": [
+          "hornMaterialContext",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-36301",
+        "source": "danish",
+        "originalName": "Suhr Pipes, Canted Tulip w. horn",
+        "beforeDisplayTitle": "Suhr Pipes, Canted Tulip w. horn",
+        "afterDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "danish-36302",
+        "source": "danish",
+        "originalName": "Suhr Pipes, Pear w. horn",
+        "beforeDisplayTitle": "Suhr Pipes, Pear w. horn",
+        "afterDisplayTitle": "Suhr Pipes, Pear w. horn",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended",
+          "hornMaterialContext",
+          "unconfirmedShapeKeyword"
+        ]
+      },
+      {
+        "id": "danish-36856",
+        "source": "danish",
+        "originalName": "Bay Denmark, Classic Billard w. Horn",
+        "beforeDisplayTitle": "贝伊 撞球斗",
+        "afterDisplayTitle": "贝伊 撞球斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "danish-36854",
+        "source": "danish",
+        "originalName": "Bay Denmark, Classic Dublin w. Horn",
+        "beforeDisplayTitle": "贝伊 都柏林斗",
+        "afterDisplayTitle": "贝伊 都柏林斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle",
+          "hornMaterialContext"
+        ]
+      }
+    ],
+    "keyRegressionChecks": [
+      {
+        "id": "danish-33109",
+        "source": "danish",
+        "originalName": "Anne Julie, Unica Blowfish",
+        "beforeDisplayTitle": "安妮·朱莉 Unica 系列 河豚斗",
+        "afterDisplayTitle": "安妮·朱莉 Unica 系列 河豚斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-36578",
+        "source": "danish",
+        "originalName": "Estate S. Bang, Billard w. silver, Presmoked",
+        "beforeDisplayTitle": "S. Bang Silver 撞球斗",
+        "afterDisplayTitle": "斯邦 Silver 撞球斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview"
+        ]
+      },
+      {
+        "id": "danish-35639",
+        "source": "danish",
+        "originalName": "George Boyadjiev, Grade A, Army Mount Blowfish",
+        "beforeDisplayTitle": "乔治·博雅杰夫 Army 河豚斗",
+        "afterDisplayTitle": "乔治·博雅杰夫 Army 河豚斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-36429",
+        "source": "danish",
+        "originalName": "Hans Former Nielsen, Freehand Pickaxe",
+        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
+        "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended"
+        ]
+      },
+      {
+        "id": "danish-35095",
+        "source": "danish",
+        "originalName": "Kai Nielsen, Jewel X, Bent Canted Tulip",
+        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 Tulip 斗",
+        "afterDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
+        "quality": "candidate",
+        "warnings": []
+      },
+      {
+        "id": "danish-36669",
+        "source": "danish",
+        "originalName": "Ken Dederichs, Soft Pickaxe",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
+        "quality": "candidate",
+        "warnings": []
+      },
+      {
+        "id": "danish-36301",
+        "source": "danish",
+        "originalName": "Suhr Pipes, Canted Tulip w. horn",
+        "beforeDisplayTitle": "Suhr Pipes, Canted Tulip w. horn",
+        "afterDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shortNameNeedsReview",
+          "fallbackRecommended",
+          "hornMaterialContext"
+        ]
+      },
+      {
+        "id": "danish-33538",
+        "source": "danish",
+        "originalName": "Tine Balleby, Bent Brandy w. Box Wood, Virgin",
+        "beforeDisplayTitle": "蒂娜·巴勒比 白兰地斗",
+        "afterDisplayTitle": "蒂娜·巴勒比 白兰地斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-33536",
+        "source": "danish",
+        "originalName": "Tine Balleby, Canted Facet Bulldog",
+        "beforeDisplayTitle": "蒂娜·巴勒比 斗牛犬斗",
+        "afterDisplayTitle": "蒂娜·巴勒比 斗牛犬斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-33106",
+        "source": "danish",
+        "originalName": "Anne Julie, Tulip Lovat",
+        "beforeDisplayTitle": "安妮·朱莉 罗瓦斗",
+        "afterDisplayTitle": "安妮·朱莉 罗瓦斗 郁金香斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingShapeFromOriginal",
+          "brandOnlyTitle"
+        ]
+      },
+      {
+        "id": "danish-35055",
+        "source": "danish",
+        "originalName": "BBB, Arsenal 722S, Bent Diplomat",
+        "beforeDisplayTitle": "BBB Arsenal 系列 722S Diplomat 斗",
+        "afterDisplayTitle": "BBB Arsenal 系列 722S 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-7786",
+        "source": "danish",
+        "originalName": "BBB, Arsenal 722S, Bent Stubby Diplomat",
+        "beforeDisplayTitle": "BBB Arsenal, Bent 系列 722S Diplomat 斗",
+        "afterDisplayTitle": "BBB Arsenal, Bent 系列 722S 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-7787",
+        "source": "danish",
+        "originalName": "BBB, Chelsea 722S, Bent Diplomat",
+        "beforeDisplayTitle": "BBB Chelsea 系列 722S Diplomat 斗",
+        "afterDisplayTitle": "BBB Chelsea 系列 722S 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-35056",
+        "source": "danish",
+        "originalName": "BBB, Chelsea 722S, Bent Stubby Diplomat",
+        "beforeDisplayTitle": "BBB Chelsea, Bent 系列 722S Diplomat 斗",
+        "afterDisplayTitle": "BBB Chelsea, Bent 系列 722S 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-33243",
+        "source": "danish",
+        "originalName": "Berggreen Pipes, Model 86, Diplomat",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-33245",
+        "source": "danish",
+        "originalName": "Berggreen Pipes, Model 86, Diplomat",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-33247",
+        "source": "danish",
+        "originalName": "Berggreen Pipes, Model 86, Diplomat",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-5024",
+        "source": "danish",
+        "originalName": "Chacom, Berlingot 22, Tulip, Matte",
+        "beforeDisplayTitle": "查科姆 Berlingot, Matte 系列 22号 Tulip 斗",
+        "afterDisplayTitle": "查科姆 Berlingot, Matte 系列 22号 郁金香斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
+        ]
+      },
+      {
+        "id": "danish-31757",
+        "source": "danish",
+        "originalName": "Chacom, The French Pipe, No. 1, Tulip, Sand",
+        "beforeDisplayTitle": "查科姆 The French, No., Sand 系列 Tulip 斗",
+        "afterDisplayTitle": "查科姆 The French, No., Sand 系列 郁金香斗",
+        "quality": "candidate",
+        "warnings": []
+      },
+      {
+        "id": "danish-27376",
+        "source": "danish",
+        "originalName": "Chacom, The French Pipe, No. 1, Tulip, Smooth",
+        "beforeDisplayTitle": "查科姆 The French, No. 系列 Smooth Tulip 斗",
+        "afterDisplayTitle": "查科姆 The French, No. 系列 Smooth 郁金香斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview"
+        ]
+      }
+    ]
+  },
+  "sourceFileHashes": {
+    "candidates": "567bed58a2c7d5be1cccee05dfbb66927000b6433e74ceb786e2cc08ee5eed10",
+    "brandFinal": "a4dbcac63bb7803b18b9f3b797aaf2a3ef3244f2259554cb4d0ecc64136b353f",
+    "shapeFinal": "cd5d3654f8f96aeb58d85abd62c4c241da1372ce9d39b5f149cfdb6556e15e40"
+  }
+}
