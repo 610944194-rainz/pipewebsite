@@ -1,6 +1,6 @@
 {
   "status": "completed",
-  "generatorVersion": "v3-final-postprocess-20260616",
+  "generatorVersion": "v8-finish-validator-hotfix-20260617",
   "outputFiles": {
     "candidates": "data/i18n/product-displayname-zh-safe-candidates.json",
     "report": "data/audits/product-displayname-zh-safe-candidates-report-20260616.json",
@@ -28,17 +28,22 @@
     }
   },
   "finalApplyStats": {
-    "brandFinalAppliedCount": 2211,
-    "shapeFinalAppliedCount": 677,
+    "brandFinalAppliedCount": 537,
+    "shapeFinalAppliedCount": 920,
     "aliasCorrectionAppliedCount": 55,
     "doNotDisplayShapeSuppressedCount": 9,
     "hornMaterialContextCount": 56,
     "hornAsShapeCount": 50,
-    "changedTitleCount": 2013
+    "changedTitleCount": 53
   },
   "finalValidation": {
-    "titlesWithStackDouCount": 6,
+    "titlesWithStackDouCount": 0,
     "titlesWithSkaterDouCount": 0,
+    "titlesWithDoNotDisplayTokenCount": 0,
+    "titlesWithAcornPearCount": 0,
+    "titlesWithBothAcornAndPearZhCount": 0,
+    "titlesWithHornMaterialAndHornZhCount": 0,
+    "titlesWithPanelAndCavalierZhCount": 0,
     "titlesWithTulipDouCount": 0,
     "titlesWithBallDouCount": 0,
     "titlesWithBlowfishDouCount": 0,
@@ -80,55 +85,25 @@
       "count": 56
     },
     {
-      "warning": "unconfirmedShapeKeyword",
+      "warning": "brandUnconfirmed",
       "count": 25
     },
     {
-      "warning": "brandUnconfirmed",
-      "count": 25
+      "warning": "unconfirmedShapeKeyword",
+      "count": 9
     }
   ],
   "samples": {
     "brandFinal": [
       {
-        "id": "danish-34813",
-        "source": "danish",
-        "originalName": "Estate Bentley by Former, Billard, Unsmoked",
-        "beforeDisplayTitle": "宾利 by Former 撞球斗",
-        "afterDisplayTitle": "宾利 by 佛么 撞球斗",
-        "quality": "ready",
-        "warnings": []
-      },
-      {
-        "id": "danish-34817",
-        "source": "danish",
-        "originalName": "Estate Bentley by Former, Pot-Billard, Unsmoked",
-        "beforeDisplayTitle": "宾利 by Former 撞球斗",
-        "afterDisplayTitle": "宾利 by 佛么 撞球斗",
-        "quality": "ready",
-        "warnings": []
-      },
-      {
         "id": "danish-36578",
         "source": "danish",
         "originalName": "Estate S. Bang, Billard w. silver, Presmoked",
-        "beforeDisplayTitle": "S. Bang Silver 撞球斗",
+        "beforeDisplayTitle": "斯邦 Silver 撞球斗",
         "afterDisplayTitle": "斯邦 Silver 撞球斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview"
-        ]
-      },
-      {
-        "id": "danish-36429",
-        "source": "danish",
-        "originalName": "Hans Former Nielsen, Freehand Pickaxe",
-        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
-        "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
-        "quality": "fallback-original",
-        "warnings": [
-          "shortNameNeedsReview",
-          "fallbackRecommended"
         ]
       },
       {
@@ -170,10 +145,44 @@
         "id": "danish-36669",
         "source": "danish",
         "originalName": "Ken Dederichs, Soft Pickaxe",
-        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "quality": "candidate",
         "warnings": []
+      },
+      {
+        "id": "danish-33190",
+        "source": "danish",
+        "originalName": "Ken Pipes, Canted Rhodesian, 25627",
+        "beforeDisplayTitle": "Ken Pipes 牛头斗",
+        "afterDisplayTitle": "Ken Pipes 牛头斗",
+        "quality": "ready",
+        "warnings": []
+      },
+      {
+        "id": "danish-36215",
+        "source": "danish",
+        "originalName": "Luiz Lavos, Strawberry w. horn",
+        "beforeDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
+        "afterDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
+        "quality": "candidate",
+        "warnings": [
+          "hornMaterialContext",
+          "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-36216",
+        "source": "danish",
+        "originalName": "Luiz Lavos, Virgin Acorn w. Jupati",
+        "beforeDisplayTitle": "Luiz Lavos, Virgin w. Jupati 橡果斗",
+        "afterDisplayTitle": "Luiz Lavos, Virgin w. Jupati 橡果斗",
+        "quality": "fallback-original",
+        "warnings": [
+          "shapeStillUnknown",
+          "shortNameNeedsReview",
+          "fallbackRecommended"
+        ]
       }
     ],
     "aliasCorrections": [
@@ -181,8 +190,8 @@
         "id": "danish-1486",
         "source": "danish",
         "originalName": "Eriksen Keystone filter pipe, black/rusticated",
-        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 Rusticated",
-        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 Rusticated",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 锈蚀",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, black/ 系列 锈蚀",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview",
@@ -193,8 +202,8 @@
         "id": "danish-31397",
         "source": "danish",
         "originalName": "Eriksen Keystone filter pipe, green/rusticated",
-        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 Rusticated",
-        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 Rusticated",
+        "beforeDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 锈蚀",
+        "afterDisplayTitle": "Eriksen Keystone filter Eriksen Keystone filter, green/ 系列 锈蚀",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview",
@@ -227,7 +236,7 @@
         "id": "danish-34870",
         "source": "danish",
         "originalName": "Estate Ashton for Paul Olsen, Dublin, Presmoked",
-        "beforeDisplayTitle": "Ashton for Paul Olsen 都柏林斗",
+        "beforeDisplayTitle": "阿什顿 都柏林斗",
         "afterDisplayTitle": "阿什顿 都柏林斗",
         "quality": "ready",
         "warnings": []
@@ -248,7 +257,7 @@
         "id": "danish-36722",
         "source": "danish",
         "originalName": "Estate SON (Nording), Full Bent Egg, Presmoked",
-        "beforeDisplayTitle": "SON (Nording) Estate SON, Presmoked 系列 弯式蛋形斗",
+        "beforeDisplayTitle": "Nørding Estate SON, Presmoked 系列 弯式蛋形斗",
         "afterDisplayTitle": "Nørding Estate SON, Presmoked 系列 弯式蛋形斗",
         "quality": "ready",
         "warnings": []
@@ -257,8 +266,8 @@
         "id": "smokingpipes-477302",
         "source": "smokingpipes",
         "originalName": "Smooth Tomato with Horn (Fukuda) (R) (146) (2021) Tobacco Pipe",
-        "beforeDisplayTitle": "Tsuge Ikebana 146号 Smooth R 番茄斗",
-        "afterDisplayTitle": "拓植 146号 Smooth R 番茄斗",
+        "beforeDisplayTitle": "拓植 146号 光面 R 番茄斗",
+        "afterDisplayTitle": "拓植 146号 光面 R 番茄斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview",
@@ -284,8 +293,8 @@
         "id": "danish-36857",
         "source": "danish",
         "originalName": "Bay Denmark, Rusticated Horn",
-        "beforeDisplayTitle": "贝伊 Rusticated 号角斗",
-        "afterDisplayTitle": "贝伊 Rusticated 号角斗",
+        "beforeDisplayTitle": "贝伊 锈蚀 号角斗",
+        "afterDisplayTitle": "贝伊 锈蚀 号角斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview"
@@ -295,7 +304,7 @@
         "id": "danish-36850",
         "source": "danish",
         "originalName": "Bay Denmark, Shield w. Horn",
-        "beforeDisplayTitle": "Bay Denmark, Shield w. Horn",
+        "beforeDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
         "afterDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
         "quality": "fallback-original",
         "warnings": [
@@ -303,6 +312,18 @@
           "fallbackRecommended",
           "hornMaterialContext",
           "shapeMissingOrUnknown"
+        ]
+      },
+      {
+        "id": "danish-5726",
+        "source": "danish",
+        "originalName": "Chacom, New Gentleman, 1095, Bent Acorn",
+        "beforeDisplayTitle": "查科姆 New Gentleman 系列 1095号 弯式橡果斗",
+        "afterDisplayTitle": "查科姆 New Gentleman 系列 1095号 弯式橡果斗",
+        "quality": "candidate",
+        "warnings": [
+          "shortNameNeedsReview",
+          "missingModelNumberFromOriginal"
         ]
       },
       {
@@ -322,7 +343,7 @@
         "id": "danish-36429",
         "source": "danish",
         "originalName": "Hans Former Nielsen, Freehand Pickaxe",
-        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
+        "beforeDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
         "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
         "quality": "fallback-original",
         "warnings": [
@@ -334,7 +355,7 @@
         "id": "danish-35095",
         "source": "danish",
         "originalName": "Kai Nielsen, Jewel X, Bent Canted Tulip",
-        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 Tulip 斗",
+        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
         "afterDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
         "quality": "candidate",
         "warnings": []
@@ -343,22 +364,10 @@
         "id": "danish-36669",
         "source": "danish",
         "originalName": "Ken Dederichs, Soft Pickaxe",
-        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "quality": "candidate",
         "warnings": []
-      },
-      {
-        "id": "danish-36215",
-        "source": "danish",
-        "originalName": "Luiz Lavos, Strawberry w. horn",
-        "beforeDisplayTitle": "Luiz Lavos Strawberry w. horn 系列",
-        "afterDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
-        "quality": "candidate",
-        "warnings": [
-          "hornMaterialContext",
-          "shapeMissingOrUnknown"
-        ]
       }
     ],
     "doNotDisplaySuppressed": [
@@ -366,8 +375,8 @@
         "id": "smokingpipes-608617",
         "source": "smokingpipes",
         "originalName": "Dark Sandblasted Stack with Horn (Ping Zhan) (04) (2024) Tobacco Pipe",
-        "beforeDisplayTitle": "GH Zhang Dark 系列 04号 Sandblasted Stack 斗",
-        "afterDisplayTitle": "张国辉 Dark 系列 04号 Sandblasted Stack 斗",
+        "beforeDisplayTitle": "张国辉 Dark 系列 04号 喷砂 斗",
+        "afterDisplayTitle": "张国辉 Dark 系列 04号 喷砂",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown",
@@ -380,8 +389,8 @@
         "id": "smokingpipes-608695",
         "source": "smokingpipes",
         "originalName": "Smooth Stack with Horn (Ping Zhan) (04) (2024) Tobacco Pipe",
-        "beforeDisplayTitle": "GH Zhang 04号 Smooth Stack 斗",
-        "afterDisplayTitle": "张国辉 04号 Smooth Stack 斗",
+        "beforeDisplayTitle": "张国辉 04号 光面 斗",
+        "afterDisplayTitle": "张国辉 04号 光面",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown",
@@ -394,8 +403,8 @@
         "id": "smokingpipes-673651",
         "source": "smokingpipes",
         "originalName": "Pawn Stack Sitter (Checkmate) (2024) Tobacco Pipe",
-        "beforeDisplayTitle": "Jacono Pawn 系列 2024号 Stack 斗",
-        "afterDisplayTitle": "杰克诺 Pawn 系列 2024号 Stack 坐斗",
+        "beforeDisplayTitle": "杰克诺 Pawn 系列 2024号 坐斗",
+        "afterDisplayTitle": "杰克诺 Pawn 系列 2024号 坐斗",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown"
@@ -405,8 +414,8 @@
         "id": "smokingpipes-694039",
         "source": "smokingpipes",
         "originalName": "Knight Stack (Checkmate) (2025) Tobacco Pipe",
-        "beforeDisplayTitle": "Jacono Knight 系列 2025号 Stack 斗",
-        "afterDisplayTitle": "杰克诺 Knight 系列 2025号 Stack 斗",
+        "beforeDisplayTitle": "杰克诺 Knight 系列 2025号 斗",
+        "afterDisplayTitle": "杰克诺 Knight 系列 2025号",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown"
@@ -416,8 +425,8 @@
         "id": "smokingpipes-722481",
         "source": "smokingpipes",
         "originalName": "Smooth Bent Stack with Boxwood (D) Tobacco Pipe",
-        "beforeDisplayTitle": "Duca Boxwood 系列 Smooth Stack 斗",
-        "afterDisplayTitle": "杜卡 Boxwood 系列 Smooth Stack 斗",
+        "beforeDisplayTitle": "杜卡 Boxwood 系列 光面 斗",
+        "afterDisplayTitle": "杜卡 Boxwood 系列 光面",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown",
@@ -428,8 +437,8 @@
         "id": "smokingpipes-722660",
         "source": "smokingpipes",
         "originalName": "Smooth Skater (Mcinar) (with Case) Tobacco Pipe",
-        "beforeDisplayTitle": "AKB Smooth",
-        "afterDisplayTitle": "AKB Smooth",
+        "beforeDisplayTitle": "AKB 光面",
+        "afterDisplayTitle": "AKB 光面",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown",
@@ -441,8 +450,8 @@
         "id": "smokingpipes-722665",
         "source": "smokingpipes",
         "originalName": "Rusticated Skater (with Case) Tobacco Pipe",
-        "beforeDisplayTitle": "AKB Rusticated",
-        "afterDisplayTitle": "AKB Rusticated",
+        "beforeDisplayTitle": "AKB 锈蚀",
+        "afterDisplayTitle": "AKB 锈蚀",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown",
@@ -454,8 +463,8 @@
         "id": "smokingpipes-723083",
         "source": "smokingpipes",
         "originalName": "Lattice Stack (with Case) Tobacco Pipe",
-        "beforeDisplayTitle": "AKB Lattice 系列 Stack 斗",
-        "afterDisplayTitle": "AKB Lattice 系列 Stack 斗",
+        "beforeDisplayTitle": "AKB Lattice 系列 斗",
+        "afterDisplayTitle": "AKB Lattice 系列",
         "quality": "candidate",
         "warnings": [
           "shapeStillUnknown"
@@ -467,8 +476,8 @@
         "id": "danish-36858",
         "source": "danish",
         "originalName": "Bay Denmark, Rusticated Billard w. Horn",
-        "beforeDisplayTitle": "贝伊 Rusticated 撞球斗",
-        "afterDisplayTitle": "贝伊 Rusticated 撞球斗",
+        "beforeDisplayTitle": "贝伊 锈蚀 撞球斗",
+        "afterDisplayTitle": "贝伊 锈蚀 撞球斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview",
@@ -481,7 +490,7 @@
         "id": "danish-36850",
         "source": "danish",
         "originalName": "Bay Denmark, Shield w. Horn",
-        "beforeDisplayTitle": "Bay Denmark, Shield w. Horn",
+        "beforeDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
         "afterDisplayTitle": "Bay Denmark w. Horn 盾牌斗",
         "quality": "fallback-original",
         "warnings": [
@@ -509,7 +518,7 @@
         "id": "danish-36215",
         "source": "danish",
         "originalName": "Luiz Lavos, Strawberry w. horn",
-        "beforeDisplayTitle": "Luiz Lavos Strawberry w. horn 系列",
+        "beforeDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
         "afterDisplayTitle": "Luiz Lavos w. horn 系列 草莓斗",
         "quality": "candidate",
         "warnings": [
@@ -521,7 +530,7 @@
         "id": "danish-36301",
         "source": "danish",
         "originalName": "Suhr Pipes, Canted Tulip w. horn",
-        "beforeDisplayTitle": "Suhr Pipes, Canted Tulip w. horn",
+        "beforeDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
         "afterDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
         "quality": "fallback-original",
         "warnings": [
@@ -534,14 +543,13 @@
         "id": "danish-36302",
         "source": "danish",
         "originalName": "Suhr Pipes, Pear w. horn",
-        "beforeDisplayTitle": "Suhr Pipes, Pear w. horn",
-        "afterDisplayTitle": "Suhr Pipes, Pear w. horn",
+        "beforeDisplayTitle": "Suhr Pipes w. horn 梨式斗",
+        "afterDisplayTitle": "Suhr Pipes w. horn 梨式斗",
         "quality": "fallback-original",
         "warnings": [
           "shortNameNeedsReview",
           "fallbackRecommended",
-          "hornMaterialContext",
-          "unconfirmedShapeKeyword"
+          "hornMaterialContext"
         ]
       },
       {
@@ -590,7 +598,7 @@
         "id": "danish-36578",
         "source": "danish",
         "originalName": "Estate S. Bang, Billard w. silver, Presmoked",
-        "beforeDisplayTitle": "S. Bang Silver 撞球斗",
+        "beforeDisplayTitle": "斯邦 Silver 撞球斗",
         "afterDisplayTitle": "斯邦 Silver 撞球斗",
         "quality": "candidate",
         "warnings": [
@@ -614,7 +622,7 @@
         "id": "danish-36429",
         "source": "danish",
         "originalName": "Hans Former Nielsen, Freehand Pickaxe",
-        "beforeDisplayTitle": "Hans Former Nielsen, Freehand Pickaxe",
+        "beforeDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
         "afterDisplayTitle": "Hans 佛么 Nielsen 自由式斗 十字镐斗",
         "quality": "fallback-original",
         "warnings": [
@@ -626,7 +634,7 @@
         "id": "danish-35095",
         "source": "danish",
         "originalName": "Kai Nielsen, Jewel X, Bent Canted Tulip",
-        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 Tulip 斗",
+        "beforeDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
         "afterDisplayTitle": "凯·尼尔森 Jewel X 系列 郁金香斗",
         "quality": "candidate",
         "warnings": []
@@ -635,7 +643,7 @@
         "id": "danish-36669",
         "source": "danish",
         "originalName": "Ken Dederichs, Soft Pickaxe",
-        "beforeDisplayTitle": "Ken Dederichs Soft 系列 Pickaxe 斗",
+        "beforeDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "afterDisplayTitle": "Ken Dederichs Soft 系列 十字镐斗",
         "quality": "candidate",
         "warnings": []
@@ -644,7 +652,7 @@
         "id": "danish-36301",
         "source": "danish",
         "originalName": "Suhr Pipes, Canted Tulip w. horn",
-        "beforeDisplayTitle": "Suhr Pipes, Canted Tulip w. horn",
+        "beforeDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
         "afterDisplayTitle": "Suhr Pipes, w. horn 郁金香斗",
         "quality": "fallback-original",
         "warnings": [
@@ -683,7 +691,7 @@
         "id": "danish-33106",
         "source": "danish",
         "originalName": "Anne Julie, Tulip Lovat",
-        "beforeDisplayTitle": "安妮·朱莉 罗瓦斗",
+        "beforeDisplayTitle": "安妮·朱莉 罗瓦斗 郁金香斗",
         "afterDisplayTitle": "安妮·朱莉 罗瓦斗 郁金香斗",
         "quality": "candidate",
         "warnings": [
@@ -696,7 +704,7 @@
         "id": "danish-35055",
         "source": "danish",
         "originalName": "BBB, Arsenal 722S, Bent Diplomat",
-        "beforeDisplayTitle": "BBB Arsenal 系列 722S Diplomat 斗",
+        "beforeDisplayTitle": "BBB Arsenal 系列 722S 外交官斗",
         "afterDisplayTitle": "BBB Arsenal 系列 722S 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -708,7 +716,7 @@
         "id": "danish-7786",
         "source": "danish",
         "originalName": "BBB, Arsenal 722S, Bent Stubby Diplomat",
-        "beforeDisplayTitle": "BBB Arsenal, Bent 系列 722S Diplomat 斗",
+        "beforeDisplayTitle": "BBB Arsenal, Bent 系列 722S 外交官斗",
         "afterDisplayTitle": "BBB Arsenal, Bent 系列 722S 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -720,7 +728,7 @@
         "id": "danish-7787",
         "source": "danish",
         "originalName": "BBB, Chelsea 722S, Bent Diplomat",
-        "beforeDisplayTitle": "BBB Chelsea 系列 722S Diplomat 斗",
+        "beforeDisplayTitle": "BBB Chelsea 系列 722S 外交官斗",
         "afterDisplayTitle": "BBB Chelsea 系列 722S 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -732,7 +740,7 @@
         "id": "danish-35056",
         "source": "danish",
         "originalName": "BBB, Chelsea 722S, Bent Stubby Diplomat",
-        "beforeDisplayTitle": "BBB Chelsea, Bent 系列 722S Diplomat 斗",
+        "beforeDisplayTitle": "BBB Chelsea, Bent 系列 722S 外交官斗",
         "afterDisplayTitle": "BBB Chelsea, Bent 系列 722S 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -744,7 +752,7 @@
         "id": "danish-33243",
         "source": "danish",
         "originalName": "Berggreen Pipes, Model 86, Diplomat",
-        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -756,7 +764,7 @@
         "id": "danish-33245",
         "source": "danish",
         "originalName": "Berggreen Pipes, Model 86, Diplomat",
-        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -768,7 +776,7 @@
         "id": "danish-33247",
         "source": "danish",
         "originalName": "Berggreen Pipes, Model 86, Diplomat",
-        "beforeDisplayTitle": "贝格格林 Model 系列 86号 Diplomat 斗",
+        "beforeDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "afterDisplayTitle": "贝格格林 Model 系列 86号 外交官斗",
         "quality": "candidate",
         "warnings": [
@@ -780,8 +788,8 @@
         "id": "danish-5024",
         "source": "danish",
         "originalName": "Chacom, Berlingot 22, Tulip, Matte",
-        "beforeDisplayTitle": "查科姆 Berlingot, Matte 系列 22号 Tulip 斗",
-        "afterDisplayTitle": "查科姆 Berlingot, Matte 系列 22号 郁金香斗",
+        "beforeDisplayTitle": "查科姆 Berlingot, Matte 系列 22号 郁金香斗",
+        "afterDisplayTitle": "查科姆 Berlingot, 哑光 系列 22号 郁金香斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview",
@@ -792,8 +800,8 @@
         "id": "danish-31757",
         "source": "danish",
         "originalName": "Chacom, The French Pipe, No. 1, Tulip, Sand",
-        "beforeDisplayTitle": "查科姆 The French, No., Sand 系列 Tulip 斗",
-        "afterDisplayTitle": "查科姆 The French, No., Sand 系列 郁金香斗",
+        "beforeDisplayTitle": "查科姆 The French, No., 喷砂 系列 郁金香斗",
+        "afterDisplayTitle": "查科姆 The French, No., 喷砂 系列 郁金香斗",
         "quality": "candidate",
         "warnings": []
       },
@@ -801,8 +809,8 @@
         "id": "danish-27376",
         "source": "danish",
         "originalName": "Chacom, The French Pipe, No. 1, Tulip, Smooth",
-        "beforeDisplayTitle": "查科姆 The French, No. 系列 Smooth Tulip 斗",
-        "afterDisplayTitle": "查科姆 The French, No. 系列 Smooth 郁金香斗",
+        "beforeDisplayTitle": "查科姆 The French, No. 系列 光面 郁金香斗",
+        "afterDisplayTitle": "查科姆 The French, No. 系列 光面 郁金香斗",
         "quality": "candidate",
         "warnings": [
           "shortNameNeedsReview"
@@ -811,7 +819,7 @@
     ]
   },
   "sourceFileHashes": {
-    "candidates": "567bed58a2c7d5be1cccee05dfbb66927000b6433e74ceb786e2cc08ee5eed10",
+    "candidates": "8848b9a367f73e12e448dd54ac48bba7b11735039191457ebab1767d59079da0",
     "brandFinal": "a4dbcac63bb7803b18b9f3b797aaf2a3ef3244f2259554cb4d0ecc64136b353f",
     "shapeFinal": "cd5d3654f8f96aeb58d85abd62c4c241da1372ce9d39b5f149cfdb6556e15e40"
   }

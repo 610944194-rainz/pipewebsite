@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const VALIDATOR_VERSION = "v3-final-postprocess-20260616";
+const VALIDATOR_VERSION = "v8-finish-validator-hotfix-20260617";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -85,8 +85,26 @@ async function main() {
   const forbiddenShapeTitles = titleMatchingItems(items, /\b(?:Stack|Skater)\s*斗\b/i);
   assert(forbiddenShapeTitles.length === 0, `Forbidden Stack/Skater 斗 remains: ${sampleTitles(forbiddenShapeTitles)}`, errors);
 
-  const forbiddenEnglishShapeTitles = titleMatchingItems(items, /\b(?:Tulip|Ball|Blowfish|Pickaxe|Diplomat|Cavalier)\s*斗\b/i);
+  const forbiddenDoNotDisplayTokens = titleMatchingItems(items, /\b(?:Stack|Skater)\b/i);
+  assert(forbiddenDoNotDisplayTokens.length === 0, `Forbidden Stack/Skater token remains: ${sampleTitles(forbiddenDoNotDisplayTokens)}`, errors);
+
+  const forbiddenCompositeShapeTitles = titleMatchingItems(items, /Acorn\s*\/\s*Pear|Acorn\s+Pear/i);
+  assert(forbiddenCompositeShapeTitles.length === 0, `Composite Acorn/Pear remains: ${sampleTitles(forbiddenCompositeShapeTitles)}`, errors);
+
+  const dualAcornPearZh = titleMatchingItems(items, /橡果斗.*梨式斗|梨式斗.*橡果斗/);
+  assert(dualAcornPearZh.length === 0, `Both 橡果斗 and 梨式斗 remain in one title: ${sampleTitles(dualAcornPearZh)}`, errors);
+
+  const panelCavalierZh = titleMatchingItems(items, /面板斗.*骑士斗|骑士斗.*面板斗/);
+  assert(panelCavalierZh.length === 0, `Both 面板斗 and 骑士斗 remain in one title: ${sampleTitles(panelCavalierZh)}`, errors);
+
+  const forbiddenEnglishShapeTitles = titleMatchingItems(items, /\b(?:Tulip|Ball|Blowfish|Pickaxe|Diplomat|Cavalier|Pear|Panel|Paneled|Chimney|Cutty|Figural|Hawkbill|Lumberman|Oom\s+Paul|Opera|Zulu)\s*斗\b/i);
   assert(forbiddenEnglishShapeTitles.length === 0, `English shape + 斗 remains: ${sampleTitles(forbiddenEnglishShapeTitles)}`, errors);
+
+  const forbiddenEnglishFinishTitles = titleMatchingItems(items, /\b(?:Sandblast|Sandblasted|Smooth|Rusticated|Rustication|Rustic|Sablee|Sablée|Matte|Matt|Natural|Polished)\b/i);
+  assert(forbiddenEnglishFinishTitles.length === 0, `English finish term remains: ${sampleTitles(forbiddenEnglishFinishTitles)}`, errors);
+
+  const orphanGenericDouTitles = titleMatchingItems(items, /(^|[\s，,])斗(?=$|[\s，,])/);
+  assert(orphanGenericDouTitles.length === 0, `Orphan generic 斗 remains: ${sampleTitles(orphanGenericDouTitles)}`, errors);
 
   const savinelliAliasBad = titleMatchingItems(items, /^Savinelli\s+Autograph\b/i);
   assert(savinelliAliasBad.length === 0, `Savinelli Autograph remains as title brand: ${sampleTitles(savinelliAliasBad)}`, errors);
@@ -123,6 +141,14 @@ async function main() {
     { token: "Blowfish", zh: "河豚斗", label: "Blowfish" },
     { token: "Pickaxe", zh: "十字镐斗", label: "Pickaxe" },
     { token: "Diplomat", zh: "外交官斗", label: "Diplomat" },
+    { token: "Pear", zh: "梨式斗", label: "Pear" },
+    { token: "Chimney", zh: "烟囱式斗", label: "Chimney" },
+    { token: "Cutty", zh: "卡蒂斗", label: "Cutty" },
+    { token: "Hawkbill", zh: "鹰嘴斗", label: "Hawkbill" },
+    { token: "Lumberman", zh: "伐木工式斗", label: "Lumberman" },
+    { token: "Oom Paul", zh: "匈牙利式斗", label: "Oom Paul" },
+    { token: "Opera", zh: "歌剧斗", label: "Opera" },
+    { token: "Zulu", zh: "祖鲁斗", label: "Zulu" },
   ];
 
   for (const rule of keyShapeRules) {
@@ -152,6 +178,12 @@ async function main() {
       emptyTitles: emptyTitles.length,
       forbiddenEnglishShapeTitles: forbiddenEnglishShapeTitles.length,
       forbiddenShapeTitles: forbiddenShapeTitles.length,
+      forbiddenDoNotDisplayTokens: forbiddenDoNotDisplayTokens.length,
+      forbiddenCompositeShapeTitles: forbiddenCompositeShapeTitles.length,
+      dualAcornPearZh: dualAcornPearZh.length,
+      panelCavalierZh: panelCavalierZh.length,
+      forbiddenEnglishFinishTitles: forbiddenEnglishFinishTitles.length,
+      orphanGenericDouTitles: orphanGenericDouTitles.length,
       savinelliAliasBad: savinelliAliasBad.length,
       tsugeAliasBad: tsugeAliasBad.length,
       hornMaterialBad: hornMaterialBad.length,

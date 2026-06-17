@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const SCRIPT_VERSION = "v3-final-postprocess-20260616";
+const SCRIPT_VERSION = "v8-finish-validator-hotfix-20260617";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -132,6 +132,135 @@ function hasHornMaterialContext(item) {
   );
 }
 
+
+function originalShapeText(item) {
+  return cleanText(`${item.originalName || ""} ${item.subtitleOriginalName || ""} ${item.displayNameEn || ""} ${item.rawTitle || ""}`);
+}
+
+const EXCLUSIVE_SHAPE_GROUPS = [
+  ["橡果斗", "梨式斗"],
+  ["面板斗", "骑士斗"],
+  ["号角斗", "梨式斗", "橡果斗", "郁金香斗", "草莓斗", "番茄斗", "苹果斗"],
+];
+
+function removeZhShape(title, zh) {
+  return cleanTitle(String(title || "").replace(new RegExp(`\\s*${escapeRegExp(zh)}\\s*`, "g"), " "));
+}
+
+function hasOriginalShapeToken(item, token) {
+  return hasToken(originalShapeText(item), token);
+}
+
+function hasTitleShapeZh(title, zh) {
+  return String(title || "").includes(zh);
+}
+
+function resolveAcornPearTitle(item, title) {
+  const original = originalShapeText(item);
+  const originalHasComposite = /\bAcorn\s*\/\s*Pear\b|\bAcorn\s+Pear\b/i.test(original);
+  const originalHasPear = hasToken(original, "Pear");
+  const originalHasAcorn = hasToken(original, "Acorn");
+  let text = cleanTitle(title);
+
+  if (originalHasComposite) {
+    // Legacy Acorn/Pear is not a real unified shape. If the original itself is only the
+    // composite value, do not let either translated shape leak into the title.
+    text = removeZhShape(text, "橡果斗");
+    text = removeZhShape(text, "梨式斗");
+  } else if (originalHasPear && !originalHasAcorn) {
+    text = removeZhShape(text, "橡果斗");
+    if (!hasTitleShapeZh(text, "梨式斗")) text = cleanTitle(`${text} 梨式斗`);
+  } else if (originalHasAcorn && !originalHasPear) {
+    text = removeZhShape(text, "梨式斗");
+    if (!hasTitleShapeZh(text, "橡果斗")) text = cleanTitle(`${text} 橡果斗`);
+  } else if (!originalHasPear && !originalHasAcorn) {
+    // If neither source title nor English subtitle says Acorn/Pear, any legacy Acorn/Pear
+    // Chinese label came from an ambiguous old bucket and should be suppressed.
+    text = removeZhShape(text, "橡果斗");
+    text = removeZhShape(text, "梨式斗");
+  } else if (hasTitleShapeZh(text, "橡果斗") && hasTitleShapeZh(text, "梨式斗")) {
+    if (/\bPear\b/i.test(original)) text = removeZhShape(text, "橡果斗");
+    else text = removeZhShape(text, "梨式斗");
+  }
+
+  return cleanTitle(text);
+}
+
+function suppressPanelWhenSpecificShapePresent(title) {
+  let text = cleanTitle(title);
+  if (/骑士斗/.test(text)) text = removeZhShape(text, "面板斗");
+  return cleanTitle(text);
+}
+
+function suppressHornWhenMaterial(item, title) {
+  let text = cleanTitle(title);
+  if (hasHornMaterialContext(item)) {
+    text = removeZhShape(text, "号角斗");
+  }
+  return cleanTitle(text);
+}
+
+function suppressDoNotDisplayShapeTokens(title) {
+  let text = cleanTitle(title);
+  text = text.replace(/\b(?:Devil\s+Anse|Stack|Skater)\s*斗\b/gi, " ");
+  text = text.replace(/\b(?:Devil\s+Anse|Stack|Skater)\b/gi, " ");
+  // Removing Stack/Skater can leave an orphan generic "斗" token, e.g. "喷砂 斗".
+  // A standalone "斗" is not a valid shape and should not be displayed.
+  text = text.replace(/(^|[\s，,])斗(?=$|[\s，,])/g, " ");
+  return cleanTitle(text);
+}
+
+
+
+function translateFinishTerms(title) {
+  let text = cleanTitle(title);
+  const replacements = [
+    [/\bPartially\s+Sandblasted\b/gi, "局部喷砂"],
+    [/\bPartial\s+Sandblasted\b/gi, "局部喷砂"],
+    [/\bPartially\s+Rusticated\b/gi, "局部锈蚀"],
+    [/\bPartial\s+Rusticated\b/gi, "局部锈蚀"],
+    [/\bLight\s+Polished\b/gi, "浅色抛光"],
+    [/\bMatte\b/gi, "哑光"],
+    [/\bMatt\b/gi, "哑光"],
+    [/\bMat\b/gi, "哑光"],
+    [/\bSandblasted\b/gi, "喷砂"],
+    [/\bSandblast\b/gi, "喷砂"],
+    [/\bRusticated\b/gi, "锈蚀"],
+    [/\bRustication\b/gi, "锈蚀"],
+    [/\bRustic\b/gi, "锈蚀"],
+    [/\bSmooth\b/gi, "光面"],
+    [/\bSablee\b/gi, "喷砂"],
+    [/\bSablée\b/gi, "喷砂"],
+    [/\bSand\b/gi, "喷砂"],
+    [/\bNatural\b/gi, "自然色"],
+    [/\bPolished\b/gi, "抛光"],
+  ];
+
+  for (const [pattern, replacement] of replacements) {
+    text = text.replace(pattern, replacement);
+  }
+
+  text = text
+    .replace(/喷砂\s+喷砂/g, "喷砂")
+    .replace(/锈蚀\s+锈蚀/g, "锈蚀")
+    .replace(/光面\s+光面/g, "光面")
+    .replace(/局部\s+喷砂/g, "局部喷砂")
+    .replace(/局部\s+锈蚀/g, "局部锈蚀");
+
+  return cleanTitle(text);
+}
+
+function ensureFinalShapeConsistency(item, title) {
+  let text = cleanTitle(title);
+  text = suppressDoNotDisplayShapeTokens(text);
+  text = suppressHornWhenMaterial(item, text);
+  text = resolveAcornPearTitle(item, text);
+  text = suppressPanelWhenSpecificShapePresent(text);
+  text = text.replace(/\s+斗\s+/g, " ");
+  text = text.replace(/\bPear\s*Fishtail\b/gi, "Fishtail");
+  return cleanTitle(text);
+}
+
 function stripShapeTokensFromSeries(title, shapeKey) {
   let text = cleanText(title);
   const parts = cleanText(shapeKey).split(/\s+/).filter(Boolean);
@@ -199,6 +328,38 @@ function buildFinalShapeRules(shapeFinal) {
       decision,
     });
   }
+
+  const extraShapeDecisions = {
+    Acorn: { action: "translate", zh: "橡果斗", display: true, isShape: true },
+    Pear: { action: "translate", zh: "梨式斗", display: true, isShape: true },
+    Panel: { action: "translate", zh: "面板斗", display: true, isShape: true },
+    Paneled: { action: "translate", zh: "面板斗", display: true, isShape: true },
+    Chimney: { action: "translate", zh: "烟囱式斗", display: true, isShape: true },
+    Cutty: { action: "translate", zh: "卡蒂斗", display: true, isShape: true },
+    Figural: { action: "translate", zh: "造型雕刻斗", display: true, isShape: true },
+    Hawkbill: { action: "translate", zh: "鹰嘴斗", display: true, isShape: true },
+    Lumberman: { action: "translate", zh: "伐木工式斗", display: true, isShape: true },
+    "Oom Paul": { action: "translate", zh: "匈牙利式斗", display: true, isShape: true },
+    Opera: { action: "translate", zh: "歌剧斗", display: true, isShape: true },
+    Zulu: { action: "translate", zh: "祖鲁斗", display: true, isShape: true },
+    Stack: { action: "do-not-display", zh: "", display: false, isShape: false },
+    Skater: { action: "do-not-display", zh: "", display: false, isShape: false },
+  };
+
+  const existing = new Set(decisions.map((decision) => normalizeKey(decision.shape)));
+  for (const [shape, decision] of Object.entries(extraShapeDecisions)) {
+    if (existing.has(normalizeKey(shape))) continue;
+    decisions.push({
+      shape,
+      normalizedShape: normalizeKey(shape),
+      action: decision.action,
+      zh: cleanText(decision.zh),
+      display: decision.display !== false,
+      isShape: decision.isShape !== false,
+      decision,
+    });
+  }
+
   decisions.sort((a, b) => b.shape.length - a.shape.length);
   return { decisions, doNotDisplay };
 }
@@ -303,7 +464,11 @@ function applyShapeDecision(item, title, rule) {
   if (rule.display === false || rule.action === "do-not-display") {
     const tokenDou = new RegExp(`\\b${flexiblePattern(rule.shape)}\\s*斗\\b`, "gi");
     const tokenSeries = new RegExp(`(?:^|[\\s,，])${flexiblePattern(rule.shape)}\\s*系列(?=\\s|$)`, "gi");
-    currentTitle = currentTitle.replace(tokenDou, " ").replace(tokenSeries, " ");
+    const tokenPlain = new RegExp(`\\b${flexiblePattern(rule.shape)}\\b`, "gi");
+    currentTitle = currentTitle
+      .replace(tokenDou, " ")
+      .replace(tokenSeries, " ")
+      .replace(tokenPlain, " ");
     return { title: cleanTitle(currentTitle), applied: false, suppressed: true, hornMaterial: false };
   }
 
@@ -346,11 +511,27 @@ function finalCleanTitle(item, title) {
   text = text.replace(/\bPickaxe\s*斗\b/gi, "十字镐斗");
   text = text.replace(/\bDiplomat\s*斗\b/gi, "外交官斗");
   text = text.replace(/\bCavalier\s*斗\b/gi, "骑士斗");
+  text = text.replace(/\bPear\s*斗\b/gi, "梨式斗");
+  text = text.replace(/\bPanel(?:ed)?\s*斗\b/gi, "面板斗");
+  text = text.replace(/\bChimney\s*斗\b/gi, "烟囱式斗");
+  text = text.replace(/\bCutty\s*斗\b/gi, "卡蒂斗");
+  text = text.replace(/\bFigural\s*斗\b/gi, "造型雕刻斗");
+  text = text.replace(/\bHawkbill\s*斗\b/gi, "鹰嘴斗");
+  text = text.replace(/\bLumberman\s*斗\b/gi, "伐木工式斗");
+  text = text.replace(/\bOom\s+Paul\s*斗\b/gi, "匈牙利式斗");
+  text = text.replace(/\bOpera\s*斗\b/gi, "歌剧斗");
+  text = text.replace(/\bZulu\s*斗\b/gi, "祖鲁斗");
+  text = text.replace(/面板斗\s+骑士斗/g, "骑士斗");
+  text = text.replace(/骑士斗\s+面板斗/g, "骑士斗");
   text = text.replace(/\bStack\s*斗\b/gi, "");
   text = text.replace(/\bSkater\s*斗\b/gi, "");
+  text = text.replace(/\bStack\b/gi, "");
+  text = text.replace(/\bSkater\b/gi, "");
   if (hasHornMaterialContext(item)) {
     text = text.replace(/\s*号角斗\s*/g, " ");
   }
+  text = ensureFinalShapeConsistency(item, text);
+  text = translateFinishTerms(text);
   return cleanTitle(text);
 }
 
@@ -579,6 +760,11 @@ async function main() {
   const finalValidation = {
     titlesWithStackDouCount: nextItems.filter((item) => /Stack\s*斗/i.test(item.displayTitle)).length,
     titlesWithSkaterDouCount: nextItems.filter((item) => /Skater\s*斗/i.test(item.displayTitle)).length,
+    titlesWithDoNotDisplayTokenCount: nextItems.filter((item) => /\b(?:Stack|Skater)\b/i.test(item.displayTitle)).length,
+    titlesWithAcornPearCount: nextItems.filter((item) => /Acorn\s*\/\s*Pear|Acorn\s+Pear/i.test(item.displayTitle)).length,
+    titlesWithBothAcornAndPearZhCount: nextItems.filter((item) => /橡果斗/.test(item.displayTitle || "") && /梨式斗/.test(item.displayTitle || "")).length,
+    titlesWithHornMaterialAndHornZhCount: nextItems.filter((item) => hasHornMaterialContext(item) && /号角斗/.test(item.displayTitle || "")).length,
+    titlesWithPanelAndCavalierZhCount: nextItems.filter((item) => /面板斗/.test(item.displayTitle || "") && /骑士斗/.test(item.displayTitle || "")).length,
     titlesWithTulipDouCount: nextItems.filter((item) => /Tulip\s*斗/i.test(item.displayTitle)).length,
     titlesWithBallDouCount: nextItems.filter((item) => /Ball\s*斗/i.test(item.displayTitle)).length,
     titlesWithBlowfishDouCount: nextItems.filter((item) => /Blowfish\s*斗/i.test(item.displayTitle)).length,

@@ -5,8 +5,9 @@ import { getPublicCatalog, getPublicFilters } from "./server";
 import { countryLabel } from "./presentation";
 import {
   normalizeShapeSelection,
-  productShapePresentation,
-  productShapeValue,
+  productShapePresentations,
+  productShapeValues,
+  shouldSuppressPanelWhenCombined,
 } from "./shape";
 import { PRODUCT_SORT_OPTIONS } from "./url";
 import type {
@@ -203,22 +204,28 @@ function deriveShapeOptions(
   for (const product of catalog) {
     if (!product.filterEligibility?.shape) continue;
 
-    const shape = productShapePresentation(product);
-    if (!shape.value) continue;
-
-    const current = counts.get(shape.value) || {
-      label: shape.label,
-      labelZh: shape.labelZh,
-      productCount: 0,
-    };
-
-    current.productCount += 1;
-
-    if (!current.labelZh && shape.labelZh) {
-      current.labelZh = shape.labelZh;
+    let shapes = productShapePresentations(product);
+    if (shouldSuppressPanelWhenCombined(shapes.map((shape) => shape.value))) {
+      shapes = shapes.filter((shape) => shape.value !== "Panel");
     }
 
-    counts.set(shape.value, current);
+    for (const shape of shapes) {
+      if (!shape.value) continue;
+
+      const current = counts.get(shape.value) || {
+        label: shape.label,
+        labelZh: shape.labelZh,
+        productCount: 0,
+      };
+
+      current.productCount += 1;
+
+      if (!current.labelZh && shape.labelZh) {
+        current.labelZh = shape.labelZh;
+      }
+
+      counts.set(shape.value, current);
+    }
   }
 
   return [...counts.entries()]
@@ -349,8 +356,8 @@ function productSearchText(product: PublicCatalogProduct) {
       product.rawTitle,
       product.shape,
       product.shapeZh,
-      productShapeValue(product),
-      productShapePresentation(product).labelZh,
+      productShapeValues(product).join(" "),
+      productShapePresentations(product).map((shape) => shape.labelZh).join(" "),
       product.conditionType,
       product.conditionLabel,
       product.finish,
@@ -378,7 +385,7 @@ function productMatchesState(
     return false;
   }
   if (state.country && product.brandCountry !== state.country) return false;
-  if (state.shape && productShapeValue(product) !== state.shape) return false;
+  if (state.shape && !productShapeValues(product).includes(state.shape)) return false;
   if (state.condition && product.conditionType !== state.condition) return false;
   if (state.weight && getWeightRange(product.weightGrams) !== state.weight) {
     return false;
