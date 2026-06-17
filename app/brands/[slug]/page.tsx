@@ -277,16 +277,6 @@ function BrandFacts({ brand }: { brand: PublicBrandProfile }) {
       label: "价格区间",
       value: meaningfulText(brand.priceRange),
     },
-    {
-      label: "Danish",
-      value: brand.sourceCounts.danish ? `${brand.sourceCounts.danish} 件` : "",
-    },
-    {
-      label: "Smokingpipes",
-      value: brand.sourceCounts.smokingpipes
-        ? `${brand.sourceCounts.smokingpipes} 件`
-        : "",
-    },
   ].filter((item) => item.value);
 
   if (facts.length === 0) return null;
@@ -376,32 +366,6 @@ function BrandReviewNotice({ brand }: { brand: PublicBrandProfile }) {
   );
 }
 
-function SourceSection({ brand }: { brand: PublicBrandProfile }) {
-  const urls = (brand.sourceUrls || []).filter(
-    (url) => url && !placeholderText(url)
-  );
-
-  if (urls.length === 0) return null;
-
-  return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      <h2 className="mb-3 text-[19px] font-bold text-[#1F1A16]">资料来源</h2>
-      <div className="grid gap-2.5">
-        {urls.map((url) => (
-          <a
-            key={url}
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            className="break-all rounded-[16px] border border-[#E7DDD0] bg-white px-3 py-2.5 text-[12px] font-medium leading-5 text-[#8A5D26] transition hover:border-[#A97838]"
-          >
-            {url}
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function RelatedStock({
   brand,
@@ -526,7 +490,6 @@ export default async function BrandDetailPage({
             <TextListSection title="品牌特点" items={features} />
             <TextListSection title="代表风格" items={styles} />
             <SuitableForSection brand={brand} />
-            <SourceSection brand={brand} />
             <BrandReviewNotice brand={brand} />
           </div>
         ) : null}

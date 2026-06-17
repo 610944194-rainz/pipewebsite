@@ -90,9 +90,17 @@ if (/https?:\/\//.test(listPage) || /https?:\/\//.test(detailPage)) {
   errors.push("brand pages should not hard-code external logo hotlinks");
 }
 
+if (detailPage.includes("资料来源") || detailPage.includes("SourceSection")) {
+  errors.push("brand detail page should not render source URL cards");
+}
+
+if (detailPage.includes('label: "Danish"') || detailPage.includes('label: "Smokingpipes"')) {
+  errors.push("brand detail facts should not display product source rows");
+}
+
 console.log(JSON.stringify({
   status: errors.length ? "failed" : "passed",
-  validatorVersion: "brand-library-enrichment-v3-20260618",
+  validatorVersion: "brand-library-enrichment-v4-release-polish-20260618",
   counts: {
     requiredTranslations: Object.keys(requiredTranslations).length,
     forbiddenIndependentBrands: forbiddenIndependentBrands.length,
