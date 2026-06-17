@@ -89,6 +89,53 @@ function brandLogoUrl(brand: PublicBrandProfile) {
   return typeof logo === "string" ? logo : "";
 }
 
+
+function brandLogoText(brand: PublicBrandProfile) {
+  const record = brand as Record<string, unknown>;
+  const candidates = [record.logoText, record.wordmarkText, record.name, brand.name];
+  const value = candidates.find(
+    (item) => typeof item === "string" && item.trim()
+  );
+
+  return typeof value === "string" ? value.trim() : brand.name;
+}
+
+function formatBrandDisplayName(value: string) {
+  const raw = String(value || "").trim().replace(/\s+/g, " ");
+  const overrides: Record<string, string> = {
+    "akb": "AKB",
+    "bbb": "BBB",
+    "gh zhang": "GH Zhang",
+    "ser jacopo": "Ser Jacopo",
+    "s bang": "S. Bang",
+    "s. bang": "S. Bang",
+    "old german clay": "Old German Clay",
+    "white elephant": "White Elephant",
+    "mastro geppetto": "Mastro Geppetto",
+    "butz choquin": "Butz-Choquin",
+    "butz-choquin": "Butz-Choquin",
+    "charatan's": "Charatan's",
+    "comoy's": "Comoy's",
+    "nording": "Nørding",
+    "nørding": "Nørding",
+  };
+  const key = raw.toLowerCase().replace(/[()]/g, " ").replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  if (overrides[key]) return overrides[key];
+
+  return raw
+    .split(" ")
+    .map((word, index) => {
+      const lower = word.toLowerCase();
+      if (index > 0 && ["by", "for", "and", "of", "the"].includes(lower)) return lower;
+      return lower.replace(/(^|[-'’])([a-zøæå])/g, (_match, prefix, letter) => `${prefix}${letter.toUpperCase()}`);
+    })
+    .join(" ");
+}
+
+function brandDisplayName(brand: PublicBrandProfile) {
+  return formatBrandDisplayName(brand.name);
+}
+
 function brandChineseName(brand: PublicBrandProfile) {
   const record = brand as Record<string, unknown>;
   const candidates = [
@@ -101,7 +148,7 @@ function brandChineseName(brand: PublicBrandProfile) {
     (item) => typeof item === "string" && item.trim()
   );
 
-  return typeof value === "string" ? value : "";
+  return typeof value === "string" ? value.replace(/南娜·伊瓦松/g, "娜娜·伊瓦松") : "";
 }
 
 function brandCountry(brand: PublicBrandProfile) {
@@ -131,14 +178,15 @@ function summaryParts(brand: PublicBrandProfile) {
 
 function BrandLogoBlock({ brand }: { brand: PublicBrandProfile }) {
   const logoUrl = brandLogoUrl(brand);
-  const shortName = brandShortName(brand.name);
+  const displayName = brandDisplayName(brand);
+  const shortName = brandShortName(displayName);
 
   return (
     <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E7DDD0] bg-white shadow-[0_8px_20px_rgba(31,26,22,0.04)]">
       {logoUrl ? (
         <img
           src={logoUrl}
-          alt={`${brand.name} logo`}
+          alt={`${displayName} logo`}
           className="h-full w-full object-contain p-3"
         />
       ) : (
@@ -156,6 +204,7 @@ function BrandLogoBlock({ brand }: { brand: PublicBrandProfile }) {
 }
 
 function BrandHero({ brand }: { brand: PublicBrandProfile }) {
+  const displayName = brandDisplayName(brand);
   const chineseName = brandChineseName(brand);
   const country = brandCountry(brand);
   const summary = isNameOnlyBrand(brand) ? { zh: "", en: "" } : summaryParts(brand);
@@ -178,7 +227,7 @@ function BrandHero({ brand }: { brand: PublicBrandProfile }) {
           </div>
 
           <h1 className="text-[28px] font-bold leading-tight text-[#063B32] sm:text-[42px]">
-            {brand.name}
+            {displayName}
           </h1>
 
           {chineseName ? (
@@ -310,6 +359,19 @@ function SuitableForSection({ brand }: { brand: PublicBrandProfile }) {
     <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
       <h2 className="mb-3 text-[19px] font-bold text-[#1F1A16]">适合人群</h2>
       <p className="text-[13px] leading-7 text-[#746A5F]">{suitableFor}</p>
+    </section>
+  );
+}
+
+
+function BrandReviewNotice({ brand }: { brand: PublicBrandProfile }) {
+  const record = brand as Record<string, unknown>;
+  const status = String(record.reviewStatus || record.profileStatus || "");
+  if (!status || status === "可入库" || status === "confirmed") return null;
+
+  return (
+    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 text-[13px] leading-7 text-[#746A5F] shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
+      品牌资料仍在整理中，部分信息以公开资料与商品数据为基础，后续将持续校正。
     </section>
   );
 }
@@ -465,6 +527,7 @@ export default async function BrandDetailPage({
             <TextListSection title="代表风格" items={styles} />
             <SuitableForSection brand={brand} />
             <SourceSection brand={brand} />
+            <BrandReviewNotice brand={brand} />
           </div>
         ) : null}
 

@@ -89,6 +89,53 @@ function brandLogoUrl(brand: PublicBrandProfile) {
   return typeof logo === "string" ? logo : "";
 }
 
+
+function brandLogoText(brand: PublicBrandProfile) {
+  const record = brand as Record<string, unknown>;
+  const candidates = [record.logoText, record.wordmarkText, record.name, brand.name];
+  const value = candidates.find(
+    (item) => typeof item === "string" && item.trim()
+  );
+
+  return typeof value === "string" ? value.trim() : brand.name;
+}
+
+function formatBrandDisplayName(value: string) {
+  const raw = String(value || "").trim().replace(/\s+/g, " ");
+  const overrides: Record<string, string> = {
+    "akb": "AKB",
+    "bbb": "BBB",
+    "gh zhang": "GH Zhang",
+    "ser jacopo": "Ser Jacopo",
+    "s bang": "S. Bang",
+    "s. bang": "S. Bang",
+    "old german clay": "Old German Clay",
+    "white elephant": "White Elephant",
+    "mastro geppetto": "Mastro Geppetto",
+    "butz choquin": "Butz-Choquin",
+    "butz-choquin": "Butz-Choquin",
+    "charatan's": "Charatan's",
+    "comoy's": "Comoy's",
+    "nording": "Nørding",
+    "nørding": "Nørding",
+  };
+  const key = raw.toLowerCase().replace(/[()]/g, " ").replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  if (overrides[key]) return overrides[key];
+
+  return raw
+    .split(" ")
+    .map((word, index) => {
+      const lower = word.toLowerCase();
+      if (index > 0 && ["by", "for", "and", "of", "the"].includes(lower)) return lower;
+      return lower.replace(/(^|[-'’])([a-zøæå])/g, (_match, prefix, letter) => `${prefix}${letter.toUpperCase()}`);
+    })
+    .join(" ");
+}
+
+function brandDisplayName(brand: PublicBrandProfile) {
+  return formatBrandDisplayName(brand.name);
+}
+
 function brandChineseName(brand: PublicBrandProfile) {
   const record = brand as Record<string, unknown>;
   const candidates = [
@@ -101,7 +148,7 @@ function brandChineseName(brand: PublicBrandProfile) {
     (item) => typeof item === "string" && item.trim()
   );
 
-  return typeof value === "string" ? value : "";
+  return typeof value === "string" ? value.replace(/南娜·伊瓦松/g, "娜娜·伊瓦松") : "";
 }
 
 function brandCountry(brand: PublicBrandProfile) {
@@ -392,7 +439,8 @@ function SearchFilterCard({
 function BrandCard({ brand }: { brand: PublicBrandProfile }) {
   const logoUrl = brandLogoUrl(brand);
   const chineseName = brandChineseName(brand);
-  const shortName = brandShortName(brand.name);
+  const displayName = brandDisplayName(brand);
+  const shortName = brandShortName(displayName);
   const summary = brandSummaryParts(brand);
 
   return (
@@ -402,14 +450,14 @@ function BrandCard({ brand }: { brand: PublicBrandProfile }) {
           {logoUrl ? (
             <img
               src={logoUrl}
-              alt={`${brand.name} logo`}
+              alt={`${displayName} logo`}
               className="h-full w-full object-contain p-3"
               loading="lazy"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#FFFDF8] to-[#F1E7D8]">
               <span
-                className="text-[28px] font-semibold tracking-[0.04em] text-[#063B32]"
+                className="text-[26px] font-semibold tracking-[0.06em] text-[#063B32]"
                 style={{ fontFamily: '"Georgia", "Times New Roman", serif' }}
               >
                 {shortName}
@@ -432,7 +480,7 @@ function BrandCard({ brand }: { brand: PublicBrandProfile }) {
           </div>
 
           <h2 className="text-[19px] font-bold leading-tight text-[#063B32]">
-            {brand.name}
+            {displayName}
           </h2>
 
           {chineseName ? (
@@ -459,6 +507,20 @@ function BrandCard({ brand }: { brand: PublicBrandProfile }) {
       ) : (
         <div className="flex-1" />
       )}
+
+
+      {brand.representativeStyles?.length ? (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {brand.representativeStyles.slice(0, 3).map((style) => (
+            <span
+              key={style}
+              className="rounded-full bg-[#F7F3EA] px-2.5 py-1 text-[11px] font-medium text-[#746A5F]"
+            >
+              {style}
+            </span>
+          ))}
+        </div>
+      ) : null}
 
       <div className="mt-4 border-t border-[#F0E6D8] pt-4">
         <Link
