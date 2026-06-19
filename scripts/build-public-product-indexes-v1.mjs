@@ -47,6 +47,26 @@ const EXPECTED = {
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
 };
 
+
+const SERVICE_FEE_RATE = 0.15;
+const MIN_SERVICE_FEE_CNY = 200;
+const INVALID_SOURCE_PRICE_THRESHOLD = 1;
+
+const BRAND_CANONICAL_PUBLIC_MAP = new Map([
+  ["savinelli autograph", { brandName: "Savinelli", brandSlug: "savinelli", brandCountry: "Italy" }],
+  ["savinelli-autograph", { brandName: "Savinelli", brandSlug: "savinelli", brandCountry: "Italy" }],
+  ["tsuge ikebana", { brandName: "Tsuge", brandSlug: "tsuge", brandCountry: "Japan" }],
+  ["tsuge-ikebana", { brandName: "Tsuge", brandSlug: "tsuge", brandCountry: "Japan" }],
+  ["ashton for paul olsen", { brandName: "Ashton", brandSlug: "ashton", brandCountry: "United Kingdom" }],
+  ["ashton-for-paul-olsen", { brandName: "Ashton", brandSlug: "ashton", brandCountry: "United Kingdom" }],
+  ["son (nording)", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["son-nording", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["eriksen keystone filter pipe", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["eriksen-keystone-filter-pipe", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
+]);
+
+const HIDDEN_PUBLIC_BRAND_KEYS = new Set(["pipe key ring", "pipe-key-ring", "pipepack"]);
+
 const PERFORMANCE_BUDGETS = {
   catalogMaxBytes: 8 * 1024 * 1024,
   catalogAverageRecordMaxBytes: 1200,
@@ -109,7 +129,7 @@ const FIELD_CONTRACT_ROWS = [
   ["price.amount", "sourcePriceAmount", "yes", "yes", "copy positive source amount", "non-finite becomes null", "price ranges are not generated"],
   ["price.currency", "sourcePriceCurrency", "yes", "yes", "copy source currency", "empty becomes null", "not a filter"],
   ["price.msrpAmount", "msrpAmount", "yes", "yes", "copy MSRP amount", "non-finite becomes null", "not a filter"],
-  ["price.siteDisplayAmount", "siteDisplayAmount", "yes", "yes", "copy existing Danish display amount plus shared domestic shipping; derive Smokingpipes RMB reference from source USD, pricing config, exchange rate, plus shared domestic shipping", "non-finite becomes null", "not a filter"],
+  ["price.siteDisplayAmount", "siteDisplayAmount", "yes", "yes", "copy existing Danish display amount plus shared domestic shipping, then add service fee max(15%, CNY 200); derive Smokingpipes RMB reference from source USD, pricing config, exchange rate, plus shared domestic shipping", "non-finite becomes null", "not a filter"],
   ["price.siteDisplayCurrency", "siteDisplayCurrency", "yes", "yes", "copy existing Danish display currency; set Smokingpipes to CNY when reference price is valid", "empty becomes null", "not a filter"],
   ["price.siteDisplayReady", "siteDisplayReady", "yes", "yes", "copy existing Danish readiness; set Smokingpipes true only when reference price is valid", "missing becomes false", "not a filter"],
   ["inventory.status", "inventoryStatus", "yes", "yes", "copy status", "empty becomes null", "inventoryStatus filter includes available and sold"],
@@ -281,6 +301,96 @@ function getWeightRange(weightGrams) {
   return "heavy";
 }
 
+
+function normalizeKey(value) {
+  return requiredText(value)
+    .normalize("NFKC")
+    .replace(/[’‘`´]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function slugKey(value) {
+  return normalizeKey(value).replace(/[\s_]+/g, "-");
+}
+
+function canonicalPublicBrand(product) {
+  const candidates = [
+    product.brandSlug,
+    product.brandName,
+    slugKey(product.brandName),
+    slugKey(product.brandSlug),
+  ];
+
+  for (const candidate of candidates) {
+    const key = normalizeKey(candidate);
+    const slug = slugKey(candidate);
+    if (BRAND_CANONICAL_PUBLIC_MAP.has(key)) return BRAND_CANONICAL_PUBLIC_MAP.get(key);
+    if (BRAND_CANONICAL_PUBLIC_MAP.has(slug)) return BRAND_CANONICAL_PUBLIC_MAP.get(slug);
+  }
+
+  return null;
+}
+
+function isHiddenPublicBrand(product) {
+  const keys = [product.brandSlug, product.brandName, slugKey(product.brandName), slugKey(product.brandSlug)].map(normalizeKey);
+  return keys.some((key) => HIDDEN_PUBLIC_BRAND_KEYS.has(key));
+}
+
+function applyPublicBrandCanonicalization(product) {
+  const canonical = canonicalPublicBrand(product);
+  if (!canonical) return product;
+  return {
+    ...product,
+    brandName: canonical.brandName,
+    brandSlug: canonical.brandSlug,
+    brandCountry: product.brandCountry || canonical.brandCountry,
+    sortKeys: {
+      ...product.sortKeys,
+      brand: canonical.brandName.toLowerCase(),
+    },
+  };
+}
+
+function applyMinimumServiceFeeCny(baseAmount) {
+  const amount = finiteNumber(baseAmount);
+  if (amount === null || amount <= 0) return null;
+  const serviceFee = Math.max(amount * SERVICE_FEE_RATE, MIN_SERVICE_FEE_CNY);
+  return amount + serviceFee;
+}
+
+function suppressPublicReferencePrice(product) {
+  return {
+    ...product,
+    siteDisplayAmount: null,
+    siteDisplayCurrency: null,
+    siteDisplayReady: false,
+    sortKeys: {
+      ...product.sortKeys,
+      price: null,
+    },
+  };
+}
+
+function normalizePublicReferencePrice(product) {
+  const sourcePriceAmount = finiteNumber(product.sourcePriceAmount);
+  const likelyBadParsedPrice =
+    sourcePriceAmount !== null &&
+    sourcePriceAmount > 0 &&
+    sourcePriceAmount < INVALID_SOURCE_PRICE_THRESHOLD;
+
+  if (likelyBadParsedPrice) {
+    return suppressPublicReferencePrice(product);
+  }
+
+  return product;
+}
+
+function normalizePublicProduct(product) {
+  return normalizePublicReferencePrice(applyPublicBrandCanonicalization(product));
+}
+
 function publicPriceFieldsFromRow(row, pricingContext) {
   const price = row.price || {};
   const sourcePriceAmount = finiteNumber(price.amount);
@@ -306,16 +416,17 @@ function publicPriceFieldsFromRow(row, pricingContext) {
     };
   }
 
-  const siteDisplayAmount = addDomesticShippingCny(
+  const baseAmount = addDomesticShippingCny(
     finiteNumber(price.siteDisplayAmount)
   );
+  const siteDisplayAmount = applyMinimumServiceFeeCny(baseAmount);
 
   return {
     sourcePriceAmount,
     sourcePriceCurrency,
     msrpAmount: finiteNumber(price.msrpAmount),
     siteDisplayAmount,
-    siteDisplayCurrency: cleanText(price.siteDisplayCurrency),
+    siteDisplayCurrency: siteDisplayAmount !== null ? "CNY" : cleanText(price.siteDisplayCurrency),
     siteDisplayReady: bool(price.siteDisplayReady) && siteDisplayAmount !== null,
     sortPrice: siteDisplayAmount,
   };
@@ -327,7 +438,7 @@ function catalogFromRow(row, pricingContext) {
   const measurements = row.measurements || {};
   const priceFields = publicPriceFieldsFromRow(row, pricingContext);
   const weightGrams = finiteNumber(measurements.weightGrams);
-  return {
+  return normalizePublicProduct({
     id: requiredText(row.id),
     source: requiredText(row.source),
     sourceProductId: requiredText(row.sourceProductId),
@@ -372,7 +483,7 @@ function catalogFromRow(row, pricingContext) {
       price: priceFields.sortPrice,
       sourceProductId: requiredText(row.sourceProductId),
     },
-  };
+  });
 }
 
 function deriveShard(id) {
@@ -485,6 +596,7 @@ function isExcludedFilterValue(value) {
 
 function addFilterCount(map, value, label, labelZh, productId) {
   if (isExcludedFilterValue(value)) return;
+  if (HIDDEN_PUBLIC_BRAND_KEYS.has(normalizeKey(value)) || HIDDEN_PUBLIC_BRAND_KEYS.has(slugKey(value))) return;
   const key = requiredText(value);
   if (!map.has(key)) {
     map.set(key, {
@@ -554,6 +666,7 @@ function buildFilters(catalog) {
 function buildBrands(catalog) {
   const brands = new Map();
   for (const product of catalog) {
+    if (isHiddenPublicBrand(product)) continue;
     const brandName = cleanText(product.brandName) || "(unknown)";
     const key = product.brandSlug || brandName;
     if (!brands.has(key)) {

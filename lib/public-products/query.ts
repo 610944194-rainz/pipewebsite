@@ -1,4 +1,4 @@
-import "server-only";
+﻿import "server-only";
 
 import { getBrandByName } from "../../data/brands";
 import { getPublicCatalog, getPublicFilters } from "./server";
@@ -25,11 +25,95 @@ export { buildProductsHref, PRODUCT_SORT_OPTIONS } from "./url";
 export const PRODUCT_PAGE_SIZE = 20;
 
 const WEIGHT_LABELS: Record<ProductWeightRange, string> = {
-  light: "轻量 ≤35g",
-  medium: "中等 36–55g",
-  heavy: "偏重 56–75g",
-  "extra-heavy": "重型 >75g",
+  light: "杞婚噺 鈮?5g",
+  medium: "涓瓑 36鈥?5g",
+  heavy: "鍋忛噸 56鈥?5g",
+  "extra-heavy": "閲嶅瀷 >75g",
 };
+
+const BRAND_CANONICAL_FILTER_MAP: Record<
+  string,
+  { value: string; label: string; country?: string }
+> = {
+  "savinelli autograph": { value: "savinelli", label: "Savinelli", country: "Italy" },
+  "savinelli-autograph": { value: "savinelli", label: "Savinelli", country: "Italy" },
+  "tsuge ikebana": { value: "tsuge", label: "Tsuge", country: "Japan" },
+  "tsuge-ikebana": { value: "tsuge", label: "Tsuge", country: "Japan" },
+  "ashton for paul olsen": { value: "ashton", label: "Ashton", country: "United Kingdom" },
+  "ashton-for-paul-olsen": { value: "ashton", label: "Ashton", country: "United Kingdom" },
+  "son (nording)": { value: "nording", label: "N酶rding", country: "Denmark" },
+  "son-nording": { value: "nording", label: "N酶rding", country: "Denmark" },
+  "eriksen keystone filter pipe": { value: "nording", label: "N酶rding", country: "Denmark" },
+  "eriksen-keystone-filter-pipe": { value: "nording", label: "N酶rding", country: "Denmark" },
+};
+
+const HIDDEN_BRAND_FILTER_VALUES = new Set([
+  "pipe key ring",
+  "pipe-key-ring",
+  "pipepack",
+]);
+
+function canonicalBrandFilterKey(value: string | null | undefined) {
+  return normalizeSearchText(value).replace(/[\s_]+/g, "-");
+}
+
+function canonicalBrandFilterInfo(
+  value: string | null | undefined,
+  label?: string | null,
+  country?: string | null
+) {
+  const rawValue = String(value || "").trim();
+  const rawLabel = String(label || rawValue || "").trim();
+  const normalizedValue = normalizeSearchText(rawValue);
+  const normalizedLabel = normalizeSearchText(rawLabel);
+  const dashValue = canonicalBrandFilterKey(rawValue);
+  const mapped =
+    BRAND_CANONICAL_FILTER_MAP[normalizedValue] ||
+    BRAND_CANONICAL_FILTER_MAP[normalizedLabel] ||
+    BRAND_CANONICAL_FILTER_MAP[dashValue];
+
+  if (mapped) {
+    return {
+      value: mapped.value,
+      label: mapped.label,
+      country: mapped.country || country || null,
+      hidden: false,
+    };
+  }
+
+  if (
+    HIDDEN_BRAND_FILTER_VALUES.has(normalizedValue) ||
+    HIDDEN_BRAND_FILTER_VALUES.has(normalizedLabel) ||
+    HIDDEN_BRAND_FILTER_VALUES.has(dashValue)
+  ) {
+    return { value: "", label: "", country: null, hidden: true };
+  }
+
+  return {
+    value: rawValue,
+    label: rawLabel,
+    country: country || null,
+    hidden: false,
+  };
+}
+
+function productBrandFilterValue(product: PublicCatalogProduct) {
+  return canonicalBrandFilterInfo(
+    product.brandSlug || product.brandName,
+    product.brandName,
+    product.brandCountry
+  ).value;
+}
+
+function validPublicReferencePrice(product: PublicCatalogProduct) {
+  return (
+    product.siteDisplayReady &&
+    typeof product.siteDisplayAmount === "number" &&
+    Number.isFinite(product.siteDisplayAmount) &&
+    product.siteDisplayCurrency === "CNY"
+  );
+}
+
 
 type RawSearchParams = Record<string, string | string[] | undefined>;
 
@@ -40,7 +124,7 @@ function firstParam(value: string | string[] | undefined) {
 export function normalizeSearchText(value: unknown) {
   return String(value ?? "")
     .normalize("NFKC")
-    .replace(/[’‘`´]/g, "'")
+    .replace(/[鈥欌€榒麓]/g, "'")
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
@@ -119,7 +203,7 @@ function deriveConditionOptions(
 
     const label =
       String(product.conditionLabel || "").trim() ||
-      (value === "new" ? "新斗" : value === "estate" ? "回流" : value);
+      (value === "new" ? "鏂版枟" : value === "estate" ? "鍥炴祦" : value);
     const current = counts.get(value) || { label, count: 0 };
     current.count += 1;
     counts.set(value, current);
@@ -177,6 +261,43 @@ function enrichBrandOptions(options: PublicFilterOption[]) {
     .map((option) => ({
       ...option,
       labelZh: brandChineseLabel(option.label) || option.labelZh,
+    }))
+    .sort(optionSort);
+}
+
+function deriveBrandOptions(
+  catalog: PublicCatalogProduct[]
+): PublicFilterOption[] {
+  const counts = new Map<
+    string,
+    { label: string; labelZh: string | null; productCount: number }
+  >();
+
+  for (const product of catalog) {
+    const canonical = canonicalBrandFilterInfo(
+      product.brandSlug || product.brandName,
+      product.brandName,
+      product.brandCountry
+    );
+
+    if (canonical.hidden || !canonical.value) continue;
+
+    const current = counts.get(canonical.value) || {
+      label: canonical.label,
+      labelZh: brandChineseLabel(canonical.label) || null,
+      productCount: 0,
+    };
+
+    current.productCount += 1;
+    counts.set(canonical.value, current);
+  }
+
+  return [...counts.entries()]
+    .map(([value, entry]) => ({
+      value,
+      label: entry.label,
+      labelZh: entry.labelZh,
+      productCount: entry.productCount,
     }))
     .sort(optionSort);
 }
@@ -257,7 +378,7 @@ export function getProductUiFilterOptions(): ProductUiFilterOptions {
 
   return {
     source: generated.source || [],
-    brand: enrichBrandOptions(generated.brand || []),
+    brand: deriveBrandOptions(catalog),
     country: enrichCountryOptions(generated.country || []),
     shape: deriveShapeOptions(catalog),
     condition: deriveConditionOptions(catalog),
@@ -284,7 +405,7 @@ export function parseProductQueryState(
       makeAllowedSet(filters.source)
     ),
     brand: allowedValue(
-      cleanParam(firstParam(searchParams.brand)),
+      canonicalBrandFilterInfo(cleanParam(firstParam(searchParams.brand))).value,
       makeAllowedSet(filters.brand)
     ),
     country: allowedValue(
@@ -381,7 +502,7 @@ function productMatchesState(
 
   if (keyword && !productSearchText(product).includes(keyword)) return false;
   if (state.source && product.source !== state.source) return false;
-  if (state.brand && (product.brandSlug || product.brandName) !== state.brand) {
+  if (state.brand && productBrandFilterValue(product) !== state.brand) {
     return false;
   }
   if (state.country && product.brandCountry !== state.country) return false;
@@ -407,7 +528,9 @@ function productMatchesState(
 }
 
 function productPrice(product: PublicCatalogProduct) {
-  return product.siteDisplayAmount ?? product.sortKeys?.price ?? Number.POSITIVE_INFINITY;
+  return validPublicReferencePrice(product)
+    ? product.siteDisplayAmount
+    : Number.POSITIVE_INFINITY;
 }
 
 function sourceProductIdNumber(product: PublicCatalogProduct) {
@@ -567,7 +690,7 @@ function buildRecommendationContext(catalog: PublicCatalogProduct[]) {
     current.availableCount += 1;
 
     const price = productPrice(product);
-    if (Number.isFinite(price) && price > 0) {
+    if (price !== null && Number.isFinite(price) && price > 0) {
       current.prices.push(price);
     }
 
@@ -598,9 +721,11 @@ function buildRecommendationContext(catalog: PublicCatalogProduct[]) {
 
   for (const product of catalog) {
     const stats = byBrand.get(productBrandKey(product));
-    const percentile = stats
-      ? pricePercentile(productPrice(product), stats.sortedPrices)
-      : null;
+    const percentilePrice = productPrice(product);
+    const percentile =
+      stats && percentilePrice !== null
+        ? pricePercentile(percentilePrice, stats.sortedPrices)
+        : null;
     const brandScore = stats?.scaleScore || 0;
     const bandScore = priceBandScore(percentile, stats?.pricedCount || 0);
     const imageScore = product.galleryCount > 1 ? 1 : 0;
@@ -636,7 +761,7 @@ function commercialRecommendationCompare(
       (leftMetrics?.brandAvailableCount || 0) ||
     Math.abs((leftMetrics?.brandPricePercentile ?? 0.5) - 0.45) -
       Math.abs((rightMetrics?.brandPricePercentile ?? 0.5) - 0.45) ||
-    productPrice(left) - productPrice(right) ||
+    compareNullableProductPrices(left, right, "asc") ||
     left.id.localeCompare(right.id)
   );
 }
@@ -719,18 +844,18 @@ function sortProducts(
   const context = buildRecommendationContext(catalog);
   const sorted = [...products].sort((left, right) => {
     if (sort === "priceAsc") {
-      return productPrice(left) - productPrice(right) || left.id.localeCompare(right.id);
+      return compareNullableProductPrices(left, right, "asc") || left.id.localeCompare(right.id);
     }
 
     if (sort === "priceDesc") {
-      return productPrice(right) - productPrice(left) || left.id.localeCompare(right.id);
+      return compareNullableProductPrices(left, right, "desc") || left.id.localeCompare(right.id);
     }
 
     if (sort === "galleryFirst") {
       return (
         right.galleryCount - left.galleryCount ||
         inventoryRank(left) - inventoryRank(right) ||
-        productPrice(left) - productPrice(right) ||
+        compareNullableProductPrices(left, right, "asc") ||
         left.id.localeCompare(right.id)
       );
     }
@@ -795,4 +920,27 @@ export function queryPublicProducts(
     currentPage,
     totalPages,
   };
+}
+
+function compareNullableProductPrices(
+  left: PublicCatalogProduct,
+  right: PublicCatalogProduct,
+  direction: "asc" | "desc"
+) {
+  const leftPrice = productPrice(left);
+  const rightPrice = productPrice(right);
+
+  if (leftPrice === null && rightPrice === null) {
+    return 0;
+  }
+
+  if (leftPrice === null) {
+    return 1;
+  }
+
+  if (rightPrice === null) {
+    return -1;
+  }
+
+  return direction === "asc" ? leftPrice - rightPrice : rightPrice - leftPrice;
 }

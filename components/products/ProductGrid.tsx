@@ -2,7 +2,11 @@
 
 import { useEffect } from "react";
 import type { PublicCatalogProduct } from "@/lib/public-products/types";
-import { productReturnScrollKey } from "@/lib/public-products/scroll";
+import {
+  parseProductReturnPosition,
+  productAnchorId,
+  productReturnScrollKey,
+} from "@/lib/public-products/scroll";
 import ProductCard from "./ProductCard";
 
 type ProductGridProps = {
@@ -22,18 +26,38 @@ export default function ProductGrid({
     try {
       const key = productReturnScrollKey(returnTo);
       const stored = window.sessionStorage.getItem(key);
-      if (!stored) return;
+      const position = parseProductReturnPosition(stored);
+      const hashAnchor = window.location.hash.replace(/^#/, "");
+      const storedAnchor = position?.productId
+        ? productAnchorId(position.productId)
+        : "";
+      const anchorId = /^product-[a-z0-9][a-z0-9-]*$/i.test(hashAnchor)
+        ? hashAnchor
+        : storedAnchor;
 
-      const scrollY = Number.parseFloat(stored);
+      if (!position && !anchorId) return;
       window.sessionStorage.removeItem(key);
 
-      if (!Number.isFinite(scrollY)) return;
-
+      let innerFrame = 0;
       const frame = window.requestAnimationFrame(() => {
-        window.scrollTo({ top: scrollY, behavior: "auto" });
+        innerFrame = window.requestAnimationFrame(() => {
+          const anchor = anchorId ? document.getElementById(anchorId) : null;
+
+          if (anchor) {
+            anchor.scrollIntoView({ behavior: "auto", block: "center" });
+            return;
+          }
+
+          if (position) {
+            window.scrollTo({ top: position.scrollY, behavior: "auto" });
+          }
+        });
       });
 
-      return () => window.cancelAnimationFrame(frame);
+      return () => {
+        window.cancelAnimationFrame(frame);
+        if (innerFrame) window.cancelAnimationFrame(innerFrame);
+      };
     } catch {
       return;
     }
