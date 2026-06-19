@@ -265,6 +265,14 @@ export default async function ProductDetailPage({
   const brandSlug = product.brandSlug || brand?.slug || "";
   const specs = productSpecRows(product);
   const mainImage = product.mainImage || product.gallery[0] || "";
+  const rawReturnTo = String(
+    firstParam(resolvedSearchParams.returnTo) || ""
+  ).trim();
+  const backLabel = /^\/brands\/[a-z0-9][a-z0-9-]*(?:[?#]|$)/i.test(
+    rawReturnTo
+  )
+    ? "返回品牌页"
+    : "返回海外库存";
   const detailSummary =
     "页面价格、库存状态、图片和参数为采集时参考信息。实际入手前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
 
@@ -282,11 +290,12 @@ export default async function ProductDetailPage({
 
       <div className="mx-auto max-w-6xl px-4 pb-10 pt-4 sm:px-6 lg:px-8">
         <ProductBackButton
+          productId={product.id}
           fallbackHref="/products"
           className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
         >
           <ArrowLeftIcon className="h-4 w-4" />
-          返回海外库存
+          {backLabel}
         </ProductBackButton>
 
         <section className="grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">

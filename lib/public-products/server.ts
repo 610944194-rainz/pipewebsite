@@ -5,6 +5,8 @@ import path from "node:path";
 import type {
   PublicBrandIndexEntry,
   PublicBrandIndexFile,
+  PublicBrandSeriesIndexEntry,
+  PublicBrandSeriesIndexFile,
   PublicCatalogProduct,
   PublicDetailProduct,
   PublicDetailShardFile,
@@ -31,6 +33,7 @@ let catalogMapCache: Map<string, PublicCatalogProduct> | null = null;
 let filtersCache: PublicFilters | null = null;
 let brandsCache: PublicBrandIndexEntry[] | null = null;
 let brandMapCache: Map<string, PublicBrandIndexEntry> | null = null;
+let brandSeriesMapCache: Map<string, PublicBrandSeriesIndexEntry> | null = null;
 let lookupCache: PublicLookupFile | null = null;
 const detailShardCache = new Map<string, PublicDetailProduct[]>();
 
@@ -94,6 +97,19 @@ export function getPublicBrandMap() {
   }
 
   return brandMapCache;
+}
+
+export function getPublicBrandSeriesOptions(brandSlug: string) {
+  if (!brandSeriesMapCache) {
+    const seriesFile = readJson<PublicBrandSeriesIndexFile>(
+      dataFile("series.json")
+    );
+    brandSeriesMapCache = new Map(
+      seriesFile.brands.map((brand) => [brand.brandSlug, brand])
+    );
+  }
+
+  return brandSeriesMapCache.get(brandSlug)?.seriesOptions || [];
 }
 
 export function getPublicLookup(): PublicLookupFile {

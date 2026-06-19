@@ -14,7 +14,11 @@ import {
   sourceLabel,
   shapeDisplayLabel,
 } from "@/lib/public-products/presentation";
-import { productReturnScrollKey } from "@/lib/public-products/scroll";
+import {
+  productAnchorId,
+  productReturnNavigationKey,
+  productReturnScrollKey,
+} from "@/lib/public-products/scroll";
 
 type ProductCardProps = {
   product: PublicCatalogProduct;
@@ -35,7 +39,10 @@ function inventoryClass(status: PublicCatalogProduct["inventoryStatus"]) {
 
 function productHref(product: PublicCatalogProduct, returnTo?: string) {
   const params = new URLSearchParams();
-  if (returnTo) params.set("returnTo", returnTo);
+  if (returnTo) {
+    params.set("returnTo", returnTo);
+    params.set("anchor", productAnchorId(product.id));
+  }
   const query = params.toString();
   return query ? `/products/${product.id}?${query}` : `/products/${product.id}`;
 }
@@ -53,13 +60,28 @@ function metaTags(product: PublicCatalogProduct) {
     .slice(0, 3);
 }
 
-function saveReturnPosition(returnTo?: string) {
+function saveReturnPosition(
+  productId: string,
+  returnTo?: string
+) {
   if (!returnTo || typeof window === "undefined") return;
 
   try {
+    const anchor = productAnchorId(productId);
     window.sessionStorage.setItem(
       productReturnScrollKey(returnTo),
-      String(window.scrollY)
+      JSON.stringify({
+        productId,
+        scrollY: window.scrollY,
+      })
+    );
+    window.sessionStorage.setItem(
+      productReturnNavigationKey(productId),
+      JSON.stringify({
+        returnTo,
+        anchor,
+        savedAt: Date.now(),
+      })
     );
   } catch {
     // Storage is an enhancement only; navigation must still work.
@@ -162,9 +184,10 @@ export default function ProductCard({
 
   return (
     <Link
+      id={productAnchorId(product.id)}
       href={productHref(product, returnTo)}
-      onClick={() => saveReturnPosition(returnTo)}
-      className="group block h-full overflow-hidden rounded-[18px] border border-[#E7DDD0] bg-white shadow-[0_6px_18px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(31,26,22,0.1)]"
+      onNavigate={() => saveReturnPosition(product.id, returnTo)}
+      className="group block h-full scroll-mt-4 overflow-hidden rounded-[18px] border border-[#E7DDD0] bg-white shadow-[0_6px_18px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(31,26,22,0.1)]"
     >
       <article className="flex h-full flex-col">
         <ProductImage

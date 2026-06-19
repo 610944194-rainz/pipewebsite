@@ -1,18 +1,22 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import BackButton from "../../components/BackButton";
 import SiteHeader from "../../components/SiteHeader";
 import { parseBrandSummary } from "../../utils/display";
 import {
   getCanonicalBrandSlugForInput,
   isNameOnlyBrand,
 } from "@/data/brands";
+import BrandSeriesFilterDrawer from "@/components/brands/BrandSeriesFilterDrawer";
 import ProductGrid from "@/components/products/ProductGrid";
 import ProductPagination from "@/components/products/ProductPagination";
 import {
   getPublicBrandProfileBySlug,
   type PublicBrandProfile,
 } from "@/lib/public-products/brands";
-import { getPublicProductsByIds } from "@/lib/public-products/server";
+import {
+  getPublicBrandSeriesOptions,
+  getPublicProductsByIds,
+} from "@/lib/public-products/server";
 
 type PageProps = {
   params: Promise<{
@@ -20,6 +24,7 @@ type PageProps = {
   }>;
   searchParams?: Promise<{
     page?: string;
+    series?: string;
   }>;
 };
 
@@ -32,12 +37,22 @@ const RELATED_STOCK_PAGE_SIZE = 12;
 function buildBrandDetailHref({
   slug,
   page,
+  series,
+  anchor,
 }: {
   slug: string;
   page?: number;
+  series?: string;
+  anchor?: string;
 }) {
-  if (!page || page <= 1) return `/brands/${slug}`;
-  return `/brands/${slug}?page=${page}`;
+  const params = new URLSearchParams();
+
+  if (series?.trim()) params.set("series", series.trim());
+  if (page && page > 1) params.set("page", String(page));
+
+  const query = params.toString();
+  const href = query ? `/brands/${slug}?${query}` : `/brands/${slug}`;
+  return anchor ? `${href}#${anchor}` : href;
 }
 
 function placeholderText(value?: string) {
@@ -370,22 +385,63 @@ function BrandReviewNotice({ brand }: { brand: PublicBrandProfile }) {
 function RelatedStock({
   brand,
   page,
+  requestedSeries,
 }: {
   brand: PublicBrandProfile;
   page: number;
+  requestedSeries: string;
 }) {
   const products = getPublicProductsByIds(brand.productIds);
+  const seriesOptions =
+    brand.productCount > 100 ? getPublicBrandSeriesOptions(brand.slug) : [];
+  const activeSeries =
+    seriesOptions.find((option) => option.series === requestedSeries) || null;
+  const activeProductIds = activeSeries
+    ? new Set(activeSeries.productIds)
+    : null;
+  const filteredProducts = activeProductIds
+    ? products.filter((product) => activeProductIds.has(product.id))
+    : products;
+  const showSeriesFilter =
+    brand.productCount > 100 && seriesOptions.length > 0;
+  const seriesFilterOptions = seriesOptions.map((option) => ({
+    series: option.series,
+    seriesZh: option.seriesZh,
+    count: option.count,
+  }));
   const totalPages = Math.max(
     1,
-    Math.ceil(products.length / RELATED_STOCK_PAGE_SIZE)
+    Math.ceil(filteredProducts.length / RELATED_STOCK_PAGE_SIZE)
   );
   const currentPage = Math.min(Math.max(page, 1), totalPages);
   const start = (currentPage - 1) * RELATED_STOCK_PAGE_SIZE;
-  const pageProducts = products.slice(start, start + RELATED_STOCK_PAGE_SIZE);
-  const returnTo = buildBrandDetailHref({ slug: brand.slug, page: currentPage });
+  const pageProducts = filteredProducts.slice(
+    start,
+    start + RELATED_STOCK_PAGE_SIZE
+  );
+  const returnTo = buildBrandDetailHref({
+    slug: brand.slug,
+    page: currentPage,
+    series: activeSeries?.series,
+  });
 
   return (
-    <section className="mt-7">
+    <section id="brand-stock" className="mt-7 scroll-mt-4">
+      {showSeriesFilter ? (
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <BrandSeriesFilterDrawer
+            brandSlug={brand.slug}
+            options={seriesFilterOptions}
+            selectedSeries={activeSeries?.series || ""}
+          />
+          {activeSeries ? (
+            <p className="shrink-0 text-[12px] text-[#746A5F]">
+              {activeSeries.count} 件
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className="mb-4 flex items-end justify-between gap-4">
         <div>
           <p className="mb-1.5 text-[11px] uppercase tracking-[0.3em] text-[#A97838]">
@@ -394,7 +450,7 @@ function RelatedStock({
           <h2 className="text-[23px] font-bold text-[#1F1A16]">
             当前相关库存
             <span className="ml-2 text-[15px] font-semibold text-[#A97838]">
-              {products.length} 件
+              {filteredProducts.length} 件
             </span>
           </h2>
         </div>
@@ -417,7 +473,12 @@ function RelatedStock({
             currentPage={currentPage}
             totalPages={totalPages}
             hrefForPage={(nextPage) =>
-              buildBrandDetailHref({ slug: brand.slug, page: nextPage })
+              buildBrandDetailHref({
+                slug: brand.slug,
+                page: nextPage,
+                series: activeSeries?.series,
+                anchor: "brand-stock",
+              })
             }
             label="品牌相关库存分页"
           />
@@ -441,6 +502,7 @@ export default async function BrandDetailPage({
     String(resolvedSearchParams.page || "1"),
     10
   );
+  const requestedSeries = String(resolvedSearchParams.series || "").trim();
   const brand = getPublicBrandProfileBySlug(slug);
 
   if (!brand) {
@@ -473,13 +535,13 @@ export default async function BrandDetailPage({
       <SiteHeader />
 
       <section className="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:px-6 lg:px-10">
-        <BackButton
-          fallbackHref="/brands"
+        <Link
+          href="/brands"
           className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
         >
           <ArrowLeftIcon className="h-4 w-4" />
           返回品牌库
-        </BackButton>
+        </Link>
 
         <BrandHero brand={brand} />
 
@@ -497,6 +559,7 @@ export default async function BrandDetailPage({
         <RelatedStock
           brand={brand}
           page={Number.isFinite(requestedPage) ? requestedPage : 1}
+          requestedSeries={requestedSeries}
         />
 
         <BrandPageInfoFooter />

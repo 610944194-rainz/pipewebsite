@@ -140,6 +140,33 @@ export type PublicBrandIndexFile = {
   brands: PublicBrandIndexEntry[];
 };
 
+export type PublicBrandSeriesOption = {
+  brand: string;
+  brandZh: string | null;
+  canonicalBrand: string;
+  series: string;
+  seriesZh: string | null;
+  count: number;
+  productIds: string[];
+  confidence: "high" | "medium" | "low";
+};
+
+export type PublicBrandSeriesIndexEntry = {
+  brand: string;
+  brandZh: string | null;
+  canonicalBrand: string;
+  brandSlug: string;
+  productCount: number;
+  seriesOptions: PublicBrandSeriesOption[];
+};
+
+export type PublicBrandSeriesIndexFile = {
+  schemaVersion: 1;
+  frontendThresholdExclusive: number;
+  minimumSeriesProductCount: number;
+  brands: PublicBrandSeriesIndexEntry[];
+};
+
 export type PublicLookupFile = {
   schemaVersion: 1;
   byId: Record<string, string>;
