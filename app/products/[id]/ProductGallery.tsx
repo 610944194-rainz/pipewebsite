@@ -4,6 +4,10 @@ import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { sourceImageCandidates } from "@/lib/public-products/presentation";
+import {
+  parseProductReturnNavigation,
+  productReturnNavigationKey,
+} from "@/lib/public-products/scroll";
 
 type ProductGalleryProps = {
   productId?: number | string;
@@ -18,6 +22,7 @@ type IconProps = {
 };
 
 type ProductBackButtonProps = {
+  productId: string;
   fallbackHref?: string;
   className?: string;
   children?: ReactNode;
@@ -117,7 +122,21 @@ export function sanitizeProductReturnTo(value: string | null) {
   }
 }
 
+function sanitizeProductAnchor(value: string | null) {
+  const anchor = String(value || "").trim();
+  return /^product-[a-z0-9][a-z0-9-]*$/i.test(anchor) ? anchor : "";
+}
+
+function appendProductAnchor(returnTo: string, anchor: string) {
+  if (!anchor) return returnTo;
+
+  const url = new URL(returnTo, window.location.origin);
+  url.hash = anchor;
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
 export function ProductBackButton({
+  productId,
   fallbackHref = "/products",
   className = "",
   children,
@@ -129,24 +148,41 @@ export function ProductBackButton({
       typeof window !== "undefined"
         ? new URLSearchParams(window.location.search).get("returnTo")
         : null;
+    const rawAnchor =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("anchor")
+        : null;
     const returnTo = sanitizeProductReturnTo(rawReturnTo);
+    const anchor = sanitizeProductAnchor(rawAnchor);
+    const navigationKey = productReturnNavigationKey(productId);
+    let canUseHistoryBack = false;
 
-    if (returnTo) {
-      router.push(returnTo, { scroll: false });
-      return;
+    try {
+      const navigation = parseProductReturnNavigation(
+        window.sessionStorage.getItem(navigationKey)
+      );
+      canUseHistoryBack = Boolean(
+        navigation &&
+          Date.now() - navigation.savedAt < 30 * 60 * 1000 &&
+          navigation.returnTo === returnTo &&
+          navigation.anchor === anchor
+      );
+      window.sessionStorage.removeItem(navigationKey);
+    } catch {
+      // A storage failure should still fall back to replace navigation.
     }
 
-    if (rawReturnTo) {
-      router.push(fallbackHref, { scroll: false });
-      return;
-    }
-
-    if (typeof window !== "undefined" && window.history.length > 1) {
+    if (canUseHistoryBack) {
       router.back();
       return;
     }
 
-    router.push(fallbackHref, { scroll: false });
+    if (returnTo) {
+      router.replace(appendProductAnchor(returnTo, anchor), { scroll: false });
+      return;
+    }
+
+    router.replace(fallbackHref, { scroll: false });
   }
 
   return (
