@@ -60,8 +60,8 @@ export function sourceImageCandidates(value: string | null | undefined) {
       pathname.startsWith("/products/")
     ) {
       return [
-        `https://assets.smokingpipes.com/images${pathname}`,
         source,
+        `https://assets.smokingpipes.com/images${pathname}`,
       ];
     }
 
@@ -69,12 +69,14 @@ export function sourceImageCandidates(value: string | null | undefined) {
       url.hostname === "assets.smokingpipes.com" &&
       pathname.startsWith("/images/products/")
     ) {
+      const rackCdnUrl = `https://c647068.ssl.cf2.rackcdn.com${pathname.replace(
+        /^\/images/,
+        ""
+      )}`;
+
       return [
+        rackCdnUrl,
         source,
-        `https://c647068.ssl.cf2.rackcdn.com${pathname.replace(
-          /^\/images/,
-          ""
-        )}`,
       ];
     }
   } catch {

@@ -41,6 +41,9 @@ yarn-error.log*
 next-env.d.ts
 # Browser profile / crawler runtime cache
 .browser/
+/.cache/
+data/inventory/state/*.lock
+data/inventory/.session/
 
 # Next.js
 .next/

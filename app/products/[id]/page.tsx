@@ -58,6 +58,16 @@ function buildDetailHref(
   return query ? `/products/${id}?${query}` : `/products/${id}`;
 }
 
+function productBackLabel(returnTo: string) {
+  if (/^\/(?:[?#]|$)/.test(returnTo)) return "返回首页";
+  if (/^\/featured(?:[?#]|$)/.test(returnTo)) return "返回今日精选";
+  if (/^\/brands\/[a-z0-9][a-z0-9-]*(?:[?#]|$)/i.test(returnTo)) {
+    return "返回品牌页";
+  }
+
+  return "返回海外库存";
+}
+
 function knownText(value: unknown) {
   const text = String(value ?? "").trim();
   return text && text.toLowerCase() !== "unknown" ? text : "";
@@ -268,11 +278,7 @@ export default async function ProductDetailPage({
   const rawReturnTo = String(
     firstParam(resolvedSearchParams.returnTo) || ""
   ).trim();
-  const backLabel = /^\/brands\/[a-z0-9][a-z0-9-]*(?:[?#]|$)/i.test(
-    rawReturnTo
-  )
-    ? "返回品牌页"
-    : "返回海外库存";
+  const backLabel = productBackLabel(rawReturnTo);
   const detailSummary =
     "页面价格、库存状态、图片和参数为采集时参考信息。实际入手前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
 

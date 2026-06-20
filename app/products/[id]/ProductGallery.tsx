@@ -109,12 +109,21 @@ export function sanitizeProductReturnTo(value: string | null) {
     const url = new URL(rawValue, window.location.origin);
     if (url.origin !== window.location.origin) return "";
 
+    const isHomepage = url.pathname === "/";
+    const isFeaturedList = url.pathname === "/featured";
     const isProductsList = url.pathname === "/products";
     const isBrandDetail = /^\/brands\/[a-z0-9][a-z0-9-]*$/i.test(
       url.pathname
     );
 
-    if (!isProductsList && !isBrandDetail) return "";
+    if (
+      !isHomepage &&
+      !isFeaturedList &&
+      !isProductsList &&
+      !isBrandDetail
+    ) {
+      return "";
+    }
 
     return `${url.pathname}${url.search}${url.hash}`;
   } catch {
@@ -178,7 +187,7 @@ export function ProductBackButton({
     }
 
     if (returnTo) {
-      router.replace(appendProductAnchor(returnTo, anchor), { scroll: false });
+      router.replace(appendProductAnchor(returnTo, anchor));
       return;
     }
 

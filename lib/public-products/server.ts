@@ -10,10 +10,15 @@ import type {
   PublicCatalogProduct,
   PublicDetailProduct,
   PublicDetailShardFile,
+  PublicFeaturedProductsFile,
   PublicFilters,
   PublicLookupFile,
 } from "./types";
 import { withSafeDisplayName } from "../product-display-name-server";
+import {
+  FEATURED_PRODUCT_RULES,
+  isFeaturedProductEligible,
+} from "./featured-rules.mjs";
 
 const ROOT = process.cwd();
 const PUBLIC_PRODUCTS_ROOT = path.join(
@@ -35,6 +40,7 @@ let brandsCache: PublicBrandIndexEntry[] | null = null;
 let brandMapCache: Map<string, PublicBrandIndexEntry> | null = null;
 let brandSeriesMapCache: Map<string, PublicBrandSeriesIndexEntry> | null = null;
 let lookupCache: PublicLookupFile | null = null;
+let featuredCache: PublicFeaturedProductsFile | null | undefined;
 const detailShardCache = new Map<string, PublicDetailProduct[]>();
 
 function readJson<T>(filePath: string): T {
@@ -187,4 +193,105 @@ export function getPublicProductsByIds(ids: string[]) {
   return ids
     .map((id) => catalog.get(id))
     .filter((product): product is PublicCatalogProduct => Boolean(product));
+}
+
+function getFallbackFeaturedProducts() {
+  return getPublicCatalog()
+    .filter(isFeaturedProductEligible)
+    .sort((left, right) => {
+      const galleryDiff = right.galleryCount - left.galleryCount;
+      if (galleryDiff !== 0) return galleryDiff;
+
+      const leftCompleteness = [
+        left.brandCountry,
+        left.finish,
+        left.bowlMaterial,
+        left.stemMaterial,
+        left.filter,
+        left.weightGrams,
+      ].filter((value) => value !== null && value !== "").length;
+      const rightCompleteness = [
+        right.brandCountry,
+        right.finish,
+        right.bowlMaterial,
+        right.stemMaterial,
+        right.filter,
+        right.weightGrams,
+      ].filter((value) => value !== null && value !== "").length;
+      const completenessDiff = rightCompleteness - leftCompleteness;
+      if (completenessDiff !== 0) return completenessDiff;
+
+      return left.id.localeCompare(right.id, "en");
+    });
+}
+
+function getPublicFeaturedIndex(): PublicFeaturedProductsFile | null {
+  if (featuredCache !== undefined) return featuredCache;
+
+  const featuredPath = dataFile("featured.json");
+
+  try {
+    featuredCache = fs.existsSync(featuredPath)
+      ? readJson<PublicFeaturedProductsFile>(featuredPath)
+      : null;
+  } catch {
+    featuredCache = null;
+  }
+
+  return featuredCache;
+}
+
+function resolveFeaturedProducts(ids: string[], size: number) {
+  const catalog = getPublicCatalogMap();
+  const selected: PublicCatalogProduct[] = [];
+  const selectedIds = new Set<string>();
+
+  function add(product: PublicCatalogProduct | undefined) {
+    if (
+      !product ||
+      selectedIds.has(product.id) ||
+      !isFeaturedProductEligible(product)
+    ) {
+      return;
+    }
+
+    selected.push(product);
+    selectedIds.add(product.id);
+  }
+
+  for (const id of ids) {
+    if (selected.length >= size) break;
+    add(catalog.get(id));
+  }
+
+  if (selected.length < size) {
+    for (const product of getFallbackFeaturedProducts()) {
+      if (selected.length >= size) break;
+      add(product);
+    }
+  }
+
+  return selected;
+}
+
+export function getFeaturedProducts() {
+  const featured = getPublicFeaturedIndex();
+  return resolveFeaturedProducts(
+    featured?.featured || [],
+    FEATURED_PRODUCT_RULES.featuredSize
+  );
+}
+
+export function getHomepageFeaturedProducts() {
+  const featured = getPublicFeaturedIndex();
+  const fullSelection = getFeaturedProducts();
+  const requestedIds = [
+    ...(featured?.homepage || []),
+    ...fullSelection.map((product) => product.id),
+  ];
+
+  return resolveFeaturedProducts(
+    requestedIds,
+    FEATURED_PRODUCT_RULES.homepageSize
+  );
 }

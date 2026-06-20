@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
 import type { PublicCatalogProduct } from "@/lib/public-products/types";
 import {
   conditionDisplayLabel,
@@ -10,7 +9,6 @@ import {
   displayProductName,
   formatSitePrice,
   inventoryLabel,
-  sourceImageCandidates,
   sourceLabel,
   shapeDisplayLabel,
 } from "@/lib/public-products/presentation";
@@ -19,12 +17,15 @@ import {
   productReturnNavigationKey,
   productReturnScrollKey,
 } from "@/lib/public-products/scroll";
+import ProductCardImage from "./ProductCardImage";
 
 type ProductCardProps = {
   product: PublicCatalogProduct;
   returnTo?: string;
   variant?: "catalog" | "compact";
-  eagerImage?: boolean;
+  imagePriority?: boolean;
+  imageLoading?: "eager" | "lazy";
+  imageFetchPriority?: "high" | "auto" | "low";
 };
 
 type IconProps = {
@@ -88,65 +89,15 @@ function saveReturnPosition(
   }
 }
 
-function ProductImage({
+function ProductImageOverlays({
   product,
-  name,
   compact,
-  eagerImage,
 }: {
   product: PublicCatalogProduct;
-  name: string;
   compact: boolean;
-  eagerImage: boolean;
 }) {
-  const candidates = useMemo(
-    () => sourceImageCandidates(product.mainImage),
-    [product.mainImage]
-  );
-  const [candidateIndex, setCandidateIndex] = useState(0);
-  const [failed, setFailed] = useState(candidates.length === 0);
-
-  const currentImage = candidates[candidateIndex] || "";
-
-  function handleImageError() {
-    if (candidateIndex + 1 < candidates.length) {
-      setCandidateIndex((index) => index + 1);
-      return;
-    }
-
-    setFailed(true);
-  }
-
   return (
-    <div
-      className={[
-        "relative bg-white",
-        compact ? "h-[116px] sm:h-[138px]" : "h-[122px] sm:h-[150px]",
-      ].join(" ")}
-    >
-      {!failed && currentImage ? (
-        <img
-          src={currentImage}
-          alt={name}
-          className="h-full w-full object-contain p-2.5"
-          draggable={false}
-          loading={eagerImage ? "eager" : "lazy"}
-          fetchPriority={eagerImage ? "high" : "auto"}
-          decoding="async"
-          referrerPolicy="no-referrer"
-          onError={handleImageError}
-        />
-      ) : (
-        <div className="flex h-full w-full flex-col items-center justify-center bg-white px-3 text-center">
-          <span className="text-[11px] font-semibold tracking-[0.2em] text-[#A97838]">
-            PIPE
-          </span>
-          <span className="mt-1 text-[10px] text-[#9A8F84]">
-            图片加载失败
-          </span>
-        </div>
-      )}
-
+    <>
       <span
         className={[
           "absolute left-2 top-2 rounded-md px-1.5 py-1 text-[10px] font-medium leading-none shadow-sm",
@@ -167,7 +118,7 @@ function ProductImage({
           {product.galleryCount} 图
         </span>
       ) : null}
-    </div>
+    </>
   );
 }
 
@@ -175,7 +126,9 @@ export default function ProductCard({
   product,
   returnTo,
   variant = "catalog",
-  eagerImage = false,
+  imagePriority = false,
+  imageLoading,
+  imageFetchPriority,
 }: ProductCardProps) {
   const name = displayProductName(product);
   const subtitle = displayProductEnglishName(product);
@@ -190,12 +143,20 @@ export default function ProductCard({
       className="group block h-full scroll-mt-4 overflow-hidden rounded-[18px] border border-[#E7DDD0] bg-white shadow-[0_6px_18px_rgba(31,26,22,0.055)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(31,26,22,0.1)]"
     >
       <article className="flex h-full flex-col">
-        <ProductImage
-          product={product}
-          name={name}
-          compact={compact}
-          eagerImage={eagerImage}
-        />
+        <ProductCardImage
+          imageUrl={product.mainImage}
+          alt={name}
+          brandName={product.brandName}
+          loading={imageLoading || (imagePriority ? "eager" : "lazy")}
+          fetchPriority={
+            imageFetchPriority || (imagePriority ? "high" : "auto")
+          }
+          className={
+            compact ? "h-[116px] sm:h-[138px]" : "h-[122px] sm:h-[150px]"
+          }
+        >
+          <ProductImageOverlays product={product} compact={compact} />
+        </ProductCardImage>
 
         <div className="flex flex-1 flex-col p-2.5">
           <p className="line-clamp-1 text-[10px] font-medium uppercase tracking-[0.16em] text-[#9A6530]">

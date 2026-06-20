@@ -13,12 +13,14 @@ type ProductGridProps = {
   products: PublicCatalogProduct[];
   returnTo?: string;
   variant?: "catalog" | "compact";
+  priorityCount?: number;
 };
 
 export default function ProductGrid({
   products,
   returnTo,
   variant = "catalog",
+  priorityCount = 6,
 }: ProductGridProps) {
   useEffect(() => {
     if (!returnTo) return;
@@ -71,7 +73,7 @@ export default function ProductGrid({
           product={product}
           returnTo={returnTo}
           variant={variant}
-          eagerImage={index < 2}
+          imagePriority={index < priorityCount}
         />
       ))}
     </div>

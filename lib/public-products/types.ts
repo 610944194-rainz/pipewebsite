@@ -185,6 +185,21 @@ export type PublicDetailShardFile = {
   products: PublicDetailProduct[];
 };
 
+export type PublicFeaturedProductsFile = {
+  version: "featured-products-v1";
+  generatedAt: string;
+  seedDate: string;
+  homepage: string[];
+  featured: string[];
+  rules: {
+    homepageSize: number;
+    featuredSize: number;
+    maxPerBrand: number;
+    homepageMaxPerBrand: number;
+  };
+  warnings?: string[];
+};
+
 export type ProductWeightRange =
   | "light"
   | "medium"

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import SiteHeader from "./components/SiteHeader";
+import PublicProductCard from "@/components/products/ProductCard";
+import ProductCardImage from "@/components/products/ProductCardImage";
 import { getRmbReferencePrice, RMB_REFERENCE_LABEL } from "./utils/price";
 import { pipeProducts } from "@/data/pipes";
+import { getHomepageFeaturedProducts } from "@/lib/public-products/server";
+import { buildProductsHref } from "@/lib/public-products/url";
 
 type PipeLike = Record<string, unknown>;
 
@@ -142,11 +146,6 @@ const allPipes = Array.isArray(pipeProducts)
 
 const availablePipes = allPipes.filter((item) => getStatus(item) !== "Sold");
 
-const featuredPipes = (availablePipes.length ? availablePipes : allPipes).slice(
-  0,
-  4
-);
-
 const recentPipes = (availablePipes.length ? availablePipes : allPipes).slice(
   4,
   8
@@ -183,25 +182,25 @@ const collectionCards = [
   {
     title: "英式风格",
     desc: "经典传统，绅士之选",
-    href: "/products",
+    href: buildProductsHref({ country: "United Kingdom" }),
     image: "/pics/collection-british.jpg",
   },
   {
     title: "美式风格",
     desc: "粗犷实用，收藏氛围",
-    href: "/products",
+    href: buildProductsHref({ country: "United States" }),
     image: "/pics/collection-american.jpg",
   },
   {
     title: "意式经典",
     desc: "工艺精细，设计优雅",
-    href: "/products",
+    href: buildProductsHref({ country: "Italy" }),
     image: "/pics/collection-italian.jpg",
   },
   {
     title: "丹麦手工",
     desc: "简约自然，手工匠心",
-    href: "/products",
+    href: buildProductsHref({ country: "Denmark" }),
     image: "/pics/collection-danish.jpg",
   },
 ];
@@ -365,13 +364,29 @@ function HeroSection() {
 }
 
 function FeaturedSection() {
+  const featuredPipes = getHomepageFeaturedProducts();
+
   return (
-    <section>
-      <SectionHeader title="今日精选" href="/products" linkText="查看更多" />
+    <section id="daily-picks" className="scroll-mt-4">
+      <SectionHeader
+        title="今日精选"
+        href="/featured"
+        linkText="查看更多精选"
+      />
 
       <div className="-mx-4 mt-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:overflow-visible sm:px-0">
         {featuredPipes.map((item, index) => (
-          <ProductCard key={`${getProductName(item)}-${index}`} item={item} />
+          <div
+            key={item.id}
+            className="min-w-[41%] snap-start sm:min-w-0"
+          >
+            <PublicProductCard
+              product={item}
+              returnTo="/"
+              variant="compact"
+              imagePriority
+            />
+          </div>
         ))}
       </div>
     </section>
@@ -408,20 +423,13 @@ function ProductCard({ item }: { item: PipeLike }) {
       href={getProductHref(item)}
       className="min-w-[41%] snap-start overflow-hidden rounded-xl border border-[#E7DDD0] bg-white shadow-[0_8px_22px_rgba(31,26,22,0.07)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(31,26,22,0.11)] sm:min-w-0"
     >
-      <div className="relative aspect-[1.25/1] bg-[#F7F3EA]">
-        {image ? (
-          <img
-            src={image}
-            alt={name}
-            className="h-full w-full object-contain p-3"
-            loading="lazy"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#F7F3EA] to-[#EDE3D6] text-[12px] tracking-[0.18em] text-[#A97838]">
-            YANDOUBUY
-          </div>
-        )}
-
+      <ProductCardImage
+        imageUrl={image}
+        alt={name}
+        brandName={brand}
+        className="aspect-[1.25/1] bg-[#F7F3EA]"
+        imageClassName="p-3"
+      >
         <span className="absolute left-2 top-2 rounded bg-[#063B32] px-2 py-1 text-[10px] leading-none text-white">
           {status}
         </span>
@@ -429,7 +437,7 @@ function ProductCard({ item }: { item: PipeLike }) {
         <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[#063B32] shadow-sm">
           <HeartIcon className="h-4 w-4" />
         </span>
-      </div>
+      </ProductCardImage>
 
       <div className="space-y-1.5 p-2.5">
         <p className="text-[11px] uppercase tracking-[0.16em] text-[#063B32]">
