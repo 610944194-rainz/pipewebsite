@@ -5,6 +5,7 @@ import {
   acquireRunLock,
   buildDetailsQueue,
   classifyRunnerError,
+  collectValidCachedDetails,
   evaluateRunnerReadiness,
   formatRunId,
   getRunnerPaths,
@@ -12,6 +13,7 @@ import {
   parseRunnerOptions,
   readJsonIfExists,
   releaseRunLock,
+  shouldFetchNewDetails,
   summarizeDetailsQueue,
   writeJsonAtomic,
   writeTextAtomic,
@@ -34,8 +36,23 @@ Options:
   --mode=apply                          Reserved; V1 rejects production apply
   --max-pages=107                       List pages to scan (default: 107)
   --allow-manual-verification=true      Open a visible browser for manual CAPTCHA handling
-  --details-batch-size=50               Progress checkpoint/logging batch size
-  --max-new-details-per-run=100         Maximum detail pages fetched in one run
+  --page-delay-min-ms=8000              Minimum delay before the next list page
+  --page-delay-max-ms=18000             Maximum delay before the next list page
+  --page-warmup-min-ms=3000             Minimum wait after opening a list page
+  --page-warmup-max-ms=7000             Maximum wait after opening a list page
+  --captcha-cooldown-ms=60000           Cooldown after CAPTCHA detection
+  --fetch-new-details                   Explicitly enable fetching diff.newIds details
+  --skip-new-details                    Explicitly keep this run list-only (default)
+  --allow-partial-new-details           Permit details after a partial scan (not recommended)
+  --detail-warmup-min-ms=5000           Minimum wait after opening a detail page
+  --detail-warmup-max-ms=12000          Maximum wait after opening a detail page
+  --detail-delay-min-ms=15000           Minimum delay before the next detail
+  --detail-delay-max-ms=35000           Maximum delay before the next detail
+  --detail-batch-size=5                 Details per batch before a longer cooldown
+  --detail-batch-cooldown-min-ms=90000  Minimum batch cooldown
+  --detail-batch-cooldown-max-ms=180000 Maximum batch cooldown
+  --detail-max-per-run=10               Maximum new details fetched in one run
+  --max-new-details-per-run=10          Legacy alias for --detail-max-per-run
   --no-commit | --commit                Commit intent flag; V1 never commits automatically
   --no-deploy                           Deployment stays disabled
   --verbose                             Print detail progress
@@ -55,6 +72,8 @@ function relative(filePath) {
 
 function makeMockInventory(options) {
   const now = new Date().toISOString();
+  const fullExpectedRangeScanned =
+    options.maxPages >= options.expectedPages;
   const products = Array.from({ length: 5 }, (_, index) => {
     const sourceProductId = String(990001 + index);
     return {
@@ -90,14 +109,14 @@ function makeMockInventory(options) {
     pages: [{ page: 1, productCount: products.length, scrapedAt: now }],
     products,
     summary: {
-      pagesRequested: options.expectedPages,
-      pagesScanned: options.expectedPages,
+      pagesRequested: options.maxPages,
+      pagesScanned: options.maxPages,
       expectedPages: options.expectedPages,
       productsExtracted: products.length,
       uniqueProducts: products.length,
       duplicateSourceProductIds: [],
       completeRequestedRange: true,
-      fullExpectedRangeScanned: true,
+      fullExpectedRangeScanned,
     },
   };
   const diff = {
@@ -106,10 +125,10 @@ function makeMockInventory(options) {
     source: "smokingpipes",
     mode: "mock",
     coverage: {
-      pagesRequested: options.expectedPages,
-      pagesScanned: options.expectedPages,
+      pagesRequested: options.maxPages,
+      pagesScanned: options.maxPages,
       expectedPages: options.expectedPages,
-      fullExpectedRangeScanned: true,
+      fullExpectedRangeScanned,
     },
     counts: {
       currentAvailable: products.length,
@@ -125,9 +144,20 @@ function makeMockInventory(options) {
     disappearedIds: [],
     suspiciousIds: [],
     fatalWarnings: [],
-    warnings: ["Synthetic mock run; no network or production data was used."],
-    allowApply: true,
-    applyBlockedReasons: [],
+    warnings: [
+      "Synthetic mock run; no network or production data was used.",
+      ...(!fullExpectedRangeScanned
+        ? [
+            `Partial scan: ${options.maxPages}/${options.expectedPages} expected full-list pages.`,
+          ]
+        : []),
+    ],
+    allowApply: fullExpectedRangeScanned,
+    applyBlockedReasons: fullExpectedRangeScanned
+      ? []
+      : [
+          `partial page coverage: ${options.maxPages}/${options.expectedPages} pages; full coverage is required`,
+        ],
   };
   const recentNew = {
     version: "recent-new-dry-run-v1",
@@ -183,6 +213,11 @@ function buildRunReport(run) {
 - status: ${run.status}
 - mock: ${run.mock}
 - manualVerification: ${run.manualVerification}
+- page delay: ${run.pageDelayMinMs}-${run.pageDelayMaxMs} ms
+- page warmup: ${run.pageWarmupMinMs}-${run.pageWarmupMaxMs} ms
+- CAPTCHA cooldown: ${run.captchaCooldownMs} ms
+- CAPTCHA detected: ${Boolean(run.captchaDetected)}
+- current CAPTCHA product: ${run.currentProductId || "none"}
 - maxPages: ${run.maxPages}
 - pages scanned: ${coverage.pagesScanned ?? 0}
 - expected pages: ${coverage.expectedPages ?? 107}
@@ -195,6 +230,16 @@ function buildRunReport(run) {
 
 ## New Details Queue
 
+- candidates from diff: ${run.newDetailCandidates ?? 0}
+- classification: ${run.newDetailClassification || "not evaluated"}
+- fetch requested: ${Boolean(run.detailsFetchRequested)}
+- fetch allowed: ${Boolean(run.detailsFetchAllowed)}
+- fetch decision: ${run.detailsFetchReason || "not evaluated"}
+- existing products skipped: ${queue.existingProductsSkipped ?? 0}
+- already completed skipped: ${queue.alreadyCompletedSkipped ?? 0}
+- cached skipped: ${queue.cachedSkipped ?? 0}
+- ignored/superseded skipped: ${queue.ignoredSkipped ?? 0}
+- queued new details: ${queue.queuedNewDetails ?? 0}
 - active: ${queue.activeItems ?? 0}
 - completed: ${queue.completed ?? 0}
 - pending: ${queue.pending ?? 0}
@@ -339,7 +384,19 @@ async function run() {
     currentStep: "acquire-lock",
     status: "running",
     manualVerification: options.allowManualVerification,
+    pageDelayMinMs: options.pageDelayMinMs,
+    pageDelayMaxMs: options.pageDelayMaxMs,
+    pageWarmupMinMs: options.pageWarmupMinMs,
+    pageWarmupMaxMs: options.pageWarmupMaxMs,
+    captchaCooldownMs: options.captchaCooldownMs,
+    captchaDetected: false,
+    currentProductId: null,
     maxPages: options.maxPages,
+    detailsFetchRequested: options.fetchNewDetails,
+    detailsFetchAllowed: false,
+    detailsFetchReason: null,
+    newDetailCandidates: 0,
+    newDetailClassification: null,
     diff: null,
     validation: null,
     readiness: null,
@@ -393,6 +450,11 @@ async function run() {
     await writeState(paths, state, { lastStep: runRecord.currentStep });
 
     if (options.mock) {
+      if (options.verbose) {
+        console.log(
+          "mock mode: browser navigation and long pacing delays are skipped"
+        );
+      }
       ({ current, diff, recentNew } = makeMockInventory(options));
       await writeJsonAtomic(paths.currentList, current);
       await writeJsonAtomic(paths.diff, diff);
@@ -404,6 +466,12 @@ async function run() {
         expectedPages: options.expectedPages,
         allowManualVerification: options.allowManualVerification,
         manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
+        pageDelayMinMs: options.pageDelayMinMs,
+        pageDelayMaxMs: options.pageDelayMaxMs,
+        pageWarmupMinMs: options.pageWarmupMinMs,
+        pageWarmupMaxMs: options.pageWarmupMaxMs,
+        captchaCooldownMs: options.captchaCooldownMs,
+        verbose: options.verbose,
       });
       current = readJsonIfExists(paths.currentList);
       diff = readJsonIfExists(paths.diff);
@@ -416,41 +484,122 @@ async function run() {
     }
 
     runRecord.diff = diff;
+    runRecord.captchaDetected = Boolean(current.summary?.captchaDetected);
     runRecord.validation = validation;
+    runRecord.newDetailCandidates = Number(
+      diff.counts?.new ?? diff.newIds?.length ?? 0
+    );
+    runRecord.newDetailClassification =
+      diff.coverage?.fullExpectedRangeScanned
+        ? "confirmed full-scan new candidates"
+        : "partial scan candidates; not trusted as a complete inventory update";
     runRecord.warnings.push(...(validation.warnings || []));
     runRecord.errors.push(...(validation.errors || []));
     await writeState(paths, state, {
       lastSuccessfulFetchAt: new Date().toISOString(),
-      lastStep: "queue-details",
+      lastStep: "details-decision",
     });
 
-    const existingQueue = readJsonIfExists(paths.queue, null);
-    let queue = buildDetailsQueue({
-      existingQueue,
-      diff,
-      currentProducts: current.products || [],
+    const detailsDecision = shouldFetchNewDetails({
+      fetchNewDetails: options.fetchNewDetails,
+      allowPartialNewDetails: options.allowPartialNewDetails,
+      fullExpectedRangeScanned: Boolean(
+        diff.coverage?.fullExpectedRangeScanned
+      ),
     });
-    await writeJsonAtomic(paths.queue, queue);
+    runRecord.detailsFetchAllowed = detailsDecision.allowed;
+    runRecord.detailsFetchReason = detailsDecision.reason;
+    let queue = { items: [], reconciliation: {} };
 
-    runRecord.currentStep = "queue-details";
-    const processed = await processSmokingpipesDetailsQueue({
-      queue,
-      queuePath: paths.queue,
-      maxItems: options.maxNewDetailsPerRun,
-      batchSize: options.detailsBatchSize,
-      allowManualVerification: options.allowManualVerification,
-      manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
-      verbose: options.verbose,
-      mock: options.mock,
-    });
-    queue = processed.queue;
-    runRecord.detailsResult = processed.result;
-    runRecord.captchaRequired = processed.result.captchaRequired;
+    if (options.verbose) {
+      console.log(
+        `new detail candidates from diff: ${runRecord.newDetailCandidates}`
+      );
+    }
+
+    if (detailsDecision.allowed) {
+      runRecord.currentStep = "queue-details";
+      await writeState(paths, state, { lastStep: runRecord.currentStep });
+      const existingQueue = readJsonIfExists(paths.queue, null);
+      const existingProducts = options.mock
+        ? []
+        : readJsonIfExists(paths.existingProducts, []);
+      const existingProductIds = new Set(
+        (Array.isArray(existingProducts)
+          ? existingProducts
+          : existingProducts?.products || []
+        )
+          .map((item) => String(item.sourceProductId || ""))
+          .filter(Boolean)
+      );
+      const cachedDetails = options.mock
+        ? new Map()
+        : collectValidCachedDetails(
+            paths.detailCaches
+              .map((filePath) => readJsonIfExists(filePath, null))
+              .filter(Boolean)
+          );
+
+      queue = buildDetailsQueue({
+        existingQueue,
+        diff,
+        currentProducts: current.products || [],
+        existingProductIds,
+        cachedDetails,
+      });
+      await writeJsonAtomic(paths.queue, queue);
+      runRecord.queueSummary = summarizeDetailsQueue(queue);
+      if (options.verbose) {
+        console.log(
+          `already completed / cached skipped: ${
+            Number(queue.summary?.alreadyCompletedSkipped || 0) +
+            Number(queue.summary?.cachedSkipped || 0)
+          }`
+        );
+        console.log(
+          `queued new details: ${queue.summary?.queuedNewDetails || 0}`
+        );
+      }
+
+      const processed = await processSmokingpipesDetailsQueue({
+        queue,
+        queuePath: paths.queue,
+        maxItems: options.detailMaxPerRun,
+        batchSize: options.detailBatchSize,
+        detailWarmupMinMs: options.detailWarmupMinMs,
+        detailWarmupMaxMs: options.detailWarmupMaxMs,
+        detailDelayMinMs: options.detailDelayMinMs,
+        detailDelayMaxMs: options.detailDelayMaxMs,
+        detailBatchCooldownMinMs: options.detailBatchCooldownMinMs,
+        detailBatchCooldownMaxMs: options.detailBatchCooldownMaxMs,
+        allowManualVerification: options.allowManualVerification,
+        verbose: options.verbose,
+        mock: options.mock,
+      });
+      queue = processed.queue;
+      runRecord.detailsResult = processed.result;
+      runRecord.captchaRequired = processed.result.captchaRequired;
+    } else {
+      runRecord.currentStep = "details-skipped";
+      runRecord.detailsResult = {
+        requested: 0,
+        selected: 0,
+        attempted: 0,
+        completed: 0,
+        failed: 0,
+        captchaRequired: false,
+      };
+      if (options.verbose) {
+        console.log(`new details skipped: ${detailsDecision.reason}`);
+      }
+    }
+
     runRecord.queueSummary = summarizeDetailsQueue(queue);
     runRecord.readiness = evaluateRunnerReadiness({
       inventoryValidation: validation,
       diff,
       queue,
+      detailsFetchAllowed: detailsDecision.allowed,
     });
     runRecord.status = runRecord.readiness.status;
 
@@ -485,6 +634,7 @@ async function run() {
       lastError: null,
       manualActionRequired: false,
       captchaRequired: false,
+      currentProductId: null,
       currentRunId: null,
       latestReport: runRecord.latestReport,
     });
@@ -512,6 +662,13 @@ async function run() {
     runRecord.errors.push(classified.message);
     runRecord.manualActionRequired = classified.manualActionRequired;
     runRecord.captchaRequired = classified.captchaRequired;
+    runRecord.captchaDetected =
+      runRecord.captchaDetected || classified.captchaRequired;
+    runRecord.currentProductId = classified.currentProductId;
+    const checkpointedQueue = readJsonIfExists(paths.queue, null);
+    if (checkpointedQueue) {
+      runRecord.queueSummary = summarizeDetailsQueue(checkpointedQueue);
+    }
     runRecord.nextStep = classified.manualActionRequired
       ? "Open the local runner with manual verification enabled and complete the CAPTCHA in the visible browser."
       : "Inspect the error in the latest report, then retry after the underlying problem is fixed.";
@@ -529,6 +686,7 @@ async function run() {
         lastError: classified.message,
         manualActionRequired: classified.manualActionRequired,
         captchaRequired: classified.captchaRequired,
+        currentProductId: classified.currentProductId,
         currentRunId: null,
         latestReport: runRecord.latestReport || state.latestReport,
       }).catch(() => {});

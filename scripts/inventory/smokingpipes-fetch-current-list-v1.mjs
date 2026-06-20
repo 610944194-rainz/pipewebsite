@@ -7,6 +7,7 @@ import {
   extractListProducts,
   getLargeProductImageUrl,
   launchSmokingpipesContext,
+  summarizeSmokingpipesListProducts,
 } from "../lib/smokingpipes-utils.mjs";
 import {
   PATHS,
@@ -21,6 +22,11 @@ import {
 
 const DEFAULT_EXPECTED_PAGES = 107;
 const DEFAULT_DISPLAY_NUM = 48;
+const DEFAULT_PAGE_DELAY_MIN_MS = 8000;
+const DEFAULT_PAGE_DELAY_MAX_MS = 18000;
+const DEFAULT_PAGE_WARMUP_MIN_MS = 3000;
+const DEFAULT_PAGE_WARMUP_MAX_MS = 7000;
+const DEFAULT_CAPTCHA_COOLDOWN_MS = 60000;
 const CHECKPOINT_PATH = path.join(
   ROOT,
   ".cache",
@@ -32,6 +38,59 @@ function enabled(value) {
   return value === true || ["1", "true", "yes"].includes(
     String(value || "").toLowerCase()
   );
+}
+
+function nonNegativeInteger(value, fallback) {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+}
+
+export function resolveListPacingOptions(options = {}) {
+  const hasLegacyFixedDelay =
+    options.pageDelayMs !== undefined &&
+    options.pageDelayMinMs === undefined &&
+    options.pageDelayMaxMs === undefined;
+  const pageDelayMinMs = hasLegacyFixedDelay
+    ? nonNegativeInteger(options.pageDelayMs, DEFAULT_PAGE_DELAY_MIN_MS)
+    : nonNegativeInteger(
+        options.pageDelayMinMs,
+        DEFAULT_PAGE_DELAY_MIN_MS
+      );
+  const requestedPageDelayMaxMs = hasLegacyFixedDelay
+    ? pageDelayMinMs
+    : nonNegativeInteger(
+        options.pageDelayMaxMs,
+        DEFAULT_PAGE_DELAY_MAX_MS
+      );
+  const pageWarmupMinMs = nonNegativeInteger(
+    options.pageWarmupMinMs,
+    DEFAULT_PAGE_WARMUP_MIN_MS
+  );
+  const requestedPageWarmupMaxMs = nonNegativeInteger(
+    options.pageWarmupMaxMs,
+    DEFAULT_PAGE_WARMUP_MAX_MS
+  );
+
+  return {
+    pageDelayMinMs,
+    pageDelayMaxMs: Math.max(pageDelayMinMs, requestedPageDelayMaxMs),
+    pageWarmupMinMs,
+    pageWarmupMaxMs: Math.max(
+      pageWarmupMinMs,
+      requestedPageWarmupMaxMs
+    ),
+    captchaCooldownMs: nonNegativeInteger(
+      options.captchaCooldownMs,
+      DEFAULT_CAPTCHA_COOLDOWN_MS
+    ),
+  };
+}
+
+export function randomDelayMs(minimum, maximum, random = Math.random) {
+  const min = Math.max(0, Math.floor(minimum));
+  const max = Math.max(min, Math.floor(maximum));
+  const sampled = min + Math.floor(random() * (max - min + 1));
+  return Math.min(max, sampled);
 }
 
 async function waitForManualVerification(page, targetUrl, timeoutMs) {
@@ -194,10 +253,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     options.displayNum,
     DEFAULT_DISPLAY_NUM
   );
-  const pageDelayMs = Math.max(
-    0,
-    Number.parseInt(String(options.pageDelayMs ?? "400"), 10) || 0
-  );
+  const pacing = resolveListPacingOptions(options);
+  const verbose = enabled(options.verbose);
   const allowManualVerification = enabled(options.allowManualVerification);
   const manualVerificationTimeoutMs = parsePositiveInteger(
     options.manualVerificationTimeoutMs,
@@ -210,6 +267,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   const firstPage = pages.length
     ? Math.max(...pages.map((item) => Number(item.page) || 0)) + 1
     : 1;
+  let captchaDetected = false;
+  const captchaPages = [];
 
   process.env.SMOKINGPIPES_HEADLESS = allowManualVerification
     ? "false"
@@ -231,12 +290,24 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       pageNumber += 1
     ) {
       const url = buildSmokingpipesListUrl("new", pageNumber, displayNum);
-      console.log(`Fetching Smokingpipes list page ${pageNumber}/${maxPages}`);
+      console.log(
+        verbose
+          ? `fetching page ${pageNumber}/${maxPages}`
+          : `Fetching Smokingpipes list page ${pageNumber}/${maxPages}`
+      );
 
       const response = await page.goto(url, {
         waitUntil: "domcontentloaded",
         timeout: 60000,
       });
+      const warmupDelayMs = randomDelayMs(
+        pacing.pageWarmupMinMs,
+        pacing.pageWarmupMaxMs
+      );
+      if (verbose) console.log(`warmup delay: ${warmupDelayMs} ms`);
+      if (warmupDelayMs > 0) {
+        await page.waitForTimeout(warmupDelayMs);
+      }
 
       let detection = await detectSmokingpipesVerification(page, {
         pageKind: "list",
@@ -244,6 +315,18 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       });
 
       if (detection.verificationBlocked) {
+        captchaDetected = true;
+        captchaPages.push(pageNumber);
+        console.warn(
+          `Smokingpipes CAPTCHA detected on page ${pageNumber}. Manual verification is required; no automatic bypass will be attempted.`
+        );
+        if (pacing.captchaCooldownMs > 0) {
+          console.warn(
+            `CAPTCHA cooldown: ${pacing.captchaCooldownMs} ms before manual verification or blocked exit.`
+          );
+          await page.waitForTimeout(pacing.captchaCooldownMs);
+        }
+
         if (!allowManualVerification) {
           throw new Error(
             `Smokingpipes CAPTCHA blocked page ${pageNumber}. Re-run with --allow-manual-verification=true only after user confirmation; dry-run output was not replaced.`
@@ -275,12 +358,25 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       const normalized = extracted.map((item) =>
         normalizeListProduct(item, scrapedAt)
       );
+      const pageProductSummary =
+        summarizeSmokingpipesListProducts(extracted);
+      if (verbose) {
+        console.log(`page parsed: ${normalized.length} products`);
+        console.log(
+          `out-of-stock products on page: ${pageProductSummary.outOfStockCount}`
+        );
+        console.log(
+          `missing-price products on page: ${pageProductSummary.missingPriceCount}`
+        );
+      }
       collected.push(...normalized);
       pages.push({
         page: pageNumber,
         url,
         httpStatus: response?.status() || null,
         productCount: normalized.length,
+        outOfStockCount: pageProductSummary.outOfStockCount,
+        missingPriceCount: pageProductSummary.missingPriceCount,
         scrapedAt,
       });
 
@@ -291,13 +387,21 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
           maxPages,
           expectedPages,
           displayNum,
+          ...pacing,
         },
         pages,
         products: collected,
       });
 
-      if (pageDelayMs > 0 && pageNumber < maxPages) {
-        await page.waitForTimeout(pageDelayMs);
+      if (pageNumber < maxPages) {
+        const nextPageDelayMs = randomDelayMs(
+          pacing.pageDelayMinMs,
+          pacing.pageDelayMaxMs
+        );
+        if (verbose) console.log(`next page delay: ${nextPageDelayMs} ms`);
+        if (nextPageDelayMs > 0) {
+          await page.waitForTimeout(nextPageDelayMs);
+        }
       }
     }
   } finally {
@@ -315,7 +419,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       maxPages,
       expectedPages,
       displayNum,
-      pageDelayMs,
+      ...pacing,
       allowManualVerification,
       manualVerification: allowManualVerification,
       partialScan: maxPages < expectedPages,
@@ -331,6 +435,16 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       productsExtracted: collected.length,
       uniqueProducts: deduped.products.length,
       duplicateSourceProductIds: deduped.duplicateIds,
+      outOfStockProducts: pages.reduce(
+        (total, item) => total + Number(item.outOfStockCount || 0),
+        0
+      ),
+      missingPriceProducts: pages.reduce(
+        (total, item) => total + Number(item.missingPriceCount || 0),
+        0
+      ),
+      captchaDetected,
+      captchaPages: [...new Set(captchaPages)],
       completeRequestedRange: pages.length === maxPages,
       fullExpectedRangeScanned: pages.length >= expectedPages,
     },
@@ -350,8 +464,14 @@ if (isDirectExecution(import.meta.url)) {
     expectedPages: cli["expected-pages"],
     displayNum: cli["display-num"],
     pageDelayMs: cli["page-delay-ms"],
+    pageDelayMinMs: cli["page-delay-min-ms"],
+    pageDelayMaxMs: cli["page-delay-max-ms"],
+    pageWarmupMinMs: cli["page-warmup-min-ms"],
+    pageWarmupMaxMs: cli["page-warmup-max-ms"],
+    captchaCooldownMs: cli["captcha-cooldown-ms"],
     allowManualVerification: cli["allow-manual-verification"],
     manualVerificationTimeoutMs: cli["manual-verification-timeout-ms"],
+    verbose: cli.verbose,
   }).catch((error) => {
     console.error(error);
     process.exitCode = 1;

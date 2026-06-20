@@ -92,13 +92,26 @@ function buildMarkdownReport(diff, currentPayload, existingPayload) {
 - manualVerification: ${Boolean(
     currentPayload.config?.manualVerification
   )}
+- captchaDetected: ${Boolean(currentPayload.summary?.captchaDetected)}
+- captchaPages: ${(currentPayload.summary?.captchaPages || []).join(", ") || "none"}
 - maxPages: ${currentPayload.config?.maxPages || 0}
 - pages scanned: ${diff.coverage.pagesScanned}
 - expected full-list pages: ${diff.coverage.expectedPages}
 - current list products: ${diff.counts.currentAvailable}
+- out-of-stock products observed: ${
+    currentPayload.summary?.outOfStockProducts || 0
+  }
+- missing-price products observed: ${
+    currentPayload.summary?.missingPriceProducts || 0
+  }
 - existing local products: ${diff.counts.existing}
 - existing available products: ${diff.counts.existingAvailable}
 - new candidates: ${diff.counts.new}
+- new candidate classification: ${
+    diff.coverage.fullExpectedRangeScanned
+      ? "confirmed full-scan candidates"
+      : "partial scan candidates; do not start detail fetching by default"
+  }
 - still available: ${diff.counts.stillAvailable}
 - disappeared/sold candidates: ${diff.counts.disappeared}
 - unchanged sold: ${diff.counts.unchangedSold}
@@ -178,8 +191,14 @@ if (isDirectExecution(import.meta.url)) {
     expectedPages: cli["expected-pages"],
     displayNum: cli["display-num"],
     pageDelayMs: cli["page-delay-ms"],
+    pageDelayMinMs: cli["page-delay-min-ms"],
+    pageDelayMaxMs: cli["page-delay-max-ms"],
+    pageWarmupMinMs: cli["page-warmup-min-ms"],
+    pageWarmupMaxMs: cli["page-warmup-max-ms"],
+    captchaCooldownMs: cli["captcha-cooldown-ms"],
     allowManualVerification: cli["allow-manual-verification"],
     manualVerificationTimeoutMs: cli["manual-verification-timeout-ms"],
+    verbose: cli.verbose,
   }).catch((error) => {
     console.error(error);
     process.exitCode = 1;
