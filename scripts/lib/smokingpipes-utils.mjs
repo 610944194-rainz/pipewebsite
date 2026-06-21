@@ -574,7 +574,27 @@ export async function waitForManualVerification(page, options) {
   return { recovered: false, verificationBlocked: true, notification, timedOut: true };
 }
 
-export async function launchSmokingpipesContext() {
+export function resolveSmokingpipesBrowserLaunch(
+  browserChannel,
+  environmentChannel = process.env.SMOKINGPIPES_BROWSER_CHANNEL || ""
+) {
+  const explicit = String(browserChannel || "").toLowerCase();
+  if (explicit) {
+    return {
+      explicit: true,
+      candidates: [explicit === "chromium" ? "" : explicit],
+    };
+  }
+
+  return {
+    explicit: false,
+    candidates: Array.from(
+      new Set([environmentChannel, "", "msedge", "chrome"])
+    ),
+  };
+}
+
+export async function launchSmokingpipesContext(options = {}) {
   const headless = String(process.env.SMOKINGPIPES_HEADLESS || "false").toLowerCase() === "true";
   const userDataDir =
     process.env.SMOKINGPIPES_USER_DATA_DIR || path.join(rootDir, ".cache", "smokingpipes-profile");
@@ -584,9 +604,10 @@ export async function launchSmokingpipesContext() {
     headless,
     viewport: { width: 1365, height: 900 },
   };
-  const channelCandidates = Array.from(
-    new Set([process.env.SMOKINGPIPES_BROWSER_CHANNEL || "", "", "msedge", "chrome"])
+  const launchSelection = resolveSmokingpipesBrowserLaunch(
+    options.browserChannel
   );
+  const channelCandidates = launchSelection.candidates;
   let lastError = null;
 
   for (const channel of channelCandidates) {
@@ -599,6 +620,7 @@ export async function launchSmokingpipesContext() {
       console.warn(
         channel ? `Browser channel ${channel} failed: ${error.message}` : `Playwright Chromium failed: ${error.message}`
       );
+      if (launchSelection.explicit) break;
     }
   }
 

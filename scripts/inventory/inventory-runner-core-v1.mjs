@@ -87,6 +87,18 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const fetchNewDetails =
     booleanValue(args.get("fetch-new-details"), false) &&
     !booleanValue(args.get("skip-new-details"), false);
+  const browserChannel = args.has("browser-channel")
+    ? String(args.get("browser-channel") || "").toLowerCase()
+    : null;
+
+  if (
+    browserChannel !== null &&
+    !["msedge", "chrome", "chromium"].includes(browserChannel)
+  ) {
+    throw new Error(
+      `Unsupported browser channel ${browserChannel}. Supported: msedge, chrome, chromium.`
+    );
+  }
 
   if (!ALLOWED_MODES.has(mode)) {
     throw new Error(
@@ -111,6 +123,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       args.get("allow-manual-verification"),
       false
     ),
+    browserChannel,
     manualVerificationTimeoutMs: positiveInteger(
       args.get("manual-verification-timeout-ms"),
       30 * 60 * 1000

@@ -18,6 +18,7 @@ import {
 import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
 import {
   classifySmokingpipesVerificationSignals,
+  resolveSmokingpipesBrowserLaunch,
   summarizeSmokingpipesListProducts,
 } from "../lib/smokingpipes-utils.mjs";
 
@@ -38,6 +39,26 @@ assert.equal(defaults.detailDelayMaxMs, 35000);
 assert.equal(defaults.detailBatchSize, 5);
 assert.equal(defaults.detailBatchCooldownMinMs, 90000);
 assert.equal(defaults.detailBatchCooldownMaxMs, 180000);
+assert.equal(defaults.browserChannel, null);
+
+const edgeBrowser = parseRunnerOptions(["--browser-channel=msedge"]);
+assert.equal(edgeBrowser.browserChannel, "msedge");
+assert.deepEqual(resolveSmokingpipesBrowserLaunch("msedge", ""), {
+  explicit: true,
+  candidates: ["msedge"],
+});
+assert.deepEqual(resolveSmokingpipesBrowserLaunch("chromium", "msedge"), {
+  explicit: true,
+  candidates: [""],
+});
+assert.deepEqual(resolveSmokingpipesBrowserLaunch(null, "msedge"), {
+  explicit: false,
+  candidates: ["msedge", "", "chrome"],
+});
+assert.throws(
+  () => parseRunnerOptions(["--browser-channel=firefox"]),
+  /browser channel/i
+);
 assert.equal(defaults.pageDelayMinMs, 8000);
 assert.equal(defaults.pageDelayMaxMs, 18000);
 assert.equal(defaults.pageWarmupMinMs, 3000);

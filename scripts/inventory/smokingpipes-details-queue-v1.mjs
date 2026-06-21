@@ -63,6 +63,7 @@ export async function processSmokingpipesDetailsQueue({
   detailDelayMaxMs = 35000,
   detailBatchCooldownMinMs = 90000,
   detailBatchCooldownMaxMs = 180000,
+  browserChannel = null,
   allowManualVerification = false,
   verbose = false,
   mock = false,
@@ -115,7 +116,7 @@ export async function processSmokingpipesDetailsQueue({
     ? "false"
     : process.env.SMOKINGPIPES_HEADLESS || "true";
 
-  const context = await launchSmokingpipesContext();
+  const context = await launchSmokingpipesContext({ browserChannel });
   const page = context.pages()[0] || (await context.newPage());
 
   try {

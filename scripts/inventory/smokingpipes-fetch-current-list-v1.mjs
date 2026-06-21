@@ -274,7 +274,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     ? "false"
     : process.env.SMOKINGPIPES_HEADLESS || "true";
 
-  const context = await launchSmokingpipesContext();
+  const context = await launchSmokingpipesContext({
+    browserChannel: options.browserChannel,
+  });
   const page = context.pages()[0] || (await context.newPage());
 
   try {
@@ -463,6 +465,7 @@ if (isDirectExecution(import.meta.url)) {
     maxPages: cli["max-pages"],
     expectedPages: cli["expected-pages"],
     displayNum: cli["display-num"],
+    browserChannel: cli["browser-channel"],
     pageDelayMs: cli["page-delay-ms"],
     pageDelayMinMs: cli["page-delay-min-ms"],
     pageDelayMaxMs: cli["page-delay-max-ms"],

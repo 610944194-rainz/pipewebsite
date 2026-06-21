@@ -190,6 +190,7 @@ if (isDirectExecution(import.meta.url)) {
     maxPages: cli["max-pages"],
     expectedPages: cli["expected-pages"],
     displayNum: cli["display-num"],
+    browserChannel: cli["browser-channel"],
     pageDelayMs: cli["page-delay-ms"],
     pageDelayMinMs: cli["page-delay-min-ms"],
     pageDelayMaxMs: cli["page-delay-max-ms"],

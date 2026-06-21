@@ -36,6 +36,7 @@ Options:
   --mode=apply                          Reserved; V1 rejects production apply
   --max-pages=107                       List pages to scan (default: 107)
   --allow-manual-verification=true      Open a visible browser for manual CAPTCHA handling
+  --browser-channel=msedge              Use msedge, chrome, or Playwright chromium
   --page-delay-min-ms=8000              Minimum delay before the next list page
   --page-delay-max-ms=18000             Maximum delay before the next list page
   --page-warmup-min-ms=3000             Minimum wait after opening a list page
@@ -213,6 +214,7 @@ function buildRunReport(run) {
 - status: ${run.status}
 - mock: ${run.mock}
 - manualVerification: ${run.manualVerification}
+- browser channel: ${run.browserChannel || "automatic fallback"}
 - page delay: ${run.pageDelayMinMs}-${run.pageDelayMaxMs} ms
 - page warmup: ${run.pageWarmupMinMs}-${run.pageWarmupMaxMs} ms
 - CAPTCHA cooldown: ${run.captchaCooldownMs} ms
@@ -384,6 +386,7 @@ async function run() {
     currentStep: "acquire-lock",
     status: "running",
     manualVerification: options.allowManualVerification,
+    browserChannel: options.browserChannel,
     pageDelayMinMs: options.pageDelayMinMs,
     pageDelayMaxMs: options.pageDelayMaxMs,
     pageWarmupMinMs: options.pageWarmupMinMs,
@@ -464,6 +467,7 @@ async function run() {
       await runSmokingpipesInventoryDryRun({
         maxPages: options.maxPages,
         expectedPages: options.expectedPages,
+        browserChannel: options.browserChannel,
         allowManualVerification: options.allowManualVerification,
         manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
         pageDelayMinMs: options.pageDelayMinMs,
@@ -572,6 +576,7 @@ async function run() {
         detailDelayMaxMs: options.detailDelayMaxMs,
         detailBatchCooldownMinMs: options.detailBatchCooldownMinMs,
         detailBatchCooldownMaxMs: options.detailBatchCooldownMaxMs,
+        browserChannel: options.browserChannel,
         allowManualVerification: options.allowManualVerification,
         verbose: options.verbose,
         mock: options.mock,
