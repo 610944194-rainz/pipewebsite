@@ -52,6 +52,8 @@ export type PublicCatalogProduct = {
   siteDisplayCurrency: string | null;
   siteDisplayReady: boolean;
   inventoryStatus: PublicInventoryStatus;
+  publicIndexEligible?: boolean;
+  publiclySellable?: boolean;
   inventoryConfidence: string | null;
   conditionType: string | null;
   conditionLabel: string | null;

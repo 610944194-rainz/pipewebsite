@@ -167,6 +167,13 @@ function normalizeListProduct(item, scrapedAt) {
   const mainImage = getLargeProductImageUrl(
     normalizeText(item.imageUrl || item.mainImage)
   );
+  const rawText = normalizeText(item.rawText);
+  const rawListStatus =
+    /\b(?:out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable)\b/i.test(
+      rawText
+    )
+      ? "out-of-stock"
+      : "";
 
   return {
     source: "smokingpipes",
@@ -180,6 +187,8 @@ function normalizeListProduct(item, scrapedAt) {
     image: mainImage,
     mainImage,
     productCode: normalizeText(item.productCode),
+    rawListStatus,
+    rawText,
     listPage: Number(item.listPage) || null,
     listPosition: Number(item.listPosition) || null,
     scrapedAt,

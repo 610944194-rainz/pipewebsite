@@ -27,9 +27,39 @@ function updateQueueSummary(queue) {
   queue.summary = summarizeDetailsQueue(queue);
 }
 
-async function checkpoint(queue, queuePath) {
+export async function writeSmokingpipesQueueCheckpoint(
+  queue,
+  queuePath,
+  {
+    atomicWriteOptions = {},
+    currentProductId = null,
+    verbose = false,
+  } = {}
+) {
   updateQueueSummary(queue);
-  await writeJsonAtomic(queuePath, queue);
+  try {
+    await writeJsonAtomic(queuePath, queue, {
+      ...atomicWriteOptions,
+      verbose: atomicWriteOptions.verbose ?? verbose,
+    });
+  } catch (error) {
+    if (error?.code !== "ATOMIC_WRITE_RENAME_FAILED") throw error;
+    throw Object.assign(
+      new Error(
+        `Queue checkpoint failed after retries: ${queuePath}`
+      ),
+      {
+        code: "CHECKPOINT_FAILED",
+        checkpointFailed: true,
+        currentProductId,
+        targetPath: error.targetPath,
+        tempPath: error.tempPath,
+        attempts: error.attempts,
+        lastError: error.lastError,
+        cause: error,
+      }
+    );
+  }
 }
 
 function markMockComplete(item) {
@@ -52,6 +82,10 @@ function markMockComplete(item) {
   };
 }
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function processSmokingpipesDetailsQueue({
   queue,
   queuePath,
@@ -68,6 +102,9 @@ export async function processSmokingpipesDetailsQueue({
   verbose = false,
   mock = false,
   mockVerificationAt = null,
+  deadlineAtMs = null,
+  nowMs = () => Date.now(),
+  atomicWriteOptions = {},
 }) {
   const candidates = activeCandidates(queue, maxItems);
   const result = {
@@ -77,17 +114,30 @@ export async function processSmokingpipesDetailsQueue({
     completed: 0,
     failed: 0,
     captchaRequired: false,
+    runtimeLimitReached: false,
   };
 
   if (!candidates.length) {
-    await checkpoint(queue, queuePath);
+    await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+      atomicWriteOptions,
+      verbose,
+    });
     return { queue, result };
   }
 
   if (mock) {
     for (let index = 0; index < candidates.length; index += 1) {
+      if (deadlineAtMs !== null && nowMs() >= deadlineAtMs) {
+        result.runtimeLimitReached = true;
+        break;
+      }
       const item = candidates[index];
       result.attempted += 1;
+      if (verbose) {
+        console.log(
+          `fetching new detail ${index + 1}/${candidates.length}: ${item.sourceProductId}`
+        );
+      }
       if (mockVerificationAt === index + 1) {
         const blockedAt = new Date().toISOString();
         item.status = "blocked";
@@ -96,7 +146,11 @@ export async function processSmokingpipesDetailsQueue({
         item.updatedAt = blockedAt;
         result.failed += 1;
         result.captchaRequired = true;
-        await checkpoint(queue, queuePath);
+        await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+          atomicWriteOptions,
+          currentProductId: item.sourceProductId,
+          verbose,
+        });
         throw Object.assign(
           new Error(item.lastError),
           {
@@ -107,8 +161,15 @@ export async function processSmokingpipesDetailsQueue({
       }
       result.completed += 1;
       markMockComplete(item);
+      if (verbose) {
+        console.log(`detail parsed / saved: ${item.sourceProductId}`);
+      }
+      await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+        atomicWriteOptions,
+        currentProductId: item.sourceProductId,
+        verbose,
+      });
     }
-    await checkpoint(queue, queuePath);
     return { queue, result };
   }
 
@@ -121,18 +182,26 @@ export async function processSmokingpipesDetailsQueue({
 
   try {
     for (let index = 0; index < candidates.length; index += 1) {
+      if (deadlineAtMs !== null && nowMs() >= deadlineAtMs) {
+        result.runtimeLimitReached = true;
+        break;
+      }
       const item = candidates[index];
       const now = new Date().toISOString();
       item.status = "in-progress";
       item.lastTriedAt = now;
       item.updatedAt = now;
       result.attempted += 1;
-      await checkpoint(queue, queuePath);
+      await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+        atomicWriteOptions,
+        currentProductId: item.sourceProductId,
+        verbose,
+      });
 
       try {
         if (verbose) {
           console.log(
-            `Fetching new detail ${index + 1}/${candidates.length}: ${item.sourceProductId}`
+            `fetching new detail ${index + 1}/${candidates.length}: ${item.sourceProductId}`
           );
         }
 
@@ -166,7 +235,11 @@ export async function processSmokingpipesDetailsQueue({
           console.warn(
             `Smokingpipes verification detected at product ${item.sourceProductId}. Detail fetching is stopping immediately; no automatic bypass will be attempted.`
           );
-          await checkpoint(queue, queuePath);
+          await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+            atomicWriteOptions,
+            currentProductId: item.sourceProductId,
+            verbose,
+          });
           throw Object.assign(new Error(item.lastError), {
             code: "CAPTCHA_REQUIRED",
             currentProductId: item.sourceProductId,
@@ -206,7 +279,11 @@ export async function processSmokingpipesDetailsQueue({
         item.lastError = error instanceof Error ? error.message : String(error);
         item.updatedAt = failedAt;
         result.failed += 1;
-        await checkpoint(queue, queuePath);
+        await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+          atomicWriteOptions,
+          currentProductId: item.sourceProductId,
+          verbose,
+        });
         if (verbose) {
           console.log(
             `detail skipped after error: ${item.sourceProductId} | ${item.lastError}`
@@ -214,7 +291,11 @@ export async function processSmokingpipesDetailsQueue({
         }
       }
 
-      await checkpoint(queue, queuePath);
+      await writeSmokingpipesQueueCheckpoint(queue, queuePath, {
+        atomicWriteOptions,
+        currentProductId: item.sourceProductId,
+        verbose,
+      });
       const processedCount = index + 1;
       const hasMore = processedCount < candidates.length;
       if (hasMore && processedCount % Math.max(1, batchSize) === 0) {
@@ -243,6 +324,132 @@ export async function processSmokingpipesDetailsQueue({
     await context.close().catch(() => {});
   }
 
-  await checkpoint(queue, queuePath);
   return { queue, result };
+}
+
+export async function processSmokingpipesCatchUpCycles({
+  queue,
+  queuePath,
+  detailMaxPerRun = 50,
+  autoRepeat = false,
+  maxCycles = 1,
+  repeatDelayMinMs = 300000,
+  repeatDelayMaxMs = 600000,
+  maxTotalDetails = 200,
+  maxRuntimeMinutes = 90,
+  mock = false,
+  verbose = false,
+  mockVerificationAt = null,
+  now = () => Date.now(),
+  sleep = wait,
+  ...detailOptions
+}) {
+  const startedAtMs = now();
+  const deadlineAtMs =
+    startedAtMs + Math.max(1, maxRuntimeMinutes) * 60 * 1000;
+  const cycleLimit = autoRepeat ? Math.max(1, maxCycles) : 1;
+  const runtimeLimitMs = Math.max(1, maxRuntimeMinutes) * 60 * 1000;
+  const result = {
+    requested: Math.min(
+      detailMaxPerRun * cycleLimit,
+      maxTotalDetails
+    ),
+    selected: 0,
+    attempted: 0,
+    completed: 0,
+    failed: 0,
+    captchaRequired: false,
+    cyclesCompleted: 0,
+    stopReason: "cycle-limit",
+  };
+  let currentQueue = queue;
+
+  for (let cycle = 1; cycle <= cycleLimit; cycle += 1) {
+    const totalRemaining = maxTotalDetails - result.attempted;
+    if (totalRemaining <= 0) {
+      result.stopReason = "total-detail-limit";
+      break;
+    }
+    if (now() - startedAtMs >= runtimeLimitMs) {
+      result.stopReason = "runtime-limit";
+      break;
+    }
+
+    const maxItems = Math.min(detailMaxPerRun, totalRemaining);
+    if (verbose) {
+      console.log(
+        `baseline catch-up cycle ${cycle}/${cycleLimit}: max ${maxItems} details`
+      );
+    }
+
+    let processed;
+    try {
+      processed = await processSmokingpipesDetailsQueue({
+        queue: currentQueue,
+        queuePath,
+        maxItems,
+        mock,
+        verbose,
+        mockVerificationAt,
+        deadlineAtMs,
+        nowMs: now,
+        ...detailOptions,
+      });
+    } catch (error) {
+      error.catchUpCyclesCompleted = result.cyclesCompleted;
+      throw error;
+    }
+
+    currentQueue = processed.queue;
+    result.cyclesCompleted += 1;
+    result.selected += processed.result.selected;
+    result.attempted += processed.result.attempted;
+    result.completed += processed.result.completed;
+    result.failed += processed.result.failed;
+    result.captchaRequired =
+      result.captchaRequired || processed.result.captchaRequired;
+
+    const summary = summarizeDetailsQueue(currentQueue);
+    if (processed.result.runtimeLimitReached) {
+      result.stopReason = "runtime-limit";
+      break;
+    }
+    if (summary.remaining === 0) {
+      result.stopReason = "queue-complete";
+      break;
+    }
+    if (processed.result.selected === 0) {
+      result.stopReason = "no-candidates";
+      break;
+    }
+    if (result.attempted >= maxTotalDetails) {
+      result.stopReason = "total-detail-limit";
+      break;
+    }
+    if (now() - startedAtMs >= runtimeLimitMs) {
+      result.stopReason = "runtime-limit";
+      break;
+    }
+    if (cycle >= cycleLimit) {
+      result.stopReason = "cycle-limit";
+      break;
+    }
+
+    const repeatDelayMs = randomDelayMs(
+      repeatDelayMinMs,
+      repeatDelayMaxMs
+    );
+    if (verbose) {
+      console.log(
+        mock
+          ? `mock catch-up repeat delay skipped: ${repeatDelayMs} ms`
+          : `catch-up repeat delay: ${repeatDelayMs} ms`
+      );
+    }
+    if (!mock && repeatDelayMs > 0) {
+      await sleep(repeatDelayMs);
+    }
+  }
+
+  return { queue: currentQueue, result };
 }

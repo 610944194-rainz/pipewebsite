@@ -57,6 +57,13 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const args = parseArguments(argv);
   const mode = String(args.get("mode") || "dry-run").toLowerCase();
   const source = String(args.get("source") || "smokingpipes").toLowerCase();
+  const catchUpCurrent =
+    booleanValue(args.get("catch-up-current"), false) ||
+    booleanValue(args.get("baseline-catch-up"), false);
+  const autoRepeatCatchUp = booleanValue(
+    args.get("auto-repeat-catch-up"),
+    false
+  );
   const pageDelayRange = normalizedRange(
     nonNegativeInteger(args.get("page-delay-min-ms"), 8000),
     nonNegativeInteger(args.get("page-delay-max-ms"), 18000)
@@ -66,20 +73,42 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     nonNegativeInteger(args.get("page-warmup-max-ms"), 7000)
   );
   const detailWarmupRange = normalizedRange(
-    nonNegativeInteger(args.get("detail-warmup-min-ms"), 5000),
-    nonNegativeInteger(args.get("detail-warmup-max-ms"), 12000)
+    nonNegativeInteger(
+      args.get("detail-warmup-min-ms"),
+      catchUpCurrent ? 1000 : 5000
+    ),
+    nonNegativeInteger(
+      args.get("detail-warmup-max-ms"),
+      catchUpCurrent ? 3000 : 12000
+    )
   );
   const detailDelayRange = normalizedRange(
-    nonNegativeInteger(args.get("detail-delay-min-ms"), 15000),
-    nonNegativeInteger(args.get("detail-delay-max-ms"), 35000)
+    nonNegativeInteger(
+      args.get("detail-delay-min-ms"),
+      catchUpCurrent ? 3000 : 15000
+    ),
+    nonNegativeInteger(
+      args.get("detail-delay-max-ms"),
+      catchUpCurrent ? 8000 : 35000
+    )
   );
   const detailBatchCooldownRange = normalizedRange(
-    nonNegativeInteger(args.get("detail-batch-cooldown-min-ms"), 90000),
-    nonNegativeInteger(args.get("detail-batch-cooldown-max-ms"), 180000)
+    nonNegativeInteger(
+      args.get("detail-batch-cooldown-min-ms"),
+      catchUpCurrent ? 0 : 90000
+    ),
+    nonNegativeInteger(
+      args.get("detail-batch-cooldown-max-ms"),
+      catchUpCurrent ? 0 : 180000
+    )
+  );
+  const catchUpRepeatDelayRange = normalizedRange(
+    nonNegativeInteger(args.get("catch-up-repeat-delay-min-ms"), 300000),
+    nonNegativeInteger(args.get("catch-up-repeat-delay-max-ms"), 600000)
   );
   const legacyDetailMax = positiveInteger(
     args.get("max-new-details-per-run"),
-    10
+    catchUpCurrent ? 50 : 10
   );
   const detailMaxPerRun = args.has("detail-max-per-run")
     ? positiveInteger(args.get("detail-max-per-run"), legacyDetailMax)
@@ -113,10 +142,23 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       "Production apply is not implemented in Inventory Automation V1."
     );
   }
+  if (catchUpCurrent && mode !== "apply-dry-run") {
+    throw new Error(
+      "--catch-up-current requires --mode=apply-dry-run."
+    );
+  }
+  if (autoRepeatCatchUp && !catchUpCurrent) {
+    throw new Error(
+      "--auto-repeat-catch-up requires --catch-up-current."
+    );
+  }
 
   return {
     source,
     mode,
+    catchUpCurrent,
+    autoRepeatCatchUp,
+    refreshList: booleanValue(args.get("refresh-list"), false),
     maxPages: positiveInteger(args.get("max-pages"), 107),
     expectedPages: positiveInteger(args.get("expected-pages"), 107),
     allowManualVerification: booleanValue(
@@ -147,14 +189,28 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     detailDelayMaxMs: detailDelayRange.maximum,
     detailBatchSize: positiveInteger(
       args.get("detail-batch-size") ?? args.get("details-batch-size"),
-      5
+      catchUpCurrent ? 50 : 5
     ),
     detailBatchCooldownMinMs: detailBatchCooldownRange.minimum,
     detailBatchCooldownMaxMs: detailBatchCooldownRange.maximum,
     detailMaxPerRun,
+    catchUpRepeatMaxCycles: positiveInteger(
+      args.get("catch-up-repeat-max-cycles"),
+      1
+    ),
+    catchUpRepeatDelayMinMs: catchUpRepeatDelayRange.minimum,
+    catchUpRepeatDelayMaxMs: catchUpRepeatDelayRange.maximum,
+    catchUpMaxTotalDetails: positiveInteger(
+      args.get("catch-up-max-total-details"),
+      200
+    ),
+    catchUpMaxRuntimeMinutes: positiveInteger(
+      args.get("catch-up-max-runtime-minutes"),
+      90
+    ),
     detailsBatchSize: positiveInteger(
       args.get("detail-batch-size") ?? args.get("details-batch-size"),
-      5
+      catchUpCurrent ? 50 : 5
     ),
     maxNewDetailsPerRun: detailMaxPerRun,
     commit: args.has("commit") && !args.has("no-commit"),
@@ -163,6 +219,117 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     forceUnlock: booleanValue(args.get("force-unlock"), false),
     mock: booleanValue(args.get("mock"), false),
     help: args.has("help") || args.has("h"),
+  };
+}
+
+export function resolveInventoryInputStrategy({
+  mode,
+  refreshList = false,
+}) {
+  const shouldRefresh = mode === "dry-run" || Boolean(refreshList);
+  return {
+    refreshList: shouldRefresh,
+    useExistingArtifacts: mode === "apply-dry-run" && !shouldRefresh,
+  };
+}
+
+export function validateReusableInventoryArtifacts({
+  current,
+  diff,
+  expectedPages = 107,
+}) {
+  const errors = [];
+  const warnings = [];
+
+  if (!current) errors.push("Existing current-list dry-run is missing.");
+  if (!diff) errors.push("Existing inventory diff dry-run is missing.");
+
+  if (current && diff) {
+    const summary = current.summary || {};
+    const coverage = diff.coverage || {};
+    const products = Array.isArray(current.products) ? current.products : [];
+    const pagesScanned = Number(summary.pagesScanned || 0);
+    const currentExpectedPages = Number(
+      summary.expectedPages || current.config?.expectedPages || expectedPages
+    );
+    const productsExtracted = Number(summary.productsExtracted || 0);
+    const uniqueProducts = Number(summary.uniqueProducts || 0);
+    const duplicateIds = summary.duplicateSourceProductIds || [];
+    const diffPagesScanned = Number(coverage.pagesScanned || 0);
+    const diffExpectedPages = Number(coverage.expectedPages || expectedPages);
+
+    if (summary.fullExpectedRangeScanned !== true) {
+      errors.push("Current list does not cover the full expected page range.");
+    }
+    if (
+      pagesScanned !== expectedPages ||
+      currentExpectedPages !== expectedPages
+    ) {
+      errors.push(
+        `Current list scanned ${pagesScanned}/${currentExpectedPages} pages; ${expectedPages} expected pages are required.`
+      );
+    }
+    if (
+      summary.captchaDetected === true ||
+      (summary.captchaPages || []).length > 0
+    ) {
+      errors.push("Current list recorded CAPTCHA/verification detection.");
+    }
+    if (productsExtracted <= 0 || products.length <= 0) {
+      errors.push("Current list contains no extracted products.");
+    }
+    if (
+      productsExtracted !== products.length ||
+      uniqueProducts !== productsExtracted ||
+      duplicateIds.length > 0
+    ) {
+      errors.push(
+        "Current list product totals are inconsistent or contain duplicate IDs."
+      );
+    }
+    if (coverage.fullExpectedRangeScanned !== true) {
+      errors.push("Inventory diff does not cover the full expected page range.");
+    }
+    if (
+      diffPagesScanned !== expectedPages ||
+      diffExpectedPages !== expectedPages
+    ) {
+      errors.push(
+        `Inventory diff covers ${diffPagesScanned}/${diffExpectedPages} pages; ${expectedPages} expected pages are required.`
+      );
+    }
+    if (diff.allowApply !== true) {
+      errors.push("Inventory diff safety gate did not allow apply.");
+    }
+    if ((diff.fatalWarnings || []).length > 0) {
+      errors.push("Inventory diff contains fatal warnings.");
+    }
+    if (
+      Number(diff.counts?.currentAvailable || 0) !== productsExtracted
+    ) {
+      errors.push(
+        "Inventory diff current count does not match the current-list product count."
+      );
+    }
+
+    if (current.runId && diff.runId) {
+      if (String(current.runId) !== String(diff.runId)) {
+        errors.push("Current-list and inventory diff runId values do not match.");
+      }
+    } else {
+      warnings.push(
+        "Current-list and inventory diff runId correspondence cannot be strongly verified because one or both files have no runId."
+      );
+    }
+  }
+
+  return {
+    status: errors.length ? "blocked" : "passed",
+    allowApply: errors.length === 0,
+    counts: diff?.counts || {},
+    coverage: diff?.coverage || {},
+    errors,
+    warnings,
   };
 }
 
@@ -222,6 +389,12 @@ export function getRunnerPaths(root, options = {}) {
       "products",
       "smokingpipes-products.json"
     ),
+    danishProducts: path.join(
+      root,
+      "data",
+      "products",
+      "danish-products.json"
+    ),
     detailCaches: [
       path.join(root, "data", "raw", "smokingpipes-details-new-final.json"),
       path.join(root, "data", "raw", "smokingpipes-details-new.json"),
@@ -240,6 +413,14 @@ export function getRunnerPaths(root, options = {}) {
     applyReport: path.join(
       reviewRoot,
       "smokingpipes-apply-dry-run-report-v1.md"
+    ),
+    baselineReadinessReportJson: path.join(
+      reviewRoot,
+      "smokingpipes-baseline-catchup-readiness-report.json"
+    ),
+    baselineReadinessReportMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-baseline-catchup-readiness-report.md"
     ),
     productsNext: path.join(
       base,
@@ -261,17 +442,81 @@ export function readJsonIfExists(filePath, fallback = null) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-export async function writeTextAtomic(filePath, text) {
+const ATOMIC_RENAME_RETRY_CODES = new Set(["EPERM", "EACCES", "EBUSY"]);
+
+function atomicRenameDelayMs(retryNumber, random = Math.random) {
+  const baseMs = Math.min(
+    1000,
+    100 * 2 ** Math.max(0, retryNumber - 1)
+  );
+  const jitterMs = Math.floor(baseMs * 0.25 * random());
+  return Math.min(1000, baseMs + jitterMs);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function writeTextAtomic(filePath, text, options = {}) {
+  const {
+    maxRenameAttempts = 20,
+    rename = fs.promises.rename,
+    sleep: wait = sleep,
+    random = Math.random,
+    verbose = false,
+  } = options;
   await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
   const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`;
   await fs.promises.writeFile(tempPath, text, "utf8");
-  await fs.promises.rename(tempPath, filePath);
+
+  let lastError = null;
+  for (let attempt = 1; attempt <= maxRenameAttempts; attempt += 1) {
+    try {
+      await rename(tempPath, filePath);
+      return {
+        targetPath: filePath,
+        tempPath,
+        attempts: attempt,
+      };
+    } catch (error) {
+      lastError = error;
+      const retryable = ATOMIC_RENAME_RETRY_CODES.has(error?.code);
+      if (!retryable || attempt >= maxRenameAttempts) break;
+
+      if (verbose) {
+        console.warn(
+          `atomic write rename busy, retry ${attempt}/${maxRenameAttempts} | target: ${filePath} | error: ${error.code}`
+        );
+      }
+      await wait(atomicRenameDelayMs(attempt, random));
+    }
+  }
+
+  throw Object.assign(
+    new Error(
+      `Atomic write checkpoint failed after retries: ${filePath}`
+    ),
+    {
+      code: "ATOMIC_WRITE_RENAME_FAILED",
+      targetPath: filePath,
+      tempPath,
+      attempts: maxRenameAttempts,
+      lastError: {
+        code: lastError?.code || null,
+        message:
+          lastError instanceof Error
+            ? lastError.message
+            : String(lastError || ""),
+      },
+      cause: lastError,
+    }
+  );
 }
 
-export async function writeJsonAtomic(filePath, payload) {
+export async function writeJsonAtomic(filePath, payload, options = {}) {
   const content = `${JSON.stringify(payload, null, 2)}\n`;
   JSON.parse(content);
-  await writeTextAtomic(filePath, content);
+  return writeTextAtomic(filePath, content, options);
 }
 
 export function acquireRunLock(lockPath, metadata, forceUnlock = false) {
@@ -355,6 +600,39 @@ function validCachedDetail(item) {
   );
 }
 
+export function collectValidQueueTempDetails(queuePath) {
+  const directory = path.dirname(queuePath);
+  const prefix = `${path.basename(queuePath)}.tmp-`;
+  const details = new Map();
+  const tempFiles = [];
+
+  if (!fs.existsSync(directory)) return { details, tempFiles };
+
+  const candidates = fs
+    .readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.startsWith(prefix))
+    .map((entry) => path.join(directory, entry.name))
+    .sort(
+      (left, right) =>
+        fs.statSync(left).mtimeMs - fs.statSync(right).mtimeMs
+    );
+
+  for (const tempPath of candidates) {
+    try {
+      const payload = JSON.parse(fs.readFileSync(tempPath, "utf8"));
+      tempFiles.push(tempPath);
+      for (const item of payload.items || []) {
+        if (!validCachedDetail(item?.detail)) continue;
+        details.set(String(item.sourceProductId), item.detail);
+      }
+    } catch {
+      // Preserve unreadable temp files for manual recovery; do not trust them.
+    }
+  }
+
+  return { details, tempFiles };
+}
+
 export function collectValidCachedDetails(payloads = []) {
   const details = new Map();
 
@@ -419,6 +697,9 @@ export function buildDetailsQueue({
     alreadyCompletedSkipped: 0,
     cachedSkipped: 0,
     ignoredSkipped: 0,
+    staleInProgressRepaired: 0,
+    staleInProgressCached: 0,
+    staleInProgressReset: 0,
     queuedNewDetails: 0,
   };
 
@@ -428,6 +709,7 @@ export function buildDetailsQueue({
     };
     const existing = existingItems.get(sourceProductId);
     const cachedDetail = cachedDetails.get(sourceProductId);
+    const staleInProgress = existing?.status === "in-progress";
 
     if (existingProductIds.has(sourceProductId)) {
       reconciliation.existingProductsSkipped += 1;
@@ -466,6 +748,10 @@ export function buildDetailsQueue({
 
     if (cachedDetail) {
       reconciliation.cachedSkipped += 1;
+      if (staleInProgress) {
+        reconciliation.staleInProgressRepaired += 1;
+        reconciliation.staleInProgressCached += 1;
+      }
       const cachedItem = existing || queueItemFromCurrent(current, now);
       items.push({
         ...cachedItem,
@@ -496,6 +782,12 @@ export function buildDetailsQueue({
           updatedAt: now,
         }
       : queueItemFromCurrent(current, now);
+    if (staleInProgress) {
+      reconciliation.staleInProgressRepaired += 1;
+      reconciliation.staleInProgressReset += 1;
+      next.status = "pending";
+      next.lastError = null;
+    }
     reconciliation.queuedNewDetails += 1;
     items.push(next);
   }
@@ -572,7 +864,15 @@ export function evaluateRunnerReadiness({
   if (!diff?.coverage?.fullExpectedRangeScanned) {
     reasons.push("current list does not cover the full expected page range");
   }
-  if (newDetailsCount > 0 && detailsFetchAllowed === false) {
+  const queueAlreadyComplete =
+    newDetailsCount > 0 &&
+    queueSummary.remaining === 0 &&
+    queueSummary.completed >= newDetailsCount;
+  if (
+    newDetailsCount > 0 &&
+    detailsFetchAllowed === false &&
+    !queueAlreadyComplete
+  ) {
     reasons.push("new product details were not fetched in this run");
   } else if (queueSummary.remaining > 0) {
     reasons.push(`${queueSummary.remaining} new details remain incomplete`);
@@ -585,12 +885,17 @@ export function evaluateRunnerReadiness({
     diff?.coverage?.fullExpectedRangeScanned === true;
   const detailsComplete =
     newDetailsCount === 0 ||
+    queueAlreadyComplete ||
     (detailsFetchAllowed !== false && queueSummary.remaining === 0);
   const allowApply = inventoryReady && detailsComplete;
   let status = "dry-run-ready";
 
   if (!inventoryReady) status = "blocked";
-  else if (newDetailsCount > 0 && detailsFetchAllowed === false) {
+  else if (
+    newDetailsCount > 0 &&
+    detailsFetchAllowed === false &&
+    !queueAlreadyComplete
+  ) {
     status = "dry-run-ready";
   }
   else if (!detailsComplete) status = "details-pending";
@@ -606,18 +911,78 @@ export function evaluateRunnerReadiness({
   };
 }
 
+export function shouldGenerateFinalApplyDryRunOutputs({
+  mode,
+  readiness,
+}) {
+  return (
+    mode === "apply-dry-run" &&
+    readiness?.inventoryReady === true &&
+    readiness?.detailsComplete === true &&
+    readiness?.allowApply === true
+  );
+}
+
+export function baselineCatchUpNextStep({
+  catchUpCurrent,
+  detailsComplete,
+  outputsGenerated = detailsComplete,
+}) {
+  if (!catchUpCurrent) {
+    return outputsGenerated
+      ? "Review the latest report. A separate explicit approval is still required before any future production apply."
+      : "Run the inventory automation again to continue pending details, or complete manual verification if requested.";
+  }
+  if (!detailsComplete) {
+    return "Continue baseline catch-up before enabling daily update.";
+  }
+  return outputsGenerated
+    ? "Review generated next-dry-run outputs before formal apply."
+    : "Review readiness report and fix candidate classification / conversion issues. Do not continue crawling.";
+}
+
 export function classifyRunnerError(error) {
   const message = error instanceof Error ? error.message : String(error);
   const captcha = /captcha|verification blocked|manual verification/i.test(
     message
   );
+  const invalidExistingDryRun =
+    error?.code === "INVALID_EXISTING_DRY_RUN";
+  const checkpointFailed = error?.code === "CHECKPOINT_FAILED";
   return {
-    status: captcha || error?.code === "LOCK_EXISTS" ? "blocked" : "failed",
+    status:
+      captcha ||
+      invalidExistingDryRun ||
+      checkpointFailed ||
+      error?.code === "LOCK_EXISTS"
+        ? "blocked"
+        : "failed",
     message,
-    manualActionRequired: captcha,
+    manualActionRequired:
+      captcha || invalidExistingDryRun || checkpointFailed,
     captchaRequired: captcha,
+    checkpointFailed,
     currentProductId: error?.currentProductId || null,
+    targetPath: error?.targetPath || null,
+    tempPath: error?.tempPath || null,
+    attempts: error?.attempts || 0,
+    lastErrorCode: error?.lastError?.code || null,
+    productionWritten: false,
   };
+}
+
+export function formatCheckpointFailureReport(run) {
+  if (!run?.checkpointFailed) return "";
+  return `## Queue Checkpoint Failure
+
+- checkpoint failed: true
+- last detail id: ${run.currentProductId || "unknown"}
+- target queue path: ${run.checkpointTargetPath || "unknown"}
+- temp queue path: ${run.checkpointTempPath || "unknown"}
+- attempts: ${run.checkpointAttempts || 0}
+- last error code: ${run.checkpointLastErrorCode || "unknown"}
+- production data written: false
+`;
 }
 
 export function initialInventoryState() {
@@ -632,6 +997,11 @@ export function initialInventoryState() {
     lastError: null,
     manualActionRequired: false,
     captchaRequired: false,
+    checkpointFailed: false,
+    checkpointTargetPath: null,
+    checkpointTempPath: null,
+    checkpointAttempts: 0,
+    checkpointLastErrorCode: null,
     currentProductId: null,
     currentRunId: null,
     latestReport: null,

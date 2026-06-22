@@ -3,22 +3,40 @@ import path from "node:path";
 import process from "node:process";
 import {
   acquireRunLock,
+  baselineCatchUpNextStep,
   buildDetailsQueue,
   classifyRunnerError,
   collectValidCachedDetails,
+  collectValidQueueTempDetails,
   evaluateRunnerReadiness,
+  formatCheckpointFailureReport,
   formatRunId,
   getRunnerPaths,
   initialInventoryState,
   parseRunnerOptions,
   readJsonIfExists,
   releaseRunLock,
+  resolveInventoryInputStrategy,
   shouldFetchNewDetails,
+  shouldGenerateFinalApplyDryRunOutputs,
   summarizeDetailsQueue,
+  validateReusableInventoryArtifacts,
   writeJsonAtomic,
   writeTextAtomic,
 } from "./inventory-runner-core-v1.mjs";
-import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
+import {
+  processSmokingpipesCatchUpCycles,
+  processSmokingpipesDetailsQueue,
+  writeSmokingpipesQueueCheckpoint,
+} from "./smokingpipes-details-queue-v1.mjs";
+import {
+  buildSmokingpipesApplyDryRunArtifacts,
+  buildSmokingpipesApplyDryRunReport,
+  buildSmokingpipesBaselineReadinessMarkdown,
+  buildSmokingpipesBaselineReadinessReport,
+  buildSmokingpipesPendingApplyDryRunReport,
+  writeSmokingpipesApplyDryRunOutputs,
+} from "./smokingpipes-apply-dry-run-v1.mjs";
 import { runSmokingpipesInventoryDryRun } from "./smokingpipes-update-dry-run-v1.mjs";
 import { validateInventoryUpdate } from "./validate-inventory-update-v1.mjs";
 
@@ -34,6 +52,15 @@ Options:
   --mode=dry-run                        Fetch, diff, validate, and advance detail queue (default)
   --mode=apply-dry-run                  Build isolated next-data candidates when every gate passes
   --mode=apply                          Reserved; V1 rejects production apply
+  --refresh-list                        Refresh list/diff before apply-dry-run (default: reuse existing)
+  --catch-up-current                    Complete the current diff.newIds baseline in resumable batches
+  --baseline-catch-up                   Alias for --catch-up-current
+  --auto-repeat-catch-up                Run bounded catch-up cycles in one invocation
+  --catch-up-repeat-max-cycles=1        Maximum catch-up cycles
+  --catch-up-repeat-delay-min-ms=300000 Minimum delay between catch-up cycles
+  --catch-up-repeat-delay-max-ms=600000 Maximum delay between catch-up cycles
+  --catch-up-max-total-details=200      Maximum details across all cycles
+  --catch-up-max-runtime-minutes=90     Maximum catch-up runtime
   --max-pages=107                       List pages to scan (default: 107)
   --allow-manual-verification=true      Open a visible browser for manual CAPTCHA handling
   --browser-channel=msedge              Use msedge, chrome, or Playwright chromium
@@ -45,14 +72,14 @@ Options:
   --fetch-new-details                   Explicitly enable fetching diff.newIds details
   --skip-new-details                    Explicitly keep this run list-only (default)
   --allow-partial-new-details           Permit details after a partial scan (not recommended)
-  --detail-warmup-min-ms=5000           Minimum wait after opening a detail page
-  --detail-warmup-max-ms=12000          Maximum wait after opening a detail page
-  --detail-delay-min-ms=15000           Minimum delay before the next detail
-  --detail-delay-max-ms=35000           Maximum delay before the next detail
-  --detail-batch-size=5                 Details per batch before a longer cooldown
-  --detail-batch-cooldown-min-ms=90000  Minimum batch cooldown
-  --detail-batch-cooldown-max-ms=180000 Maximum batch cooldown
-  --detail-max-per-run=10               Maximum new details fetched in one run
+  --detail-warmup-min-ms=1000           Catch-up default; normal default remains 5000
+  --detail-warmup-max-ms=3000           Catch-up default; normal default remains 12000
+  --detail-delay-min-ms=3000            Catch-up default; normal default remains 15000
+  --detail-delay-max-ms=8000            Catch-up default; normal default remains 35000
+  --detail-batch-size=50                Catch-up default; normal default remains 5
+  --detail-batch-cooldown-min-ms=0      Catch-up default; normal default remains 90000
+  --detail-batch-cooldown-max-ms=0      Catch-up default; normal default remains 180000
+  --detail-max-per-run=50               Catch-up default; normal default remains 10
   --max-new-details-per-run=10          Legacy alias for --detail-max-per-run
   --no-commit | --commit                Commit intent flag; V1 never commits automatically
   --no-deploy                           Deployment stays disabled
@@ -210,6 +237,12 @@ function buildRunReport(run) {
 - startedAt: ${run.startedAt}
 - finishedAt: ${run.finishedAt || "not finished"}
 - mode: ${run.mode}
+- baseline catch-up: ${Boolean(run.catchUpCurrent)}
+- auto-repeat catch-up: ${Boolean(run.autoRepeatCatchUp)}
+- catch-up cycles completed: ${run.detailsResult?.cyclesCompleted ?? 0}
+- catch-up stop reason: ${run.detailsResult?.stopReason || "not applicable"}
+- inventory input: ${run.refreshList ? "refreshed list/diff" : "existing validated list/diff"}
+- refresh list: ${Boolean(run.refreshList)}
 - current step: ${run.currentStep}
 - status: ${run.status}
 - mock: ${run.mock}
@@ -240,6 +273,9 @@ function buildRunReport(run) {
 - existing products skipped: ${queue.existingProductsSkipped ?? 0}
 - already completed skipped: ${queue.alreadyCompletedSkipped ?? 0}
 - cached skipped: ${queue.cachedSkipped ?? 0}
+- stale in-progress repaired: ${queue.staleInProgressRepaired ?? 0}
+- stale in-progress recovered from cache: ${queue.staleInProgressCached ?? 0}
+- stale in-progress reset to pending: ${queue.staleInProgressReset ?? 0}
 - ignored/superseded skipped: ${queue.ignoredSkipped ?? 0}
 - queued new details: ${queue.queuedNewDetails ?? 0}
 - active: ${queue.activeItems ?? 0}
@@ -260,6 +296,8 @@ function buildRunReport(run) {
 - CAPTCHA required: ${Boolean(run.captchaRequired)}
 - lock acquired: ${Boolean(run.lockAcquired)}
 - lock released on normal/finalized exit: ${Boolean(run.lockReleased)}
+
+${formatCheckpointFailureReport(run)}
 
 ### Readiness reasons
 
@@ -296,64 +334,6 @@ async function writeState(paths, state, patch) {
   await writeJsonAtomic(paths.state, state);
 }
 
-async function writeApplyDryRunCandidate(paths, run, current, diff, queue) {
-  const completedDetails = (queue.items || [])
-    .filter((item) => item.active !== false && item.status === "completed")
-    .map((item) => item.detail);
-  const generatedAt = new Date().toISOString();
-  const candidate = {
-    version: "smokingpipes-products-next-dry-run-v1",
-    generatedAt,
-    source: "smokingpipes",
-    runId: run.runId,
-    productionWritten: false,
-    note: "Isolated candidate package only. Formal production apply is not implemented in V1.",
-    inventory: {
-      currentAvailableIds: diff.currentAvailableIds || current.products.map((item) => item.sourceProductId),
-      newIds: diff.newIds || [],
-      disappearedIds: diff.disappearedIds || [],
-    },
-    completedNewDetails: completedDetails,
-  };
-  const publicManifest = {
-    version: "public-products-next-dry-run-v1",
-    generatedAt,
-    runId: run.runId,
-    productionWritten: false,
-    sourceCandidate: relative(paths.productsNext),
-    note: "Framework manifest. Canonical conversion and public generation remain isolated until formal apply is approved.",
-    counts: {
-      currentAvailable: Number(diff.counts?.currentAvailable || 0),
-      completedNewDetails: completedDetails.length,
-    },
-  };
-  const applyReport = `# Smokingpipes Apply Dry-Run V1
-
-- runId: ${run.runId}
-- generatedAt: ${generatedAt}
-- mode: apply-dry-run
-- readiness allowApply: true
-- formal apply executed: false
-- production data written: false
-- products candidate: ${relative(paths.productsNext)}
-- public candidate manifest: ${relative(path.join(paths.publicNextRoot, "manifest.json"))}
-
-This is an isolated candidate package. Production apply requires a separate implementation and explicit approval.
-`;
-
-  await writeJsonAtomic(paths.productsNext, candidate);
-  await writeJsonAtomic(
-    path.join(paths.publicNextRoot, "manifest.json"),
-    publicManifest
-  );
-  await writeTextAtomic(paths.applyReport, applyReport);
-  return {
-    productsNext: relative(paths.productsNext),
-    publicNext: relative(paths.publicNextRoot),
-    report: relative(paths.applyReport),
-  };
-}
-
 async function run() {
   let options;
   try {
@@ -380,6 +360,9 @@ async function run() {
     runId,
     source: options.source,
     mode: options.mode,
+    catchUpCurrent: options.catchUpCurrent,
+    autoRepeatCatchUp: options.autoRepeatCatchUp,
+    refreshList: false,
     mock: options.mock,
     startedAt,
     finishedAt: null,
@@ -408,6 +391,11 @@ async function run() {
     applied: false,
     manualActionRequired: false,
     captchaRequired: false,
+    checkpointFailed: false,
+    checkpointTargetPath: null,
+    checkpointTempPath: null,
+    checkpointAttempts: 0,
+    checkpointLastErrorCode: null,
     lockAcquired: false,
     lockReleased: false,
     warnings: [],
@@ -448,43 +436,96 @@ async function run() {
     let diff;
     let recentNew;
     let validation;
-
-    runRecord.currentStep = "fetch-and-diff";
+    const inventoryInput = resolveInventoryInputStrategy(options);
+    runRecord.refreshList = inventoryInput.refreshList;
+    runRecord.currentStep = inventoryInput.refreshList
+      ? "fetch-and-diff"
+      : "reuse-existing-dry-run";
     await writeState(paths, state, { lastStep: runRecord.currentStep });
 
-    if (options.mock) {
-      if (options.verbose) {
-        console.log(
-          "mock mode: browser navigation and long pacing delays are skipped"
+    if (inventoryInput.refreshList) {
+      if (options.mock) {
+        if (options.verbose) {
+          console.log(
+            "mock mode: browser navigation and long pacing delays are skipped"
+          );
+        }
+        ({ current, diff, recentNew } = makeMockInventory(options));
+        await writeJsonAtomic(paths.currentList, current);
+        await writeJsonAtomic(paths.diff, diff);
+        await writeJsonAtomic(paths.recentNew, recentNew);
+        validation = validateMockInventory(current, diff, recentNew);
+      } else {
+        await runSmokingpipesInventoryDryRun({
+          maxPages: options.maxPages,
+          expectedPages: options.expectedPages,
+          browserChannel: options.browserChannel,
+          allowManualVerification: options.allowManualVerification,
+          manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
+          pageDelayMinMs: options.pageDelayMinMs,
+          pageDelayMaxMs: options.pageDelayMaxMs,
+          pageWarmupMinMs: options.pageWarmupMinMs,
+          pageWarmupMaxMs: options.pageWarmupMaxMs,
+          captchaCooldownMs: options.captchaCooldownMs,
+          verbose: options.verbose,
+        });
+        current = readJsonIfExists(paths.currentList);
+        diff = readJsonIfExists(paths.diff);
+        recentNew = readJsonIfExists(paths.recentNew);
+        validation = validateInventoryUpdate();
+      }
+
+      if (!current || !diff || !recentNew) {
+        throw new Error(
+          "Inventory dry-run did not produce every required output."
         );
       }
-      ({ current, diff, recentNew } = makeMockInventory(options));
-      await writeJsonAtomic(paths.currentList, current);
-      await writeJsonAtomic(paths.diff, diff);
-      await writeJsonAtomic(paths.recentNew, recentNew);
-      validation = validateMockInventory(current, diff, recentNew);
     } else {
-      await runSmokingpipesInventoryDryRun({
-        maxPages: options.maxPages,
-        expectedPages: options.expectedPages,
-        browserChannel: options.browserChannel,
-        allowManualVerification: options.allowManualVerification,
-        manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
-        pageDelayMinMs: options.pageDelayMinMs,
-        pageDelayMaxMs: options.pageDelayMaxMs,
-        pageWarmupMinMs: options.pageWarmupMinMs,
-        pageWarmupMaxMs: options.pageWarmupMaxMs,
-        captchaCooldownMs: options.captchaCooldownMs,
-        verbose: options.verbose,
-      });
+      if (options.verbose) {
+        console.log("using existing current-list dry-run");
+        console.log("using existing inventory diff dry-run");
+      }
       current = readJsonIfExists(paths.currentList);
       diff = readJsonIfExists(paths.diff);
       recentNew = readJsonIfExists(paths.recentNew);
-      validation = validateInventoryUpdate();
-    }
+      validation = validateReusableInventoryArtifacts({
+        current,
+        diff,
+        expectedPages: options.expectedPages,
+      });
 
-    if (!current || !diff || !recentNew) {
-      throw new Error("Inventory dry-run did not produce every required output.");
+      if (validation.status !== "passed") {
+        runRecord.validation = validation;
+        runRecord.diff = diff;
+        runRecord.warnings.push(...validation.warnings);
+        runRecord.errors.push(...validation.errors);
+        throw Object.assign(
+          new Error(
+            `Existing inventory dry-run artifacts are not safe to reuse: ${validation.errors.join(
+              "; "
+            )} Run a complete list-only dry-run first.`
+          ),
+          { code: "INVALID_EXISTING_DRY_RUN" }
+        );
+      }
+
+      if (!recentNew) {
+        const newIds = new Set((diff.newIds || []).map(String));
+        recentNew = {
+          version: "recent-new-dry-run-v1",
+          generatedAt: diff.generatedAt || new Date().toISOString(),
+          source: "smokingpipes",
+          note:
+            "Derived in memory from an existing validated diff; no inventory file was rewritten.",
+          newProductIds: [...newIds],
+          newProducts: (current.products || []).filter((item) =>
+            newIds.has(String(item.sourceProductId))
+          ),
+        };
+        runRecord.warnings.push(
+          "Existing recent-new dry-run was missing; an in-memory view was derived from diff.newIds without rewriting inventory files."
+        );
+      }
     }
 
     runRecord.diff = diff;
@@ -500,7 +541,9 @@ async function run() {
     runRecord.warnings.push(...(validation.warnings || []));
     runRecord.errors.push(...(validation.errors || []));
     await writeState(paths, state, {
-      lastSuccessfulFetchAt: new Date().toISOString(),
+      ...(inventoryInput.refreshList
+        ? { lastSuccessfulFetchAt: new Date().toISOString() }
+        : {}),
       lastStep: "details-decision",
     });
 
@@ -521,7 +564,10 @@ async function run() {
       );
     }
 
-    if (detailsDecision.allowed) {
+    const shouldPrepareQueue =
+      detailsDecision.allowed || options.mode === "apply-dry-run";
+
+    if (shouldPrepareQueue) {
       runRecord.currentStep = "queue-details";
       await writeState(paths, state, { lastStep: runRecord.currentStep });
       const existingQueue = readJsonIfExists(paths.queue, null);
@@ -543,6 +589,15 @@ async function run() {
               .map((filePath) => readJsonIfExists(filePath, null))
               .filter(Boolean)
           );
+      const queueTempRecovery = collectValidQueueTempDetails(paths.queue);
+      for (const [sourceProductId, detail] of queueTempRecovery.details) {
+        cachedDetails.set(sourceProductId, detail);
+      }
+      if (queueTempRecovery.details.size > 0) {
+        runRecord.warnings.push(
+          `${queueTempRecovery.details.size} cached details were recovered from preserved queue temp files.`
+        );
+      }
 
       queue = buildDetailsQueue({
         existingQueue,
@@ -551,7 +606,9 @@ async function run() {
         existingProductIds,
         cachedDetails,
       });
-      await writeJsonAtomic(paths.queue, queue);
+      await writeSmokingpipesQueueCheckpoint(queue, paths.queue, {
+        verbose: options.verbose,
+      });
       runRecord.queueSummary = summarizeDetailsQueue(queue);
       if (options.verbose) {
         console.log(
@@ -565,25 +622,57 @@ async function run() {
         );
       }
 
-      const processed = await processSmokingpipesDetailsQueue({
-        queue,
-        queuePath: paths.queue,
-        maxItems: options.detailMaxPerRun,
-        batchSize: options.detailBatchSize,
-        detailWarmupMinMs: options.detailWarmupMinMs,
-        detailWarmupMaxMs: options.detailWarmupMaxMs,
-        detailDelayMinMs: options.detailDelayMinMs,
-        detailDelayMaxMs: options.detailDelayMaxMs,
-        detailBatchCooldownMinMs: options.detailBatchCooldownMinMs,
-        detailBatchCooldownMaxMs: options.detailBatchCooldownMaxMs,
-        browserChannel: options.browserChannel,
-        allowManualVerification: options.allowManualVerification,
-        verbose: options.verbose,
-        mock: options.mock,
-      });
-      queue = processed.queue;
-      runRecord.detailsResult = processed.result;
-      runRecord.captchaRequired = processed.result.captchaRequired;
+      if (detailsDecision.allowed) {
+        const detailProcessingOptions = {
+          queue,
+          queuePath: paths.queue,
+          batchSize: options.detailBatchSize,
+          detailWarmupMinMs: options.detailWarmupMinMs,
+          detailWarmupMaxMs: options.detailWarmupMaxMs,
+          detailDelayMinMs: options.detailDelayMinMs,
+          detailDelayMaxMs: options.detailDelayMaxMs,
+          detailBatchCooldownMinMs: options.detailBatchCooldownMinMs,
+          detailBatchCooldownMaxMs: options.detailBatchCooldownMaxMs,
+          browserChannel: options.browserChannel,
+          allowManualVerification: options.allowManualVerification,
+          verbose: options.verbose,
+          mock: options.mock,
+        };
+        const processed = options.catchUpCurrent
+          ? await processSmokingpipesCatchUpCycles({
+              ...detailProcessingOptions,
+              detailMaxPerRun: options.detailMaxPerRun,
+              autoRepeat: options.autoRepeatCatchUp,
+              maxCycles: options.catchUpRepeatMaxCycles,
+              repeatDelayMinMs: options.catchUpRepeatDelayMinMs,
+              repeatDelayMaxMs: options.catchUpRepeatDelayMaxMs,
+              maxTotalDetails: options.catchUpMaxTotalDetails,
+              maxRuntimeMinutes: options.catchUpMaxRuntimeMinutes,
+            })
+          : await processSmokingpipesDetailsQueue({
+              ...detailProcessingOptions,
+              maxItems: options.detailMaxPerRun,
+            });
+        queue = processed.queue;
+        runRecord.detailsResult = processed.result;
+        runRecord.captchaRequired = processed.result.captchaRequired;
+      } else {
+        runRecord.currentStep = "details-already-complete";
+        runRecord.detailsResult = {
+          requested: 0,
+          selected: 0,
+          attempted: 0,
+          completed: 0,
+          failed: 0,
+          captchaRequired: false,
+          stopReason: "existing-queue-only",
+        };
+        if (options.verbose) {
+          console.log(
+            "using existing completed detail queue; no detail crawling requested"
+          );
+        }
+      }
     } else {
       runRecord.currentStep = "details-skipped";
       runRecord.detailsResult = {
@@ -610,26 +699,113 @@ async function run() {
 
     if (options.mode === "apply-dry-run") {
       runRecord.currentStep = "apply-dry-run";
-      if (!runRecord.readiness.allowApply) {
+      if (
+        !shouldGenerateFinalApplyDryRunOutputs({
+          mode: options.mode,
+          readiness: runRecord.readiness,
+        })
+      ) {
         runRecord.warnings.push(
           `apply-dry-run skipped: ${runRecord.readiness.reasons.join("; ")}`
         );
-      } else {
-        runRecord.applyDryRun = await writeApplyDryRunCandidate(
-          paths,
-          runRecord,
-          current,
+        const pendingReport = buildSmokingpipesPendingApplyDryRunReport({
+          runId,
           diff,
-          queue
+          queueSummary: runRecord.queueSummary,
+          detailsResult: runRecord.detailsResult,
+          reasons: runRecord.readiness.reasons,
+          catchUpCurrent: options.catchUpCurrent,
+        });
+        await writeTextAtomic(paths.applyReport, pendingReport);
+      } else {
+        const existingProducts = readJsonIfExists(
+          paths.existingProducts,
+          []
         );
+        const danishProducts = readJsonIfExists(paths.danishProducts, []);
+        const artifacts = await buildSmokingpipesApplyDryRunArtifacts({
+          existingProducts: Array.isArray(existingProducts)
+            ? existingProducts
+            : existingProducts.products || [],
+          currentPayload: current,
+          diff,
+          inventoryValidation: validation,
+          queue,
+          danishProducts: Array.isArray(danishProducts)
+            ? danishProducts
+            : danishProducts.products || [],
+        });
+        const baselineReadinessReport =
+          buildSmokingpipesBaselineReadinessReport({
+            runId,
+            readiness: artifacts.candidate.readiness,
+            publicValidation: artifacts.publicPayloads.validation,
+          });
+        await writeJsonAtomic(
+          paths.baselineReadinessReportJson,
+          baselineReadinessReport
+        );
+        await writeTextAtomic(
+          paths.baselineReadinessReportMarkdown,
+          buildSmokingpipesBaselineReadinessMarkdown(
+            baselineReadinessReport
+          )
+        );
+        runRecord.baselineReadinessReport = {
+          json: relative(paths.baselineReadinessReportJson),
+          markdown: relative(paths.baselineReadinessReportMarkdown),
+        };
+        const applyReport = buildSmokingpipesApplyDryRunReport({
+          runId,
+          artifacts,
+          detailsResult: runRecord.detailsResult,
+          catchUpCurrent: options.catchUpCurrent,
+        });
+        if (!artifacts.candidate.candidateReady) {
+          runRecord.status = "blocked";
+          runRecord.readiness.allowApply = false;
+          runRecord.readiness.reasons.push(
+            ...artifacts.candidate.blockedReasons
+          );
+          runRecord.errors.push(
+            ...artifacts.publicPayloads.validation.errors
+          );
+          await writeTextAtomic(
+            paths.applyReport,
+            buildSmokingpipesPendingApplyDryRunReport({
+              runId,
+              diff,
+              queueSummary: runRecord.queueSummary,
+              detailsResult: runRecord.detailsResult,
+              reasons: runRecord.readiness.reasons,
+              catchUpCurrent: options.catchUpCurrent,
+            })
+          );
+        } else {
+          runRecord.applyDryRun =
+            await writeSmokingpipesApplyDryRunOutputs({
+              paths,
+              candidate: artifacts.candidate,
+              publicPayloads: artifacts.publicPayloads,
+              report: applyReport,
+            });
+          runRecord.applyDryRun = {
+            ...runRecord.applyDryRun,
+            productsNext: relative(paths.productsNext),
+            publicNext: relative(paths.publicNextRoot),
+            report: relative(paths.applyReport),
+          };
+        }
       }
     }
 
     runRecord.currentStep = "complete";
     runRecord.finishedAt = new Date().toISOString();
-    runRecord.nextStep = runRecord.readiness.allowApply
-      ? "Review the latest report. A separate explicit approval is still required before any future production apply."
-      : "Run the daily dry-run again to continue pending details, or complete manual verification if requested.";
+    runRecord.nextStep = baselineCatchUpNextStep({
+      catchUpCurrent: options.catchUpCurrent,
+      detailsComplete: Boolean(runRecord.readiness?.detailsComplete),
+      outputsGenerated: Boolean(runRecord.applyDryRun),
+    });
     releaseRunLock(lock);
     runRecord.lockReleased = !fs.existsSync(paths.lock);
     await writeRunReports(paths, runRecord);
@@ -667,6 +843,11 @@ async function run() {
     runRecord.errors.push(classified.message);
     runRecord.manualActionRequired = classified.manualActionRequired;
     runRecord.captchaRequired = classified.captchaRequired;
+    runRecord.checkpointFailed = classified.checkpointFailed;
+    runRecord.checkpointTargetPath = classified.targetPath;
+    runRecord.checkpointTempPath = classified.tempPath;
+    runRecord.checkpointAttempts = classified.attempts;
+    runRecord.checkpointLastErrorCode = classified.lastErrorCode;
     runRecord.captchaDetected =
       runRecord.captchaDetected || classified.captchaRequired;
     runRecord.currentProductId = classified.currentProductId;
@@ -674,9 +855,14 @@ async function run() {
     if (checkpointedQueue) {
       runRecord.queueSummary = summarizeDetailsQueue(checkpointedQueue);
     }
-    runRecord.nextStep = classified.manualActionRequired
-      ? "Open the local runner with manual verification enabled and complete the CAPTCHA in the visible browser."
-      : "Inspect the error in the latest report, then retry after the underlying problem is fixed.";
+    runRecord.nextStep =
+      error?.code === "INVALID_EXISTING_DRY_RUN"
+        ? "Run a complete list-only dry-run, review its validation result, then retry apply-dry-run."
+        : error?.code === "CHECKPOINT_FAILED"
+          ? "Inspect the preserved temp queue, release the Windows file lock, then rerun catch-up; production data was not written."
+        : classified.manualActionRequired
+          ? "Open the local runner with manual verification enabled and complete the CAPTCHA in the visible browser."
+          : "Inspect the error in the latest report, then retry after the underlying problem is fixed.";
     if (lock) {
       releaseRunLock(lock);
       runRecord.lockReleased = !fs.existsSync(paths.lock);
@@ -691,6 +877,11 @@ async function run() {
         lastError: classified.message,
         manualActionRequired: classified.manualActionRequired,
         captchaRequired: classified.captchaRequired,
+        checkpointFailed: classified.checkpointFailed,
+        checkpointTargetPath: classified.targetPath,
+        checkpointTempPath: classified.tempPath,
+        checkpointAttempts: classified.attempts,
+        checkpointLastErrorCode: classified.lastErrorCode,
         currentProductId: classified.currentProductId,
         currentRunId: null,
         latestReport: runRecord.latestReport || state.latestReport,

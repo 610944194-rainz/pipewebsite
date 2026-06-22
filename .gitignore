@@ -44,6 +44,12 @@ next-env.d.ts
 /.cache/
 data/inventory/state/*.lock
 data/inventory/.session/
+data/inventory/*.tmp-*
+data/inventory/*.bak-*
+data/inventory/smokingpipes-new-details-queue.json
+data/review/*
+data/generated/public-products-next/
+data/products/*next-dry-run*
 
 # Next.js
 .next/

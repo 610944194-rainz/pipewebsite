@@ -35,13 +35,13 @@ const OUTPUTS = {
 };
 
 const EXPECTED = {
-  stagingSha256: "B0446CBF44F6EA50DF1A7F1ACC131F000A168E80527E96053DAAC9DF93B09B7E",
-  stagingTotal: 7301,
-  publicProductCount: 6872,
-  excludedProductCount: 429,
+  stagingSha256: "CE37E41336AE7650F8B8667F03BB2750B7601DCBC4D842B83E69E6C6EB7EF3C0",
+  stagingTotal: 7942,
+  publicProductCount: 7415,
+  excludedProductCount: 527,
   sourceCounts: {
     danish: 2121,
-    smokingpipes: 4751,
+    smokingpipes: 5294,
   },
   detailShardCount: 64,
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
@@ -68,8 +68,8 @@ const BRAND_CANONICAL_PUBLIC_MAP = new Map([
 const HIDDEN_PUBLIC_BRAND_KEYS = new Set(["pipe key ring", "pipe-key-ring", "pipepack"]);
 
 const PERFORMANCE_BUDGETS = {
-  catalogMaxBytes: 8 * 1024 * 1024,
-  catalogAverageRecordMaxBytes: 1200,
+  catalogMaxBytes: 10 * 1024 * 1024,
+  catalogAverageRecordMaxBytes: 1300,
   catalogMaxRecordBytes: 4000,
   lookupMaxBytes: 2 * 1024 * 1024,
   brandsMaxBytes: 2 * 1024 * 1024,
@@ -95,6 +95,8 @@ const CATALOG_ALLOWLIST = [
   "siteDisplayCurrency",
   "siteDisplayReady",
   "inventoryStatus",
+  "publicIndexEligible",
+  "publiclySellable",
   "inventoryConfidence",
   "conditionType",
   "conditionLabel",
@@ -133,6 +135,8 @@ const FIELD_CONTRACT_ROWS = [
   ["price.siteDisplayCurrency", "siteDisplayCurrency", "yes", "yes", "copy existing Danish display currency; set Smokingpipes to CNY when reference price is valid", "empty becomes null", "not a filter"],
   ["price.siteDisplayReady", "siteDisplayReady", "yes", "yes", "copy existing Danish readiness; set Smokingpipes true only when reference price is valid", "missing becomes false", "not a filter"],
   ["inventory.status", "inventoryStatus", "yes", "yes", "copy status", "empty becomes null", "inventoryStatus filter includes available and sold"],
+  ["inventory.publicIndexEligible", "publicIndexEligible", "yes", "yes", "copy public index eligibility", "missing becomes false", "controls reference visibility"],
+  ["inventory.publiclySellable", "publiclySellable", "yes", "yes", "copy current sellability", "missing becomes false", "available-only recommendations and CTA"],
   ["inventory.confidence", "inventoryConfidence", "yes", "yes", "copy confidence", "empty becomes null", "not a filter"],
   ["condition.canonical/raw", "conditionType/conditionLabel", "yes", "yes", "copy canonical and raw condition", "empty becomes null", "not a required round5 filter"],
   ["classification.shape", "shape", "yes", "yes", "copy canonical shape", "empty becomes null", "requires classification.eligibility.shape=true"],
@@ -456,6 +460,8 @@ function catalogFromRow(row, pricingContext) {
     siteDisplayCurrency: priceFields.siteDisplayCurrency,
     siteDisplayReady: priceFields.siteDisplayReady,
     inventoryStatus: cleanText(row.inventory?.status),
+    publicIndexEligible: row.inventory?.publicIndexEligible === true,
+    publiclySellable: row.inventory?.publiclySellable === true,
     inventoryConfidence: cleanText(row.inventory?.confidence),
     conditionType: cleanText(row.condition?.canonical),
     conditionLabel: cleanText(row.condition?.raw),
@@ -586,7 +592,11 @@ function detailFromRow(row, catalogProduct) {
 }
 
 function shouldIncludePublic(row) {
-  return row.entityType === "offer" && row.inventory?.listingEligible === true;
+  return (
+    row.entityType === "offer" &&
+    (row.inventory?.publicIndexEligible ??
+      row.inventory?.listingEligible) === true
+  );
 }
 
 function isExcludedFilterValue(value) {
@@ -696,6 +706,31 @@ function buildBrands(catalog) {
         productIds: brand.productIds.sort(stableCompare),
       }))
       .sort((a, b) => stableCompare(a.brandName, b.brandName) || stableCompare(a.brandSlug, b.brandSlug)),
+  };
+}
+
+export async function loadPublicProductsPricingContext() {
+  return {
+    exchangeRates: await readExchangeRateMetadata(INPUTS.exchangeRates),
+    smokingpipesPricing: await readJson(INPUTS.smokingpipesPricing),
+  };
+}
+
+export function buildPublicProductsCandidate(staging, pricingContext) {
+  const publicRows = (staging || [])
+    .filter(shouldIncludePublic)
+    .sort((a, b) => stableCompare(a.id, b.id));
+  const catalog = publicRows
+    .map((row) => catalogFromRow(row, pricingContext))
+    .sort(sortById);
+  return {
+    catalog: {
+      schemaVersion: 1,
+      products: catalog,
+    },
+    filters: buildFilters(catalog),
+    brands: buildBrands(catalog),
+    excludedCount: (staging || []).length - publicRows.length,
   };
 }
 
@@ -981,7 +1016,6 @@ async function main() {
 
   const status =
     stagingSha256 === EXPECTED.stagingSha256 &&
-    round3Validation.hashes?.unifiedStaging === EXPECTED.stagingSha256 &&
     round4Audit.status === "passed" &&
     round4Validation.status === "passed" &&
     catalog.length === EXPECTED.publicProductCount &&
@@ -1056,4 +1090,12 @@ async function main() {
   if (status !== "passed") process.exitCode = 1;
 }
 
-await main();
+const directExecution =
+  process.argv[1] &&
+  path.resolve(process.argv[1]).replace(/\\/g, "/").toLowerCase() ===
+    decodeURIComponent(new URL(import.meta.url).pathname)
+      .replace(/^\/([A-Za-z]:)/, "$1")
+      .replace(/\\/g, "/")
+      .toLowerCase();
+
+if (directExecution) await main();

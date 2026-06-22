@@ -10,6 +10,7 @@ import {
   shouldSuppressPanelWhenCombined,
 } from "./shape";
 import { PRODUCT_SORT_OPTIONS } from "./url";
+import { parseInventoryQuery } from "./inventory-query.mjs";
 import type {
   ProductQueryResult,
   ProductQueryState,
@@ -165,11 +166,6 @@ function parseSort(value: string | undefined): ProductSortMode {
   return allowed.has(normalizedValue as ProductSortMode)
     ? (normalizedValue as ProductSortMode)
     : "default";
-}
-
-function parseInventory(value: string | undefined): ProductQueryState["inventory"] {
-  if (value === "available" || value === "sold") return value;
-  return "all";
 }
 
 export function getWeightRange(
@@ -442,7 +438,7 @@ export function parseProductQueryState(
     ),
     inventory: galleryOnly
       ? "all"
-      : parseInventory(rawInventory || rawStatus),
+      : parseInventoryQuery(rawInventory || rawStatus),
     galleryOnly,
     sort: parseSort(cleanParam(firstParam(searchParams.sort))),
     page: parsePage(cleanParam(firstParam(searchParams.page))),

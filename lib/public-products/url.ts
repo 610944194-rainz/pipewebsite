@@ -1,4 +1,5 @@
 import type { ProductQueryState, ProductSortMode } from "./types";
+import { inventoryQueryParam } from "./inventory-query.mjs";
 
 export const PRODUCT_SORT_OPTIONS: Array<{
   value: ProductSortMode;
@@ -34,8 +35,9 @@ export function buildProductsHref(
 
   if (nextState.galleryOnly) {
     params.set("status", "gallery");
-  } else if (nextState.inventory && nextState.inventory !== "all") {
-    params.set("inventory", nextState.inventory);
+  } else {
+    const inventory = inventoryQueryParam(nextState.inventory);
+    if (inventory) params.set("inventory", inventory);
   }
 
   if (nextState.sort && nextState.sort !== "default") {
