@@ -430,12 +430,16 @@ export function buildProgressivePartialApplyPreview({
     })
     .map(sourceProductId)
     .sort();
+  const candidateCount = Number(
+    audit?.candidateCount ?? wouldApplyProductIds.length
+  );
   return {
     version:
       "smokingpipes-progressive-partial-apply-preview-v1",
     generatedAt: now,
     status: "preview-ready",
     stateVersion: state?.version || null,
+    candidateCount,
     wouldApplyProductIds,
     wouldApplyCount: wouldApplyProductIds.length,
     productionWritten: false,

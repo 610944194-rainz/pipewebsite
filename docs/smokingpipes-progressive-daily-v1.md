@@ -143,23 +143,53 @@ zeroPriceSellable
 It also rejects duplicate identities and sold/unavailable products in
 `recent-new`.
 
-## Partial apply preview
+## Partial apply
 
 ```powershell
 node scripts/inventory/run-inventory-automation-v1.mjs --source=smokingpipes --mode=progressive-partial-apply --no-commit --no-deploy --verbose
 ```
 
-V1 only previews the product IDs that would be applied. It does not copy files
-to production, mark candidates published, set `lastAppliedAt`, set
-`appliedInCommit`, commit, or push.
-
-All results keep:
+By default this remains preview-only. It shows the product IDs that would be
+applied and keeps:
 
 ```text
 productionWritten=false
 commitPerformed=false
 pushPerformed=false
 ```
+
+Production writes require an explicit switch:
+
+```powershell
+node scripts/inventory/run-inventory-automation-v1.mjs --source=smokingpipes --mode=progressive-partial-apply --write-production --no-commit --no-deploy --verbose
+```
+
+`--write-production` writes:
+
+```text
+data/products/smokingpipes-products.json
+data/generated/public-products/
+```
+
+It still never commits, pushes, deploys, marks candidates published, sets
+`lastAppliedAt`, or sets `appliedInCommit`.
+
+Before writing production, the runner re-reads the current partial candidate
+and audit and requires:
+
+- audit verdict is `PASS`;
+- `candidateCount === wouldApplyCount`;
+- `candidateCount > 0`;
+- `deletedProducts = 0`;
+- `pendingLeak = 0`;
+- `failedLeak = 0`;
+- `blockedLeak = 0`;
+- `reviewOnlyLeak = 0`;
+- `zeroPriceSellable = 0`;
+- `blockers = []`.
+
+Only the already-audited partial candidate is eligible. Review-only,
+failed/not-public, blocked, pending, and disappeared records remain excluded.
 
 ## Offline mock sequence
 

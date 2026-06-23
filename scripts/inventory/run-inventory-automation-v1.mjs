@@ -66,7 +66,7 @@ Options:
   --mode=progressive-ingest-list        Ingest existing current-list/diff into state
   --mode=progressive-detail-chunk       Resume a checkpointed new-detail batch
   --mode=progressive-build-candidate    Build isolated additive partial-next data
-  --mode=progressive-partial-apply      Preview partial apply; never writes production
+  --mode=progressive-partial-apply      Preview partial apply; writes production only with --write-production
   --mode=apply                          Reserved; V1 rejects production apply
   --refresh-list                        Refresh list/diff before apply-dry-run (default: reuse existing)
   --catch-up-current                    Complete the current diff.newIds baseline in resumable batches
@@ -107,6 +107,7 @@ Options:
   --progressive-detail-max=5            Maximum progressive pending details per chunk
   --current-list=PATH                   Progressive ingest current-list input
   --diff=PATH                           Progressive ingest inventory diff input
+  --write-production                    Explicitly write progressive partial apply outputs to production
   --no-commit | --commit                Commit intent flag; V1 never commits automatically
   --no-deploy                           Deployment stays disabled
   --verbose                             Print detail progress
@@ -115,9 +116,9 @@ Options:
   --help                                Show this help
 
 Safety:
-  The default mode is dry-run. Production apply is not implemented. Incomplete
-  list coverage, failed validation, pending details, CAPTCHA, or network errors
-  block apply readiness and never write production product/public data.
+  The default mode is dry-run. Progressive partial apply is preview-only unless
+  --write-production is explicitly passed. Incomplete list coverage, failed
+  validation, pending details, CAPTCHA, or network errors block apply readiness.
 `;
 
 function relative(filePath) {

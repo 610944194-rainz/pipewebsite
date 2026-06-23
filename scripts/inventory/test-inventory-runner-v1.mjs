@@ -112,6 +112,11 @@ assert.equal(defaults.detailBatchCooldownMaxMs, 180000);
 assert.equal(defaults.browserChannel, null);
 assert.equal(defaults.browserProfile, null);
 assert.equal(defaults.browserProfileDir, null);
+assert.equal(defaults.writeProduction, false);
+assert.equal(
+  parseRunnerOptions(["--write-production"]).writeProduction,
+  true
+);
 
 const dailyDefaults = parseRunnerOptions(["--mode=daily-update"]);
 assert.equal(dailyDefaults.mode, "daily-update");
@@ -4156,6 +4161,10 @@ const progressiveApplyPreview =
     now: "2026-06-23T02:00:00.000Z",
   });
 assert.equal(progressiveApplyPreview.status, "preview-ready");
+assert.equal(
+  progressiveApplyPreview.candidateCount,
+  progressiveApplyPreview.wouldApplyCount
+);
 assert.equal(progressiveApplyPreview.productionWritten, false);
 assert.equal(progressiveApplyPreview.commitPerformed, false);
 assert.equal(progressiveApplyPreview.pushPerformed, false);
@@ -4166,6 +4175,427 @@ assert.equal(
       item.lastAppliedAt ||
       item.appliedInCommit
   ),
+  false
+);
+
+const progressiveApplyRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-apply-")
+);
+const progressiveApplyPaths = runnerCore.getRunnerPaths(
+  progressiveApplyRoot
+);
+const progressiveApplyProduction = [
+  {
+    id: "smokingpipes-100",
+    source: "smokingpipes",
+    sourceProductId: "100",
+    inventoryStatus: "available",
+    price: {
+      current: {
+        rawText: "$100.00",
+        currency: "USD",
+        amount: 100,
+        parseStatus: "parsed",
+      },
+    },
+  },
+];
+const progressiveApplyCandidateProducts = [
+  {
+    ...progressiveApplyProduction[0],
+    price: {
+      current: {
+        rawText: "$110.00",
+        currency: "USD",
+        amount: 110,
+        parseStatus: "parsed",
+      },
+    },
+  },
+  {
+    id: "smokingpipes-200",
+    source: "smokingpipes",
+    sourceProductId: "200",
+    inventoryStatus: "available",
+    price: {
+      current: {
+        rawText: "$200.00",
+        currency: "USD",
+        amount: 200,
+        parseStatus: "parsed",
+      },
+    },
+    imageUrl: "https://example.invalid/200.jpg",
+    galleryImages: ["https://example.invalid/200.jpg"],
+  },
+];
+const progressiveApplyState = createProgressiveDailyState({
+  dailyRunId: "progressive-apply",
+  now: progressiveNow,
+});
+progressiveApplyState.candidates = [
+  {
+    sourceProductId: "100",
+    sourceUrl: "https://example.invalid/100",
+    listTitle: "Price changed",
+    listPrice: "$110.00",
+    listPrimaryImage: "https://example.invalid/100.jpg",
+    inventoryStatus: "available",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "progressive-apply",
+    lastSeenRunId: "progressive-apply",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["price-change"],
+    detailStatus: "complete",
+    publicStatus: "ready",
+    detailAttempts: 0,
+    retryCount: 0,
+    blockedCount: 0,
+    priority: 50,
+  },
+  {
+    sourceProductId: "200",
+    sourceUrl: "https://example.invalid/200",
+    listTitle: "Ready new",
+    listPrice: "$200.00",
+    listPrimaryImage: "https://example.invalid/200.jpg",
+    inventoryStatus: "available",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "progressive-apply",
+    lastSeenRunId: "progressive-apply",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["new-product"],
+    detailStatus: "complete",
+    publicStatus: "ready",
+    detailAttempts: 1,
+    retryCount: 0,
+    blockedCount: 0,
+    priority: 100,
+    convertedProduct: progressiveApplyCandidateProducts[1],
+  },
+  {
+    sourceProductId: "201",
+    sourceUrl: "https://example.invalid/201",
+    listTitle: "Review only",
+    listPrice: "$201.00",
+    listPrimaryImage: "https://example.invalid/201.jpg",
+    inventoryStatus: "needs-review",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "progressive-apply",
+    lastSeenRunId: "progressive-apply",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["new-product"],
+    detailStatus: "complete",
+    publicStatus: "review-only",
+    detailAttempts: 1,
+    retryCount: 0,
+    blockedCount: 0,
+    priority: 100,
+    convertedProduct: {
+      id: "smokingpipes-201",
+      source: "smokingpipes",
+      sourceProductId: "201",
+      inventoryStatus: "needs-review",
+    },
+  },
+  {
+    sourceProductId: "202",
+    sourceUrl: "https://example.invalid/202",
+    listTitle: "Failed",
+    listPrice: "$202.00",
+    listPrimaryImage: "https://example.invalid/202.jpg",
+    inventoryStatus: "available",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "progressive-apply",
+    lastSeenRunId: "progressive-apply",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["new-product"],
+    detailStatus: "failed",
+    publicStatus: "not-public",
+    detailAttempts: 1,
+    retryCount: 1,
+    blockedCount: 0,
+    priority: 100,
+    lastError: "detail parse failed",
+  },
+];
+progressiveApplyState.updatedAt = progressiveNow;
+const progressiveApplyAudit = {
+  version: "smokingpipes-progressive-partial-audit-v1",
+  generatedAt: progressiveNow,
+  verdict: "PASS",
+  candidateCount: 2,
+  wouldApplyCount: 2,
+  blockers: [],
+  warnings: [],
+  counts: {
+    deletedProducts: 0,
+    pendingLeak: 0,
+    failedLeak: 0,
+    blockedLeak: 0,
+    reviewOnlyLeak: 0,
+    zeroPriceSellable: 0,
+  },
+  newProductReady: 1,
+  newProductReviewOnly: 1,
+  newProductNotReady: 1,
+  productionWritten: false,
+};
+fs.mkdirSync(path.dirname(progressiveApplyPaths.existingProducts), {
+  recursive: true,
+});
+fs.mkdirSync(path.dirname(progressiveApplyPaths.progressiveState), {
+  recursive: true,
+});
+fs.mkdirSync(path.dirname(progressiveApplyPaths.progressiveAuditJson), {
+  recursive: true,
+});
+fs.mkdirSync(progressiveApplyPaths.progressivePublicNextRoot, {
+  recursive: true,
+});
+fs.mkdirSync(
+  path.join(progressiveApplyPaths.progressivePublicNextRoot, "details"),
+  { recursive: true }
+);
+fs.writeFileSync(
+  progressiveApplyPaths.existingProducts,
+  JSON.stringify(progressiveApplyProduction),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveState,
+  JSON.stringify(progressiveApplyState),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveProductsNext,
+  JSON.stringify(progressiveApplyCandidateProducts),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveAuditJson,
+  JSON.stringify(progressiveApplyAudit),
+  "utf8"
+);
+fs.writeFileSync(
+  path.join(
+    progressiveApplyPaths.progressivePublicNextRoot,
+    "catalog.json"
+  ),
+  JSON.stringify({
+    schemaVersion: 1,
+    products: [
+      {
+        id: "smokingpipes-100",
+        source: "smokingpipes",
+        sourceProductId: "100",
+      },
+      {
+        id: "smokingpipes-200",
+        source: "smokingpipes",
+        sourceProductId: "200",
+      },
+    ],
+  }),
+  "utf8"
+);
+for (const name of [
+  "filters.json",
+  "brands.json",
+  "detail-lookup.json",
+]) {
+  fs.writeFileSync(
+    path.join(
+      progressiveApplyPaths.progressivePublicNextRoot,
+      name
+    ),
+    JSON.stringify({ schemaVersion: 1 }),
+    "utf8"
+  );
+}
+fs.writeFileSync(
+  path.join(
+    progressiveApplyPaths.progressivePublicNextRoot,
+    "recent-new.json"
+  ),
+  JSON.stringify({
+    schemaVersion: 1,
+    products: [
+      {
+        id: "smokingpipes-200",
+        source: "smokingpipes",
+        sourceProductId: "200",
+      },
+    ],
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  path.join(
+    progressiveApplyPaths.progressivePublicNextRoot,
+    "details",
+    "smokingpipes-0.json"
+  ),
+  JSON.stringify({
+    schemaVersion: 1,
+    products: [
+      {
+        id: "smokingpipes-200",
+        sourceProductId: "200",
+      },
+    ],
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  path.join(
+    progressiveApplyPaths.progressivePublicNextRoot,
+    "manifest.json"
+  ),
+  JSON.stringify({
+    schemaVersion: 1,
+    productionWritten: false,
+    detailFiles: [
+      "data/generated/public-products-partial-next/details/smokingpipes-0.json",
+    ],
+  }),
+  "utf8"
+);
+const progressiveApplyDefault =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+    ]),
+  });
+assert.equal(progressiveApplyDefault.status, "preview-ready");
+assert.equal(progressiveApplyDefault.productionWritten, false);
+assert.equal(
+  JSON.parse(
+    fs.readFileSync(
+      progressiveApplyPaths.existingProducts,
+      "utf8"
+    )
+  ).some((item) => item.sourceProductId === "200"),
+  false
+);
+const progressiveApplyWriteResult =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+      "--no-commit",
+      "--no-deploy",
+    ]),
+  });
+assert.equal(progressiveApplyWriteResult.status, "apply-complete");
+assert.equal(progressiveApplyWriteResult.candidateCount, 2);
+assert.equal(progressiveApplyWriteResult.wouldApplyCount, 2);
+assert.equal(progressiveApplyWriteResult.productionWritten, true);
+assert.equal(progressiveApplyWriteResult.commitPerformed, false);
+assert.equal(progressiveApplyWriteResult.pushPerformed, false);
+const progressiveAppliedProducts = JSON.parse(
+  fs.readFileSync(progressiveApplyPaths.existingProducts, "utf8")
+);
+assert.equal(
+  progressiveAppliedProducts.some(
+    (item) => item.sourceProductId === "200"
+  ),
+  true
+);
+assert.equal(
+  progressiveAppliedProducts.some(
+    (item) => item.sourceProductId === "201"
+  ),
+  false
+);
+assert.equal(
+  progressiveAppliedProducts.some(
+    (item) => item.sourceProductId === "202"
+  ),
+  false
+);
+const progressiveAppliedCatalog = JSON.parse(
+  fs.readFileSync(
+    path.join(
+      progressiveApplyRoot,
+      "data",
+      "generated",
+      "public-products",
+      "catalog.json"
+    ),
+    "utf8"
+  )
+);
+assert.equal(
+  progressiveAppliedCatalog.products.some(
+    (item) => item.sourceProductId === "200"
+  ),
+  true
+);
+const progressiveApplyBlockedRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-apply-blocked-")
+);
+const progressiveApplyBlockedPaths =
+  runnerCore.getRunnerPaths(progressiveApplyBlockedRoot);
+fs.mkdirSync(
+  path.dirname(progressiveApplyBlockedPaths.existingProducts),
+  { recursive: true }
+);
+fs.mkdirSync(
+  path.dirname(progressiveApplyBlockedPaths.progressiveState),
+  { recursive: true }
+);
+fs.mkdirSync(
+  path.dirname(progressiveApplyBlockedPaths.progressiveAuditJson),
+  { recursive: true }
+);
+fs.mkdirSync(
+  progressiveApplyBlockedPaths.progressivePublicNextRoot,
+  { recursive: true }
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.existingProducts,
+  JSON.stringify(progressiveApplyProduction),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.progressiveState,
+  JSON.stringify(progressiveApplyState),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.progressiveProductsNext,
+  JSON.stringify(progressiveApplyCandidateProducts),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.progressiveAuditJson,
+  JSON.stringify({
+    ...progressiveApplyAudit,
+    verdict: "FAIL",
+    blockers: ["reviewOnlyLeak=1"],
+  }),
+  "utf8"
+);
+const progressiveApplyBlocked =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyBlockedRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+    ]),
+  });
+assert.equal(progressiveApplyBlocked.status, "apply-blocked");
+assert.equal(progressiveApplyBlocked.productionWritten, false);
+assert.equal(
+  JSON.parse(
+    fs.readFileSync(
+      progressiveApplyBlockedPaths.existingProducts,
+      "utf8"
+    )
+  ).some((item) => item.sourceProductId === "200"),
   false
 );
 for (const mode of [

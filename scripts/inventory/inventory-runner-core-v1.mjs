@@ -384,6 +384,10 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     maxNewDetailsPerRun: detailMaxPerRun,
     commit: args.has("commit") && !args.has("no-commit"),
     deploy: args.has("deploy") && !args.has("no-deploy"),
+    writeProduction: booleanValue(
+      args.get("write-production"),
+      false
+    ),
     verbose: booleanValue(args.get("verbose"), false),
     forceUnlock: booleanValue(args.get("force-unlock"), false),
     mock: booleanValue(args.get("mock"), false),
@@ -709,6 +713,12 @@ export function getRunnerPaths(root, options = {}) {
       "data",
       "generated",
       "public-products-partial-next"
+    ),
+    productionPublicRoot: path.join(
+      root,
+      "data",
+      "generated",
+      "public-products"
     ),
     progressiveAuditMarkdown: path.join(
       reviewRoot,

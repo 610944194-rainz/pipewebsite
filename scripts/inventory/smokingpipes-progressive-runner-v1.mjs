@@ -89,9 +89,9 @@ function progressiveMarkdown(report) {
 - readyForPartialApply: ${report.readyForPartialApply || 0}
 - partialAppliedCount: ${report.partialAppliedCount || 0}
 - wouldApplyCount: ${report.wouldApplyCount || 0}
-- productionWritten: false
-- commitPerformed: false
-- pushPerformed: false
+- productionWritten: ${Boolean(report.productionWritten)}
+- commitPerformed: ${Boolean(report.commitPerformed)}
+- pushPerformed: ${Boolean(report.pushPerformed)}
 - nextRecommendedRunAt: ${report.nextRecommendedRunAt || "none"}
 - blockedReason: ${report.blockedReason || "none"}
 `;
@@ -187,9 +187,9 @@ function makeReport({ mode, state, result = {} }) {
     partialAppliedCount:
       result.partialAppliedCount || 0,
     wouldApplyCount: result.wouldApplyCount || 0,
-    productionWritten: false,
-    commitPerformed: false,
-    pushPerformed: false,
+    productionWritten: result.productionWritten === true,
+    commitPerformed: result.commitPerformed === true,
+    pushPerformed: result.pushPerformed === true,
     nextRecommendedRunAt:
       result.recommendedNextRunAt ||
       state?.latestRun?.recommendedNextRunAt ||
@@ -469,6 +469,192 @@ async function writePublicCandidate(
   }
 }
 
+function publicNextFile(paths, name) {
+  return path.join(paths.progressivePublicNextRoot, name);
+}
+
+function productionPublicFile(paths, name) {
+  return path.join(paths.productionPublicRoot, name);
+}
+
+function readRequiredJson(filePath, blockers) {
+  if (!fs.existsSync(filePath)) {
+    blockers.push(`missing required file: ${filePath}`);
+    return null;
+  }
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    blockers.push(
+      `invalid JSON in ${filePath}: ${error.message}`
+    );
+    return null;
+  }
+}
+
+function readProgressivePublicNext(paths) {
+  const blockers = [];
+  const payloads = {
+    catalog: readRequiredJson(
+      publicNextFile(paths, "catalog.json"),
+      blockers
+    ),
+    filters: readRequiredJson(
+      publicNextFile(paths, "filters.json"),
+      blockers
+    ),
+    brands: readRequiredJson(
+      publicNextFile(paths, "brands.json"),
+      blockers
+    ),
+    recentNew: readRequiredJson(
+      publicNextFile(paths, "recent-new.json"),
+      blockers
+    ),
+    lookup: readRequiredJson(
+      publicNextFile(paths, "detail-lookup.json"),
+      blockers
+    ),
+    manifest: readRequiredJson(
+      publicNextFile(paths, "manifest.json"),
+      blockers
+    ),
+    detailShards: [],
+  };
+  const detailsDir = path.join(
+    paths.progressivePublicNextRoot,
+    "details"
+  );
+  if (fs.existsSync(detailsDir)) {
+    for (const entry of fs
+      .readdirSync(detailsDir)
+      .filter((name) => name.endsWith(".json"))
+      .sort()) {
+      const content = readRequiredJson(
+        path.join(detailsDir, entry),
+        blockers
+      );
+      if (content) {
+        payloads.detailShards.push({
+          shard: entry.replace(/\.json$/i, ""),
+          content,
+        });
+      }
+    }
+  }
+  return { payloads, blockers };
+}
+
+function evaluateProgressiveProductionApplyGate({
+  audit,
+  preview,
+  candidateProducts,
+  publicPayloads,
+}) {
+  const blockers = [];
+  const auditStatus = audit?.verdict || audit?.status;
+  if (auditStatus !== "PASS") {
+    blockers.push(`auditStatus=${auditStatus || "missing"}`);
+  }
+  if ((audit?.blockers || []).length) {
+    blockers.push(...audit.blockers);
+  }
+  for (const key of [
+    "deletedProducts",
+    "pendingLeak",
+    "failedLeak",
+    "blockedLeak",
+    "reviewOnlyLeak",
+    "zeroPriceSellable",
+  ]) {
+    const value = Number(audit?.counts?.[key] || 0);
+    if (value !== 0) blockers.push(`${key}=${value}`);
+  }
+  const candidateCount = Number(
+    audit?.candidateCount ?? preview?.wouldApplyCount ?? 0
+  );
+  const wouldApplyCount = Number(
+    audit?.wouldApplyCount ?? preview?.wouldApplyCount ?? 0
+  );
+  if (!(candidateCount > 0)) {
+    blockers.push("candidateCount must be greater than 0");
+  }
+  if (candidateCount !== wouldApplyCount) {
+    blockers.push(
+      `candidateCount ${candidateCount} does not match wouldApplyCount ${wouldApplyCount}`
+    );
+  }
+  if (wouldApplyCount !== Number(preview?.wouldApplyCount || 0)) {
+    blockers.push(
+      `audit wouldApplyCount ${wouldApplyCount} does not match preview wouldApplyCount ${preview?.wouldApplyCount || 0}`
+    );
+  }
+  if (preview?.status !== "preview-ready") {
+    blockers.push(
+      `preview status is ${preview?.status || "missing"}`
+    );
+  }
+  if (!Array.isArray(candidateProducts) || !candidateProducts.length) {
+    blockers.push("candidate products are missing or empty");
+  }
+  for (const [name, payload] of Object.entries(
+    publicPayloads || {}
+  )) {
+    if (name === "detailShards") continue;
+    if (!payload) blockers.push(`public next ${name} is missing`);
+  }
+  return {
+    status: blockers.length ? "apply-blocked" : "apply-ready",
+    blockers: [...new Set(blockers)],
+    candidateCount,
+    wouldApplyCount,
+  };
+}
+
+async function writeProductionPublicCandidate(
+  paths,
+  publicPayloads
+) {
+  await writeJsonAtomic(
+    productionPublicFile(paths, "catalog.json"),
+    publicPayloads.catalog
+  );
+  await writeJsonAtomic(
+    productionPublicFile(paths, "filters.json"),
+    publicPayloads.filters
+  );
+  await writeJsonAtomic(
+    productionPublicFile(paths, "brands.json"),
+    publicPayloads.brands
+  );
+  await writeJsonAtomic(
+    productionPublicFile(paths, "recent-new.json"),
+    publicPayloads.recentNew
+  );
+  await writeJsonAtomic(
+    productionPublicFile(paths, "detail-lookup.json"),
+    publicPayloads.lookup
+  );
+  await writeJsonAtomic(
+    productionPublicFile(paths, "manifest.json"),
+    {
+      ...(publicPayloads.manifest || {}),
+      productionWritten: true,
+      productionWrittenAt: new Date().toISOString(),
+    }
+  );
+  for (const shard of publicPayloads.detailShards || []) {
+    await writeJsonAtomic(
+      path.join(
+        paths.productionPublicRoot,
+        "details",
+        `${shard.shard}.json`
+      ),
+      shard.content
+    );
+  }
+}
+
 async function buildCandidateArtifacts({
   root,
   paths,
@@ -526,6 +712,14 @@ async function buildCandidateArtifacts({
     publicCatalog: publicBase.catalog.products,
     recentNew: recentNew.products,
   });
+  const applyPreview = buildProgressivePartialApplyPreview({
+    state,
+    audit,
+    productionProducts,
+    candidateProducts: candidate.products,
+  });
+  audit.candidateCount = candidate.appliedCandidateIds.length;
+  audit.wouldApplyCount = applyPreview.wouldApplyCount || 0;
   await writeJsonAtomic(
     paths.progressiveProductsNext,
     candidate.products
@@ -861,6 +1055,80 @@ export async function runSmokingpipesProgressiveMode({
       productionProducts,
       candidateProducts,
     });
+    if (options.writeProduction) {
+      const publicNext = readProgressivePublicNext(paths);
+      const gate = evaluateProgressiveProductionApplyGate({
+        audit,
+        preview,
+        candidateProducts,
+        publicPayloads: publicNext.payloads,
+      });
+      gate.blockers.push(...publicNext.blockers);
+      gate.blockers = [...new Set(gate.blockers)];
+      if (gate.blockers.length) {
+        const blocked = {
+          version:
+            "smokingpipes-progressive-partial-apply-preview-v1",
+          generatedAt: new Date().toISOString(),
+          status: "apply-blocked",
+          candidateCount: gate.candidateCount,
+          wouldApplyCount: gate.wouldApplyCount,
+          blockers: gate.blockers,
+          wouldApplyProductIds:
+            preview.wouldApplyProductIds || [],
+          productionWritten: false,
+          commitPerformed: false,
+          pushPerformed: false,
+        };
+        await writeJsonAtomic(
+          paths.progressiveApplyPreview,
+          blocked
+        );
+        await writeProgressiveReport(
+          paths,
+          makeReport({
+            mode: options.mode,
+            state,
+            result: blocked,
+          })
+        );
+        return blocked;
+      }
+      await writeJsonAtomic(
+        paths.existingProducts,
+        candidateProducts
+      );
+      await writeProductionPublicCandidate(
+        paths,
+        publicNext.payloads
+      );
+      const completed = {
+        version:
+          "smokingpipes-progressive-partial-apply-preview-v1",
+        generatedAt: new Date().toISOString(),
+        status: "apply-complete",
+        candidateCount: gate.candidateCount,
+        wouldApplyCount: gate.wouldApplyCount,
+        partialAppliedCount: gate.wouldApplyCount,
+        wouldApplyProductIds: preview.wouldApplyProductIds,
+        productionWritten: true,
+        commitPerformed: false,
+        pushPerformed: false,
+      };
+      await writeJsonAtomic(
+        paths.progressiveApplyPreview,
+        completed
+      );
+      await writeProgressiveReport(
+        paths,
+        makeReport({
+          mode: options.mode,
+          state,
+          result: completed,
+        })
+      );
+      return completed;
+    }
     await writeJsonAtomic(
       paths.progressiveApplyPreview,
       preview
