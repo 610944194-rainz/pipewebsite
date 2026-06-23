@@ -2,7 +2,19 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
-const ALLOWED_MODES = new Set(["dry-run", "apply-dry-run", "apply"]);
+const ALLOWED_MODES = new Set([
+  "dry-run",
+  "apply-dry-run",
+  "daily-update",
+  "verification-probe",
+  "detail-probe",
+  "browser-preflight",
+  "progressive-ingest-list",
+  "progressive-detail-chunk",
+  "progressive-build-candidate",
+  "progressive-partial-apply",
+  "apply",
+]);
 
 function booleanValue(value, fallback = false) {
   if (value === undefined) return fallback;
@@ -55,8 +67,25 @@ function parseArguments(argv) {
 
 export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const args = parseArguments(argv);
-  const mode = String(args.get("mode") || "dry-run").toLowerCase();
+  const mode = String(
+    booleanValue(args.get("detail-probe"), false)
+      ? "detail-probe"
+      : booleanValue(args.get("verification-probe"), false)
+        ? "verification-probe"
+        : booleanValue(args.get("daily-update"), false)
+          ? "daily-update"
+          : args.get("mode") || "dry-run"
+  ).toLowerCase();
   const source = String(args.get("source") || "smokingpipes").toLowerCase();
+  const dailyUpdate = mode === "daily-update";
+  const verificationProbe = mode === "verification-probe";
+  const detailProbe = mode === "detail-probe";
+  const browserPreflight = mode === "browser-preflight";
+  const progressiveMode = mode.startsWith("progressive-");
+  const maxPages = positiveInteger(args.get("max-pages"), 107);
+  const fullReconcile =
+    (dailyUpdate || verificationProbe) && maxPages > 10;
+  const shortDailyNewScan = dailyUpdate && maxPages <= 10;
   const catchUpCurrent =
     booleanValue(args.get("catch-up-current"), false) ||
     booleanValue(args.get("baseline-catch-up"), false);
@@ -64,42 +93,129 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     args.get("auto-repeat-catch-up"),
     false
   );
+  const requestedPageDelayMinMs = nonNegativeInteger(
+    args.get("page-delay-min-ms"),
+    verificationProbe
+      ? 3000
+      : fullReconcile
+        ? 3000
+        : dailyUpdate
+          ? 1000
+          : 8000
+  );
+  const requestedPageDelayMaxMs = nonNegativeInteger(
+    args.get("page-delay-max-ms"),
+    verificationProbe
+      ? 6000
+      : fullReconcile
+        ? 6000
+        : dailyUpdate
+          ? 3000
+          : 18000
+  );
+  const requestedPageWarmupMinMs = nonNegativeInteger(
+    args.get("page-warmup-min-ms"),
+    verificationProbe
+      ? 1500
+      : fullReconcile
+        ? 1500
+        : dailyUpdate
+          ? 500
+          : 3000
+  );
+  const requestedPageWarmupMaxMs = nonNegativeInteger(
+    args.get("page-warmup-max-ms"),
+    verificationProbe
+      ? 3000
+      : fullReconcile
+        ? 3000
+        : dailyUpdate
+          ? 1500
+          : 7000
+  );
+  const requestedPageBatchSize = nonNegativeInteger(
+    args.get("page-batch-size"),
+    dailyUpdate || verificationProbe ? 30 : 0
+  );
+  const requestedPageBatchCooldownMinMs = nonNegativeInteger(
+    args.get("page-batch-cooldown-min-ms"),
+    verificationProbe ? 30000 : fullReconcile ? 30000 : 0
+  );
+  const requestedPageBatchCooldownMaxMs = nonNegativeInteger(
+    args.get("page-batch-cooldown-max-ms"),
+    verificationProbe ? 60000 : fullReconcile ? 60000 : 0
+  );
   const pageDelayRange = normalizedRange(
-    nonNegativeInteger(args.get("page-delay-min-ms"), 8000),
-    nonNegativeInteger(args.get("page-delay-max-ms"), 18000)
+    fullReconcile
+      ? Math.max(3000, requestedPageDelayMinMs)
+      : requestedPageDelayMinMs,
+    fullReconcile
+      ? Math.max(6000, requestedPageDelayMaxMs)
+      : requestedPageDelayMaxMs
   );
   const pageWarmupRange = normalizedRange(
-    nonNegativeInteger(args.get("page-warmup-min-ms"), 3000),
-    nonNegativeInteger(args.get("page-warmup-max-ms"), 7000)
+    fullReconcile
+      ? Math.max(1500, requestedPageWarmupMinMs)
+      : requestedPageWarmupMinMs,
+    fullReconcile
+      ? Math.max(3000, requestedPageWarmupMaxMs)
+      : requestedPageWarmupMaxMs
   );
+  const pageBatchCooldownRange = normalizedRange(
+    fullReconcile
+      ? Math.max(30000, requestedPageBatchCooldownMinMs)
+      : requestedPageBatchCooldownMinMs,
+    fullReconcile
+      ? Math.max(60000, requestedPageBatchCooldownMaxMs)
+      : requestedPageBatchCooldownMaxMs
+  );
+  const pageBatchSize = fullReconcile
+    ? Math.min(30, requestedPageBatchSize || 30)
+    : requestedPageBatchSize;
+  const pacingDowngraded =
+    fullReconcile &&
+    (pageDelayRange.minimum !== requestedPageDelayMinMs ||
+      pageDelayRange.maximum !==
+        Math.max(requestedPageDelayMinMs, requestedPageDelayMaxMs) ||
+      pageWarmupRange.minimum !== requestedPageWarmupMinMs ||
+      pageWarmupRange.maximum !==
+        Math.max(requestedPageWarmupMinMs, requestedPageWarmupMaxMs) ||
+      pageBatchSize !== requestedPageBatchSize ||
+      pageBatchCooldownRange.minimum !==
+        requestedPageBatchCooldownMinMs ||
+      pageBatchCooldownRange.maximum !==
+        Math.max(
+          requestedPageBatchCooldownMinMs,
+          requestedPageBatchCooldownMaxMs
+        ));
   const detailWarmupRange = normalizedRange(
     nonNegativeInteger(
       args.get("detail-warmup-min-ms"),
-      catchUpCurrent ? 1000 : 5000
+      detailProbe ? 2000 : catchUpCurrent || dailyUpdate ? 1000 : 5000
     ),
     nonNegativeInteger(
       args.get("detail-warmup-max-ms"),
-      catchUpCurrent ? 3000 : 12000
+      detailProbe ? 4000 : catchUpCurrent || dailyUpdate ? 3000 : 12000
     )
   );
   const detailDelayRange = normalizedRange(
     nonNegativeInteger(
       args.get("detail-delay-min-ms"),
-      catchUpCurrent ? 3000 : 15000
+      detailProbe ? 5000 : catchUpCurrent || dailyUpdate ? 3000 : 15000
     ),
     nonNegativeInteger(
       args.get("detail-delay-max-ms"),
-      catchUpCurrent ? 8000 : 35000
+      detailProbe ? 10000 : catchUpCurrent || dailyUpdate ? 8000 : 35000
     )
   );
   const detailBatchCooldownRange = normalizedRange(
     nonNegativeInteger(
       args.get("detail-batch-cooldown-min-ms"),
-      catchUpCurrent ? 0 : 90000
+      detailProbe ? 30000 : catchUpCurrent || dailyUpdate ? 0 : 90000
     ),
     nonNegativeInteger(
       args.get("detail-batch-cooldown-max-ms"),
-      catchUpCurrent ? 0 : 180000
+      detailProbe ? 60000 : catchUpCurrent || dailyUpdate ? 0 : 180000
     )
   );
   const catchUpRepeatDelayRange = normalizedRange(
@@ -108,7 +224,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   );
   const legacyDetailMax = positiveInteger(
     args.get("max-new-details-per-run"),
-    catchUpCurrent ? 50 : 10
+    catchUpCurrent ? 50 : dailyUpdate ? 100 : 10
   );
   const detailMaxPerRun = args.has("detail-max-per-run")
     ? positiveInteger(args.get("detail-max-per-run"), legacyDetailMax)
@@ -119,6 +235,12 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const browserChannel = args.has("browser-channel")
     ? String(args.get("browser-channel") || "").toLowerCase()
     : null;
+  const browserProfile = args.has("browser-profile")
+    ? String(args.get("browser-profile") || "").toLowerCase()
+    : null;
+  const browserProfileDir = args.has("browser-profile-dir")
+    ? path.resolve(String(args.get("browser-profile-dir") || ""))
+    : null;
 
   if (
     browserChannel !== null &&
@@ -128,10 +250,18 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       `Unsupported browser channel ${browserChannel}. Supported: msedge, chrome, chromium.`
     );
   }
+  if (
+    browserProfile !== null &&
+    browserProfile !== "sp-chrome"
+  ) {
+    throw new Error(
+      `Unsupported browser profile ${browserProfile}. Supported: sp-chrome.`
+    );
+  }
 
   if (!ALLOWED_MODES.has(mode)) {
     throw new Error(
-      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, apply.`
+      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, daily-update, verification-probe, detail-probe, browser-preflight, progressive-ingest-list, progressive-detail-chunk, progressive-build-candidate, progressive-partial-apply, apply.`
     );
   }
   if (source !== "smokingpipes") {
@@ -147,6 +277,11 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       "--catch-up-current requires --mode=apply-dry-run."
     );
   }
+  if (dailyUpdate && catchUpCurrent) {
+    throw new Error(
+      "Baseline catch-up cannot run in --mode=daily-update."
+    );
+  }
   if (autoRepeatCatchUp && !catchUpCurrent) {
     throw new Error(
       "--auto-repeat-catch-up requires --catch-up-current."
@@ -156,16 +291,34 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   return {
     source,
     mode,
+    dailyUpdate,
+    verificationProbe,
+    detailProbe,
+    browserPreflight,
+    progressiveMode,
+    fullReconcile,
+    shortDailyNewScan,
+    pacingDowngraded,
     catchUpCurrent,
     autoRepeatCatchUp,
-    refreshList: booleanValue(args.get("refresh-list"), false),
-    maxPages: positiveInteger(args.get("max-pages"), 107),
+    refreshList: dailyUpdate || verificationProbe
+      ? !booleanValue(args.get("no-refresh-list"), false)
+      : booleanValue(args.get("refresh-list"), false),
+    maxPages,
     expectedPages: positiveInteger(args.get("expected-pages"), 107),
     allowManualVerification: booleanValue(
       args.get("allow-manual-verification"),
       false
     ),
     browserChannel,
+    browserProfile,
+    browserProfileDir,
+    currentListPath: args.has("current-list")
+      ? path.resolve(String(args.get("current-list") || ""))
+      : null,
+    diffPath: args.has("diff")
+      ? path.resolve(String(args.get("diff") || ""))
+      : null,
     manualVerificationTimeoutMs: positiveInteger(
       args.get("manual-verification-timeout-ms"),
       30 * 60 * 1000
@@ -174,11 +327,15 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     pageDelayMaxMs: pageDelayRange.maximum,
     pageWarmupMinMs: pageWarmupRange.minimum,
     pageWarmupMaxMs: pageWarmupRange.maximum,
+    pageBatchSize,
+    pageBatchCooldownMinMs: pageBatchCooldownRange.minimum,
+    pageBatchCooldownMaxMs: pageBatchCooldownRange.maximum,
     captchaCooldownMs: nonNegativeInteger(
       args.get("captcha-cooldown-ms"),
       60000
     ),
-    fetchNewDetails,
+    fetchNewDetails:
+      verificationProbe || detailProbe ? false : fetchNewDetails,
     allowPartialNewDetails: booleanValue(
       args.get("allow-partial-new-details"),
       false
@@ -189,11 +346,23 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     detailDelayMaxMs: detailDelayRange.maximum,
     detailBatchSize: positiveInteger(
       args.get("detail-batch-size") ?? args.get("details-batch-size"),
-      catchUpCurrent ? 50 : 5
+      detailProbe ? 5 : catchUpCurrent || dailyUpdate ? 50 : 5
     ),
     detailBatchCooldownMinMs: detailBatchCooldownRange.minimum,
     detailBatchCooldownMaxMs: detailBatchCooldownRange.maximum,
     detailMaxPerRun,
+    dailyNewMaxDetails: positiveInteger(
+      args.get("daily-new-max-details"),
+      100
+    ),
+    detailProbeMax: positiveInteger(
+      args.get("detail-probe-max"),
+      5
+    ),
+    progressiveDetailMax: positiveInteger(
+      args.get("progressive-detail-max"),
+      5
+    ),
     catchUpRepeatMaxCycles: positiveInteger(
       args.get("catch-up-repeat-max-cycles"),
       1
@@ -210,7 +379,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     ),
     detailsBatchSize: positiveInteger(
       args.get("detail-batch-size") ?? args.get("details-batch-size"),
-      catchUpCurrent ? 50 : 5
+      catchUpCurrent || dailyUpdate ? 50 : 5
     ),
     maxNewDetailsPerRun: detailMaxPerRun,
     commit: args.has("commit") && !args.has("no-commit"),
@@ -218,6 +387,9 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     verbose: booleanValue(args.get("verbose"), false),
     forceUnlock: booleanValue(args.get("force-unlock"), false),
     mock: booleanValue(args.get("mock"), false),
+    mockVerification: String(
+      args.get("mock-verification") || ""
+    ).toLowerCase(),
     help: args.has("help") || args.has("h"),
   };
 }
@@ -226,7 +398,10 @@ export function resolveInventoryInputStrategy({
   mode,
   refreshList = false,
 }) {
-  const shouldRefresh = mode === "dry-run" || Boolean(refreshList);
+  const shouldRefresh =
+    mode === "dry-run" ||
+    mode === "daily-update" ||
+    Boolean(refreshList);
   return {
     refreshList: shouldRefresh,
     useExistingArtifacts: mode === "apply-dry-run" && !shouldRefresh,
@@ -433,6 +608,127 @@ export function getRunnerPaths(root, options = {}) {
       "data",
       "generated",
       "public-products-next"
+    ),
+    dailyState: path.join(
+      inventoryRoot,
+      "smokingpipes-daily-update-state.json"
+    ),
+    dailyLock: path.join(
+      inventoryRoot,
+      "state",
+      "smokingpipes-daily-update.lock"
+    ),
+    dailyQueue: path.join(
+      inventoryRoot,
+      "smokingpipes-daily-new-details-queue.json"
+    ),
+    dailyProductsNext: path.join(
+      base,
+      "data",
+      "products",
+      "smokingpipes-products-daily-next-dry-run.json"
+    ),
+    dailyPublicNextRoot: path.join(
+      base,
+      "data",
+      "generated",
+      "public-products-daily-next"
+    ),
+    dailyReportMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-daily-update-report.md"
+    ),
+    dailyReportJson: path.join(
+      reviewRoot,
+      "smokingpipes-daily-update-report.json"
+    ),
+    dailyAuditMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-daily-update-audit-report.md"
+    ),
+    dailyAuditJson: path.join(
+      reviewRoot,
+      "smokingpipes-daily-update-audit-report.json"
+    ),
+    verificationTelemetry: path.join(
+      inventoryRoot,
+      "smokingpipes-verification-telemetry.json"
+    ),
+    verificationTelemetryReport: path.join(
+      reviewRoot,
+      "smokingpipes-verification-telemetry-report.md"
+    ),
+    verificationProbeLock: path.join(
+      inventoryRoot,
+      "state",
+      "smokingpipes-verification-probe.lock"
+    ),
+    detailProbeTelemetry: path.join(
+      inventoryRoot,
+      "smokingpipes-detail-probe-telemetry.json"
+    ),
+    detailProbeReport: path.join(
+      reviewRoot,
+      "smokingpipes-detail-probe-report.md"
+    ),
+    detailProbeLock: path.join(
+      inventoryRoot,
+      "state",
+      "smokingpipes-detail-probe.lock"
+    ),
+    browserProfileLock: path.join(
+      inventoryRoot,
+      "state",
+      "smokingpipes-chrome-profile.lock"
+    ),
+    browserProfileState: path.join(
+      inventoryRoot,
+      "smokingpipes-browser-profile-state.json"
+    ),
+    browserProfileReport: path.join(
+      reviewRoot,
+      "smokingpipes-browser-profile-report.md"
+    ),
+    progressiveState: path.join(
+      inventoryRoot,
+      "smokingpipes-progressive-daily-state.json"
+    ),
+    progressiveLock: path.join(
+      inventoryRoot,
+      "state",
+      "smokingpipes-progressive-daily.lock"
+    ),
+    progressiveProductsNext: path.join(
+      base,
+      "data",
+      "products",
+      "smokingpipes-products-partial-next-dry-run.json"
+    ),
+    progressivePublicNextRoot: path.join(
+      base,
+      "data",
+      "generated",
+      "public-products-partial-next"
+    ),
+    progressiveAuditMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-partial-audit-report.md"
+    ),
+    progressiveAuditJson: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-partial-audit-report.json"
+    ),
+    progressiveReportMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-daily-report.md"
+    ),
+    progressiveReportJson: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-daily-report.json"
+    ),
+    progressiveApplyPreview: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-partial-apply-preview.json"
     ),
   };
 }

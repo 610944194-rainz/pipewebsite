@@ -1,0 +1,445 @@
+import {
+  evaluateSmokingpipesPublicReadiness,
+} from "../lib/smokingpipes-public-readiness-v1.mjs";
+
+function text(value) {
+  return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function sourceProductId(item) {
+  return text(item?.sourceProductId);
+}
+
+function parsePrice(value) {
+  const amount = Number.parseFloat(
+    text(value).replace(/[^0-9.]/g, "")
+  );
+  return Number.isFinite(amount) && amount > 0
+    ? amount
+    : null;
+}
+
+function clone(value) {
+  return structuredClone(value);
+}
+
+function updateExplicitPrice(product, candidate) {
+  const amount = parsePrice(candidate.listPrice);
+  if (!amount) return product;
+  const next = clone(product);
+  next.price ||= {};
+  next.price.current = {
+    ...(next.price.current || {}),
+    rawText: candidate.listPrice,
+    currency:
+      next.price.current?.currency || "USD",
+    amount,
+    parseStatus: "parsed",
+  };
+  if (next.price.listPrice) {
+    next.price.listPrice = {
+      ...next.price.listPrice,
+      rawText: candidate.listPrice,
+      currency:
+        next.price.listPrice.currency || "USD",
+      amount,
+      parseStatus: "parsed",
+    };
+  }
+  return next;
+}
+
+function updateExplicitInventory(product, candidate) {
+  const next = clone(product);
+  if (
+    candidate.changeTypes.includes(
+      "explicit-out-of-stock"
+    )
+  ) {
+    next.inventoryStatus = "sold";
+    next.inventoryConfidence = "high";
+    next.includedInActiveListRange = true;
+    next.rawListStatus = "OUT OF STOCK";
+    next.inventoryEvidence = {
+      ...(next.inventoryEvidence || {}),
+      includedInActiveListRange: true,
+      rawListStatus: "OUT OF STOCK",
+      reasons: [
+        ...new Set([
+          ...(next.inventoryEvidence?.reasons || []),
+          "Explicit OUT OF STOCK observed in progressive list scan.",
+        ]),
+      ],
+    };
+  }
+  if (candidate.changeTypes.includes("reappeared")) {
+    next.inventoryStatus = "available";
+    next.inventoryConfidence = "high";
+    next.includedInActiveListRange = true;
+    next.rawListStatus = "";
+    next.inventoryEvidence = {
+      ...(next.inventoryEvidence || {}),
+      includedInActiveListRange: true,
+      rawListStatus: "",
+      reasons: [
+        ...new Set([
+          ...(next.inventoryEvidence?.reasons || []),
+          "Product reappeared in progressive list scan.",
+        ]),
+      ],
+    };
+  }
+  return next;
+}
+
+function newProductEligible(candidate) {
+  const product = candidate?.convertedProduct;
+  const readiness = product
+    ? evaluateSmokingpipesPublicReadiness(product)
+    : null;
+  return (
+    candidate?.changeTypes?.includes("new-product") &&
+    candidate.detailStatus === "complete" &&
+    candidate.publicStatus === "ready" &&
+    product &&
+    readiness?.publicIndexEligible === true &&
+    Boolean(
+      text(product.mainImageUrl || product.imageUrl) ||
+        product.galleryImages?.some((item) => text(item))
+    ) &&
+    parsePrice(product.price?.current?.amount) !== null
+  );
+}
+
+export function buildProgressivePartialProducts({
+  productionProducts = [],
+  state,
+  now = null,
+}) {
+  const generatedAt =
+    now || state?.updatedAt || new Date().toISOString();
+  const productsById = new Map(
+    productionProducts.map((product) => [
+      sourceProductId(product),
+      clone(product),
+    ])
+  );
+  const productionIds = new Set(productsById.keys());
+  const newProductIds = [];
+  const appliedCandidateIds = [];
+  const fieldChanges = [];
+
+  for (const candidate of state?.candidates || []) {
+    const id = sourceProductId(candidate);
+    if (!id) continue;
+    const existing = productsById.get(id);
+    if (!existing && newProductEligible(candidate)) {
+      const product = clone(candidate.convertedProduct);
+      productsById.set(id, product);
+      newProductIds.push(id);
+      appliedCandidateIds.push(id);
+      fieldChanges.push({
+        sourceProductId: id,
+        operation: "add-product",
+        fields: ["*new-product"],
+      });
+      continue;
+    }
+    if (!existing) continue;
+
+    let updated = existing;
+    const fields = [];
+    if (
+      candidate.detailStatus === "complete" &&
+      candidate.publicStatus === "ready" &&
+      candidate.changeTypes.includes("price-change") &&
+      parsePrice(candidate.listPrice)
+    ) {
+      updated = updateExplicitPrice(updated, candidate);
+      fields.push(
+        "price.current.rawText",
+        "price.current.amount",
+        "price.current.parseStatus"
+      );
+    }
+    if (
+      candidate.detailStatus === "complete" &&
+      candidate.publicStatus === "ready" &&
+      (candidate.changeTypes.includes(
+        "explicit-out-of-stock"
+      ) ||
+        candidate.changeTypes.includes("reappeared"))
+    ) {
+      updated = updateExplicitInventory(
+        updated,
+        candidate
+      );
+      fields.push(
+        "inventoryStatus",
+        "inventoryConfidence",
+        "includedInActiveListRange",
+        "rawListStatus",
+        "inventoryEvidence"
+      );
+    }
+    if (fields.length) {
+      productsById.set(id, updated);
+      appliedCandidateIds.push(id);
+      fieldChanges.push({
+        sourceProductId: id,
+        operation: "update-fields",
+        fields: [...new Set(fields)].sort(),
+      });
+    }
+  }
+
+  return {
+    version:
+      "smokingpipes-products-partial-next-dry-run-v1",
+    generatedAt,
+    source: "smokingpipes",
+    productionWritten: false,
+    products: [...productsById.values()].sort((left, right) =>
+      sourceProductId(left).localeCompare(
+        sourceProductId(right),
+        "en",
+        { numeric: true }
+      )
+    ),
+    productionProductCount: productionIds.size,
+    newProductIds: [...new Set(newProductIds)].sort(),
+    appliedCandidateIds: [
+      ...new Set(appliedCandidateIds),
+    ].sort(),
+    fieldChanges: fieldChanges.sort((left, right) =>
+      left.sourceProductId.localeCompare(
+        right.sourceProductId,
+        "en",
+        { numeric: true }
+      )
+    ),
+  };
+}
+
+export function selectProgressiveRecentNew({
+  catalog = [],
+  newProductIds = [],
+}) {
+  const allowed = new Set(newProductIds.map(String));
+  const seen = new Set();
+  return catalog.filter((product) => {
+    const id = sourceProductId(product);
+    const catalogId = text(product.id);
+    if (
+      !allowed.has(id) ||
+      seen.has(catalogId) ||
+      product.publicIndexEligible !== true ||
+      product.publiclySellable !== true ||
+      text(product.inventoryStatus).toLowerCase() !==
+        "available" ||
+      !(Number(product.sourcePriceAmount) > 0) ||
+      !(Number(product.siteDisplayAmount) > 0) ||
+      product.siteDisplayReady !== true
+    ) {
+      return false;
+    }
+    seen.add(catalogId);
+    return true;
+  });
+}
+
+export function auditProgressivePartialCandidate({
+  productionProducts = [],
+  candidateProducts = [],
+  state,
+  publicCatalog = [],
+  recentNew = [],
+}) {
+  const newProductCandidates = (state?.candidates || []).filter((item) =>
+    item.changeTypes.includes("new-product")
+  );
+  const newProductReady = newProductCandidates.filter(
+    (item) =>
+      item.detailStatus === "complete" &&
+      item.publicStatus === "ready" &&
+      item.convertedProduct
+  ).length;
+  const newProductReviewOnly = newProductCandidates.filter(
+    (item) => item.publicStatus === "review-only"
+  ).length;
+  const newProductNotReady = newProductCandidates.filter(
+    (item) =>
+      !(
+        item.detailStatus === "complete" &&
+        item.publicStatus === "ready" &&
+        item.convertedProduct
+      ) && item.publicStatus !== "review-only"
+  ).length;
+  const filteredNewProducts = newProductCandidates
+    .filter(
+      (item) =>
+        !(
+          item.detailStatus === "complete" &&
+          item.publicStatus === "ready" &&
+          item.convertedProduct
+        )
+    )
+    .map((item) => ({
+      sourceProductId: sourceProductId(item),
+      publicStatus: text(item.publicStatus) || "not-public",
+      detailStatus: text(item.detailStatus) || "unknown",
+      reason:
+        text(item.reviewReason) ||
+        text(item.lastError) ||
+        text(item.lastBlockedReason) ||
+        (item.detailStatus === "pending"
+          ? "detail is still pending"
+          : item.detailStatus === "failed"
+            ? "detail fetch failed"
+            : item.detailStatus === "blocked"
+              ? "detail fetch blocked"
+              : "new product is not public-ready"),
+    }));
+  const candidateProductIds = new Set(
+    candidateProducts.map(sourceProductId)
+  );
+  const publicIds = new Set(
+    publicCatalog
+      .filter((item) => item.source === "smokingpipes")
+      .map(sourceProductId)
+  );
+  const deletedProducts = productionProducts.filter(
+    (item) => !candidateProductIds.has(sourceProductId(item))
+  ).length;
+  const leakCount = (predicate) =>
+    (state?.candidates || []).filter(
+      (item) =>
+        predicate(item) &&
+        publicIds.has(item.sourceProductId)
+    ).length;
+  const counts = {
+    deletedProducts,
+    pendingLeak: leakCount(
+      (item) => item.detailStatus === "pending"
+    ),
+    failedLeak: leakCount(
+      (item) => item.detailStatus === "failed"
+    ),
+    blockedLeak: leakCount(
+      (item) => item.detailStatus === "blocked"
+    ),
+    reviewOnlyLeak: leakCount(
+      (item) =>
+        item.detailStatus === "review-only" ||
+        item.publicStatus === "review-only"
+    ),
+    zeroPriceSellable: publicCatalog.filter(
+      (item) =>
+        item.publiclySellable === true &&
+        (!(Number(item.sourcePriceAmount) > 0) ||
+          !(Number(item.siteDisplayAmount) > 0) ||
+          item.siteDisplayReady !== true)
+    ).length,
+  };
+  const duplicateProducts =
+    candidateProducts.length -
+    new Set(candidateProducts.map(sourceProductId)).size;
+  const duplicatePublic =
+    publicCatalog.length -
+    new Set(publicCatalog.map((item) => item.id)).size;
+  const duplicateRecentNew =
+    recentNew.length -
+    new Set(recentNew.map((item) => item.id)).size;
+  const recentNewSold = recentNew.filter(
+    (item) =>
+      item.publiclySellable !== true ||
+      text(item.inventoryStatus).toLowerCase() !==
+        "available"
+  ).length;
+  const blockers = [];
+  for (const [key, value] of Object.entries(counts)) {
+    if (value !== 0) blockers.push(`${key}=${value}`);
+  }
+  if (duplicateProducts)
+    blockers.push(`duplicateProducts=${duplicateProducts}`);
+  if (duplicatePublic)
+    blockers.push(`duplicatePublic=${duplicatePublic}`);
+  if (duplicateRecentNew)
+    blockers.push(
+      `duplicateRecentNew=${duplicateRecentNew}`
+    );
+  if (recentNewSold)
+    blockers.push(`recentNewSold=${recentNewSold}`);
+  return {
+    version:
+      "smokingpipes-progressive-partial-audit-v1",
+    generatedAt: new Date().toISOString(),
+    verdict: blockers.length ? "FAIL" : "PASS",
+    blockers,
+    warnings: [],
+    counts,
+    duplicateProducts,
+    duplicatePublic,
+    duplicateRecentNew,
+    recentNewSold,
+    productionWritten: false,
+    newProductReady,
+    newProductReviewOnly,
+    newProductNotReady,
+    filteredNewProducts,
+  };
+}
+
+export function buildProgressivePartialApplyPreview({
+  state,
+  audit,
+  productionProducts = [],
+  candidateProducts = [],
+  now = new Date().toISOString(),
+}) {
+  if (!audit || audit.verdict !== "PASS") {
+    return {
+      version:
+        "smokingpipes-progressive-partial-apply-preview-v1",
+      generatedAt: now,
+      status: "blocked",
+      blockers: audit?.blockers || [
+        "passing partial audit is required",
+      ],
+      wouldApplyProductIds: [],
+      productionWritten: false,
+      commitPerformed: false,
+      pushPerformed: false,
+    };
+  }
+  const productionById = new Map(
+    productionProducts.map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  const wouldApplyProductIds = candidateProducts
+    .filter((item) => {
+      const existing = productionById.get(
+        sourceProductId(item)
+      );
+      return (
+        !existing ||
+        JSON.stringify(existing) !== JSON.stringify(item)
+      );
+    })
+    .map(sourceProductId)
+    .sort();
+  return {
+    version:
+      "smokingpipes-progressive-partial-apply-preview-v1",
+    generatedAt: now,
+    status: "preview-ready",
+    stateVersion: state?.version || null,
+    wouldApplyProductIds,
+    wouldApplyCount: wouldApplyProductIds.length,
+    productionWritten: false,
+    commitPerformed: false,
+    pushPerformed: false,
+  };
+}

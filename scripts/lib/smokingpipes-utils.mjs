@@ -4,6 +4,12 @@ import path from "node:path";
 import process from "node:process";
 import readline from "node:readline/promises";
 import { chromium } from "playwright";
+import {
+  acquireBrowserProfileLock,
+  buildSmokingpipesBrowserDescriptor,
+  classifyBrowserProfileLaunchError,
+  releaseBrowserProfileLock,
+} from "./smokingpipes-browser-profile-v1.mjs";
 
 export const SOURCE_SITE = "Smokingpipes";
 export const rootDir = process.cwd();
@@ -165,7 +171,7 @@ export function classifySmokingpipesVerificationSignals({
 }) {
   const combinedText = `${title}\n${bodyText}`;
   const explicitChallengeText =
-    /\b(?:captcha|hcaptcha|recaptcha|turnstile)\b|verify you are human|verification required|human verification|security check|checking your browser|cloudflare ray id|attention required/i.test(
+    /\b(?:captcha|hcaptcha|recaptcha|turnstile|verification|challenge)\b|verify you are human|human verification|security check|checking your browser|cloudflare ray id|attention required/i.test(
       combinedText
     );
   const challengeUrl =
@@ -175,11 +181,39 @@ export function classifySmokingpipesVerificationSignals({
   const statusLooksBlocked = [403, 429, 503].includes(Number(httpStatus));
   const hasListProducts =
     pageKind === "list" && Number(productLinkCount) > 0;
+  const hasNormalContent =
+    hasListProducts ||
+    (pageKind !== "list" && hasNormalDetailContent);
+  const weakVerificationSignals = [];
+  const strongVerificationSignals = [];
+
+  if (explicitChallengeText) {
+    (hasNormalContent
+      ? weakVerificationSignals
+      : strongVerificationSignals
+    ).push("verification-keyword");
+  }
+  if (explicitChallengeElement) {
+    (hasNormalContent
+      ? weakVerificationSignals
+      : strongVerificationSignals
+    ).push("challenge-dom");
+  }
+  if (challengeUrl) {
+    (hasNormalContent
+      ? weakVerificationSignals
+      : strongVerificationSignals
+    ).push("challenge-url");
+  }
 
   if (hasListProducts) {
     return {
       verificationBlocked: false,
-      classification: "normal-content",
+      classification: weakVerificationSignals.length
+        ? "normal-content-with-verification-warning"
+        : "normal-content",
+      weakVerificationSignals,
+      strongVerificationSignals,
       reasons: {
         httpStatus,
         statusLooksBlocked,
@@ -193,8 +227,7 @@ export function classifySmokingpipesVerificationSignals({
     };
   }
 
-  const explicitVerification =
-    explicitChallengeElement || explicitChallengeText || challengeUrl;
+  const explicitVerification = strongVerificationSignals.length > 0;
   const verificationBlocked =
     explicitVerification &&
     (pageKind === "list" || !hasNormalDetailContent);
@@ -202,12 +235,14 @@ export function classifySmokingpipesVerificationSignals({
   return {
     verificationBlocked,
     classification: verificationBlocked
-      ? "verification"
+      ? "strong-verification"
       : pageKind === "list"
         ? "empty-or-parse-failure"
         : hasNormalDetailContent
           ? "normal-content"
           : "unknown-or-parse-failure",
+    weakVerificationSignals,
+    strongVerificationSignals,
     reasons: {
       httpStatus,
       statusLooksBlocked,
@@ -332,6 +367,8 @@ export async function detectSmokingpipesVerification(page, options = {}) {
   return {
     verificationBlocked: classification.verificationBlocked,
     classification: classification.classification,
+    weakVerificationSignals: classification.weakVerificationSignals,
+    strongVerificationSignals: classification.strongVerificationSignals,
     reasons: {
       ...classification.reasons,
       missingNormalFields:
@@ -461,6 +498,137 @@ function createEnterWaiter() {
     close() {
       rl.close();
     },
+  };
+}
+
+export function isNormalSmokingpipesDetail(
+  detail,
+  expectedSourceProductId
+) {
+  const identityMatches =
+    normalizeText(detail?.sourceProductId) ===
+    normalizeText(expectedSourceProductId);
+  const hasTitle = Boolean(
+    normalizeText(detail?.fullTitle || detail?.title)
+  );
+  const hasImage = Boolean(
+    normalizeText(detail?.mainImageUrl) ||
+      (Array.isArray(detail?.galleryImages) &&
+        detail.galleryImages.some((item) => normalizeText(item)))
+  );
+  const hasStructuredDetail = Boolean(
+    normalizeText(detail?.productCode) ||
+      normalizeText(detail?.shape) ||
+      (Array.isArray(detail?.specsText) &&
+        detail.specsText.some((item) => normalizeText(item)))
+  );
+  return (
+    identityMatches &&
+    hasTitle &&
+    hasImage &&
+    hasStructuredDetail
+  );
+}
+
+export async function waitForSmokingpipesManualRecovery(
+  page,
+  options = {}
+) {
+  const pageKind = options.pageKind || "detail";
+  const timeoutMs = Math.max(
+    1,
+    Number(options.timeoutMs) || verificationMaxWaitMs
+  );
+  const pollMs = Math.max(
+    1,
+    Number(options.pollMs) || verificationPollMs
+  );
+  const nowMs = options.nowMs || (() => Date.now());
+  const detectVerification =
+    options.detectVerification ||
+    ((targetPage) =>
+      detectSmokingpipesVerification(targetPage, {
+        pageKind,
+      }));
+  const verifyNormalContent =
+    options.verifyNormalContent ||
+    (async () => ({ valid: false, parsedValue: null }));
+  const restoreTargetPage =
+    options.restoreTargetPage || (async () => {});
+  const wait =
+    options.wait ||
+    ((delayMs) => page.waitForTimeout(delayMs));
+  const verificationDetectedAt = new Date().toISOString();
+  const startedAtMs = nowMs();
+  const enterWaiter =
+    options.waitForEnter === false
+      ? {
+          promise: new Promise(() => {}),
+          close() {},
+        }
+      : createEnterWaiter();
+  let enterConsumed = false;
+
+  await page.bringToFront?.().catch(() => {});
+  if (options.verbose !== false) {
+    console.warn(
+      `Smokingpipes strong verification detected. Complete it in the opened browser within ${Math.round(
+        timeoutMs / 60000
+      )} minutes.`
+    );
+  }
+
+  try {
+    while (nowMs() - startedAtMs < timeoutMs) {
+      const remainingMs =
+        timeoutMs - (nowMs() - startedAtMs);
+      const waitMs = Math.min(
+        pollMs,
+        Math.max(1, remainingMs)
+      );
+      const enterPressed = await Promise.race([
+        wait(waitMs).then(() => false),
+        enterConsumed
+          ? new Promise(() => {})
+          : enterWaiter.promise,
+      ]);
+      if (enterPressed) {
+        enterConsumed = true;
+        await waitForStablePage(page);
+      }
+
+      const detection = await detectVerification(page);
+      if (detection.verificationBlocked) continue;
+
+      await restoreTargetPage(page);
+      const confirmationDetection =
+        await detectVerification(page);
+      if (confirmationDetection.verificationBlocked) continue;
+
+      const parsed = await verifyNormalContent(page);
+      if (parsed?.valid === true) {
+        return {
+          recovered: true,
+          verificationDetectedAt,
+          manualVerificationAllowed: true,
+          manualVerificationRecovered: true,
+          timedOut: false,
+          detection: confirmationDetection,
+          parsedValue: parsed.parsedValue ?? null,
+        };
+      }
+    }
+  } finally {
+    enterWaiter.close();
+  }
+
+  return {
+    recovered: false,
+    verificationDetectedAt,
+    manualVerificationAllowed: true,
+    manualVerificationRecovered: false,
+    timedOut: true,
+    parsedValue: null,
   };
 }
 
@@ -595,32 +763,118 @@ export function resolveSmokingpipesBrowserLaunch(
 }
 
 export async function launchSmokingpipesContext(options = {}) {
-  const headless = String(process.env.SMOKINGPIPES_HEADLESS || "false").toLowerCase() === "true";
-  const userDataDir =
-    process.env.SMOKINGPIPES_USER_DATA_DIR || path.join(rootDir, ".cache", "smokingpipes-profile");
+  const launchRoot = options.root || rootDir;
+  const browserDescriptor = buildSmokingpipesBrowserDescriptor({
+    root: launchRoot,
+    browserChannel: options.browserChannel,
+    browserProfile: options.browserProfile,
+    browserProfileDir: options.browserProfileDir,
+    localAppData: options.localAppData,
+    environmentUserDataDir: options.environmentUserDataDir,
+    platform: options.platform,
+    headless: options.headless,
+  });
+  const userDataDir = browserDescriptor.profileDir;
+  const userDataDirCreated = !fs.existsSync(userDataDir);
   fs.mkdirSync(userDataDir, { recursive: true });
 
   const baseOptions = {
-    headless,
+    headless: browserDescriptor.headless,
     viewport: { width: 1365, height: 900 },
   };
   const launchSelection = resolveSmokingpipesBrowserLaunch(
-    options.browserChannel
+    browserDescriptor.effectiveBrowserChannel,
+    options.environmentChannel
   );
   const channelCandidates = launchSelection.candidates;
+  const launchPersistentContext =
+    options.launchPersistentContext ||
+    chromium.launchPersistentContext.bind(chromium);
+  const profileLockPath =
+    options.profileLockPath ||
+    path.join(
+      launchRoot,
+      "data",
+      "inventory",
+      "state",
+      "smokingpipes-chrome-profile.lock"
+    );
+  let profileLock = null;
   let lastError = null;
 
-  for (const channel of channelCandidates) {
-    try {
-      const options = channel ? { ...baseOptions, channel } : baseOptions;
-      console.log(channel ? `Launching browser channel: ${channel}` : "Launching Playwright Chromium");
-      return await chromium.launchPersistentContext(userDataDir, options);
-    } catch (error) {
-      lastError = error;
-      console.warn(
-        channel ? `Browser channel ${channel} failed: ${error.message}` : `Playwright Chromium failed: ${error.message}`
+  try {
+    if (browserDescriptor.profileLockRequired) {
+      profileLock = acquireBrowserProfileLock(
+        profileLockPath,
+        {
+          runId:
+            options.runId ||
+            `browser-${process.pid}-${Date.now()}`,
+          profileDir: userDataDir,
+          mode: options.mode || "inventory",
+        },
+        options.profileLockOptions
       );
-      if (launchSelection.explicit) break;
+    }
+
+    for (const channel of channelCandidates) {
+      try {
+        const launchOptions = channel
+          ? { ...baseOptions, channel }
+          : baseOptions;
+        console.log(
+          channel
+            ? `Launching browser channel: ${channel}`
+            : "Launching Playwright Chromium"
+        );
+        const context = await launchPersistentContext(
+          userDataDir,
+          launchOptions
+        );
+        const executablePath =
+          context.browser?.()?.executablePath?.() || null;
+        const browser = {
+          ...browserDescriptor,
+          effectiveBrowserChannel: channel || "chromium",
+          userDataDirCreated,
+          executablePath,
+          profileLockPath: profileLock?.lockPath || null,
+          staleProfileLockRecovered:
+            profileLock?.staleLockRecovered || false,
+        };
+        let closed = false;
+        return {
+          context,
+          browser,
+          profileLock,
+          async close() {
+            if (closed) return;
+            closed = true;
+            try {
+              await context.close().catch(() => {});
+            } finally {
+              if (profileLock) {
+                releaseBrowserProfileLock(profileLock);
+              }
+            }
+          },
+        };
+      } catch (error) {
+        lastError = classifyBrowserProfileLaunchError(
+          error,
+          browserDescriptor
+        );
+        console.warn(
+          channel
+            ? `Browser channel ${channel} failed: ${lastError.message}`
+            : `Playwright Chromium failed: ${lastError.message}`
+        );
+        if (launchSelection.explicit) break;
+      }
+    }
+  } finally {
+    if (lastError && profileLock) {
+      releaseBrowserProfileLock(profileLock);
     }
   }
 

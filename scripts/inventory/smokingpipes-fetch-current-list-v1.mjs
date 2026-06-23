@@ -7,7 +7,9 @@ import {
   extractListProducts,
   getLargeProductImageUrl,
   launchSmokingpipesContext,
+  saveVerificationScreenshot,
   summarizeSmokingpipesListProducts,
+  waitForSmokingpipesManualRecovery,
 } from "../lib/smokingpipes-utils.mjs";
 import {
   PATHS,
@@ -26,6 +28,9 @@ const DEFAULT_PAGE_DELAY_MIN_MS = 8000;
 const DEFAULT_PAGE_DELAY_MAX_MS = 18000;
 const DEFAULT_PAGE_WARMUP_MIN_MS = 3000;
 const DEFAULT_PAGE_WARMUP_MAX_MS = 7000;
+const DEFAULT_PAGE_BATCH_SIZE = 0;
+const DEFAULT_PAGE_BATCH_COOLDOWN_MIN_MS = 0;
+const DEFAULT_PAGE_BATCH_COOLDOWN_MAX_MS = 0;
 const DEFAULT_CAPTCHA_COOLDOWN_MS = 60000;
 const CHECKPOINT_PATH = path.join(
   ROOT,
@@ -70,6 +75,18 @@ export function resolveListPacingOptions(options = {}) {
     options.pageWarmupMaxMs,
     DEFAULT_PAGE_WARMUP_MAX_MS
   );
+  const pageBatchSize = nonNegativeInteger(
+    options.pageBatchSize,
+    DEFAULT_PAGE_BATCH_SIZE
+  );
+  const pageBatchCooldownMinMs = nonNegativeInteger(
+    options.pageBatchCooldownMinMs,
+    DEFAULT_PAGE_BATCH_COOLDOWN_MIN_MS
+  );
+  const requestedPageBatchCooldownMaxMs = nonNegativeInteger(
+    options.pageBatchCooldownMaxMs,
+    DEFAULT_PAGE_BATCH_COOLDOWN_MAX_MS
+  );
 
   return {
     pageDelayMinMs,
@@ -78,6 +95,12 @@ export function resolveListPacingOptions(options = {}) {
     pageWarmupMaxMs: Math.max(
       pageWarmupMinMs,
       requestedPageWarmupMaxMs
+    ),
+    pageBatchSize,
+    pageBatchCooldownMinMs,
+    pageBatchCooldownMaxMs: Math.max(
+      pageBatchCooldownMinMs,
+      requestedPageBatchCooldownMaxMs
     ),
     captchaCooldownMs: nonNegativeInteger(
       options.captchaCooldownMs,
@@ -91,6 +114,19 @@ export function randomDelayMs(minimum, maximum, random = Math.random) {
   const max = Math.max(min, Math.floor(maximum));
   const sampled = min + Math.floor(random() * (max - min + 1));
   return Math.min(max, sampled);
+}
+
+export function shouldApplyPageBatchCooldown({
+  pageNumber,
+  maxPages,
+  pageBatchSize,
+}) {
+  const batchSize = Math.max(0, Number(pageBatchSize) || 0);
+  return (
+    batchSize > 0 &&
+    pageNumber < maxPages &&
+    pageNumber % batchSize === 0
+  );
 }
 
 async function waitForManualVerification(page, targetUrl, timeoutMs) {
@@ -264,13 +300,21 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   );
   const pacing = resolveListPacingOptions(options);
   const verbose = enabled(options.verbose);
+  const onPageTelemetry =
+    typeof options.onPageTelemetry === "function"
+      ? options.onPageTelemetry
+      : async () => {};
   const allowManualVerification = enabled(options.allowManualVerification);
   const manualVerificationTimeoutMs = parsePositiveInteger(
     options.manualVerificationTimeoutMs,
     10 * 60 * 1000
   );
-  const startedAt = new Date().toISOString();
-  const checkpoint = readCheckpoint(maxPages, expectedPages, displayNum);
+  const checkpoint =
+    options.useCheckpoint === false
+      ? null
+      : readCheckpoint(maxPages, expectedPages, displayNum);
+  const startedAt =
+    checkpoint?.startedAt || new Date().toISOString();
   const pages = checkpoint?.pages || [];
   const collected = checkpoint?.products || [];
   const firstPage = pages.length
@@ -278,14 +322,25 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     : 1;
   let captchaDetected = false;
   const captchaPages = [];
+  const weakVerificationPages = [];
+  let verificationDetectedAt = null;
+  let manualVerificationRecovered = false;
 
   process.env.SMOKINGPIPES_HEADLESS = allowManualVerification
     ? "false"
     : process.env.SMOKINGPIPES_HEADLESS || "true";
 
-  const context = await launchSmokingpipesContext({
+  const browserSession = await launchSmokingpipesContext({
+    root: options.root,
     browserChannel: options.browserChannel,
+    browserProfile: options.browserProfile,
+    browserProfileDir: options.browserProfileDir,
+    profileLockPath: options.browserProfileLockPath,
+    runId: options.runId,
+    mode: options.mode || "list-fetch",
   });
+  const context = browserSession.context;
+  const browser = browserSession.browser;
   const page = context.pages()[0] || (await context.newPage());
 
   try {
@@ -301,6 +356,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       pageNumber += 1
     ) {
       const url = buildSmokingpipesListUrl("new", pageNumber, displayNum);
+      const pageStartedAt = new Date().toISOString();
+      let pageVerificationDetectedAt = null;
+      let pageManualVerificationRecovered = false;
       console.log(
         verbose
           ? `fetching page ${pageNumber}/${maxPages}`
@@ -320,48 +378,147 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         await page.waitForTimeout(warmupDelayMs);
       }
 
-      let detection = await detectSmokingpipesVerification(page, {
+      const detection = await detectSmokingpipesVerification(page, {
         pageKind: "list",
         httpStatus: response?.status() || 0,
       });
 
-      if (detection.verificationBlocked) {
-        captchaDetected = true;
-        captchaPages.push(pageNumber);
-        console.warn(
-          `Smokingpipes CAPTCHA detected on page ${pageNumber}. Manual verification is required; no automatic bypass will be attempted.`
-        );
-        if (pacing.captchaCooldownMs > 0) {
+      let waitError = null;
+      await waitForListProducts(page).catch((error) => {
+        waitError = error;
+      });
+      let extracted = await extractListProducts(page, url, "new").catch(
+        () => []
+      );
+      const verificationSignals = [
+        ...(detection.weakVerificationSignals || []),
+        ...(detection.strongVerificationSignals || []),
+      ];
+      const parsedNormalProducts = extracted.length > 0;
+      let finalWeakSignals = parsedNormalProducts
+        ? verificationSignals
+        : detection.weakVerificationSignals || [];
+      let finalStrongSignals = parsedNormalProducts
+        ? []
+        : detection.strongVerificationSignals || [];
+      let finalClassification = parsedNormalProducts
+        ? finalWeakSignals.length
+          ? "normal-content-with-verification-warning"
+          : "normal-content"
+        : finalStrongSignals.length
+          ? "strong-verification"
+          : "empty-or-parse-failure";
+
+      if (!parsedNormalProducts && finalStrongSignals.length) {
+        pageVerificationDetectedAt = new Date().toISOString();
+        verificationDetectedAt ||= pageVerificationDetectedAt;
+        let recovery = null;
+        if (allowManualVerification) {
+          recovery =
+            await waitForSmokingpipesManualRecovery(page, {
+              pageKind: "list",
+              timeoutMs: manualVerificationTimeoutMs,
+              verbose,
+              restoreTargetPage: async (targetPage) => {
+                await targetPage.goto(url, {
+                  waitUntil: "domcontentloaded",
+                  timeout: 60000,
+                });
+              },
+              verifyNormalContent: async (targetPage) => {
+                await waitForListProducts(targetPage).catch(
+                  () => {}
+                );
+                const products = await extractListProducts(
+                  targetPage,
+                  url,
+                  "new"
+                ).catch(() => []);
+                return {
+                  valid: products.some(
+                    (item) =>
+                      item.sourceProductId && item.sourceUrl
+                  ),
+                  parsedValue: products,
+                };
+              },
+            });
+          verificationDetectedAt =
+            recovery.verificationDetectedAt ||
+            verificationDetectedAt;
+          pageVerificationDetectedAt =
+            recovery.verificationDetectedAt ||
+            pageVerificationDetectedAt;
+          manualVerificationRecovered =
+            recovery.manualVerificationRecovered;
+          pageManualVerificationRecovered =
+            recovery.manualVerificationRecovered;
+        }
+
+        if (recovery?.recovered) {
+          extracted = recovery.parsedValue || [];
+          finalWeakSignals = [];
+          finalStrongSignals = [];
+          finalClassification = "normal-content";
           console.warn(
-            `CAPTCHA cooldown: ${pacing.captchaCooldownMs} ms before manual verification or blocked exit.`
+            `Smokingpipes manual verification recovered on page ${pageNumber}; normal product cards were parsed successfully.`
           );
-          await page.waitForTimeout(pacing.captchaCooldownMs);
-        }
-
-        if (!allowManualVerification) {
-          throw new Error(
-            `Smokingpipes CAPTCHA blocked page ${pageNumber}. Re-run with --allow-manual-verification=true only after user confirmation; dry-run output was not replaced.`
+        } else {
+          captchaDetected = true;
+          captchaPages.push(pageNumber);
+          const screenshotPath =
+            await saveVerificationScreenshot(page);
+          const pageEndedAt = new Date().toISOString();
+          const pageTelemetry = {
+            page: pageNumber,
+            url,
+            startedAt: pageStartedAt,
+            endedAt: pageEndedAt,
+            durationMs:
+              Date.parse(pageEndedAt) -
+              Date.parse(pageStartedAt),
+            warmupMs: warmupDelayMs,
+            delayMs: 0,
+            productsParsed: 0,
+            outOfStockProducts: 0,
+            missingPriceProducts: 0,
+            weakVerificationSignals: finalWeakSignals,
+            strongVerificationSignals: finalStrongSignals,
+            finalClassification,
+            screenshotPath: screenshotPath || null,
+            htmlSamplePath: null,
+            verificationDetectedAt:
+              pageVerificationDetectedAt,
+            manualVerificationAllowed:
+              allowManualVerification,
+            manualVerificationRecovered: false,
+          };
+          await onPageTelemetry(pageTelemetry);
+          console.warn(
+            `Smokingpipes strong verification detected on page ${pageNumber}. Access is stopping immediately; no automatic bypass will be attempted.`
           );
-        }
-
-        const recovered = await waitForManualVerification(
-          page,
-          url,
-          manualVerificationTimeoutMs
-        );
-        if (!recovered) {
-          throw new Error(
-            `Smokingpipes manual verification timed out on page ${pageNumber}; dry-run output was not replaced.`
+          const error = Object.assign(
+            new Error(
+              `Smokingpipes strong verification blocked page ${pageNumber}; no further pages were requested.`
+            ),
+            {
+              code: "CAPTCHA_REQUIRED",
+              pageNumber,
+              pageTelemetry,
+              captchaDetected: true,
+              browser,
+              verificationDetectedAt:
+                pageVerificationDetectedAt,
+              manualVerificationRecovered: false,
+            }
           );
+          throw error;
         }
       }
 
-      await waitForListProducts(page);
-      const extracted = await extractListProducts(page, url, "new");
-
       if (extracted.length === 0) {
         throw new Error(
-          `No products were extracted from requested page ${pageNumber}; dry-run output was not replaced.`
+          `No products were extracted from requested page ${pageNumber}; parse failure${waitError ? `: ${waitError.message}` : ""}.`
         );
       }
 
@@ -371,6 +528,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       );
       const pageProductSummary =
         summarizeSmokingpipesListProducts(extracted);
+      if (finalWeakSignals.length) {
+        weakVerificationPages.push(pageNumber);
+      }
       if (verbose) {
         console.log(`page parsed: ${normalized.length} products`);
         console.log(
@@ -381,6 +541,26 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         );
       }
       collected.push(...normalized);
+      const pageBatchCooldownMs =
+        pageNumber < maxPages &&
+        shouldApplyPageBatchCooldown({
+          pageNumber,
+          maxPages,
+          pageBatchSize: pacing.pageBatchSize,
+        })
+          ? randomDelayMs(
+              pacing.pageBatchCooldownMinMs,
+              pacing.pageBatchCooldownMaxMs
+            )
+          : 0;
+      const nextPageDelayMs =
+        pageNumber < maxPages
+          ? randomDelayMs(
+              pacing.pageDelayMinMs,
+              pacing.pageDelayMaxMs
+            )
+          : 0;
+      const pageEndedAt = new Date().toISOString();
       pages.push({
         page: pageNumber,
         url,
@@ -389,10 +569,36 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         outOfStockCount: pageProductSummary.outOfStockCount,
         missingPriceCount: pageProductSummary.missingPriceCount,
         scrapedAt,
+        weakVerificationSignals: finalWeakSignals,
+        strongVerificationSignals: [],
+        finalClassification,
+      });
+      await onPageTelemetry({
+        page: pageNumber,
+        url,
+        startedAt: pageStartedAt,
+        endedAt: pageEndedAt,
+        durationMs: Date.parse(pageEndedAt) - Date.parse(pageStartedAt),
+        warmupMs: warmupDelayMs,
+        delayMs: nextPageDelayMs,
+        batchCooldownMs: pageBatchCooldownMs,
+        productsParsed: normalized.length,
+        outOfStockProducts: pageProductSummary.outOfStockCount,
+        missingPriceProducts: pageProductSummary.missingPriceCount,
+        weakVerificationSignals: finalWeakSignals,
+        strongVerificationSignals: [],
+        finalClassification,
+        screenshotPath: null,
+        htmlSamplePath: null,
+        verificationDetectedAt: pageVerificationDetectedAt,
+        manualVerificationAllowed: allowManualVerification,
+        manualVerificationRecovered:
+          pageManualVerificationRecovered,
       });
 
-      await writeCheckpoint({
+      if (options.useCheckpoint !== false) await writeCheckpoint({
         version: "smokingpipes-current-list-checkpoint-v1",
+        startedAt,
         updatedAt: new Date().toISOString(),
         config: {
           maxPages,
@@ -405,10 +611,14 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       });
 
       if (pageNumber < maxPages) {
-        const nextPageDelayMs = randomDelayMs(
-          pacing.pageDelayMinMs,
-          pacing.pageDelayMaxMs
-        );
+        if (pageBatchCooldownMs > 0) {
+          if (verbose) {
+            console.log(
+              `page batch cooldown after ${pageNumber} pages: ${pageBatchCooldownMs} ms`
+            );
+          }
+          await page.waitForTimeout(pageBatchCooldownMs);
+        }
         if (verbose) console.log(`next page delay: ${nextPageDelayMs} ms`);
         if (nextPageDelayMs > 0) {
           await page.waitForTimeout(nextPageDelayMs);
@@ -416,7 +626,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       }
     }
   } finally {
-    await context.close().catch(() => {});
+    await browserSession.close();
   }
 
   const deduped = dedupeCurrentProducts(collected);
@@ -433,6 +643,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       ...pacing,
       allowManualVerification,
       manualVerification: allowManualVerification,
+      browser,
       partialScan: maxPages < expectedPages,
     },
     startedAt,
@@ -456,14 +667,25 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       ),
       captchaDetected,
       captchaPages: [...new Set(captchaPages)],
+      verificationDetectedAt,
+      manualVerificationAllowed: allowManualVerification,
+      manualVerificationRecovered,
+      weakVerificationDetected: weakVerificationPages.length > 0,
+      weakVerificationPages: [...new Set(weakVerificationPages)],
       completeRequestedRange: pages.length === maxPages,
       fullExpectedRangeScanned: pages.length >= expectedPages,
     },
   };
 
-  await writeJsonAtomic(PATHS.currentList, payload);
-  await fs.promises.rm(CHECKPOINT_PATH, { force: true }).catch(() => {});
-  console.log(`Current list dry-run written: ${relativePath(PATHS.currentList)}`);
+  if (options.writeCurrentList !== false) {
+    await writeJsonAtomic(PATHS.currentList, payload);
+  }
+  if (options.useCheckpoint !== false) {
+    await fs.promises.rm(CHECKPOINT_PATH, { force: true }).catch(() => {});
+  }
+  if (options.writeCurrentList !== false) {
+    console.log(`Current list dry-run written: ${relativePath(PATHS.currentList)}`);
+  }
   console.log(JSON.stringify(payload.summary, null, 2));
   return payload;
 }
@@ -475,11 +697,16 @@ if (isDirectExecution(import.meta.url)) {
     expectedPages: cli["expected-pages"],
     displayNum: cli["display-num"],
     browserChannel: cli["browser-channel"],
+    browserProfile: cli["browser-profile"],
+    browserProfileDir: cli["browser-profile-dir"],
     pageDelayMs: cli["page-delay-ms"],
     pageDelayMinMs: cli["page-delay-min-ms"],
     pageDelayMaxMs: cli["page-delay-max-ms"],
     pageWarmupMinMs: cli["page-warmup-min-ms"],
     pageWarmupMaxMs: cli["page-warmup-max-ms"],
+    pageBatchSize: cli["page-batch-size"],
+    pageBatchCooldownMinMs: cli["page-batch-cooldown-min-ms"],
+    pageBatchCooldownMaxMs: cli["page-batch-cooldown-max-ms"],
     captchaCooldownMs: cli["captcha-cooldown-ms"],
     allowManualVerification: cli["allow-manual-verification"],
     manualVerificationTimeoutMs: cli["manual-verification-timeout-ms"],

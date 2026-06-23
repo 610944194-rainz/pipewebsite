@@ -15,7 +15,9 @@ import {
 import {
   randomDelayMs,
   resolveListPacingOptions,
+  shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
+import { buildInventoryDiff } from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
 import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
 import * as applyDryRunModule from "./smokingpipes-apply-dry-run-v1.mjs";
@@ -30,14 +32,61 @@ import {
 } from "./smokingpipes-apply-dry-run-v1.mjs";
 import {
   classifySmokingpipesVerificationSignals,
+  isNormalSmokingpipesDetail,
+  launchSmokingpipesContext,
   resolveSmokingpipesBrowserLaunch,
   summarizeSmokingpipesListProducts,
+  waitForSmokingpipesManualRecovery,
 } from "../lib/smokingpipes-utils.mjs";
+import {
+  acquireBrowserProfileLock,
+  buildSmokingpipesBrowserDescriptor,
+  releaseBrowserProfileLock,
+  resolveSmokingpipesBrowserProfile,
+} from "../lib/smokingpipes-browser-profile-v1.mjs";
 import { buildUnifiedProductsFromInputs } from "../build-unified-products-staging-v1.mjs";
 import {
   buildPublicProductsCandidate,
   loadPublicProductsPricingContext,
 } from "../build-public-product-indexes-v1.mjs";
+import {
+  buildSmokingpipesDailyCandidate,
+  buildSmokingpipesDailyDiff,
+  buildSmokingpipesDailyAudit,
+  buildDailyTimingSummary,
+  evaluateSmokingpipesDailyGenerationGate,
+  invalidateUntrustedDailyQueue,
+  shouldPrepareDailyDetailsQueue,
+} from "./smokingpipes-daily-update-v1.mjs";
+import {
+  buildVerificationProbeTelemetry,
+  evaluateVerificationRisk,
+  summarizeVerificationTelemetry,
+} from "./smokingpipes-verification-telemetry-v1.mjs";
+import {
+  buildDetailProbeTelemetry,
+  runSmokingpipesDetailProbe,
+  selectTrustedDetailProbeCandidates,
+  simulateDetailProbe,
+} from "./smokingpipes-detail-probe-v1.mjs";
+import { runSmokingpipesBrowserPreflight } from "./smokingpipes-browser-preflight-v1.mjs";
+import {
+  createProgressiveDailyState,
+  readProgressiveDailyState,
+  validateProgressiveDailyState,
+} from "./smokingpipes-progressive-state-v1.mjs";
+import {
+  ingestProgressiveListSnapshot,
+  runProgressiveDetailChunk,
+  summarizeProgressiveState,
+} from "./smokingpipes-progressive-daily-v1.mjs";
+import {
+  auditProgressivePartialCandidate,
+  buildProgressivePartialApplyPreview,
+  buildProgressivePartialProducts,
+  selectProgressiveRecentNew,
+} from "./smokingpipes-progressive-candidate-v1.mjs";
+import { runSmokingpipesProgressiveMode } from "./smokingpipes-progressive-runner-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
 const defaultInventoryState = runnerCore.initialInventoryState();
@@ -61,6 +110,308 @@ assert.equal(defaults.detailBatchSize, 5);
 assert.equal(defaults.detailBatchCooldownMinMs, 90000);
 assert.equal(defaults.detailBatchCooldownMaxMs, 180000);
 assert.equal(defaults.browserChannel, null);
+assert.equal(defaults.browserProfile, null);
+assert.equal(defaults.browserProfileDir, null);
+
+const dailyDefaults = parseRunnerOptions(["--mode=daily-update"]);
+assert.equal(dailyDefaults.mode, "daily-update");
+assert.equal(dailyDefaults.refreshList, true);
+assert.equal(dailyDefaults.dailyNewMaxDetails, 100);
+assert.equal(dailyDefaults.detailBatchSize, 50);
+assert.equal(dailyDefaults.pageWarmupMinMs, 1500);
+assert.equal(dailyDefaults.pageWarmupMaxMs, 3000);
+assert.equal(dailyDefaults.pageDelayMinMs, 3000);
+assert.equal(dailyDefaults.pageDelayMaxMs, 6000);
+assert.equal(dailyDefaults.pageBatchSize, 30);
+assert.equal(dailyDefaults.pageBatchCooldownMinMs, 30000);
+assert.equal(dailyDefaults.pageBatchCooldownMaxMs, 60000);
+assert.equal(dailyDefaults.fullReconcile, true);
+assert.equal(dailyDefaults.detailWarmupMinMs, 1000);
+assert.equal(dailyDefaults.detailWarmupMaxMs, 3000);
+assert.equal(dailyDefaults.detailDelayMinMs, 3000);
+assert.equal(dailyDefaults.detailDelayMaxMs, 8000);
+assert.equal(dailyDefaults.detailBatchCooldownMinMs, 0);
+assert.equal(dailyDefaults.detailBatchCooldownMaxMs, 0);
+assert.equal(dailyDefaults.commit, false);
+assert.equal(dailyDefaults.deploy, false);
+assert.equal(
+  parseRunnerOptions(["--daily-update"]).mode,
+  "daily-update"
+);
+
+const forcedConservativeFullScan = parseRunnerOptions([
+  "--mode=daily-update",
+  "--max-pages=107",
+  "--page-warmup-min-ms=300",
+  "--page-warmup-max-ms=1000",
+  "--page-delay-min-ms=500",
+  "--page-delay-max-ms=1500",
+  "--page-batch-size=40",
+  "--page-batch-cooldown-min-ms=10000",
+  "--page-batch-cooldown-max-ms=20000",
+]);
+assert.equal(forcedConservativeFullScan.pageWarmupMinMs, 1500);
+assert.equal(forcedConservativeFullScan.pageWarmupMaxMs, 3000);
+assert.equal(forcedConservativeFullScan.pageDelayMinMs, 3000);
+assert.equal(forcedConservativeFullScan.pageDelayMaxMs, 6000);
+assert.equal(forcedConservativeFullScan.pageBatchSize, 30);
+assert.equal(
+  forcedConservativeFullScan.pageBatchCooldownMinMs,
+  30000
+);
+assert.equal(
+  forcedConservativeFullScan.pageBatchCooldownMaxMs,
+  60000
+);
+assert.equal(forcedConservativeFullScan.pacingDowngraded, true);
+
+const shortDailyNewPacing = parseRunnerOptions([
+  "--mode=daily-update",
+  "--max-pages=10",
+]);
+assert.equal(shortDailyNewPacing.fullReconcile, false);
+assert.equal(shortDailyNewPacing.shortDailyNewScan, true);
+assert.equal(shortDailyNewPacing.pageWarmupMinMs, 500);
+assert.equal(shortDailyNewPacing.pageWarmupMaxMs, 1500);
+assert.equal(shortDailyNewPacing.pageDelayMinMs, 1000);
+assert.equal(shortDailyNewPacing.pageDelayMaxMs, 3000);
+assert.equal(shortDailyNewPacing.pageBatchCooldownMinMs, 0);
+assert.equal(shortDailyNewPacing.pageBatchCooldownMaxMs, 0);
+
+const dailyOverrides = parseRunnerOptions([
+  "--mode=daily-update",
+  "--daily-new-max-details=5",
+  "--fetch-new-details",
+]);
+assert.equal(dailyOverrides.dailyNewMaxDetails, 5);
+assert.equal(dailyOverrides.fetchNewDetails, true);
+assert.throws(
+  () =>
+    parseRunnerOptions([
+      "--mode=daily-update",
+      "--catch-up-current",
+    ]),
+  /baseline|catch-up|daily-update/i
+);
+
+const verificationProbeDefaults = parseRunnerOptions([
+  "--mode=verification-probe",
+]);
+assert.equal(verificationProbeDefaults.mode, "verification-probe");
+assert.equal(verificationProbeDefaults.verificationProbe, true);
+assert.equal(verificationProbeDefaults.refreshList, true);
+assert.equal(verificationProbeDefaults.fetchNewDetails, false);
+assert.equal(verificationProbeDefaults.pageWarmupMinMs, 1500);
+assert.equal(verificationProbeDefaults.pageWarmupMaxMs, 3000);
+assert.equal(verificationProbeDefaults.pageDelayMinMs, 3000);
+assert.equal(verificationProbeDefaults.pageDelayMaxMs, 6000);
+assert.equal(verificationProbeDefaults.pageBatchSize, 30);
+assert.equal(
+  verificationProbeDefaults.pageBatchCooldownMinMs,
+  30000
+);
+assert.equal(
+  verificationProbeDefaults.pageBatchCooldownMaxMs,
+  60000
+);
+const shortVerificationProbeDefaults = parseRunnerOptions([
+  "--mode=verification-probe",
+  "--max-pages=10",
+]);
+assert.equal(shortVerificationProbeDefaults.pageWarmupMinMs, 1500);
+assert.equal(shortVerificationProbeDefaults.pageWarmupMaxMs, 3000);
+assert.equal(shortVerificationProbeDefaults.pageDelayMinMs, 3000);
+assert.equal(shortVerificationProbeDefaults.pageDelayMaxMs, 6000);
+
+const detailProbeDefaults = parseRunnerOptions([
+  "--mode=detail-probe",
+]);
+assert.equal(detailProbeDefaults.mode, "detail-probe");
+assert.equal(detailProbeDefaults.detailProbe, true);
+assert.equal(detailProbeDefaults.fetchNewDetails, false);
+assert.equal(detailProbeDefaults.detailProbeMax, 5);
+assert.equal(detailProbeDefaults.detailWarmupMinMs, 2000);
+assert.equal(detailProbeDefaults.detailWarmupMaxMs, 4000);
+assert.equal(detailProbeDefaults.detailDelayMinMs, 5000);
+assert.equal(detailProbeDefaults.detailDelayMaxMs, 10000);
+assert.equal(detailProbeDefaults.detailBatchSize, 5);
+assert.equal(detailProbeDefaults.detailBatchCooldownMinMs, 30000);
+assert.equal(detailProbeDefaults.detailBatchCooldownMaxMs, 60000);
+
+const dailyProductionProducts = [
+  { sourceProductId: "100", inventoryStatus: "available" },
+  { sourceProductId: "101", inventoryStatus: "available" },
+  { sourceProductId: "102", inventoryStatus: "available" },
+  { sourceProductId: "103", inventoryStatus: "available" },
+];
+const dailyCurrentPayload = {
+  summary: {
+    pagesScanned: 107,
+    expectedPages: 107,
+    fullExpectedRangeScanned: true,
+    captchaDetected: false,
+  },
+  products: [
+    { sourceProductId: "100", price: "$100.00", rawListStatus: "" },
+    {
+      sourceProductId: "101",
+      price: "",
+      rawListStatus: "OUT OF STOCK",
+      rawText: "OUT OF STOCK",
+    },
+    { sourceProductId: "103", price: "", rawListStatus: "" },
+    { sourceProductId: "200", price: "$200.00", rawListStatus: "" },
+    { sourceProductId: "201", price: "$201.00", rawListStatus: "" },
+  ],
+};
+const dailyDiff = buildSmokingpipesDailyDiff({
+  productionProducts: dailyProductionProducts,
+  currentPayload: dailyCurrentPayload,
+  expectedPages: 107,
+});
+assert.deepEqual(dailyDiff.dailyNewIds, ["200", "201"]);
+assert.deepEqual(dailyDiff.newIds, ["200", "201"]);
+assert.deepEqual(dailyDiff.stillAvailableIds, ["100", "103"]);
+assert.deepEqual(dailyDiff.newlySoldOutIds, ["101"]);
+assert.deepEqual(dailyDiff.disappearedIds, ["102"]);
+assert.deepEqual(dailyDiff.missingPriceButNotSoldIds, ["103"]);
+assert.equal(dailyDiff.allowCandidateGeneration, true);
+
+const incompleteDailyDiff = buildSmokingpipesDailyDiff({
+  productionProducts: dailyProductionProducts,
+  currentPayload: {
+    ...dailyCurrentPayload,
+    summary: {
+      ...dailyCurrentPayload.summary,
+      pagesScanned: 3,
+      fullExpectedRangeScanned: false,
+    },
+  },
+  expectedPages: 107,
+});
+assert.equal(incompleteDailyDiff.allowCandidateGeneration, false);
+assert.match(
+  incompleteDailyDiff.fatalWarnings.join("\n"),
+  /full|107|incomplete/i
+);
+
+const captchaCurrentPayload = {
+  ...dailyCurrentPayload,
+  generatedAt: "2026-06-22T08:47:47.800Z",
+  summary: {
+    ...dailyCurrentPayload.summary,
+    captchaDetected: true,
+    captchaPages: [73],
+  },
+};
+const captchaDailyDiff = buildSmokingpipesDailyDiff({
+  productionProducts: dailyProductionProducts,
+  currentPayload: captchaCurrentPayload,
+  expectedPages: 107,
+});
+assert.equal(captchaDailyDiff.coverage.fullExpectedRangeScanned, true);
+assert.equal(captchaDailyDiff.coverage.captchaDetected, true);
+assert.equal(captchaDailyDiff.allowApply, false);
+assert.equal(captchaDailyDiff.allowCandidateGeneration, false);
+assert.match(
+  captchaDailyDiff.fatalWarnings.join("\n"),
+  /captcha\/currentListVerificationDetected/
+);
+assert.equal(
+  evaluateSmokingpipesDailyGenerationGate({
+    dailyDiff: captchaDailyDiff,
+    queue: { items: [] },
+  }).status,
+  "blocked",
+  "verification must remain blocked even with complete page coverage"
+);
+assert.equal(shouldPrepareDailyDetailsQueue(captchaDailyDiff), false);
+
+const captchaInventoryDiff = buildInventoryDiff(
+  captchaCurrentPayload,
+  dailyProductionProducts
+);
+assert.equal(captchaInventoryDiff.coverage.fullExpectedRangeScanned, true);
+assert.equal(captchaInventoryDiff.coverage.captchaDetected, true);
+assert.equal(captchaInventoryDiff.allowApply, false);
+assert.match(
+  captchaInventoryDiff.fatalWarnings.join("\n"),
+  /captcha\/currentListVerificationDetected/
+);
+assert.match(
+  captchaInventoryDiff.applyBlockedReasons.join("\n"),
+  /verification/i
+);
+
+const untrustedQueue = {
+  version: "smokingpipes-new-details-queue-v1",
+  source: "smokingpipes",
+  createdAt: "2026-06-22T08:47:48.428Z",
+  updatedAt: "2026-06-22T08:47:48.430Z",
+  diffGeneratedAt: "2026-06-22T08:47:47.855Z",
+  items: [
+    { sourceProductId: "200", status: "pending", active: true },
+    { sourceProductId: "201", status: "pending", active: true },
+  ],
+};
+const invalidatedQueue = invalidateUntrustedDailyQueue({
+  queue: untrustedQueue,
+  currentPayload: captchaCurrentPayload,
+  now: "2026-06-22T09:00:00.000Z",
+});
+assert.equal(invalidatedQueue.invalidated, true);
+assert.equal(invalidatedQueue.invalidatedCount, 2);
+assert.match(invalidatedQueue.reason, /captchaDetected=true/i);
+assert.equal(
+  invalidatedQueue.queue.items.every(
+    (item) => item.status === "superseded" && item.active === false
+  ),
+  true
+);
+assert.equal(invalidatedQueue.queue.summary.remaining, 0);
+
+const dailyQueueOnlyNew = buildDetailsQueue({
+  existingQueue: null,
+  diff: dailyDiff,
+  currentProducts: dailyCurrentPayload.products,
+  existingProductIds: new Set(
+    dailyProductionProducts.map((item) => item.sourceProductId)
+  ),
+});
+assert.deepEqual(
+  dailyQueueOnlyNew.items
+    .filter((item) => item.active !== false)
+    .map((item) => item.sourceProductId),
+  ["200", "201"],
+  "daily queue must contain only production-missing dailyNewIds"
+);
+
+assert.equal(
+  evaluateSmokingpipesDailyGenerationGate({
+    dailyDiff,
+    queue: dailyQueueOnlyNew,
+  }).allowGenerate,
+  false
+);
+const completedDailyQueue = {
+  ...dailyQueueOnlyNew,
+  items: dailyQueueOnlyNew.items.map((item) => ({
+    ...item,
+    status: "completed",
+    detail: {
+      sourceProductId: item.sourceProductId,
+      sourceUrl: `https://example/${item.sourceProductId}`,
+      title: item.title || `Daily ${item.sourceProductId}`,
+    },
+  })),
+};
+assert.equal(
+  evaluateSmokingpipesDailyGenerationGate({
+    dailyDiff,
+    queue: completedDailyQueue,
+  }).allowGenerate,
+  true
+);
 
 const atomicRetryRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "inventory-atomic-retry-test-")
@@ -321,6 +672,36 @@ assert.equal(invalidReusableClassification.manualActionRequired, true);
 
 const edgeBrowser = parseRunnerOptions(["--browser-channel=msedge"]);
 assert.equal(edgeBrowser.browserChannel, "msedge");
+const chromeDefaultProfile = parseRunnerOptions([
+  "--browser-channel=chrome",
+]);
+assert.equal(chromeDefaultProfile.browserProfile, null);
+assert.equal(chromeDefaultProfile.browserProfileDir, null);
+const chromeNamedProfile = parseRunnerOptions([
+  "--browser-channel=chrome",
+  "--browser-profile=sp-chrome",
+]);
+assert.equal(chromeNamedProfile.browserProfile, "sp-chrome");
+const chromeExplicitProfile = parseRunnerOptions([
+  "--browser-channel=chrome",
+  "--browser-profile-dir=C:\\temp\\sp-profile",
+]);
+assert.equal(
+  chromeExplicitProfile.browserProfileDir,
+  path.resolve("C:\\temp\\sp-profile")
+);
+assert.equal(
+  parseRunnerOptions(["--mode=browser-preflight"]).mode,
+  "browser-preflight"
+);
+assert.throws(
+  () =>
+    parseRunnerOptions([
+      "--browser-channel=chrome",
+      "--browser-profile=daily-default",
+    ]),
+  /browser profile/i
+);
 assert.deepEqual(resolveSmokingpipesBrowserLaunch("msedge", ""), {
   explicit: true,
   candidates: ["msedge"],
@@ -337,6 +718,342 @@ assert.throws(
   () => parseRunnerOptions(["--browser-channel=firefox"]),
   /browser channel/i
 );
+const profileTestRoot = path.join("C:\\workspace", "pipewebsite");
+const profileLocalAppData = "C:\\Users\\Test\\AppData\\Local";
+const explicitResolvedProfile = resolveSmokingpipesBrowserProfile({
+  root: profileTestRoot,
+  browserChannel: "chrome",
+  browserProfile: "sp-chrome",
+  browserProfileDir: "C:\\profiles\\explicit-sp",
+  localAppData: profileLocalAppData,
+  platform: "win32",
+});
+assert.equal(explicitResolvedProfile.profileSource, "explicit-dir");
+assert.equal(
+  explicitResolvedProfile.profileDir,
+  path.resolve("C:\\profiles\\explicit-sp")
+);
+const namedResolvedProfile = resolveSmokingpipesBrowserProfile({
+  root: profileTestRoot,
+  browserProfile: "sp-chrome",
+  localAppData: profileLocalAppData,
+  platform: "win32",
+});
+assert.equal(namedResolvedProfile.effectiveBrowserChannel, "chrome");
+assert.equal(namedResolvedProfile.profileSource, "named-sp-chrome");
+assert.equal(
+  namedResolvedProfile.profileDir,
+  path.join(
+    profileLocalAppData,
+    "YandouBuy",
+    "chrome-profile-sp"
+  )
+);
+const defaultChromeResolvedProfile =
+  resolveSmokingpipesBrowserProfile({
+    root: profileTestRoot,
+    browserChannel: "chrome",
+    localAppData: profileLocalAppData,
+    platform: "win32",
+  });
+assert.equal(
+  defaultChromeResolvedProfile.profileSource,
+  "default-chrome-sp"
+);
+const legacyEdgeResolvedProfile =
+  resolveSmokingpipesBrowserProfile({
+    root: profileTestRoot,
+    browserChannel: "msedge",
+    localAppData: profileLocalAppData,
+    platform: "win32",
+  });
+assert.equal(
+  legacyEdgeResolvedProfile.profileDir,
+  path.join(profileTestRoot, ".cache", "smokingpipes-profile")
+);
+assert.equal(
+  legacyEdgeResolvedProfile.profileSource,
+  "legacy-project-cache"
+);
+for (const unsafeProfileDir of [
+  path.join(
+    profileLocalAppData,
+    "Google",
+    "Chrome",
+    "User Data"
+  ),
+  path.join(
+    profileLocalAppData,
+    "Google",
+    "Chrome",
+    "User Data",
+    "Default"
+  ),
+  path.join(
+    profileLocalAppData,
+    "Google",
+    "Chrome",
+    "User Data",
+    "Profile 1"
+  ),
+]) {
+  assert.throws(
+    () =>
+      resolveSmokingpipesBrowserProfile({
+        root: profileTestRoot,
+        browserChannel: "chrome",
+        browserProfileDir: unsafeProfileDir,
+        localAppData: profileLocalAppData,
+        platform: "win32",
+      }),
+    /daily Chrome profile/i
+  );
+}
+const chromeBrowserDescriptor = buildSmokingpipesBrowserDescriptor({
+  root: profileTestRoot,
+  browserChannel: "chrome",
+  localAppData: profileLocalAppData,
+  platform: "win32",
+});
+assert.equal(
+  chromeBrowserDescriptor.requestedBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  chromeBrowserDescriptor.effectiveBrowserChannel,
+  "chrome"
+);
+assert.equal(chromeBrowserDescriptor.persistentContext, true);
+assert.equal(chromeBrowserDescriptor.headless, false);
+assert.equal(
+  chromeBrowserDescriptor.profileSource,
+  "default-chrome-sp"
+);
+assert.equal("proxy" in chromeBrowserDescriptor, false);
+assert.equal("stealth" in chromeBrowserDescriptor, false);
+assert.equal("fingerprint" in chromeBrowserDescriptor, false);
+const launchCapture = {};
+const fakePersistentContext = {
+  browser() {
+    return {
+      executablePath() {
+        return "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+      },
+    };
+  },
+  async close() {},
+};
+const launchLocalAppData = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-browser-launch-")
+);
+const launchedChromeSession = await launchSmokingpipesContext({
+  root: launchLocalAppData,
+  browserChannel: "chrome",
+  localAppData: launchLocalAppData,
+  platform: "win32",
+  profileLockPath: path.join(
+    os.tmpdir(),
+    `smokingpipes-browser-launch-${process.pid}-${Date.now()}.lock`
+  ),
+  runId: "launch-test",
+  mode: "browser-preflight",
+  launchPersistentContext: async (userDataDir, launchOptions) => {
+    launchCapture.userDataDir = userDataDir;
+    launchCapture.launchOptions = launchOptions;
+    return fakePersistentContext;
+  },
+});
+assert.equal(
+  launchCapture.userDataDir,
+  path.join(
+    launchLocalAppData,
+    "YandouBuy",
+    "chrome-profile-sp"
+  )
+);
+assert.equal(launchCapture.launchOptions.channel, "chrome");
+assert.equal(launchCapture.launchOptions.headless, false);
+assert.equal(launchedChromeSession.context, fakePersistentContext);
+assert.equal(
+  launchedChromeSession.browser.requestedBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  launchedChromeSession.browser.effectiveBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  launchedChromeSession.browser.executablePath,
+  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+);
+assert.equal(
+  launchedChromeSession.browser.persistentContext,
+  true
+);
+await launchedChromeSession.close();
+
+let recoveryClock = 0;
+let recoveryDetectionCalls = 0;
+const recoveryPage = {
+  async bringToFront() {},
+  async waitForTimeout() {
+    recoveryClock += 5;
+  },
+  url() {
+    return "https://example.invalid/recovered";
+  },
+};
+const recoveredManualVerification =
+  await waitForSmokingpipesManualRecovery(recoveryPage, {
+    pageKind: "list",
+    timeoutMs: 20,
+    pollMs: 5,
+    nowMs: () => recoveryClock,
+    detectVerification: async () => {
+      recoveryDetectionCalls += 1;
+      return {
+        verificationBlocked: recoveryDetectionCalls === 1,
+      };
+    },
+    verifyNormalContent: async () => ({
+      valid: true,
+      parsedValue: [{ sourceProductId: "100" }],
+    }),
+    verbose: false,
+  });
+assert.equal(recoveredManualVerification.recovered, true);
+assert.equal(
+  recoveredManualVerification.manualVerificationRecovered,
+  true
+);
+assert.equal(
+  recoveredManualVerification.parsedValue[0].sourceProductId,
+  "100"
+);
+
+recoveryClock = 0;
+const unrecoveredManualVerification =
+  await waitForSmokingpipesManualRecovery(recoveryPage, {
+    pageKind: "detail",
+    timeoutMs: 10,
+    pollMs: 5,
+    nowMs: () => recoveryClock,
+    detectVerification: async () => ({
+      verificationBlocked: false,
+    }),
+    verifyNormalContent: async () => ({
+      valid: false,
+      parsedValue: { sourceProductId: "wrong-id" },
+    }),
+    verbose: false,
+  });
+assert.equal(unrecoveredManualVerification.recovered, false);
+assert.equal(unrecoveredManualVerification.timedOut, true);
+assert.equal(
+  unrecoveredManualVerification.manualVerificationRecovered,
+  false
+);
+assert.equal(
+  isNormalSmokingpipesDetail(
+    { sourceProductId: "100" },
+    "100"
+  ),
+  false
+);
+assert.equal(
+  isNormalSmokingpipesDetail(
+    {
+      sourceProductId: "100",
+      fullTitle: "Savinelli: Billiard",
+      mainImageUrl: "https://example.invalid/pipe.jpg",
+      specsText: ["Shape: Billiard"],
+    },
+    "100"
+  ),
+  true
+);
+assert.equal(
+  isNormalSmokingpipesDetail(
+    {
+      sourceProductId: "101",
+      fullTitle: "Wrong pipe",
+      mainImageUrl: "https://example.invalid/pipe.jpg",
+      specsText: ["Shape: Billiard"],
+    },
+    "100"
+  ),
+  false
+);
+
+const browserProfileLockRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-browser-profile-lock-")
+);
+const browserProfileLockPath = path.join(
+  browserProfileLockRoot,
+  "smokingpipes-chrome-profile.lock"
+);
+const browserProfileLock = acquireBrowserProfileLock(
+  browserProfileLockPath,
+  {
+    runId: "browser-profile-first",
+    profileDir: defaultChromeResolvedProfile.profileDir,
+    mode: "browser-preflight",
+  },
+  { isProcessAlive: () => true }
+);
+assert.equal(browserProfileLock.staleLockRecovered, false);
+assert.throws(
+  () =>
+    acquireBrowserProfileLock(
+      browserProfileLockPath,
+      {
+        runId: "browser-profile-second",
+        profileDir: defaultChromeResolvedProfile.profileDir,
+        mode: "detail-probe",
+      },
+      { isProcessAlive: () => true }
+    ),
+  /profile.*already in use/i
+);
+releaseBrowserProfileLock(browserProfileLock);
+fs.writeFileSync(
+  browserProfileLockPath,
+  JSON.stringify({
+    runId: "stale",
+    pid: 999999,
+    profileDir: defaultChromeResolvedProfile.profileDir,
+  })
+);
+const recoveredBrowserProfileLock = acquireBrowserProfileLock(
+  browserProfileLockPath,
+  {
+    runId: "browser-profile-recovered",
+    profileDir: defaultChromeResolvedProfile.profileDir,
+    mode: "browser-preflight",
+  },
+  { isProcessAlive: () => false }
+);
+assert.equal(
+  recoveredBrowserProfileLock.staleLockRecovered,
+  true
+);
+releaseBrowserProfileLock(recoveredBrowserProfileLock);
+fs.writeFileSync(browserProfileLockPath, "{invalid-json");
+assert.throws(
+  () =>
+    acquireBrowserProfileLock(
+      browserProfileLockPath,
+      {
+        runId: "browser-profile-malformed",
+        profileDir: defaultChromeResolvedProfile.profileDir,
+        mode: "browser-preflight",
+      },
+      { isProcessAlive: () => false }
+    ),
+  /unreadable.*profile lock/i
+);
+assert.equal(fs.existsSync(browserProfileLockPath), true);
+fs.unlinkSync(browserProfileLockPath);
 assert.equal(defaults.pageDelayMinMs, 8000);
 assert.equal(defaults.pageDelayMaxMs, 18000);
 assert.equal(defaults.pageWarmupMinMs, 3000);
@@ -355,6 +1072,30 @@ assert.equal(customPacing.pageDelayMaxMs, 28000);
 assert.equal(customPacing.pageWarmupMinMs, 5000);
 assert.equal(customPacing.pageWarmupMaxMs, 12000);
 assert.equal(customPacing.captchaCooldownMs, 120000);
+
+const dailyCustomListPacing = parseRunnerOptions([
+  "--mode=daily-update",
+  "--page-warmup-min-ms=300",
+  "--page-warmup-max-ms=1000",
+  "--page-delay-min-ms=500",
+  "--page-delay-max-ms=1500",
+  "--page-batch-size=40",
+  "--page-batch-cooldown-min-ms=10000",
+  "--page-batch-cooldown-max-ms=20000",
+]);
+assert.equal(dailyCustomListPacing.pageWarmupMinMs, 1500);
+assert.equal(dailyCustomListPacing.pageWarmupMaxMs, 3000);
+assert.equal(dailyCustomListPacing.pageDelayMinMs, 3000);
+assert.equal(dailyCustomListPacing.pageDelayMaxMs, 6000);
+assert.equal(dailyCustomListPacing.pageBatchSize, 30);
+assert.equal(dailyCustomListPacing.pageBatchCooldownMinMs, 30000);
+assert.equal(dailyCustomListPacing.pageBatchCooldownMaxMs, 60000);
+assert.equal(dailyCustomListPacing.pacingDowngraded, true);
+assert.equal(
+  dailyCustomListPacing.detailDelayMinMs,
+  3000,
+  "list pacing overrides must not change detail pacing"
+);
 
 const customDetailPacing = parseRunnerOptions([
   "--fetch-new-details",
@@ -429,8 +1170,67 @@ assert.deepEqual(normalizedPacing, {
   pageDelayMaxMs: 18000,
   pageWarmupMinMs: 7000,
   pageWarmupMaxMs: 7000,
+  pageBatchSize: 0,
+  pageBatchCooldownMinMs: 0,
+  pageBatchCooldownMaxMs: 0,
   captchaCooldownMs: 0,
 });
+assert.equal(
+  shouldApplyPageBatchCooldown({
+    pageNumber: 29,
+    maxPages: 107,
+    pageBatchSize: 30,
+  }),
+  false
+);
+assert.equal(
+  shouldApplyPageBatchCooldown({
+    pageNumber: 30,
+    maxPages: 107,
+    pageBatchSize: 30,
+  }),
+  true
+);
+assert.equal(
+  shouldApplyPageBatchCooldown({
+    pageNumber: 60,
+    maxPages: 107,
+    pageBatchSize: 30,
+  }),
+  true
+);
+assert.equal(
+  shouldApplyPageBatchCooldown({
+    pageNumber: 107,
+    maxPages: 107,
+    pageBatchSize: 30,
+  }),
+  false,
+  "the final page must not trigger a cooldown"
+);
+assert.equal(
+  shouldApplyPageBatchCooldown({
+    pageNumber: 30,
+    maxPages: 107,
+    pageBatchSize: 0,
+  }),
+  false,
+  "page batch cooldown is disabled when the batch size is zero"
+);
+const zeroPageBatchCooldown = resolveListPacingOptions({
+  pageBatchSize: 30,
+  pageBatchCooldownMinMs: 0,
+  pageBatchCooldownMaxMs: 0,
+});
+assert.equal(zeroPageBatchCooldown.pageBatchSize, 30);
+assert.equal(
+  randomDelayMs(
+    zeroPageBatchCooldown.pageBatchCooldownMinMs,
+    zeroPageBatchCooldown.pageBatchCooldownMaxMs
+  ),
+  0,
+  "a zero-duration page batch cooldown must not wait"
+);
 assert.equal(randomDelayMs(8000, 18000, () => 0), 8000);
 assert.equal(randomDelayMs(8000, 18000, () => 1), 18000);
 
@@ -446,6 +1246,26 @@ const normalOutOfStockPage = classifySmokingpipesVerificationSignals({
 });
 assert.equal(normalOutOfStockPage.verificationBlocked, false);
 assert.equal(normalOutOfStockPage.classification, "normal-content");
+assert.deepEqual(normalOutOfStockPage.weakVerificationSignals, []);
+assert.deepEqual(normalOutOfStockPage.strongVerificationSignals, []);
+
+const weakKeywordWithProducts = classifySmokingpipesVerificationSignals({
+  pageKind: "list",
+  httpStatus: 200,
+  url: "https://www.smokingpipes.com/pipes/?page=73",
+  title: "Smokingpipes | New Pipes",
+  bodyText:
+    "Verification information appears in footer help text. Normal products.",
+  productLinkCount: 48,
+  explicitChallengeElement: false,
+});
+assert.equal(weakKeywordWithProducts.verificationBlocked, false);
+assert.equal(
+  weakKeywordWithProducts.classification,
+  "normal-content-with-verification-warning"
+);
+assert.equal(weakKeywordWithProducts.weakVerificationSignals.length > 0, true);
+assert.deepEqual(weakKeywordWithProducts.strongVerificationSignals, []);
 
 const allMissingPricePage = classifySmokingpipesVerificationSignals({
   pageKind: "list",
@@ -472,7 +1292,8 @@ const explicitChallengePage = classifySmokingpipesVerificationSignals({
   explicitChallengeElement: true,
 });
 assert.equal(explicitChallengePage.verificationBlocked, true);
-assert.equal(explicitChallengePage.classification, "verification");
+assert.equal(explicitChallengePage.classification, "strong-verification");
+assert.equal(explicitChallengePage.strongVerificationSignals.length > 0, true);
 
 const emptyListPage = classifySmokingpipesVerificationSignals({
   pageKind: "list",
@@ -510,6 +1331,387 @@ const latePageDetection = classifySmokingpipesVerificationSignals({
   explicitChallengeElement: false,
 });
 assert.equal(latePageDetection.verificationBlocked, false);
+assert.deepEqual(latePageDetection.strongVerificationSignals, []);
+
+const probeTelemetry = buildVerificationProbeTelemetry({
+  runId: "probe-mock-1",
+  mode: "verification-probe",
+  startedAt: "2026-06-22T00:00:00.000Z",
+  endedAt: "2026-06-22T00:06:00.000Z",
+  pagesRequested: 107,
+  pacing: {
+    pageWarmupMinMs: 1500,
+    pageWarmupMaxMs: 3000,
+    pageDelayMinMs: 3000,
+    pageDelayMaxMs: 6000,
+    pageBatchSize: 30,
+    pageBatchCooldownMinMs: 30000,
+    pageBatchCooldownMaxMs: 60000,
+  },
+  pages: [
+    {
+      page: 1,
+      url: "https://example.invalid/page=1",
+      startedAt: "2026-06-22T00:00:00.000Z",
+      endedAt: "2026-06-22T00:00:04.000Z",
+      durationMs: 4000,
+      warmupMs: 1500,
+      delayMs: 2500,
+      productsParsed: 48,
+      outOfStockProducts: 0,
+      missingPriceProducts: 0,
+      weakVerificationSignals: [],
+      strongVerificationSignals: [],
+      finalClassification: "normal-content",
+    },
+    {
+      page: 2,
+      url: "https://example.invalid/page=2",
+      startedAt: "2026-06-22T00:00:05.000Z",
+      endedAt: "2026-06-22T00:00:09.000Z",
+      durationMs: 4000,
+      warmupMs: 1500,
+      delayMs: 0,
+      productsParsed: 0,
+      outOfStockProducts: 0,
+      missingPriceProducts: 0,
+      weakVerificationSignals: [],
+      strongVerificationSignals: ["challenge-dom"],
+      finalClassification: "strong-verification",
+    },
+  ],
+  blockedReason: "strong verification detected on page 2",
+  browser: {
+    ...chromeBrowserDescriptor,
+    userDataDirCreated: true,
+    executablePath:
+      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  },
+  manualVerificationAllowed: true,
+  manualVerificationRecovered: false,
+});
+const probeSummary = summarizeVerificationTelemetry(probeTelemetry);
+assert.equal(probeTelemetry.productionWritten, false);
+assert.equal(probeTelemetry.candidateGenerated, false);
+assert.equal(probeTelemetry.detailsFetched, false);
+assert.equal(probeTelemetry.captchaDetected, true);
+assert.deepEqual(probeTelemetry.captchaPages, [2]);
+assert.equal(probeSummary.firstStrongVerificationPage, 2);
+assert.equal(probeSummary.pagesScanned, 2);
+assert.equal(
+  probeTelemetry.browser.requestedBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  probeTelemetry.browser.profileSource,
+  "default-chrome-sp"
+);
+assert.equal(probeTelemetry.manualVerificationAllowed, true);
+assert.equal(probeTelemetry.manualVerificationRecovered, false);
+assert.equal(
+  probeTelemetry.verificationDetectedAt,
+  "2026-06-22T00:00:05.000Z"
+);
+
+assert.equal(
+  evaluateVerificationRisk({
+    captchaDetected: true,
+    pagesRequested: 107,
+    pagesScanned: 60,
+    avgSecondsPerPage: 4.627,
+    weakVerificationPages: [],
+    strongVerificationPages: [60],
+  }).riskLevel,
+  "blocked"
+);
+const highRisk = evaluateVerificationRisk({
+  captchaDetected: false,
+  pagesRequested: 107,
+  pagesScanned: 60,
+  avgSecondsPerPage: 4.627,
+  weakVerificationPages: [],
+  strongVerificationPages: [],
+});
+assert.equal(highRisk.riskLevel, "high");
+assert.match(highRisk.warnings.join("\n"), /too aggressive/i);
+const lowRisk = evaluateVerificationRisk({
+  captchaDetected: false,
+  pagesRequested: 107,
+  pagesScanned: 107,
+  avgSecondsPerPage: 9.045,
+  weakVerificationPages: [],
+  strongVerificationPages: [],
+});
+assert.equal(lowRisk.riskLevel, "low");
+assert.equal(
+  evaluateVerificationRisk({
+    captchaDetected: false,
+    pagesRequested: 10,
+    pagesScanned: 10,
+    avgSecondsPerPage: 4.5,
+    weakVerificationPages: [],
+    strongVerificationPages: [],
+  }).riskLevel,
+  "medium"
+);
+
+const trustedProbeDiff = {
+  allowApply: true,
+  coverage: {
+    fullExpectedRangeScanned: true,
+    captchaDetected: false,
+  },
+  fatalWarnings: [],
+  newIds: ["200", "201", "202", "203", "204", "205"],
+};
+const probeCurrentProducts = trustedProbeDiff.newIds.map((id) => ({
+  sourceProductId: id,
+  sourceUrl: `https://example.invalid/moreinfo.cfm?product_id=${id}`,
+  title: `Probe ${id}`,
+}));
+const trustedProbeSelection = selectTrustedDetailProbeCandidates({
+  diff: trustedProbeDiff,
+  currentProducts: probeCurrentProducts,
+  detailProbeMax: 5,
+});
+assert.equal(trustedProbeSelection.trusted, true);
+assert.equal(trustedProbeSelection.candidates.length, 5);
+assert.deepEqual(
+  trustedProbeSelection.candidates.map((item) => item.sourceProductId),
+  ["200", "201", "202", "203", "204"]
+);
+for (const untrustedDiff of [
+  { ...trustedProbeDiff, allowApply: false },
+  {
+    ...trustedProbeDiff,
+    coverage: {
+      ...trustedProbeDiff.coverage,
+      captchaDetected: true,
+    },
+  },
+  {
+    ...trustedProbeDiff,
+    coverage: {
+      ...trustedProbeDiff.coverage,
+      fullExpectedRangeScanned: false,
+    },
+  },
+]) {
+  const selection = selectTrustedDetailProbeCandidates({
+    diff: untrustedDiff,
+    currentProducts: probeCurrentProducts,
+    detailProbeMax: 5,
+  });
+  assert.equal(selection.trusted, false);
+  assert.equal(selection.candidates.length, 0);
+}
+
+const simulatedDetailProbe = simulateDetailProbe({
+  candidates: trustedProbeSelection.candidates,
+  detailProbeMax: 5,
+  strongVerificationAt: 3,
+});
+assert.equal(simulatedDetailProbe.observations.length, 3);
+assert.equal(
+  simulatedDetailProbe.observations[2].finalClassification,
+  "strong-verification"
+);
+assert.equal(simulatedDetailProbe.stoppedForStrongVerification, true);
+const simulatedRecoveredDetailProbe = simulateDetailProbe({
+  candidates: trustedProbeSelection.candidates,
+  detailProbeMax: 5,
+  strongVerificationAt: 2,
+  manualVerificationRecoveredAt: 2,
+});
+assert.equal(
+  simulatedRecoveredDetailProbe.observations.length,
+  5
+);
+assert.equal(
+  simulatedRecoveredDetailProbe.stoppedForStrongVerification,
+  false
+);
+assert.equal(
+  simulatedRecoveredDetailProbe.observations[1]
+    .manualVerificationRecovered,
+  true
+);
+assert.equal(
+  simulatedRecoveredDetailProbe.observations[1]
+    .parsedSuccessfully,
+  true
+);
+
+const detailProbeTelemetry = buildDetailProbeTelemetry({
+  runId: "detail-probe-mock",
+  startedAt: "2026-06-22T00:00:00.000Z",
+  endedAt: "2026-06-22T00:00:30.000Z",
+  detailProbeMax: 5,
+  observations: simulatedDetailProbe.observations,
+  blockedReason: "strong verification",
+  browser: {
+    ...chromeBrowserDescriptor,
+    userDataDirCreated: true,
+  },
+  manualVerificationAllowed: true,
+  manualVerificationRecovered: false,
+});
+assert.equal(detailProbeTelemetry.mode, "detail-probe");
+assert.equal(detailProbeTelemetry.detailsAttempted, 3);
+assert.equal(detailProbeTelemetry.captchaDetected, true);
+assert.equal(detailProbeTelemetry.candidateGenerated, false);
+assert.equal(detailProbeTelemetry.productionWritten, false);
+assert.equal(
+  detailProbeTelemetry.browser.effectiveBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  detailProbeTelemetry.browser.profileSource,
+  "default-chrome-sp"
+);
+assert.equal(
+  detailProbeTelemetry.manualVerificationRecovered,
+  false
+);
+assert.equal(
+  detailProbeTelemetry.verificationDetectedAt,
+  simulatedDetailProbe.observations[2].startedAt
+);
+
+const noCandidateProbeRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-detail-probe-noop-")
+);
+fs.mkdirSync(
+  path.join(noCandidateProbeRoot, "data", "inventory"),
+  { recursive: true }
+);
+fs.writeFileSync(
+  path.join(
+    noCandidateProbeRoot,
+    "data",
+    "inventory",
+    "smokingpipes-inventory-diff-dry-run.json"
+  ),
+  JSON.stringify({
+    allowApply: false,
+    coverage: {
+      fullExpectedRangeScanned: true,
+      captchaDetected: true,
+    },
+    fatalWarnings: [
+      "captcha/currentListVerificationDetected",
+    ],
+    newIds: ["200"],
+  })
+);
+fs.writeFileSync(
+  path.join(
+    noCandidateProbeRoot,
+    "data",
+    "inventory",
+    "smokingpipes-current-list-dry-run.json"
+  ),
+  JSON.stringify({ products: probeCurrentProducts })
+);
+const noCandidateProbeResult = await runSmokingpipesDetailProbe({
+  root: noCandidateProbeRoot,
+  options: parseRunnerOptions(["--mode=detail-probe"]),
+});
+assert.equal(
+  noCandidateProbeResult.status,
+  "no-detail-probe-candidates"
+);
+assert.equal(noCandidateProbeResult.browserStarted, false);
+assert.equal(
+  fs.existsSync(
+    path.join(
+      noCandidateProbeRoot,
+      "data",
+      "inventory",
+      "smokingpipes-detail-probe-telemetry.json"
+    )
+  ),
+  true
+);
+assert.equal(
+  fs.existsSync(
+    path.join(
+      noCandidateProbeRoot,
+      "data",
+      "inventory",
+      "smokingpipes-daily-new-details-queue.json"
+    )
+  ),
+  false
+);
+
+const browserPreflightRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-browser-preflight-")
+);
+const browserPreflightResult =
+  await runSmokingpipesBrowserPreflight({
+    root: browserPreflightRoot,
+    options: parseRunnerOptions([
+      "--mode=browser-preflight",
+      "--mock",
+      "--browser-channel=chrome",
+      "--browser-profile=sp-chrome",
+      "--verbose",
+    ]),
+  });
+assert.equal(browserPreflightResult.status, "preflight-passed");
+assert.equal(browserPreflightResult.browserStarted, false);
+assert.equal(browserPreflightResult.productsFetched, false);
+assert.equal(browserPreflightResult.candidateGenerated, false);
+assert.equal(browserPreflightResult.productionWritten, false);
+assert.equal(
+  browserPreflightResult.state.browser.requestedBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  browserPreflightResult.state.browser.effectiveBrowserChannel,
+  "chrome"
+);
+assert.equal(
+  browserPreflightResult.state.browser.profileSource,
+  "named-sp-chrome"
+);
+assert.equal(
+  browserPreflightResult.state.verificationDetectedAt,
+  null
+);
+const browserPreflightPaths = runnerCore.getRunnerPaths(
+  browserPreflightRoot,
+  { mock: true }
+);
+assert.equal(
+  fs.existsSync(browserPreflightPaths.browserProfileState),
+  true
+);
+assert.equal(
+  fs.existsSync(browserPreflightPaths.browserProfileReport),
+  true
+);
+for (const forbiddenPath of [
+  browserPreflightPaths.currentList,
+  browserPreflightPaths.diff,
+  browserPreflightPaths.queue,
+  browserPreflightPaths.dailyQueue,
+  browserPreflightPaths.dailyProductsNext,
+]) {
+  assert.equal(fs.existsSync(forbiddenPath), false);
+}
+assert.equal(
+  fs.existsSync(
+    path.join(
+      noCandidateProbeRoot,
+      "data",
+      "products",
+      "smokingpipes-products-daily-next-dry-run.json"
+    )
+  ),
+  false
+);
 
 const legacyFixedDelay = resolveListPacingOptions({
   pageDelayMs: 4500,
@@ -1551,6 +2753,212 @@ assert.equal(applyCandidate.productionWritten, false);
 assert.equal(applyCandidate.candidateReady, true);
 assert.equal(applyCandidate.allowFormalApply, false);
 
+const dailyCandidate = buildSmokingpipesDailyCandidate({
+  productionProducts: candidateExistingProducts,
+  currentPayload: candidateCurrentPayload,
+  dailyDiff: {
+    ...candidateDiff,
+    dailyNewIds: candidateDiff.newIds,
+    newlySoldOutIds: ["2"],
+    missingPriceButNotSoldIds: ["3"],
+    counts: {
+      ...candidateDiff.counts,
+      dailyNew: 1,
+      newlySoldOut: 1,
+      missingPriceButNotSold: 1,
+    },
+  },
+  queue: {
+    items: [
+      {
+        sourceProductId: "5",
+        active: true,
+        status: "completed",
+        detail: { sourceProductId: "5" },
+      },
+    ],
+  },
+  convertedNewProducts: [convertedNewProduct],
+  conversionFailures: [],
+});
+assert.equal(dailyCandidate.products.length, 5);
+assert.equal(
+  dailyCandidate.products.find((item) => item.sourceProductId === "2")
+    ?.inventoryStatus,
+  "sold"
+);
+assert.equal(
+  dailyCandidate.products.find((item) => item.sourceProductId === "4")
+    ?.inventoryStatus,
+  "sold"
+);
+assert.equal(
+  dailyCandidate.products.find((item) => item.sourceProductId === "3")
+    ?.inventoryStatus,
+  "available",
+  "daily missing-price without sold evidence must remain available"
+);
+assert.deepEqual(
+  dailyCandidate.recentNewProducts.map((item) => item.sourceProductId),
+  ["5"]
+);
+assert.equal(dailyCandidate.productionWritten, false);
+
+const dailyAudit = buildSmokingpipesDailyAudit({
+  productionProducts: candidateExistingProducts,
+  currentPayload: candidateCurrentPayload,
+  dailyDiff: {
+    ...candidateDiff,
+    dailyNewIds: candidateDiff.newIds,
+    newlySoldOutIds: ["2"],
+    missingPriceButNotSoldIds: ["3"],
+    counts: {
+      ...candidateDiff.counts,
+      dailyNew: 1,
+      newlySoldOut: 1,
+      missingPriceButNotSold: 1,
+    },
+  },
+  queue: {
+    items: [
+      {
+        sourceProductId: "5",
+        active: true,
+        status: "completed",
+      },
+    ],
+  },
+  candidate: dailyCandidate,
+  publicPayloads: {
+    catalog: {
+      products: [
+        {
+          id: "smokingpipes-5",
+          source: "smokingpipes",
+          sourceProductId: "5",
+          inventoryStatus: "available",
+          publicIndexEligible: true,
+          publiclySellable: true,
+          mainImage: "https://example.com/5.jpg",
+          sourcePriceAmount: 200,
+          siteDisplayAmount: 2000,
+          siteDisplayReady: true,
+        },
+        {
+          id: "smokingpipes-2",
+          source: "smokingpipes",
+          sourceProductId: "2",
+          inventoryStatus: "sold",
+          publicIndexEligible: true,
+          publiclySellable: false,
+          mainImage: "https://example.com/2.jpg",
+          sourcePriceAmount: 100,
+          siteDisplayAmount: 1000,
+          siteDisplayReady: true,
+        },
+        {
+          id: "smokingpipes-4",
+          source: "smokingpipes",
+          sourceProductId: "4",
+          inventoryStatus: "sold",
+          publicIndexEligible: true,
+          publiclySellable: false,
+          mainImage: "https://example.com/4.jpg",
+          sourcePriceAmount: 100,
+          siteDisplayAmount: 1000,
+          siteDisplayReady: true,
+        },
+      ],
+    },
+    recentNew: {
+      products: [
+        {
+          id: "smokingpipes-5",
+          sourceProductId: "5",
+          inventoryStatus: "available",
+        },
+      ],
+    },
+  },
+});
+assert.equal(dailyAudit.verdict, "PASS");
+assert.equal(dailyAudit.blockers.length, 0);
+assert.equal(dailyAudit.counts.recentNewSold, 0);
+
+const dailyTiming = buildDailyTimingSummary({
+  startedAt: "2026-06-22T00:00:00.000Z",
+  listStartedAt: "2026-06-22T00:00:01.000Z",
+  listEndedAt: "2026-06-22T00:05:22.000Z",
+  pagesScanned: 107,
+  detailStartedAt: "2026-06-22T00:05:23.000Z",
+  detailEndedAt: "2026-06-22T00:05:43.000Z",
+  detailsAttempted: 2,
+  finishedAt: "2026-06-22T00:05:45.000Z",
+});
+assert.equal(dailyTiming.list.durationSeconds, 321);
+assert.equal(dailyTiming.list.avgSecondsPerPage, 3);
+assert.equal(dailyTiming.details.durationSeconds, 20);
+assert.equal(dailyTiming.details.avgSecondsPerDetail, 10);
+assert.equal(dailyTiming.totalDurationSeconds, 345);
+
+const dailyConflictAudit = buildSmokingpipesDailyAudit({
+  productionProducts: candidateExistingProducts,
+  currentPayload: candidateCurrentPayload,
+  dailyDiff: {
+    ...candidateDiff,
+    dailyNewIds: ["9"],
+    newIds: ["9"],
+  },
+  queue: {
+    items: [
+      {
+        sourceProductId: "9",
+        active: true,
+        status: "completed",
+      },
+    ],
+  },
+  candidate: {
+    products: [],
+    readiness: {
+      products: [
+        {
+          sourceProductId: "9",
+          sourceSpecific: {
+            smokingpipes: {
+              baselineReadinessCategory: "inventoryConflict",
+            },
+          },
+        },
+      ],
+      counts: {
+        inventoryConflict: 1,
+        reviewOnly: 1,
+      },
+    },
+  },
+  publicPayloads: {
+    catalog: {
+      products: [
+        {
+          id: "smokingpipes-9",
+          source: "smokingpipes",
+          sourceProductId: "9",
+          inventoryStatus: "available",
+          publiclySellable: true,
+          mainImage: "https://example.com/9.jpg",
+          sourcePriceAmount: 100,
+          siteDisplayAmount: 1000,
+          siteDisplayReady: true,
+        },
+      ],
+    },
+    recentNew: { products: [] },
+  },
+});
+assert.equal(dailyConflictAudit.verdict, "FAIL");
+assert.equal(dailyConflictAudit.counts.inventoryConflictInCatalog, 1);
+
 assert.throws(
   () =>
     buildSmokingpipesApplyCandidate({
@@ -2072,6 +3480,1073 @@ assert.match(completeCatchUpReport, /final next outputs generated: true/i);
 assert.match(
   completeCatchUpReport,
   /Review generated next-dry-run outputs before formal apply\./
+);
+
+const progressiveNow = "2026-06-23T00:00:00.000Z";
+const progressiveState = createProgressiveDailyState({
+  dailyRunId: "progressive-test",
+  expectedPages: 107,
+  now: progressiveNow,
+});
+assert.equal(
+  progressiveState.version,
+  "smokingpipes-progressive-daily-state-v1"
+);
+assert.equal(
+  validateProgressiveDailyState(progressiveState).valid,
+  true
+);
+assert.equal(
+  validateProgressiveDailyState({
+    ...progressiveState,
+    version: "unknown",
+  }).status,
+  "blocked"
+);
+const malformedProgressiveRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-malformed-")
+);
+const malformedProgressivePath = path.join(
+  malformedProgressiveRoot,
+  "state.json"
+);
+fs.writeFileSync(
+  malformedProgressivePath,
+  "{malformed-json",
+  "utf8"
+);
+assert.equal(
+  readProgressiveDailyState(malformedProgressivePath).status,
+  "blocked"
+);
+assert.equal(
+  fs.readFileSync(malformedProgressivePath, "utf8"),
+  "{malformed-json"
+);
+assert.equal(
+  validateProgressiveDailyState({
+    ...progressiveState,
+    candidates: [
+      {
+        sourceProductId: "1",
+        detailStatus: "pending",
+        publicStatus: "not-public",
+        changeTypes: ["new-product"],
+        detailAttempts: 0,
+        blockedCount: 0,
+      },
+      {
+        sourceProductId: "1",
+        detailStatus: "pending",
+        publicStatus: "not-public",
+        changeTypes: ["new-product"],
+        detailAttempts: 0,
+        blockedCount: 0,
+      },
+    ],
+  }).status,
+  "blocked"
+);
+
+const progressiveProduction = [
+  {
+    id: "smokingpipes-100",
+    source: "smokingpipes",
+    sourceProductId: "100",
+    inventoryStatus: "available",
+    price: {
+      current: {
+        rawText: "$100.00",
+        currency: "USD",
+        amount: 100,
+        parseStatus: "parsed",
+      },
+    },
+    fullTitle: "Existing complete title",
+    galleryImages: ["https://example.invalid/100.jpg"],
+  },
+  {
+    id: "smokingpipes-101",
+    source: "smokingpipes",
+    sourceProductId: "101",
+    inventoryStatus: "sold",
+    fullTitle: "Previously sold",
+    price: {
+      current: {
+        rawText: "$100.00",
+        currency: "USD",
+        amount: 100,
+        parseStatus: "parsed",
+      },
+    },
+  },
+  {
+    id: "smokingpipes-102",
+    source: "smokingpipes",
+    sourceProductId: "102",
+    inventoryStatus: "available",
+    fullTitle: "Absent from partial scan",
+    price: {
+      current: {
+        rawText: "$102.00",
+        currency: "USD",
+        amount: 102,
+        parseStatus: "parsed",
+      },
+    },
+  },
+];
+const progressivePartialCurrent = {
+  generatedAt: progressiveNow,
+  summary: {
+    pagesScanned: 2,
+    expectedPages: 107,
+    fullExpectedRangeScanned: false,
+    captchaDetected: true,
+    captchaPages: [3],
+  },
+  products: [
+    {
+      sourceProductId: "100",
+      sourceUrl: "https://example.invalid/100",
+      title: "List title must not overwrite details",
+      price: "$110.00",
+      imageUrl: "https://example.invalid/list-100.jpg",
+      rawText: "Available",
+    },
+    {
+      sourceProductId: "101",
+      sourceUrl: "https://example.invalid/101",
+      title: "Reappeared",
+      price: "$120.00",
+      imageUrl: "https://example.invalid/list-101.jpg",
+      rawText: "Available",
+    },
+    ...Array.from({ length: 5 }, (_, index) => ({
+      sourceProductId: String(200 + index),
+      sourceUrl: `https://example.invalid/${200 + index}`,
+      title: `New pipe ${index + 1}`,
+      price: `$${200 + index}.00`,
+      imageUrl: `https://example.invalid/${200 + index}.jpg`,
+      rawText: "Available",
+    })),
+  ],
+};
+const ingestedProgressive = ingestProgressiveListSnapshot({
+  state: progressiveState,
+  currentPayload: progressivePartialCurrent,
+  productionProducts: progressiveProduction,
+  runId: "progressive-list-1",
+  now: progressiveNow,
+});
+assert.equal(ingestedProgressive.listSnapshotStatus, "blocked");
+assert.deepEqual(
+  ingestedProgressive.globalReconcile.disappearedIds,
+  []
+);
+assert.deepEqual(
+  ingestedProgressive.candidates.find(
+    (item) => item.sourceProductId === "100"
+  ).changeTypes,
+  ["price-change"]
+);
+assert.deepEqual(
+  ingestedProgressive.candidates.find(
+    (item) => item.sourceProductId === "101"
+  ).changeTypes.sort(),
+  ["price-change", "reappeared"]
+);
+assert.equal(
+  ingestProgressiveListSnapshot({
+    state: ingestedProgressive,
+    currentPayload: progressivePartialCurrent,
+    productionProducts: progressiveProduction,
+    runId: "progressive-list-1",
+    now: progressiveNow,
+  }).candidates.length,
+  ingestedProgressive.candidates.length
+);
+
+const progressiveCheckpointSnapshots = [];
+const progressiveChunk = await runProgressiveDetailChunk({
+  state: ingestedProgressive,
+  maxItems: 5,
+  now: progressiveNow,
+  checkpoint: async (state) => {
+    progressiveCheckpointSnapshots.push(
+      structuredClone(state)
+    );
+  },
+  processDetail: async (candidate, index) => {
+    if (index === 3) {
+      throw Object.assign(
+        new Error("strong verification"),
+        { code: "CAPTCHA_REQUIRED" }
+      );
+    }
+    return {
+      detail: {
+        sourceProductId: candidate.sourceProductId,
+        fullTitle: candidate.listTitle,
+      },
+      convertedProduct: {
+        id: `smokingpipes-${candidate.sourceProductId}`,
+        source: "smokingpipes",
+        sourceProductId: candidate.sourceProductId,
+        fullTitle: candidate.listTitle,
+        inventoryStatus: "available",
+        publication: {
+          publicIndexEligible: true,
+          publiclySellable: true,
+        },
+        mainImageUrl: candidate.listPrimaryImage,
+        galleryImages: [candidate.listPrimaryImage],
+        price: {
+          current: {
+            rawText: candidate.listPrice,
+            currency: "USD",
+            amount: Number(candidate.sourceProductId),
+            parseStatus: "parsed",
+          },
+        },
+      },
+      publicReady: true,
+    };
+  },
+});
+assert.equal(progressiveChunk.status, "blocked");
+assert.equal(progressiveChunk.completedThisRun, 3);
+assert.equal(progressiveCheckpointSnapshots.length, 4);
+const progressiveAfterBlocked = progressiveChunk.state;
+assert.equal(
+  progressiveAfterBlocked.candidates.filter(
+    (item) =>
+      item.changeTypes.includes("new-product") &&
+      item.detailStatus === "complete"
+  ).length,
+  3
+);
+const progressiveBlockedCandidate =
+  progressiveAfterBlocked.candidates.find(
+    (item) => item.detailStatus === "blocked"
+  );
+assert.equal(progressiveBlockedCandidate.blockedCount, 1);
+assert.equal(
+  progressiveBlockedCandidate.lastBlockedReason,
+  "strong verification"
+);
+assert.ok(progressiveBlockedCandidate.nextEligibleAt);
+assert.ok(progressiveChunk.recommendedNextRunAt);
+assert.equal(
+  summarizeProgressiveState(progressiveAfterBlocked)
+    .detailsCompletedTotal,
+  3
+);
+const progressiveRelay = await runProgressiveDetailChunk({
+  state: progressiveAfterBlocked,
+  maxItems: 1,
+  now: "2026-06-23T02:00:00.000Z",
+  checkpoint: async () => {},
+  processDetail: async (candidate) => ({
+    detail: {
+      sourceProductId: candidate.sourceProductId,
+      fullTitle: candidate.listTitle,
+    },
+    convertedProduct: {
+      id: `smokingpipes-${candidate.sourceProductId}`,
+      source: "smokingpipes",
+      sourceProductId: candidate.sourceProductId,
+      fullTitle: candidate.listTitle,
+      inventoryStatus: "available",
+      publication: {
+        publicIndexEligible: true,
+        publiclySellable: true,
+      },
+      mainImageUrl: candidate.listPrimaryImage,
+      galleryImages: [candidate.listPrimaryImage],
+      price: {
+        current: {
+          rawText: candidate.listPrice,
+          currency: "USD",
+          amount: Number(candidate.sourceProductId),
+          parseStatus: "parsed",
+        },
+      },
+    },
+    publicReady: true,
+  }),
+});
+assert.equal(progressiveRelay.completedThisRun, 1);
+const progressiveRecoveredBlocked =
+  progressiveRelay.state.candidates.find(
+    (item) =>
+      item.sourceProductId ===
+      progressiveBlockedCandidate.sourceProductId
+  );
+assert.equal(progressiveRecoveredBlocked.detailStatus, "complete");
+assert.equal(progressiveRecoveredBlocked.blockedCount, 1);
+assert.equal(
+  progressiveRecoveredBlocked.lastBlockedReason,
+  "strong verification"
+);
+assert.ok(progressiveRecoveredBlocked.lastBlockedAt);
+
+const progressiveClassificationState =
+  ingestProgressiveListSnapshot({
+    state: createProgressiveDailyState({
+      dailyRunId: "progressive-public-status",
+      now: progressiveNow,
+    }),
+    currentPayload: {
+      generatedAt: progressiveNow,
+      summary: {
+        pagesScanned: 1,
+        expectedPages: 107,
+        fullExpectedRangeScanned: false,
+        captchaDetected: false,
+        captchaPages: [],
+      },
+      products: [
+        {
+          sourceProductId: "728182",
+          sourceUrl: "https://example.invalid/728182",
+          title: "Public ready new pipe",
+          price: "$172.00",
+          imageUrl: "https://example.invalid/728182.jpg",
+          rawText: "Available",
+        },
+        {
+          sourceProductId: "676033",
+          sourceUrl: "https://example.invalid/676033",
+          title: "Inventory conflict pipe 1",
+          price: "$168.50",
+          imageUrl: "https://example.invalid/676033.jpg",
+          rawText: "Available",
+        },
+        {
+          sourceProductId: "676034",
+          sourceUrl: "https://example.invalid/676034",
+          title: "Inventory conflict pipe 2",
+          price: "$143.00",
+          imageUrl: "https://example.invalid/676034.jpg",
+          rawText: "Available",
+        },
+      ],
+    },
+    diffPayload: {
+      newIds: ["728182", "676033", "676034"],
+      reappearedIds: [],
+      disappearedIds: [],
+      coverage: {
+        pagesScanned: 1,
+        expectedPages: 107,
+        fullExpectedRangeScanned: false,
+        captchaDetected: false,
+      },
+    },
+    productionProducts: progressiveProduction,
+    runId: "progressive-public-status",
+    now: progressiveNow,
+  });
+const progressiveClassified =
+  await runProgressiveDetailChunk({
+    state: progressiveClassificationState,
+    maxItems: 3,
+    now: progressiveNow,
+    checkpoint: async () => {},
+    processDetail: async (candidate) => {
+      const commonProduct = {
+        id: `smokingpipes-${candidate.sourceProductId}`,
+        source: "smokingpipes",
+        sourceProductId: candidate.sourceProductId,
+        sourceUrl: candidate.sourceUrl,
+        fullTitle: candidate.listTitle,
+        listingEligible: true,
+        imageUrl: candidate.listPrimaryImage,
+        mainImageUrl: candidate.listPrimaryImage,
+        galleryImages: [candidate.listPrimaryImage],
+        price: {
+          current: {
+            rawText: candidate.listPrice,
+            currency: "USD",
+            amount: Number.parseFloat(
+              candidate.listPrice.replace(/[^0-9.]/g, "")
+            ),
+            parseStatus: "parsed",
+          },
+        },
+        publication: {
+          listingEligible: true,
+        },
+      };
+      if (candidate.sourceProductId === "728182") {
+        return {
+          detail: {
+            sourceProductId: candidate.sourceProductId,
+            fullTitle: candidate.listTitle,
+          },
+          convertedProduct: {
+            ...commonProduct,
+            inventoryStatus: "available",
+            inventoryConfidence: "high",
+            inventoryReviewReasons: [],
+            rawBrand: "",
+            brandReviewStatus: "needs-review",
+            brandIndexEligible: false,
+          },
+        };
+      }
+      return {
+        detail: {
+          sourceProductId: candidate.sourceProductId,
+          fullTitle: candidate.listTitle,
+        },
+        convertedProduct: {
+          ...commonProduct,
+          inventoryStatus: "needs-review",
+          inventoryConfidence: "conflicting-signals",
+          listingEligible: false,
+          publication: {
+            listingEligible: false,
+          },
+          inventoryReviewReasons: [
+            "Detail page says sold while the product remains in the active list range.",
+          ],
+        },
+      };
+    },
+  });
+const classifiedReady =
+  progressiveClassified.state.candidates.find(
+    (item) => item.sourceProductId === "728182"
+  );
+assert.equal(classifiedReady.detailStatus, "complete");
+assert.equal(classifiedReady.publicStatus, "ready");
+assert.match(
+  classifiedReady.readyReason,
+  /listingEligible|available|valid price|image/i
+);
+assert.equal(classifiedReady.lastError, null);
+for (const id of ["676033", "676034"]) {
+  const conflict =
+    progressiveClassified.state.candidates.find(
+      (item) => item.sourceProductId === id
+    );
+  assert.equal(conflict.detailStatus, "complete");
+  assert.equal(conflict.publicStatus, "review-only");
+  assert.match(
+    conflict.reviewReason,
+    /inventory conflict|Detail page says sold while the product remains in the active list range/i
+  );
+}
+
+const progressiveFullScan = ingestProgressiveListSnapshot({
+  state: createProgressiveDailyState({
+    dailyRunId: "progressive-full",
+    now: progressiveNow,
+  }),
+  currentPayload: {
+    generatedAt: progressiveNow,
+    summary: {
+      pagesScanned: 107,
+      expectedPages: 107,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      captchaPages: [],
+    },
+    products: [
+      {
+        sourceProductId: "100",
+        sourceUrl: "https://example.invalid/100",
+        title: "Existing",
+        price: "$100.00",
+        rawText: "Available",
+      },
+    ],
+  },
+  productionProducts: progressiveProduction,
+  runId: "progressive-full",
+  now: progressiveNow,
+});
+assert.deepEqual(
+  progressiveFullScan.globalReconcile.disappearedIds,
+  ["102"]
+);
+
+const progressiveCandidateBuild1 =
+  buildProgressivePartialProducts({
+    productionProducts: progressiveProduction,
+    state: progressiveAfterBlocked,
+    now: "2026-06-23T01:00:00.000Z",
+  });
+const progressiveCandidateBuild2 =
+  buildProgressivePartialProducts({
+    productionProducts: progressiveProduction,
+    state: progressiveAfterBlocked,
+    now: "2026-06-23T01:00:00.000Z",
+  });
+assert.deepEqual(
+  progressiveCandidateBuild2,
+  progressiveCandidateBuild1
+);
+assert.deepEqual(
+  buildProgressivePartialProducts({
+    productionProducts: progressiveProduction,
+    state: progressiveAfterBlocked,
+  }),
+  buildProgressivePartialProducts({
+    productionProducts: progressiveProduction,
+    state: progressiveAfterBlocked,
+  })
+);
+assert.equal(
+  buildProgressivePartialProducts({
+    productionProducts: progressiveProduction,
+    state: progressiveAfterBlocked,
+  }).generatedAt,
+  progressiveAfterBlocked.updatedAt
+);
+assert.equal(
+  progressiveCandidateBuild1.products.length,
+  progressiveProduction.length + 3
+);
+assert.equal(
+  new Set(
+    progressiveCandidateBuild1.products.map(
+      (item) => item.sourceProductId
+    )
+  ).size,
+  progressiveCandidateBuild1.products.length
+);
+const progressiveExistingPriceUpdate =
+  progressiveCandidateBuild1.products.find(
+    (item) => item.sourceProductId === "100"
+  );
+assert.equal(
+  progressiveExistingPriceUpdate.fullTitle,
+  "Existing complete title"
+);
+assert.deepEqual(
+  progressiveExistingPriceUpdate.galleryImages,
+  ["https://example.invalid/100.jpg"]
+);
+assert.equal(
+  progressiveExistingPriceUpdate.price.current.amount,
+  110
+);
+const progressiveReappeared =
+  progressiveCandidateBuild1.products.find(
+    (item) => item.sourceProductId === "101"
+  );
+assert.equal(progressiveReappeared.inventoryStatus, "available");
+assert.equal(
+  progressiveCandidateBuild1.products.some(
+    (item) => item.sourceProductId === "203"
+  ),
+  false
+);
+assert.equal(
+  progressiveCandidateBuild1.products.some(
+    (item) => item.sourceProductId === "204"
+  ),
+  false
+);
+
+const progressivePublicCatalog = {
+  products: progressiveCandidateBuild1.products.map((item) => ({
+    id: item.id,
+    source: item.source,
+    sourceProductId: item.sourceProductId,
+    inventoryStatus: item.inventoryStatus,
+    publicIndexEligible: true,
+    publiclySellable: item.inventoryStatus === "available",
+    sourcePriceAmount:
+      item.price?.current?.amount || null,
+    siteDisplayAmount:
+      item.inventoryStatus === "available" ? 1000 : null,
+    siteDisplayReady: item.inventoryStatus === "available",
+  })),
+};
+const progressiveRecentNew = selectProgressiveRecentNew({
+  catalog: progressivePublicCatalog.products,
+  newProductIds:
+    progressiveCandidateBuild1.newProductIds,
+});
+assert.equal(progressiveRecentNew.length, 3);
+assert.equal(
+  new Set(progressiveRecentNew.map((item) => item.id)).size,
+  3
+);
+const progressiveAudit = auditProgressivePartialCandidate({
+  productionProducts: progressiveProduction,
+  candidateProducts: progressiveCandidateBuild1.products,
+  state: progressiveAfterBlocked,
+  publicCatalog: progressivePublicCatalog.products,
+  recentNew: progressiveRecentNew,
+});
+assert.equal(progressiveAudit.verdict, "PASS");
+assert.equal(progressiveAudit.newProductReady, 3);
+assert.equal(progressiveAudit.newProductReviewOnly, 0);
+assert.equal(progressiveAudit.newProductNotReady, 2);
+assert.ok(Array.isArray(progressiveAudit.filteredNewProducts));
+assert.ok(
+  progressiveAudit.filteredNewProducts.some(
+    (item) =>
+      item.sourceProductId === "203" &&
+      item.publicStatus === "not-public"
+  )
+);
+assert.deepEqual(progressiveAudit.counts, {
+  deletedProducts: 0,
+  pendingLeak: 0,
+  failedLeak: 0,
+  blockedLeak: 0,
+  reviewOnlyLeak: 0,
+  zeroPriceSellable: 0,
+});
+const progressiveLeakState = structuredClone(
+  progressiveAfterBlocked
+);
+const progressivePendingLeak =
+  progressiveLeakState.candidates.find(
+    (item) => item.sourceProductId === "204"
+  );
+progressivePendingLeak.detailStatus = "review-only";
+progressivePendingLeak.publicStatus = "review-only";
+const progressiveLeakAudit =
+  auditProgressivePartialCandidate({
+    productionProducts: progressiveProduction,
+    candidateProducts:
+      progressiveCandidateBuild1.products,
+    state: progressiveLeakState,
+    publicCatalog: [
+      ...progressivePublicCatalog.products,
+      {
+        id: "smokingpipes-204",
+        source: "smokingpipes",
+        sourceProductId: "204",
+        inventoryStatus: "available",
+        publiclySellable: true,
+        sourcePriceAmount: 204,
+        siteDisplayAmount: 1000,
+        siteDisplayReady: true,
+      },
+    ],
+    recentNew: progressiveRecentNew,
+  });
+assert.equal(progressiveLeakAudit.verdict, "FAIL");
+assert.equal(progressiveLeakAudit.counts.reviewOnlyLeak, 1);
+assert.equal(
+  buildProgressivePartialApplyPreview({
+    state: progressiveLeakState,
+    audit: progressiveLeakAudit,
+    productionProducts: progressiveProduction,
+    candidateProducts:
+      progressiveCandidateBuild1.products,
+  }).status,
+  "blocked"
+);
+const progressiveApplyPreview =
+  buildProgressivePartialApplyPreview({
+    state: progressiveAfterBlocked,
+    audit: progressiveAudit,
+    productionProducts: progressiveProduction,
+    candidateProducts:
+      progressiveCandidateBuild1.products,
+    now: "2026-06-23T02:00:00.000Z",
+  });
+assert.equal(progressiveApplyPreview.status, "preview-ready");
+assert.equal(progressiveApplyPreview.productionWritten, false);
+assert.equal(progressiveApplyPreview.commitPerformed, false);
+assert.equal(progressiveApplyPreview.pushPerformed, false);
+assert.equal(
+  progressiveAfterBlocked.candidates.some(
+    (item) =>
+      item.publicStatus === "published" ||
+      item.lastAppliedAt ||
+      item.appliedInCommit
+  ),
+  false
+);
+for (const mode of [
+  "progressive-ingest-list",
+  "progressive-detail-chunk",
+  "progressive-build-candidate",
+  "progressive-partial-apply",
+]) {
+  assert.equal(
+    parseRunnerOptions([`--mode=${mode}`]).mode,
+    mode
+  );
+}
+assert.equal(
+  parseRunnerOptions([
+    "--mode=progressive-detail-chunk",
+  ]).progressiveDetailMax,
+  5
+);
+assert.equal(
+  parseRunnerOptions([
+    "--mode=progressive-detail-chunk",
+    "--progressive-detail-max=3",
+  ]).progressiveDetailMax,
+  3
+);
+const progressivePaths = runnerCore.getRunnerPaths(
+  "C:\\progressive-test",
+  { mock: false }
+);
+assert.match(
+  progressivePaths.progressiveState,
+  /smokingpipes-progressive-daily-state\.json$/
+);
+assert.match(
+  progressivePaths.progressiveProductsNext,
+  /smokingpipes-products-partial-next-dry-run\.json$/
+);
+assert.match(
+  progressivePaths.progressiveAuditMarkdown,
+  /smokingpipes-progressive-partial-audit-report\.md$/
+);
+assert.match(
+  progressivePaths.progressiveApplyPreview,
+  /smokingpipes-progressive-partial-apply-preview\.json$/
+);
+
+const progressiveIngestOptions = parseRunnerOptions([
+  "--mode=progressive-ingest-list",
+  "--current-list=data/inventory/custom-current.json",
+  "--diff=data/inventory/custom-diff.json",
+]);
+assert.equal(
+  progressiveIngestOptions.currentListPath,
+  path.resolve("data/inventory/custom-current.json")
+);
+assert.equal(
+  progressiveIngestOptions.diffPath,
+  path.resolve("data/inventory/custom-diff.json")
+);
+
+const progressiveIngestRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-ingest-")
+);
+const progressiveIngestCurrentPath = path.join(
+  progressiveIngestRoot,
+  "fixtures",
+  "current.json"
+);
+const progressiveIngestDiffPath = path.join(
+  progressiveIngestRoot,
+  "fixtures",
+  "diff.json"
+);
+const progressiveIngestProductionPath = path.join(
+  progressiveIngestRoot,
+  "data",
+  "products",
+  "smokingpipes-products.json"
+);
+fs.mkdirSync(
+  path.dirname(progressiveIngestCurrentPath),
+  { recursive: true }
+);
+fs.mkdirSync(
+  path.dirname(progressiveIngestProductionPath),
+  { recursive: true }
+);
+const progressiveIngestProduction = [
+  {
+    id: "smokingpipes-100",
+    source: "smokingpipes",
+    sourceProductId: "100",
+    inventoryStatus: "available",
+    price: {
+      current: {
+        rawText: "$100.00",
+        amount: 100,
+      },
+    },
+  },
+  {
+    id: "smokingpipes-101",
+    source: "smokingpipes",
+    sourceProductId: "101",
+    inventoryStatus: "sold",
+    price: {
+      current: {
+        rawText: "$101.00",
+        amount: 101,
+      },
+    },
+  },
+  {
+    id: "smokingpipes-102",
+    source: "smokingpipes",
+    sourceProductId: "102",
+    inventoryStatus: "available",
+  },
+  {
+    id: "smokingpipes-103",
+    source: "smokingpipes",
+    sourceProductId: "103",
+    inventoryStatus: "available",
+  },
+];
+const progressiveIngestCurrent = {
+  generatedAt: "2026-06-23T01:00:00.000Z",
+  summary: {
+    pagesScanned: 107,
+    expectedPages: 107,
+    fullExpectedRangeScanned: true,
+    captchaDetected: false,
+    captchaPages: [],
+    verificationDetected: false,
+  },
+  products: [
+    {
+      sourceProductId: "100",
+      sourceUrl: "https://example.invalid/100",
+      title: "Price changed",
+      price: "$110.00",
+      mainImage: "https://example.invalid/100.jpg",
+      rawText: "Available",
+    },
+    {
+      sourceProductId: "101",
+      sourceUrl: "https://example.invalid/101",
+      title: "Reappeared",
+      price: "$101.00",
+      mainImage: "https://example.invalid/101.jpg",
+      rawText: "Available",
+    },
+    {
+      sourceProductId: "103",
+      sourceUrl: "https://example.invalid/103",
+      title: "Explicit sold",
+      price: "",
+      mainImage: "https://example.invalid/103.jpg",
+      rawText: "OUT OF STOCK",
+    },
+    ...["200", "201", "202", "999"].map((id) => ({
+      sourceProductId: id,
+      sourceUrl: `https://example.invalid/${id}`,
+      title: `New ${id}`,
+      price: `$${id}.00`,
+      mainImage: `https://example.invalid/${id}.jpg`,
+      rawText: "Available",
+    })),
+  ],
+};
+const progressiveIngestDiff = {
+  version: "smokingpipes-inventory-diff-dry-run-v1",
+  generatedAt: "2026-06-23T01:05:00.000Z",
+  coverage: {
+    pagesScanned: 107,
+    expectedPages: 107,
+    fullExpectedRangeScanned: true,
+    captchaDetected: false,
+    captchaPages: [],
+  },
+  newIds: ["200", "201", "202"],
+  reappearedIds: ["101"],
+  disappearedIds: ["102"],
+};
+fs.writeFileSync(
+  progressiveIngestProductionPath,
+  JSON.stringify(progressiveIngestProduction),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveIngestCurrentPath,
+  JSON.stringify(progressiveIngestCurrent),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveIngestDiffPath,
+  JSON.stringify(progressiveIngestDiff),
+  "utf8"
+);
+const progressiveIngestResult =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveIngestRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-ingest-list",
+      `--current-list=${progressiveIngestCurrentPath}`,
+      `--diff=${progressiveIngestDiffPath}`,
+    ]),
+  });
+assert.equal(progressiveIngestResult.status, "ingest-ready");
+assert.equal(progressiveIngestResult.browserStarted, false);
+const progressiveIngestPaths = runnerCore.getRunnerPaths(
+  progressiveIngestRoot
+);
+const progressiveIngestState = JSON.parse(
+  fs.readFileSync(
+    progressiveIngestPaths.progressiveState,
+    "utf8"
+  )
+);
+assert.equal(
+  progressiveIngestState.schema,
+  "smokingpipes-progressive-daily-state-v1"
+);
+assert.equal(
+  progressiveIngestState.verificationDetected,
+  false
+);
+assert.deepEqual(
+  progressiveIngestState.globalReconcile.disappearedIds,
+  ["102"]
+);
+assert.equal(
+  progressiveIngestState.globalReconcile.applyAllowed,
+  false
+);
+assert.equal(
+  progressiveIngestState.candidates.filter((item) =>
+    item.changeTypes.includes("new-product")
+  ).length,
+  3
+);
+assert.equal(
+  progressiveIngestState.candidates.some(
+    (item) => item.sourceProductId === "999"
+  ),
+  false
+);
+for (const candidate of progressiveIngestState.candidates) {
+  assert.ok(candidate.lastSeenAt);
+  assert.equal(Number.isInteger(candidate.retryCount), true);
+}
+assert.deepEqual(progressiveIngestState.summary, {
+  totalCandidates: 6,
+  newProductCandidates: 3,
+  priceChangeCandidates: 1,
+  explicitOutOfStockCandidates: 1,
+  reappearedCandidates: 1,
+  disappearedCandidatesRecorded: 1,
+  disappearedCandidatesApplyAllowed: false,
+  pending: 3,
+  complete: 3,
+  failed: 0,
+  blocked: 0,
+  readyForDetailChunk: 3,
+});
+const progressiveIngestReport = JSON.parse(
+  fs.readFileSync(
+    progressiveIngestPaths.progressiveReportJson,
+    "utf8"
+  )
+);
+assert.equal(progressiveIngestReport.productionWritten, false);
+assert.equal(progressiveIngestReport.currentListPath, progressiveIngestCurrentPath);
+assert.equal(progressiveIngestReport.diffPath, progressiveIngestDiffPath);
+assert.equal(progressiveIngestReport.newProductCandidates, 3);
+assert.equal(progressiveIngestReport.disappearedCandidatesApplyAllowed, false);
+
+const preservedProgressiveState = structuredClone(
+  progressiveIngestState
+);
+const preservedComplete =
+  preservedProgressiveState.candidates.find(
+    (item) => item.sourceProductId === "200"
+  );
+preservedComplete.detailStatus = "complete";
+preservedComplete.publicStatus = "published";
+preservedComplete.detail = { preserved: true };
+preservedComplete.convertedProduct = { preserved: true };
+const eligibleBlocked =
+  preservedProgressiveState.candidates.find(
+    (item) => item.sourceProductId === "201"
+  );
+eligibleBlocked.detailStatus = "blocked";
+eligibleBlocked.blockedCount = 2;
+eligibleBlocked.lastBlockedAt =
+  "2026-06-22T00:00:00.000Z";
+eligibleBlocked.lastBlockedReason = "previous verification";
+eligibleBlocked.nextEligibleAt =
+  "2026-06-22T00:30:00.000Z";
+fs.writeFileSync(
+  progressiveIngestPaths.progressiveState,
+  JSON.stringify(preservedProgressiveState),
+  "utf8"
+);
+await runSmokingpipesProgressiveMode({
+  root: progressiveIngestRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-ingest-list",
+    `--current-list=${progressiveIngestCurrentPath}`,
+    `--diff=${progressiveIngestDiffPath}`,
+  ]),
+});
+const progressiveReingestedState = JSON.parse(
+  fs.readFileSync(
+    progressiveIngestPaths.progressiveState,
+    "utf8"
+  )
+);
+assert.equal(progressiveReingestedState.candidates.length, 6);
+const preservedAfterReingest =
+  progressiveReingestedState.candidates.find(
+    (item) => item.sourceProductId === "200"
+  );
+assert.equal(preservedAfterReingest.detailStatus, "complete");
+assert.equal(preservedAfterReingest.publicStatus, "published");
+assert.deepEqual(preservedAfterReingest.detail, {
+  preserved: true,
+});
+const blockedAfterReingest =
+  progressiveReingestedState.candidates.find(
+    (item) => item.sourceProductId === "201"
+  );
+assert.equal(blockedAfterReingest.detailStatus, "pending");
+assert.equal(blockedAfterReingest.blockedCount, 2);
+assert.equal(
+  blockedAfterReingest.lastBlockedReason,
+  "previous verification"
+);
+
+const partialIngestCurrent = structuredClone(
+  progressiveIngestCurrent
+);
+partialIngestCurrent.summary = {
+  pagesScanned: 3,
+  expectedPages: 107,
+  fullExpectedRangeScanned: false,
+  captchaDetected: true,
+  captchaPages: [4],
+  verificationDetected: true,
+};
+fs.writeFileSync(
+  progressiveIngestCurrentPath,
+  JSON.stringify(partialIngestCurrent),
+  "utf8"
+);
+await runSmokingpipesProgressiveMode({
+  root: progressiveIngestRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-ingest-list",
+    `--current-list=${progressiveIngestCurrentPath}`,
+    `--diff=${progressiveIngestDiffPath}`,
+  ]),
+});
+const progressiveBlockedIngestState = JSON.parse(
+  fs.readFileSync(
+    progressiveIngestPaths.progressiveState,
+    "utf8"
+  )
+);
+assert.equal(
+  progressiveBlockedIngestState.listSnapshotStatus,
+  "blocked"
+);
+assert.equal(
+  progressiveBlockedIngestState.verificationDetected,
+  true
+);
+assert.deepEqual(
+  progressiveBlockedIngestState.globalReconcile.disappearedIds,
+  []
 );
 
 console.log("Inventory runner core tests passed.");

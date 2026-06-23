@@ -734,6 +734,31 @@ export function buildPublicProductsCandidate(staging, pricingContext) {
   };
 }
 
+export function buildPublicProductsFullCandidate(staging, pricingContext) {
+  const publicRows = (staging || [])
+    .filter(shouldIncludePublic)
+    .sort((a, b) => stableCompare(a.id, b.id));
+  const catalogProducts = publicRows
+    .map((row) => catalogFromRow(row, pricingContext))
+    .sort(sortById);
+  const details = publicRows
+    .map((row, index) => detailFromRow(row, catalogProducts[index]))
+    .sort(sortById);
+
+  return {
+    catalog: {
+      schemaVersion: 1,
+      products: catalogProducts,
+    },
+    filters: buildFilters(catalogProducts),
+    brands: buildBrands(catalogProducts),
+    lookup: buildLookup(catalogProducts),
+    details,
+    detailShards: buildDetailShards(details),
+    excludedCount: (staging || []).length - publicRows.length,
+  };
+}
+
 function countBy(items, getter) {
   const out = {};
   for (const item of items) {

@@ -149,12 +149,20 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   );
   const newRatio = ratio(newIds.length, existingIds.size);
   const suspiciousRatio = ratio(suspiciousRecords.length, currentProducts.length);
+  const captchaDetected =
+    currentPayload?.summary?.captchaDetected === true ||
+    (currentPayload?.summary?.captchaPages || []).length > 0;
   const fatalWarnings = [];
   const warnings = [];
 
   if (pagesScanned < pagesRequested) {
     fatalWarnings.push(
       `Only ${pagesScanned}/${pagesRequested} requested pages were scanned.`
+    );
+  }
+  if (captchaDetected) {
+    fatalWarnings.push(
+      "captcha/currentListVerificationDetected: current-list verification was detected; this snapshot is not trusted."
     );
   }
   if (expectedPages > 0 && pagesScanned < expectedPages) {
@@ -222,6 +230,11 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       `partial page coverage: ${pagesScanned}/${expectedPages} pages; full coverage is required`
     );
   }
+  if (captchaDetected) {
+    applyBlockedReasons.push(
+      "current-list verification was detected"
+    );
+  }
   if (fatalWarnings.length) {
     applyBlockedReasons.push("fatal safety warnings are present");
   }
@@ -244,6 +257,8 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       pagesScanned,
       expectedPages,
       fullExpectedRangeScanned,
+      captchaDetected,
+      captchaPages: currentPayload?.summary?.captchaPages || [],
       currentVsHistoricalAvailableRatio: currentVsHistoricalRatio,
     },
     counts: {

@@ -2,7 +2,9 @@ import {
   addParsedMeasurements,
   detectSmokingpipesVerification,
   extractDetailProduct,
+  isNormalSmokingpipesDetail,
   launchSmokingpipesContext,
+  waitForSmokingpipesManualRecovery,
 } from "../lib/smokingpipes-utils.mjs";
 import {
   summarizeDetailsQueue,
@@ -73,11 +75,30 @@ function markMockComplete(item) {
     sourceSite: "Smokingpipes",
     sourceUrl: item.sourceUrl,
     sourceProductId: item.sourceProductId,
-    brand: item.brand,
-    title: item.title || `Mock pipe ${item.sourceProductId}`,
+    brand: item.brand || "Savinelli",
+    title:
+      item.title ||
+      `Savinelli Mock Billiard ${item.sourceProductId}`,
     status: "available",
-    galleryImages: item.mainImage ? [item.mainImage] : [],
-    galleryCount: item.mainImage ? 1 : 0,
+    price: item.price || "$125.00",
+    listPrice: item.price || "$125.00",
+    mainImage:
+      item.mainImage ||
+      `https://example.invalid/images/${item.sourceProductId}.jpg`,
+    galleryImages: [
+      item.mainImage ||
+        `https://example.invalid/images/${item.sourceProductId}.jpg`,
+      `https://example.invalid/images/${item.sourceProductId}-2.jpg`,
+      `https://example.invalid/images/${item.sourceProductId}-3.jpg`,
+    ],
+    galleryCount: 3,
+    shape: "Billiard",
+    finish: "Smooth",
+    material: "Briar",
+    stemMaterial: "Acrylic",
+    filter: "6mm",
+    country: "Italy",
+    productCode: `MOCK-${item.sourceProductId}`,
     mock: true,
   };
 }
@@ -98,7 +119,13 @@ export async function processSmokingpipesDetailsQueue({
   detailBatchCooldownMinMs = 90000,
   detailBatchCooldownMaxMs = 180000,
   browserChannel = null,
+  browserProfile = null,
+  browserProfileDir = null,
+  browserProfileLockPath = null,
+  runId = null,
+  mode = "details-queue",
   allowManualVerification = false,
+  manualVerificationTimeoutMs = 30 * 60 * 1000,
   verbose = false,
   mock = false,
   mockVerificationAt = null,
@@ -115,6 +142,12 @@ export async function processSmokingpipesDetailsQueue({
     failed: 0,
     captchaRequired: false,
     runtimeLimitReached: false,
+    verificationDetectedAt: null,
+    manualVerificationAllowed: Boolean(
+      allowManualVerification
+    ),
+    manualVerificationRecovered: false,
+    browser: null,
   };
 
   if (!candidates.length) {
@@ -177,7 +210,16 @@ export async function processSmokingpipesDetailsQueue({
     ? "false"
     : process.env.SMOKINGPIPES_HEADLESS || "true";
 
-  const context = await launchSmokingpipesContext({ browserChannel });
+  const browserSession = await launchSmokingpipesContext({
+    browserChannel,
+    browserProfile,
+    browserProfileDir,
+    profileLockPath: browserProfileLockPath,
+    runId,
+    mode,
+  });
+  const context = browserSession.context;
+  result.browser = browserSession.browser;
   const page = context.pages()[0] || (await context.newPage());
 
   try {
@@ -225,7 +267,50 @@ export async function processSmokingpipesDetailsQueue({
           httpStatus: response?.status() || 0,
         });
 
-        if (detection.verificationBlocked) {
+        let detail = null;
+        if (
+          detection.verificationBlocked &&
+          allowManualVerification
+        ) {
+          const recovery =
+            await waitForSmokingpipesManualRecovery(page, {
+              pageKind: "detail",
+              timeoutMs: manualVerificationTimeoutMs,
+              verbose,
+              restoreTargetPage: async (targetPage) => {
+                await targetPage.goto(item.sourceUrl, {
+                  waitUntil: "domcontentloaded",
+                  timeout: 60000,
+                });
+              },
+              verifyNormalContent: async (targetPage) => {
+                const parsed = addParsedMeasurements(
+                  await extractDetailProduct(
+                    targetPage,
+                    item,
+                    "new"
+                  )
+                );
+                return {
+                  valid:
+                    isNormalSmokingpipesDetail(
+                      parsed,
+                      item.sourceProductId
+                    ),
+                  parsedValue: parsed,
+                };
+              },
+            });
+          result.verificationDetectedAt =
+            recovery.verificationDetectedAt;
+          result.manualVerificationRecovered =
+            recovery.manualVerificationRecovered;
+          if (recovery.recovered) {
+            detail = recovery.parsedValue;
+          }
+        }
+
+        if (detection.verificationBlocked && !detail) {
           result.captchaRequired = true;
           const blockedAt = new Date().toISOString();
           item.status = "blocked";
@@ -246,9 +331,11 @@ export async function processSmokingpipesDetailsQueue({
           });
         }
 
-        const detail = addParsedMeasurements(
-          await extractDetailProduct(page, item, "new")
-        );
+        detail =
+          detail ||
+          addParsedMeasurements(
+            await extractDetailProduct(page, item, "new")
+          );
         if (
           !detail.sourceProductId ||
           String(detail.sourceProductId) !== String(item.sourceProductId)
@@ -321,7 +408,7 @@ export async function processSmokingpipesDetailsQueue({
       }
     }
   } finally {
-    await context.close().catch(() => {});
+    await browserSession.close();
   }
 
   return { queue, result };

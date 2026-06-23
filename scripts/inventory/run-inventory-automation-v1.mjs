@@ -39,6 +39,11 @@ import {
 } from "./smokingpipes-apply-dry-run-v1.mjs";
 import { runSmokingpipesInventoryDryRun } from "./smokingpipes-update-dry-run-v1.mjs";
 import { validateInventoryUpdate } from "./validate-inventory-update-v1.mjs";
+import { runSmokingpipesDailyUpdate } from "./smokingpipes-daily-update-v1.mjs";
+import { runSmokingpipesVerificationProbe } from "./smokingpipes-verification-probe-v1.mjs";
+import { runSmokingpipesDetailProbe } from "./smokingpipes-detail-probe-v1.mjs";
+import { runSmokingpipesBrowserPreflight } from "./smokingpipes-browser-preflight-v1.mjs";
+import { runSmokingpipesProgressiveMode } from "./smokingpipes-progressive-runner-v1.mjs";
 
 const ROOT = process.cwd();
 
@@ -51,6 +56,17 @@ Options:
   --source=smokingpipes                 Inventory source (V1 only supports smokingpipes)
   --mode=dry-run                        Fetch, diff, validate, and advance detail queue (default)
   --mode=apply-dry-run                  Build isolated next-data candidates when every gate passes
+  --mode=daily-update                   Full daily list refresh and isolated daily candidate
+  --daily-update                        Alias for --mode=daily-update
+  --mode=verification-probe             List-only verification telemetry research
+  --verification-probe                  Alias for --mode=verification-probe
+  --mode=detail-probe                   Trusted newIds detail-risk probe
+  --detail-probe                        Alias for --mode=detail-probe
+  --mode=browser-preflight              Browser/profile startup check only
+  --mode=progressive-ingest-list        Ingest existing current-list/diff into state
+  --mode=progressive-detail-chunk       Resume a checkpointed new-detail batch
+  --mode=progressive-build-candidate    Build isolated additive partial-next data
+  --mode=progressive-partial-apply      Preview partial apply; never writes production
   --mode=apply                          Reserved; V1 rejects production apply
   --refresh-list                        Refresh list/diff before apply-dry-run (default: reuse existing)
   --catch-up-current                    Complete the current diff.newIds baseline in resumable batches
@@ -62,12 +78,17 @@ Options:
   --catch-up-max-total-details=200      Maximum details across all cycles
   --catch-up-max-runtime-minutes=90     Maximum catch-up runtime
   --max-pages=107                       List pages to scan (default: 107)
-  --allow-manual-verification=true      Open a visible browser for manual CAPTCHA handling
+  --allow-manual-verification=true      Open a visible browser; strong verification still stops
   --browser-channel=msedge              Use msedge, chrome, or Playwright chromium
-  --page-delay-min-ms=8000              Minimum delay before the next list page
-  --page-delay-max-ms=18000             Maximum delay before the next list page
-  --page-warmup-min-ms=3000             Minimum wait after opening a list page
-  --page-warmup-max-ms=7000             Maximum wait after opening a list page
+  --browser-profile=sp-chrome           Use the dedicated YandouBuy Chrome profile
+  --browser-profile-dir=PATH            Explicit persistent profile directory
+  --page-delay-min-ms=8000              Full reconcile minimum is 3000
+  --page-delay-max-ms=18000             Full reconcile minimum is 6000
+  --page-warmup-min-ms=3000             Full reconcile minimum is 1500
+  --page-warmup-max-ms=7000             Full reconcile minimum is 3000
+  --page-batch-size=30                  Daily list pages between cooldowns
+  --page-batch-cooldown-min-ms=30000    Full reconcile cooldown minimum
+  --page-batch-cooldown-max-ms=60000    Full reconcile cooldown maximum
   --captcha-cooldown-ms=60000           Cooldown after CAPTCHA detection
   --fetch-new-details                   Explicitly enable fetching diff.newIds details
   --skip-new-details                    Explicitly keep this run list-only (default)
@@ -81,6 +102,11 @@ Options:
   --detail-batch-cooldown-max-ms=0      Catch-up default; normal default remains 180000
   --detail-max-per-run=50               Catch-up default; normal default remains 10
   --max-new-details-per-run=10          Legacy alias for --detail-max-per-run
+  --daily-new-max-details=100           Maximum daily new details per invocation
+  --detail-probe-max=5                  Maximum trusted newIds tested by detail-probe
+  --progressive-detail-max=5            Maximum progressive pending details per chunk
+  --current-list=PATH                   Progressive ingest current-list input
+  --diff=PATH                           Progressive ingest inventory diff input
   --no-commit | --commit                Commit intent flag; V1 never commits automatically
   --no-deploy                           Deployment stays disabled
   --verbose                             Print detail progress
@@ -349,6 +375,177 @@ async function run() {
     return;
   }
 
+  if (options.mode === "browser-preflight") {
+    try {
+      const result = await runSmokingpipesBrowserPreflight({
+        root: ROOT,
+        options,
+      });
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: "browser-preflight",
+            mock: options.mock,
+            browserStarted: result.browserStarted,
+            browser: result.state.browser,
+            productsFetched: false,
+            candidateGenerated: false,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          },
+          null,
+          2
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (options.progressiveMode) {
+    try {
+      const result = await runSmokingpipesProgressiveMode({
+        root: ROOT,
+        options,
+      });
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: options.mode,
+            completedThisRun:
+              result.completedThisRun || 0,
+            candidateCount:
+              result.candidateCount || 0,
+            wouldApplyCount:
+              result.wouldApplyCount || 0,
+            browserStarted:
+              result.browserStarted ?? false,
+            recommendedNextRunAt:
+              result.recommendedNextRunAt || null,
+            blockedReason:
+              result.blockedReason || null,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          },
+          null,
+          2
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (options.mode === "daily-update") {
+    try {
+      const report = await runSmokingpipesDailyUpdate({
+        root: ROOT,
+        options,
+      });
+      console.log(
+        JSON.stringify(
+          {
+            runId: report.runId,
+            status: report.status,
+            mode: report.mode,
+            mock: report.mock,
+            dailyNew: report.dailyDiff?.counts?.dailyNew || 0,
+            queue: report.queue,
+            audit: report.audit?.verdict || null,
+            outputsGenerated: report.outputsGenerated,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          },
+          null,
+          2
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (options.mode === "verification-probe") {
+    try {
+      const result = await runSmokingpipesVerificationProbe({
+        root: ROOT,
+        options,
+      });
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: "verification-probe",
+            mock: options.mock,
+            pagesScanned: result.telemetry.summary.pagesScanned,
+            weakVerificationPages:
+              result.telemetry.summary.weakVerificationPages,
+            strongVerificationPages:
+              result.telemetry.summary.strongVerificationPages,
+            captchaDetected: result.telemetry.captchaDetected,
+            riskLevel: result.telemetry.riskLevel,
+            candidateGenerated: false,
+            detailsFetched: false,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          },
+          null,
+          2
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (options.mode === "detail-probe") {
+    try {
+      const result = await runSmokingpipesDetailProbe({
+        root: ROOT,
+        options,
+      });
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: "detail-probe",
+            mock: options.mock,
+            detailProbeMax: result.telemetry.detailProbeMax,
+            detailsAttempted: result.telemetry.detailsAttempted,
+            detailsSucceeded: result.telemetry.detailsSucceeded,
+            detailsFailed: result.telemetry.detailsFailed,
+            captchaDetected: result.telemetry.captchaDetected,
+            browserStarted: result.browserStarted,
+            candidateGenerated: false,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          },
+          null,
+          2
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
   const paths = getRunnerPaths(ROOT, { mock: options.mock });
   const runId = formatRunId();
   const startedAt = new Date().toISOString();
@@ -457,15 +654,24 @@ async function run() {
         validation = validateMockInventory(current, diff, recentNew);
       } else {
         await runSmokingpipesInventoryDryRun({
+          root: ROOT,
+          runId,
+          mode: options.mode,
           maxPages: options.maxPages,
           expectedPages: options.expectedPages,
           browserChannel: options.browserChannel,
+          browserProfile: options.browserProfile,
+          browserProfileDir: options.browserProfileDir,
+          browserProfileLockPath: paths.browserProfileLock,
           allowManualVerification: options.allowManualVerification,
           manualVerificationTimeoutMs: options.manualVerificationTimeoutMs,
           pageDelayMinMs: options.pageDelayMinMs,
           pageDelayMaxMs: options.pageDelayMaxMs,
           pageWarmupMinMs: options.pageWarmupMinMs,
           pageWarmupMaxMs: options.pageWarmupMaxMs,
+          pageBatchSize: options.pageBatchSize,
+          pageBatchCooldownMinMs: options.pageBatchCooldownMinMs,
+          pageBatchCooldownMaxMs: options.pageBatchCooldownMaxMs,
           captchaCooldownMs: options.captchaCooldownMs,
           verbose: options.verbose,
         });
@@ -634,7 +840,14 @@ async function run() {
           detailBatchCooldownMinMs: options.detailBatchCooldownMinMs,
           detailBatchCooldownMaxMs: options.detailBatchCooldownMaxMs,
           browserChannel: options.browserChannel,
+          browserProfile: options.browserProfile,
+          browserProfileDir: options.browserProfileDir,
+          browserProfileLockPath: paths.browserProfileLock,
+          runId,
+          mode: options.mode,
           allowManualVerification: options.allowManualVerification,
+          manualVerificationTimeoutMs:
+            options.manualVerificationTimeoutMs,
           verbose: options.verbose,
           mock: options.mock,
         };
@@ -656,6 +869,10 @@ async function run() {
         queue = processed.queue;
         runRecord.detailsResult = processed.result;
         runRecord.captchaRequired = processed.result.captchaRequired;
+        runRecord.browser =
+          processed.result.browser || runRecord.browser;
+        runRecord.manualVerificationRecovered =
+          processed.result.manualVerificationRecovered === true;
       } else {
         runRecord.currentStep = "details-already-complete";
         runRecord.detailsResult = {
