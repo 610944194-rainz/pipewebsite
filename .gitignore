@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.inventory.example
 
 # vercel
 .vercel
@@ -57,6 +58,12 @@ data/generated/public-products-daily-next/
 data/inventory/smokingpipes-progressive-daily-state.json
 data/inventory/smokingpipes-daily-update-state.json
 data/inventory/smokingpipes-*telemetry.json
+.env.inventory.local
+data/review/smokingpipes-daily-mobile-report.json
+data/review/smokingpipes-daily-mobile-report.md
+data/review/smokingpipes-daily-task-latest.log
+data/review/*mobile-report*.json
+data/review/*mobile-report*.md
 
 # Next.js
 .next/

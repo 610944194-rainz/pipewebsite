@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import * as runnerCore from "./inventory-runner-core-v1.mjs";
 import {
   acquireRunLock,
@@ -4978,5 +4979,154 @@ assert.deepEqual(
   progressiveBlockedIngestState.globalReconcile.disappearedIds,
   []
 );
+
+const {
+  resolvePushDeerPushKey,
+  sendPushDeerNotification,
+} = await import("./inventory-pushdeer-notifier-v1.mjs");
+const {
+  buildPushDeerDailyMessage,
+  buildSmokingpipesDailyMobileReport,
+  isDirectCliInvocation,
+} = await import("./smokingpipes-daily-mobile-report-v1.mjs");
+
+assert.deepEqual(
+  resolvePushDeerPushKey({
+    PUSHDEER_KEY: "legacy-key",
+    PUSHDEER_PUSHKEY: "new-key",
+    YAN_DOUBUY_PUSHDEER_PUSHKEY: "project-key",
+  }),
+  {
+    key: "legacy-key",
+    envName: "PUSHDEER_KEY",
+  }
+);
+assert.equal(resolvePushDeerPushKey({}).key, "");
+
+const missingPushKeyResult = await sendPushDeerNotification({
+  title: "烟斗派库存日报｜Smokingpipes",
+  body: "状态：成功",
+  env: {},
+});
+assert.equal(missingPushKeyResult.notificationSent, false);
+assert.equal(missingPushKeyResult.notificationSkipped, true);
+assert.match(missingPushKeyResult.notificationReason, /missing/i);
+
+let pushDeerFetchCalled = false;
+const dryRunPushResult = await sendPushDeerNotification({
+  title: "烟斗派库存日报｜Smokingpipes",
+  body: "状态：成功",
+  dryRun: true,
+  env: { PUSHDEER_KEY: "dry-run-key" },
+  fetchImpl: async () => {
+    pushDeerFetchCalled = true;
+    throw new Error("dry-run should not call fetch");
+  },
+});
+assert.equal(pushDeerFetchCalled, false);
+assert.equal(dryRunPushResult.notificationSent, false);
+assert.equal(dryRunPushResult.notificationSkipped, true);
+assert.match(dryRunPushResult.notificationReason, /dry-run/i);
+
+const mobileReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T02:30:00.000Z",
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "blocked",
+    blockedReason: "verification detected on detail page",
+    candidates: [
+      {
+        sourceProductId: "1",
+        changeTypes: ["new-product"],
+        detailStatus: "complete",
+        publicStatus: "ready",
+      },
+      {
+        sourceProductId: "2",
+        changeTypes: ["new-product"],
+        detailStatus: "failed",
+        publicStatus: "not-public",
+      },
+      {
+        sourceProductId: "3",
+        changeTypes: ["new-product"],
+        detailStatus: "complete",
+        publicStatus: "review-only",
+      },
+      {
+        sourceProductId: "4",
+        changeTypes: ["new-product"],
+        detailStatus: "pending",
+        publicStatus: "not-public",
+      },
+    ],
+  },
+  audit: {
+    auditStatus: "FAIL",
+    candidateCount: 4,
+    wouldApplyCount: 1,
+    productionWritten: false,
+    blockers: ["verification detected"],
+    warnings: ["review-only retained"],
+  },
+  notification: {
+    notificationSent: false,
+    notificationSkipped: true,
+    notificationReason: "not requested",
+  },
+});
+assert.equal(mobileReport.status, "blocked");
+assert.equal(mobileReport.candidateCount, 4);
+assert.equal(mobileReport.wouldApplyCount, 1);
+assert.equal(mobileReport.newProductReady, 1);
+assert.equal(mobileReport.newProductReviewOnly, 1);
+assert.equal(mobileReport.newProductNotReady, 2);
+assert.equal(mobileReport.detailComplete, 2);
+assert.equal(mobileReport.detailFailed, 1);
+assert.equal(mobileReport.detailPending, 1);
+assert.equal(mobileReport.publicReady, 1);
+assert.equal(mobileReport.publicReviewOnly, 1);
+assert.equal(mobileReport.publicNotPublic, 2);
+assert.deepEqual(mobileReport.blockers, ["verification detected"]);
+assert.deepEqual(mobileReport.warnings, ["review-only retained"]);
+const pushDeerMessage = buildPushDeerDailyMessage(mobileReport);
+assert.equal(pushDeerMessage.title, "烟斗派库存日报｜Smokingpipes");
+assert.match(pushDeerMessage.body, /状态：需要人工处理/);
+assert.match(pushDeerMessage.body, /人工复核：1/);
+assert.match(pushDeerMessage.body, /失败保留：1/);
+assert.equal(
+  isDirectCliInvocation({
+    importMetaUrl: pathToFileURL(
+      path.join(process.cwd(), "scripts", "inventory", "smokingpipes-daily-mobile-report-v1.mjs")
+    ).href,
+    argv1: path.join(
+      process.cwd(),
+      "scripts",
+      "inventory",
+      "smokingpipes-daily-mobile-report-v1.mjs"
+    ),
+  }),
+  true
+);
+
+const dailyTaskScriptPath = path.join(
+  process.cwd(),
+  "scripts",
+  "inventory",
+  "run-smokingpipes-progressive-daily.ps1"
+);
+const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
+assert.match(dailyTaskScript, /progressive-detail-max=30/);
+assert.match(
+  dailyTaskScript,
+  /smokingpipes-daily-mobile-report-v1\.mjs[\s\S]*--send/
+);
+assert.match(dailyTaskScript, /--write-production/);
+assert.match(dailyTaskScript, /auditStatus/);
+assert.match(dailyTaskScript, /candidateCount/);
+assert.doesNotMatch(dailyTaskScript, /\bgit\s+commit\b/i);
+assert.doesNotMatch(dailyTaskScript, /\bgit\s+push\b/i);
+assert.doesNotMatch(dailyTaskScript, /\bvercel\b/i);
+assert.doesNotMatch(dailyTaskScript, /\bnpm(?:\.cmd)?\s+run\s+deploy\b/i);
 
 console.log("Inventory runner core tests passed.");
