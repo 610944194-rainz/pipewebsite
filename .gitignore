@@ -65,6 +65,14 @@ data/review/smokingpipes-daily-task-latest.log
 data/review/*mobile-report*.json
 data/review/*mobile-report*.md
 
+# Danish daily update local dry-run outputs
+data/inventory/danish-current-list-dry-run.json
+data/inventory/danish-inventory-diff-dry-run.json
+data/review/danish-daily-update-report.json
+data/review/danish-daily-update-report.md
+data/review/danish-sanity-audit-report.json
+data/review/danish-sanity-audit-report.md
+
 # Next.js
 .next/
 
