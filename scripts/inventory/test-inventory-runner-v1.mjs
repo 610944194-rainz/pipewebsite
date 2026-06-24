@@ -4988,6 +4988,7 @@ const {
   buildPushDeerDailyMessage,
   buildSmokingpipesDailyMobileReport,
   isDirectCliInvocation,
+  runSmokingpipesDailyMobileReport,
 } = await import("./smokingpipes-daily-mobile-report-v1.mjs");
 
 assert.deepEqual(
@@ -5027,6 +5028,21 @@ assert.equal(pushDeerFetchCalled, false);
 assert.equal(dryRunPushResult.notificationSent, false);
 assert.equal(dryRunPushResult.notificationSkipped, true);
 assert.match(dryRunPushResult.notificationReason, /dry-run/i);
+
+let pushDeerUrl = null;
+const sentPushResult = await sendPushDeerNotification({
+  title: "烟斗派库存日报｜Smokingpipes",
+  body: "状态：需要人工验证\n扫描：107/107 页\n下一步：\n请在电脑上完成 Smokingpipes 验证",
+  env: { PUSHDEER_KEY: "send-key" },
+  fetchImpl: async (url) => {
+    pushDeerUrl = new URL(String(url));
+    return { ok: true, status: 200 };
+  },
+});
+assert.equal(sentPushResult.notificationSent, true);
+assert.equal(pushDeerUrl.searchParams.get("text"), "烟斗派库存日报｜Smokingpipes");
+assert.match(pushDeerUrl.searchParams.get("desp"), /状态：需要人工验证\n扫描：107\/107 页/);
+assert.equal(pushDeerUrl.searchParams.get("type"), "markdown");
 
 const mobileReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-06-25T02:30:00.000Z",
@@ -5087,13 +5103,207 @@ assert.equal(mobileReport.detailPending, 1);
 assert.equal(mobileReport.publicReady, 1);
 assert.equal(mobileReport.publicReviewOnly, 1);
 assert.equal(mobileReport.publicNotPublic, 2);
-assert.deepEqual(mobileReport.blockers, ["verification detected"]);
+assert.match(mobileReport.blockers.join("\n"), /verification detected/);
 assert.deepEqual(mobileReport.warnings, ["review-only retained"]);
 const pushDeerMessage = buildPushDeerDailyMessage(mobileReport);
 assert.equal(pushDeerMessage.title, "烟斗派库存日报｜Smokingpipes");
-assert.match(pushDeerMessage.body, /状态：需要人工处理/);
+assert.match(pushDeerMessage.body, /状态：需要人工验证/);
 assert.match(pushDeerMessage.body, /人工复核：1/);
 assert.match(pushDeerMessage.body, /失败保留：1/);
+
+const verificationLogReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:00:00.000Z",
+  taskLogText:
+    "DAILY TASK FAILED: Smokingpipes strong verification detected. Complete it in the opened browser within 30 minutes.",
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(verificationLogReport.status, "blocked");
+assert.equal(verificationLogReport.pagesScanned, 107);
+assert.equal(verificationLogReport.expectedPages, 107);
+assert.match(verificationLogReport.blockers.join("\n"), /strong verification detected/i);
+const verificationLogMessage = buildPushDeerDailyMessage(verificationLogReport);
+assert.match(verificationLogMessage.body, /状态：需要人工验证/);
+assert.match(verificationLogMessage.body, /扫描：107\/107 页/);
+assert.match(verificationLogMessage.body, /下一步：\n请在电脑上完成 Smokingpipes 验证/);
+
+const noVerificationLogReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:05:00.000Z",
+  taskLogText: '"captchaDetected": false,\n"verificationDetectedAt": null',
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(noVerificationLogReport.status, "partial");
+assert.deepEqual(noVerificationLogReport.blockers, []);
+
+const mobileReportRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-mobile-report-")
+);
+const mobileStatePath = path.join(
+  mobileReportRoot,
+  "smokingpipes-progressive-daily-state.json"
+);
+const mobileAuditPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-progressive-partial-audit-report.json"
+);
+const mobileLogPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-task-latest.log"
+);
+const mobileJsonPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report.json"
+);
+const mobileMarkdownPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report.md"
+);
+fs.writeFileSync(
+  mobileStatePath,
+  JSON.stringify({
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  mobileAuditPath,
+  JSON.stringify({
+    verdict: "PASS",
+    candidateCount: 0,
+    wouldApplyCount: 0,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  mobileLogPath,
+  "DAILY TASK FAILED: Smokingpipes strong verification detected.",
+  "utf8"
+);
+await runSmokingpipesDailyMobileReport({
+  argv: [],
+  statePath: mobileStatePath,
+  auditPath: mobileAuditPath,
+  taskLogPath: mobileLogPath,
+  reportJsonPath: mobileJsonPath,
+  reportMarkdownPath: mobileMarkdownPath,
+  now: "2026-06-25T03:10:00.000Z",
+});
+const mobileMarkdownBuffer = fs.readFileSync(mobileMarkdownPath);
+assert.equal(mobileMarkdownBuffer[0], 0xef);
+assert.equal(mobileMarkdownBuffer[1], 0xbb);
+assert.equal(mobileMarkdownBuffer[2], 0xbf);
+assert.match(mobileMarkdownBuffer.toString("utf8"), /状态：需要人工验证/);
+assert.doesNotMatch(mobileMarkdownBuffer.toString("utf8"), /public ready|public review-only|public not-public/);
+
+const utf16LogPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-task-latest-utf16.log"
+);
+const utf16MarkdownPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-utf16.md"
+);
+const utf16JsonPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-utf16.json"
+);
+fs.writeFileSync(
+  utf16LogPath,
+  Buffer.from(
+    "\ufeff2026-06-25 DAILY TASK FAILED: Smokingpipes strong verification detected. Complete it in the opened browser within 30 minutes.",
+    "utf16le"
+  )
+);
+const utf16ReportResult = await runSmokingpipesDailyMobileReport({
+  argv: [],
+  statePath: mobileStatePath,
+  auditPath: mobileAuditPath,
+  taskLogPath: utf16LogPath,
+  reportJsonPath: utf16JsonPath,
+  reportMarkdownPath: utf16MarkdownPath,
+  now: "2026-06-25T03:20:00.000Z",
+});
+assert.equal(utf16ReportResult.report.status, "blocked");
+assert.equal(utf16ReportResult.report.blockers.length, 1);
+assert.doesNotMatch(utf16ReportResult.report.blockers[0], /\u0000/);
+assert.match(
+  utf16ReportResult.report.blockers[0],
+  /strong verification detected/i
+);
+
+const mixedLogPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-task-latest-mixed.log"
+);
+const mixedMarkdownPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-mixed.md"
+);
+const mixedJsonPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-mixed.json"
+);
+fs.writeFileSync(
+  mixedLogPath,
+  Buffer.concat([
+    Buffer.from("2026-06-25 START current-list\n", "utf8"),
+    Buffer.from("Launching browser channel: chrome\n".repeat(80), "utf16le"),
+    Buffer.from(
+      "2026-06-25 DAILY TASK FAILED: Smokingpipes strong verification detected. Complete it in the opened browser within 30 minutes.",
+      "utf8"
+    ),
+  ])
+);
+const mixedReportResult = await runSmokingpipesDailyMobileReport({
+  argv: [],
+  statePath: mobileStatePath,
+  auditPath: mobileAuditPath,
+  taskLogPath: mixedLogPath,
+  reportJsonPath: mixedJsonPath,
+  reportMarkdownPath: mixedMarkdownPath,
+  now: "2026-06-25T03:25:00.000Z",
+});
+assert.equal(mixedReportResult.report.status, "blocked");
+assert.equal(mixedReportResult.report.blockers.length, 1);
+assert.doesNotMatch(mixedReportResult.report.blockers[0], /\u0000/);
+assert.match(
+  mixedReportResult.report.blockers[0],
+  /strong verification detected/i
+);
 assert.equal(
   isDirectCliInvocation({
     importMetaUrl: pathToFileURL(

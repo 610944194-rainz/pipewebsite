@@ -28,6 +28,17 @@ const DEFAULT_REPORT_MD_PATH = path.join(
   "smokingpipes-daily-mobile-report.md"
 );
 const DEFAULT_ENV_PATH = path.join(process.cwd(), ".env.inventory.local");
+const DEFAULT_TASK_LOG_PATH = path.join(
+  process.cwd(),
+  "data",
+  "review",
+  "smokingpipes-daily-task-latest.log"
+);
+
+const VERIFICATION_PATTERN =
+  /strong verification detected|captcha\/currentlistverificationdetected|current-list verification was detected|verification detected|captcha\s+(?:detected|required|blocked|challenge)|cloudflare|manual verification|profile blocked|\bblocked\b/i;
+const BENIGN_VERIFICATION_PATTERN =
+  /"?(?:captchaDetected|verificationDetected|verificationDetectedAt|manualVerificationRecovered|weakVerificationDetected)"?\s*:\s*(?:false|null)/i;
 
 function normalizeText(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
@@ -39,6 +50,21 @@ function readJsonIfExists(filePath) {
   }
 
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function readTextIfExists(filePath) {
+  if (!filePath || !fs.existsSync(filePath)) {
+    return "";
+  }
+
+  const buffer = fs.readFileSync(filePath);
+  const utf8Text = buffer.toString("utf8").replace(/\u0000/g, "");
+  const utf16Text =
+    buffer.length >= 2 && buffer[0] === 0xfe && buffer[1] === 0xff
+      ? Buffer.from(buffer).swap16().toString("utf16le")
+      : buffer.toString("utf16le");
+
+  return `${utf8Text}\n${utf16Text}`.replace(/\ufeff/g, "");
 }
 
 function toArray(value) {
@@ -68,17 +94,56 @@ function getAuditCounts(audit) {
     : {};
 }
 
-function deriveStatus({ state, audit }) {
-  const auditStatus = getAuditStatus(audit);
-  const blockers = toArray(audit?.blockers);
-  const blockedReason = normalizeText(state?.blockedReason);
-  const blocked =
+function findVerificationBlocker({ state, audit, taskLogText }) {
+  const blockers = toArray(audit?.blockers).map(normalizeText).filter(Boolean);
+  const candidates = [
+    taskLogText,
+    state?.blockedReason,
+    state?.status,
+    ...blockers,
+  ]
+    .map((candidate) => String(candidate || "").replace(/\u0000/g, ""))
+    .filter(Boolean);
+
+  for (const candidate of candidates) {
+    const match = candidate.match(VERIFICATION_PATTERN);
+
+    if (match) {
+      const failedLine = candidate
+        .split(/\r?\n/)
+        .map(normalizeText)
+        .find(
+          (line) =>
+            VERIFICATION_PATTERN.test(line) &&
+            !BENIGN_VERIFICATION_PATTERN.test(line)
+        );
+
+      return failedLine || normalizeText(match[0]);
+    }
+  }
+
+  if (
     state?.listSnapshotStatus === "blocked" ||
     state?.captchaDetected ||
     state?.verificationDetected ||
-    /captcha|verification|cloudflare|profile|blocked/i.test(blockedReason);
+    state?.verificationDetectedAt
+  ) {
+    return normalizeText(state?.blockedReason) || "Smokingpipes verification detected";
+  }
 
-  if (blocked) {
+  return "";
+}
+
+function deriveStatus({ state, audit, taskLogText }) {
+  const auditStatus = getAuditStatus(audit);
+  const blockers = toArray(audit?.blockers);
+  const verificationBlocker = findVerificationBlocker({
+    state,
+    audit,
+    taskLogText,
+  });
+
+  if (verificationBlocker || blockers.length > 0) {
     return "blocked";
   }
 
@@ -96,15 +161,24 @@ function deriveStatus({ state, audit }) {
 export function buildSmokingpipesDailyMobileReport({
   state,
   audit,
+  taskLogText = "",
   runAt = new Date().toISOString(),
   notification = {},
 } = {}) {
   const candidates = toArray(state?.candidates);
   const counts = getAuditCounts(audit);
-  const blockers = toArray(audit?.blockers);
+  const blockers = [...toArray(audit?.blockers)];
   const warnings = toArray(audit?.warnings);
   const stateBlockedReason = normalizeText(state?.blockedReason);
+  const verificationBlocker = findVerificationBlocker({
+    state,
+    audit,
+    taskLogText,
+  });
 
+  if (verificationBlocker && !blockers.includes(verificationBlocker)) {
+    blockers.unshift(verificationBlocker);
+  }
   if (stateBlockedReason && blockers.length === 0) {
     blockers.push(stateBlockedReason);
   }
@@ -118,8 +192,10 @@ export function buildSmokingpipesDailyMobileReport({
 
   return {
     source: "smokingpipes",
-    status: deriveStatus({ state, audit }),
+    status: deriveStatus({ state, audit, taskLogText }),
     runAt,
+    pagesScanned: Number(state?.pagesScanned || 0),
+    expectedPages: Number(state?.expectedPages || 0),
     candidateCount,
     wouldApplyCount,
     productionWritten: Boolean(audit?.productionWritten),
@@ -188,9 +264,9 @@ export function buildSmokingpipesDailyMobileReport({
 }
 
 function statusLabel(status) {
-  if (status === "success") return "成功";
-  if (status === "partial") return "部分完成";
-  if (status === "blocked") return "需要人工处理";
+  if (status === "success") return "已更新";
+  if (status === "partial") return "安全预览";
+  if (status === "blocked") return "需要人工验证";
   if (status === "failed") return "失败";
   return status || "未知";
 }
@@ -198,19 +274,40 @@ function statusLabel(status) {
 export function buildPushDeerDailyMessage(report) {
   const blockedText =
     report.blockers?.length > 0 ? report.blockers.join("; ") : "无";
+  const scanText =
+    report.pagesScanned && report.expectedPages
+      ? `${report.pagesScanned}/${report.expectedPages} 页`
+      : "未知";
+  const unfinished =
+    Number(report.detailPending || 0) +
+    Math.max(
+      0,
+      Number(report.publicNotPublic || 0) - Number(report.detailFailed || 0)
+    );
+  const nextStep =
+    report.status === "blocked"
+      ? [
+          "",
+          "下一步：",
+          "请在电脑上完成 Smokingpipes 验证，之后任务会继续。",
+        ]
+      : [];
 
   return {
     title: "烟斗派库存日报｜Smokingpipes",
     body: [
+      "烟斗派库存日报｜Smokingpipes",
+      "",
       `状态：${statusLabel(report.status)}`,
+      `扫描：${scanText}`,
       `候选：${report.candidateCount}`,
       `已应用：${report.productionWritten ? report.wouldApplyCount : 0}`,
       `新增可公开：${report.newProductReady}`,
       `人工复核：${report.newProductReviewOnly}`,
       `失败保留：${report.detailFailed}`,
-      `未完成：${report.detailPending}`,
+      `未完成：${unfinished}`,
       `阻断：${blockedText}`,
-      "详情：data/review/smokingpipes-daily-mobile-report.md",
+      ...nextStep,
     ].join("\n"),
   };
 }
@@ -227,21 +324,26 @@ function buildMarkdownReport(report) {
 
 - 状态：${statusLabel(report.status)}
 - 运行时间：${report.runAt}
+- 扫描：${
+    report.pagesScanned && report.expectedPages
+      ? `${report.pagesScanned}/${report.expectedPages} 页`
+      : "未知"
+  }
 - 候选：${report.candidateCount}
-- 可应用：${report.wouldApplyCount}
+- 已应用：${report.productionWritten ? report.wouldApplyCount : 0}
 - 已写入 production：${report.productionWritten ? "是" : "否"}
 - 新增可公开：${report.newProductReady}
 - 人工复核：${report.newProductReviewOnly}
-- 新品未就绪：${report.newProductNotReady}
+- 未完成：${report.detailPending}
 - 详情完成：${report.detailComplete}
-- 详情失败：${report.detailFailed}
-- 详情待处理：${report.detailPending}
-- public ready：${report.publicReady}
-- public review-only：${report.publicReviewOnly}
-- public not-public：${report.publicNotPublic}
+- 失败保留：${report.detailFailed}
+- 可公开库存：${report.publicReady}
+- 需人工复核：${report.publicReviewOnly}
+- 安全排除：${report.publicNotPublic}
 - 通知已发送：${report.notificationSent ? "是" : "否"}
 - 通知已跳过：${report.notificationSkipped ? "是" : "否"}
 - 通知原因：${report.notificationReason}
+- PowerShell 推荐查看命令：Get-Content "data\\review\\smokingpipes-daily-mobile-report.md" -Encoding utf8
 
 ## 阻断
 
@@ -287,6 +389,7 @@ export async function runSmokingpipesDailyMobileReport({
   now = new Date().toISOString(),
   statePath = DEFAULT_STATE_PATH,
   auditPath = DEFAULT_AUDIT_PATH,
+  taskLogPath = DEFAULT_TASK_LOG_PATH,
   reportJsonPath = DEFAULT_REPORT_JSON_PATH,
   reportMarkdownPath = DEFAULT_REPORT_MD_PATH,
 } = {}) {
@@ -296,12 +399,14 @@ export async function runSmokingpipesDailyMobileReport({
   const missingInputs = [];
   const state = readJsonIfExists(statePath);
   const audit = readJsonIfExists(auditPath);
+  const taskLogText = readTextIfExists(taskLogPath);
 
   if (!state) missingInputs.push(statePath);
   if (!audit) missingInputs.push(auditPath);
 
   const initialReport = buildSmokingpipesDailyMobileReport({
     runAt: now,
+    taskLogText,
     state: state || {
       source: "smokingpipes",
       listSnapshotStatus: "blocked",
@@ -337,7 +442,7 @@ export async function runSmokingpipesDailyMobileReport({
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true });
   fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
-  fs.writeFileSync(reportMarkdownPath, buildMarkdownReport(report), "utf8");
+  fs.writeFileSync(reportMarkdownPath, `\ufeff${buildMarkdownReport(report)}`, "utf8");
 
   return {
     report,

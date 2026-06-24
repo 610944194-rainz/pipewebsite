@@ -68,6 +68,7 @@ export async function sendPushDeerNotification({
   url.searchParams.set("pushkey", key);
   url.searchParams.set("text", messageTitle);
   url.searchParams.set("desp", messageBody);
+  url.searchParams.set("type", "markdown");
 
   try {
     const response = await fetchImpl(url);
@@ -82,6 +83,11 @@ export async function sendPushDeerNotification({
       channel: "PushDeer",
       dryRun: false,
       status: response?.status || null,
+      payload: {
+        text: messageTitle,
+        desp: messageBody,
+        type: "markdown",
+      },
     };
   } catch (error) {
     return {
