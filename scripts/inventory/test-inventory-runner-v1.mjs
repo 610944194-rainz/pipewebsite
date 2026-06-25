@@ -3,6 +3,15 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import {
+  calculateSmokingpipesReferencePrice,
+  getSmokingpipesShippingUsd,
+  getSmokingpipesShippingTier,
+} from "../../lib/pricing/reference-price.mjs";
+import {
+  clearStaleProgressiveLock,
+  inspectProgressiveLock,
+} from "./smokingpipes-progressive-lock-v1.mjs";
 import * as runnerCore from "./inventory-runner-core-v1.mjs";
 import {
   acquireRunLock,
@@ -18,6 +27,9 @@ import {
   resolveListPacingOptions,
   shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
+import {
+  evaluateSmokingpipesCurrentListCache,
+} from "./smokingpipes-current-list-cache-v1.mjs";
 import { buildInventoryDiff } from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
 import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
@@ -94,6 +106,313 @@ const defaultInventoryState = runnerCore.initialInventoryState();
 assert.equal(defaultInventoryState.checkpointFailed, false);
 assert.equal(defaultInventoryState.checkpointTargetPath, null);
 assert.equal(defaultInventoryState.checkpointTempPath, null);
+
+const smokingpipesPricingForReferenceTests = {
+  taxFactor: 1.2,
+  serviceFeeRate: 0.15,
+  minServiceFeeCny: 200,
+  defaultDiscountRate: 0,
+  brandDiscountRates: {
+    Peterson: 0.05,
+    Savinelli: 0.05,
+    Dunhill: 0.15,
+  },
+  shippingTiersUsd: [
+    {
+      minPurchaseUsd: 0,
+      maxPurchaseUsdExclusive: 150,
+      shippingUsd: 6,
+    },
+    {
+      minPurchaseUsd: 150,
+      maxPurchaseUsdExclusive: 400,
+      shippingUsd: 19,
+    },
+    {
+      minPurchaseUsd: 400,
+      maxPurchaseUsdExclusive: null,
+      shippingUsd: 60,
+    },
+  ],
+};
+
+for (const [orderAmountUsd, expectedShippingUsd] of [
+  [89.3, 6],
+  [149.99, 6],
+  [150, 19],
+  [399.99, 19],
+  [400, 60],
+]) {
+  assert.equal(
+    getSmokingpipesShippingTier(
+      orderAmountUsd,
+      smokingpipesPricingForReferenceTests
+    )?.shippingUsd,
+    expectedShippingUsd
+  );
+  assert.equal(
+    getSmokingpipesShippingUsd(
+      orderAmountUsd,
+      smokingpipesPricingForReferenceTests
+    ),
+    expectedShippingUsd
+  );
+}
+
+const petersonJuniorBulldogReference =
+  calculateSmokingpipesReferencePrice({
+    sourcePriceAmount: 94,
+    brandName: "Peterson",
+    usdToCny: 6.8397,
+    pricingConfig: smokingpipesPricingForReferenceTests,
+  });
+assert.equal(petersonJuniorBulldogReference.purchasePriceUsd, 89.3);
+assert.equal(petersonJuniorBulldogReference.brandDiscountRate, 0.05);
+assert.equal(petersonJuniorBulldogReference.shippingUsd, 6);
+assert.notEqual(petersonJuniorBulldogReference.shippingUsd, 19);
+assert.equal(petersonJuniorBulldogReference.siteDisplayReady, true);
+assert.ok(
+  petersonJuniorBulldogReference.siteDisplayAmount >= 880 &&
+    petersonJuniorBulldogReference.siteDisplayAmount <= 900,
+  `Peterson Junior Bulldog reference price should be around CNY 880-900, got ${petersonJuniorBulldogReference.siteDisplayAmount}`
+);
+
+const missingSmokingpipesPriceReference =
+  calculateSmokingpipesReferencePrice({
+    sourcePriceAmount: null,
+    brandName: "Peterson",
+    usdToCny: 6.8397,
+    pricingConfig: smokingpipesPricingForReferenceTests,
+  });
+assert.equal(missingSmokingpipesPriceReference.siteDisplayReady, false);
+assert.equal(missingSmokingpipesPriceReference.siteDisplayAmount, null);
+
+const progressiveLockRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-progressive-lock-")
+);
+const progressiveLockPath = path.join(
+  progressiveLockRoot,
+  "data",
+  "inventory",
+  "state",
+  "smokingpipes-progressive-daily.lock"
+);
+fs.mkdirSync(path.dirname(progressiveLockPath), { recursive: true });
+const progressiveLockNowMs = Date.parse("2026-06-25T12:00:00.000Z");
+function writeProgressiveLock(content, mtimeIso) {
+  if (typeof content === "string") {
+    fs.writeFileSync(progressiveLockPath, content, "utf8");
+  } else {
+    fs.writeFileSync(
+      progressiveLockPath,
+      `${JSON.stringify(content, null, 2)}\n`,
+      "utf8"
+    );
+  }
+  const mtime = new Date(mtimeIso);
+  fs.utimesSync(progressiveLockPath, mtime, mtime);
+}
+
+const missingProgressiveLock = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+});
+assert.equal(missingProgressiveLock.exists, false);
+assert.equal(missingProgressiveLock.reason, "missing");
+assert.equal(missingProgressiveLock.stale, false);
+
+writeProgressiveLock(
+  { pid: process.pid, createdAt: "2026-06-25T11:30:00.000Z" },
+  "2026-06-25T11:30:00.000Z"
+);
+const activeProgressiveLock = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+  isProcessAlive: () => true,
+});
+assert.equal(activeProgressiveLock.exists, true);
+assert.equal(activeProgressiveLock.stale, false);
+assert.equal(activeProgressiveLock.reason, "active");
+const activeProgressiveClear = clearStaleProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+  isProcessAlive: () => true,
+});
+assert.equal(activeProgressiveClear.cleared, false);
+assert.equal(activeProgressiveClear.reason, "active");
+assert.equal(fs.existsSync(progressiveLockPath), true);
+
+writeProgressiveLock(
+  { pid: null, createdAt: "2026-06-25T07:30:00.000Z" },
+  "2026-06-25T07:30:00.000Z"
+);
+const staleProgressiveLockByAge = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+});
+assert.equal(staleProgressiveLockByAge.stale, true);
+assert.equal(staleProgressiveLockByAge.reason, "stale-age");
+const staleProgressiveClear = clearStaleProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+});
+assert.equal(staleProgressiveClear.cleared, true);
+assert.equal(fs.existsSync(progressiveLockPath), false);
+
+writeProgressiveLock(
+  { pid: 999999, createdAt: "2026-06-25T11:50:00.000Z" },
+  "2026-06-25T11:50:00.000Z"
+);
+const staleProgressiveLockByPid = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+  isProcessAlive: () => false,
+});
+assert.equal(staleProgressiveLockByPid.stale, true);
+assert.equal(staleProgressiveLockByPid.reason, "process-not-found");
+
+writeProgressiveLock("{invalid-json", "2026-06-25T07:30:00.000Z");
+const invalidOldProgressiveLock = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+});
+assert.equal(invalidOldProgressiveLock.stale, true);
+assert.equal(invalidOldProgressiveLock.reason, "invalid-json");
+
+writeProgressiveLock("{invalid-json", "2026-06-25T11:50:00.000Z");
+const invalidFreshProgressiveLock = inspectProgressiveLock({
+  lockPath: progressiveLockPath,
+  nowMs: progressiveLockNowMs,
+  root: progressiveLockRoot,
+});
+assert.equal(invalidFreshProgressiveLock.stale, false);
+assert.equal(invalidFreshProgressiveLock.reason, "active");
+
+const currentListCacheRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-current-list-cache-")
+);
+const currentListCachePath = path.join(
+  currentListCacheRoot,
+  "smokingpipes-current-list-dry-run.json"
+);
+const currentListCacheNow = new Date("2026-06-25T12:00:00");
+function writeCurrentListCacheFixture(overrides = {}) {
+  const { summary: summaryOverrides = {}, ...topLevelOverrides } = overrides;
+  const fixture = {
+    generatedAt: "2026-06-25T03:00:00",
+    completedAt: "2026-06-25T03:04:00",
+    products: [
+      { sourceProductId: "100" },
+      { sourceProductId: "101" },
+      { sourceProductId: "102" },
+    ],
+    summary: {
+      pagesRequested: 107,
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      uniqueProducts: 5136,
+      duplicateSourceProductIds: [],
+      captchaDetected: false,
+      captchaPages: [],
+      verificationDetectedAt: null,
+      completeRequestedRange: true,
+      fullExpectedRangeScanned: true,
+      ...summaryOverrides,
+    },
+    ...topLevelOverrides,
+  };
+  fs.writeFileSync(currentListCachePath, JSON.stringify(fixture, null, 2), "utf8");
+}
+
+writeCurrentListCacheFixture();
+const usableCurrentListCache = evaluateSmokingpipesCurrentListCache({
+  currentListPath: currentListCachePath,
+  now: currentListCacheNow,
+});
+assert.equal(usableCurrentListCache.usable, true);
+assert.equal(usableCurrentListCache.reason, "complete current-list cache from today");
+assert.equal(usableCurrentListCache.pagesScanned, 107);
+assert.equal(usableCurrentListCache.expectedPages, 107);
+assert.equal(usableCurrentListCache.productsExtracted, 5136);
+assert.equal(usableCurrentListCache.uniqueProducts, 5136);
+assert.equal(usableCurrentListCache.dateKey, "2026-06-25");
+
+writeCurrentListCacheFixture({ generatedAt: "2026-06-24T23:00:00" });
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "stale"
+);
+
+writeCurrentListCacheFixture({ summary: { pagesScanned: 106 } });
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "incomplete"
+);
+
+writeCurrentListCacheFixture({ summary: { captchaDetected: true } });
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "captcha"
+);
+
+writeCurrentListCacheFixture({
+  summary: { verificationDetectedAt: "2026-06-25T03:01:00" },
+});
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "verification"
+);
+
+writeCurrentListCacheFixture({
+  summary: { duplicateSourceProductIds: ["100"] },
+});
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "duplicate-ids"
+);
+
+writeCurrentListCacheFixture({
+  summary: { productsExtracted: 0, uniqueProducts: 0 },
+});
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+  }).reason,
+  "empty-products"
+);
+
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: path.join(currentListCacheRoot, "missing.json"),
+    now: currentListCacheNow,
+  }).reason,
+  "missing"
+);
+
 assert.equal(defaults.source, "smokingpipes");
 assert.equal(defaults.mode, "dry-run");
 assert.equal(defaults.commit, false);
@@ -4989,6 +5308,7 @@ const {
   buildSmokingpipesDailyMobileReport,
   isDirectCliInvocation,
   runSmokingpipesDailyMobileReport,
+  shouldSendDailyMobileNotification,
 } = await import("./smokingpipes-daily-mobile-report-v1.mjs");
 
 assert.deepEqual(
@@ -5107,9 +5427,10 @@ assert.match(mobileReport.blockers.join("\n"), /verification detected/);
 assert.deepEqual(mobileReport.warnings, ["review-only retained"]);
 const pushDeerMessage = buildPushDeerDailyMessage(mobileReport);
 assert.equal(pushDeerMessage.title, "烟斗派库存日报｜Smokingpipes");
-assert.match(pushDeerMessage.body, /状态：需要人工验证/);
+assert.match(pushDeerMessage.body, /结论：需要人工验证/);
 assert.match(pushDeerMessage.body, /人工复核：1/);
 assert.match(pushDeerMessage.body, /失败保留：1/);
+assert.doesNotMatch(pushDeerMessage.body, /烟斗派库存日报｜Smokingpipes/);
 
 const verificationLogReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-06-25T03:00:00.000Z",
@@ -5136,7 +5457,7 @@ assert.equal(verificationLogReport.pagesScanned, 107);
 assert.equal(verificationLogReport.expectedPages, 107);
 assert.match(verificationLogReport.blockers.join("\n"), /strong verification detected/i);
 const verificationLogMessage = buildPushDeerDailyMessage(verificationLogReport);
-assert.match(verificationLogMessage.body, /状态：需要人工验证/);
+assert.match(verificationLogMessage.body, /结论：需要人工验证/);
 assert.match(verificationLogMessage.body, /扫描：107\/107 页/);
 assert.match(verificationLogMessage.body, /下一步：\n请在电脑上完成 Smokingpipes 验证/);
 
@@ -5159,8 +5480,363 @@ const noVerificationLogReport = buildSmokingpipesDailyMobileReport({
     warnings: [],
   },
 });
-assert.equal(noVerificationLogReport.status, "partial");
+assert.equal(noVerificationLogReport.status, "preview");
 assert.deepEqual(noVerificationLogReport.blockers, []);
+assert.equal(noVerificationLogReport.appliedCount, 0);
+assert.equal(noVerificationLogReport.statusLabel, "未更新，仅生成预览");
+assert.match(noVerificationLogReport.reason, /productionWritten=false/);
+const previewLogMessage = buildPushDeerDailyMessage(noVerificationLogReport);
+assert.match(previewLogMessage.body, /结论：未更新，仅生成预览/);
+assert.match(previewLogMessage.body, /正式应用：0/);
+assert.match(previewLogMessage.body, /待处理详情：/);
+assert.doesNotMatch(previewLogMessage.body, /状态：安全预览/);
+assert.doesNotMatch(previewLogMessage.body, /未完成：/);
+
+const reusedCurrentListReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:07:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "retryable-failed",
+    attempts: 2,
+    lastFailureReason: "progressive-ingest-list failed before production write: lock",
+    lastFailureType: "lock",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    nextRetryRecommendedAt: "2026-06-25T05:07:00.000Z",
+    currentList: {
+      status: "reused",
+      reused: true,
+      path: "data/inventory/smokingpipes-current-list-dry-run.json",
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      lastCompletedAt: "2026-06-25T03:04:24.852Z",
+      reuseReason: "complete current-list cache from today",
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(reusedCurrentListReport.currentList.reused, true);
+assert.equal(reusedCurrentListReport.currentList.status, "reused");
+assert.equal(reusedCurrentListReport.currentList.productsExtracted, 5136);
+const reusedCurrentListMessage = buildPushDeerDailyMessage(reusedCurrentListReport);
+assert.match(
+  reusedCurrentListMessage.body,
+  /源站扫描：复用今日完整列表快照（107\/107）/
+);
+
+const previewReusedCurrentListReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:08:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "running",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    currentList: {
+      status: "reused",
+      reused: true,
+      path: "data/inventory/smokingpipes-current-list-dry-run.json",
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      lastCompletedAt: "2026-06-25T03:04:24.852Z",
+      reuseReason: "complete current-list cache from today",
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(previewReusedCurrentListReport.status, "preview");
+assert.match(previewReusedCurrentListReport.reason, /已复用今日 current-list/);
+
+const failedTaskReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:06:00.000Z",
+  taskLogText:
+    "DAILY TASK FAILED: Error: Inventory automation is already running. Lock: C:\\Users\\NING MEI\\Desktop\\pipewebsite\\data\\inventory\\state\\smokingpipes-progressive-daily.lock.",
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(failedTaskReport.status, "failed");
+assert.equal(failedTaskReport.statusLabel, "更新失败");
+assert.match(failedTaskReport.blockers.join("\n"), /already running/i);
+assert.match(failedTaskReport.reason, /daily task failed/i);
+const failedTaskMessage = buildPushDeerDailyMessage(failedTaskReport);
+assert.match(failedTaskMessage.body, /结论：更新失败/);
+assert.match(
+  failedTaskMessage.body,
+  /下一步：\n查看 data\/review\/smokingpipes-daily-task-latest\.log/
+);
+assert.doesNotMatch(failedTaskMessage.body, /安全预览/);
+
+const retryableTaskReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T04:00:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "retryable-failed",
+    attempts: 1,
+    lastFailureAt: "2026-06-25T04:00:00.000Z",
+    lastFailureReason: "progressive-ingest-list failed before production write: profile lock",
+    lastFailureType: "lock",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    nextRetryRecommendedAt: "2026-06-25T06:00:00.000Z",
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(retryableTaskReport.status, "retryable-failed");
+assert.equal(retryableTaskReport.retryAllowed, true);
+assert.equal(retryableTaskReport.failureType, "lock");
+assert.equal(
+  retryableTaskReport.nextRetryRecommendedAt,
+  "2026-06-25T06:00:00.000Z"
+);
+const retryableTaskMessage = buildPushDeerDailyMessage(retryableTaskReport);
+assert.match(retryableTaskMessage.body, /结论：更新失败，将自动重试/);
+assert.match(retryableTaskMessage.body, /失败类型：任务锁定/);
+assert.match(retryableTaskMessage.body, /下一次重试：2026-06-25T06:00:00.000Z/);
+
+const activeProgressiveLockReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T05:00:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "retryable-failed",
+    attempts: 2,
+    lastFailureAt: "2026-06-25T05:00:00.000Z",
+    lastFailureReason:
+      'Error: Inventory automation is already running. Lock: C:\\Users\\NING MEI\\Desktop\\pipewebsite\\data\\inventory\\state\\smokingpipes-progressive-daily.lock. {"status":"blocked"}',
+    lastFailureType: "lock",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    nextRetryRecommendedAt: "2026-06-25T07:00:00.000Z",
+    progressiveLock: {
+      exists: true,
+      status: "active-skip",
+      path: "data/inventory/state/smokingpipes-progressive-daily.lock",
+      ageMs: 900000,
+      cleared: false,
+      reason: "active",
+    },
+    currentList: {
+      status: "reused",
+      reused: true,
+      path: "data/inventory/smokingpipes-current-list-dry-run.json",
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      lastCompletedAt: "2026-06-25T03:04:24.852Z",
+      reuseReason: "complete current-list cache from today",
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(activeProgressiveLockReport.status, "lock-active");
+assert.match(
+  activeProgressiveLockReport.statusLabel,
+  /库存任务正在运行|搴撳瓨浠诲姟姝ｅ湪杩愯/
+);
+assert.equal(activeProgressiveLockReport.progressiveLock.status, "active-skip");
+const activeProgressiveLockMessage =
+  buildPushDeerDailyMessage(activeProgressiveLockReport);
+assert.match(
+  activeProgressiveLockMessage.body,
+  /任务锁定|浠诲姟閿佸畾/
+);
+assert.match(
+  activeProgressiveLockMessage.body,
+  /自动重试|鑷姩閲嶈瘯/
+);
+assert.doesNotMatch(activeProgressiveLockMessage.body, /\{"status"/);
+assert.doesNotMatch(activeProgressiveLockMessage.body, /C:\\Users\\NING MEI/);
+
+const staleClearedProgressiveLockReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-06-25T05:10:00.000Z",
+    taskState: {
+      source: "smokingpipes",
+      dateKey: "2026-06-25",
+      status: "running",
+      attempts: 2,
+      productionWritten: false,
+      appliedCount: 0,
+      candidateCount: 324,
+      retryAllowed: true,
+      progressiveLock: {
+        exists: true,
+        status: "stale-cleared",
+        path: "data/inventory/state/smokingpipes-progressive-daily.lock",
+        ageMs: 18000000,
+        cleared: true,
+        reason: "stale-age",
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      listSnapshotStatus: "complete",
+      pagesScanned: 107,
+      expectedPages: 107,
+      candidates: [],
+    },
+    audit: {
+      verdict: "PASS",
+      candidateCount: 324,
+      wouldApplyCount: 0,
+      productionWritten: false,
+      blockers: [],
+      warnings: [],
+    },
+  });
+assert.equal(staleClearedProgressiveLockReport.status, "stale-lock-cleared");
+assert.equal(
+  staleClearedProgressiveLockReport.progressiveLock.cleared,
+  true
+);
+assert.match(
+  buildPushDeerDailyMessage(staleClearedProgressiveLockReport).body,
+  /已清理过期任务锁|宸叉竻鐞嗚繃鏈熶换鍔￠攣/
+);
+
+const terminalTaskReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T04:10:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "terminal-failed",
+    attempts: 1,
+    lastFailureAt: "2026-06-25T04:10:00.000Z",
+    lastFailureReason: "安全审计未通过: zeroPriceSellable > 0",
+    lastFailureType: "audit",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: false,
+    nextRetryRecommendedAt: null,
+  },
+  state: { source: "smokingpipes", candidates: [] },
+  audit: {
+    verdict: "FAIL",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: ["zeroPriceSellable > 0"],
+    warnings: [],
+  },
+});
+assert.equal(terminalTaskReport.status, "terminal-failed");
+assert.equal(terminalTaskReport.retryAllowed, false);
+assert.equal(terminalTaskReport.failureType, "audit");
+const terminalTaskMessage = buildPushDeerDailyMessage(terminalTaskReport);
+assert.match(terminalTaskMessage.body, /结论：更新失败，已停止重试/);
+assert.match(terminalTaskMessage.body, /下一步：\n人工检查 audit report/);
+
+const skippedSuccessReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T06:30:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "skipped-success",
+    attempts: 2,
+    lastSuccessAt: "2026-06-25T04:00:00.000Z",
+    productionWritten: true,
+    appliedCount: 324,
+    candidateCount: 324,
+    retryAllowed: false,
+  },
+  state: { source: "smokingpipes", candidates: [] },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: true,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(skippedSuccessReport.status, "skipped-success");
+assert.equal(skippedSuccessReport.todayAlreadySucceeded, true);
+assert.equal(shouldSendDailyMobileNotification(skippedSuccessReport, { send: true }), false);
+const skippedSuccessMessage = buildPushDeerDailyMessage(skippedSuccessReport);
+assert.match(skippedSuccessMessage.body, /结论：已跳过/);
+assert.match(skippedSuccessMessage.body, /今天已经成功更新/);
 
 const mobileReportRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "smokingpipes-mobile-report-")
@@ -5226,7 +5902,7 @@ const mobileMarkdownBuffer = fs.readFileSync(mobileMarkdownPath);
 assert.equal(mobileMarkdownBuffer[0], 0xef);
 assert.equal(mobileMarkdownBuffer[1], 0xbb);
 assert.equal(mobileMarkdownBuffer[2], 0xbf);
-assert.match(mobileMarkdownBuffer.toString("utf8"), /状态：需要人工验证/);
+assert.match(mobileMarkdownBuffer.toString("utf8"), /结论：需要人工验证/);
 assert.doesNotMatch(mobileMarkdownBuffer.toString("utf8"), /public ready|public review-only|public not-public/);
 
 const utf16LogPath = path.join(
@@ -5326,6 +6002,27 @@ const dailyTaskScriptPath = path.join(
   "run-smokingpipes-progressive-daily.ps1"
 );
 const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
+assert.match(dailyTaskScript, /smokingpipes-daily-task-state\.json/);
+assert.match(dailyTaskScript, /smokingpipes-daily-task-lock\.json/);
+assert.match(dailyTaskScript, /smokingpipes-progressive-daily\.lock/);
+assert.match(dailyTaskScript, /smokingpipes-progressive-lock-v1\.mjs/);
+assert.match(dailyTaskScript, /smokingpipes-current-list-cache-v1\.mjs/);
+assert.match(dailyTaskScript, /REUSE current-list cache/);
+assert.match(dailyTaskScript, /current-list cache not reusable/);
+assert.match(dailyTaskScript, /currentList/);
+assert.match(dailyTaskScript, /progressiveLock/);
+assert.match(dailyTaskScript, /CHECK progressive lock/);
+assert.match(dailyTaskScript, /CLEARED stale progressive lock/);
+assert.match(dailyTaskScript, /SKIP because progressive lock is active/);
+assert.match(dailyTaskScript, /active-skip/);
+assert.match(dailyTaskScript, /stale-cleared/);
+assert.match(dailyTaskScript, /-Status\s+"reused"/);
+assert.match(dailyTaskScript, /-Status\s+"fetched"/);
+assert.match(dailyTaskScript, /retryable-failed/);
+assert.match(dailyTaskScript, /terminal-failed/);
+assert.match(dailyTaskScript, /skipped-success/);
+assert.match(dailyTaskScript, /AddHours\(-4\)|LockStaleHours\s*=\s*4/);
+assert.match(dailyTaskScript, /nextRetryRecommendedAt/);
 assert.match(dailyTaskScript, /progressive-detail-max=30/);
 assert.match(
   dailyTaskScript,
@@ -5338,5 +6035,34 @@ assert.doesNotMatch(dailyTaskScript, /\bgit\s+commit\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+push\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bvercel\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bnpm(?:\.cmd)?\s+run\s+deploy\b/i);
+
+const installDailyTaskScriptPath = path.join(
+  process.cwd(),
+  "scripts",
+  "inventory",
+  "install-smokingpipes-daily-task-v1.ps1"
+);
+assert.equal(fs.existsSync(installDailyTaskScriptPath), true);
+const installDailyTaskScript = fs.readFileSync(installDailyTaskScriptPath, "utf8");
+assert.match(installDailyTaskScript, /YandouBuy Smokingpipes Daily Update/);
+assert.match(installDailyTaskScript, /New-ScheduledTaskTrigger[\s\S]*-Daily[\s\S]*-At\s+"10:30"/);
+assert.match(installDailyTaskScript, /-RepetitionInterval\s+\(New-TimeSpan\s+-Hours\s+2\)/);
+assert.match(installDailyTaskScript, /-RepetitionDuration\s+\(New-TimeSpan\s+-Hours\s+12\)/);
+assert.doesNotMatch(installDailyTaskScript, /Repetition\.Interval/);
+assert.doesNotMatch(installDailyTaskScript, /Repetition\.Duration/);
+for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30"]) {
+  assert.match(installDailyTaskScript, new RegExp(`-At\\s+"${time}"`));
+}
+assert.match(installDailyTaskScript, /WakeToRun\s*=\s*\$true/);
+assert.doesNotMatch(installDailyTaskScript, /-ExecutionTimeLimit/);
+assert.doesNotMatch(installDailyTaskScript, /\$settings\.ExecutionTimeLimit/);
+assert.doesNotMatch(installDailyTaskScript, /03:00:00/);
+assert.doesNotMatch(installDailyTaskScript, /PT3H/);
+assert.match(installDailyTaskScript, /AllowStartIfOnBatteries/);
+assert.match(installDailyTaskScript, /DontStopIfGoingOnBatteries/);
+assert.match(installDailyTaskScript, /MultipleInstances[\s\S]*IgnoreNew/);
+assert.match(installDailyTaskScript, /run-smokingpipes-progressive-daily\.ps1/);
+assert.doesNotMatch(installDailyTaskScript, /\bgit\s+push\b/i);
+assert.doesNotMatch(installDailyTaskScript, /\bgit\s+commit\b/i);
 
 console.log("Inventory runner core tests passed.");

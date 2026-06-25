@@ -57,6 +57,8 @@ data/generated/public-products-partial-next/
 data/generated/public-products-daily-next/
 data/inventory/smokingpipes-progressive-daily-state.json
 data/inventory/smokingpipes-daily-update-state.json
+data/inventory/smokingpipes-daily-task-state.json
+data/inventory/smokingpipes-daily-task-lock.json
 data/inventory/smokingpipes-*telemetry.json
 .env.inventory.local
 data/review/smokingpipes-daily-mobile-report.json
@@ -72,6 +74,12 @@ data/review/danish-daily-update-report.json
 data/review/danish-daily-update-report.md
 data/review/danish-sanity-audit-report.json
 data/review/danish-sanity-audit-report.md
+data/inventory/danish-online-baseline-current-list.json
+data/inventory/danish-online-baseline-diff.json
+data/review/danish-online-baseline-report.json
+data/review/danish-online-baseline-report.md
+data/review/danish-online-baseline-diff-report.json
+data/review/danish-online-baseline-diff-report.md
 
 # Next.js
 .next/
