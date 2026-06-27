@@ -1,0 +1,574 @@
+{
+  "catalog": {
+    "danish": 2121,
+    "danishChangedFromHeadCount": 0,
+    "duplicateIdCount": 0,
+    "manifestHashMismatchCount": 0,
+    "recentNewMismatchCount": 0,
+    "smokingpipes": 5294,
+    "smokingpipesDetailMismatchCount": 0,
+    "smokingpipesFormulaMismatchCount": 0,
+    "total": 7415
+  },
+  "checks": [
+    {
+      "actual": 6.8397,
+      "name": "项目 USD 汇率有效",
+      "passed": true
+    },
+    {
+      "actual": 1.2,
+      "name": "SP 配置 taxFactor 为 1.2",
+      "passed": true
+    },
+    {
+      "actual": 1.2,
+      "name": "Danish 配置 taxFactor 保持 1.2",
+      "passed": true
+    },
+    {
+      "name": "SP 运费边界 $89.3 => $6",
+      "passed": true
+    },
+    {
+      "name": "SP 运费边界 $149.99 => $6",
+      "passed": true
+    },
+    {
+      "name": "SP 运费边界 $150 => $19",
+      "passed": true
+    },
+    {
+      "name": "SP 运费边界 $399.99 => $19",
+      "passed": true
+    },
+    {
+      "name": "SP 运费边界 $400 => $60",
+      "passed": true
+    },
+    {
+      "name": "Peterson 716017 使用折后实际购买价 $89.30",
+      "passed": true
+    },
+    {
+      "name": "Peterson 716017 使用 $6 运费",
+      "passed": true
+    },
+    {
+      "name": "Peterson 716017 恢复 1.2 import/tax factor",
+      "passed": true
+    },
+    {
+      "name": "Peterson 716017 当前汇率公式正确",
+      "passed": true
+    },
+    {
+      "name": "Peterson 716017 在汇率 7.2 时约 ¥1045",
+      "passed": true
+    },
+    {
+      "name": "低金额服务费使用最低 ¥200",
+      "passed": true
+    },
+    {
+      "name": "国内邮费固定 ¥30",
+      "passed": true
+    },
+    {
+      "name": "高金额服务费使用 baseCost 的 15%",
+      "passed": true
+    },
+    {
+      "name": "缺价不输出 ¥0",
+      "passed": true
+    },
+    {
+      "name": "importCostFactor 优先于兼容 taxFactor",
+      "passed": true
+    },
+    {
+      "name": "Danish 使用独立 VAT/运费/税费公式",
+      "passed": true
+    },
+    {
+      "name": "Danish 不套用 SP 运费档",
+      "passed": true
+    },
+    {
+      "name": "服务费文案为 15%、最低 200、国内邮费 30",
+      "passed": true
+    },
+    {
+      "name": "Danish 前端调用独立价格函数",
+      "passed": true
+    },
+    {
+      "name": "前端缺价显示价格待确认且不回退美元价",
+      "passed": true
+    },
+    {
+      "name": "public catalog 结构有效且 ID 唯一",
+      "passed": true
+    },
+    {
+      "name": "manifest catalog/detail 数量与 public catalog 一致",
+      "passed": true
+    },
+    {
+      "mismatchCount": 0,
+      "name": "全部 SP public catalog 价格符合修复公式",
+      "passed": true
+    },
+    {
+      "name": "SP public catalog 无 0 元可售价格",
+      "passed": true
+    },
+    {
+      "changedCount": 0,
+      "name": "Danish public catalog 未被 SP hotfix 改动",
+      "passed": true
+    },
+    {
+      "mismatchCount": 0,
+      "name": "全部 SP detail shard 价格符合修复公式",
+      "passed": true
+    },
+    {
+      "name": "detail shard 记录数与 manifest 一致",
+      "passed": true
+    },
+    {
+      "mismatchCount": 0,
+      "name": "recent-new 中 SP 价格符合修复公式",
+      "passed": true
+    },
+    {
+      "mismatchCount": 0,
+      "name": "manifest 文件哈希全部匹配",
+      "passed": true
+    }
+  ],
+  "danishImpact": {
+    "affectedBySmokingpipesFix": false,
+    "callsReferencePriceModule": true,
+    "publicCatalogRecalculationRequired": false,
+    "reason": "Danish uses calculateDanishPipeShopReferencePrice and its own VAT, shipping, and tax-factor configuration; the SP-only reprice path preserves Danish records byte-for-byte.",
+    "taxFactor": 1.2,
+    "taxFactorPreserved": true,
+    "usesIndependentCalculator": true
+  },
+  "errors": [],
+  "exchangeRates": {
+    "basisDate": "2026-05-20",
+    "effectiveMonth": "2026-06",
+    "USD": 6.8397
+  },
+  "formula": {
+    "overseasBaseCost": "(purchasePriceUsd * importCostFactor + shippingUsd) * usdToCny",
+    "serviceFee": "max(baseCostCny * serviceFeeRate, minServiceFeeCny)",
+    "siteDisplay": "baseCostCny + serviceFeeCny + domesticShippingCny"
+  },
+  "generatedAt": "2026-06-27T17:46:54.492Z",
+  "peterson716017": {
+    "atUsdToCny72": {
+      "baseCostCny": 814.7520000000001,
+      "brandDiscountRate": 0.05,
+      "brandName": "Peterson",
+      "correctedSiteDisplayAmount": 1044.752,
+      "displayCeil": 1045,
+      "domesticShippingCny": 30,
+      "importCostFactor": 1.2,
+      "previousFormulaAmount": 916.1600000000001,
+      "purchasePriceUsd": 89.3,
+      "serviceFeeCny": 200,
+      "shippingCny": 43.2,
+      "shippingUsd": 6,
+      "sourceListedPriceUsd": 94,
+      "sourceMsrpUsd": 117.5,
+      "sourceProductId": "716017",
+      "taxableProductCostCny": 771.552,
+      "title": "Junior Rusticated Nickel Mounted Straight Bulldog Fishtail Tobacco Pipe"
+    },
+    "baseCostCny": 773.9804519999999,
+    "brandDiscountRate": 0.05,
+    "brandName": "Peterson",
+    "correctedSiteDisplayAmount": 1003.9804519999999,
+    "displayCeil": 1004,
+    "domesticShippingCny": 30,
+    "importCostFactor": 1.2,
+    "previousFormulaAmount": 881.82341,
+    "purchasePriceUsd": 89.3,
+    "serviceFeeCny": 200,
+    "shippingCny": 41.038199999999996,
+    "shippingUsd": 6,
+    "sourceListedPriceUsd": 94,
+    "sourceMsrpUsd": 117.5,
+    "sourceProductId": "716017",
+    "taxableProductCostCny": 732.9422519999999,
+    "title": "Junior Rusticated Nickel Mounted Straight Bulldog Fishtail Tobacco Pipe"
+  },
+  "samples": {
+    "danish": [
+      {
+        "baseCostCny": 79384.29407999999,
+        "brandName": "Anne Julie",
+        "displayCeil": 91322,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 9672,
+        "serviceFeeCny": 11907.644111999998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 91321.93819199999,
+        "sourcePriceUsd": 12090,
+        "sourceProductId": "33109",
+        "taxableProductCostCny": 79384.29407999999,
+        "taxFactor": 1.2,
+        "title": "Anne Julie, Unica Blowfish"
+      },
+      {
+        "baseCostCny": 79384.29407999999,
+        "brandName": "Anne Julie",
+        "displayCeil": 91322,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 9672,
+        "serviceFeeCny": 11907.644111999998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 91321.93819199999,
+        "sourcePriceUsd": 12090,
+        "sourceProductId": "33108",
+        "taxableProductCostCny": 79384.29407999999,
+        "taxFactor": 1.2,
+        "title": "Anne Julie, Unica Brandy"
+      },
+      {
+        "baseCostCny": 9261.500976,
+        "brandName": "Bay Denmark",
+        "displayCeil": 10681,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 1128.4,
+        "serviceFeeCny": 1389.2251463999999,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 10680.7261224,
+        "sourcePriceUsd": 1410.5,
+        "sourceProductId": "36851",
+        "taxableProductCostCny": 9261.500976,
+        "taxFactor": 1.2,
+        "title": "Bay Denmark, Plateaux Top Dublin"
+      },
+      {
+        "baseCostCny": 5027.671958399999,
+        "brandName": "Bay Denmark",
+        "displayCeil": 5812,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 612.5600000000001,
+        "serviceFeeCny": 754.1507937599998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 5811.822752159999,
+        "sourcePriceUsd": 765.7,
+        "sourceProductId": "36858",
+        "taxableProductCostCny": 5027.671958399999,
+        "taxFactor": 1.2,
+        "title": "Bay Denmark, Rusticated Billard w. Horn"
+      },
+      {
+        "baseCostCny": 5292.286271999999,
+        "brandName": "Bay Denmark",
+        "displayCeil": 6117,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 644.8,
+        "serviceFeeCny": 793.8429407999998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 6116.1292128,
+        "sourcePriceUsd": 806,
+        "sourceProductId": "36857",
+        "taxableProductCostCny": 5292.286271999999,
+        "taxFactor": 1.2,
+        "title": "Bay Denmark, Rusticated Horn"
+      },
+      {
+        "baseCostCny": 9261.500976,
+        "brandName": "Bay Denmark",
+        "displayCeil": 10681,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 1128.4,
+        "serviceFeeCny": 1389.2251463999999,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 10680.7261224,
+        "sourcePriceUsd": 1410.5,
+        "sourceProductId": "36850",
+        "taxableProductCostCny": 9261.500976,
+        "taxFactor": 1.2,
+        "title": "Bay Denmark, Shield w. Horn"
+      },
+      {
+        "baseCostCny": 7197.50932992,
+        "brandName": "Berggreen Pipes",
+        "displayCeil": 8308,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 876.9280000000001,
+        "serviceFeeCny": 1079.6263994879998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 8307.135729407999,
+        "sourcePriceUsd": 1096.16,
+        "sourceProductId": "36675",
+        "taxableProductCostCny": 7197.50932992,
+        "taxFactor": 1.2,
+        "title": "Berggreen Pipes, Facet Bulldog w. bog oak"
+      },
+      {
+        "baseCostCny": 7197.50932992,
+        "brandName": "Berggreen Pipes",
+        "displayCeil": 8308,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 876.9280000000001,
+        "serviceFeeCny": 1079.6263994879998,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 8307.135729407999,
+        "sourcePriceUsd": 1096.16,
+        "sourceProductId": "36674",
+        "taxableProductCostCny": 7197.50932992,
+        "taxFactor": 1.2,
+        "title": "Berggreen Pipes, Facet Bulldog w. box wood"
+      },
+      {
+        "baseCostCny": 6879.9721536,
+        "brandName": "Berggreen Pipes",
+        "displayCeil": 7942,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 838.24,
+        "serviceFeeCny": 1031.99582304,
+        "shippingCny": 0,
+        "shippingUsd": 0,
+        "siteDisplayAmount": 7941.9679766399995,
+        "sourcePriceUsd": 1047.8,
+        "sourceProductId": "36677",
+        "taxableProductCostCny": 6879.9721536,
+        "taxFactor": 1.2,
+        "title": "Berggreen Pipes, The Stealth w. bog oak"
+      },
+      {
+        "baseCostCny": 561.69805104,
+        "brandName": "BPK",
+        "displayCeil": 792,
+        "domesticShippingCny": 30,
+        "netExportPriceUsd": 50.936,
+        "serviceFeeCny": 200,
+        "shippingCny": 143.6337,
+        "shippingUsd": 21,
+        "siteDisplayAmount": 791.69805104,
+        "sourcePriceUsd": 63.67,
+        "sourceProductId": "276",
+        "taxableProductCostCny": 418.06435103999996,
+        "taxFactor": 1.2,
+        "title": "BPK Smooth Churchwarden Pipe, Classic Bent Billard"
+      }
+    ],
+    "smokingpipes": [
+      {
+        "baseCostCny": 773.9804519999999,
+        "brandDiscountRate": 0.05,
+        "brandName": "Peterson",
+        "correctedSiteDisplayAmount": 1003.9804519999999,
+        "displayCeil": 1004,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 881.82341,
+        "purchasePriceUsd": 89.3,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 94,
+        "sourceMsrpUsd": 117.5,
+        "sourceProductId": "716017",
+        "taxableProductCostCny": 732.9422519999999,
+        "title": "Junior Rusticated Nickel Mounted Straight Bulldog Fishtail Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 111.8701332,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 341.8701332,
+        "displayCeil": 342,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 330.06481099999996,
+        "purchasePriceUsd": 8.63,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 8.63,
+        "sourceMsrpUsd": 8.99,
+        "sourceProductId": "109736",
+        "taxableProductCostCny": 70.8319332,
+        "title": "Missouri Pride Straight (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 111.8701332,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 341.8701332,
+        "displayCeil": 342,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 330.06481099999996,
+        "purchasePriceUsd": 8.63,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 8.63,
+        "sourceMsrpUsd": 8.99,
+        "sourceProductId": "109737",
+        "taxableProductCostCny": 70.8319332,
+        "title": "Missouri Pride Bent (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 129.680712,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 359.68071199999997,
+        "displayCeil": 360,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 344.90696,
+        "purchasePriceUsd": 10.8,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 10.8,
+        "sourceMsrpUsd": 11.25,
+        "sourceProductId": "109738",
+        "taxableProductCostCny": 88.642512,
+        "title": "Legend 5th Avenue Straight (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 129.680712,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 359.68071199999997,
+        "displayCeil": 360,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 344.90696,
+        "purchasePriceUsd": 10.8,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 10.8,
+        "sourceMsrpUsd": 11.25,
+        "sourceProductId": "109739",
+        "taxableProductCostCny": 88.642512,
+        "title": "Legend 5th Avenue Bent (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 151.2668052,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 381.2668052,
+        "displayCeil": 382,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 362.89537099999995,
+        "purchasePriceUsd": 13.43,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 13.43,
+        "sourceMsrpUsd": 13.99,
+        "sourceProductId": "109740",
+        "taxableProductCostCny": 110.22860519999999,
+        "title": "Washington 5th Avenue Straight (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 111.8701332,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 341.8701332,
+        "displayCeil": 342,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 330.06481099999996,
+        "purchasePriceUsd": 8.63,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 8.63,
+        "sourceMsrpUsd": 8.99,
+        "sourceProductId": "109743",
+        "taxableProductCostCny": 70.8319332,
+        "title": "Mizzou Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 133.9486848,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 363.9486848,
+        "displayCeil": 364,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 348.46360400000003,
+        "purchasePriceUsd": 11.32,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 11.32,
+        "sourceMsrpUsd": 11.79,
+        "sourceProductId": "109744",
+        "taxableProductCostCny": 92.91048479999999,
+        "title": "Ozark Mountain Straight (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 133.9486848,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 363.9486848,
+        "displayCeil": 364,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 348.46360400000003,
+        "purchasePriceUsd": 11.32,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 11.32,
+        "sourceMsrpUsd": 11.79,
+        "sourceProductId": "109745",
+        "taxableProductCostCny": 92.91048479999999,
+        "title": "Ozark Mountain Bent (6mm) Tobacco Pipe"
+      },
+      {
+        "baseCostCny": 78.4650384,
+        "brandDiscountRate": 0,
+        "brandName": "Missouri Meerschaum",
+        "correctedSiteDisplayAmount": 308.4650384,
+        "displayCeil": 309,
+        "domesticShippingCny": 30,
+        "importCostFactor": 1.2,
+        "previousFormulaAmount": 302.22723199999996,
+        "purchasePriceUsd": 4.56,
+        "serviceFeeCny": 200,
+        "shippingCny": 41.038199999999996,
+        "shippingUsd": 6,
+        "sourceListedPriceUsd": 4.56,
+        "sourceMsrpUsd": 4.75,
+        "sourceProductId": "116687",
+        "taxableProductCostCny": 37.426838399999994,
+        "title": "Mini with Amber Stem Tobacco Pipe"
+      }
+    ]
+  },
+  "schemaVersion": 1,
+  "smokingpipesImpact": {
+    "configuredTaxFactor": 1.2,
+    "rootCause": "The previous hotfix omitted the configured 1.2 import/tax cost factor from Smokingpipes taxable product cost.",
+    "usesActualPurchasePriceAfterBrandDiscount": true,
+    "usesMsrpAsPurchasePrice": false
+  },
+  "status": "passed"
+}

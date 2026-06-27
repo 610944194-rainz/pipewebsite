@@ -885,6 +885,183 @@ function performanceBudgetStatus(performance) {
   };
 }
 
+function repriceExistingSmokingpipesProduct(
+  product,
+  exchangeRates,
+  smokingpipesPricing
+) {
+  if (requiredText(product?.source) !== "smokingpipes") return product;
+
+  const reference = calculateSmokingpipesReferencePrice({
+    sourcePriceAmount: finiteNumber(product.sourcePriceAmount),
+    brandName: cleanText(product.brandName),
+    usdToCny: exchangeRates.rates.USD,
+    pricingConfig: smokingpipesPricing,
+  });
+
+  return {
+    ...product,
+    siteDisplayAmount: reference.siteDisplayAmount,
+    siteDisplayCurrency: reference.siteDisplayCurrency,
+    siteDisplayReady: reference.siteDisplayReady,
+    sortKeys: {
+      ...(product.sortKeys || {}),
+      price: reference.siteDisplayReady
+        ? reference.siteDisplayAmount
+        : null,
+    },
+  };
+}
+
+async function repriceExistingPublicProducts() {
+  const [exchangeRates, smokingpipesPricing, catalogPayload, manifest] =
+    await Promise.all([
+      readExchangeRateMetadata(INPUTS.exchangeRates),
+      readJson(INPUTS.smokingpipesPricing),
+      readJson(OUTPUTS.catalog),
+      readJson(OUTPUTS.manifest),
+    ]);
+
+  const catalog = Array.isArray(catalogPayload.products)
+    ? catalogPayload.products
+    : [];
+  if (!catalog.length) {
+    throw new Error(
+      "Cannot reprice existing public products: catalog is empty."
+    );
+  }
+
+  const danishBefore = catalog
+    .filter((product) => requiredText(product.source) === "danish")
+    .map((product) => JSON.stringify(product));
+  const repricedCatalog = catalog.map((product) =>
+    repriceExistingSmokingpipesProduct(
+      product,
+      exchangeRates,
+      smokingpipesPricing
+    )
+  );
+  const danishAfter = repricedCatalog
+    .filter((product) => requiredText(product.source) === "danish")
+    .map((product) => JSON.stringify(product));
+  if (JSON.stringify(danishBefore) !== JSON.stringify(danishAfter)) {
+    throw new Error(
+      "Refusing SP reprice: Danish catalog records would change."
+    );
+  }
+
+  const serializedFiles = {
+    "data/generated/public-products/catalog.json": compactJson({
+      ...catalogPayload,
+      products: repricedCatalog,
+    }),
+    "data/generated/public-products/detail-lookup.json": await fs.readFile(
+      OUTPUTS.lookup,
+      "utf8"
+    ),
+    "data/generated/public-products/brands.json": await fs.readFile(
+      OUTPUTS.brands,
+      "utf8"
+    ),
+    "data/generated/public-products/filters.json": await fs.readFile(
+      OUTPUTS.filters,
+      "utf8"
+    ),
+  };
+
+  const detailShardStats = [];
+  let repricedDetailCount = 0;
+  for (const relativeFile of manifest.detailFiles || []) {
+    const absoluteFile = path.join(ROOT, relativeFile);
+    const payload = await readJson(absoluteFile);
+    const products = Array.isArray(payload.products) ? payload.products : [];
+    const repricedProducts = products.map((product) => {
+      if (requiredText(product.source) === "smokingpipes") {
+        repricedDetailCount += 1;
+      }
+      return repriceExistingSmokingpipesProduct(
+        product,
+        exchangeRates,
+        smokingpipesPricing
+      );
+    });
+    const text = compactJson({
+      ...payload,
+      products: repricedProducts,
+    });
+    serializedFiles[relativeFile] = text;
+    detailShardStats.push({
+      shard: requiredText(payload.shard),
+      file: relativeFile,
+      recordCount: repricedProducts.length,
+      sizeBytes: byteLength(text),
+    });
+  }
+
+  for (const [relativeFile, text] of Object.entries(serializedFiles)) {
+    await writeFileAtomic(path.join(ROOT, relativeFile), text);
+  }
+
+  const generatedDataFiles = Object.keys(manifest.fileHashes || {}).sort(
+    stableCompare
+  );
+  const fileHashes = Object.fromEntries(
+    generatedDataFiles.map((relativeFile) => [
+      relativeFile,
+      hashFileSync(path.join(ROOT, relativeFile)),
+    ])
+  );
+  const fileSizes = Object.fromEntries(
+    generatedDataFiles.map((relativeFile) => [
+      relativeFile,
+      fsSync.statSync(path.join(ROOT, relativeFile)).size,
+    ])
+  );
+  const stagingBytes = finiteNumber(manifest.performance?.stagingBytes);
+  const performance =
+    stagingBytes === null
+      ? manifest.performance
+      : performanceForOutputs(
+          stagingBytes,
+          repricedCatalog,
+          serializedFiles,
+          detailShardStats
+        );
+  const importCostFactor =
+    finiteNumber(
+      smokingpipesPricing.importCostFactor ?? smokingpipesPricing.taxFactor
+    ) ?? 1.2;
+  const nextManifest = {
+    ...manifest,
+    fileHashes,
+    fileSizes,
+    performance,
+    pricing: {
+      ...(manifest.pricing || {}),
+      smokingpipesReferencePricing: {
+        ...(manifest.pricing?.smokingpipesReferencePricing || {}),
+        exchangeRateEffectiveMonth: exchangeRates.effectiveMonth,
+        exchangeRateBasisDate: exchangeRates.basisDate,
+        usdToCny: exchangeRates.rates.USD,
+        importCostFactor,
+        taxFactor: smokingpipesPricing.taxFactor,
+        serviceFeeRate: smokingpipesPricing.serviceFeeRate,
+        minServiceFeeCny: smokingpipesPricing.minServiceFeeCny,
+        domesticShippingCny:
+          REFERENCE_PRICE_COMMON_CONFIG.domesticShippingCny,
+      },
+    },
+  };
+  await writeFileAtomic(OUTPUTS.manifest, stableJson(nextManifest));
+
+  const repricedCatalogCount = repricedCatalog.filter(
+    (product) => requiredText(product.source) === "smokingpipes"
+  ).length;
+  console.log(
+    `Existing public products repriced: ${repricedCatalogCount} Smokingpipes catalog records and ${repricedDetailCount} detail records; Danish records unchanged.`
+  );
+}
+
 async function main() {
   const staging = await readJson(INPUTS.staging);
   const exchangeRates = await readExchangeRateMetadata(INPUTS.exchangeRates);
@@ -1098,4 +1275,10 @@ const directExecution =
       .replace(/\\/g, "/")
       .toLowerCase();
 
-if (directExecution) await main();
+if (directExecution) {
+  if (process.argv.includes("--reprice-existing")) {
+    await repriceExistingPublicProducts();
+  } else {
+    await main();
+  }
+}
