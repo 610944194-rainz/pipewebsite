@@ -17,6 +17,7 @@ export type SmokingpipesPricingConfig = {
   schemaVersion: 1;
   source: "smokingpipes";
   taxFactor: number;
+  importCostFactor?: number;
   serviceFeeRate: number;
   minServiceFeeCny: number;
   defaultDiscountRate: number;
@@ -47,6 +48,7 @@ export type SmokingpipesReferencePriceResult = {
   siteDisplayCurrency: "CNY" | null;
   brandDiscountRate: number | null;
   purchasePriceUsd: number | null;
+  importCostFactor: number | null;
   shippingUsd: number | null;
   taxableProductCostCny: number | null;
   shippingCny: number | null;
@@ -73,6 +75,10 @@ export function getSmokingpipesShippingTier(
   purchasePriceUsd: number | null,
   pricingConfig: SmokingpipesPricingConfig
 ): SmokingpipesShippingTierUsd | null;
+export function getSmokingpipesShippingUsd(
+  purchasePriceUsd: number | null,
+  pricingConfig: SmokingpipesPricingConfig
+): number | null;
 export function calculateSmokingpipesReferencePrice(
   input: SmokingpipesReferencePriceInput
 ): SmokingpipesReferencePriceResult;
