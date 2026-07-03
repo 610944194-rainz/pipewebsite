@@ -42,6 +42,7 @@ import {
   auditProgressivePartialCandidate,
   buildProgressivePartialApplyPreview,
   buildProgressivePartialProducts,
+  diagnoseProgressiveApplyGap,
   selectProgressiveRecentNew,
 } from "./smokingpipes-progressive-candidate-v1.mjs";
 import {
@@ -88,7 +89,9 @@ function progressiveMarkdown(report) {
 - detailsBlocked: ${report.detailsBlocked || 0}
 - readyForPartialApply: ${report.readyForPartialApply || 0}
 - partialAppliedCount: ${report.partialAppliedCount || 0}
+- candidateCount: ${report.candidateCount || 0}
 - wouldApplyCount: ${report.wouldApplyCount || 0}
+- isolatedCandidateCount: ${report.isolatedCandidateCount || 0}
 - productionWritten: ${Boolean(report.productionWritten)}
 - commitPerformed: ${Boolean(report.commitPerformed)}
 - pushPerformed: ${Boolean(report.pushPerformed)}
@@ -105,6 +108,10 @@ function auditMarkdown(audit) {
 - newProductReady: ${audit.newProductReady || 0}
 - newProductReviewOnly: ${audit.newProductReviewOnly || 0}
 - newProductNotReady: ${audit.newProductNotReady || 0}
+- candidateCount: ${audit.candidateCount || 0}
+- wouldApplyCount: ${audit.wouldApplyCount || 0}
+- isolatedCandidateCount: ${audit.isolatedCandidateCount || 0}
+- safeToApplyWouldApplySubset: ${Boolean(audit.applyGap?.safeToApplyWouldApplySubset)}
 - deletedProducts: ${audit.counts.deletedProducts}
 - pendingLeak: ${audit.counts.pendingLeak}
 - failedLeak: ${audit.counts.failedLeak}
@@ -186,7 +193,10 @@ function makeReport({ mode, state, result = {} }) {
       lifecycleSummary.readyForPartialApply,
     partialAppliedCount:
       result.partialAppliedCount || 0,
+    candidateCount: result.candidateCount || 0,
     wouldApplyCount: result.wouldApplyCount || 0,
+    isolatedCandidateCount:
+      result.isolatedCandidateCount || 0,
     productionWritten: result.productionWritten === true,
     commitPerformed: result.commitPerformed === true,
     pushPerformed: result.pushPerformed === true,
@@ -545,7 +555,7 @@ function readProgressivePublicNext(paths) {
   return { payloads, blockers };
 }
 
-function evaluateProgressiveProductionApplyGate({
+export function evaluateProgressiveProductionApplyGate({
   audit,
   preview,
   candidateProducts,
@@ -579,10 +589,46 @@ function evaluateProgressiveProductionApplyGate({
   if (!(candidateCount > 0)) {
     blockers.push("candidateCount must be greater than 0");
   }
+  const applyGap = audit?.applyGap || null;
+  const gapCount = Number(applyGap?.gapCount || 0);
+  const unknownGapCount = Number(
+    applyGap?.unknownGapCount ??
+      applyGap?.gapClassifications?.other ??
+      0
+  );
+  const readyUnexpectedlyExcludedCount = Number(
+    applyGap?.readyUnexpectedlyExcludedCount ??
+      applyGap?.gapClassifications
+        ?.readyUnexpectedlyExcluded ??
+      0
+  );
+  const safeGap =
+    gapCount > 0 &&
+    applyGap?.safeToApplyWouldApplySubset === true &&
+    unknownGapCount === 0 &&
+    readyUnexpectedlyExcludedCount === 0;
   if (candidateCount !== wouldApplyCount) {
+    if (!safeGap) {
+      blockers.push(
+        `candidateCount ${candidateCount} does not match wouldApplyCount ${wouldApplyCount}`
+      );
+    }
+  }
+  if (gapCount > 0 && unknownGapCount > 0) {
+    blockers.push(`unknown gap candidates=${unknownGapCount}`);
+  }
+  if (gapCount > 0 && readyUnexpectedlyExcludedCount > 0) {
     blockers.push(
-      `candidateCount ${candidateCount} does not match wouldApplyCount ${wouldApplyCount}`
+      `ready candidate unexpectedly excluded=${readyUnexpectedlyExcludedCount}`
     );
+  }
+  if (
+    gapCount > 0 &&
+    applyGap?.safeToApplyWouldApplySubset !== true &&
+    unknownGapCount === 0 &&
+    readyUnexpectedlyExcludedCount === 0
+  ) {
+    blockers.push("apply gap is not approved for safe subset apply");
   }
   if (wouldApplyCount !== Number(preview?.wouldApplyCount || 0)) {
     blockers.push(
@@ -608,7 +654,63 @@ function evaluateProgressiveProductionApplyGate({
     blockers: [...new Set(blockers)],
     candidateCount,
     wouldApplyCount,
+    safeSubsetApply: safeGap && blockers.length === 0,
+    isolatedCandidateCount: gapCount,
+    applyGap,
   };
+}
+
+export function buildSafeSubsetProductionProducts({
+  productionProducts = [],
+  candidateProducts = [],
+  wouldApplyProductIds = [],
+}) {
+  const allowedIds = new Set(
+    wouldApplyProductIds.map(String).filter(Boolean)
+  );
+  const productionById = new Map(
+    productionProducts.map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  const candidateById = new Map(
+    candidateProducts.map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  for (const id of allowedIds) {
+    if (!candidateById.has(id)) {
+      throw new Error(
+        `safe subset candidate product is missing: ${id}`
+      );
+    }
+  }
+  const emitted = new Set();
+  const merged = candidateProducts
+    .map((candidate) => {
+      const id = sourceProductId(candidate);
+      const production = productionById.get(id);
+      if (allowedIds.has(id)) {
+        emitted.add(id);
+        return candidate;
+      }
+      if (production) {
+        emitted.add(id);
+        return production;
+      }
+      return null;
+    })
+    .filter(Boolean);
+  for (const production of productionProducts) {
+    const id = sourceProductId(production);
+    if (!emitted.has(id)) {
+      merged.push(production);
+      emitted.add(id);
+    }
+  }
+  return merged;
 }
 
 async function writeProductionPublicCandidate(
@@ -712,14 +814,27 @@ async function buildCandidateArtifacts({
     publicCatalog: publicBase.catalog.products,
     recentNew: recentNew.products,
   });
+  audit.attemptedCandidateCount =
+    candidate.attemptedCandidateIds.length;
+  audit.candidateCount = audit.attemptedCandidateCount;
+  audit.effectiveCandidateCount =
+    candidate.appliedCandidateIds.length;
   const applyPreview = buildProgressivePartialApplyPreview({
     state,
     audit,
     productionProducts,
     candidateProducts: candidate.products,
   });
-  audit.candidateCount = candidate.appliedCandidateIds.length;
   audit.wouldApplyCount = applyPreview.wouldApplyCount || 0;
+  audit.applyGap = diagnoseProgressiveApplyGap({
+    state,
+    productionProducts,
+    candidateProducts: candidate.products,
+    candidateIds: candidate.attemptedCandidateIds,
+    wouldApplyProductIds:
+      applyPreview.wouldApplyProductIds || [],
+  });
+  audit.isolatedCandidateCount = audit.applyGap.gapCount;
   await writeJsonAtomic(
     paths.progressiveProductsNext,
     candidate.products
@@ -1023,9 +1138,11 @@ export async function runSmokingpipesProgressiveMode({
             : "blocked",
         audit: artifacts.audit,
         candidateCount:
-          artifacts.candidate.appliedCandidateIds.length,
+          artifacts.candidate.attemptedCandidateIds.length,
         wouldApplyCount:
           artifacts.candidate.appliedCandidateIds.length,
+        isolatedCandidateCount:
+          artifacts.audit.isolatedCandidateCount || 0,
         productionWritten: false,
       };
       await writeProgressiveReport(
@@ -1076,6 +1193,9 @@ export async function runSmokingpipesProgressiveMode({
           blockers: gate.blockers,
           wouldApplyProductIds:
             preview.wouldApplyProductIds || [],
+          applyGap: gate.applyGap,
+          isolatedCandidateCount:
+            gate.isolatedCandidateCount,
           productionWritten: false,
           commitPerformed: false,
           pushPerformed: false,
@@ -1094,9 +1214,27 @@ export async function runSmokingpipesProgressiveMode({
         );
         return blocked;
       }
+      if (gate.safeSubsetApply && options.verbose) {
+        console.log(
+          "APPLY gate: candidateCount differs from wouldApplyCount, but gap candidates are safely excluded"
+        );
+        console.log(
+          `APPLY safe subset: ${gate.wouldApplyCount}/${gate.candidateCount}`
+        );
+        console.log(
+          `NON-APPLY candidates retained for review: ${gate.isolatedCandidateCount}`
+        );
+      }
+      const productionSafeSubset =
+        buildSafeSubsetProductionProducts({
+          productionProducts,
+          candidateProducts,
+          wouldApplyProductIds:
+            preview.wouldApplyProductIds || [],
+        });
       await writeJsonAtomic(
         paths.existingProducts,
-        candidateProducts
+        productionSafeSubset
       );
       await writeProductionPublicCandidate(
         paths,
@@ -1111,6 +1249,10 @@ export async function runSmokingpipesProgressiveMode({
         wouldApplyCount: gate.wouldApplyCount,
         partialAppliedCount: gate.wouldApplyCount,
         wouldApplyProductIds: preview.wouldApplyProductIds,
+        safeSubsetApply: gate.safeSubsetApply,
+        isolatedCandidateCount:
+          gate.isolatedCandidateCount,
+        applyGap: gate.applyGap,
         productionWritten: true,
         commitPerformed: false,
         pushPerformed: false,

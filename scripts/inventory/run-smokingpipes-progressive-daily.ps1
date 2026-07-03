@@ -1,3 +1,13 @@
+param(
+  [switch]$PreflightOnly,
+  [switch]$ForceRunOnce,
+  [switch]$SkipCurrentList,
+  [switch]$AllowStaleCurrentListCache,
+  [switch]$AllowDuplicateDedupe,
+  [switch]$ResumeFromCachedList,
+  [switch]$LockCurrentListSnapshotUntilComplete
+)
+
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = "C:\Users\NING MEI\Desktop\pipewebsite"
@@ -6,23 +16,58 @@ $EnvPath = Join-Path $ProjectRoot ".env.inventory.local"
 $AuditPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-audit-report.json"
 $DailyTaskStatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-state.json"
 $DailyTaskLockPath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-lock.json"
+$GlobalInventoryLockPath = Join-Path $ProjectRoot "data\inventory\state\smokingpipes.lock"
+$GlobalInventoryLockRelativePath = "data/inventory/state/smokingpipes.lock"
+$InventoryLockHelperPath = "scripts/inventory/smokingpipes-inventory-lock-v1.mjs"
 $ProgressiveLockPath = Join-Path $ProjectRoot "data\inventory\state\smokingpipes-progressive-daily.lock"
 $ProgressiveLockRelativePath = "data/inventory/state/smokingpipes-progressive-daily.lock"
 $ProgressiveLockHelperPath = "scripts/inventory/smokingpipes-progressive-lock-v1.mjs"
 $CurrentListPath = "data/inventory/smokingpipes-current-list-dry-run.json"
 $CurrentListCacheHelperPath = "scripts/inventory/smokingpipes-current-list-cache-v1.mjs"
+$RecoveryPreflightHelperPath = "scripts/inventory/smokingpipes-daily-recovery-preflight-v1.mjs"
+$RecoveryPreflightReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-daily-recovery-preflight-report.json"
 $DiffPath = "data/inventory/smokingpipes-inventory-diff-dry-run.json"
 $LockStaleHours = 4
 $RetryDelayHours = 2
+$PreflightOnlyEffective = $false
+$ForceRunOnceEffective = $false
+$SkipCurrentListEffective = $false
+$AllowStaleCurrentListCacheEffective = $false
+$AllowDuplicateDedupeEffective = $false
+$ResumeFromCachedListEffective = $false
+$LockCurrentListSnapshotUntilCompleteEffective = $false
+$LastInventoryNodeResult = $null
+$LastInventoryNodeOutput = @()
+$DetailPhaseStatus = $null
 $CurrentListState = [ordered]@{
   status = "skipped"
   reused = $false
+  skippedFetch = $false
+  stale = $false
+  manualRecovery = $false
   path = $CurrentListPath
   pagesScanned = 0
   expectedPages = 0
   productsExtracted = 0
   lastCompletedAt = $null
   reuseReason = $null
+  safety = [ordered]@{
+    soldByAbsenceAllowed = $false
+    disappearedApplyAllowed = $false
+  }
+}
+$CachedListResumeState = [ordered]@{
+  enabled = $false
+  snapshotPath = $CurrentListPath
+  snapshotDateKey = $null
+  snapshotProductsExtracted = 0
+  snapshotUniqueProducts = 0
+  lockedUntilComplete = $false
+  completed = $false
+  completedAt = $null
+  allowNextListFetch = $true
+  allowDuplicateDedupe = $false
+  reason = $null
 }
 $ProgressiveLockState = [ordered]@{
   exists = $false
@@ -31,6 +76,13 @@ $ProgressiveLockState = [ordered]@{
   ageMs = 0
   cleared = $false
   reason = "missing"
+}
+$InventoryLocksState = [ordered]@{
+  checked = $false
+  locks = @()
+  hasActiveLock = $false
+  activeLocks = @()
+  clearedLocks = @()
 }
 
 Set-Location $ProjectRoot
@@ -66,6 +118,119 @@ function Import-InventoryEnv {
   }
 }
 
+function Test-TruthyEnvFlag {
+  param([string]$Name)
+
+  $value = [Environment]::GetEnvironmentVariable($Name, "Process")
+  return $value -match "^(1|true|yes|on)$"
+}
+
+function Resolve-ManualRecoveryOptions {
+  $script:PreflightOnlyEffective = [bool]$PreflightOnly
+  $cachedListResumeLocked = (
+    $dailyTaskState -and
+    $dailyTaskState.cachedListResume -and
+    $dailyTaskState.cachedListResume.enabled -eq $true -and
+    $dailyTaskState.cachedListResume.lockedUntilComplete -eq $true -and
+    $dailyTaskState.cachedListResume.completed -ne $true -and
+    $dailyTaskState.cachedListResume.allowNextListFetch -eq $false
+  )
+  $script:ResumeFromCachedListEffective =
+    [bool]$ResumeFromCachedList -or
+    (Test-TruthyEnvFlag -Name "YAN_DOUBUY_RESUME_FROM_CACHED_LIST") -or
+    [bool]$cachedListResumeLocked
+  $script:LockCurrentListSnapshotUntilCompleteEffective =
+    [bool]$LockCurrentListSnapshotUntilComplete -or
+    (Test-TruthyEnvFlag -Name "YAN_DOUBUY_LOCK_CURRENT_LIST_SNAPSHOT_UNTIL_COMPLETE") -or
+    [bool]$cachedListResumeLocked
+  $script:ForceRunOnceEffective =
+    [bool]$ForceRunOnce -or (Test-TruthyEnvFlag -Name "YAN_DOUBUY_FORCE_RUN_ONCE")
+  $script:SkipCurrentListEffective =
+    [bool]$SkipCurrentList -or
+    (Test-TruthyEnvFlag -Name "YAN_DOUBUY_SKIP_CURRENT_LIST") -or
+    $script:ResumeFromCachedListEffective
+  $script:AllowStaleCurrentListCacheEffective =
+    [bool]$AllowStaleCurrentListCache -or
+    (Test-TruthyEnvFlag -Name "YAN_DOUBUY_ALLOW_STALE_CURRENT_LIST_CACHE") -or
+    $script:ResumeFromCachedListEffective
+  $script:AllowDuplicateDedupeEffective =
+    [bool]$AllowDuplicateDedupe -or
+    (Test-TruthyEnvFlag -Name "YAN_DOUBUY_ALLOW_DUPLICATE_DEDUPE") -or
+    ($dailyTaskState.cachedListResume.allowDuplicateDedupe -eq $true)
+
+  if ($script:PreflightOnlyEffective) {
+    Write-DailyLog "manual recovery option enabled: PreflightOnly"
+  }
+
+  if ($cachedListResumeLocked) {
+    Write-DailyLog "CACHED-LIST resume lock active: skip current-list until current snapshot is complete"
+  }
+
+  if ($script:ForceRunOnceEffective) {
+    Write-DailyLog "manual recovery option enabled: ForceRunOnce"
+  }
+
+  if ($script:SkipCurrentListEffective) {
+    Write-DailyLog "manual recovery option enabled: SkipCurrentList"
+  }
+
+  if ($script:AllowStaleCurrentListCacheEffective) {
+    Write-DailyLog "manual recovery option enabled: AllowStaleCurrentListCache"
+  }
+
+  if ($script:AllowDuplicateDedupeEffective) {
+    Write-DailyLog "manual recovery option enabled: AllowDuplicateDedupe"
+  }
+
+  if ($script:ResumeFromCachedListEffective) {
+    Write-DailyLog "manual recovery option enabled: ResumeFromCachedList"
+  }
+
+  if ($script:LockCurrentListSnapshotUntilCompleteEffective) {
+    Write-DailyLog "manual recovery option enabled: LockCurrentListSnapshotUntilComplete"
+  }
+}
+
+function ConvertFrom-InventoryNodeOutput {
+  param([object[]]$OutputLines)
+
+  $outputText = (@($OutputLines) | ForEach-Object { [string]$_ }) -join "`n"
+  $jsonStart = $outputText.IndexOf("{")
+  $jsonEnd = $outputText.LastIndexOf("}")
+  if ($jsonStart -lt 0 -or $jsonEnd -le $jsonStart) {
+    return $null
+  }
+
+  try {
+    return $outputText.Substring($jsonStart, $jsonEnd - $jsonStart + 1) |
+      ConvertFrom-Json
+  } catch {
+    return $null
+  }
+}
+
+function Test-DetailPhaseCanContinue {
+  param(
+    [int]$ExitCode,
+    [string]$Status
+  )
+
+  return (
+    $ExitCode -eq 0 -and
+    @("no-eligible-candidates", "chunk-complete", "completed", "success") -contains $Status
+  )
+}
+
+function Test-RetryWindowReady {
+  param(
+    [datetime]$RecommendedAt,
+    [datetime]$Now = (Get-Date),
+    [int]$GraceSeconds = 60
+  )
+
+  return $RecommendedAt -le $Now.AddSeconds($GraceSeconds)
+}
+
 function Invoke-InventoryNode {
   param(
     [string]$StepName,
@@ -73,17 +238,28 @@ function Invoke-InventoryNode {
     [switch]$ContinueOnFailure
   )
 
-  Write-DailyLog "START $StepName"
+  $script:LastInventoryNodeResult = $null
+  $script:LastInventoryNodeOutput = @()
+  $null = Write-DailyLog "START $StepName"
   Add-Content -Path $LogPath -Value ("node " + ($Arguments -join " ")) -Encoding UTF8
-  & node @Arguments 2>&1 | Tee-Object -FilePath $LogPath -Append
-  $exitCode = $LASTEXITCODE
-  Write-DailyLog "EXIT $StepName $exitCode"
+  $nodeOutput = @(& node @Arguments 2>&1)
+  $exitCode = [int]$LASTEXITCODE
+  $script:LastInventoryNodeOutput = @(
+    $nodeOutput | ForEach-Object { [string]$_ }
+  )
+  foreach ($line in $script:LastInventoryNodeOutput) {
+    Add-Content -Path $LogPath -Value $line -Encoding UTF8
+    Write-Host $line
+  }
+  $script:LastInventoryNodeResult =
+    ConvertFrom-InventoryNodeOutput -OutputLines $script:LastInventoryNodeOutput
+  $null = Write-DailyLog "EXIT $StepName $exitCode"
 
   if ($exitCode -ne 0 -and -not $ContinueOnFailure) {
     throw "$StepName failed with exit code $exitCode"
   }
 
-  return $exitCode
+  return [int]$exitCode
 }
 
 function Test-AuditAllowsProductionWrite {
@@ -104,11 +280,27 @@ function Test-AuditAllowsProductionWrite {
   $blockedLeak = [int]($counts.blockedLeak)
   $reviewOnlyLeak = [int]($counts.reviewOnlyLeak)
   $zeroPriceSellable = [int]($counts.zeroPriceSellable)
+  $applyGap = $audit.applyGap
+  $gapCount = if ($applyGap) { [int]($applyGap.gapCount) } else { 0 }
+  $unknownGapCount = if ($applyGap) { [int]($applyGap.unknownGapCount) } else { 0 }
+  $readyUnexpectedlyExcludedCount = if ($applyGap) {
+    [int]($applyGap.readyUnexpectedlyExcludedCount)
+  } else {
+    0
+  }
+  $safeGap =
+    $gapCount -gt 0 -and
+    $applyGap.safeToApplyWouldApplySubset -eq $true -and
+    $unknownGapCount -eq 0 -and
+    $readyUnexpectedlyExcludedCount -eq 0
+  $candidateCountAllowed =
+    $candidateCount -eq $wouldApplyCount -or
+    ($candidateCount -gt $wouldApplyCount -and $safeGap)
 
   $allowed =
     $auditStatus -eq "PASS" -and
-    $candidateCount -eq $wouldApplyCount -and
-    $candidateCount -gt 0 -and
+    $candidateCountAllowed -and
+    $wouldApplyCount -gt 0 -and
     $deletedProducts -eq 0 -and
     $pendingLeak -eq 0 -and
     $failedLeak -eq 0 -and
@@ -118,6 +310,11 @@ function Test-AuditAllowsProductionWrite {
     $blockers.Count -eq 0
 
   Write-DailyLog "auditStatus=$auditStatus candidateCount=$candidateCount wouldApplyCount=$wouldApplyCount applyAllowed=$allowed"
+  if ($allowed -and $candidateCount -ne $wouldApplyCount) {
+    Write-DailyLog "APPLY gate: candidateCount differs from wouldApplyCount, but gap candidates are safely excluded"
+    Write-DailyLog "APPLY safe subset: $wouldApplyCount/$candidateCount"
+    Write-DailyLog "NON-APPLY candidates retained for review: $gapCount"
+  }
   return $allowed
 }
 
@@ -145,17 +342,23 @@ function Write-DailyTaskState {
     [bool]$ProductionWritten = $false,
     [int]$AppliedCount = 0,
     [int]$CandidateCount = 0,
+    [int]$IsolatedCandidateCount = 0,
     [string]$FailureReason = $null,
     [string]$FailureType = $null,
     [bool]$RetryAllowed = $true,
     [string]$NextRetryRecommendedAt = $null,
     [object]$CurrentList = $null,
-    [object]$ProgressiveLock = $null
+    [object]$InventoryLocks = $null,
+    [object]$ProgressiveLock = $null,
+    [object]$CachedListResume = $null,
+    [string]$DetailPhaseStatus = $null
   )
 
   $now = Get-Date
   $currentListForState = if ($CurrentList) { $CurrentList } else { $script:CurrentListState }
+  $inventoryLocksForState = if ($InventoryLocks) { $InventoryLocks } else { $script:InventoryLocksState }
   $progressiveLockForState = if ($ProgressiveLock) { $ProgressiveLock } else { $script:ProgressiveLockState }
+  $cachedListResumeForState = if ($CachedListResume) { $CachedListResume } else { $script:CachedListResumeState }
   $state = [ordered]@{
     source = "smokingpipes"
     dateKey = Get-TodayDateKey
@@ -169,10 +372,18 @@ function Write-DailyTaskState {
     productionWritten = $ProductionWritten
     appliedCount = $AppliedCount
     candidateCount = $CandidateCount
+    isolatedCandidateCount = $IsolatedCandidateCount
     nextRetryRecommendedAt = $NextRetryRecommendedAt
     retryAllowed = $RetryAllowed
     currentList = $currentListForState
+    inventoryLocks = $inventoryLocksForState
     progressiveLock = $progressiveLockForState
+    cachedListResume = $cachedListResumeForState
+    detailPhaseStatus = if ($DetailPhaseStatus) {
+      $DetailPhaseStatus
+    } else {
+      $script:DetailPhaseStatus
+    }
   }
 
   if ($Status -eq "success" -or $Status -eq "skipped-success") {
@@ -317,6 +528,152 @@ function Test-ProgressiveLockBeforeStage {
   return $false
 }
 
+function Convert-InventoryLocksToState {
+  param([object]$InventoryLocks)
+
+  if (-not $InventoryLocks) {
+    return [ordered]@{
+      checked = $true
+      locks = @()
+      hasActiveLock = $true
+      activeLocks = @()
+      clearedLocks = @()
+      reason = "helper-empty"
+    }
+  }
+
+  return [ordered]@{
+    checked = $true
+    locks = @($InventoryLocks.locks)
+    hasActiveLock = [bool]($InventoryLocks.hasActiveLock)
+    activeLocks = @($InventoryLocks.activeLocks)
+    clearedLocks = @($InventoryLocks.clearedLocks)
+  }
+}
+
+function Convert-InventoryLockRecordToProgressiveState {
+  param([object]$Lock)
+
+  if (-not $Lock) {
+    return [ordered]@{
+      exists = $false
+      status = "missing"
+      path = $ProgressiveLockRelativePath
+      ageMs = 0
+      cleared = $false
+      reason = "missing"
+    }
+  }
+
+  $status = [string]($Lock.status)
+  if ($status -eq "active") {
+    $status = "active-skip"
+  } elseif ($status -eq "cleared") {
+    $status = "stale-cleared"
+  }
+
+  return [ordered]@{
+    exists = [bool]($Lock.exists)
+    status = $status
+    path = $ProgressiveLockRelativePath
+    ageMs = [int64]($Lock.ageMs)
+    cleared = ($Lock.status -eq "cleared")
+    reason = if ($Lock.reason) { [string]$Lock.reason } else { $status }
+    pid = if ($Lock.pid) { [int]($Lock.pid) } else { $null }
+    processAlive = $Lock.processAlive
+  }
+}
+
+function Update-ProgressiveLockStateFromInventoryLocks {
+  param([object]$InventoryLocks)
+
+  $progressiveLock = @($InventoryLocks.locks) |
+    Where-Object { $_.name -eq "progressiveDaily" } |
+    Select-Object -First 1
+
+  $script:ProgressiveLockState =
+    Convert-InventoryLockRecordToProgressiveState -Lock $progressiveLock
+}
+
+function Get-InventoryLocksInspection {
+  try {
+    $output = & node $InventoryLockHelperPath "--clear-stale" 2>&1
+    $exitCode = $LASTEXITCODE
+
+    if ($exitCode -ne 0) {
+      throw "inventory lock helper failed with exit code $exitCode"
+    }
+
+    return ($output -join "`n") | ConvertFrom-Json
+  } catch {
+    Write-DailyLog "inventory lock check failed: $($_.Exception.Message)"
+    return [pscustomobject]@{
+      locks = @()
+      hasActiveLock = $true
+      activeLocks = @(
+        [pscustomobject]@{
+          name = "helper"
+          path = "data/inventory/state"
+          status = "active"
+          reason = "helper-failed"
+        }
+      )
+      clearedLocks = @()
+    }
+  }
+}
+
+function Get-LockFileName {
+  param([string]$LockPath)
+
+  if (-not $LockPath) {
+    return "inventory lock"
+  }
+
+  return [System.IO.Path]::GetFileName($LockPath.Replace("/", "\"))
+}
+
+function Test-InventoryLocksBeforeStage {
+  param([string]$StageName)
+
+  $inspection = Get-InventoryLocksInspection
+  $script:InventoryLocksState = Convert-InventoryLocksToState -InventoryLocks $inspection
+  Update-ProgressiveLockStateFromInventoryLocks -InventoryLocks $inspection
+
+  Write-DailyLog "CHECK inventory locks before ${StageName}: active=$($script:InventoryLocksState.hasActiveLock) cleared=$(@($script:InventoryLocksState.clearedLocks).Count)"
+
+  foreach ($clearedLock in @($script:InventoryLocksState.clearedLocks)) {
+    Write-DailyLog "CLEARED stale inventory lock: $(Get-LockFileName -LockPath ([string]$clearedLock.path))"
+  }
+
+  if ($script:InventoryLocksState.hasActiveLock -eq $true) {
+    Write-DailyLog "SKIP because inventory lock is active; next retry will continue"
+    Write-DailyTaskState `
+      -Status "retryable-failed" `
+      -Attempts $attempts `
+      -CandidateCount (Get-AuditCandidateCount) `
+      -FailureReason "active Smokingpipes inventory lock; another inventory task is running" `
+      -FailureType "lock" `
+      -RetryAllowed $true `
+      -NextRetryRecommendedAt (Get-NextRetryAt) `
+      -InventoryLocks $script:InventoryLocksState `
+      -ProgressiveLock $script:ProgressiveLockState
+    Send-MobileReport
+    return $false
+  }
+
+  if (@($script:InventoryLocksState.clearedLocks).Count -gt 0) {
+    Write-DailyTaskState `
+      -Status "running" `
+      -Attempts $attempts `
+      -RetryAllowed $true `
+      -InventoryLocks $script:InventoryLocksState `
+      -ProgressiveLock $script:ProgressiveLockState
+  }
+
+  return $true
+}
+
 function Get-NextRetryAt {
   return (Get-Date).AddHours($RetryDelayHours).ToString("o")
 }
@@ -333,6 +690,10 @@ function Get-ExistingAttemptCount {
 
 function Get-FailureType {
   param([string]$Message)
+
+  if ($Message -match "preflight|预检|recovery preflight") {
+    return "preflight"
+  }
 
   if ($Message -match "zeroPriceSellable|failedLeak|blockedLeak|reviewOnlyLeak|pendingLeak|deletedProducts|candidateCount|wouldApplyCount|audit gate|auditStatus|public catalog validation|production write guard") {
     return "audit"
@@ -360,7 +721,7 @@ function Get-FailureType {
 function Test-FailureIsRetryable {
   param([string]$FailureType)
 
-  return @("lock", "verification", "network", "browser", "unknown") -contains $FailureType
+  return @("preflight", "lock", "verification", "network", "browser", "unknown") -contains $FailureType
 }
 
 function Get-AuditCandidateCount {
@@ -378,7 +739,14 @@ function Get-AuditCandidateCount {
 
 function Get-CurrentListCacheStatus {
   try {
-    $output = & node $CurrentListCacheHelperPath "--path=$CurrentListPath" 2>&1
+    $cacheArgs = @("--path=$CurrentListPath")
+    if ($script:AllowStaleCurrentListCacheEffective) {
+      $cacheArgs += "--allow-stale"
+    }
+    if ($script:AllowDuplicateDedupeEffective) {
+      $cacheArgs += "--allow-duplicate-dedupe"
+    }
+    $output = & node $CurrentListCacheHelperPath @cacheArgs 2>&1
     $exitCode = $LASTEXITCODE
 
     if ($exitCode -ne 0) {
@@ -413,19 +781,67 @@ function Convert-CurrentListCacheToState {
   param(
     [object]$Cache,
     [string]$Status,
-    [bool]$Reused
+    [bool]$Reused,
+    [bool]$SkippedFetch = $false
   )
 
   return [ordered]@{
     status = $Status
     reused = $Reused
+    skippedFetch = $SkippedFetch
+    stale = [bool]($Cache.stale)
+    manualRecovery = [bool]($Cache.manualRecovery)
     path = $CurrentListPath
     pagesScanned = [int]($Cache.pagesScanned)
     expectedPages = [int]($Cache.expectedPages)
     productsExtracted = [int]($Cache.productsExtracted)
     lastCompletedAt = if ($Cache.completedAt) { [string]$Cache.completedAt } else { $null }
     reuseReason = if ($Cache.reason) { [string]$Cache.reason } else { $null }
+    safety = if ($Cache.safety) {
+      $Cache.safety
+    } else {
+      [ordered]@{
+        soldByAbsenceAllowed = -not [bool]($Cache.stale)
+        disappearedApplyAllowed = -not [bool]($Cache.stale)
+      }
+    }
   }
+}
+
+function Convert-CurrentListCacheToCachedResumeState {
+  param(
+    [object]$Cache,
+    [bool]$Completed = $false
+  )
+
+  return [ordered]@{
+    enabled = [bool]($script:ResumeFromCachedListEffective)
+    snapshotPath = $CurrentListPath
+    snapshotDateKey = if ($Cache.dateKey) { [string]$Cache.dateKey } else { $null }
+    snapshotProductsExtracted = [int]($Cache.productsExtracted)
+    snapshotUniqueProducts = [int]($Cache.uniqueProducts)
+    lockedUntilComplete = [bool]($script:LockCurrentListSnapshotUntilCompleteEffective)
+    completed = $Completed
+    completedAt = if ($Completed) { (Get-Date).ToString("o") } else { $null }
+    allowNextListFetch =
+      (-not [bool]($script:LockCurrentListSnapshotUntilCompleteEffective)) -or $Completed
+    allowDuplicateDedupe = [bool]($script:AllowDuplicateDedupeEffective)
+    reason = if ($script:ResumeFromCachedListEffective) {
+      "resume detail processing from latest complete current-list cache"
+    } else {
+      $null
+    }
+  }
+}
+
+function Set-CachedListResumeFromCache {
+  param(
+    [object]$Cache,
+    [bool]$Completed = $false
+  )
+
+  $script:CachedListResumeState =
+    Convert-CurrentListCacheToCachedResumeState -Cache $Cache -Completed $Completed
 }
 
 function Test-DailyTaskLockIsStale {
@@ -485,11 +901,153 @@ function Send-MobileReport {
   ) -ContinueOnFailure | Out-Null
 }
 
+function Get-RecoveryPreflightArguments {
+  param([bool]$PreflightOnlyMode)
+
+  $args = @($RecoveryPreflightHelperPath)
+  if ($PreflightOnlyMode) {
+    $args += "--preflight-only"
+  } else {
+    $args += "--clear-stale-locks"
+  }
+  if ($script:ForceRunOnceEffective) {
+    $args += "--force-run-once"
+  }
+  if ($script:SkipCurrentListEffective) {
+    $args += "--skip-current-list"
+  }
+  if ($script:AllowStaleCurrentListCacheEffective) {
+    $args += "--allow-stale-current-list-cache"
+  }
+  if ($script:AllowDuplicateDedupeEffective) {
+    $args += "--allow-duplicate-dedupe"
+  }
+  if ($script:ResumeFromCachedListEffective) {
+    $args += "--resume-from-cached-list"
+  }
+  if ($script:LockCurrentListSnapshotUntilCompleteEffective) {
+    $args += "--lock-current-list-snapshot-until-complete"
+  }
+  return $args
+}
+
+function Invoke-RecoveryPreflight {
+  param([bool]$PreflightOnlyMode)
+
+  $preflightArgs = Get-RecoveryPreflightArguments -PreflightOnlyMode $PreflightOnlyMode
+  $modeText = if ($PreflightOnlyMode) { "preflight-only" } else { "execution-preflight" }
+  $null = Write-DailyLog "START recovery-preflight $modeText"
+  Add-Content -Path $LogPath -Value ("node " + ($preflightArgs -join " ")) -Encoding UTF8
+  $preflightOutput = & node @preflightArgs 2>&1
+  $exitCode = [int]$LASTEXITCODE
+  foreach ($line in @($preflightOutput)) {
+    Add-Content -Path $LogPath -Value ([string]$line) -Encoding UTF8
+    Write-Host $line
+  }
+  $null = Write-DailyLog "EXIT recovery-preflight $exitCode"
+  return [int]$exitCode
+}
+
+function Read-RecoveryPreflightReport {
+  if (-not (Test-Path $RecoveryPreflightReportJsonPath)) {
+    return $null
+  }
+
+  try {
+    return Get-Content -Path $RecoveryPreflightReportJsonPath -Encoding UTF8 | ConvertFrom-Json
+  } catch {
+    Write-DailyLog "recovery preflight report parse failed: $($_.Exception.Message)"
+    return $null
+  }
+}
+
+function Get-RecoveryPreflightBlockReason {
+  param([object]$Report)
+
+  if (-not $Report) {
+    return "preflight JSON parse failed"
+  }
+
+  $errors = @($Report.errors)
+  if ($errors.Count -gt 0) {
+    return "preflight errors: $($errors -join '; ')"
+  }
+
+  if ([string]($Report.overall.status) -ne "ready") {
+    return "preflight blocked: status=$($Report.overall.status)"
+  }
+
+  if ($Report.overall.canRun -ne $true) {
+    return "preflight blocked: canRun=$($Report.overall.canRun)"
+  }
+
+  if ($script:SkipCurrentListEffective -eq $true -and $Report.overall.willFetchCurrentList -eq $true) {
+    return "preflight unsafe: SkipCurrentList requested but execution plan would fetch current-list"
+  }
+
+  if (
+    $script:ResumeFromCachedListEffective -eq $true -and
+    $Report.networkPlan.willFetchCurrentList -eq $true
+  ) {
+    return "Blocked: cached-list resume is active; current-list fetch is forbidden until snapshot is complete."
+  }
+
+  if (
+    $script:ResumeFromCachedListEffective -eq $true -and
+    $Report.networkPlan.willFetchDetails -ne $true
+  ) {
+    return "preflight unsafe: cached-list resume did not enable detail fetching"
+  }
+
+  if (
+    $script:SkipCurrentListEffective -eq $true -and
+    $Report.executionPlan.skipCurrentList -ne $true
+  ) {
+    return "preflight unsafe: SkipCurrentList requested but execution plan did not keep skipCurrentList=true"
+  }
+
+  if (
+    $script:SkipCurrentListEffective -eq $true -and
+    $Report.currentListCache.usable -ne $true
+  ) {
+    return "preflight unsafe: current-list cache is not reusable"
+  }
+
+  return $null
+}
+
+function Write-RecoveryPreflightFailureAndExit {
+  param(
+    [string]$FailureReason,
+    [int]$ExitCode = 1
+  )
+
+  Write-DailyTaskState `
+    -Status "retryable-failed" `
+    -Attempts $attempts `
+    -FailureReason $FailureReason `
+    -FailureType "preflight" `
+    -RetryAllowed $true `
+    -NextRetryRecommendedAt (Get-NextRetryAt)
+  Send-MobileReport
+  Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
+  exit $ExitCode
+}
+
 Set-Content -Path $LogPath -Value "=== SMOKINGPIPES PROGRESSIVE DAILY START $(Get-Date -Format o) ===" -Encoding UTF8
 
 $dailyTaskState = Read-DailyTaskState
 $attempts = (Get-ExistingAttemptCount -State $dailyTaskState) + 1
 $lockAcquired = $false
+
+Import-InventoryEnv
+Resolve-ManualRecoveryOptions
+
+if ($script:PreflightOnlyEffective) {
+  $preflightExit = Invoke-RecoveryPreflight -PreflightOnlyMode $true
+  Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
+  exit $preflightExit
+}
 
 if (
   $dailyTaskState -and
@@ -524,16 +1082,50 @@ if (
   $dailyTaskState -and
   $dailyTaskState.dateKey -eq (Get-TodayDateKey) -and
   $dailyTaskState.status -eq "retryable-failed" -and
-  $dailyTaskState.nextRetryRecommendedAt
+  $dailyTaskState.nextRetryRecommendedAt -and
+  -not $script:ForceRunOnceEffective
 ) {
   try {
-    if ([datetime]$dailyTaskState.nextRetryRecommendedAt -gt (Get-Date)) {
+    $retryRecommendedAt = [datetime]$dailyTaskState.nextRetryRecommendedAt
+    $retryNow = Get-Date
+    if (-not (Test-RetryWindowReady -RecommendedAt $retryRecommendedAt -Now $retryNow)) {
       Write-DailyLog "DAILY TASK SKIPPED: retry window has not arrived"
       Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
       exit 0
     }
+    if ($retryRecommendedAt -gt $retryNow) {
+      Write-DailyLog "retry window grace applied"
+    }
   } catch {
     Write-DailyLog "retry window parse failed; continuing"
+  }
+}
+
+$preflightExit = Invoke-RecoveryPreflight -PreflightOnlyMode $false
+if ($preflightExit -ne 0) {
+  Write-RecoveryPreflightFailureAndExit `
+    -FailureReason "Daily recovery preflight failed with exit code $preflightExit; see data/review/smokingpipes-daily-recovery-preflight-report.md" `
+    -ExitCode $preflightExit
+}
+
+$preflightReport = Read-RecoveryPreflightReport
+$preflightBlockReason = Get-RecoveryPreflightBlockReason -Report $preflightReport
+if ($preflightBlockReason) {
+  Write-RecoveryPreflightFailureAndExit `
+    -FailureReason "$preflightBlockReason; see data/review/smokingpipes-daily-recovery-preflight-report.md" `
+    -ExitCode 1
+}
+
+if ($script:ResumeFromCachedListEffective -eq $true) {
+  Write-DailyLog "PREFLIGHT ready: continuing cached-list detail resume"
+  Write-DailyLog "SKIP current-list: using cached list snapshot"
+  if ($script:LockCurrentListSnapshotUntilCompleteEffective -eq $true) {
+    Write-DailyLog "CACHED-LIST snapshot locked until detail/apply complete"
+  }
+} else {
+  Write-DailyLog "PREFLIGHT ready: continuing recovery execution"
+  if ($script:SkipCurrentListEffective -eq $true -and $preflightReport.overall.willFetchCurrentList -eq $false) {
+    Write-DailyLog "SKIP current-list: using manual recovery current-list cache"
   }
 }
 
@@ -554,11 +1146,63 @@ $lockAcquired = $true
 Write-DailyTaskState -Status "running" -Attempts $attempts -RetryAllowed $true
 
 try {
-  Import-InventoryEnv
+  if (-not (Test-InventoryLocksBeforeStage -StageName "daily-start")) {
+    Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
+    exit 0
+  }
 
   $currentListCache = Get-CurrentListCacheStatus
 
-  if ($currentListCache.usable -eq $true) {
+  if ($script:SkipCurrentListEffective -eq $true) {
+    if ($currentListCache.usable -eq $true) {
+      $script:CurrentListState = Convert-CurrentListCacheToState `
+        -Cache $currentListCache `
+        -Status "reused" `
+        -Reused $true `
+        -SkippedFetch $true
+      if ($script:ResumeFromCachedListEffective -eq $true) {
+        Set-CachedListResumeFromCache -Cache $currentListCache -Completed $false
+      }
+      if ($currentListCache.manualRecovery -eq $true) {
+        Write-DailyLog "SKIP current-list: using manual recovery current-list cache"
+      }
+      Write-DailyLog "SKIP current-list fetch; reuse existing current-list cache: $CurrentListPath pages=$($currentListCache.pagesScanned)/$($currentListCache.expectedPages) products=$($currentListCache.productsExtracted) reason=$($currentListCache.reason)"
+      Write-DailyTaskState `
+        -Status "running" `
+        -Attempts $attempts `
+        -RetryAllowed $true `
+        -CurrentList $script:CurrentListState `
+        -CachedListResume $script:CachedListResumeState
+    } else {
+      $script:CurrentListState = [ordered]@{
+        status = "skip-current-list-cache-unusable"
+        reused = $false
+        skippedFetch = $true
+        stale = [bool]($currentListCache.stale)
+        manualRecovery = [bool]($script:AllowStaleCurrentListCacheEffective)
+        path = $CurrentListPath
+        pagesScanned = [int]($currentListCache.pagesScanned)
+        expectedPages = [int]($currentListCache.expectedPages)
+        productsExtracted = [int]($currentListCache.productsExtracted)
+        lastCompletedAt = $null
+        reuseReason = [string]($currentListCache.reason)
+        safety = [ordered]@{
+          soldByAbsenceAllowed = $false
+          disappearedApplyAllowed = $false
+        }
+      }
+      Write-DailyTaskState `
+        -Status "retryable-failed" `
+        -Attempts $attempts `
+        -FailureReason "SkipCurrentList requested but current-list cache is not reusable: $($currentListCache.reason)" `
+        -FailureType "network" `
+        -RetryAllowed $true `
+        -NextRetryRecommendedAt (Get-NextRetryAt) `
+        -CurrentList $script:CurrentListState `
+        -CachedListResume $script:CachedListResumeState
+      throw "SkipCurrentList requested but current-list cache is not reusable: $($currentListCache.reason)"
+    }
+  } elseif ($currentListCache.usable -eq $true) {
     $script:CurrentListState = Convert-CurrentListCacheToState `
       -Cache $currentListCache `
       -Status "reused" `
@@ -619,7 +1263,7 @@ try {
     }
   }
 
-  if (-not (Test-ProgressiveLockBeforeStage -StageName "progressive-ingest-list")) {
+  if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-ingest-list")) {
     Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
     exit 0
   }
@@ -635,9 +1279,13 @@ try {
     "--verbose"
   )
 
-  if (-not (Test-ProgressiveLockBeforeStage -StageName "progressive-detail-chunk")) {
+  if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-detail-chunk")) {
     Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
     exit 0
+  }
+
+  if ($script:ResumeFromCachedListEffective -eq $true) {
+    Write-DailyLog "START detail from cached-list resume"
   }
 
   $detailExit = Invoke-InventoryNode -StepName "progressive-detail-chunk" -Arguments @(
@@ -653,8 +1301,27 @@ try {
     "--verbose"
   ) -ContinueOnFailure
 
-  if ($detailExit -ne 0) {
-    $failureReason = "progressive-detail-chunk failed before production write with exit code $detailExit"
+  $detailResult = $script:LastInventoryNodeResult
+  $detailStatus = if ($detailResult -and $detailResult.status) {
+    [string]$detailResult.status
+  } else {
+    ""
+  }
+  $script:DetailPhaseStatus = $detailStatus
+
+  if (-not (Test-DetailPhaseCanContinue -ExitCode $detailExit -Status $detailStatus)) {
+    $detailBlockedReason = if ($detailResult -and $detailResult.blockedReason) {
+      [string]$detailResult.blockedReason
+    } else {
+      $null
+    }
+    $failureReason = if ($detailExit -ne 0) {
+      "progressive-detail-chunk failed before production write with exit code $detailExit"
+    } elseif ($detailBlockedReason) {
+      "progressive-detail-chunk blocked before production write: $detailBlockedReason"
+    } else {
+      "progressive-detail-chunk returned unsafe status '$detailStatus' before production write"
+    }
     $failureType = Get-FailureType -Message $failureReason
     Write-DailyLog "detail chunk blocked or failed; production write skipped"
     Write-DailyTaskState `
@@ -664,12 +1331,28 @@ try {
       -FailureReason $failureReason `
       -FailureType $failureType `
       -RetryAllowed $true `
-      -NextRetryRecommendedAt (Get-NextRetryAt)
+      -NextRetryRecommendedAt (Get-NextRetryAt) `
+      -DetailPhaseStatus $detailStatus `
+      -CachedListResume $script:CachedListResumeState
     Send-MobileReport
-    exit $detailExit
+    exit $(if ($detailExit -ne 0) { $detailExit } else { 1 })
   }
 
-  if (-not (Test-ProgressiveLockBeforeStage -StageName "progressive-build-candidate")) {
+  if ($detailStatus -eq "no-eligible-candidates") {
+    Write-DailyLog "DETAIL chunk complete: no eligible candidates remain"
+  } else {
+    Write-DailyLog "DETAIL chunk complete: status=$detailStatus"
+  }
+  Write-DailyLog "CONTINUE candidate/apply transition"
+  Write-DailyTaskState `
+    -Status "running" `
+    -Attempts $attempts `
+    -CandidateCount (Get-AuditCandidateCount) `
+    -RetryAllowed $true `
+    -DetailPhaseStatus $detailStatus `
+    -CachedListResume $script:CachedListResumeState
+
+  if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-build-candidate")) {
     Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
     exit 0
   }
@@ -684,12 +1367,12 @@ try {
   )
 
   if (Test-AuditAllowsProductionWrite) {
-    if (-not (Test-ProgressiveLockBeforeStage -StageName "progressive-partial-apply")) {
+    if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-partial-apply")) {
       Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
       exit 0
     }
 
-    Invoke-InventoryNode -StepName "progressive-partial-apply" -Arguments @(
+    $applyExit = Invoke-InventoryNode -StepName "progressive-partial-apply" -Arguments @(
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=progressive-partial-apply",
@@ -697,7 +1380,60 @@ try {
       "--no-commit",
       "--no-deploy",
       "--verbose"
-    )
+    ) -ContinueOnFailure
+    $applyResult = $script:LastInventoryNodeResult
+    $applyStatus = if ($applyResult -and $applyResult.status) {
+      [string]$applyResult.status
+    } else {
+      ""
+    }
+    $applyProductionWritten =
+      $applyResult -and $applyResult.productionWritten -eq $true
+    $applyAppliedCount = if ($applyResult -and $applyResult.appliedCount) {
+      [int]$applyResult.appliedCount
+    } else {
+      0
+    }
+    $applyIsolatedCandidateCount = if (
+      $applyResult -and $applyResult.isolatedCandidateCount
+    ) {
+      [int]$applyResult.isolatedCandidateCount
+    } else {
+      0
+    }
+    if (
+      $applyExit -ne 0 -or
+      -not $applyProductionWritten -or
+      $applyAppliedCount -le 0
+    ) {
+      $applyBlockedReason = if ($applyResult -and $applyResult.blockedReason) {
+        [string]$applyResult.blockedReason
+      } else {
+        "status=$applyStatus productionWritten=$applyProductionWritten appliedCount=$applyAppliedCount"
+      }
+      $failureReason =
+        "progressive-partial-apply blocked before confirmed production write: $applyBlockedReason"
+      $failureType = if ($applyStatus -eq "apply-blocked") {
+        "audit"
+      } else {
+        Get-FailureType -Message $failureReason
+      }
+      $retryAllowed = Test-FailureIsRetryable -FailureType $failureType
+      Write-DailyTaskState `
+        -Status $(if ($retryAllowed) { "retryable-failed" } else { "terminal-failed" }) `
+        -Attempts $attempts `
+        -CandidateCount (Get-AuditCandidateCount) `
+        -IsolatedCandidateCount $applyIsolatedCandidateCount `
+        -FailureReason $failureReason `
+        -FailureType $failureType `
+        -RetryAllowed $retryAllowed `
+        -NextRetryRecommendedAt $(if ($retryAllowed) { Get-NextRetryAt } else { $null }) `
+        -DetailPhaseStatus $script:DetailPhaseStatus `
+        -CachedListResume $script:CachedListResumeState
+      Send-MobileReport
+      Write-DailyLog "production write was not confirmed; cached-list resume remains locked"
+      exit $(if ($retryAllowed) { 1 } else { 0 })
+    }
   } else {
     Write-DailyLog "audit gate blocked production write"
     Write-DailyTaskState `
@@ -706,20 +1442,28 @@ try {
       -CandidateCount (Get-AuditCandidateCount) `
       -FailureReason "安全审计未通过，已停止自动重试" `
       -FailureType "audit" `
-      -RetryAllowed $false
+      -RetryAllowed $false `
+      -DetailPhaseStatus $script:DetailPhaseStatus `
+      -CachedListResume $script:CachedListResumeState
     Send-MobileReport
     Write-DailyLog "DAILY TASK TERMINAL FAILED"
     exit 0
   }
 
-  $candidateCount = Get-AuditCandidateCount
+  $candidateCount = $applyAppliedCount
+  if ($script:ResumeFromCachedListEffective -eq $true) {
+    Set-CachedListResumeFromCache -Cache $currentListCache -Completed $true
+  }
   Write-DailyTaskState `
     -Status "success" `
     -Attempts $attempts `
     -ProductionWritten $true `
     -AppliedCount $candidateCount `
     -CandidateCount $candidateCount `
-    -RetryAllowed $false
+    -IsolatedCandidateCount $applyIsolatedCandidateCount `
+    -RetryAllowed $false `
+    -DetailPhaseStatus $script:DetailPhaseStatus `
+    -CachedListResume $script:CachedListResumeState
   Send-MobileReport
   Write-DailyLog "DAILY TASK COMPLETE"
 } catch {

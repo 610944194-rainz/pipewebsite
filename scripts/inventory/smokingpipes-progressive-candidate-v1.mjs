@@ -126,6 +126,7 @@ export function buildProgressivePartialProducts({
   );
   const productionIds = new Set(productsById.keys());
   const newProductIds = [];
+  const attemptedCandidateIds = [];
   const appliedCandidateIds = [];
   const fieldChanges = [];
 
@@ -137,6 +138,7 @@ export function buildProgressivePartialProducts({
       const product = clone(candidate.convertedProduct);
       productsById.set(id, product);
       newProductIds.push(id);
+      attemptedCandidateIds.push(id);
       appliedCandidateIds.push(id);
       fieldChanges.push({
         sourceProductId: id,
@@ -183,13 +185,16 @@ export function buildProgressivePartialProducts({
       );
     }
     if (fields.length) {
-      productsById.set(id, updated);
-      appliedCandidateIds.push(id);
-      fieldChanges.push({
-        sourceProductId: id,
-        operation: "update-fields",
-        fields: [...new Set(fields)].sort(),
-      });
+      attemptedCandidateIds.push(id);
+      if (JSON.stringify(updated) !== JSON.stringify(existing)) {
+        productsById.set(id, updated);
+        appliedCandidateIds.push(id);
+        fieldChanges.push({
+          sourceProductId: id,
+          operation: "update-fields",
+          fields: [...new Set(fields)].sort(),
+        });
+      }
     }
   }
 
@@ -208,6 +213,9 @@ export function buildProgressivePartialProducts({
     ),
     productionProductCount: productionIds.size,
     newProductIds: [...new Set(newProductIds)].sort(),
+    attemptedCandidateIds: [
+      ...new Set(attemptedCandidateIds),
+    ].sort(),
     appliedCandidateIds: [
       ...new Set(appliedCandidateIds),
     ].sort(),
@@ -218,6 +226,190 @@ export function buildProgressivePartialProducts({
         { numeric: true }
       )
     ),
+  };
+}
+
+function candidateChangeTypes(candidate) {
+  return Array.isArray(candidate?.changeTypes)
+    ? candidate.changeTypes.map(text).filter(Boolean)
+    : [];
+}
+
+function classifyGapCandidate({
+  candidate,
+  productionProduct,
+  candidateProduct,
+  disappearedIds,
+}) {
+  const changeTypes = candidateChangeTypes(candidate);
+  if (
+    disappearedIds.has(sourceProductId(candidate)) ||
+    changeTypes.includes("disappeared")
+  ) {
+    return {
+      key: "disappearedApplyDisabled",
+      reason: "disappeared-apply-disabled",
+      safe: true,
+    };
+  }
+  if (
+    changeTypes.includes("sold-by-absence") ||
+    candidate?.soldByAbsence === true
+  ) {
+    return {
+      key: "soldByAbsenceDisabled",
+      reason: "sold-by-absence-disabled",
+      safe: true,
+    };
+  }
+  if (
+    candidate?.publicStatus === "review-only" ||
+    candidate?.detailStatus === "review-only"
+  ) {
+    return {
+      key: "reviewOnly",
+      reason: "review-only",
+      safe: true,
+    };
+  }
+  if (
+    candidate?.publicStatus === "not-public" ||
+    ["pending", "failed", "blocked"].includes(
+      text(candidate?.detailStatus)
+    )
+  ) {
+    return {
+      key: "notPublic",
+      reason: "not-public",
+      safe: true,
+    };
+  }
+  if (
+    productionProduct &&
+    candidateProduct &&
+    JSON.stringify(productionProduct) ===
+      JSON.stringify(candidateProduct)
+  ) {
+    return {
+      key: "noOpAlreadyCurrent",
+      reason: "no-op-already-current",
+      safe: true,
+    };
+  }
+  if (
+    candidate?.publicStatus === "ready" &&
+    candidate?.detailStatus === "complete"
+  ) {
+    return {
+      key: "readyUnexpectedlyExcluded",
+      reason: "ready-candidate-unexpectedly-excluded",
+      safe: false,
+    };
+  }
+  return {
+    key: "other",
+    reason: "other",
+    safe: false,
+  };
+}
+
+export function diagnoseProgressiveApplyGap({
+  state,
+  productionProducts = [],
+  candidateProducts = [],
+  candidateIds = [],
+  wouldApplyProductIds = [],
+  now = new Date().toISOString(),
+}) {
+  const normalizedCandidateIds = [
+    ...new Set(candidateIds.map(String).filter(Boolean)),
+  ].sort();
+  const wouldApplyIds = new Set(
+    wouldApplyProductIds.map(String).filter(Boolean)
+  );
+  const productionById = new Map(
+    productionProducts.map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  const candidateProductsById = new Map(
+    candidateProducts.map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  const stateCandidatesById = new Map(
+    (state?.candidates || []).map((item) => [
+      sourceProductId(item),
+      item,
+    ])
+  );
+  const disappearedIds = new Set(
+    (state?.globalReconcile?.disappearedIds || []).map(String)
+  );
+  const gapClassifications = {
+    disappearedApplyDisabled: 0,
+    soldByAbsenceDisabled: 0,
+    reviewOnly: 0,
+    notPublic: 0,
+    noOpAlreadyCurrent: 0,
+    readyUnexpectedlyExcluded: 0,
+    other: 0,
+  };
+  const gapCandidates = normalizedCandidateIds
+    .filter((id) => !wouldApplyIds.has(id))
+    .map((id) => {
+      const candidate = stateCandidatesById.get(id) || null;
+      const productionProduct = productionById.get(id) || null;
+      const candidateProduct =
+        candidateProductsById.get(id) || null;
+      const classification = classifyGapCandidate({
+        candidate,
+        productionProduct,
+        candidateProduct,
+        disappearedIds,
+      });
+      gapClassifications[classification.key] += 1;
+      return {
+        id:
+          text(candidateProduct?.id) ||
+          text(productionProduct?.id) ||
+          `smokingpipes-${id}`,
+        sourceProductId: id,
+        changeType:
+          candidateChangeTypes(candidate).join(", ") ||
+          "unknown",
+        publicStatus:
+          text(candidate?.publicStatus) || "unknown",
+        detailStatus:
+          text(candidate?.detailStatus) || "unknown",
+        applyAllowed: false,
+        reason: classification.reason,
+      };
+    });
+  const unknownGapCount = gapClassifications.other;
+  const readyUnexpectedlyExcludedCount =
+    gapClassifications.readyUnexpectedlyExcluded;
+  const gapCount = gapCandidates.length;
+  const safeToApplyWouldApplySubset =
+    wouldApplyIds.size > 0 &&
+    gapCount ===
+      normalizedCandidateIds.length - wouldApplyIds.size &&
+    unknownGapCount === 0 &&
+    readyUnexpectedlyExcludedCount === 0;
+
+  return {
+    version: "smokingpipes-apply-gap-diagnosis-v1",
+    generatedAt: now,
+    candidateCount: normalizedCandidateIds.length,
+    wouldApplyCount: wouldApplyIds.size,
+    gapCount,
+    gapCandidates,
+    gapClassifications,
+    unknownGapCount,
+    readyUnexpectedlyExcludedCount,
+    safeToApplyWouldApplySubset,
   };
 }
 
@@ -442,6 +634,14 @@ export function buildProgressivePartialApplyPreview({
     candidateCount,
     wouldApplyProductIds,
     wouldApplyCount: wouldApplyProductIds.length,
+    isolatedCandidateCount: Number(
+      audit?.isolatedCandidateCount ??
+        audit?.applyGap?.gapCount ??
+        0
+    ),
+    safeSubsetApply:
+      audit?.applyGap?.safeToApplyWouldApplySubset === true,
+    applyGap: audit?.applyGap || null,
     productionWritten: false,
     commitPerformed: false,
     pushPerformed: false,

@@ -37,6 +37,99 @@ function pickFirstDefined(...values) {
   return values.find((value) => value !== undefined && value !== null);
 }
 
+function normalizeComparable(value) {
+  return String(value ?? "").trim();
+}
+
+function productComparableFields(product) {
+  return {
+    sourceUrl: normalizeComparable(product?.sourceUrl || product?.url),
+    title: normalizeComparable(product?.title || product?.name),
+    price: normalizeComparable(
+      pickFirstDefined(product?.priceRaw, product?.priceAmount, product?.price)
+    ),
+    inventoryStatus: normalizeComparable(
+      product?.inventoryStatus || product?.status || product?.rawStatusText
+    ),
+  };
+}
+
+function analyzeDuplicateProducts(products, duplicateSourceProductIdsFromField = []) {
+  const productGroups = new Map();
+  for (const product of products) {
+    const id = normalizeComparable(product?.sourceProductId);
+    if (!id) continue;
+    if (!productGroups.has(id)) {
+      productGroups.set(id, []);
+    }
+    productGroups.get(id).push(product);
+  }
+
+  const duplicateIdsFromField = new Set(
+    duplicateSourceProductIdsFromField.map(normalizeComparable).filter(Boolean)
+  );
+  const duplicateIdsFromRecords = new Set();
+  for (const [id, records] of productGroups) {
+    if (records.length > 1) duplicateIdsFromRecords.add(id);
+  }
+
+  const duplicateSamples = [...duplicateIdsFromRecords].slice(0, 20).map((id) => {
+    const records = productGroups.get(id) || [];
+    const comparableRecords = records.map(productComparableFields);
+    const first = comparableRecords[0] || {};
+    const sameUrl = comparableRecords.every(
+      (item) => item.sourceUrl === first.sourceUrl
+    );
+    const sameTitle = comparableRecords.every((item) => item.title === first.title);
+    const samePrice = comparableRecords.every((item) => item.price === first.price);
+    const sameInventoryStatus = comparableRecords.every(
+      (item) => item.inventoryStatus === first.inventoryStatus
+    );
+    const conflict =
+      records.length > 1 &&
+      (!sameUrl || !sameTitle || !samePrice || !sameInventoryStatus);
+    return {
+      sourceProductId: id,
+      count: records.length,
+      sameUrl,
+      sameTitle,
+      samePrice,
+      sameInventoryStatus,
+      conflict,
+      records: records.slice(0, 3),
+    };
+  });
+
+  const conflictDuplicateIdCount = duplicateSamples.filter(
+    (sample) => sample.conflict
+  ).length;
+  const duplicateIdCountFromField = duplicateIdsFromField.size;
+  const duplicateIdCountFromRecords = duplicateIdsFromRecords.size;
+  const duplicateIdCount = duplicateIdCountFromRecords;
+  const warnings = [];
+
+  if (duplicateIdCountFromField > 0 && duplicateIdCountFromRecords === 0) {
+    warnings.push(
+      "duplicateSourceProductIds metadata is present, but no duplicate records were found"
+    );
+  }
+
+  return {
+    duplicateSourceProductIds: [...duplicateIdsFromRecords],
+    duplicateSourceProductIdsFromField: [...duplicateIdsFromField],
+    duplicateSourceProductIdsFromRecords: [...duplicateIdsFromRecords],
+    duplicateIdCount,
+    duplicateIdCountFromField,
+    duplicateIdCountFromRecords,
+    duplicateSamples,
+    dedupeRequired: duplicateIdCountFromRecords > 0,
+    dedupeSafe:
+      duplicateIdCountFromRecords === 0 || conflictDuplicateIdCount === 0,
+    conflictDuplicateIdCount,
+    warnings,
+  };
+}
+
 function summarizeCurrentListPayload(payload) {
   const summary = payload?.summary && typeof payload.summary === "object"
     ? payload.summary
@@ -61,6 +154,10 @@ function summarizeCurrentListPayload(payload) {
       payload?.duplicateSourceProductIds,
       computedDuplicateSourceProductIds
     )
+  );
+  const duplicateInfo = analyzeDuplicateProducts(
+    products,
+    duplicateSourceProductIds
   );
 
   return {
@@ -91,7 +188,19 @@ function summarizeCurrentListPayload(payload) {
         computedUniqueProducts || products.length
       )
     ),
-    duplicateSourceProductIds,
+    duplicateSourceProductIds: duplicateInfo.duplicateSourceProductIds,
+    duplicateSourceProductIdsFromField:
+      duplicateInfo.duplicateSourceProductIdsFromField,
+    duplicateSourceProductIdsFromRecords:
+      duplicateInfo.duplicateSourceProductIdsFromRecords,
+    duplicateIdCount: duplicateInfo.duplicateIdCount,
+    duplicateIdCountFromField: duplicateInfo.duplicateIdCountFromField,
+    duplicateIdCountFromRecords: duplicateInfo.duplicateIdCountFromRecords,
+    duplicateSamples: duplicateInfo.duplicateSamples,
+    dedupeRequired: duplicateInfo.dedupeRequired,
+    dedupeSafe: duplicateInfo.dedupeSafe,
+    conflictDuplicateIdCount: duplicateInfo.conflictDuplicateIdCount,
+    warnings: duplicateInfo.warnings,
     captchaDetected: Boolean(
       pickFirstDefined(summary.captchaDetected, payload?.captchaDetected, false)
     ),
@@ -126,15 +235,34 @@ function buildResult({
   currentListPath,
   dateKey,
   summary = {},
+  stale = false,
+  manualRecovery = false,
+  safety = null,
 }) {
   return {
     usable,
     reason,
     path: currentListPath,
+    stale,
+    manualRecovery,
+    safety:
+      safety ||
+      {
+        soldByAbsenceAllowed: usable && !stale,
+        disappearedApplyAllowed: usable && !stale,
+      },
     pagesScanned: toNumber(summary.pagesScanned),
     expectedPages: toNumber(summary.expectedPages),
     productsExtracted: toNumber(summary.productsExtracted),
     uniqueProducts: toNumber(summary.uniqueProducts),
+    duplicateIdCount: toNumber(summary.duplicateIdCount),
+    duplicateIdCountFromField: toNumber(summary.duplicateIdCountFromField),
+    duplicateIdCountFromRecords: toNumber(summary.duplicateIdCountFromRecords),
+    duplicateSamples: toArray(summary.duplicateSamples),
+    dedupeRequired: Boolean(summary.dedupeRequired),
+    dedupeSafe: summary.dedupeSafe !== false,
+    conflictDuplicateIdCount: toNumber(summary.conflictDuplicateIdCount),
+    warnings: toArray(summary.warnings),
     dateKey: dateKey || null,
     completedAt: summary.completedAt || summary.generatedAt || null,
   };
@@ -143,6 +271,8 @@ function buildResult({
 export function evaluateSmokingpipesCurrentListCache({
   currentListPath = DEFAULT_SMOKINGPIPES_CURRENT_LIST_CACHE_PATH,
   now = new Date(),
+  allowStale = false,
+  allowDuplicateDedupe = false,
   fsImpl = fs,
 } = {}) {
   if (!fsImpl.existsSync(currentListPath)) {
@@ -180,16 +310,6 @@ export function evaluateSmokingpipesCurrentListCache({
   const generatedDateKey = dateKeyFromDate(
     summary.generatedAt || summary.completedAt || stat.mtime
   );
-
-  if (generatedDateKey !== currentDateKey) {
-    return buildResult({
-      usable: false,
-      reason: "stale",
-      currentListPath,
-      dateKey: generatedDateKey,
-      summary,
-    });
-  }
 
   if (
     summary.pagesScanned !== EXPECTED_SMOKINGPIPES_LIST_PAGES ||
@@ -237,13 +357,52 @@ export function evaluateSmokingpipesCurrentListCache({
     });
   }
 
-  if (summary.duplicateSourceProductIds.length > 0) {
+  if (summary.duplicateIdCount > 0 && summary.conflictDuplicateIdCount > 0) {
+    return buildResult({
+      usable: false,
+      reason: "duplicate-id-conflict",
+      currentListPath,
+      dateKey: generatedDateKey,
+      summary,
+    });
+  }
+
+  if (summary.duplicateIdCount > 0 && !allowDuplicateDedupe) {
     return buildResult({
       usable: false,
       reason: "duplicate-ids",
       currentListPath,
       dateKey: generatedDateKey,
       summary,
+    });
+  }
+
+  const stale = generatedDateKey !== currentDateKey;
+
+  if (stale && !allowStale) {
+    return buildResult({
+      usable: false,
+      reason: "stale",
+      currentListPath,
+      dateKey: generatedDateKey,
+      summary,
+      stale: true,
+    });
+  }
+
+  if (stale && allowStale) {
+    return buildResult({
+      usable: true,
+      reason: "complete stale current-list cache allowed by manual recovery",
+      currentListPath,
+      dateKey: generatedDateKey,
+      summary,
+      stale: true,
+      manualRecovery: true,
+      safety: {
+        soldByAbsenceAllowed: false,
+        disappearedApplyAllowed: false,
+      },
     });
   }
 
@@ -262,6 +421,10 @@ function parseCliArgs(argv) {
   for (const arg of argv) {
     if (arg.startsWith("--path=")) {
       options.currentListPath = arg.slice("--path=".length);
+    } else if (arg === "--allow-stale") {
+      options.allowStale = true;
+    } else if (arg === "--allow-duplicate-dedupe") {
+      options.allowDuplicateDedupe = true;
     }
   }
 

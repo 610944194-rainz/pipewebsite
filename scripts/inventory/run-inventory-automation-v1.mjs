@@ -424,13 +424,20 @@ async function run() {
               result.candidateCount || 0,
             wouldApplyCount:
               result.wouldApplyCount || 0,
+            appliedCount:
+              result.partialAppliedCount || 0,
+            isolatedCandidateCount:
+              result.isolatedCandidateCount || 0,
+            safeSubsetApply:
+              result.safeSubsetApply === true,
             browserStarted:
               result.browserStarted ?? false,
             recommendedNextRunAt:
               result.recommendedNextRunAt || null,
             blockedReason:
               result.blockedReason || null,
-            productionWritten: false,
+            productionWritten:
+              result.productionWritten === true,
             commitPerformed: false,
             pushPerformed: false,
           },

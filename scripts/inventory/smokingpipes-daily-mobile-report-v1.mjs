@@ -71,10 +71,51 @@ function sanitizeMobileText(value) {
   return text.length > 180 ? `${text.slice(0, 177)}...` : text;
 }
 
+function sanitizeMobileTextV2(value) {
+  const text = normalizeText(value)
+    .replace(/\{[\s\S]*?\}/g, "")
+    .replace(
+      /[A-Za-z]:\\[^\s;，。]*smokingpipes(?:-progressive-daily)?\.lock/gi,
+      "inventory lock"
+    )
+    .replace(
+      /Lock:\s*(?:inventory lock|smokingpipes(?:-progressive-daily)?\.lock)\.?/gi,
+      "任务锁：inventory lock"
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+  return text.length > 180 ? `${text.slice(0, 177)}...` : text;
+}
+
+function inventoryLocksFromTaskState(taskState) {
+  return taskState?.inventoryLocks && typeof taskState.inventoryLocks === "object"
+    ? taskState.inventoryLocks
+    : null;
+}
+
 function progressiveLockFromTaskState(taskState) {
   return taskState?.progressiveLock && typeof taskState.progressiveLock === "object"
     ? taskState.progressiveLock
     : null;
+}
+
+function isActiveInventoryLock(taskState) {
+  const inventoryLocks = inventoryLocksFromTaskState(taskState);
+  if (!inventoryLocks) return false;
+  return (
+    taskState?.lastFailureType === "lock" &&
+    (inventoryLocks.hasActiveLock === true ||
+      toArray(inventoryLocks.activeLocks).length > 0)
+  );
+}
+
+function isStaleInventoryLockCleared(taskState) {
+  const inventoryLocks = inventoryLocksFromTaskState(taskState);
+  if (!inventoryLocks) return false;
+  return (
+    inventoryLocks.hasActiveLock !== true &&
+    toArray(inventoryLocks.clearedLocks).length > 0
+  );
 }
 
 function isActiveProgressiveLock(taskState) {
@@ -241,6 +282,7 @@ function isTodayAlreadySucceeded(taskState) {
 
 function deriveStatus({ state, audit, taskLogText, taskState }) {
   const taskStatus = normalizeTaskStatus(taskState);
+  const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
 
   const auditStatus = getAuditStatus(audit);
   const blockers = toArray(audit?.blockers);
@@ -262,7 +304,14 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
     return "blocked";
   }
 
-  if (isActiveProgressiveLock(taskState)) {
+  if (
+    Number(audit?.applyGap?.gapCount || 0) > 0 &&
+    audit?.applyGap?.safeToApplyWouldApplySubset !== true
+  ) {
+    return "failed";
+  }
+
+  if (isActiveInventoryLock(taskState) || isActiveProgressiveLock(taskState)) {
     return "lock-active";
   }
 
@@ -280,9 +329,19 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
 
   if (
     taskStatus === "running" &&
-    isStaleProgressiveLockCleared(taskState)
+    (isStaleInventoryLockCleared(taskState) ||
+      isStaleProgressiveLockCleared(taskState))
   ) {
     return "stale-lock-cleared";
+  }
+
+  if (
+    taskStatus === "running" &&
+    ["no-eligible-candidates", "chunk-complete", "completed"].includes(
+      detailPhaseStatus
+    )
+  ) {
+    return "detail-complete";
   }
 
   if (
@@ -325,10 +384,15 @@ export function buildSmokingpipesDailyMobileReport({
   const currentList =
     taskState?.currentList && typeof taskState.currentList === "object"
       ? taskState.currentList
-      : state?.currentList && typeof state.currentList === "object"
+        : state?.currentList && typeof state.currentList === "object"
         ? state.currentList
         : null;
+  const cachedListResume =
+    taskState?.cachedListResume && typeof taskState.cachedListResume === "object"
+      ? taskState.cachedListResume
+      : null;
   const progressiveLock = progressiveLockFromTaskState(taskState);
+  const inventoryLocks = inventoryLocksFromTaskState(taskState);
   const stateBlockedReason = normalizeText(state?.blockedReason);
   const verificationBlocker = findVerificationBlocker({
     state,
@@ -336,6 +400,7 @@ export function buildSmokingpipesDailyMobileReport({
     taskLogText,
   });
   const taskFailure = findDailyTaskFailure(taskLogText);
+  const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
 
   if (verificationBlocker && !blockers.includes(verificationBlocker)) {
     blockers.unshift(verificationBlocker);
@@ -348,13 +413,29 @@ export function buildSmokingpipesDailyMobileReport({
   }
 
   const candidateCount =
-    Number.isFinite(taskState?.candidateCount)
+    Number.isFinite(audit?.attemptedCandidateCount)
+      ? audit.attemptedCandidateCount
+      : Number.isFinite(taskState?.candidateCount)
       ? taskState.candidateCount
       : Number.isFinite(audit?.candidateCount)
       ? audit.candidateCount
       : candidates.length;
   const wouldApplyCount =
     Number.isFinite(audit?.wouldApplyCount) ? audit.wouldApplyCount : 0;
+  const isolatedCandidateCount = Number(
+    audit?.isolatedCandidateCount ??
+      audit?.applyGap?.gapCount ??
+      taskState?.isolatedCandidateCount ??
+      0
+  );
+  const attemptedCandidateCount = Number(
+    audit?.attemptedCandidateCount ??
+      audit?.applyGap?.candidateCount ??
+      candidateCount
+  );
+  const unsafeApplyGap =
+    isolatedCandidateCount > 0 &&
+    audit?.applyGap?.safeToApplyWouldApplySubset !== true;
   const appliedCount = Number.isFinite(taskState?.appliedCount)
     ? Number(taskState.appliedCount)
     : getAppliedCount({ audit, wouldApplyCount });
@@ -388,7 +469,7 @@ export function buildSmokingpipesDailyMobileReport({
     detailFailed,
   });
   const status = deriveStatus({ state, audit, taskLogText, taskState });
-  const reason = deriveReason({
+  const reason = deriveReasonV2({
     status,
     verificationBlocker,
     taskFailure,
@@ -400,29 +481,58 @@ export function buildSmokingpipesDailyMobileReport({
     wouldApplyCount,
     productionWritten: Boolean(audit?.productionWritten || taskState?.productionWritten),
   });
+  const failureType = taskState?.lastFailureType || null;
+  const statusLabel =
+    unsafeApplyGap
+      ? "候选应用被安全门禁阻断"
+      : status === "success"
+      ? statusLabelV2(status)
+      : status === "detail-complete"
+      ? "详情队列已完成，正在进入候选应用"
+      : cachedListResume?.enabled === true &&
+          cachedListResume?.completed === true
+      ? "本轮缓存列表恢复完成"
+      : failureType === "preflight" &&
+          (status === "retryable-failed" || status === "terminal-failed")
+          ? "恢复预检失败"
+      : ["blocked", "failed", "retryable-failed", "terminal-failed", "lock-active"].includes(
+          status
+        )
+        ? statusLabelV2(status)
+      : cachedListResume?.enabled === true &&
+          cachedListResume?.completed !== true
+        ? "详情继续处理中，将自动续跑"
+        : statusLabelV2(status);
 
   return {
     source: "smokingpipes",
     status,
-    statusLabel: statusLabel(status),
+    statusLabel,
     reason,
-    nextStep: deriveNextStep({ status }),
+    nextStep: unsafeApplyGap
+      ? "检查 data/review/smokingpipes-apply-gap-diagnosis-report.md，确认隔离候选的分类。"
+      : deriveNextStepV2({ status, failureType, cachedListResume }),
     runAt,
     pagesScanned: Number(state?.pagesScanned || 0),
     expectedPages: Number(state?.expectedPages || 0),
     candidateCount,
+    attemptedCandidateCount,
     wouldApplyCount,
+    isolatedCandidateCount,
     appliedCount,
     productionWritten: Boolean(audit?.productionWritten || taskState?.productionWritten),
     taskStatus: normalizeTaskStatus(taskState) || null,
+    inventoryLocks,
     progressiveLock,
     currentList,
+    cachedListResume,
+    detailPhaseStatus: detailPhaseStatus || null,
     retryAllowed:
       typeof taskState?.retryAllowed === "boolean"
         ? taskState.retryAllowed
         : status === "retryable-failed",
     nextRetryRecommendedAt: taskState?.nextRetryRecommendedAt || null,
-    failureType: taskState?.lastFailureType || null,
+    failureType,
     todayAlreadySucceeded: isTodayAlreadySucceeded(taskState),
     attempts: Number(taskState?.attempts || 0),
     newProductReady:
@@ -470,6 +580,166 @@ export function buildSmokingpipesDailyMobileReport({
     notificationSkipped: Boolean(notification.notificationSkipped),
     notificationReason: notification.notificationReason || "not requested",
   };
+}
+
+function statusLabelV2(status) {
+  if (status === "lock-active") return "库存任务正在运行，等待下一轮";
+  if (status === "stale-lock-cleared") return "已清理过期任务锁，继续执行";
+  if (status === "detail-complete") return "详情队列已完成，正在进入候选应用";
+  if (status === "retryable-failed") return "更新失败，将自动重试";
+  if (status === "terminal-failed") return "更新失败，已停止重试";
+  if (status === "skipped-success") return "已跳过";
+  if (status === "blocked") return "需要人工验证";
+  if (status === "failed") return "更新失败";
+  if (status === "success") return "已更新";
+  if (status === "preview") return "未更新，仅生成预览";
+  if (status === "noop") return "无可更新";
+  return status || "未知";
+}
+
+function deriveReasonV2({
+  status,
+  verificationBlocker,
+  taskFailure,
+  taskState,
+  currentList,
+  audit,
+  candidateCount,
+  wouldApplyCount,
+  productionWritten,
+}) {
+  const isolatedCandidateCount = Number(
+    audit?.isolatedCandidateCount ??
+      audit?.applyGap?.gapCount ??
+      0
+  );
+  if (
+    isolatedCandidateCount > 0 &&
+    audit?.applyGap?.safeToApplyWouldApplySubset !== true
+  ) {
+    return `${candidateCount} 个候选中只有 ${wouldApplyCount} 个允许自动应用，${isolatedCandidateCount} 个需要分类确认。`;
+  }
+  if (status === "lock-active") {
+    return "检测到已有 Smokingpipes 库存任务锁，暂不启动第二个任务。";
+  }
+
+  if (status === "stale-lock-cleared") {
+    return "检测到上一次任务遗留 lock，已自动清理。";
+  }
+
+  if (status === "detail-complete") {
+    return "详情队列已完成，正在进入候选应用。";
+  }
+
+  if (status === "retryable-failed" || status === "terminal-failed") {
+    if (taskState?.lastFailureType === "preflight") {
+      return `恢复预检失败：${sanitizeMobileTextV2(
+        taskState?.lastFailureReason || "请查看 recovery preflight report"
+      )}`;
+    }
+    if (taskState?.lastFailureType === "lock") {
+      return "已有任务锁定，暂不启动第二个库存任务。";
+    }
+    return sanitizeMobileTextV2(taskState?.lastFailureReason || "daily task failed");
+  }
+
+  if (status === "skipped-success") {
+    return "今天已经成功更新，后续重复触发已跳过。";
+  }
+
+  if (status === "blocked") {
+    return verificationBlocker
+      ? sanitizeMobileTextV2(verificationBlocker)
+      : "verification/captcha/blocked signal detected";
+  }
+
+  if (status === "failed") {
+    if (taskFailure) {
+      return `daily task failed: ${sanitizeMobileTextV2(taskFailure)}`;
+    }
+
+    const blockers = toArray(audit?.blockers).map(normalizeText).filter(Boolean);
+    if (blockers.length > 0) {
+      return blockers.map(sanitizeMobileTextV2).join("; ");
+    }
+
+    return `auditStatus=${getAuditStatus(audit) || "unknown"}`;
+  }
+
+  if (status === "success") {
+    return isolatedCandidateCount > 0
+      ? `已写入 ${wouldApplyCount} 个可安全应用候选；${isolatedCandidateCount} 个不可自动应用候选保留复核。`
+      : "productionWritten=true，已写入 production。";
+  }
+
+  if (status === "preview") {
+    if (currentList?.manualRecovery) {
+      return "跳过 current-list 抓取，复用已有完整 current-list（人工恢复模式）；本次未写入 production。";
+    }
+
+    if (currentList?.reused) {
+      return "已复用今日 current-list，但本次未写入 production。";
+    }
+
+    return `productionWritten=${productionWritten}，appliedCount=0，candidateCount=${candidateCount}，wouldApplyCount=${wouldApplyCount}。`;
+  }
+
+  return `candidateCount=${candidateCount}，wouldApplyCount=${wouldApplyCount}。`;
+}
+
+function deriveNextStepV2({ status, failureType = null, cachedListResume = null }) {
+  if (cachedListResume?.enabled === true && cachedListResume?.completed === true) {
+    return "下一次自动更新可重新抓取新列表。";
+  }
+
+  if (status === "detail-complete") {
+    return "执行 candidate/audit/apply";
+  }
+
+  if (
+    failureType === "preflight" &&
+    (status === "retryable-failed" || status === "terminal-failed")
+  ) {
+    return "先查看 data/review/smokingpipes-daily-recovery-preflight-report.md，按报告修复后再重跑恢复任务。";
+  }
+
+  if (status === "terminal-failed") {
+    return "人工检查 audit report";
+  }
+
+  if (cachedListResume?.enabled === true && cachedListResume?.completed !== true) {
+    return "继续复用同一份列表快照，不重新扫列表页。";
+  }
+
+  if (status === "lock-active") {
+    return "无需操作，等待下一轮自动重试。";
+  }
+
+  if (status === "stale-lock-cleared") {
+    return "无需操作，本轮会继续执行后续库存流程。";
+  }
+
+  if (status === "retryable-failed") {
+    return "等待 Windows 定时任务在下一轮自动重试；如需立即处理，可人工重新运行 daily task。";
+  }
+
+  if (status === "skipped-success") {
+    return "无需处理。";
+  }
+
+  if (status === "blocked") {
+    return "请在电脑上完成 Smokingpipes 验证，之后重新运行每日任务。";
+  }
+
+  if (status === "failed") {
+    return "查看 data/review/smokingpipes-daily-task-latest.log";
+  }
+
+  if (status === "preview") {
+    return "检查每日任务是否完成 formal apply；确认无误后再决定是否写入 production。";
+  }
+
+  return "无需处理。";
 }
 
 function statusLabel(status) {
@@ -620,7 +890,7 @@ function buildSourceScanText(report) {
     : "未知";
 }
 
-export function buildPushDeerDailyMessage(report) {
+function buildPushDeerDailyMessageLegacy(report) {
   const lockActive = report.status === "lock-active";
   const blockedText =
     lockActive
@@ -645,6 +915,9 @@ export function buildPushDeerDailyMessage(report) {
       `源站扫描：${scanText}`,
       `候选更新：${report.candidateCount}`,
       `正式应用：${report.appliedCount || 0}`,
+      ...(report.isolatedCandidateCount > 0
+        ? [`隔离候选：${report.isolatedCandidateCount}`]
+        : []),
       `新增可公开：${report.newProductReady}`,
       "",
       `人工复核：${report.newProductReviewOnly}`,
@@ -667,6 +940,151 @@ export function buildPushDeerDailyMessage(report) {
   };
 }
 
+function buildSourceScanTextV2(report) {
+  if (report?.cachedListResume?.enabled) {
+    return "未重新抓取，复用已有完整列表快照";
+  }
+
+  if (report?.currentList?.manualRecovery) {
+    return "跳过，复用已有完整列表快照（人工恢复模式）";
+  }
+
+  if (report?.currentList?.reused) {
+    const pagesScanned = Number(
+      report.currentList.pagesScanned || report.pagesScanned || 0
+    );
+    const expectedPages = Number(
+      report.currentList.expectedPages || report.expectedPages || 0
+    );
+    const pageText =
+      pagesScanned && expectedPages
+        ? `${pagesScanned}/${expectedPages}`
+        : "107/107";
+    return `复用今日完整列表快照（${pageText}）`;
+  }
+
+  return report.pagesScanned && report.expectedPages
+    ? `${report.pagesScanned}/${report.expectedPages} 页`
+    : "未知";
+}
+
+function buildDetailAccessTextV2(report) {
+  if (report?.detailPhaseStatus === "no-eligible-candidates") {
+    return "当前没有待抓取详情";
+  }
+
+  if (report?.cachedListResume?.enabled) {
+    return "继续抓取更新商品详情";
+  }
+
+  return "按当前任务计划执行";
+}
+
+function buildExecutionModeTextV2(report) {
+  if (report?.cachedListResume?.enabled) {
+    return "缓存列表断点恢复";
+  }
+
+  return "每日库存更新";
+}
+
+function buildNextListFetchTextV2(report) {
+  if (report?.cachedListResume?.enabled) {
+    return report.cachedListResume.completed
+      ? "当前快照已完成，下次可重新抓取新列表"
+      : "当前快照完成后恢复；未完成前继续复用同一份列表快照";
+  }
+
+  return "按每日任务策略执行";
+}
+
+function buildSourceAccessTextV2(report) {
+  if (report?.cachedListResume?.enabled) {
+    return "仅访问商品详情页，未重新抓列表页";
+  }
+
+  if (report?.currentList?.manualRecovery) {
+    return "未重新访问 Smokingpipes";
+  }
+
+  return "按当前任务计划执行";
+}
+
+function failureTypeLabelV2(value) {
+  const type = normalizeText(value);
+  if (type === "lock") return "任务锁定";
+  if (type === "verification") return "源站验证";
+  if (type === "network") return "网络异常";
+  if (type === "browser") return "浏览器异常";
+  if (type === "audit") return "安全审计";
+  if (type === "preflight") return "恢复预检";
+  return type || "无";
+}
+
+export function buildPushDeerDailyMessage(report) {
+  const lockActive = report.status === "lock-active";
+  const blockedText =
+    lockActive
+      ? "任务锁定"
+      : report.blockers?.length > 0
+        ? report.blockers.map(sanitizeMobileTextV2).join("; ")
+        : "无";
+  const scanText = buildSourceScanTextV2(report);
+  const detailAccessText = buildDetailAccessTextV2(report);
+  const executionModeText = buildExecutionModeTextV2(report);
+  const nextListFetchText = buildNextListFetchTextV2(report);
+  const sourceAccessText = buildSourceAccessTextV2(report);
+  const pendingDetailCount = Number.isFinite(report.pendingDetailCount)
+    ? report.pendingDetailCount
+    : calculatePendingDetailCount({
+        detailPending: report.detailPending,
+        publicNotPublic: report.publicNotPublic,
+        detailFailed: report.detailFailed,
+      });
+
+  return {
+    title: "烟斗派库存日报｜Smokingpipes",
+    body: [
+      `结论：${report.statusLabel || statusLabelV2(report.status)}`,
+      "",
+      `源站扫描：${scanText}`,
+      `详情抓取：${detailAccessText}`,
+      `执行方式：${executionModeText}`,
+      `下次列表抓取：${nextListFetchText}`,
+      `源站访问：${sourceAccessText}`,
+      `候选更新：${report.candidateCount}`,
+      `正式应用：${report.appliedCount || 0}`,
+      ...(report.isolatedCandidateCount > 0
+        ? [`隔离候选：${report.isolatedCandidateCount}`]
+        : []),
+      `新增可公开：${report.newProductReady}`,
+      "",
+      `人工复核：${report.newProductReviewOnly}`,
+      `失败保留：${report.detailFailed}`,
+      `待处理详情：${pendingDetailCount}`,
+      `阻断：${blockedText}`,
+      `失败类型：${failureTypeLabelV2(report.failureType)}`,
+      `重试状态：${report.retryAllowed ? "允许重试" : "不重试"}`,
+      `下一次重试：${report.nextRetryRecommendedAt || "无"}`,
+      `是否当天已成功：${report.todayAlreadySucceeded ? "是" : "否"}`,
+      "",
+      "原因：",
+      sanitizeMobileTextV2(report.reason || "无"),
+      "",
+      "下一步：",
+      report.nextStep || deriveNextStepV2({ status: report.status }),
+      "",
+      report.cachedListResume?.enabled
+        ? report.productionWritten && report.isolatedCandidateCount > 0
+          ? "说明：已写入可安全应用候选；不可自动应用候选保留复核。"
+          : "说明：本轮可访问商品详情页，但不会重新抓 Smokingpipes 列表页。"
+        : report.currentList?.manualRecovery
+        ? "说明：本轮未重新访问 Smokingpipes；不会根据旧列表自动判定下架。"
+        : "说明：待处理详情 = 尚未完成 detail / pending / not-public 的商品，不会进入 production。",
+    ].join("\n"),
+  };
+}
+
 function failureTypeLabel(value) {
   const type = normalizeText(value);
   if (type === "lock") return "任务锁定";
@@ -677,7 +1095,7 @@ function failureTypeLabel(value) {
   return type || "无";
 }
 
-function buildMarkdownReport(report) {
+function buildMarkdownReportLegacy(report) {
   const blockers = report.blockers.length
     ? report.blockers.map((item) => `- ${sanitizeMobileText(item)}`).join("\n")
     : "- 无";
@@ -693,6 +1111,7 @@ function buildMarkdownReport(report) {
 - 源站扫描：${scanText}
 - 候选更新：${report.candidateCount}
 - 正式应用：${report.appliedCount || 0}
+- 隔离候选：${report.isolatedCandidateCount || 0}
 - 已写入 production：${report.productionWritten ? "是" : "否"}
 - 新增可公开：${report.newProductReady}
 - 人工复核：${report.newProductReviewOnly}
@@ -709,6 +1128,58 @@ function buildMarkdownReport(report) {
 - 是否当天已成功：${report.todayAlreadySucceeded ? "是" : "否"}
 - 原因：${sanitizeMobileText(report.reason || "无")}
 - 下一步：${report.nextStep || deriveNextStep({ status: report.status })}
+- 通知已发送：${report.notificationSent ? "是" : "否"}
+- 通知已跳过：${report.notificationSkipped ? "是" : "否"}
+- 通知原因：${report.notificationReason}
+- PowerShell 推荐查看命令：Get-Content "data\\review\\smokingpipes-daily-mobile-report.md" -Encoding utf8
+
+${report.currentList?.manualRecovery
+  ? "说明：本轮未重新访问 Smokingpipes；不会根据旧列表自动判定下架。"
+  : "说明：待处理详情 = 尚未完成 detail / pending / not-public 的商品，不会进入 production。"}
+
+## 阻断
+
+${blockers}
+
+## Warning
+
+${warnings}
+`;
+}
+
+function buildMarkdownReportV2(report) {
+  const blockers = report.blockers.length
+    ? report.blockers.map((item) => `- ${sanitizeMobileTextV2(item)}`).join("\n")
+    : "- 无";
+  const warnings = report.warnings.length
+    ? report.warnings.map((item) => `- ${item}`).join("\n")
+    : "- 无";
+  const scanText = buildSourceScanTextV2(report);
+
+  return `# Smokingpipes 每日库存手机报告
+
+- 结论：${report.statusLabel || statusLabelV2(report.status)}
+- 运行时间：${report.runAt}
+- 源站扫描：${scanText}
+- 候选更新：${report.candidateCount}
+- 正式应用：${report.appliedCount || 0}
+- 隔离候选：${report.isolatedCandidateCount || 0}
+- 已写入 production：${report.productionWritten ? "是" : "否"}
+- 新增可公开：${report.newProductReady}
+- 人工复核：${report.newProductReviewOnly}
+- 失败保留：${report.detailFailed}
+- 待处理详情：${report.pendingDetailCount}
+- 详情完成：${report.detailComplete}
+- 可公开库存：${report.publicReady}
+- 需人工复核：${report.publicReviewOnly}
+- 安全排除：${report.publicNotPublic}
+- 阻断：${report.status === "lock-active" ? "任务锁定" : report.blockers.length ? report.blockers.map(sanitizeMobileTextV2).join("; ") : "无"}
+- 失败类型：${failureTypeLabelV2(report.failureType)}
+- 重试状态：${report.retryAllowed ? "允许重试" : "不重试"}
+- 下一次重试：${report.nextRetryRecommendedAt || "无"}
+- 是否当天已成功：${report.todayAlreadySucceeded ? "是" : "否"}
+- 原因：${sanitizeMobileTextV2(report.reason || "无")}
+- 下一步：${report.nextStep || deriveNextStepV2({ status: report.status })}
 - 通知已发送：${report.notificationSent ? "是" : "否"}
 - 通知已跳过：${report.notificationSkipped ? "是" : "否"}
 - 通知原因：${report.notificationReason}
@@ -816,7 +1287,7 @@ export async function runSmokingpipesDailyMobileReport({
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true });
   fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
-  fs.writeFileSync(reportMarkdownPath, `\ufeff${buildMarkdownReport(report)}`, "utf8");
+  fs.writeFileSync(reportMarkdownPath, `\ufeff${buildMarkdownReportV2(report)}`, "utf8");
 
   return {
     report,

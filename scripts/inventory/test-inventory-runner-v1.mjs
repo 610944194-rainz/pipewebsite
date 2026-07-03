@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -12,6 +13,10 @@ import {
   clearStaleProgressiveLock,
   inspectProgressiveLock,
 } from "./smokingpipes-progressive-lock-v1.mjs";
+import {
+  clearStaleInventoryLocks,
+  inspectInventoryLocks,
+} from "./smokingpipes-inventory-lock-v1.mjs";
 import * as runnerCore from "./inventory-runner-core-v1.mjs";
 import {
   acquireRunLock,
@@ -30,6 +35,9 @@ import {
 import {
   evaluateSmokingpipesCurrentListCache,
 } from "./smokingpipes-current-list-cache-v1.mjs";
+import {
+  evaluateSmokingpipesDailyRecoveryPreflight,
+} from "./smokingpipes-daily-recovery-preflight-v1.mjs";
 import { buildInventoryDiff } from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
 import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
@@ -97,9 +105,14 @@ import {
   auditProgressivePartialCandidate,
   buildProgressivePartialApplyPreview,
   buildProgressivePartialProducts,
+  diagnoseProgressiveApplyGap,
   selectProgressiveRecentNew,
 } from "./smokingpipes-progressive-candidate-v1.mjs";
-import { runSmokingpipesProgressiveMode } from "./smokingpipes-progressive-runner-v1.mjs";
+import {
+  buildSafeSubsetProductionProducts,
+  evaluateProgressiveProductionApplyGate,
+  runSmokingpipesProgressiveMode,
+} from "./smokingpipes-progressive-runner-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
 const defaultInventoryState = runnerCore.initialInventoryState();
@@ -295,6 +308,137 @@ const invalidFreshProgressiveLock = inspectProgressiveLock({
 assert.equal(invalidFreshProgressiveLock.stale, false);
 assert.equal(invalidFreshProgressiveLock.reason, "active");
 
+const inventoryLockRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-inventory-lock-")
+);
+const inventoryLockStateDir = path.join(
+  inventoryLockRoot,
+  "data",
+  "inventory",
+  "state"
+);
+const globalInventoryLockPath = path.join(
+  inventoryLockStateDir,
+  "smokingpipes.lock"
+);
+const progressiveInventoryLockPath = path.join(
+  inventoryLockStateDir,
+  "smokingpipes-progressive-daily.lock"
+);
+fs.mkdirSync(inventoryLockStateDir, { recursive: true });
+const inventoryLockNowMs = Date.parse("2026-06-25T12:00:00.000Z");
+const inventoryLockDefinitions = [
+  {
+    name: "global",
+    path: "data/inventory/state/smokingpipes.lock",
+  },
+  {
+    name: "progressiveDaily",
+    path: "data/inventory/state/smokingpipes-progressive-daily.lock",
+  },
+];
+function writeInventoryLock(lockPath, content, mtimeIso) {
+  if (typeof content === "string") {
+    fs.writeFileSync(lockPath, content, "utf8");
+  } else {
+    fs.writeFileSync(lockPath, `${JSON.stringify(content, null, 2)}\n`, "utf8");
+  }
+  const mtime = new Date(mtimeIso);
+  fs.utimesSync(lockPath, mtime, mtime);
+}
+function unlinkIfExists(filePath) {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+}
+
+writeInventoryLock(
+  globalInventoryLockPath,
+  { pid: 999999, createdAt: "2026-06-25T11:58:00.000Z" },
+  "2026-06-25T11:58:00.000Z"
+);
+const missingPidGlobalLocks = inspectInventoryLocks({
+  root: inventoryLockRoot,
+  nowMs: inventoryLockNowMs,
+  lockDefinitions: inventoryLockDefinitions,
+  isProcessAlive: () => false,
+});
+assert.equal(missingPidGlobalLocks.hasActiveLock, false);
+assert.equal(missingPidGlobalLocks.locks[0].name, "global");
+assert.equal(missingPidGlobalLocks.locks[0].status, "stale");
+assert.equal(missingPidGlobalLocks.locks[0].reason, "process-not-found");
+
+const clearedMissingPidGlobalLocks = clearStaleInventoryLocks({
+  root: inventoryLockRoot,
+  nowMs: inventoryLockNowMs,
+  lockDefinitions: inventoryLockDefinitions,
+  isProcessAlive: () => false,
+});
+assert.equal(clearedMissingPidGlobalLocks.hasActiveLock, false);
+assert.equal(clearedMissingPidGlobalLocks.clearedLocks.length, 1);
+assert.equal(clearedMissingPidGlobalLocks.clearedLocks[0].name, "global");
+assert.equal(fs.existsSync(globalInventoryLockPath), false);
+
+writeInventoryLock(
+  globalInventoryLockPath,
+  { pid: process.pid, createdAt: "2026-06-25T11:58:00.000Z" },
+  "2026-06-25T11:58:00.000Z"
+);
+const activeGlobalLocks = clearStaleInventoryLocks({
+  root: inventoryLockRoot,
+  nowMs: inventoryLockNowMs,
+  lockDefinitions: inventoryLockDefinitions,
+  isProcessAlive: () => true,
+});
+assert.equal(activeGlobalLocks.hasActiveLock, true);
+assert.equal(activeGlobalLocks.activeLocks.length, 1);
+assert.equal(activeGlobalLocks.activeLocks[0].name, "global");
+assert.equal(activeGlobalLocks.activeLocks[0].status, "active");
+assert.equal(activeGlobalLocks.activeLocks[0].reason, "active-pid");
+assert.equal(fs.existsSync(globalInventoryLockPath), true);
+
+unlinkIfExists(globalInventoryLockPath);
+writeInventoryLock(
+  progressiveInventoryLockPath,
+  { pid: null, createdAt: "2026-06-25T07:00:00.000Z" },
+  "2026-06-25T07:00:00.000Z"
+);
+const clearedProgressiveInventoryLocks = clearStaleInventoryLocks({
+  root: inventoryLockRoot,
+  nowMs: inventoryLockNowMs,
+  lockDefinitions: inventoryLockDefinitions,
+});
+assert.equal(clearedProgressiveInventoryLocks.clearedLocks.length, 1);
+assert.equal(
+  clearedProgressiveInventoryLocks.clearedLocks[0].name,
+  "progressiveDaily"
+);
+assert.equal(fs.existsSync(progressiveInventoryLockPath), false);
+
+writeInventoryLock(
+  globalInventoryLockPath,
+  { pid: process.pid, createdAt: "2026-06-25T11:58:00.000Z" },
+  "2026-06-25T11:58:00.000Z"
+);
+writeInventoryLock(
+  progressiveInventoryLockPath,
+  { pid: 999999, createdAt: "2026-06-25T11:58:00.000Z" },
+  "2026-06-25T11:58:00.000Z"
+);
+const mixedInventoryLocks = clearStaleInventoryLocks({
+  root: inventoryLockRoot,
+  nowMs: inventoryLockNowMs,
+  lockDefinitions: inventoryLockDefinitions,
+  isProcessAlive: (pid) => Number(pid) === process.pid,
+});
+assert.equal(mixedInventoryLocks.hasActiveLock, true);
+assert.equal(mixedInventoryLocks.activeLocks.length, 1);
+assert.equal(mixedInventoryLocks.activeLocks[0].name, "global");
+assert.equal(mixedInventoryLocks.clearedLocks.length, 1);
+assert.equal(mixedInventoryLocks.clearedLocks[0].name, "progressiveDaily");
+assert.equal(fs.existsSync(globalInventoryLockPath), true);
+assert.equal(fs.existsSync(progressiveInventoryLockPath), false);
+
 const currentListCacheRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "smokingpipes-current-list-cache-")
 );
@@ -354,6 +498,21 @@ assert.equal(
   "stale"
 );
 
+const staleAllowedCurrentListCache = evaluateSmokingpipesCurrentListCache({
+  currentListPath: currentListCachePath,
+  now: currentListCacheNow,
+  allowStale: true,
+});
+assert.equal(staleAllowedCurrentListCache.usable, true);
+assert.equal(staleAllowedCurrentListCache.stale, true);
+assert.equal(staleAllowedCurrentListCache.manualRecovery, true);
+assert.equal(
+  staleAllowedCurrentListCache.reason,
+  "complete stale current-list cache allowed by manual recovery"
+);
+assert.equal(staleAllowedCurrentListCache.safety.soldByAbsenceAllowed, false);
+assert.equal(staleAllowedCurrentListCache.safety.disappearedApplyAllowed, false);
+
 writeCurrentListCacheFixture({ summary: { pagesScanned: 106 } });
 assert.equal(
   evaluateSmokingpipesCurrentListCache({
@@ -361,6 +520,14 @@ assert.equal(
     now: currentListCacheNow,
   }).reason,
   "incomplete"
+);
+assert.equal(
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+    allowStale: true,
+  }).usable,
+  false
 );
 
 writeCurrentListCacheFixture({ summary: { captchaDetected: true } });
@@ -386,13 +553,108 @@ assert.equal(
 writeCurrentListCacheFixture({
   summary: { duplicateSourceProductIds: ["100"] },
 });
-assert.equal(
+const metadataOnlyDuplicateCurrentListCache =
   evaluateSmokingpipesCurrentListCache({
     currentListPath: currentListCachePath,
     now: currentListCacheNow,
-  }).reason,
-  "duplicate-ids"
+  });
+assert.equal(metadataOnlyDuplicateCurrentListCache.usable, true);
+assert.equal(
+  metadataOnlyDuplicateCurrentListCache.reason,
+  "complete current-list cache from today"
 );
+assert.equal(metadataOnlyDuplicateCurrentListCache.duplicateIdCountFromField, 1);
+assert.equal(metadataOnlyDuplicateCurrentListCache.duplicateIdCountFromRecords, 0);
+assert.equal(metadataOnlyDuplicateCurrentListCache.dedupeRequired, false);
+assert.equal(metadataOnlyDuplicateCurrentListCache.dedupeSafe, true);
+assert.deepEqual(metadataOnlyDuplicateCurrentListCache.duplicateSamples, []);
+assert.match(
+  metadataOnlyDuplicateCurrentListCache.warnings.join("\n"),
+  /metadata is present, but no duplicate records were found/
+);
+
+writeCurrentListCacheFixture({
+  generatedAt: "2026-06-24T23:00:00",
+  products: [
+    {
+      sourceProductId: "100",
+      sourceUrl: "https://example.test/100",
+      title: "Pipe 100",
+      priceRaw: "$100.00",
+      inventoryStatus: "available",
+    },
+    {
+      sourceProductId: "100",
+      sourceUrl: "https://example.test/100",
+      title: "Pipe 100",
+      priceRaw: "$100.00",
+      inventoryStatus: "available",
+    },
+    {
+      sourceProductId: "101",
+      sourceUrl: "https://example.test/101",
+      title: "Pipe 101",
+      priceRaw: "$101.00",
+      inventoryStatus: "available",
+    },
+  ],
+  summary: {
+    duplicateSourceProductIds: ["100"],
+    productsExtracted: 3,
+    uniqueProducts: 2,
+  },
+});
+const safeDuplicateManualRecoveryCache = evaluateSmokingpipesCurrentListCache({
+  currentListPath: currentListCachePath,
+  now: currentListCacheNow,
+  allowStale: true,
+  allowDuplicateDedupe: true,
+});
+assert.equal(safeDuplicateManualRecoveryCache.usable, true);
+assert.equal(safeDuplicateManualRecoveryCache.dedupeRequired, true);
+assert.equal(safeDuplicateManualRecoveryCache.dedupeSafe, true);
+assert.equal(safeDuplicateManualRecoveryCache.duplicateIdCount, 1);
+assert.equal(safeDuplicateManualRecoveryCache.duplicateIdCountFromField, 1);
+assert.equal(safeDuplicateManualRecoveryCache.duplicateIdCountFromRecords, 1);
+assert.equal(safeDuplicateManualRecoveryCache.conflictDuplicateIdCount, 0);
+assert.equal(safeDuplicateManualRecoveryCache.duplicateSamples[0].count, 2);
+assert.equal(safeDuplicateManualRecoveryCache.duplicateSamples[0].conflict, false);
+
+writeCurrentListCacheFixture({
+  generatedAt: "2026-06-24T23:00:00",
+  products: [
+    {
+      sourceProductId: "200",
+      sourceUrl: "https://example.test/200",
+      title: "Pipe 200",
+      priceRaw: "$200.00",
+      inventoryStatus: "available",
+    },
+    {
+      sourceProductId: "200",
+      sourceUrl: "https://example.test/200",
+      title: "Pipe 200",
+      priceRaw: "$201.00",
+      inventoryStatus: "available",
+    },
+  ],
+  summary: {
+    duplicateSourceProductIds: ["200"],
+    productsExtracted: 2,
+    uniqueProducts: 1,
+  },
+});
+const conflictDuplicateManualRecoveryCache =
+  evaluateSmokingpipesCurrentListCache({
+    currentListPath: currentListCachePath,
+    now: currentListCacheNow,
+    allowStale: true,
+    allowDuplicateDedupe: true,
+  });
+assert.equal(conflictDuplicateManualRecoveryCache.usable, false);
+assert.equal(conflictDuplicateManualRecoveryCache.reason, "duplicate-id-conflict");
+assert.equal(conflictDuplicateManualRecoveryCache.dedupeSafe, false);
+assert.equal(conflictDuplicateManualRecoveryCache.conflictDuplicateIdCount, 1);
 
 writeCurrentListCacheFixture({
   summary: { productsExtracted: 0, uniqueProducts: 0 },
@@ -411,6 +673,362 @@ assert.equal(
     now: currentListCacheNow,
   }).reason,
   "missing"
+);
+
+const recoveryPreflightRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-recovery-preflight-")
+);
+const recoveryPreflightInventoryDir = path.join(
+  recoveryPreflightRoot,
+  "data",
+  "inventory"
+);
+const recoveryPreflightStateDir = path.join(
+  recoveryPreflightInventoryDir,
+  "state"
+);
+const recoveryPreflightReviewDir = path.join(
+  recoveryPreflightRoot,
+  "data",
+  "review"
+);
+fs.mkdirSync(recoveryPreflightStateDir, { recursive: true });
+fs.mkdirSync(recoveryPreflightReviewDir, { recursive: true });
+const recoveryPreflightNow = new Date("2026-06-25T12:00:00.000Z");
+const recoveryPreflightCurrentListPath = path.join(
+  recoveryPreflightInventoryDir,
+  "smokingpipes-current-list-dry-run.json"
+);
+const recoveryPreflightTaskStatePath = path.join(
+  recoveryPreflightInventoryDir,
+  "smokingpipes-daily-task-state.json"
+);
+const recoveryPreflightDailyLockPath = path.join(
+  recoveryPreflightInventoryDir,
+  "smokingpipes-daily-task-lock.json"
+);
+function writeRecoveryPreflightCurrentList(overrides = {}) {
+  const { summary: summaryOverrides = {}, ...topLevelOverrides } = overrides;
+  fs.writeFileSync(
+    recoveryPreflightCurrentListPath,
+    JSON.stringify(
+      {
+        generatedAt: "2026-06-24T03:00:00.000Z",
+        completedAt: "2026-06-24T03:05:00.000Z",
+        products: [
+          { sourceProductId: "100", sourceUrl: "https://example.test/100" },
+          { sourceProductId: "101", sourceUrl: "https://example.test/101" },
+        ],
+        summary: {
+          pagesScanned: 107,
+          expectedPages: 107,
+          productsExtracted: 2,
+          uniqueProducts: 2,
+          duplicateSourceProductIds: [],
+          captchaDetected: false,
+          captchaPages: [],
+          verificationDetectedAt: null,
+          completeRequestedRange: true,
+          fullExpectedRangeScanned: true,
+          ...summaryOverrides,
+        },
+        ...topLevelOverrides,
+      },
+      null,
+      2
+    ),
+    "utf8"
+  );
+}
+function writeRecoveryPreflightTaskState(overrides = {}) {
+  fs.writeFileSync(
+    recoveryPreflightTaskStatePath,
+    JSON.stringify(
+      {
+        source: "smokingpipes",
+        dateKey: "2026-06-25",
+        status: "retryable-failed",
+        retryAllowed: true,
+        nextRetryRecommendedAt: "2026-06-25T14:00:00.000Z",
+        ...overrides,
+      },
+      null,
+      2
+    ),
+    "utf8"
+  );
+}
+writeRecoveryPreflightCurrentList();
+writeRecoveryPreflightTaskState();
+
+const blockedByRetryWindowPreflight =
+  evaluateSmokingpipesDailyRecoveryPreflight({
+    root: recoveryPreflightRoot,
+    now: recoveryPreflightNow,
+    options: {
+      skipCurrentList: true,
+      allowStaleCurrentListCache: true,
+      allowDuplicateDedupe: true,
+      forceRunOnce: false,
+      preflightOnly: true,
+    },
+    isProcessAlive: () => false,
+  });
+assert.equal(blockedByRetryWindowPreflight.overall.status, "wait");
+assert.equal(blockedByRetryWindowPreflight.overall.canRun, false);
+assert.equal(blockedByRetryWindowPreflight.retryWindow.blockedByRetryWindow, true);
+assert.equal(blockedByRetryWindowPreflight.retryWindow.forceRunOnce, false);
+assert.equal(
+  blockedByRetryWindowPreflight.overall.willFetchCurrentList,
+  false
+);
+
+const forceRunRecoveryPreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+    preflightOnly: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(forceRunRecoveryPreflight.overall.status, "ready");
+assert.equal(forceRunRecoveryPreflight.overall.canRun, true);
+assert.equal(forceRunRecoveryPreflight.retryWindow.blockedByRetryWindow, false);
+assert.equal(forceRunRecoveryPreflight.currentListCache.stale, true);
+assert.equal(forceRunRecoveryPreflight.currentListCache.usable, true);
+assert.equal(
+  forceRunRecoveryPreflight.currentListCache.safety.soldByAbsenceAllowed,
+  false
+);
+assert.equal(
+  forceRunRecoveryPreflight.currentListCache.safety.disappearedApplyAllowed,
+  false
+);
+assert.equal(forceRunRecoveryPreflight.executionPlan.skipCurrentList, true);
+assert.equal(
+  forceRunRecoveryPreflight.executionPlan.forbiddenSteps.includes(
+    "fetch current-list"
+  ),
+  true
+);
+
+const cachedListResumePreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+    resumeFromCachedList: true,
+    lockCurrentListSnapshotUntilComplete: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(cachedListResumePreflight.overall.status, "ready");
+assert.equal(cachedListResumePreflight.overall.canRun, true);
+assert.equal(cachedListResumePreflight.networkPlan.willAccessSmokingpipes, true);
+assert.equal(cachedListResumePreflight.networkPlan.willFetchCurrentList, false);
+assert.equal(cachedListResumePreflight.networkPlan.willFetchDetails, true);
+assert.equal(cachedListResumePreflight.networkPlan.willStartBrowser, true);
+assert.equal(
+  cachedListResumePreflight.networkPlan.willUseExistingCurrentListCache,
+  true
+);
+assert.equal(
+  cachedListResumePreflight.networkPlan.willUseExistingStateOnly,
+  false
+);
+assert.equal(
+  cachedListResumePreflight.resumePlan.mode,
+  "cached-list-detail-resume"
+);
+assert.equal(cachedListResumePreflight.resumePlan.resumeFromCachedList, true);
+assert.equal(
+  cachedListResumePreflight.resumePlan.lockCurrentListSnapshotUntilComplete,
+  true
+);
+assert.equal(
+  cachedListResumePreflight.resumePlan.allowNextListFetchAfterComplete,
+  true
+);
+assert.equal(cachedListResumePreflight.overall.willFetchCurrentList, false);
+assert.equal(cachedListResumePreflight.overall.willWriteProduction, false);
+
+const unsafeCachedListResumePreflight =
+  evaluateSmokingpipesDailyRecoveryPreflight({
+    root: recoveryPreflightRoot,
+    now: recoveryPreflightNow,
+    options: {
+      skipCurrentList: true,
+      allowStaleCurrentListCache: false,
+      allowDuplicateDedupe: true,
+      forceRunOnce: true,
+      resumeFromCachedList: true,
+      lockCurrentListSnapshotUntilComplete: true,
+    },
+    isProcessAlive: () => false,
+  });
+assert.equal(unsafeCachedListResumePreflight.overall.status, "blocked");
+assert.equal(unsafeCachedListResumePreflight.overall.canRun, false);
+assert.match(
+  unsafeCachedListResumePreflight.overall.reason,
+  /ResumeFromCachedList requested but no safe current-list cache is available/
+);
+assert.equal(
+  unsafeCachedListResumePreflight.networkPlan.willFetchCurrentList,
+  false
+);
+
+writeInventoryLock(
+  recoveryPreflightDailyLockPath,
+  { pid: 999999, startedAt: "2026-06-25T07:00:00.000Z" },
+  "2026-06-25T07:00:00.000Z"
+);
+const preflightOnlyStaleLockReport =
+  evaluateSmokingpipesDailyRecoveryPreflight({
+    root: recoveryPreflightRoot,
+    now: recoveryPreflightNow,
+    options: {
+      preflightOnly: true,
+      skipCurrentList: true,
+      allowStaleCurrentListCache: true,
+      allowDuplicateDedupe: true,
+      forceRunOnce: true,
+    },
+    isProcessAlive: () => false,
+  });
+assert.equal(preflightOnlyStaleLockReport.locks.staleLocks.length, 1);
+assert.equal(preflightOnlyStaleLockReport.locks.clearedLocks.length, 0);
+assert.equal(fs.existsSync(recoveryPreflightDailyLockPath), true);
+
+const executionStaleLockReport = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    preflightOnly: false,
+    clearStaleLocks: true,
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(executionStaleLockReport.locks.clearedLocks.length, 1);
+assert.equal(fs.existsSync(recoveryPreflightDailyLockPath), false);
+
+writeInventoryLock(
+  recoveryPreflightDailyLockPath,
+  { pid: process.pid, startedAt: "2026-06-25T11:58:00.000Z" },
+  "2026-06-25T11:58:00.000Z"
+);
+const activeLockPreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    preflightOnly: true,
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+  },
+  isProcessAlive: (pid) => Number(pid) === process.pid,
+});
+assert.equal(activeLockPreflight.overall.status, "wait");
+assert.equal(activeLockPreflight.overall.canRun, false);
+assert.equal(activeLockPreflight.locks.hasActiveLock, true);
+unlinkIfExists(recoveryPreflightDailyLockPath);
+
+writeRecoveryPreflightCurrentList({
+  products: [
+    {
+      sourceProductId: "300",
+      sourceUrl: "https://example.test/300",
+      title: "Pipe 300",
+      priceRaw: "$300.00",
+      inventoryStatus: "available",
+    },
+    {
+      sourceProductId: "300",
+      sourceUrl: "https://example.test/300",
+      title: "Pipe 300",
+      priceRaw: "$300.00",
+      inventoryStatus: "available",
+    },
+  ],
+  summary: {
+    duplicateSourceProductIds: ["300"],
+    productsExtracted: 2,
+    uniqueProducts: 1,
+  },
+});
+const safeDuplicatePreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    preflightOnly: true,
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(safeDuplicatePreflight.currentListCache.usable, true);
+assert.equal(safeDuplicatePreflight.currentListCache.dedupeRequired, true);
+assert.equal(safeDuplicatePreflight.currentListCache.dedupeSafe, true);
+assert.equal(safeDuplicatePreflight.currentListCache.conflictDuplicateIdCount, 0);
+assert.equal(safeDuplicatePreflight.errors.length, 0);
+assert.ok(safeDuplicatePreflight.warnings.length >= 1);
+assert.equal(safeDuplicatePreflight.overall.status, "ready");
+assert.equal(safeDuplicatePreflight.overall.canRun, true);
+assert.equal(safeDuplicatePreflight.overall.willWriteProduction, false);
+
+writeRecoveryPreflightCurrentList({
+  products: [
+    {
+      sourceProductId: "400",
+      sourceUrl: "https://example.test/400",
+      title: "Pipe 400",
+      priceRaw: "$400.00",
+      inventoryStatus: "available",
+    },
+    {
+      sourceProductId: "400",
+      sourceUrl: "https://example.test/400",
+      title: "Pipe 400",
+      priceRaw: "$401.00",
+      inventoryStatus: "available",
+    },
+  ],
+  summary: {
+    duplicateSourceProductIds: ["400"],
+    productsExtracted: 2,
+    uniqueProducts: 1,
+  },
+});
+const conflictDuplicatePreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    preflightOnly: true,
+    skipCurrentList: true,
+    allowStaleCurrentListCache: true,
+    allowDuplicateDedupe: true,
+    forceRunOnce: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(conflictDuplicatePreflight.overall.status, "unsafe");
+assert.equal(conflictDuplicatePreflight.overall.canRun, false);
+assert.equal(
+  conflictDuplicatePreflight.currentListCache.conflictDuplicateIdCount,
+  1
 );
 
 assert.equal(defaults.source, "smokingpipes");
@@ -4498,6 +5116,242 @@ assert.equal(
   false
 );
 
+const safeGapProductionProducts = [
+  {
+    id: "smokingpipes-1",
+    source: "smokingpipes",
+    sourceProductId: "1",
+    inventoryStatus: "available",
+    price: { current: { amount: 100, rawText: "$100.00" } },
+  },
+  {
+    id: "smokingpipes-3",
+    source: "smokingpipes",
+    sourceProductId: "3",
+    inventoryStatus: "available",
+    price: { current: { amount: 300, rawText: "$300.00" } },
+  },
+];
+const safeGapCandidateProducts = [
+  {
+    ...safeGapProductionProducts[0],
+    price: { current: { amount: 110, rawText: "$110.00" } },
+  },
+  {
+    id: "smokingpipes-2",
+    source: "smokingpipes",
+    sourceProductId: "2",
+    inventoryStatus: "available",
+    price: { current: { amount: 200, rawText: "$200.00" } },
+  },
+  structuredClone(safeGapProductionProducts[1]),
+];
+const safeGapState = {
+  version: 1,
+  globalReconcile: { applyAllowed: false },
+  candidates: [
+    {
+      sourceProductId: "1",
+      changeTypes: ["price-change"],
+      detailStatus: "complete",
+      publicStatus: "ready",
+    },
+    {
+      sourceProductId: "2",
+      changeTypes: ["new-product"],
+      detailStatus: "complete",
+      publicStatus: "ready",
+    },
+    {
+      sourceProductId: "3",
+      changeTypes: ["price-change"],
+      detailStatus: "complete",
+      publicStatus: "ready",
+    },
+  ],
+};
+const noOpCandidateBuild = buildProgressivePartialProducts({
+  productionProducts: [
+    {
+      id: "smokingpipes-3",
+      source: "smokingpipes",
+      sourceProductId: "3",
+      inventoryStatus: "available",
+      price: {
+        current: {
+          amount: 300,
+          rawText: "$300.00",
+          currency: "USD",
+          parseStatus: "parsed",
+        },
+      },
+    },
+  ],
+  state: {
+    candidates: [
+      {
+        sourceProductId: "3",
+        listPrice: "$300.00",
+        changeTypes: ["price-change"],
+        detailStatus: "complete",
+        publicStatus: "ready",
+      },
+    ],
+  },
+});
+assert.deepEqual(noOpCandidateBuild.attemptedCandidateIds, ["3"]);
+assert.deepEqual(noOpCandidateBuild.appliedCandidateIds, []);
+assert.deepEqual(noOpCandidateBuild.fieldChanges, []);
+const safeGapDiagnosis = diagnoseProgressiveApplyGap({
+  state: safeGapState,
+  productionProducts: safeGapProductionProducts,
+  candidateProducts: safeGapCandidateProducts,
+  candidateIds: ["1", "2", "3"],
+  wouldApplyProductIds: ["1", "2"],
+});
+assert.equal(safeGapDiagnosis.candidateCount, 3);
+assert.equal(safeGapDiagnosis.wouldApplyCount, 2);
+assert.equal(safeGapDiagnosis.gapCount, 1);
+assert.equal(safeGapDiagnosis.gapClassifications.noOpAlreadyCurrent, 1);
+assert.equal(safeGapDiagnosis.unknownGapCount, 0);
+assert.equal(safeGapDiagnosis.readyUnexpectedlyExcludedCount, 0);
+assert.equal(safeGapDiagnosis.safeToApplyWouldApplySubset, true);
+
+const safeGapAudit = {
+  verdict: "PASS",
+  candidateCount: 3,
+  wouldApplyCount: 2,
+  blockers: [],
+  counts: {
+    deletedProducts: 0,
+    pendingLeak: 0,
+    failedLeak: 0,
+    blockedLeak: 0,
+    reviewOnlyLeak: 0,
+    zeroPriceSellable: 0,
+  },
+  applyGap: safeGapDiagnosis,
+};
+const safeGapPreview = {
+  status: "preview-ready",
+  candidateCount: 3,
+  wouldApplyCount: 2,
+  wouldApplyProductIds: ["1", "2"],
+};
+const completePublicPayloads = {
+  catalog: { schemaVersion: 1, products: [] },
+  filters: { schemaVersion: 1 },
+  brands: { schemaVersion: 1 },
+  recentNew: { schemaVersion: 1, products: [] },
+  lookup: { schemaVersion: 1 },
+  manifest: { schemaVersion: 1 },
+  detailShards: [],
+};
+const safeSubsetGate = evaluateProgressiveProductionApplyGate({
+  audit: safeGapAudit,
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(safeSubsetGate.status, "apply-ready");
+assert.equal(safeSubsetGate.safeSubsetApply, true);
+assert.equal(safeSubsetGate.isolatedCandidateCount, 1);
+assert.deepEqual(safeSubsetGate.blockers, []);
+
+for (const [countName, countValue] of [
+  ["pendingLeak", 1],
+  ["reviewOnlyLeak", 1],
+  ["zeroPriceSellable", 1],
+]) {
+  const blockedGate = evaluateProgressiveProductionApplyGate({
+    audit: {
+      ...safeGapAudit,
+      counts: {
+        ...safeGapAudit.counts,
+        [countName]: countValue,
+      },
+    },
+    preview: safeGapPreview,
+    candidateProducts: safeGapCandidateProducts,
+    publicPayloads: completePublicPayloads,
+  });
+  assert.equal(blockedGate.status, "apply-blocked");
+  assert.match(blockedGate.blockers.join("\n"), new RegExp(countName));
+}
+
+const unknownGapGate = evaluateProgressiveProductionApplyGate({
+  audit: {
+    ...safeGapAudit,
+    applyGap: {
+      ...safeGapDiagnosis,
+      safeToApplyWouldApplySubset: false,
+      unknownGapCount: 1,
+      gapCandidates: [
+        {
+          ...safeGapDiagnosis.gapCandidates[0],
+          reason: "unknown",
+        },
+      ],
+    },
+  },
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(unknownGapGate.status, "apply-blocked");
+assert.match(unknownGapGate.blockers.join("\n"), /unknown gap/i);
+
+const unexpectedlyExcludedReadyGate = evaluateProgressiveProductionApplyGate({
+  audit: {
+    ...safeGapAudit,
+    applyGap: {
+      ...safeGapDiagnosis,
+      safeToApplyWouldApplySubset: false,
+      readyUnexpectedlyExcludedCount: 1,
+      gapCandidates: [
+        {
+          ...safeGapDiagnosis.gapCandidates[0],
+          reason: "ready-candidate-unexpectedly-excluded",
+        },
+      ],
+    },
+  },
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(unexpectedlyExcludedReadyGate.status, "apply-blocked");
+assert.match(
+  unexpectedlyExcludedReadyGate.blockers.join("\n"),
+  /ready candidate unexpectedly excluded/i
+);
+
+const safeSubsetMerged = buildSafeSubsetProductionProducts({
+  productionProducts: safeGapProductionProducts,
+  candidateProducts: [
+    safeGapCandidateProducts[0],
+    safeGapCandidateProducts[1],
+    {
+      ...safeGapCandidateProducts[2],
+      unsafeGapMutation: true,
+    },
+  ],
+  wouldApplyProductIds: ["1", "2"],
+});
+assert.equal(
+  safeSubsetMerged.find((item) => item.sourceProductId === "1").price.current.amount,
+  110
+);
+assert.equal(
+  safeSubsetMerged.some((item) => item.sourceProductId === "2"),
+  true
+);
+assert.equal(
+  safeSubsetMerged.find((item) => item.sourceProductId === "3")
+    .unsafeGapMutation,
+  undefined
+);
+
 const progressiveApplyRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "inventory-progressive-apply-")
 );
@@ -5582,6 +6436,309 @@ const previewReusedCurrentListReport = buildSmokingpipesDailyMobileReport({
 assert.equal(previewReusedCurrentListReport.status, "preview");
 assert.match(previewReusedCurrentListReport.reason, /已复用今日 current-list/);
 
+const manualRecoveryCurrentListReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:09:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "running",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    currentList: {
+      status: "stale-cache-manual-recovery",
+      reused: true,
+      skippedFetch: true,
+      stale: true,
+      manualRecovery: true,
+      path: "data/inventory/smokingpipes-current-list-dry-run.json",
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      lastCompletedAt: "2026-06-24T03:04:24.852Z",
+      reuseReason:
+        "complete stale current-list cache allowed by manual recovery",
+      safety: {
+        soldByAbsenceAllowed: false,
+        disappearedApplyAllowed: false,
+      },
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+const manualRecoveryCurrentListMessage =
+  buildPushDeerDailyMessage(manualRecoveryCurrentListReport);
+assert.match(
+  manualRecoveryCurrentListMessage.body,
+  /源站扫描：跳过，复用已有完整列表快照（人工恢复模式）/
+);
+assert.match(
+  manualRecoveryCurrentListMessage.body,
+  /本轮未重新访问 Smokingpipes；不会根据旧列表自动判定下架。/
+);
+
+const cachedListResumeInProgressReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T03:11:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "running",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 52,
+    retryAllowed: true,
+    currentList: {
+      status: "reused",
+      reused: true,
+      skippedFetch: true,
+      stale: true,
+      manualRecovery: true,
+      path: "data/inventory/smokingpipes-current-list-dry-run.json",
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 5136,
+      safety: {
+        soldByAbsenceAllowed: false,
+        disappearedApplyAllowed: false,
+      },
+    },
+    cachedListResume: {
+      enabled: true,
+      snapshotPath: "data/inventory/smokingpipes-current-list-dry-run.json",
+      snapshotDateKey: "2026-06-25",
+      snapshotProductsExtracted: 5136,
+      snapshotUniqueProducts: 5135,
+      lockedUntilComplete: true,
+      completed: false,
+      completedAt: null,
+      allowNextListFetch: false,
+      reason: "resume detail processing from latest complete current-list cache",
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [{ detailStatus: "pending", publicStatus: "not-public" }],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 52,
+    wouldApplyCount: 0,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(
+  cachedListResumeInProgressReport.statusLabel,
+  "详情继续处理中，将自动续跑"
+);
+assert.equal(
+  cachedListResumeInProgressReport.cachedListResume.allowNextListFetch,
+  false
+);
+const cachedListResumeInProgressMessage =
+  buildPushDeerDailyMessage(cachedListResumeInProgressReport);
+assert.match(
+  cachedListResumeInProgressMessage.body,
+  /源站扫描：未重新抓取，复用已有完整列表快照/
+);
+assert.match(
+  cachedListResumeInProgressMessage.body,
+  /详情抓取：继续抓取更新商品详情/
+);
+assert.match(
+  cachedListResumeInProgressMessage.body,
+  /执行方式：缓存列表断点恢复/
+);
+assert.match(
+  cachedListResumeInProgressMessage.body,
+  /下次列表抓取：当前快照完成后恢复；未完成前继续复用同一份列表快照/
+);
+assert.match(
+  cachedListResumeInProgressMessage.body,
+  /源站访问：仅访问商品详情页，未重新抓列表页/
+);
+assert.doesNotMatch(
+  cachedListResumeInProgressMessage.body,
+  /源站访问：未访问 Smokingpipes/
+);
+
+const cachedListResumeCompleteReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T04:00:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "success",
+    productionWritten: true,
+    appliedCount: 52,
+    candidateCount: 52,
+    retryAllowed: false,
+    currentList: cachedListResumeInProgressReport.currentList,
+    cachedListResume: {
+      ...cachedListResumeInProgressReport.cachedListResume,
+      completed: true,
+      completedAt: "2026-06-25T04:00:00.000Z",
+      allowNextListFetch: true,
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 52,
+    wouldApplyCount: 52,
+    productionWritten: true,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(
+  cachedListResumeCompleteReport.statusLabel,
+  "已更新"
+);
+assert.match(
+  buildPushDeerDailyMessage(cachedListResumeCompleteReport).body,
+  /下次列表抓取：当前快照已完成，下次可重新抓取新列表/
+);
+
+const safeSubsetMobileReport = buildSmokingpipesDailyMobileReport({
+  ...{
+    runAt: "2026-07-04T10:30:00.000+08:00",
+    taskState: {
+      source: "smokingpipes",
+      status: "success",
+      productionWritten: true,
+      appliedCount: 328,
+      candidateCount: 328,
+      isolatedCandidateCount: 27,
+      retryAllowed: false,
+      cachedListResume: {
+        enabled: true,
+        lockedUntilComplete: true,
+        completed: true,
+        allowNextListFetch: true,
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      pagesScanned: 107,
+      expectedPages: 107,
+      candidates: [],
+    },
+    audit: {
+      verdict: "PASS",
+      attemptedCandidateCount: 355,
+      candidateCount: 355,
+      wouldApplyCount: 328,
+      isolatedCandidateCount: 27,
+      productionWritten: true,
+      blockers: [],
+      warnings: [],
+      applyGap: {
+        candidateCount: 355,
+        wouldApplyCount: 328,
+        gapCount: 27,
+        safeToApplyWouldApplySubset: true,
+      },
+    },
+  },
+});
+assert.equal(safeSubsetMobileReport.statusLabel, "已更新");
+assert.equal(safeSubsetMobileReport.candidateCount, 355);
+assert.equal(safeSubsetMobileReport.isolatedCandidateCount, 27);
+const safeSubsetMobileMessage = buildPushDeerDailyMessage(
+  safeSubsetMobileReport
+);
+assert.match(safeSubsetMobileMessage.body, /正式应用：328/);
+assert.match(safeSubsetMobileMessage.body, /隔离候选：27/);
+assert.match(
+  safeSubsetMobileMessage.body,
+  /不可自动应用候选保留复核/
+);
+
+const unsafeGapMobileReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-07-04T10:30:00.000+08:00",
+  taskState: {
+    source: "smokingpipes",
+    status: "terminal-failed",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 355,
+    retryAllowed: false,
+    cachedListResume: {
+      enabled: true,
+      lockedUntilComplete: true,
+      completed: false,
+      allowNextListFetch: false,
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 355,
+    wouldApplyCount: 328,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+    applyGap: {
+      candidateCount: 355,
+      wouldApplyCount: 328,
+      gapCount: 27,
+      unknownGapCount: 1,
+      readyUnexpectedlyExcludedCount: 0,
+      safeToApplyWouldApplySubset: false,
+    },
+  },
+});
+assert.equal(
+  unsafeGapMobileReport.statusLabel,
+  "候选应用被安全门禁阻断"
+);
+assert.equal(
+  unsafeGapMobileReport.cachedListResume.completed,
+  false
+);
+assert.equal(
+  unsafeGapMobileReport.cachedListResume.allowNextListFetch,
+  false
+);
+assert.match(
+  buildPushDeerDailyMessage(unsafeGapMobileReport).body,
+  /355 个候选中只有 328 个允许自动应用，27 个需要分类确认/
+);
+assert.match(
+  unsafeGapMobileReport.nextStep,
+  /smokingpipes-apply-gap-diagnosis-report\.md/
+);
+
 const failedTaskReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-06-25T03:06:00.000Z",
   taskLogText:
@@ -5658,6 +6815,52 @@ assert.match(retryableTaskMessage.body, /结论：更新失败，将自动重试
 assert.match(retryableTaskMessage.body, /失败类型：任务锁定/);
 assert.match(retryableTaskMessage.body, /下一次重试：2026-06-25T06:00:00.000Z/);
 
+const preflightFailedTaskReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T04:05:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "retryable-failed",
+    attempts: 2,
+    lastFailureAt: "2026-06-25T04:05:00.000Z",
+    lastFailureReason:
+      "Daily recovery preflight failed; see data/review/smokingpipes-daily-recovery-preflight-report.md",
+    lastFailureType: "preflight",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 0,
+    retryAllowed: true,
+    nextRetryRecommendedAt: "2026-06-25T06:05:00.000Z",
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "partial",
+    pagesScanned: 0,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 0,
+    wouldApplyCount: 0,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(preflightFailedTaskReport.statusLabel, "恢复预检失败");
+assert.equal(preflightFailedTaskReport.failureType, "preflight");
+assert.match(preflightFailedTaskReport.reason, /恢复预检失败/);
+assert.match(
+  preflightFailedTaskReport.nextStep,
+  /smokingpipes-daily-recovery-preflight-report\.md/
+);
+const preflightFailedTaskMessage =
+  buildPushDeerDailyMessage(preflightFailedTaskReport);
+assert.match(preflightFailedTaskMessage.body, /结论：恢复预检失败/);
+assert.match(preflightFailedTaskMessage.body, /失败类型：恢复预检/);
+assert.doesNotMatch(preflightFailedTaskMessage.body, /C:\\Users\\NING MEI/);
+
 const activeProgressiveLockReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-06-25T05:00:00.000Z",
   taskState: {
@@ -5728,6 +6931,82 @@ assert.match(
 assert.doesNotMatch(activeProgressiveLockMessage.body, /\{"status"/);
 assert.doesNotMatch(activeProgressiveLockMessage.body, /C:\\Users\\NING MEI/);
 
+const activeInventoryLockReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T05:05:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "retryable-failed",
+    attempts: 3,
+    lastFailureAt: "2026-06-25T05:05:00.000Z",
+    lastFailureReason:
+      'Error: Inventory automation is already running. Lock: C:\\Users\\NING MEI\\Desktop\\pipewebsite\\data\\inventory\\state\\smokingpipes.lock. {"status":"blocked"}',
+    lastFailureType: "lock",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    nextRetryRecommendedAt: "2026-06-25T07:05:00.000Z",
+    inventoryLocks: {
+      checked: true,
+      hasActiveLock: true,
+      activeLocks: [
+        {
+          name: "global",
+          path: "data/inventory/state/smokingpipes.lock",
+          status: "active",
+          reason: "active-pid",
+        },
+      ],
+      clearedLocks: [],
+      locks: [
+        {
+          name: "global",
+          path: "data/inventory/state/smokingpipes.lock",
+          status: "active",
+          reason: "active-pid",
+        },
+      ],
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(activeInventoryLockReport.status, "lock-active");
+assert.equal(
+  activeInventoryLockReport.statusLabel,
+  "库存任务正在运行，等待下一轮"
+);
+assert.equal(activeInventoryLockReport.inventoryLocks.hasActiveLock, true);
+assert.equal(
+  activeInventoryLockReport.reason,
+  "检测到已有 Smokingpipes 库存任务锁，暂不启动第二个任务。"
+);
+const activeInventoryLockMessage =
+  buildPushDeerDailyMessage(activeInventoryLockReport);
+assert.match(activeInventoryLockMessage.body, /阻断：任务锁定/);
+assert.match(activeInventoryLockMessage.body, /失败类型：任务锁定/);
+assert.match(activeInventoryLockMessage.body, /自动重试/);
+assert.doesNotMatch(activeInventoryLockMessage.body, /C:\\Users\\NING MEI/);
+assert.doesNotMatch(activeInventoryLockMessage.body, /\{"status"/);
+assert.doesNotMatch(
+  activeInventoryLockMessage.body,
+  /Error: Inventory automation is already running/i
+);
+
 const staleClearedProgressiveLockReport =
   buildSmokingpipesDailyMobileReport({
     runAt: "2026-06-25T05:10:00.000Z",
@@ -5773,6 +7052,69 @@ assert.equal(
 assert.match(
   buildPushDeerDailyMessage(staleClearedProgressiveLockReport).body,
   /已清理过期任务锁|宸叉竻鐞嗚繃鏈熶换鍔￠攣/
+);
+
+const staleClearedInventoryLockReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-06-25T05:12:00.000Z",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-06-25",
+    status: "running",
+    attempts: 3,
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    inventoryLocks: {
+      checked: true,
+      hasActiveLock: false,
+      activeLocks: [],
+      clearedLocks: [
+        {
+          name: "global",
+          path: "data/inventory/state/smokingpipes.lock",
+          status: "cleared",
+          reason: "process-not-found",
+        },
+      ],
+      locks: [
+        {
+          name: "global",
+          path: "data/inventory/state/smokingpipes.lock",
+          status: "cleared",
+          reason: "process-not-found",
+        },
+      ],
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 0,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(staleClearedInventoryLockReport.status, "stale-lock-cleared");
+assert.equal(
+  staleClearedInventoryLockReport.statusLabel,
+  "已清理过期任务锁，继续执行"
+);
+assert.equal(
+  staleClearedInventoryLockReport.reason,
+  "检测到上一次任务遗留 lock，已自动清理。"
+);
+assert.match(
+  buildPushDeerDailyMessage(staleClearedInventoryLockReport).body,
+  /已清理过期任务锁/
 );
 
 const terminalTaskReport = buildSmokingpipesDailyMobileReport({
@@ -5893,6 +7235,7 @@ await runSmokingpipesDailyMobileReport({
   argv: [],
   statePath: mobileStatePath,
   auditPath: mobileAuditPath,
+  taskStatePath: path.join(mobileReportRoot, "missing-task-state.json"),
   taskLogPath: mobileLogPath,
   reportJsonPath: mobileJsonPath,
   reportMarkdownPath: mobileMarkdownPath,
@@ -5904,6 +7247,74 @@ assert.equal(mobileMarkdownBuffer[1], 0xbb);
 assert.equal(mobileMarkdownBuffer[2], 0xbf);
 assert.match(mobileMarkdownBuffer.toString("utf8"), /结论：需要人工验证/);
 assert.doesNotMatch(mobileMarkdownBuffer.toString("utf8"), /public ready|public review-only|public not-public/);
+
+const mobileTaskStatePath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-task-state.json"
+);
+const mobileLockJsonPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-lock.json"
+);
+const mobileLockMarkdownPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-mobile-report-lock.md"
+);
+const mobileLockLogPath = path.join(
+  mobileReportRoot,
+  "smokingpipes-daily-task-latest-lock.log"
+);
+fs.writeFileSync(mobileLockLogPath, "DAILY TASK FAILED: lock", "utf8");
+fs.writeFileSync(
+  mobileTaskStatePath,
+  JSON.stringify(
+    {
+      source: "smokingpipes",
+      dateKey: "2026-06-25",
+      status: "retryable-failed",
+      attempts: 4,
+      lastFailureReason:
+        "Error: Inventory automation is already running. Lock: C:\\Users\\NING MEI\\Desktop\\pipewebsite\\data\\inventory\\state\\smokingpipes.lock.",
+      lastFailureType: "lock",
+      productionWritten: false,
+      appliedCount: 0,
+      candidateCount: 324,
+      retryAllowed: true,
+      nextRetryRecommendedAt: "2026-06-25T09:00:00.000Z",
+      inventoryLocks: {
+        checked: true,
+        hasActiveLock: true,
+        activeLocks: [
+          {
+            name: "global",
+            path: "data/inventory/state/smokingpipes.lock",
+            status: "active",
+            reason: "active-pid",
+          },
+        ],
+        clearedLocks: [],
+        locks: [],
+      },
+    },
+    null,
+    2
+  ),
+  "utf8"
+);
+await runSmokingpipesDailyMobileReport({
+  argv: [],
+  statePath: mobileStatePath,
+  auditPath: mobileAuditPath,
+  taskLogPath: mobileLockLogPath,
+  taskStatePath: mobileTaskStatePath,
+  reportJsonPath: mobileLockJsonPath,
+  reportMarkdownPath: mobileLockMarkdownPath,
+  now: "2026-06-25T08:00:00.000Z",
+});
+const mobileLockJsonText = fs.readFileSync(mobileLockJsonPath, "utf8");
+assert.match(mobileLockJsonText, /库存任务正在运行，等待下一轮/);
+assert.match(mobileLockJsonText, /检测到已有 Smokingpipes 库存任务锁/);
+assert.doesNotMatch(mobileLockJsonText, /锟|鐑|鏇|搴撳瓨|浠诲姟/);
 
 const utf16LogPath = path.join(
   mobileReportRoot,
@@ -6002,15 +7413,368 @@ const dailyTaskScriptPath = path.join(
   "run-smokingpipes-progressive-daily.ps1"
 );
 const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
+
+function extractPowerShellFunction(source, functionName) {
+  const match = source.match(
+    new RegExp(`function ${functionName} \\{[\\s\\S]*?^\\}`, "m")
+  );
+  assert.ok(match, `missing PowerShell function ${functionName}`);
+  return match[0];
+}
+
+const invokeInventoryNodeFunction = extractPowerShellFunction(
+  dailyTaskScript,
+  "Invoke-InventoryNode"
+);
+assert.doesNotMatch(invokeInventoryNodeFunction, /Tee-Object/);
+assert.match(
+  invokeInventoryNodeFunction,
+  /\$nodeOutput\s*=\s*@\(& node @Arguments 2>&1\)/
+);
+assert.match(invokeInventoryNodeFunction, /\$exitCode\s*=\s*\[int\]\$LASTEXITCODE/);
+assert.match(invokeInventoryNodeFunction, /return \[int\]\$exitCode/);
+
+const convertInventoryNodeOutputFunction = extractPowerShellFunction(
+  dailyTaskScript,
+  "ConvertFrom-InventoryNodeOutput"
+);
+const detailPhaseCanContinueFunction = extractPowerShellFunction(
+  dailyTaskScript,
+  "Test-DetailPhaseCanContinue"
+);
+const retryWindowReadyFunction = extractPowerShellFunction(
+  dailyTaskScript,
+  "Test-RetryWindowReady"
+);
+
+const powerShellHarnessRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-node-return-test-")
+);
+const fakeNodePath = path.join(powerShellHarnessRoot, "node.cmd");
+const harnessLogPath = path.join(powerShellHarnessRoot, "daily.log");
+fs.writeFileSync(
+  fakeNodePath,
+  [
+    "@echo off",
+    "echo Launching browser channel: chrome",
+    "echo {",
+    'echo   \"status\": \"no-eligible-candidates\",',
+    'echo   \"productionWritten\": false',
+    "echo }",
+    "exit /b 0",
+    "",
+  ].join("\r\n"),
+  "utf8"
+);
+const escapedHarnessLogPath = harnessLogPath.replace(/'/g, "''");
+const powerShellHarness = [
+  '$ErrorActionPreference = "Stop"',
+  `$LogPath = '${escapedHarnessLogPath}'`,
+  "function Write-DailyLog { param([string]$Message); Write-Output $Message }",
+  convertInventoryNodeOutputFunction,
+  invokeInventoryNodeFunction,
+  detailPhaseCanContinueFunction,
+  retryWindowReadyFunction,
+  '$detailExit = Invoke-InventoryNode -StepName "progressive-detail-chunk" -Arguments @("fake") -ContinueOnFailure',
+  "$detailStatus = [string]$script:LastInventoryNodeResult.status",
+  "$now = [datetime]'2026-07-03T22:30:02+08:00'",
+  "$withinGrace = [datetime]'2026-07-03T22:30:07+08:00'",
+  "$outsideGrace = [datetime]'2026-07-03T22:32:00+08:00'",
+  "[pscustomobject]@{",
+  "  exitType = $detailExit.GetType().Name",
+  "  exitCode = $detailExit",
+  "  detailStatus = $detailStatus",
+  "  canContinue = Test-DetailPhaseCanContinue -ExitCode $detailExit -Status $detailStatus",
+  "  graceAllowed = Test-RetryWindowReady -RecommendedAt $withinGrace -Now $now",
+  "  tooEarlyBlocked = -not (Test-RetryWindowReady -RecommendedAt $outsideGrace -Now $now)",
+  "} | ConvertTo-Json -Compress",
+].join("\r\n");
+const powerShellHarnessResult = spawnSync(
+  "powershell.exe",
+  ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", powerShellHarness],
+  {
+    cwd: process.cwd(),
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PATH: `${powerShellHarnessRoot}${path.delimiter}${process.env.PATH || ""}`,
+    },
+  }
+);
+assert.equal(
+  powerShellHarnessResult.status,
+  0,
+  powerShellHarnessResult.stderr || powerShellHarnessResult.stdout
+);
+const harnessJsonLine = powerShellHarnessResult.stdout
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter(Boolean)
+  .at(-1);
+const harnessResult = JSON.parse(harnessJsonLine);
+assert.equal(harnessResult.exitType, "Int32");
+assert.equal(harnessResult.exitCode, 0);
+assert.equal(harnessResult.detailStatus, "no-eligible-candidates");
+assert.equal(harnessResult.canContinue, true);
+assert.equal(harnessResult.graceAllowed, true);
+assert.equal(harnessResult.tooEarlyBlocked, true);
+
+const noEligibleCandidatesReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-07-03T20:30:07.000+08:00",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-07-03",
+    status: "running",
+    attempts: 2,
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: true,
+    detailPhaseStatus: "no-eligible-candidates",
+    cachedListResume: {
+      enabled: true,
+      lockedUntilComplete: true,
+      completed: false,
+      completedAt: null,
+      allowNextListFetch: false,
+    },
+    currentList: {
+      status: "reused",
+      reused: true,
+      skippedFetch: true,
+      pagesScanned: 107,
+      expectedPages: 107,
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+  taskLogText: [
+    "START progressive-detail-chunk",
+    '{"status":"no-eligible-candidates","productionWritten":false}',
+    "EXIT progressive-detail-chunk 0",
+    "DETAIL chunk complete: no eligible candidates remain",
+    "CONTINUE candidate/apply transition",
+  ].join("\n"),
+});
+assert.equal(noEligibleCandidatesReport.status, "detail-complete");
+assert.equal(
+  noEligibleCandidatesReport.statusLabel,
+  "详情队列已完成，正在进入候选应用"
+);
+assert.equal(noEligibleCandidatesReport.failureType, null);
+assert.equal(noEligibleCandidatesReport.cachedListResume.completed, false);
+assert.equal(noEligibleCandidatesReport.cachedListResume.allowNextListFetch, false);
+const noEligibleCandidatesMessage = buildPushDeerDailyMessage(
+  noEligibleCandidatesReport
+);
+assert.match(
+  noEligibleCandidatesMessage.body,
+  /结论：详情队列已完成，正在进入候选应用/
+);
+assert.match(
+  noEligibleCandidatesMessage.body,
+  /源站扫描：未重新抓取，复用已有完整列表快照/
+);
+assert.match(
+  noEligibleCandidatesMessage.body,
+  /详情抓取：当前没有待抓取详情/
+);
+assert.match(noEligibleCandidatesMessage.body, /下一步：\n执行 candidate\/audit\/apply/);
+assert.doesNotMatch(noEligibleCandidatesMessage.body, /详情抓取失败|安全审计/);
+
+const cachedResumeAuditBlockedReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-07-03T20:31:00.000+08:00",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-07-03",
+    status: "terminal-failed",
+    attempts: 2,
+    lastFailureReason: "安全审计未通过，已停止自动重试",
+    lastFailureType: "audit",
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 324,
+    retryAllowed: false,
+    detailPhaseStatus: "no-eligible-candidates",
+    cachedListResume: {
+      enabled: true,
+      lockedUntilComplete: true,
+      completed: false,
+      completedAt: null,
+      allowNextListFetch: false,
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "FAIL",
+    candidateCount: 324,
+    wouldApplyCount: 324,
+    productionWritten: false,
+    blockers: ["zeroPriceSellable > 0"],
+    warnings: [],
+  },
+});
+assert.equal(cachedResumeAuditBlockedReport.status, "terminal-failed");
+assert.equal(cachedResumeAuditBlockedReport.failureType, "audit");
+assert.equal(cachedResumeAuditBlockedReport.cachedListResume.completed, false);
+assert.equal(
+  cachedResumeAuditBlockedReport.cachedListResume.allowNextListFetch,
+  false
+);
+assert.equal(cachedResumeAuditBlockedReport.statusLabel, "更新失败，已停止重试");
+assert.match(cachedResumeAuditBlockedReport.nextStep, /audit report/);
+const cachedResumeAuditBlockedMessage = buildPushDeerDailyMessage(
+  cachedResumeAuditBlockedReport
+);
+assert.match(cachedResumeAuditBlockedMessage.body, /zeroPriceSellable > 0/);
+assert.doesNotMatch(
+  cachedResumeAuditBlockedMessage.body,
+  /详情队列已完成，正在进入候选应用/
+);
+
+assert.match(
+  dailyTaskScript,
+  /DETAIL chunk complete: no eligible candidates remain/
+);
+assert.match(dailyTaskScript, /CONTINUE candidate\/apply transition/);
+assert.match(dailyTaskScript, /retry window grace applied/);
+assert.match(
+  dailyTaskScript,
+  /productionWritten[\s\S]*Set-CachedListResumeFromCache[\s\S]*-Completed \$true/
+);
+assert.match(
+  dailyTaskScript,
+  /APPLY safe subset: \$wouldApplyCount\/\$candidateCount/
+);
+assert.match(
+  dailyTaskScript,
+  /NON-APPLY candidates retained for review: \$gapCount/
+);
+assert.match(
+  dailyTaskScript,
+  /audit gate blocked production write[\s\S]*-Status "terminal-failed"[\s\S]*-CachedListResume \$script:CachedListResumeState/
+);
+assert.ok(
+  dailyTaskScript.indexOf('StepName "progressive-detail-chunk"') <
+    dailyTaskScript.indexOf('StepName "progressive-build-candidate"')
+);
+assert.ok(
+  dailyTaskScript.indexOf('StepName "progressive-build-candidate"') <
+    dailyTaskScript.indexOf('StepName "progressive-partial-apply"')
+);
+const cachedListSkipBranch = dailyTaskScript.match(
+  /if \(\$script:SkipCurrentListEffective -eq \$true\) \{[\s\S]*?^\s*\} elseif \(\$currentListCache\.usable -eq \$true\)/m
+)?.[0];
+assert.ok(cachedListSkipBranch, "cached-list skip branch must exist");
+assert.doesNotMatch(cachedListSkipBranch, /StepName "current-list"/);
+assert.doesNotMatch(cachedListSkipBranch, /START current-list/);
+assert.doesNotMatch(cachedListSkipBranch, /fetching page 1\/107/);
+const runInventoryAutomationScript = fs.readFileSync(
+  path.join(
+    process.cwd(),
+    "scripts",
+    "inventory",
+    "run-inventory-automation-v1.mjs"
+  ),
+  "utf8"
+);
+assert.match(
+  runInventoryAutomationScript,
+  /productionWritten:\s*result\.productionWritten\s*===\s*true/
+);
+assert.match(
+  runInventoryAutomationScript,
+  /appliedCount:\s*result\.partialAppliedCount\s*\|\|\s*0/
+);
+assert.match(dailyTaskScript, /\[switch\]\$PreflightOnly/);
+assert.match(dailyTaskScript, /\[switch\]\$ForceRunOnce/);
+assert.match(dailyTaskScript, /\[switch\]\$SkipCurrentList/);
+assert.match(dailyTaskScript, /\[switch\]\$AllowStaleCurrentListCache/);
+assert.match(dailyTaskScript, /\[switch\]\$AllowDuplicateDedupe/);
+assert.match(dailyTaskScript, /\[switch\]\$ResumeFromCachedList/);
+assert.match(dailyTaskScript, /\[switch\]\$LockCurrentListSnapshotUntilComplete/);
+assert.match(dailyTaskScript, /YAN_DOUBUY_FORCE_RUN_ONCE/);
+assert.match(dailyTaskScript, /YAN_DOUBUY_SKIP_CURRENT_LIST/);
+assert.match(dailyTaskScript, /YAN_DOUBUY_ALLOW_STALE_CURRENT_LIST_CACHE/);
+assert.match(dailyTaskScript, /YAN_DOUBUY_RESUME_FROM_CACHED_LIST/);
+assert.match(
+  dailyTaskScript,
+  /YAN_DOUBUY_LOCK_CURRENT_LIST_SNAPSHOT_UNTIL_COMPLETE/
+);
+assert.match(dailyTaskScript, /smokingpipes-daily-recovery-preflight-v1\.mjs/);
+assert.match(dailyTaskScript, /--preflight-only/);
+assert.match(dailyTaskScript, /--force-run-once/);
+assert.match(dailyTaskScript, /--allow-duplicate-dedupe/);
+assert.match(dailyTaskScript, /--allow-stale/);
+assert.match(dailyTaskScript, /--allow-duplicate-dedupe/);
+assert.match(dailyTaskScript, /SKIP current-list fetch/);
+assert.match(dailyTaskScript, /PREFLIGHT ready: continuing recovery execution/);
+assert.match(
+  dailyTaskScript,
+  /SKIP current-list: using manual recovery current-list cache/
+);
+assert.match(
+  dailyTaskScript,
+  /PREFLIGHT ready: continuing cached-list detail resume/
+);
+assert.match(dailyTaskScript, /SKIP current-list: using cached list snapshot/);
+assert.match(
+  dailyTaskScript,
+  /CACHED-LIST snapshot locked until detail\/apply complete/
+);
+assert.match(dailyTaskScript, /START detail from cached-list resume/);
+assert.match(
+  dailyTaskScript,
+  /CACHED-LIST resume lock active: skip current-list until current snapshot is complete/
+);
+assert.match(
+  dailyTaskScript,
+  /Blocked: cached-list resume is active; current-list fetch is forbidden until snapshot is complete\./
+);
+assert.match(dailyTaskScript, /cachedListResume/);
+assert.match(dailyTaskScript, /allowNextListFetch/);
+assert.match(dailyTaskScript, /Read-RecoveryPreflightReport/);
+assert.match(dailyTaskScript, /Get-RecoveryPreflightBlockReason/);
+assert.match(dailyTaskScript, /preflightOutput\s*=\s*& node @preflightArgs/);
+assert.match(dailyTaskScript, /return \[int\]\$exitCode/);
+assert.match(dailyTaskScript, /overall\.status[\s\S]*ready/);
+assert.match(dailyTaskScript, /overall\.canRun/);
+assert.match(dailyTaskScript, /willFetchCurrentList/);
+assert.match(dailyTaskScript, /currentListCache\.usable/);
 assert.match(dailyTaskScript, /smokingpipes-daily-task-state\.json/);
 assert.match(dailyTaskScript, /smokingpipes-daily-task-lock\.json/);
+assert.match(dailyTaskScript, /smokingpipes\.lock/);
 assert.match(dailyTaskScript, /smokingpipes-progressive-daily\.lock/);
+assert.match(dailyTaskScript, /smokingpipes-inventory-lock-v1\.mjs/);
 assert.match(dailyTaskScript, /smokingpipes-progressive-lock-v1\.mjs/);
 assert.match(dailyTaskScript, /smokingpipes-current-list-cache-v1\.mjs/);
 assert.match(dailyTaskScript, /REUSE current-list cache/);
 assert.match(dailyTaskScript, /current-list cache not reusable/);
 assert.match(dailyTaskScript, /currentList/);
+assert.match(dailyTaskScript, /inventoryLocks/);
 assert.match(dailyTaskScript, /progressiveLock/);
+assert.match(dailyTaskScript, /CHECK inventory locks/);
+assert.match(dailyTaskScript, /CLEARED stale inventory lock/);
+assert.match(dailyTaskScript, /SKIP because inventory lock is active/);
 assert.match(dailyTaskScript, /CHECK progressive lock/);
 assert.match(dailyTaskScript, /CLEARED stale progressive lock/);
 assert.match(dailyTaskScript, /SKIP because progressive lock is active/);
