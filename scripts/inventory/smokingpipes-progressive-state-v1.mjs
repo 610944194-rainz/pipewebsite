@@ -13,10 +13,18 @@ const LIST_STATUSES = new Set([
 ]);
 const DETAIL_STATUSES = new Set([
   "pending",
+  "deferred",
   "complete",
   "failed",
   "blocked",
   "review-only",
+]);
+const QUEUE_DISPOSITIONS = new Set([
+  "eligible-this-batch",
+  "queued-later",
+  "review-only",
+  "preserved-complete",
+  "no-detail-required",
 ]);
 const PUBLIC_STATUSES = new Set([
   "not-public",
@@ -55,6 +63,12 @@ function candidateErrors(candidate, index) {
   }
   if (!DETAIL_STATUSES.has(candidate?.detailStatus)) {
     errors.push(`${prefix}.detailStatus is invalid`);
+  }
+  if (
+    candidate?.queueDisposition !== undefined &&
+    !QUEUE_DISPOSITIONS.has(candidate.queueDisposition)
+  ) {
+    errors.push(`${prefix}.queueDisposition is invalid`);
   }
   if (!PUBLIC_STATUSES.has(candidate?.publicStatus)) {
     errors.push(`${prefix}.publicStatus is invalid`);
@@ -137,6 +151,7 @@ export function createProgressiveDailyState({
       disappearedCandidatesRecorded: 0,
       disappearedCandidatesApplyAllowed: false,
       pending: 0,
+      deferred: 0,
       complete: 0,
       failed: 0,
       blocked: 0,

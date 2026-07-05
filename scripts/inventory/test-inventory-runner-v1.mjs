@@ -117,6 +117,10 @@ import {
   buildSmokingpipesDetailPendingSpikeDiagnosis,
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
+import {
+  buildSmokingpipesManualFullReconcilePlan,
+  rebuildSmokingpipesProgressiveState,
+} from "./smokingpipes-manual-full-reconcile-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
 const defaultInventoryState = runnerCore.initialInventoryState();
@@ -247,6 +251,425 @@ assert.equal(
   "new-1"
 );
 assert.equal(spikeDiagnosis.guard.blocked, false);
+
+const manualReconcileNewRows = Array.from(
+  { length: 39 },
+  (_, index) => {
+    const number = index + 1;
+    const id = `manual-new-${number}`;
+    return {
+      sourceProductId: id,
+      sourceUrl: `https://example.invalid/${id}`,
+      title: `Manual new product ${number}`,
+      brand: "Test Brand",
+      price: "$100.00",
+      mainImage: `https://images.invalid/${id}.jpg`,
+      productCode:
+        number === 39 ? "DUPLICATE-CODE" : `NEW-${number}`,
+      rawText: number <= 10 ? "FRESH! Add To Cart" : "Add To Cart",
+    };
+  }
+);
+manualReconcileNewRows[35].price = "";
+manualReconcileNewRows[36].mainImage = "";
+manualReconcileNewRows[37].brand = "";
+
+const manualPromotionProduction = Array.from(
+  { length: 120 },
+  (_, index) => ({
+    sourceProductId: `promo-${index + 1}`,
+    sourceUrl: `https://example.invalid/promo-${index + 1}`,
+    productCode: `PROMO-${index + 1}`,
+    inventoryStatus: "available",
+    price: {
+      current: {
+        amount: 100,
+      },
+    },
+  })
+);
+const manualPromotionCurrent =
+  manualPromotionProduction.map((item) => ({
+    sourceProductId: item.sourceProductId,
+    sourceUrl: item.sourceUrl,
+    title: item.sourceProductId,
+    brand: "Promotion Brand",
+    price: "$85.00",
+    mainImage: `https://images.invalid/${item.sourceProductId}.jpg`,
+    productCode: item.productCode,
+    rawText: "15% Off Add To Cart",
+  }));
+const manualReconcileProduction = [
+  ...manualPromotionProduction,
+  {
+    sourceProductId: "real-change",
+    sourceUrl: "https://example.invalid/real-change",
+    productCode: "REAL-CHANGE",
+    inventoryStatus: "available",
+    price: { current: { amount: 100 } },
+  },
+  {
+    sourceProductId: "already-current",
+    sourceUrl: "https://example.invalid/already-current",
+    productCode: "ALREADY-CURRENT",
+    inventoryStatus: "available",
+    price: { current: { amount: 100 } },
+  },
+  {
+    sourceProductId: "explicit-sold",
+    sourceUrl: "https://example.invalid/explicit-sold",
+    productCode: "EXPLICIT-SOLD",
+    inventoryStatus: "available",
+    price: { current: { amount: 120 } },
+  },
+  {
+    sourceProductId: "reappeared",
+    sourceUrl: "https://example.invalid/reappeared",
+    productCode: "REAPPEARED",
+    inventoryStatus: "sold",
+    price: { current: { amount: 130 } },
+  },
+  {
+    sourceProductId: "disappeared",
+    sourceUrl: "https://example.invalid/disappeared",
+    productCode: "DISAPPEARED",
+    inventoryStatus: "available",
+    price: { current: { amount: 140 } },
+  },
+  {
+    sourceProductId: "existing-duplicate-code",
+    sourceUrl: "https://example.invalid/existing-duplicate-code",
+    productCode: "DUPLICATE-CODE",
+    inventoryStatus: "available",
+    price: { current: { amount: 150 } },
+  },
+];
+const manualReconcileCurrentRows = [
+  ...manualReconcileNewRows,
+  ...manualPromotionCurrent,
+  {
+    sourceProductId: "real-change",
+    sourceUrl: "https://example.invalid/real-change",
+    title: "Real change",
+    brand: "Test Brand",
+    price: "$90.00",
+    mainImage: "https://images.invalid/real-change.jpg",
+    productCode: "REAL-CHANGE",
+    rawText: "Add To Cart",
+  },
+  {
+    sourceProductId: "already-current",
+    sourceUrl: "https://example.invalid/already-current",
+    title: "Already current",
+    brand: "Test Brand",
+    price: "$100.00",
+    mainImage: "https://images.invalid/already-current.jpg",
+    productCode: "ALREADY-CURRENT",
+    rawText: "Add To Cart",
+  },
+  {
+    sourceProductId: "explicit-sold",
+    sourceUrl: "https://example.invalid/explicit-sold",
+    title: "Explicit sold",
+    brand: "Test Brand",
+    price: "",
+    mainImage: "https://images.invalid/explicit-sold.jpg",
+    productCode: "EXPLICIT-SOLD",
+    rawListStatus: "OUT OF STOCK",
+    rawText: "OUT OF STOCK",
+  },
+  {
+    sourceProductId: "reappeared",
+    sourceUrl: "https://example.invalid/reappeared",
+    title: "Reappeared",
+    brand: "Test Brand",
+    price: "$130.00",
+    mainImage: "https://images.invalid/reappeared.jpg",
+    productCode: "REAPPEARED",
+    rawText: "Add To Cart",
+  },
+];
+const manualReconcilePreviousState =
+  createProgressiveDailyState({
+    dailyRunId: "manual-old",
+    now: "2026-07-04T00:00:00.000Z",
+  });
+manualReconcilePreviousState.candidates = [
+  {
+    sourceProductId: "manual-new-1",
+    sourceUrl: "https://example.invalid/manual-new-1",
+    listTitle: "Manual new product 1",
+    listPrice: "$100.00",
+    listPrimaryImage:
+      "https://images.invalid/manual-new-1.jpg",
+    inventoryStatus: "available",
+    discoveredAt: "2026-07-04T00:00:00.000Z",
+    firstSeenRunId: "manual-old",
+    lastSeenRunId: "manual-old",
+    lastSeenAt: "2026-07-04T00:00:00.000Z",
+    changeTypes: ["new-product"],
+    detailStatus: "complete",
+    publicStatus: "ready",
+    detailAttempts: 1,
+    retryCount: 0,
+    lastAttemptAt: "2026-07-04T00:01:00.000Z",
+    lastSuccessfulDetailRunId: "manual-old",
+    lastAppliedAt: null,
+    appliedInCommit: null,
+    lastError: null,
+    priority: 100,
+    blockedCount: 0,
+    lastBlockedAt: null,
+    lastBlockedReason: null,
+    nextEligibleAt: null,
+    detail: { title: "Preserved detail" },
+    convertedProduct: {
+      sourceProductId: "manual-new-1",
+      displayNameEn: "Preserved converted product",
+    },
+    productionProductId: null,
+    lastBuiltAt: null,
+  },
+  {
+    sourceProductId: "already-current",
+    sourceUrl: "https://example.invalid/already-current",
+    listTitle: "Already current",
+    listPrice: "$90.00",
+    listPrimaryImage:
+      "https://images.invalid/already-current.jpg",
+    inventoryStatus: "available",
+    discoveredAt: "2026-07-04T00:00:00.000Z",
+    firstSeenRunId: "manual-old",
+    lastSeenRunId: "manual-old",
+    lastSeenAt: "2026-07-04T00:00:00.000Z",
+    changeTypes: ["price-change"],
+    detailStatus: "complete",
+    publicStatus: "ready",
+    detailAttempts: 0,
+    retryCount: 0,
+    lastAttemptAt: null,
+    lastSuccessfulDetailRunId: null,
+    lastAppliedAt: null,
+    appliedInCommit: null,
+    lastError: null,
+    priority: 50,
+    blockedCount: 0,
+    lastBlockedAt: null,
+    lastBlockedReason: null,
+    nextEligibleAt: null,
+    detail: null,
+    convertedProduct: null,
+    productionProductId: "smokingpipes-already-current",
+    lastBuiltAt: null,
+  },
+];
+manualReconcilePreviousState.candidates.push({
+  ...structuredClone(
+    manualReconcilePreviousState.candidates[0]
+  ),
+  sourceProductId: "manual-new-2",
+  sourceUrl: "https://example.invalid/manual-new-2",
+  listTitle: "Manual new product 2",
+  firstSeenRunId: "manual-old",
+  detailStatus: "pending",
+  publicStatus: "not-public",
+  detailAttempts: 0,
+  lastAttemptAt: null,
+  lastSuccessfulDetailRunId: null,
+  detail: null,
+  convertedProduct: null,
+});
+manualReconcilePreviousState.candidates.push({
+  ...structuredClone(
+    manualReconcilePreviousState.candidates[0]
+  ),
+  sourceProductId: "manual-new-36",
+  sourceUrl: "https://example.invalid/manual-new-36",
+  listTitle: "Manual new product 36",
+  firstSeenRunId: "manual-old",
+  detail: { title: "Preserved review detail" },
+  convertedProduct: {
+    sourceProductId: "manual-new-36",
+    displayNameEn: "Preserved review product",
+  },
+});
+manualReconcilePreviousState.summary = {
+  totalCandidates: 9999,
+  pending: 9999,
+};
+
+const manualReconcilePlan =
+  buildSmokingpipesManualFullReconcilePlan({
+    currentList: {
+      completedAt: "2026-07-05T08:00:00.000Z",
+      products: manualReconcileCurrentRows,
+      summary: {
+        pagesScanned: 107,
+        expectedPages: 107,
+        fullExpectedRangeScanned: true,
+        captchaDetected: false,
+        captchaPages: [],
+        verificationDetectedAt: null,
+        uniqueProducts: manualReconcileCurrentRows.length,
+      },
+    },
+    diff: {
+      newIds: manualReconcileNewRows.map(
+        (item) => item.sourceProductId
+      ),
+      reappearedIds: ["reappeared"],
+      disappearedIds: ["disappeared"],
+      coverage: {
+        pagesScanned: 107,
+        expectedPages: 107,
+        fullExpectedRangeScanned: true,
+        captchaDetected: false,
+      },
+    },
+    productionProducts: manualReconcileProduction,
+    previousState: manualReconcilePreviousState,
+    detailMax: 30,
+    now: "2026-07-05T08:30:00.000Z",
+  });
+assert.equal(manualReconcilePlan.snapshot.trusted, true);
+assert.equal(
+  manualReconcilePlan.diffCounts.newProduct,
+  39
+);
+assert.equal(
+  manualReconcilePlan.newProduct.eligibleForDetail,
+  35
+);
+assert.equal(
+  manualReconcilePlan.newProduct.reviewOnly,
+  4
+);
+assert.equal(
+  manualReconcilePlan.priceChange.likelyPromotion,
+  120
+);
+assert.equal(
+  manualReconcilePlan.priceChange.realPriceChange,
+  1
+);
+assert.equal(
+  manualReconcilePlan.priceChange.noOpAlreadyCurrent,
+  1
+);
+assert.equal(
+  manualReconcilePlan.disappeared.disappearedApplyDisabled,
+  1
+);
+assert.equal(
+  manualReconcilePlan.detailQueue.eligibleThisBatch,
+  30
+);
+assert.equal(
+  manualReconcilePlan.detailQueue.deferred,
+  4
+);
+assert.equal(
+  manualReconcilePlan.firstDetailBatchSourceProductIds.length,
+  30
+);
+assert.equal(
+  manualReconcilePlan.previousPendingTriage.total,
+  1
+);
+assert.equal(
+  manualReconcilePlan.previousPendingTriage.firstBatch,
+  1
+);
+assert.equal(
+  manualReconcilePlan.previousPendingTriage.accountedFor,
+  1
+);
+assert.equal(
+  manualReconcilePlan.gates.allowDetailFetch,
+  true
+);
+assert.equal(
+  manualReconcilePlan.gates.allowProductionApply,
+  false
+);
+assert.equal(
+  manualReconcilePlan.gates.allowDailyTaskResume,
+  false
+);
+
+const manualRebuiltStateResult =
+  rebuildSmokingpipesProgressiveState({
+    plan: manualReconcilePlan,
+    currentList: {
+      products: manualReconcileCurrentRows,
+    },
+    productionProducts: manualReconcileProduction,
+    previousState: manualReconcilePreviousState,
+    now: "2026-07-05T08:31:00.000Z",
+  });
+const manualRebuiltState = manualRebuiltStateResult.state;
+assert.equal(
+  validateProgressiveDailyState(manualRebuiltState).valid,
+  true
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
+    (item) => item.detailStatus === "pending"
+  ).length,
+  30
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
+    (item) => item.detailStatus === "deferred"
+  ).length,
+  4
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
+    (item) => item.detailStatus === "review-only"
+  ).length,
+  4
+);
+const preservedReviewOnlyCandidate =
+  manualRebuiltState.candidates.find(
+    (item) => item.sourceProductId === "manual-new-36"
+  );
+assert.equal(
+  preservedReviewOnlyCandidate.detailStatus,
+  "review-only"
+);
+assert.equal(
+  preservedReviewOnlyCandidate.detail.title,
+  "Preserved review detail"
+);
+const preservedManualCandidate =
+  manualRebuiltState.candidates.find(
+    (item) => item.sourceProductId === "manual-new-1"
+  );
+assert.equal(
+  preservedManualCandidate.detail.title,
+  "Preserved detail"
+);
+assert.equal(
+  preservedManualCandidate.convertedProduct.displayNameEn,
+  "Preserved converted product"
+);
+assert.equal(
+  manualRebuiltState.globalReconcile.applyAllowed,
+  false
+);
+assert.deepEqual(
+  manualRebuiltState.globalReconcile.disappearedIds,
+  ["disappeared"]
+);
+assert.equal(
+  manualRebuiltState.summary.pending,
+  30
+);
+assert.equal(
+  manualRebuiltState.summary.deferred,
+  4
+);
 
 const smokingpipesPricingForReferenceTests = {
   taxFactor: 1.2,
@@ -6159,6 +6582,7 @@ assert.deepEqual(progressiveIngestState.summary, {
   disappearedCandidatesRecorded: 1,
   disappearedCandidatesApplyAllowed: false,
   pending: 3,
+  deferred: 0,
   complete: 3,
   failed: 0,
   blocked: 0,
@@ -6534,6 +6958,76 @@ assert.match(
 assert.match(
   detailQueueSpikeMobileMessage.body,
   /先查看 detail-pending-spike 诊断报告/
+);
+
+const manualFullReconcileMobileReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-07-05T09:00:00.000Z",
+    taskState: {
+      status: "running",
+      runMode: "manual-full-reconcile",
+      productionWritten: false,
+      appliedCount: 0,
+      manualFullReconcile: {
+        totalNewCandidates: 698,
+        detailEligibleThisBatch: 30,
+        detailPendingTotal: 532,
+        appliedTargetCount: 30,
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      pagesScanned: 107,
+      expectedPages: 107,
+      manualFullReconcile: {
+        mode: "rebuild-state",
+      },
+      candidates: [],
+    },
+    audit: {
+      verdict: "PASS",
+      candidateCount: 30,
+      wouldApplyCount: 30,
+      productionWritten: false,
+      blockers: [],
+      warnings: [],
+    },
+  });
+assert.equal(
+  manualFullReconcileMobileReport.statusLabel,
+  "人工全量对齐进行中"
+);
+assert.match(
+  manualFullReconcileMobileReport.reason,
+  /当前为人工对齐模式，不是每日自动更新/
+);
+assert.match(
+  manualFullReconcileMobileReport.nextStep,
+  /按 plan 分批抓详情，不直接恢复自动任务/
+);
+const manualFullReconcileMobileMessage =
+  buildPushDeerDailyMessage(
+    manualFullReconcileMobileReport
+  );
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /列表快照：107\/107 页/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /本轮新增候选：698/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /本轮待抓详情：30 \/ 总待处理 532/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /本轮正式应用：0 \/ 30/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /当前为人工对齐模式，不是每日自动更新/
 );
 
 const noVerificationLogReport = buildSmokingpipesDailyMobileReport({
@@ -7632,6 +8126,60 @@ const dailyTaskScriptPath = path.join(
   "scripts",
   "inventory",
   "run-smokingpipes-progressive-daily.ps1"
+);
+const manualFullReconcileScriptPath = path.join(
+  process.cwd(),
+  "scripts",
+  "inventory",
+  "run-smokingpipes-manual-full-reconcile-v1.ps1"
+);
+assert.equal(
+  fs.existsSync(manualFullReconcileScriptPath),
+  true,
+  "manual full reconcile PowerShell entry must exist"
+);
+const manualFullReconcileScript = fs.readFileSync(
+  manualFullReconcileScriptPath,
+  "utf8"
+);
+assert.match(manualFullReconcileScript, /\[switch\]\$PlanOnly/);
+assert.match(manualFullReconcileScript, /\[switch\]\$RebuildState/);
+assert.match(
+  manualFullReconcileScript,
+  /\[ValidateRange\(1,\s*30\)\][\s\S]*\$DetailMax\s*=\s*30/
+);
+assert.match(
+  manualFullReconcileScript,
+  /plan-only/
+);
+assert.match(
+  manualFullReconcileScript,
+  /rebuild-state[\s\S]*--state-backup=/
+);
+assert.ok(
+  manualFullReconcileScript.indexOf("Copy-Item") <
+    manualFullReconcileScript.indexOf("& node"),
+  "state backup must happen before the rebuild Node process"
+);
+assert.match(
+  manualFullReconcileScript,
+  /RefreshSnapshot[\s\S]*offline phase/i
+);
+assert.match(
+  manualFullReconcileScript,
+  /FetchDetailBatch[\s\S]*offline phase/i
+);
+assert.match(
+  manualFullReconcileScript,
+  /ApplySafeSubset[\s\S]*offline phase/i
+);
+assert.match(
+  manualFullReconcileScript,
+  /WriteProduction[\s\S]*ApplySafeSubset/
+);
+assert.doesNotMatch(
+  manualFullReconcileScript,
+  /run-smokingpipes-progressive-daily\.ps1/
 );
 const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
 

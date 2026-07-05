@@ -245,6 +245,7 @@ function stateSummary(state, now = new Date().toISOString()) {
       state?.globalReconcile?.disappearedIds?.length || 0,
     disappearedCandidatesApplyAllowed: false,
     pending: statusCount("pending"),
+    deferred: statusCount("deferred"),
     complete: statusCount("complete"),
     failed: statusCount("failed"),
     blocked: statusCount("blocked"),
@@ -519,6 +520,7 @@ export function summarizeProgressiveState(state) {
     newCandidates: newCandidates.length,
     detailsCompletedTotal: count("complete"),
     detailsPending: count("pending"),
+    detailsDeferred: count("deferred"),
     detailsFailed: count("failed"),
     detailsBlocked: count("blocked"),
     readyForPartialApply: candidates.filter(
