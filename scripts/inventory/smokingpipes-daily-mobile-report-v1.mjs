@@ -401,6 +401,14 @@ export function buildSmokingpipesDailyMobileReport({
   });
   const taskFailure = findDailyTaskFailure(taskLogText);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
+  const detailQueueSpike =
+    taskState?.detailQueueSpike &&
+    typeof taskState.detailQueueSpike === "object"
+      ? taskState.detailQueueSpike
+      : null;
+  const detailQueueSpikeBlocked =
+    taskState?.lastFailureType === "detail-queue-spike" ||
+    detailQueueSpike?.blocked === true;
 
   if (verificationBlocker && !blockers.includes(verificationBlocker)) {
     blockers.unshift(verificationBlocker);
@@ -465,25 +473,32 @@ export function buildSmokingpipesDailyMobileReport({
   );
   const pendingDetailCount = calculatePendingDetailCount({
     detailPending,
-    publicNotPublic,
-    detailFailed,
   });
   const status = deriveStatus({ state, audit, taskLogText, taskState });
-  const reason = deriveReasonV2({
-    status,
-    verificationBlocker,
-    taskFailure,
-    taskState,
-    progressiveLock,
-    currentList,
-    audit,
-    candidateCount,
-    wouldApplyCount,
-    productionWritten: Boolean(audit?.productionWritten || taskState?.productionWritten),
-  });
   const failureType = taskState?.lastFailureType || null;
+  const reason = detailQueueSpikeBlocked
+    ? `待处理详情突然增加到 ${pendingDetailCount}，超过正常范围，已暂停自动续跑。`
+    : deriveReasonV2({
+        status,
+        verificationBlocker,
+        taskFailure,
+        taskState,
+        progressiveLock,
+        currentList,
+        audit,
+        candidateCount,
+        wouldApplyCount,
+        productionWritten: Boolean(
+          audit?.productionWritten ||
+            taskState?.productionWritten
+        ),
+      });
   const statusLabel =
-    unsafeApplyGap
+    detailQueueSpikeBlocked
+      ? verificationBlocker
+        ? "暂停，详情队列异常 + 源站验证"
+        : "暂停，详情队列异常"
+      : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
       : status === "success"
       ? statusLabelV2(status)
@@ -509,7 +524,9 @@ export function buildSmokingpipesDailyMobileReport({
     status,
     statusLabel,
     reason,
-    nextStep: unsafeApplyGap
+    nextStep: detailQueueSpikeBlocked
+      ? "先查看 detail-pending-spike 诊断报告，不要直接完成验证或重跑。"
+      : unsafeApplyGap
       ? "检查 data/review/smokingpipes-apply-gap-diagnosis-report.md，确认隔离候选的分类。"
       : deriveNextStepV2({ status, failureType, cachedListResume }),
     runAt,
@@ -527,6 +544,8 @@ export function buildSmokingpipesDailyMobileReport({
     currentList,
     cachedListResume,
     detailPhaseStatus: detailPhaseStatus || null,
+    detailQueueSpike,
+    verificationRequired: Boolean(verificationBlocker),
     retryAllowed:
       typeof taskState?.retryAllowed === "boolean"
         ? taskState.retryAllowed
@@ -756,11 +775,8 @@ function statusLabel(status) {
   return status || "未知";
 }
 
-function calculatePendingDetailCount({ detailPending, publicNotPublic, detailFailed }) {
-  return (
-    Number(detailPending || 0) +
-    Math.max(0, Number(publicNotPublic || 0) - Number(detailFailed || 0))
-  );
+function calculatePendingDetailCount({ detailPending }) {
+  return Number(detailPending || 0);
 }
 
 function deriveReason({
@@ -1018,6 +1034,8 @@ function failureTypeLabelV2(value) {
   if (type === "browser") return "浏览器异常";
   if (type === "audit") return "安全审计";
   if (type === "preflight") return "恢复预检";
+  if (type === "detail-queue-spike")
+    return "详情队列异常";
   return type || "无";
 }
 
@@ -1047,6 +1065,26 @@ export function buildPushDeerDailyMessage(report) {
     body: [
       `结论：${report.statusLabel || statusLabelV2(report.status)}`,
       "",
+      ...(report.detailQueueSpike?.blocked
+        ? [
+            `核心风险：待处理详情突然增加到 ${pendingDetailCount}，超过正常范围，已暂停自动续跑。`,
+            `源站验证：${
+              report.verificationRequired
+                ? "Smokingpipes 出现强验证。"
+                : "本轮未检测到新的强验证。"
+            }`,
+            "验证页面：请在运行任务的电脑上查看已打开的 Chrome / sp-chrome 浏览器窗口；如窗口不存在，不要手动继续。",
+            "",
+          ]
+        : report.status === "blocked"
+          ? [
+              "验证对象：Smokingpipes",
+              "验证页面：Smokingpipes 当前列表/详情页",
+              "操作位置：运行任务的电脑，不是在手机里",
+              "浏览器：Chrome profile sp-chrome",
+              "",
+            ]
+          : []),
       `源站扫描：${scanText}`,
       `详情抓取：${detailAccessText}`,
       `执行方式：${executionModeText}`,

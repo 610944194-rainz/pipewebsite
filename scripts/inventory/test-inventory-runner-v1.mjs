@@ -113,12 +113,140 @@ import {
   evaluateProgressiveProductionApplyGate,
   runSmokingpipesProgressiveMode,
 } from "./smokingpipes-progressive-runner-v1.mjs";
+import {
+  buildSmokingpipesDetailPendingSpikeDiagnosis,
+  evaluateSmokingpipesDetailQueueSpikeGuard,
+} from "./smokingpipes-detail-queue-spike-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
 const defaultInventoryState = runnerCore.initialInventoryState();
 assert.equal(defaultInventoryState.checkpointFailed, false);
 assert.equal(defaultInventoryState.checkpointTargetPath, null);
 assert.equal(defaultInventoryState.checkpointTempPath, null);
+
+const pendingOverLimitGuard =
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 501,
+    previousDetailPendingCount: 0,
+    pendingExistingWithConvertedCount: 0,
+  });
+assert.equal(pendingOverLimitGuard.blocked, true);
+assert.match(
+  pendingOverLimitGuard.blockReasons.join("\n"),
+  /detailPendingCount 501 exceeds 500/
+);
+
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 301,
+    previousDetailPendingCount: 0,
+    pendingExistingWithConvertedCount: 0,
+  }).blocked,
+  true
+);
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 31,
+    previousDetailPendingCount: 10,
+    pendingExistingWithConvertedCount: 0,
+  }).blocked,
+  true
+);
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 100,
+    previousDetailPendingCount: 50,
+    pendingExistingWithConvertedCount: 31,
+  }).blocked,
+  true
+);
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 100,
+    previousDetailPendingCount: 50,
+    pendingExistingWithConvertedCount: 30,
+  }).blocked,
+  false
+);
+
+const spikeDiagnosis = buildSmokingpipesDetailPendingSpikeDiagnosis({
+  state: {
+    dailyRunId: "spike-run",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [
+      {
+        sourceProductId: "new-1",
+        listTitle: "Pending new product",
+        changeTypes: ["new-product"],
+        detailStatus: "pending",
+        publicStatus: "not-public",
+        lastSeenRunId: "spike-run",
+        detail: null,
+        convertedProduct: null,
+      },
+      {
+        sourceProductId: "existing-1",
+        listTitle: "Existing product",
+        changeTypes: ["price-change"],
+        detailStatus: "complete",
+        publicStatus: "ready",
+        lastSeenRunId: "spike-run",
+        detail: { title: "Existing product" },
+        convertedProduct: {
+          sourceProductId: "existing-1",
+        },
+      },
+    ],
+  },
+  currentList: {
+    summary: {
+      pagesScanned: 107,
+      expectedPages: 107,
+      productsExtracted: 2,
+      uniqueProducts: 2,
+    },
+    products: [
+      {
+        sourceProductId: "new-1",
+        sourceUrl: "https://example.invalid/new-1",
+      },
+      {
+        sourceProductId: "existing-1",
+        sourceUrl: "https://example.invalid/existing-1",
+      },
+    ],
+  },
+  diff: {
+    newIds: ["new-1"],
+    reappearedIds: [],
+    disappearedIds: [],
+  },
+  productionProducts: [
+    {
+      sourceProductId: "existing-1",
+      fullTitle: "Existing product",
+    },
+  ],
+  previousDetailPendingCount: 0,
+  now: "2026-07-05T08:00:00.000Z",
+});
+assert.equal(spikeDiagnosis.counts.detailStatus.pending, 1);
+assert.equal(spikeDiagnosis.counts.publicStatus.notPublic, 1);
+assert.equal(
+  spikeDiagnosis.pendingAnalysis.existsInProduction,
+  0
+);
+assert.equal(spikeDiagnosis.pendingSamples.length, 1);
+assert.equal(
+  spikeDiagnosis.counts.mobileReportedPending,
+  2
+);
+assert.equal(
+  spikeDiagnosis.pendingSamples[0].sourceProductId,
+  "new-1"
+);
+assert.equal(spikeDiagnosis.guard.blocked, false);
 
 const smokingpipesPricingForReferenceTests = {
   taxFactor: 1.2,
@@ -6314,6 +6442,99 @@ const verificationLogMessage = buildPushDeerDailyMessage(verificationLogReport);
 assert.match(verificationLogMessage.body, /结论：需要人工验证/);
 assert.match(verificationLogMessage.body, /扫描：107\/107 页/);
 assert.match(verificationLogMessage.body, /下一步：\n请在电脑上完成 Smokingpipes 验证/);
+assert.match(
+  verificationLogMessage.body,
+  /验证对象：Smokingpipes/
+);
+assert.match(
+  verificationLogMessage.body,
+  /操作位置：运行任务的电脑，不是在手机里/
+);
+assert.match(
+  verificationLogMessage.body,
+  /浏览器：Chrome profile sp-chrome/
+);
+
+const detailQueueSpikeMobileReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-07-05T08:27:00.000Z",
+    taskLogText:
+      "DAILY TASK FAILED: Smokingpipes strong verification detected. Complete it in the opened browser within 30 minutes.",
+    taskState: {
+      status: "terminal-failed",
+      lastFailureType: "detail-queue-spike",
+      productionWritten: false,
+      retryAllowed: false,
+      detailPendingCount: 2,
+      detailQueueSpike: {
+        blocked: true,
+        detailPendingCount: 2,
+        previousDetailPendingCount: 0,
+        blockReasons: [
+          "synthetic detail queue spike",
+        ],
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      pagesScanned: 107,
+      expectedPages: 107,
+      candidates: [
+        {
+          sourceProductId: "spike-1",
+          changeTypes: ["new-product"],
+          detailStatus: "pending",
+          publicStatus: "not-public",
+        },
+        {
+          sourceProductId: "spike-2",
+          changeTypes: ["new-product"],
+          detailStatus: "pending",
+          publicStatus: "not-public",
+        },
+      ],
+    },
+    audit: {
+      verdict: "PASS",
+      candidateCount: 2,
+      wouldApplyCount: 0,
+      productionWritten: false,
+      blockers: [],
+      warnings: [],
+    },
+  });
+assert.equal(
+  detailQueueSpikeMobileReport.pendingDetailCount,
+  2
+);
+assert.equal(
+  detailQueueSpikeMobileReport.statusLabel,
+  "暂停，详情队列异常 + 源站验证"
+);
+assert.equal(
+  detailQueueSpikeMobileReport.retryAllowed,
+  false
+);
+const detailQueueSpikeMobileMessage =
+  buildPushDeerDailyMessage(
+    detailQueueSpikeMobileReport
+  );
+assert.match(
+  detailQueueSpikeMobileMessage.body,
+  /核心风险：待处理详情突然增加到 2/
+);
+assert.match(
+  detailQueueSpikeMobileMessage.body,
+  /源站验证：Smokingpipes 出现强验证/
+);
+assert.match(
+  detailQueueSpikeMobileMessage.body,
+  /如窗口不存在，不要手动继续/
+);
+assert.match(
+  detailQueueSpikeMobileMessage.body,
+  /先查看 detail-pending-spike 诊断报告/
+);
 
 const noVerificationLogReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-06-25T03:05:00.000Z",
@@ -7672,6 +7893,30 @@ assert.match(
 assert.match(
   dailyTaskScript,
   /audit gate blocked production write[\s\S]*-Status "terminal-failed"[\s\S]*-CachedListResume \$script:CachedListResumeState/
+);
+assert.match(
+  dailyTaskScript,
+  /StepName "detail-queue-spike-guard"/
+);
+assert.match(
+  dailyTaskScript,
+  /detail queue spike guard blocked[\s\S]*-Status "terminal-failed"[\s\S]*-FailureType "detail-queue-spike"[\s\S]*-RetryAllowed \$false/
+);
+assert.ok(
+  dailyTaskScript.indexOf(
+    'StepName "progressive-ingest-list"'
+  ) <
+    dailyTaskScript.indexOf(
+      'StepName "detail-queue-spike-guard"'
+    )
+);
+assert.ok(
+  dailyTaskScript.indexOf(
+    'StepName "detail-queue-spike-guard"'
+  ) <
+    dailyTaskScript.indexOf(
+      'StepName "progressive-detail-chunk"'
+    )
 );
 assert.ok(
   dailyTaskScript.indexOf('StepName "progressive-detail-chunk"') <

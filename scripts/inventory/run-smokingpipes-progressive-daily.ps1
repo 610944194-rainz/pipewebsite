@@ -39,6 +39,8 @@ $LockCurrentListSnapshotUntilCompleteEffective = $false
 $LastInventoryNodeResult = $null
 $LastInventoryNodeOutput = @()
 $DetailPhaseStatus = $null
+$DetailPendingCount = 0
+$DetailQueueSpikeState = $null
 $CurrentListState = [ordered]@{
   status = "skipped"
   reused = $false
@@ -351,7 +353,9 @@ function Write-DailyTaskState {
     [object]$InventoryLocks = $null,
     [object]$ProgressiveLock = $null,
     [object]$CachedListResume = $null,
-    [string]$DetailPhaseStatus = $null
+    [string]$DetailPhaseStatus = $null,
+    [object]$DetailPendingCount = $null,
+    [object]$DetailQueueSpike = $null
   )
 
   $now = Get-Date
@@ -383,6 +387,16 @@ function Write-DailyTaskState {
       $DetailPhaseStatus
     } else {
       $script:DetailPhaseStatus
+    }
+    detailPendingCount = if ($null -ne $DetailPendingCount) {
+      [int]$DetailPendingCount
+    } else {
+      [int]$script:DetailPendingCount
+    }
+    detailQueueSpike = if ($null -ne $DetailQueueSpike) {
+      $DetailQueueSpike
+    } else {
+      $script:DetailQueueSpikeState
     }
   }
 
@@ -1038,6 +1052,23 @@ Set-Content -Path $LogPath -Value "=== SMOKINGPIPES PROGRESSIVE DAILY START $(Ge
 
 $dailyTaskState = Read-DailyTaskState
 $attempts = (Get-ExistingAttemptCount -State $dailyTaskState) + 1
+$previousDetailPendingCount = if (
+  $dailyTaskState -and
+  $null -ne $dailyTaskState.detailPendingCount
+) {
+  [int]$dailyTaskState.detailPendingCount
+} else {
+  0
+}
+$script:DetailPendingCount = $previousDetailPendingCount
+$script:DetailQueueSpikeState = if (
+  $dailyTaskState -and
+  $dailyTaskState.detailQueueSpike
+) {
+  $dailyTaskState.detailQueueSpike
+} else {
+  $null
+}
 $lockAcquired = $false
 
 Import-InventoryEnv
@@ -1278,6 +1309,63 @@ try {
     "--no-deploy",
     "--verbose"
   )
+
+  $detailQueueGuardExit = Invoke-InventoryNode -StepName "detail-queue-spike-guard" -Arguments @(
+    "scripts/inventory/smokingpipes-detail-queue-spike-v1.mjs",
+    "--previous-detail-pending-count=$previousDetailPendingCount"
+  ) -ContinueOnFailure
+  $detailQueueGuard = $script:LastInventoryNodeResult
+  $detailQueueGuardFailed = (
+    $detailQueueGuardExit -ne 0 -or
+    -not $detailQueueGuard
+  )
+  $detailQueueGuardBlocked = (
+    $detailQueueGuardFailed -or
+    $detailQueueGuard.blocked -eq $true
+  )
+
+  if ($detailQueueGuardBlocked) {
+    if (-not $detailQueueGuard) {
+      $detailQueueGuard = [ordered]@{
+        status = "manual-review-required"
+        blocked = $true
+        failureType = "detail-queue-spike"
+        retryAllowed = $false
+        detailPendingCount = 0
+        previousDetailPendingCount = $previousDetailPendingCount
+        blockReasons = @(
+          "detail queue spike guard could not produce a valid diagnosis"
+        )
+        productionWritten = $false
+      }
+    }
+    $detailPendingCount = [int]($detailQueueGuard.detailPendingCount)
+    $script:DetailPendingCount = $detailPendingCount
+    $script:DetailQueueSpikeState = $detailQueueGuard
+    $detailQueueBlockReasons = @($detailQueueGuard.blockReasons) -join "; "
+    if (-not $detailQueueBlockReasons) {
+      $detailQueueBlockReasons = "detail queue spike guard failed or blocked"
+    }
+    Write-DailyLog "detail queue spike guard blocked: pending=$detailPendingCount reasons=$detailQueueBlockReasons"
+    Write-DailyTaskState `
+      -Status "terminal-failed" `
+      -Attempts $attempts `
+      -CandidateCount (Get-AuditCandidateCount) `
+      -FailureReason "Detail queue anomaly requires manual review: $detailQueueBlockReasons" `
+      -FailureType "detail-queue-spike" `
+      -RetryAllowed $false `
+      -DetailPendingCount $detailPendingCount `
+      -DetailQueueSpike $detailQueueGuard `
+      -CachedListResume $script:CachedListResumeState
+    Send-MobileReport
+    Write-DailyLog "DETAIL queue spike blocked; detail fetch, production write, and automatic retry skipped"
+    Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
+    exit 0
+  }
+
+  $script:DetailPendingCount = [int]($detailQueueGuard.detailPendingCount)
+  $script:DetailQueueSpikeState = $detailQueueGuard
+  Write-DailyLog "detail queue spike guard passed: pending=$($detailQueueGuard.detailPendingCount)"
 
   if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-detail-chunk")) {
     Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
