@@ -1,4 +1,4 @@
-param(
+﻿param(
   [switch]$PreflightOnly,
   [switch]$ForceRunOnce,
   [switch]$SkipCurrentList,
@@ -14,6 +14,8 @@ $ProjectRoot = "C:\Users\NING MEI\Desktop\pipewebsite"
 $LogPath = Join-Path $ProjectRoot "data\review\smokingpipes-daily-task-latest.log"
 $EnvPath = Join-Path $ProjectRoot ".env.inventory.local"
 $AuditPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-audit-report.json"
+$ApplyPreviewPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-apply-preview.json"
+$ApplyGateReportPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-apply-gate-report.json"
 $DailyTaskStatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-state.json"
 $DailyTaskLockPath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-lock.json"
 $GlobalInventoryLockPath = Join-Path $ProjectRoot "data\inventory\state\smokingpipes.lock"
@@ -262,62 +264,6 @@ function Invoke-InventoryNode {
   }
 
   return [int]$exitCode
-}
-
-function Test-AuditAllowsProductionWrite {
-  if (-not (Test-Path $AuditPath)) {
-    Write-DailyLog "audit missing; production write blocked"
-    return $false
-  }
-
-  $audit = Get-Content -Path $AuditPath -Encoding UTF8 | ConvertFrom-Json
-  $auditStatus = if ($audit.auditStatus) { $audit.auditStatus } elseif ($audit.verdict) { $audit.verdict } else { "" }
-  $counts = if ($audit.counts) { $audit.counts } else { [pscustomobject]@{} }
-  $blockers = @($audit.blockers)
-  $candidateCount = [int]($audit.candidateCount)
-  $wouldApplyCount = [int]($audit.wouldApplyCount)
-  $deletedProducts = [int]($counts.deletedProducts)
-  $pendingLeak = [int]($counts.pendingLeak)
-  $failedLeak = [int]($counts.failedLeak)
-  $blockedLeak = [int]($counts.blockedLeak)
-  $reviewOnlyLeak = [int]($counts.reviewOnlyLeak)
-  $zeroPriceSellable = [int]($counts.zeroPriceSellable)
-  $applyGap = $audit.applyGap
-  $gapCount = if ($applyGap) { [int]($applyGap.gapCount) } else { 0 }
-  $unknownGapCount = if ($applyGap) { [int]($applyGap.unknownGapCount) } else { 0 }
-  $readyUnexpectedlyExcludedCount = if ($applyGap) {
-    [int]($applyGap.readyUnexpectedlyExcludedCount)
-  } else {
-    0
-  }
-  $safeGap =
-    $gapCount -gt 0 -and
-    $applyGap.safeToApplyWouldApplySubset -eq $true -and
-    $unknownGapCount -eq 0 -and
-    $readyUnexpectedlyExcludedCount -eq 0
-  $candidateCountAllowed =
-    $candidateCount -eq $wouldApplyCount -or
-    ($candidateCount -gt $wouldApplyCount -and $safeGap)
-
-  $allowed =
-    $auditStatus -eq "PASS" -and
-    $candidateCountAllowed -and
-    $wouldApplyCount -gt 0 -and
-    $deletedProducts -eq 0 -and
-    $pendingLeak -eq 0 -and
-    $failedLeak -eq 0 -and
-    $blockedLeak -eq 0 -and
-    $reviewOnlyLeak -eq 0 -and
-    $zeroPriceSellable -eq 0 -and
-    $blockers.Count -eq 0
-
-  Write-DailyLog "auditStatus=$auditStatus candidateCount=$candidateCount wouldApplyCount=$wouldApplyCount applyAllowed=$allowed"
-  if ($allowed -and $candidateCount -ne $wouldApplyCount) {
-    Write-DailyLog "APPLY gate: candidateCount differs from wouldApplyCount, but gap candidates are safely excluded"
-    Write-DailyLog "APPLY safe subset: $wouldApplyCount/$candidateCount"
-    Write-DailyLog "NON-APPLY candidates retained for review: $gapCount"
-  }
-  return $allowed
 }
 
 function Get-TodayDateKey {
@@ -1440,21 +1386,51 @@ try {
     -DetailPhaseStatus $detailStatus `
     -CachedListResume $script:CachedListResumeState
 
-  if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-build-candidate")) {
+  if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-prepare-apply")) {
     Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
     exit 0
   }
 
-  Invoke-InventoryNode -StepName "progressive-build-candidate" -Arguments @(
+  Remove-Item -Path $AuditPath, $ApplyPreviewPath, $ApplyGateReportPath -Force -ErrorAction SilentlyContinue
+  Write-DailyLog "cleared stale progressive audit/apply preview/gate before prepare-apply"
+
+  $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments @(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
-    "--mode=progressive-build-candidate",
+    "--mode=progressive-prepare-apply",
     "--no-commit",
     "--no-deploy",
     "--verbose"
-  )
+  ) -ContinueOnFailure
 
-  if (Test-AuditAllowsProductionWrite) {
+  $prepareResult = $script:LastInventoryNodeResult
+  $prepareStatus = if ($prepareResult -and $prepareResult.status) {
+    [string]$prepareResult.status
+  } else {
+    ""
+  }
+  $prepareApplyReady =
+    $prepareExit -eq 0 -and
+    $prepareResult -and
+    $prepareResult.applyReady -eq $true
+  $prepareCandidateCount = if ($prepareResult -and $prepareResult.candidateCount) {
+    [int]$prepareResult.candidateCount
+  } else {
+    0
+  }
+  $prepareWouldApplyCount = if ($prepareResult -and $prepareResult.wouldApplyCount) {
+    [int]$prepareResult.wouldApplyCount
+  } else {
+    0
+  }
+  $prepareIsolatedCandidateCount = if ($prepareResult -and $prepareResult.isolatedCandidateCount) {
+    [int]$prepareResult.isolatedCandidateCount
+  } else {
+    0
+  }
+
+  if ($prepareApplyReady) {
+    Write-DailyLog "progressive prepare apply gate ready candidateCount=$prepareCandidateCount wouldApplyCount=$prepareWouldApplyCount isolatedCandidateCount=$prepareIsolatedCandidateCount"
     if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-partial-apply")) {
       Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
       exit 0
@@ -1510,7 +1486,7 @@ try {
       Write-DailyTaskState `
         -Status $(if ($retryAllowed) { "retryable-failed" } else { "terminal-failed" }) `
         -Attempts $attempts `
-        -CandidateCount (Get-AuditCandidateCount) `
+        -CandidateCount $prepareCandidateCount `
         -IsolatedCandidateCount $applyIsolatedCandidateCount `
         -FailureReason $failureReason `
         -FailureType $failureType `
@@ -1523,12 +1499,21 @@ try {
       exit $(if ($retryAllowed) { 1 } else { 0 })
     }
   } else {
-    Write-DailyLog "audit gate blocked production write"
+    $prepareBlockedReason = if ($prepareResult -and $prepareResult.blockedReason) {
+      [string]$prepareResult.blockedReason
+    } elseif ($prepareResult -and $prepareResult.blockers) {
+      (@($prepareResult.blockers) | ForEach-Object { [string]$_ }) -join "; "
+    } else {
+      "status=$prepareStatus applyReady=$prepareApplyReady"
+    }
+    $failureReason = "自动写入已阻断：$prepareBlockedReason"
+    Write-DailyLog "progressive prepare apply gate blocked: $prepareBlockedReason"
     Write-DailyTaskState `
       -Status "terminal-failed" `
       -Attempts $attempts `
-      -CandidateCount (Get-AuditCandidateCount) `
-      -FailureReason "安全审计未通过，已停止自动重试" `
+      -CandidateCount $prepareCandidateCount `
+      -IsolatedCandidateCount $prepareIsolatedCandidateCount `
+      -FailureReason $failureReason `
       -FailureType "audit" `
       -RetryAllowed $false `
       -DetailPhaseStatus $script:DetailPhaseStatus `
@@ -1577,3 +1562,4 @@ try {
   }
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
 }
+

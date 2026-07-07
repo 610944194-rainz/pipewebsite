@@ -12,6 +12,7 @@ const ALLOWED_MODES = new Set([
   "progressive-ingest-list",
   "progressive-detail-chunk",
   "progressive-build-candidate",
+  "progressive-prepare-apply",
   "progressive-partial-apply",
   "apply",
 ]);
@@ -261,7 +262,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
 
   if (!ALLOWED_MODES.has(mode)) {
     throw new Error(
-      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, daily-update, verification-probe, detail-probe, browser-preflight, progressive-ingest-list, progressive-detail-chunk, progressive-build-candidate, progressive-partial-apply, apply.`
+      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, daily-update, verification-probe, detail-probe, browser-preflight, progressive-ingest-list, progressive-detail-chunk, progressive-build-candidate, progressive-prepare-apply, progressive-partial-apply, apply.`
     );
   }
   if (source !== "smokingpipes") {
@@ -746,6 +747,10 @@ export function getRunnerPaths(root, options = {}) {
     progressiveApplyPreview: path.join(
       reviewRoot,
       "smokingpipes-progressive-partial-apply-preview.json"
+    ),
+    progressiveApplyGateReport: path.join(
+      reviewRoot,
+      "smokingpipes-progressive-apply-gate-report.json"
     ),
   };
 }

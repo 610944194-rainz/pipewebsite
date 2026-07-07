@@ -6569,6 +6569,7 @@ const safeGapPreview = {
   candidateCount: 3,
   wouldApplyCount: 2,
   wouldApplyProductIds: ["1", "2"],
+  productionWritten: false,
 };
 const completePublicPayloads = {
   catalog: { schemaVersion: 1, products: [] },
@@ -6580,6 +6581,7 @@ const completePublicPayloads = {
   detailShards: [],
 };
 const safeSubsetGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-20260708" },
   audit: safeGapAudit,
   preview: safeGapPreview,
   candidateProducts: safeGapCandidateProducts,
@@ -6596,6 +6598,7 @@ for (const [countName, countValue] of [
   ["zeroPriceSellable", 1],
 ]) {
   const blockedGate = evaluateProgressiveProductionApplyGate({
+    state: { dailyRunId: "daily-update-20260708" },
     audit: {
       ...safeGapAudit,
       counts: {
@@ -6612,6 +6615,7 @@ for (const [countName, countValue] of [
 }
 
 const unknownGapGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-20260708" },
   audit: {
     ...safeGapAudit,
     applyGap: {
@@ -6634,6 +6638,7 @@ assert.equal(unknownGapGate.status, "apply-blocked");
 assert.match(unknownGapGate.blockers.join("\n"), /unknown gap/i);
 
 const unexpectedlyExcludedReadyGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-20260708" },
   audit: {
     ...safeGapAudit,
     applyGap: {
@@ -6657,6 +6662,65 @@ assert.match(
   unexpectedlyExcludedReadyGate.blockers.join("\n"),
   /ready candidate unexpectedly excluded/i
 );
+
+const manualReconcileGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "manual-reconcile-20260705093305" },
+  audit: safeGapAudit,
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(manualReconcileGate.status, "apply-blocked");
+assert.equal(manualReconcileGate.stateManualReconcileBlocked, true);
+assert.match(
+  manualReconcileGate.blockedReason,
+  /manual-reconcile/i
+);
+
+const overMaxAutoApplyGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-20260708" },
+  audit: {
+    ...safeGapAudit,
+    candidateCount: 4039,
+    wouldApplyCount: 4039,
+  },
+  preview: {
+    ...safeGapPreview,
+    candidateCount: 4039,
+    wouldApplyCount: 4039,
+    wouldApplyProductIds: Array.from({ length: 4039 }, (_, index) =>
+      String(index + 1)
+    ),
+  },
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+  maxAutoApply: 300,
+});
+assert.equal(overMaxAutoApplyGate.status, "apply-blocked");
+assert.equal(overMaxAutoApplyGate.maxAutoApply, 300);
+assert.match(
+  overMaxAutoApplyGate.blockedReason,
+  /wouldApplyCount 4039 exceeds max auto apply 300/
+);
+
+const noOpApplyGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-20260708" },
+  audit: {
+    ...safeGapAudit,
+    candidateCount: 1,
+    wouldApplyCount: 0,
+  },
+  preview: {
+    ...safeGapPreview,
+    candidateCount: 1,
+    wouldApplyCount: 0,
+    wouldApplyProductIds: [],
+  },
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(noOpApplyGate.status, "apply-blocked");
+assert.match(noOpApplyGate.blockedReason, /greater than 0/);
 
 const safeSubsetMerged = buildSafeSubsetProductionProducts({
   productionProducts: safeGapProductionProducts,
@@ -6985,6 +7049,23 @@ assert.equal(
   ).some((item) => item.sourceProductId === "200"),
   false
 );
+const progressivePrepareApplyReady =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-prepare-apply",
+    ]),
+  });
+assert.equal(progressivePrepareApplyReady.status, "apply-ready");
+assert.equal(progressivePrepareApplyReady.applyReady, true);
+assert.equal(progressivePrepareApplyReady.candidateCount, 2);
+assert.equal(progressivePrepareApplyReady.wouldApplyCount, 2);
+assert.equal(progressivePrepareApplyReady.maxAutoApply, 300);
+assert.equal(progressivePrepareApplyReady.productionWritten, false);
+assert.equal(
+  fs.existsSync(progressiveApplyPaths.progressiveApplyGateReport),
+  true
+);
 const progressiveApplyWriteResult =
   await runSmokingpipesProgressiveMode({
     root: progressiveApplyRoot,
@@ -7040,6 +7121,72 @@ assert.equal(
   ),
   true
 );
+const progressiveManualBlockedRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-manual-blocked-")
+);
+const progressiveManualBlockedPaths =
+  runnerCore.getRunnerPaths(progressiveManualBlockedRoot);
+fs.mkdirSync(
+  path.dirname(progressiveManualBlockedPaths.existingProducts),
+  { recursive: true }
+);
+fs.mkdirSync(
+  path.dirname(progressiveManualBlockedPaths.progressiveState),
+  { recursive: true }
+);
+fs.writeFileSync(
+  progressiveManualBlockedPaths.existingProducts,
+  JSON.stringify(progressiveApplyProduction),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveManualBlockedPaths.progressiveState,
+  JSON.stringify({
+    ...progressiveApplyState,
+    dailyRunId: "manual-reconcile-20260705093305",
+  }),
+  "utf8"
+);
+const progressiveManualPrepareBlocked =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveManualBlockedRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-prepare-apply",
+    ]),
+  });
+assert.equal(progressiveManualPrepareBlocked.status, "apply-blocked");
+assert.equal(progressiveManualPrepareBlocked.applyReady, false);
+assert.equal(
+  progressiveManualPrepareBlocked.stateManualReconcileBlocked,
+  true
+);
+assert.match(
+  progressiveManualPrepareBlocked.blockedReason,
+  /manual-reconcile/i
+);
+const progressiveManualWriteBlocked =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveManualBlockedRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+    ]),
+  });
+assert.equal(progressiveManualWriteBlocked.status, "apply-blocked");
+assert.equal(progressiveManualWriteBlocked.productionWritten, false);
+assert.match(
+  progressiveManualWriteBlocked.blockedReason,
+  /manual-reconcile/i
+);
+assert.equal(
+  JSON.parse(
+    fs.readFileSync(
+      progressiveManualBlockedPaths.existingProducts,
+      "utf8"
+    )
+  ).some((item) => item.sourceProductId === "200"),
+  false
+);
 const progressiveApplyBlockedRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "inventory-progressive-apply-blocked-")
 );
@@ -7093,8 +7240,8 @@ const progressiveApplyBlocked =
       "--write-production",
     ]),
   });
-assert.equal(progressiveApplyBlocked.status, "apply-blocked");
-assert.equal(progressiveApplyBlocked.productionWritten, false);
+assert.equal(progressiveApplyBlocked.status, "apply-complete");
+assert.equal(progressiveApplyBlocked.productionWritten, true);
 assert.equal(
   JSON.parse(
     fs.readFileSync(
@@ -7102,12 +7249,13 @@ assert.equal(
       "utf8"
     )
   ).some((item) => item.sourceProductId === "200"),
-  false
+  true
 );
 for (const mode of [
   "progressive-ingest-list",
   "progressive-detail-chunk",
   "progressive-build-candidate",
+  "progressive-prepare-apply",
   "progressive-partial-apply",
 ]) {
   assert.equal(
@@ -9361,16 +9509,14 @@ assert.match(
 );
 assert.match(
   dailyTaskScript,
-  /APPLY safe subset: \$wouldApplyCount\/\$candidateCount/
+  /StepName "progressive-prepare-apply"/
 );
+assert.match(dailyTaskScript, /--mode=progressive-prepare-apply/);
 assert.match(
   dailyTaskScript,
-  /NON-APPLY candidates retained for review: \$gapCount/
+  /progressive prepare apply gate blocked:[\s\S]*-Status "terminal-failed"[\s\S]*-FailureType "audit"[\s\S]*-CachedListResume \$script:CachedListResumeState/
 );
-assert.match(
-  dailyTaskScript,
-  /audit gate blocked production write[\s\S]*-Status "terminal-failed"[\s\S]*-CachedListResume \$script:CachedListResumeState/
-);
+assert.doesNotMatch(dailyTaskScript, /function Test-AuditAllowsProductionWrite/);
 assert.match(
   dailyTaskScript,
   /StepName "detail-queue-spike-guard"/
@@ -9397,10 +9543,10 @@ assert.ok(
 );
 assert.ok(
   dailyTaskScript.indexOf('StepName "progressive-detail-chunk"') <
-    dailyTaskScript.indexOf('StepName "progressive-build-candidate"')
+    dailyTaskScript.indexOf('StepName "progressive-prepare-apply"')
 );
 assert.ok(
-  dailyTaskScript.indexOf('StepName "progressive-build-candidate"') <
+  dailyTaskScript.indexOf('StepName "progressive-prepare-apply"') <
     dailyTaskScript.indexOf('StepName "progressive-partial-apply"')
 );
 const cachedListSkipBranch = dailyTaskScript.match(

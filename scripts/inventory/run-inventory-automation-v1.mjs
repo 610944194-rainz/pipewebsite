@@ -66,6 +66,7 @@ Options:
   --mode=progressive-ingest-list        Ingest existing current-list/diff into state
   --mode=progressive-detail-chunk       Resume a checkpointed new-detail batch
   --mode=progressive-build-candidate    Build isolated additive partial-next data
+  --mode=progressive-prepare-apply      Build fresh audit/preview and run apply gate without writing production
   --mode=progressive-partial-apply      Preview partial apply; writes production only with --write-production
   --mode=apply                          Reserved; V1 rejects production apply
   --refresh-list                        Refresh list/diff before apply-dry-run (default: reuse existing)
@@ -430,6 +431,8 @@ async function run() {
               result.isolatedCandidateCount || 0,
             safeSubsetApply:
               result.safeSubsetApply === true,
+            applyReady:
+              result.applyReady === true,
             browserStarted:
               result.browserStarted ?? false,
             recommendedNextRunAt:
