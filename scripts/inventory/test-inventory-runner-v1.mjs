@@ -97,6 +97,7 @@ import {
   validateProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
+  buildProgressiveStateSummary,
   ingestProgressiveListSnapshot,
   runProgressiveDetailChunk,
   summarizeProgressiveState,
@@ -121,10 +122,12 @@ import {
   buildManualFullReconcileStateConsistencyReport,
   buildManualFullReconcileDetailBatchReport,
   buildSmokingpipesManualFullReconcilePlan,
+  promoteManualFullReconcileNextBatch,
   repairManualFullReconcileState,
   rebuildSmokingpipesProgressiveState,
   runSmokingpipesManualFetchDetailBatch,
   selectManualFullReconcileDetailBatchCandidates,
+  selectManualFullReconcilePromoteCandidates,
 } from "./smokingpipes-manual-full-reconcile-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
@@ -918,6 +921,175 @@ assert.equal(
       queuedLaterCandidate.sourceProductId
 ).detailStatus,
   "deferred"
+);
+
+const manualLargePostBatchState = structuredClone(
+  manualDetailBatchRun.state
+);
+const manualQueuedLaterTemplate =
+  manualLargePostBatchState.candidates.find(
+    (item) => item.queueDisposition === "queued-later"
+  );
+for (let index = 0; index < 263; index += 1) {
+  manualLargePostBatchState.candidates.push({
+    ...structuredClone(manualQueuedLaterTemplate),
+    sourceProductId: `manual-later-extra-${String(index + 1).padStart(3, "0")}`,
+    sourceUrl: `https://example.invalid/manual-later-extra-${index + 1}`,
+    listTitle: `Manual later extra ${index + 1}`,
+    listPrice: "$120.00",
+    listPrimaryImage:
+      "https://images.invalid/manual-later-extra.jpg",
+    detailStatus: "deferred",
+    queueDisposition: "queued-later",
+    publicStatus: "not-public",
+    detail: null,
+    convertedProduct: null,
+    lastError: null,
+  });
+}
+manualLargePostBatchState.summary =
+  buildProgressiveStateSummary(
+    manualLargePostBatchState,
+    "2026-07-07T10:20:00.000Z"
+  );
+assert.equal(
+  manualLargePostBatchState.candidates.filter(
+    (item) =>
+      item.queueDisposition === "eligible-this-batch" &&
+      item.detailStatus === "pending"
+  ).length,
+  0
+);
+assert.equal(
+  manualLargePostBatchState.candidates.filter(
+    (item) => item.queueDisposition === "queued-later"
+  ).length,
+  267
+);
+
+let manualNoAutoPromoteProcessorCalled = false;
+const manualNoAutoPromoteRun =
+  await runSmokingpipesManualFetchDetailBatch({
+    state: structuredClone(manualLargePostBatchState),
+    detailMax: 30,
+    now: "2026-07-07T10:21:00.000Z",
+    networkAccessed: false,
+    processDetail: async () => {
+      manualNoAutoPromoteProcessorCalled = true;
+      throw new Error("FetchDetailBatch must not auto promote");
+    },
+  });
+assert.equal(
+  manualNoAutoPromoteRun.status,
+  "promote-next-batch-required"
+);
+assert.equal(manualNoAutoPromoteProcessorCalled, false);
+assert.equal(
+  manualNoAutoPromoteRun.report.smokingpipesAccessed,
+  false
+);
+assert.match(
+  manualNoAutoPromoteRun.report.blockers.join("\n"),
+  /PromoteNextBatch/
+);
+
+const manualPromoteSelection =
+  selectManualFullReconcilePromoteCandidates({
+    state: manualLargePostBatchState,
+    detailMax: 99,
+  });
+assert.equal(manualPromoteSelection.length, 30);
+assert.equal(
+  manualPromoteSelection.every(
+    (item) =>
+      item.queueDisposition === "queued-later" &&
+      item.detailStatus === "deferred" &&
+      item.publicStatus === "not-public"
+  ),
+  true
+);
+assert.equal(
+  manualPromoteSelection.some((item) =>
+    manualDetailBatchAttemptedIds.has(item.sourceProductId)
+  ),
+  false
+);
+
+const manualPromotedRun =
+  promoteManualFullReconcileNextBatch({
+    state: structuredClone(manualLargePostBatchState),
+    detailMax: 30,
+    now: "2026-07-07T10:22:00.000Z",
+  });
+assert.equal(manualPromotedRun.status, "batch-promoted");
+assert.equal(manualPromotedRun.report.promotedCount, 30);
+assert.equal(
+  manualPromotedRun.report.remainingQueuedLaterCount,
+  237
+);
+assert.equal(manualPromotedRun.report.pendingCountAfter, 30);
+assert.equal(manualPromotedRun.report.smokingpipesAccessed, false);
+assert.equal(manualPromotedRun.report.productionWritten, false);
+assert.equal(
+  manualPromotedRun.consistency.counts.eligibleThisBatch,
+  30
+);
+assert.equal(manualPromotedRun.consistency.counts.pending, 30);
+assert.equal(manualPromotedRun.consistency.status, "passed");
+assert.equal(
+  manualPromotedRun.state.candidates.filter(
+    (item) =>
+      item.queueDisposition === "queued-later" &&
+      item.detailStatus === "deferred"
+  ).length,
+  237
+);
+assert.equal(
+  manualPromotedRun.state.candidates.filter(
+    (item) =>
+      item.queueDisposition === "review-only" ||
+      item.detailStatus === "review-only"
+  ).length,
+  4
+);
+assert.equal(
+  manualPromotedRun.report.promotedSourceProductIds.some((id) =>
+    manualDetailBatchAttemptedIds.has(id)
+  ),
+  false
+);
+
+const manualPromoteInconsistentState = structuredClone(
+  manualLargePostBatchState
+);
+manualPromoteInconsistentState.candidates.push({
+  ...structuredClone(manualQueuedLaterTemplate),
+  sourceProductId: "manual-inconsistent-pending",
+  detailStatus: "pending",
+  queueDisposition: "queued-later",
+  publicStatus: "not-public",
+});
+const manualPromoteInconsistentRun =
+  promoteManualFullReconcileNextBatch({
+    state: manualPromoteInconsistentState,
+    detailMax: 30,
+    now: "2026-07-07T10:23:00.000Z",
+  });
+assert.equal(
+  manualPromoteInconsistentRun.status,
+  "state-inconsistent"
+);
+assert.match(
+  manualPromoteInconsistentRun.report.blockers.join("\n"),
+  /pending candidates exist outside eligible-this-batch/
+);
+assert.equal(
+  manualPromoteInconsistentRun.report.smokingpipesAccessed,
+  false
+);
+assert.equal(
+  manualPromoteInconsistentRun.report.productionWritten,
+  false
 );
 
 const manualDetailBlockedState =
@@ -8604,6 +8776,7 @@ const manualFullReconcileScript = fs.readFileSync(
 assert.match(manualFullReconcileScript, /\[switch\]\$PlanOnly/);
 assert.match(manualFullReconcileScript, /\[switch\]\$RebuildState/);
 assert.match(manualFullReconcileScript, /\[switch\]\$RepairState/);
+assert.match(manualFullReconcileScript, /\[switch\]\$PromoteNextBatch/);
 assert.match(
   manualFullReconcileScript,
   /\[ValidateRange\(1,\s*30\)\][\s\S]*\$DetailMax\s*=\s*30/
@@ -8622,7 +8795,15 @@ assert.match(
 );
 assert.match(
   manualFullReconcileScript,
+  /promote-next-batch/
+);
+assert.match(
+  manualFullReconcileScript,
   /State repair: enabled/
+);
+assert.match(
+  manualFullReconcileScript,
+  /Promote next batch: enabled/
 );
 assert.ok(
   manualFullReconcileScript.indexOf("Copy-Item") <

@@ -75,6 +75,14 @@ const DEFAULT_PATHS = {
     ROOT,
     "data/review/smokingpipes-manual-full-reconcile-detail-batch-report.md"
   ),
+  promoteNextBatchJson: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-promote-next-batch-report.json"
+  ),
+  promoteNextBatchMarkdown: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-promote-next-batch-report.md"
+  ),
   stateInconsistencyJson: path.join(
     ROOT,
     "data/review/smokingpipes-manual-full-reconcile-state-inconsistency-report.json"
@@ -1272,6 +1280,330 @@ export function repairManualFullReconcileState({
   };
 }
 
+function candidateListPrice(candidate) {
+  return numericPrice(
+    candidate?.listPrice ||
+      candidate?.price ||
+      candidate?.priceRaw
+  );
+}
+
+function candidatePrimaryImage(candidate) {
+  return text(
+    candidate?.listPrimaryImage ||
+      candidate?.image ||
+      candidate?.imageUrl ||
+      candidate?.mainImage ||
+      candidate?.mainImageUrl
+  );
+}
+
+function candidateRecognizedBrand(candidate) {
+  return text(
+    candidate?.brand ||
+      candidate?.canonicalBrand ||
+      candidate?.listBrand ||
+      candidate?.rawBrand ||
+      candidate?.manualReconcile?.brand
+  );
+}
+
+function candidateHasMissingPriceSignal(candidate) {
+  return /missing[-\s]*price|price\s*(?:missing|unknown|unavailable)/i.test(
+    `${candidate?.lastError || ""} ${candidate?.reviewReason || ""} ${candidate?.manualReconcile?.classification || ""}`
+  );
+}
+
+function candidateHasInventoryConflict(candidate) {
+  return /inventory\s+conflict|detail page says sold/i.test(
+    `${candidate?.lastError || ""} ${candidate?.reviewReason || ""}`
+  );
+}
+
+function isManualPromotableQueuedLaterCandidate(candidate) {
+  return Boolean(
+    (candidate?.changeTypes || []).includes("new-product") &&
+      candidate?.queueDisposition === "queued-later" &&
+      candidate?.detailStatus === "deferred" &&
+      candidate?.publicStatus === "not-public" &&
+      !candidateHasInventoryConflict(candidate)
+  );
+}
+
+function manualPromotePriority(candidate) {
+  const hasValidPrice = Boolean(candidateListPrice(candidate));
+  const hasImage = Boolean(candidatePrimaryImage(candidate));
+  const hasBrand = Boolean(candidateRecognizedBrand(candidate));
+  const missingPrice = candidateHasMissingPriceSignal(candidate);
+  return {
+    hasValidPrice,
+    hasImage,
+    hasBrand,
+    missingPrice,
+    score:
+      Number(hasValidPrice) * 1000 +
+      Number(hasImage) * 100 +
+      Number(hasBrand) * 10 -
+      Number(missingPrice) * 500,
+  };
+}
+
+export function selectManualFullReconcilePromoteCandidates({
+  state,
+  detailMax = 30,
+}) {
+  const cappedDetailMax = Math.min(
+    30,
+    Math.max(1, Number(detailMax) || 30)
+  );
+  return (state?.candidates || [])
+    .filter(isManualPromotableQueuedLaterCandidate)
+    .map((candidate, index) => ({
+      candidate,
+      originalIndex: index,
+      priority: manualPromotePriority(candidate),
+    }))
+    .sort(
+      (left, right) =>
+        right.priority.score - left.priority.score ||
+        Number(left.priority.missingPrice) -
+          Number(right.priority.missingPrice) ||
+        text(left.candidate.listTitle).localeCompare(
+          text(right.candidate.listTitle),
+          "en"
+        ) ||
+        productId(left.candidate).localeCompare(
+          productId(right.candidate),
+          "en"
+        )
+    )
+    .slice(0, cappedDetailMax)
+    .map((item) => item.candidate);
+}
+
+export function buildManualFullReconcilePromoteNextBatchReport({
+  beforeState,
+  afterState,
+  promoted = [],
+  batchLimit = 30,
+  generatedAt = new Date().toISOString(),
+  status = "promoted",
+  beforeConsistency = null,
+  afterConsistency = null,
+  blockers = [],
+} = {}) {
+  const cappedBatchLimit = Math.min(
+    30,
+    Math.max(1, Number(batchLimit) || 30)
+  );
+  const count = (state, predicate) =>
+    (state?.candidates || []).filter(predicate).length;
+  return {
+    version:
+      "smokingpipes-manual-full-reconcile-promote-next-batch-report-v1",
+    source: "smokingpipes",
+    mode: "promote-next-batch",
+    generatedAt,
+    status,
+    batchLimit: cappedBatchLimit,
+    promotedCount: promoted.length,
+    remainingQueuedLaterCount: count(
+      afterState || beforeState,
+      (item) => item.queueDisposition === "queued-later"
+    ),
+    pendingCountAfter: count(
+      afterState || beforeState,
+      (item) =>
+        item.queueDisposition === "eligible-this-batch" &&
+        item.detailStatus === "pending"
+    ),
+    reviewOnlyCount: count(
+      afterState || beforeState,
+      (item) =>
+        item.queueDisposition === "review-only" ||
+        item.detailStatus === "review-only" ||
+        item.publicStatus === "review-only"
+    ),
+    completeCount: count(
+      afterState || beforeState,
+      (item) => item.detailStatus === "complete"
+    ),
+    beforeCounts: beforeConsistency?.counts || null,
+    afterCounts: afterConsistency?.counts || null,
+    promotedSourceProductIds: promoted.map(productId),
+    promotedItems: promoted.map((item) => {
+      const priority = manualPromotePriority(item);
+      return {
+        sourceProductId: productId(item),
+        sourceUrl: text(item.sourceUrl),
+        title: text(item.listTitle),
+        listPrice: text(item.listPrice),
+        hasValidPrice: priority.hasValidPrice,
+        hasImage: priority.hasImage,
+        hasBrand: priority.hasBrand,
+        missingPrice: priority.missingPrice,
+        score: priority.score,
+      };
+    }),
+    blockers,
+    smokingpipesAccessed: false,
+    productionWritten: false,
+  };
+}
+
+export function promoteManualFullReconcileNextBatch({
+  state,
+  detailMax = 30,
+  now = new Date().toISOString(),
+} = {}) {
+  const beforeConsistency =
+    buildManualFullReconcileStateConsistencyReport({
+      state,
+      generatedAt: now,
+    });
+  if (!beforeConsistency.canFetchDetailBatch) {
+    const report =
+      buildManualFullReconcilePromoteNextBatchReport({
+        beforeState: state,
+        afterState: state,
+        promoted: [],
+        batchLimit: detailMax,
+        generatedAt: now,
+        status: "state-inconsistent",
+        beforeConsistency,
+        afterConsistency: beforeConsistency,
+        blockers: beforeConsistency.blockers,
+      });
+    return {
+      status: "state-inconsistent",
+      state,
+      report,
+      consistency: beforeConsistency,
+      productionWritten: false,
+    };
+  }
+  const validation = validateProgressiveDailyState(state);
+  if (!validation.valid) {
+    throw Object.assign(
+      new Error(
+        `Manual PromoteNextBatch blocked by invalid state: ${validation.errors.join("; ")}`
+      ),
+      {
+        code: "MANUAL_RECONCILE_STATE_INVALID",
+        errors: validation.errors,
+      }
+    );
+  }
+  const cappedDetailMax = Math.min(
+    30,
+    Math.max(1, Number(detailMax) || 30)
+  );
+  const next = structuredClone(state);
+  const selected = selectManualFullReconcilePromoteCandidates({
+    state: next,
+    detailMax: cappedDetailMax,
+  });
+  const selectedIds = new Set(selected.map(productId));
+  for (const candidate of next.candidates || []) {
+    if (!selectedIds.has(productId(candidate))) continue;
+    candidate.queueDisposition = "eligible-this-batch";
+    candidate.detailStatus = "pending";
+    candidate.publicStatus = "not-public";
+    candidate.detail = null;
+    candidate.convertedProduct = null;
+    candidate.lastError = null;
+    candidate.reviewReason = null;
+    candidate.nextEligibleAt = null;
+    candidate.manualReconcile = {
+      ...(candidate.manualReconcile || {}),
+      classification: "promoted-next-batch",
+      promotedAt: now,
+    };
+  }
+  next.updatedAt = now;
+  next.manualFullReconcile = {
+    ...(next.manualFullReconcile || {}),
+    mode: "promote-next-batch",
+    promoteNextBatch: {
+      promotedAt: now,
+      detailMax: cappedDetailMax,
+      promotedSourceProductIds: [...selectedIds],
+      smokingpipesAccessed: false,
+      productionWritten: false,
+    },
+    allowProductionApply: false,
+    allowDailyTaskResume: false,
+  };
+  next.latestRun = {
+    runId: next.dailyRunId,
+    mode: "manual-full-reconcile-promote-next-batch",
+    finishedAt: now,
+    selected: selected.length,
+    attempted: 0,
+    completedThisRun: 0,
+    failedThisRun: 0,
+    blockedReason: null,
+    recommendedNextRunAt: null,
+    productionWritten: false,
+  };
+  next.productionWritten = false;
+  next.summary = buildProgressiveStateSummary(next, now);
+  const afterConsistency =
+    buildManualFullReconcileStateConsistencyReport({
+      state: next,
+      generatedAt: now,
+    });
+  if (!afterConsistency.canFetchDetailBatch) {
+    const report =
+      buildManualFullReconcilePromoteNextBatchReport({
+        beforeState: state,
+        afterState: next,
+        promoted: selected,
+        batchLimit: cappedDetailMax,
+        generatedAt: now,
+        status: "state-inconsistent",
+        beforeConsistency,
+        afterConsistency,
+        blockers: afterConsistency.blockers,
+      });
+    return {
+      status: "state-inconsistent",
+      state,
+      report,
+      consistency: afterConsistency,
+      productionWritten: false,
+    };
+  }
+  const nextValidation = validateProgressiveDailyState(next);
+  if (!nextValidation.valid) {
+    throw new Error(
+      `Manual PromoteNextBatch produced invalid state: ${nextValidation.errors.join("; ")}`
+    );
+  }
+  const report =
+    buildManualFullReconcilePromoteNextBatchReport({
+      beforeState: state,
+      afterState: next,
+      promoted: selected,
+      batchLimit: cappedDetailMax,
+      generatedAt: now,
+      status: selected.length
+        ? "promoted"
+        : "no-queued-later-candidates",
+      beforeConsistency,
+      afterConsistency,
+    });
+  return {
+    status: selected.length
+      ? "batch-promoted"
+      : "no-queued-later-candidates",
+    state: next,
+    report,
+    consistency: afterConsistency,
+    productionWritten: false,
+  };
+}
+
 function countManualDetailStatus(state, predicate) {
   return (state?.candidates || []).filter(predicate).length;
 }
@@ -1309,6 +1641,8 @@ export function buildManualFullReconcileDetailBatchReport({
   productionWritten = false,
   browser = {},
   stateConsistency = null,
+  blockers = [],
+  nextStep = null,
 }) {
   const cappedBatchLimit = Math.min(
     30,
@@ -1377,6 +1711,8 @@ export function buildManualFullReconcileDetailBatchReport({
       browser,
     }),
     stateConsistency,
+    blockers,
+    nextStep,
     items,
   };
 }
@@ -1444,6 +1780,12 @@ export async function runSmokingpipesManualFetchDetailBatch({
     state: next,
     detailMax: cappedDetailMax,
   });
+  const promoteRequired =
+    selected.length === 0 &&
+    consistency.counts.pending === 0 &&
+    consistency.counts.queuedLater > 0;
+  const promoteRequiredMessage =
+    "当前没有待抓详情，但仍有 queued-later 商品。请先运行 PromoteNextBatch。";
   const attemptedResults = [];
   let blockedReason = null;
   let recommendedNextRunAt = null;
@@ -1605,13 +1947,21 @@ export async function runSmokingpipesManualFetchDetailBatch({
         state: next,
         generatedAt: next.latestRun.finishedAt,
       }),
+    blockers: promoteRequired
+      ? [promoteRequiredMessage]
+      : [],
+    nextStep: promoteRequired
+      ? "Run PromoteNextBatch before FetchDetailBatch."
+      : null,
   });
   return {
     status: blockedReason
       ? "blocked"
       : attemptedResults.length
         ? "batch-complete"
-        : "no-eligible-candidates",
+        : promoteRequired
+          ? "promote-next-batch-required"
+          : "no-eligible-candidates",
     state: next,
     report,
     productionWritten: false,
@@ -1623,19 +1973,22 @@ function detailBatchMarkdown(report) {
     ? report.items
         .map(
           (item) =>
-            `- ${item.sourceProductId}: ${item.detailStatus} / ${item.publicStatus || "not-public"}${item.error ? ` — ${item.error}` : ""}`
+            `- ${item.sourceProductId}: ${item.detailStatus} / ${item.publicStatus || "not-public"}${item.error ? ` - ${item.error}` : ""}`
         )
         .join("\n")
     : "- none";
   const blocked = report.blockedManualAction
     ? [
-        `- 验证对象: ${report.blockedManualAction.object}`,
-        `- 验证位置: ${report.blockedManualAction.location}`,
+        `- verificationObject: ${report.blockedManualAction.object}`,
+        `- verificationLocation: ${report.blockedManualAction.location}`,
         `- 浏览器: ${report.blockedManualAction.browser}`,
-        `- 验证页面: ${report.blockedManualAction.page}`,
-        `- 下一步: ${report.blockedManualAction.nextStep}`,
+        `- verificationPage: ${report.blockedManualAction.page}`,
+        `- nextStep: ${report.blockedManualAction.nextStep}`,
       ].join("\n")
     : "- 无";
+  const blockers = report.blockers?.length
+    ? report.blockers.map((item) => `- ${item}`).join("\n")
+    : "- none";
   return `# Smokingpipes Manual Full Reconcile Detail Batch Report
 
 - batchLimit: ${report.batchLimit}
@@ -1649,6 +2002,14 @@ function detailBatchMarkdown(report) {
 - smokingpipesAccessed: ${report.smokingpipesAccessed}
 - productionWritten: ${report.productionWritten}
 
+## Blockers
+
+${blockers}
+
+## Next Step
+
+${report.nextStep || "none"}
+
 ## Blocked Manual Action
 
 ${blocked}
@@ -1656,6 +2017,41 @@ ${blocked}
 ## Items
 
 ${items}
+`;
+}
+
+function promoteNextBatchMarkdown(report) {
+  const blockers = report.blockers.length
+    ? report.blockers.map((item) => `- ${item}`).join("\n")
+    : "- none";
+  const promoted = report.promotedItems.length
+    ? report.promotedItems
+        .map(
+          (item) =>
+            `- ${item.sourceProductId}: ${item.title || "(untitled)"} / ${item.listPrice || "price unknown"} / image=${item.hasImage} / brand=${item.hasBrand}`
+        )
+        .join("\n")
+    : "- none";
+  return `# Smokingpipes Manual Full Reconcile Promote Next Batch Report
+
+- status: ${report.status}
+- generatedAt: ${report.generatedAt}
+- batchLimit: ${report.batchLimit}
+- promotedCount: ${report.promotedCount}
+- remainingQueuedLaterCount: ${report.remainingQueuedLaterCount}
+- pendingCountAfter: ${report.pendingCountAfter}
+- reviewOnlyCount: ${report.reviewOnlyCount}
+- completeCount: ${report.completeCount}
+- smokingpipesAccessed: false
+- productionWritten: false
+
+## Blockers
+
+${blockers}
+
+## Promoted Source Product IDs
+
+${promoted}
 `;
 }
 
@@ -2029,6 +2425,14 @@ async function writeDetailBatchReport(report) {
   );
 }
 
+async function writePromoteNextBatchReport(report) {
+  await writeJsonAtomic(DEFAULT_PATHS.promoteNextBatchJson, report);
+  await writeTextAtomic(
+    DEFAULT_PATHS.promoteNextBatchMarkdown,
+    `\ufeff${promoteNextBatchMarkdown(report)}`
+  );
+}
+
 async function writeStateConsistencyReport(report) {
   await writeJsonAtomic(DEFAULT_PATHS.stateInconsistencyJson, report);
   await writeTextAtomic(
@@ -2053,6 +2457,7 @@ async function main(argv = process.argv.slice(2)) {
       "rebuild-state",
       "fetch-detail-batch",
       "repair-state",
+      "promote-next-batch",
     ].includes(
       options.mode
     )
@@ -2060,6 +2465,73 @@ async function main(argv = process.argv.slice(2)) {
     throw new Error(
       `Unsupported offline manual reconcile mode: ${options.mode}`
     );
+  }
+  if (options.mode === "promote-next-batch") {
+    if (!fs.existsSync(DEFAULT_PATHS.state)) {
+      throw new Error(
+        `Manual PromoteNextBatch requires an existing state: ${DEFAULT_PATHS.state}`
+      );
+    }
+    const result = promoteManualFullReconcileNextBatch({
+      state: readJson(DEFAULT_PATHS.state),
+      detailMax: options.detailMax,
+    });
+    if (result.status === "state-inconsistent") {
+      await writeStateConsistencyReport(result.consistency);
+      await writePromoteNextBatchReport(result.report);
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: options.mode,
+            blockers: result.report.blockers,
+            counts: result.consistency.counts,
+            smokingpipesAccessed: false,
+            productionWritten: false,
+            promoteReportJson: path.relative(
+              ROOT,
+              DEFAULT_PATHS.promoteNextBatchJson
+            ),
+            inconsistencyReportJson: path.relative(
+              ROOT,
+              DEFAULT_PATHS.stateInconsistencyJson
+            ),
+          },
+          null,
+          2
+        )
+      );
+      return;
+    }
+    await writeProgressiveDailyState(
+      DEFAULT_PATHS.state,
+      result.state
+    );
+    await writePromoteNextBatchReport(result.report);
+    console.log(
+      JSON.stringify(
+        {
+          status: result.status,
+          mode: options.mode,
+          batchLimit: result.report.batchLimit,
+          promotedCount: result.report.promotedCount,
+          remainingQueuedLaterCount:
+            result.report.remainingQueuedLaterCount,
+          pendingCountAfter: result.report.pendingCountAfter,
+          reviewOnlyCount: result.report.reviewOnlyCount,
+          completeCount: result.report.completeCount,
+          smokingpipesAccessed: false,
+          productionWritten: false,
+          promoteReportJson: path.relative(
+            ROOT,
+            DEFAULT_PATHS.promoteNextBatchJson
+          ),
+        },
+        null,
+        2
+      )
+    );
+    return;
   }
   if (options.mode === "repair-state") {
     if (!fs.existsSync(DEFAULT_PATHS.state)) {
