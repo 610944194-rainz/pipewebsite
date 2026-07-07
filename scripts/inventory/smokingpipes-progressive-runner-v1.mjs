@@ -581,13 +581,21 @@ export function evaluateProgressiveProductionApplyGate({
     if (value !== 0) blockers.push(`${key}=${value}`);
   }
   const candidateCount = Number(
-    audit?.candidateCount ?? preview?.wouldApplyCount ?? 0
+    audit?.candidateCount ??
+      preview?.candidateCount ??
+      preview?.wouldApplyCount ??
+      0
   );
-  const wouldApplyCount = Number(
-    audit?.wouldApplyCount ?? preview?.wouldApplyCount ?? 0
+  const previewWouldApplyCount = Number(preview?.wouldApplyCount || 0);
+  const auditWouldApplyCount = Number(
+    audit?.wouldApplyCount ?? previewWouldApplyCount
   );
+  const wouldApplyCount = previewWouldApplyCount;
   if (!(candidateCount > 0)) {
     blockers.push("candidateCount must be greater than 0");
+  }
+  if (!(previewWouldApplyCount > 0)) {
+    blockers.push("preview wouldApplyCount must be greater than 0");
   }
   const applyGap = audit?.applyGap || null;
   const gapCount = Number(applyGap?.gapCount || 0);
@@ -630,9 +638,9 @@ export function evaluateProgressiveProductionApplyGate({
   ) {
     blockers.push("apply gap is not approved for safe subset apply");
   }
-  if (wouldApplyCount !== Number(preview?.wouldApplyCount || 0)) {
+  if (auditWouldApplyCount !== previewWouldApplyCount) {
     blockers.push(
-      `audit wouldApplyCount ${wouldApplyCount} does not match preview wouldApplyCount ${preview?.wouldApplyCount || 0}`
+      `audit wouldApplyCount ${auditWouldApplyCount} does not match preview wouldApplyCount ${previewWouldApplyCount}`
     );
   }
   if (preview?.status !== "preview-ready") {
@@ -713,6 +721,265 @@ export function buildSafeSubsetProductionProducts({
   return merged;
 }
 
+
+function textValue(value) {
+  return String(value ?? "").trim();
+}
+
+function relativeToRoot(root, filePath) {
+  return path.relative(root, filePath).replaceAll("\\", "/");
+}
+
+function countByValue(rows, getter) {
+  const counts = {};
+  for (const row of rows || []) {
+    const key = textValue(getter(row)) || "(empty)";
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return counts;
+}
+
+function duplicateValues(rows, getter) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const row of rows || []) {
+    const value = textValue(getter(row));
+    if (!value) continue;
+    if (seen.has(value)) duplicates.add(value);
+    seen.add(value);
+  }
+  return [...duplicates].sort();
+}
+
+function backupFileIfExists({ root, backupDir, sourcePath, targetRelativePath }) {
+  if (!fs.existsSync(sourcePath)) return null;
+  const targetPath = path.join(backupDir, targetRelativePath);
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  fs.copyFileSync(sourcePath, targetPath);
+  return relativeToRoot(root, targetPath);
+}
+
+function backupDirectoryIfExists({ root, backupDir, sourcePath, targetRelativePath }) {
+  if (!fs.existsSync(sourcePath)) return null;
+  const targetPath = path.join(backupDir, targetRelativePath);
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  fs.cpSync(sourcePath, targetPath, { recursive: true });
+  return relativeToRoot(root, targetPath);
+}
+
+
+function assertMockProductionPathsAreIsolated(paths, options) {
+  if (!options?.mock) return;
+
+  const mockRoot = path.resolve(
+    paths.root,
+    ".cache",
+    "inventory-v1",
+    "mock"
+  );
+  const checkedPaths = {
+    existingProducts: paths.existingProducts,
+    unifiedProductsStaging: paths.unifiedProductsStaging,
+    backupRoot: paths.backupRoot,
+    productionPublicRoot: paths.productionPublicRoot,
+  };
+
+  const unsafe = Object.entries(checkedPaths)
+    .filter(([, value]) => value)
+    .filter(([, value]) => {
+      const resolved = path.resolve(value);
+      return resolved !== mockRoot && !resolved.startsWith(mockRoot + path.sep);
+    })
+    .map(([key, value]) => `${key}: ${value}`);
+
+  if (unsafe.length) {
+    throw Object.assign(
+      new Error(
+        `Mock production write paths are not isolated under .cache: ${unsafe.join("; ")}`
+      ),
+      {
+        code: "MOCK_PRODUCTION_PATH_NOT_ISOLATED",
+        unsafePaths: unsafe,
+      }
+    );
+  }
+}
+function createProgressiveProductionBackup(paths) {
+  const backupDir = path.join(
+    paths.backupRoot || path.join(paths.root, "data", "backups"),
+    `smokingpipes-progressive-production-apply-${formatRunId()}`
+  );
+
+  const files = [
+    backupFileIfExists({
+      root: paths.root,
+      backupDir,
+      sourcePath: paths.existingProducts,
+      targetRelativePath: path.join(
+        "data",
+        "products",
+        "smokingpipes-products.before.json"
+      ),
+    }),
+    backupFileIfExists({
+      root: paths.root,
+      backupDir,
+      sourcePath: paths.unifiedProductsStaging,
+      targetRelativePath: path.join(
+        "data",
+        "products",
+        "unified-products-staging.before.json"
+      ),
+    }),
+    backupDirectoryIfExists({
+      root: paths.root,
+      backupDir,
+      sourcePath: paths.productionPublicRoot,
+      targetRelativePath: path.join(
+        "data",
+        "generated",
+        "public-products.before"
+      ),
+    }),
+  ].filter(Boolean);
+
+  return {
+    backupDir: relativeToRoot(paths.root, backupDir),
+    files,
+  };
+}
+
+function summarizeSmokingpipesProducts(products) {
+  return {
+    total: (products || []).length,
+    inventoryStatus: countByValue(
+      products,
+      (product) => product.inventoryStatus || product.inventory?.status
+    ),
+    duplicateIds: duplicateValues(products, (product) => product.id),
+    duplicateSourceProductIds: duplicateValues(products, sourceProductId),
+    duplicateSourceUrls: duplicateValues(
+      products,
+      (product) => product.sourceUrl
+    ),
+  };
+}
+
+function summarizePublicPayloads(publicPayloads) {
+  const catalog = items(publicPayloads?.catalog);
+  return {
+    total: catalog.length,
+    bySource: countByValue(catalog, (product) => product.source),
+    byInventoryStatus: countByValue(
+      catalog,
+      (product) => product.inventoryStatus || product.inventory?.status
+    ),
+    duplicateIds: duplicateValues(catalog, (product) => product.id),
+    duplicateSourceProductKeys: duplicateValues(
+      catalog,
+      (product) => `${product.source || ""}:${sourceProductId(product)}`
+    ),
+  };
+}
+
+function validateProgressiveProductionWrite({
+  productionBefore = [],
+  productionAfter = [],
+  publicPayloads = {},
+  preview = {},
+}) {
+  const blockers = [];
+  const warnings = [];
+  const productionBeforeSummary =
+    summarizeSmokingpipesProducts(productionBefore);
+  const productionAfterSummary =
+    summarizeSmokingpipesProducts(productionAfter);
+  const publicCatalog = summarizePublicPayloads(publicPayloads);
+  const appliedIds = [
+    ...new Set((preview.wouldApplyProductIds || []).map(String).filter(Boolean)),
+  ].sort();
+
+  const publicSmokingpipesIds = new Set(
+    items(publicPayloads.catalog)
+      .filter((product) => product.source === "smokingpipes")
+      .map(sourceProductId)
+      .filter(Boolean)
+  );
+  const appliedIdsMissingFromPublicCatalog = appliedIds.filter(
+    (id) => !publicSmokingpipesIds.has(id)
+  );
+
+  if (productionAfterSummary.total <= 0) {
+    blockers.push("productionAfter is empty");
+  }
+  if (productionAfterSummary.duplicateIds.length) {
+    blockers.push(
+      `duplicate production ids: ${productionAfterSummary.duplicateIds
+        .slice(0, 10)
+        .join(", ")}`
+    );
+  }
+  if (productionAfterSummary.duplicateSourceProductIds.length) {
+    blockers.push(
+      `duplicate production sourceProductIds: ${productionAfterSummary.duplicateSourceProductIds
+        .slice(0, 10)
+        .join(", ")}`
+    );
+  }
+  if (productionAfterSummary.duplicateSourceUrls.length) {
+    blockers.push(
+      `duplicate production sourceUrls: ${productionAfterSummary.duplicateSourceUrls
+        .slice(0, 10)
+        .join(", ")}`
+    );
+  }
+  if (publicCatalog.total <= 0) {
+    blockers.push("public catalog is empty");
+  }
+  if (publicCatalog.duplicateIds.length) {
+    blockers.push(
+      `duplicate public ids: ${publicCatalog.duplicateIds
+        .slice(0, 10)
+        .join(", ")}`
+    );
+  }
+  if (publicCatalog.duplicateSourceProductKeys.length) {
+    blockers.push(
+      `duplicate public sourceProduct keys: ${publicCatalog.duplicateSourceProductKeys
+        .slice(0, 10)
+        .join(", ")}`
+    );
+  }
+
+  const manifestPublicCount = Number(
+    publicPayloads?.manifest?.publicProductCount
+  );
+  if (
+    Number.isFinite(manifestPublicCount) &&
+    manifestPublicCount !== publicCatalog.total
+  ) {
+    blockers.push(
+      `manifest publicProductCount ${manifestPublicCount} does not match catalog ${publicCatalog.total}`
+    );
+  }
+
+  if (appliedIdsMissingFromPublicCatalog.length) {
+    warnings.push(
+      `${appliedIdsMissingFromPublicCatalog.length} applied ids are not present in public catalog`
+    );
+  }
+
+  return {
+    status: blockers.length ? "failed" : "passed",
+    blockers,
+    warnings,
+    productionBefore: productionBeforeSummary,
+    productionAfter: productionAfterSummary,
+    publicCatalog,
+    appliedIds,
+    appliedIdsMissingFromPublicCatalog,
+  };
+}
 async function writeProductionPublicCandidate(
   paths,
   publicPayloads
@@ -1173,6 +1440,7 @@ export async function runSmokingpipesProgressiveMode({
       candidateProducts,
     });
     if (options.writeProduction) {
+      assertMockProductionPathsAreIsolated(paths, options);
       const publicNext = readProgressivePublicNext(paths);
       const gate = evaluateProgressiveProductionApplyGate({
         audit,
@@ -1191,6 +1459,7 @@ export async function runSmokingpipesProgressiveMode({
           candidateCount: gate.candidateCount,
           wouldApplyCount: gate.wouldApplyCount,
           blockers: gate.blockers,
+          blockedReason: gate.blockers.join("; "),
           wouldApplyProductIds:
             preview.wouldApplyProductIds || [],
           applyGap: gate.applyGap,
@@ -1232,9 +1501,62 @@ export async function runSmokingpipesProgressiveMode({
           wouldApplyProductIds:
             preview.wouldApplyProductIds || [],
         });
+      const danishProducts = options.mock
+        ? []
+        : items(readJsonIfExists(paths.danishProducts, []));
+      const unifiedRows = buildUnifiedProductsFromInputs({
+        danishProducts,
+        smokingpipesProducts: productionSafeSubset,
+      });
+      const postApplyValidation = validateProgressiveProductionWrite({
+        productionBefore: productionProducts,
+        productionAfter: productionSafeSubset,
+        publicPayloads: publicNext.payloads,
+        preview,
+      });
+      if (postApplyValidation.blockers.length) {
+        const blocked = {
+          version:
+            "smokingpipes-progressive-partial-apply-preview-v1",
+          generatedAt: new Date().toISOString(),
+          status: "apply-blocked",
+          candidateCount: gate.candidateCount,
+          wouldApplyCount: gate.wouldApplyCount,
+          blockers: postApplyValidation.blockers,
+          blockedReason: postApplyValidation.blockers.join("; "),
+          warnings: postApplyValidation.warnings,
+          wouldApplyProductIds:
+            preview.wouldApplyProductIds || [],
+          applyGap: gate.applyGap,
+          isolatedCandidateCount:
+            gate.isolatedCandidateCount,
+          postApplyValidation,
+          productionWritten: false,
+          commitPerformed: false,
+          pushPerformed: false,
+        };
+        await writeJsonAtomic(
+          paths.progressiveApplyPreview,
+          blocked
+        );
+        await writeProgressiveReport(
+          paths,
+          makeReport({
+            mode: options.mode,
+            state,
+            result: blocked,
+          })
+        );
+        return blocked;
+      }
+      const backup = createProgressiveProductionBackup(paths);
       await writeJsonAtomic(
         paths.existingProducts,
         productionSafeSubset
+      );
+      await writeJsonAtomic(
+        paths.unifiedProductsStaging,
+        unifiedRows
       );
       await writeProductionPublicCandidate(
         paths,
@@ -1248,12 +1570,20 @@ export async function runSmokingpipesProgressiveMode({
         candidateCount: gate.candidateCount,
         wouldApplyCount: gate.wouldApplyCount,
         partialAppliedCount: gate.wouldApplyCount,
+        appliedCount: gate.wouldApplyCount,
         wouldApplyProductIds: preview.wouldApplyProductIds,
         safeSubsetApply: gate.safeSubsetApply,
         isolatedCandidateCount:
           gate.isolatedCandidateCount,
         applyGap: gate.applyGap,
         productionWritten: true,
+        publicCatalogWritten: true,
+        unifiedProductsStagingWritten: true,
+        backup,
+        postApplyValidation,
+        productionBeforeCount: productionProducts.length,
+        productionAfterCount: productionSafeSubset.length,
+        publicCatalogAfterCount: postApplyValidation.publicCatalog.total,
         commitPerformed: false,
         pushPerformed: false,
       };

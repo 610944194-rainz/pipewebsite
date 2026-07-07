@@ -563,17 +563,24 @@ export function getRunnerPaths(root, options = {}) {
     ),
     recentNew: path.join(inventoryRoot, "recent-new-dry-run.json"),
     existingProducts: path.join(
-      root,
+      base,
       "data",
       "products",
       "smokingpipes-products.json"
     ),
     danishProducts: path.join(
-      root,
+      base,
       "data",
       "products",
       "danish-products.json"
     ),
+    unifiedProductsStaging: path.join(
+      base,
+      "data",
+      "products",
+      "unified-products-staging.json"
+    ),
+    backupRoot: path.join(base, "data", "backups"),
     detailCaches: [
       path.join(root, "data", "raw", "smokingpipes-details-new-final.json"),
       path.join(root, "data", "raw", "smokingpipes-details-new.json"),
@@ -715,7 +722,7 @@ export function getRunnerPaths(root, options = {}) {
       "public-products-partial-next"
     ),
     productionPublicRoot: path.join(
-      root,
+      base,
       "data",
       "generated",
       "public-products"
