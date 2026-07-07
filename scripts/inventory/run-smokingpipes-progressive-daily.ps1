@@ -5,7 +5,9 @@
   [switch]$AllowStaleCurrentListCache,
   [switch]$AllowDuplicateDedupe,
   [switch]$ResumeFromCachedList,
-  [switch]$LockCurrentListSnapshotUntilComplete
+  [switch]$LockCurrentListSnapshotUntilComplete,
+  [switch]$SafeBootstrap,
+  [switch]$NoProductionWrite
 )
 
 $ErrorActionPreference = "Stop"
@@ -38,6 +40,7 @@ $AllowStaleCurrentListCacheEffective = $false
 $AllowDuplicateDedupeEffective = $false
 $ResumeFromCachedListEffective = $false
 $LockCurrentListSnapshotUntilCompleteEffective = $false
+$NoProductionWriteEffective = $false
 $LastInventoryNodeResult = $null
 $LastInventoryNodeOutput = @()
 $DetailPhaseStatus = $null
@@ -161,6 +164,10 @@ function Resolve-ManualRecoveryOptions {
     [bool]$AllowDuplicateDedupe -or
     (Test-TruthyEnvFlag -Name "YAN_DOUBUY_ALLOW_DUPLICATE_DEDUPE") -or
     ($dailyTaskState.cachedListResume.allowDuplicateDedupe -eq $true)
+  $script:NoProductionWriteEffective =
+    [bool]$NoProductionWrite -or
+    [bool]$SafeBootstrap -or
+    (Test-TruthyEnvFlag -Name "YANDOUBUY_SMOKINGPIPES_DAILY_NO_PRODUCTION_WRITE")
 
   if ($script:PreflightOnlyEffective) {
     Write-DailyLog "manual recovery option enabled: PreflightOnly"
@@ -192,6 +199,10 @@ function Resolve-ManualRecoveryOptions {
 
   if ($script:LockCurrentListSnapshotUntilCompleteEffective) {
     Write-DailyLog "manual recovery option enabled: LockCurrentListSnapshotUntilComplete"
+  }
+
+  if ($script:NoProductionWriteEffective) {
+    Write-DailyLog "safe bootstrap mode enabled: no production write"
   }
 }
 
@@ -290,6 +301,7 @@ function Write-DailyTaskState {
     [bool]$ProductionWritten = $false,
     [int]$AppliedCount = 0,
     [int]$CandidateCount = 0,
+    [int]$WouldApplyCount = 0,
     [int]$IsolatedCandidateCount = 0,
     [string]$FailureReason = $null,
     [string]$FailureType = $null,
@@ -322,6 +334,7 @@ function Write-DailyTaskState {
     productionWritten = $ProductionWritten
     appliedCount = $AppliedCount
     candidateCount = $CandidateCount
+    wouldApplyCount = $WouldApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
     nextRetryRecommendedAt = $NextRetryRecommendedAt
     retryAllowed = $RetryAllowed
@@ -1431,6 +1444,26 @@ try {
 
   if ($prepareApplyReady) {
     Write-DailyLog "progressive prepare apply gate ready candidateCount=$prepareCandidateCount wouldApplyCount=$prepareWouldApplyCount isolatedCandidateCount=$prepareIsolatedCandidateCount"
+    if ($script:NoProductionWriteEffective -eq $true) {
+      Write-DailyLog "safe bootstrap mode: production write skipped"
+      Write-DailyTaskState `
+        -Status "safe-bootstrap-complete" `
+        -Attempts $attempts `
+        -ProductionWritten $false `
+        -AppliedCount 0 `
+        -CandidateCount $prepareCandidateCount `
+        -WouldApplyCount $prepareWouldApplyCount `
+        -IsolatedCandidateCount $prepareIsolatedCandidateCount `
+        -FailureReason "安全首跑完成：已生成候选、audit、preview 和 gate report，未写 production，等待人工确认。" `
+        -FailureType "safe-bootstrap" `
+        -RetryAllowed $false `
+        -DetailPhaseStatus $script:DetailPhaseStatus `
+        -CachedListResume $script:CachedListResumeState
+      Send-MobileReport
+      Write-DailyLog "DAILY TASK SAFE BOOTSTRAP COMPLETE"
+      exit 0
+    }
+
     if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-partial-apply")) {
       Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
       exit 0

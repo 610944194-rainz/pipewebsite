@@ -7835,6 +7835,48 @@ assert.deepEqual(
 );
 assert.equal(resolvePushDeerPushKey({}).key, "");
 
+const safeBootstrapMobileReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-07-08T10:30:00.000+08:00",
+  taskState: {
+    source: "smokingpipes",
+    dateKey: "2026-07-08",
+    status: "safe-bootstrap-complete",
+    attempts: 1,
+    productionWritten: false,
+    appliedCount: 0,
+    candidateCount: 5,
+    wouldApplyCount: 5,
+    isolatedCandidateCount: 0,
+    retryAllowed: false,
+    lastFailureReason:
+      "安全首跑完成：已生成候选、audit、preview 和 gate report，未写 production，等待人工确认。",
+    lastFailureType: "safe-bootstrap",
+  },
+  state: {
+    source: "smokingpipes",
+    listSnapshotStatus: "complete",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 5,
+    wouldApplyCount: 5,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+    counts: {},
+  },
+});
+assert.equal(safeBootstrapMobileReport.status, "safe-bootstrap-complete");
+assert.match(safeBootstrapMobileReport.statusLabel, /安全首跑完成/);
+const safeBootstrapMobileMessage = buildPushDeerDailyMessage(
+  safeBootstrapMobileReport
+);
+assert.match(safeBootstrapMobileMessage.body, /安全首跑完成/);
+assert.match(safeBootstrapMobileMessage.body, /production/);
+
 const missingPushKeyResult = await sendPushDeerNotification({
   title: "烟斗派库存日报｜Smokingpipes",
   body: "状态：成功",
@@ -9756,10 +9798,16 @@ assert.match(dailyTaskScript, /\[switch\]\$AllowStaleCurrentListCache/);
 assert.match(dailyTaskScript, /\[switch\]\$AllowDuplicateDedupe/);
 assert.match(dailyTaskScript, /\[switch\]\$ResumeFromCachedList/);
 assert.match(dailyTaskScript, /\[switch\]\$LockCurrentListSnapshotUntilComplete/);
+assert.match(dailyTaskScript, /\[switch\]\$SafeBootstrap/);
+assert.match(dailyTaskScript, /\[switch\]\$NoProductionWrite/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_FORCE_RUN_ONCE/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_SKIP_CURRENT_LIST/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_ALLOW_STALE_CURRENT_LIST_CACHE/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_RESUME_FROM_CACHED_LIST/);
+assert.match(
+  dailyTaskScript,
+  /YANDOUBUY_SMOKINGPIPES_DAILY_NO_PRODUCTION_WRITE/
+);
 assert.match(
   dailyTaskScript,
   /YAN_DOUBUY_LOCK_CURRENT_LIST_SNAPSHOT_UNTIL_COMPLETE/
@@ -9832,6 +9880,32 @@ assert.match(dailyTaskScript, /skipped-success/);
 assert.match(dailyTaskScript, /AddHours\(-4\)|LockStaleHours\s*=\s*4/);
 assert.match(dailyTaskScript, /nextRetryRecommendedAt/);
 assert.match(dailyTaskScript, /progressive-detail-max=30/);
+const safeBootstrapBranch = dailyTaskScript.match(
+  /if \(\$script:NoProductionWriteEffective -eq \$true\) \{[\s\S]*?^\s*\}/m
+)?.[0];
+assert.ok(safeBootstrapBranch, "safe bootstrap branch must exist");
+assert.match(
+  safeBootstrapBranch,
+  /safe bootstrap mode: production write skipped/
+);
+assert.match(safeBootstrapBranch, /-Status "safe-bootstrap-complete"/);
+assert.match(safeBootstrapBranch, /-ProductionWritten \$false/);
+assert.match(safeBootstrapBranch, /-CandidateCount \$prepareCandidateCount/);
+assert.match(
+  safeBootstrapBranch,
+  /-IsolatedCandidateCount \$prepareIsolatedCandidateCount/
+);
+assert.doesNotMatch(safeBootstrapBranch, /--write-production/);
+assert.doesNotMatch(
+  safeBootstrapBranch,
+  /StepName "progressive-partial-apply"/
+);
+assert.ok(
+  dailyTaskScript.indexOf(
+    'if ($script:NoProductionWriteEffective -eq $true)'
+  ) <
+    dailyTaskScript.indexOf('StepName "progressive-partial-apply"')
+);
 assert.match(
   dailyTaskScript,
   /smokingpipes-daily-mobile-report-v1\.mjs[\s\S]*--send/

@@ -266,6 +266,7 @@ function normalizeTaskStatus(taskState) {
     "retryable-failed",
     "terminal-failed",
     "skipped-success",
+    "safe-bootstrap-complete",
     "running",
   ]);
 
@@ -325,6 +326,10 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
 
   if (taskStatus === "skipped-success") {
     return "skipped-success";
+  }
+
+  if (taskStatus === "safe-bootstrap-complete") {
+    return "safe-bootstrap-complete";
   }
 
   if (
@@ -649,6 +654,8 @@ function statusLabelV2(status) {
   if (status === "success") return "已更新";
   if (status === "preview") return "未更新，仅生成预览";
   if (status === "noop") return "无可更新";
+  if (status === "safe-bootstrap-complete")
+    return "安全首跑完成，等待人工确认";
   return status || "未知";
 }
 
@@ -700,6 +707,10 @@ function deriveReasonV2({
 
   if (status === "skipped-success") {
     return "今天已经成功更新，后续重复触发已跳过。";
+  }
+
+  if (status === "safe-bootstrap-complete") {
+    return "安全首跑完成：已生成候选、audit、preview 和 gate report，未写 production，等待人工确认。";
   }
 
   if (status === "blocked") {
@@ -782,6 +793,10 @@ function deriveNextStepV2({ status, failureType = null, cachedListResume = null 
     return "无需处理。";
   }
 
+  if (status === "safe-bootstrap-complete") {
+    return "人工检查 audit / preview / gate report；确认无误后再决定是否执行正式写入。";
+  }
+
   if (status === "blocked") {
     return "请在电脑上完成 Smokingpipes 验证，之后重新运行每日任务。";
   }
@@ -808,6 +823,8 @@ function statusLabel(status) {
   if (status === "success") return "已更新";
   if (status === "preview") return "未更新，仅生成预览";
   if (status === "noop") return "无可更新";
+  if (status === "safe-bootstrap-complete")
+    return "安全首跑完成，等待人工确认";
   return status || "未知";
 }
 
