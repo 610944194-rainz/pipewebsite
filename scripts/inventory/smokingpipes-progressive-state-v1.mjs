@@ -23,7 +23,6 @@ const QUEUE_DISPOSITIONS = new Set([
   "eligible-this-batch",
   "queued-later",
   "review-only",
-  "preserved-complete",
   "no-detail-required",
 ]);
 const PUBLIC_STATUSES = new Set([

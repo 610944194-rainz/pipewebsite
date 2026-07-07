@@ -118,8 +118,10 @@ import {
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
 import {
+  buildManualFullReconcileStateConsistencyReport,
   buildManualFullReconcileDetailBatchReport,
   buildSmokingpipesManualFullReconcilePlan,
+  repairManualFullReconcileState,
   rebuildSmokingpipesProgressiveState,
   runSmokingpipesManualFetchDetailBatch,
   selectManualFullReconcileDetailBatchCandidates,
@@ -623,13 +625,44 @@ assert.equal(
 );
 assert.equal(
   manualRebuiltState.candidates.filter(
+    (item) =>
+      item.queueDisposition === "eligible-this-batch"
+  ).length,
+  30
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
+    (item) =>
+      item.queueDisposition === "eligible-this-batch" &&
+      item.detailStatus === "pending"
+  ).length,
+  30
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
     (item) => item.detailStatus === "deferred"
   ).length,
   4
 );
 assert.equal(
   manualRebuiltState.candidates.filter(
+    (item) =>
+      item.queueDisposition === "queued-later" &&
+      item.detailStatus === "deferred"
+  ).length,
+  4
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
     (item) => item.detailStatus === "review-only"
+  ).length,
+  4
+);
+assert.equal(
+  manualRebuiltState.candidates.filter(
+    (item) =>
+      item.queueDisposition === "review-only" &&
+      item.detailStatus === "review-only"
   ).length,
   4
 );
@@ -649,6 +682,10 @@ const preservedManualCandidate =
   manualRebuiltState.candidates.find(
     (item) => item.sourceProductId === "manual-new-1"
   );
+assert.equal(
+  preservedManualCandidate.queueDisposition,
+  "no-detail-required"
+);
 assert.equal(
   preservedManualCandidate.detail.title,
   "Preserved detail"
@@ -674,14 +711,96 @@ assert.equal(
   4
 );
 
+const manualStateConsistency =
+  buildManualFullReconcileStateConsistencyReport({
+    state: manualRebuiltState,
+    generatedAt: "2026-07-07T10:00:00.000Z",
+  });
+assert.equal(manualStateConsistency.status, "passed");
+assert.equal(manualStateConsistency.canFetchDetailBatch, true);
+assert.equal(
+  manualStateConsistency.counts.eligibleThisBatch,
+  30
+);
+assert.equal(manualStateConsistency.counts.pending, 30);
+
+const manualInconsistentState = structuredClone(
+  manualRebuiltState
+);
+for (const candidate of manualInconsistentState.candidates) {
+  if (candidate.queueDisposition === "eligible-this-batch") {
+    candidate.detailStatus = "complete";
+    candidate.publicStatus = "review-only";
+  }
+}
+const manualInconsistencyReport =
+  buildManualFullReconcileStateConsistencyReport({
+    state: manualInconsistentState,
+    generatedAt: "2026-07-07T10:05:00.000Z",
+  });
+assert.equal(manualInconsistencyReport.status, "blocked");
+assert.equal(
+  manualInconsistencyReport.canFetchDetailBatch,
+  false
+);
+assert.equal(
+  manualInconsistencyReport.counts.eligibleThisBatch,
+  30
+);
+assert.equal(manualInconsistencyReport.counts.pending, 0);
+assert.match(
+  manualInconsistencyReport.blockers.join("\n"),
+  /does not equal pending/
+);
+let inconsistentProcessorCalled = false;
+const manualInconsistentRun =
+  await runSmokingpipesManualFetchDetailBatch({
+    state: manualInconsistentState,
+    detailMax: 30,
+    now: "2026-07-07T10:06:00.000Z",
+    networkAccessed: true,
+    processDetail: async () => {
+      inconsistentProcessorCalled = true;
+      throw new Error("must not be called");
+    },
+  });
+assert.equal(manualInconsistentRun.status, "state-inconsistent");
+assert.equal(inconsistentProcessorCalled, false);
+assert.equal(
+  manualInconsistentRun.report.smokingpipesAccessed,
+  false
+);
+assert.equal(
+  manualInconsistentRun.report.stateConsistency.status,
+  "blocked"
+);
+
+const manualRepairedState =
+  repairManualFullReconcileState({
+    state: manualInconsistentState,
+    now: "2026-07-07T10:07:00.000Z",
+  });
+assert.equal(
+  manualRepairedState.report.eligibleRestoredToPending,
+  30
+);
+assert.equal(
+  manualRepairedState.report.after.counts.eligibleThisBatch,
+  30
+);
+assert.equal(manualRepairedState.report.after.counts.pending, 30);
+assert.equal(manualRepairedState.report.after.status, "passed");
+assert.equal(
+  validateProgressiveDailyState(manualRepairedState.state).valid,
+  true
+);
+
 const manualDetailBatchState =
   structuredClone(manualRebuiltState);
 const queuedLaterCandidate =
   manualDetailBatchState.candidates.find(
     (item) => item.detailStatus === "deferred"
   );
-queuedLaterCandidate.detailStatus = "pending";
-queuedLaterCandidate.queueDisposition = "queued-later";
 const manualDetailBatchSelection =
   selectManualFullReconcileDetailBatchCandidates({
     state: manualDetailBatchState,
@@ -701,6 +820,20 @@ assert.equal(
     (item) =>
       item.sourceProductId ===
       queuedLaterCandidate.sourceProductId
+  ),
+  false
+);
+assert.equal(
+  manualDetailBatchSelection.some(
+    (item) =>
+      item.sourceProductId ===
+      preservedManualCandidate.sourceProductId
+  ),
+  false
+);
+assert.equal(
+  manualDetailBatchSelection.some(
+    (item) => item.detailStatus === "review-only"
   ),
   false
 );
@@ -762,21 +895,29 @@ assert.equal(manualDetailBatchRun.report.reviewOnlyCount, 4);
 assert.equal(manualDetailBatchRun.report.smokingpipesAccessed, false);
 assert.equal(manualDetailBatchRun.report.productionWritten, false);
 assert.equal(manualDetailBatchCheckpoints.length, 30);
+const manualDetailBatchAttemptedIds = new Set(
+  manualDetailBatchRun.report.items.map((item) => item.sourceProductId)
+);
 assert.equal(
   manualDetailBatchRun.state.candidates.filter(
     (item) =>
+      manualDetailBatchAttemptedIds.has(item.sourceProductId) &&
       item.detailStatus === "complete" &&
-      item.queueDisposition === "eligible-this-batch"
+      item.queueDisposition === "no-detail-required"
   ).length,
   30
+);
+assert.equal(
+  manualDetailBatchRun.report.stateConsistency.status,
+  "passed"
 );
 assert.equal(
   manualDetailBatchRun.state.candidates.find(
     (item) =>
       item.sourceProductId ===
       queuedLaterCandidate.sourceProductId
-  ).detailStatus,
-  "pending"
+).detailStatus,
+  "deferred"
 );
 
 const manualDetailBlockedState =
@@ -858,9 +999,21 @@ assert.equal(
 );
 assert.equal(
   manualDetailBlockedRun.state.candidates.filter(
+    (item) =>
+      item.detailStatus === "pending" &&
+      item.queueDisposition === "eligible-this-batch"
+  ).length,
+  28
+);
+assert.equal(
+  manualDetailBlockedRun.state.candidates.filter(
     (item) => item.detailStatus === "blocked"
   ).length,
   1
+);
+assert.equal(
+  manualDetailBlockedRun.report.stateConsistency.status,
+  "passed"
 );
 assert.equal(manualDetailBlockedRun.report.productionWritten, false);
 
@@ -8450,6 +8603,7 @@ const manualFullReconcileScript = fs.readFileSync(
 );
 assert.match(manualFullReconcileScript, /\[switch\]\$PlanOnly/);
 assert.match(manualFullReconcileScript, /\[switch\]\$RebuildState/);
+assert.match(manualFullReconcileScript, /\[switch\]\$RepairState/);
 assert.match(
   manualFullReconcileScript,
   /\[ValidateRange\(1,\s*30\)\][\s\S]*\$DetailMax\s*=\s*30/
@@ -8461,6 +8615,14 @@ assert.match(
 assert.match(
   manualFullReconcileScript,
   /rebuild-state[\s\S]*--state-backup=/
+);
+assert.match(
+  manualFullReconcileScript,
+  /repair-state/
+);
+assert.match(
+  manualFullReconcileScript,
+  /State repair: enabled/
 );
 assert.ok(
   manualFullReconcileScript.indexOf("Copy-Item") <

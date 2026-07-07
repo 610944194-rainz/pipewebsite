@@ -1,6 +1,7 @@
 param(
   [switch]$PlanOnly,
   [switch]$RebuildState,
+  [switch]$RepairState,
   [switch]$RefreshSnapshot,
   [switch]$FetchDetailBatch,
   [switch]$ApplySafeSubset,
@@ -17,9 +18,9 @@ $StatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-progressive-dai
 
 Set-Location $ProjectRoot
 
-$SelectedModes = @($PlanOnly, $RebuildState, $FetchDetailBatch) | Where-Object { $_ }
+$SelectedModes = @($PlanOnly, $RebuildState, $RepairState, $FetchDetailBatch) | Where-Object { $_ }
 if ($SelectedModes.Count -gt 1) {
-  throw "Choose only one mode: PlanOnly, RebuildState, or FetchDetailBatch."
+  throw "Choose only one mode: PlanOnly, RebuildState, RepairState, or FetchDetailBatch."
 }
 
 if ($WriteProduction -and -not $ApplySafeSubset) {
@@ -36,6 +37,8 @@ if ($ApplySafeSubset -or $WriteProduction) {
 
 $Mode = if ($RebuildState) {
   "rebuild-state"
+} elseif ($RepairState) {
+  "repair-state"
 } elseif ($FetchDetailBatch) {
   "fetch-detail-batch"
 } else {
@@ -87,6 +90,11 @@ Write-Host "Mode: $Mode"
 Write-Host "DetailMax: $DetailMax"
 Write-Host "Network access: $([string]($Mode -eq "fetch-detail-batch"))"
 Write-Host "Detail fetch: $([string]($Mode -eq "fetch-detail-batch"))"
+if ($Mode -eq "repair-state") {
+  Write-Host "State repair: enabled"
+  Write-Host "Current-list refresh: disabled"
+  Write-Host "Daily task: disabled"
+}
 if ($Mode -eq "fetch-detail-batch") {
   Write-Host "Browser: Chrome profile sp-chrome"
   Write-Host "Current-list refresh: disabled"

@@ -75,6 +75,22 @@ const DEFAULT_PATHS = {
     ROOT,
     "data/review/smokingpipes-manual-full-reconcile-detail-batch-report.md"
   ),
+  stateInconsistencyJson: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-state-inconsistency-report.json"
+  ),
+  stateInconsistencyMarkdown: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-state-inconsistency-report.md"
+  ),
+  stateRepairJson: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-state-repair-report.json"
+  ),
+  stateRepairMarkdown: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-state-repair-report.md"
+  ),
 };
 
 function text(value) {
@@ -318,7 +334,7 @@ function classifyNewProduct({
     queueDisposition: reviewOnly
       ? "review-only"
       : preservedComplete
-        ? "preserved-complete"
+        ? "no-detail-required"
         : "unassigned",
   };
 }
@@ -460,7 +476,7 @@ export function buildSmokingpipesManualFullReconcilePlan({
   for (const item of newClassifications) {
     if (
       item.reviewOnly ||
-      item.queueDisposition === "preserved-complete"
+      item.preservedComplete
     ) {
       continue;
     }
@@ -509,8 +525,7 @@ export function buildSmokingpipesManualFullReconcilePlan({
     ) {
       previousPendingTriage.reviewOnly += 1;
     } else if (
-      classification.queueDisposition ===
-      "preserved-complete"
+      classification.preservedComplete
     ) {
       previousPendingTriage.preservedComplete += 1;
     }
@@ -907,7 +922,7 @@ export function rebuildSmokingpipesProgressiveState({
             ? "published"
             : previous.publicStatus || "ready";
         candidate.queueDisposition =
-          "preserved-complete";
+          "no-detail-required";
         candidate.manualReconcile.classification =
           "preserved-complete";
         preservedComplete += 1;
@@ -1022,6 +1037,241 @@ export function selectManualFullReconcileDetailBatchCandidates({
     .slice(0, cappedDetailMax);
 }
 
+export function buildManualFullReconcileStateConsistencyReport({
+  state,
+  generatedAt = new Date().toISOString(),
+} = {}) {
+  const candidates = Array.isArray(state?.candidates)
+    ? state.candidates
+    : [];
+  const count = (predicate) =>
+    candidates.filter(predicate).length;
+  const sample = (predicate) =>
+    candidates
+      .filter(predicate)
+      .slice(0, 30)
+      .map((item) => ({
+        sourceProductId: productId(item),
+        queueDisposition: text(item?.queueDisposition),
+        detailStatus: text(item?.detailStatus),
+        publicStatus: text(item?.publicStatus),
+      }));
+  const allowedQueueDispositions = new Set([
+    "eligible-this-batch",
+    "queued-later",
+    "review-only",
+    "no-detail-required",
+  ]);
+  const counts = {
+    totalCandidates: candidates.length,
+    eligibleThisBatch: count(
+      (item) => item.queueDisposition === "eligible-this-batch"
+    ),
+    pending: count((item) => item.detailStatus === "pending"),
+    eligiblePending: count(
+      (item) =>
+        item.queueDisposition === "eligible-this-batch" &&
+        item.detailStatus === "pending"
+    ),
+    queuedLater: count(
+      (item) => item.queueDisposition === "queued-later"
+    ),
+    queuedLaterDeferred: count(
+      (item) =>
+        item.queueDisposition === "queued-later" &&
+        item.detailStatus === "deferred"
+    ),
+    reviewOnlyDisposition: count(
+      (item) => item.queueDisposition === "review-only"
+    ),
+    reviewOnlyStatus: count(
+      (item) => item.detailStatus === "review-only"
+    ),
+    reviewOnlyAligned: count(
+      (item) =>
+        item.queueDisposition === "review-only" &&
+        item.detailStatus === "review-only" &&
+        item.publicStatus === "review-only"
+    ),
+    noDetailRequired: count(
+      (item) => item.queueDisposition === "no-detail-required"
+    ),
+    invalidQueueDisposition: count(
+      (item) =>
+        !allowedQueueDispositions.has(
+          text(item?.queueDisposition)
+        )
+    ),
+  };
+  const blockers = [];
+  if (counts.eligibleThisBatch !== counts.pending) {
+    blockers.push(
+      `eligible-this-batch count ${counts.eligibleThisBatch} does not equal pending count ${counts.pending}`
+    );
+  }
+  if (counts.eligibleThisBatch !== counts.eligiblePending) {
+    blockers.push(
+      "eligible-this-batch contains non-pending candidates"
+    );
+  }
+  if (counts.pending !== counts.eligiblePending) {
+    blockers.push(
+      "pending candidates exist outside eligible-this-batch"
+    );
+  }
+  if (counts.queuedLater !== counts.queuedLaterDeferred) {
+    blockers.push(
+      "queued-later candidates must keep detailStatus=deferred"
+    );
+  }
+  if (counts.reviewOnlyDisposition !== counts.reviewOnlyAligned) {
+    blockers.push(
+      "review-only queue candidates must keep detailStatus=review-only and publicStatus=review-only"
+    );
+  }
+  if (counts.invalidQueueDisposition > 0) {
+    blockers.push(
+      "state contains queueDisposition values outside the Manual Full Reconcile V1 model"
+    );
+  }
+  return {
+    version:
+      "smokingpipes-manual-full-reconcile-state-consistency-v1",
+    source: "smokingpipes",
+    mode: "state-consistency",
+    generatedAt,
+    status: blockers.length ? "blocked" : "passed",
+    canFetchDetailBatch: blockers.length === 0,
+    smokingpipesAccessed: false,
+    productionWritten: false,
+    counts,
+    blockers,
+    samples: {
+      eligibleNonPending: sample(
+        (item) =>
+          item.queueDisposition === "eligible-this-batch" &&
+          item.detailStatus !== "pending"
+      ),
+      pendingOutsideEligible: sample(
+        (item) =>
+          item.detailStatus === "pending" &&
+          item.queueDisposition !== "eligible-this-batch"
+      ),
+      queuedLaterNonDeferred: sample(
+        (item) =>
+          item.queueDisposition === "queued-later" &&
+          item.detailStatus !== "deferred"
+      ),
+      reviewOnlyMisaligned: sample(
+        (item) =>
+          item.queueDisposition === "review-only" &&
+          (item.detailStatus !== "review-only" ||
+            item.publicStatus !== "review-only")
+      ),
+      invalidQueueDisposition: sample(
+        (item) =>
+          !allowedQueueDispositions.has(
+            text(item?.queueDisposition)
+          )
+      ),
+    },
+  };
+}
+
+export function repairManualFullReconcileState({
+  state,
+  now = new Date().toISOString(),
+} = {}) {
+  const before =
+    buildManualFullReconcileStateConsistencyReport({
+      state,
+      generatedAt: now,
+    });
+  const next = structuredClone(state);
+  let eligibleRestoredToPending = 0;
+  let queuedLaterRestoredToDeferred = 0;
+  let reviewOnlyRestored = 0;
+  let preservedCompleteDispositionRewritten = 0;
+  let cachedDetailCleared = 0;
+  for (const candidate of next.candidates || []) {
+    if (candidate.queueDisposition === "preserved-complete") {
+      candidate.queueDisposition = "no-detail-required";
+      preservedCompleteDispositionRewritten += 1;
+    }
+    if (candidate.queueDisposition === "eligible-this-batch") {
+      if (candidate.detail || candidate.convertedProduct) {
+        cachedDetailCleared += 1;
+      }
+      candidate.detailStatus = "pending";
+      candidate.publicStatus = "not-public";
+      candidate.detail = null;
+      candidate.convertedProduct = null;
+      candidate.lastSuccessfulDetailRunId = null;
+      candidate.lastError = null;
+      candidate.nextEligibleAt = null;
+      candidate.manualReconcile = {
+        ...(candidate.manualReconcile || {}),
+        classification: "first-detail-batch",
+        repairedAt: now,
+      };
+      eligibleRestoredToPending += 1;
+    } else if (candidate.queueDisposition === "queued-later") {
+      candidate.detailStatus = "deferred";
+      candidate.publicStatus = "not-public";
+      candidate.detail = null;
+      candidate.convertedProduct = null;
+      queuedLaterRestoredToDeferred += 1;
+    } else if (candidate.queueDisposition === "review-only") {
+      candidate.detailStatus = "review-only";
+      candidate.publicStatus = "review-only";
+      reviewOnlyRestored += 1;
+    }
+  }
+  next.updatedAt = now;
+  next.manualFullReconcile = {
+    ...(next.manualFullReconcile || {}),
+    mode: "repair-state",
+    stateRepair: {
+      repairedAt: now,
+      eligibleRestoredToPending,
+      queuedLaterRestoredToDeferred,
+      reviewOnlyRestored,
+      preservedCompleteDispositionRewritten,
+      cachedDetailCleared,
+      smokingpipesAccessed: false,
+      productionWritten: false,
+    },
+    allowProductionApply: false,
+    allowDailyTaskResume: false,
+  };
+  next.productionWritten = false;
+  next.summary = buildProgressiveStateSummary(next, now);
+  const after =
+    buildManualFullReconcileStateConsistencyReport({
+      state: next,
+      generatedAt: now,
+    });
+  return {
+    state: next,
+    report: {
+      version:
+        "smokingpipes-manual-full-reconcile-state-repair-report-v1",
+      source: "smokingpipes",
+      mode: "repair-state",
+      generatedAt: now,
+      before,
+      after,
+      eligibleRestoredToPending,
+      queuedLaterRestoredToDeferred,
+      reviewOnlyRestored,
+      preservedCompleteDispositionRewritten,
+      cachedDetailCleared,
+      smokingpipesAccessed: false,
+      productionWritten: false,
+    },
+  };
+}
+
 function countManualDetailStatus(state, predicate) {
   return (state?.candidates || []).filter(predicate).length;
 }
@@ -1058,6 +1308,7 @@ export function buildManualFullReconcileDetailBatchReport({
   smokingpipesAccessed = false,
   productionWritten = false,
   browser = {},
+  stateConsistency = null,
 }) {
   const cappedBatchLimit = Math.min(
     30,
@@ -1125,6 +1376,7 @@ export function buildManualFullReconcileDetailBatchReport({
       blockedItem,
       browser,
     }),
+    stateConsistency,
     items,
   };
 }
@@ -1145,6 +1397,31 @@ export async function runSmokingpipesManualFetchDetailBatch({
 }) {
   if (typeof processDetail !== "function") {
     throw new Error("FetchDetailBatch requires processDetail");
+  }
+  const consistency =
+    buildManualFullReconcileStateConsistencyReport({
+      state,
+      generatedAt: now,
+    });
+  if (!consistency.canFetchDetailBatch) {
+    const report = buildManualFullReconcileDetailBatchReport({
+      state,
+      startedAt: now,
+      finishedAt: now,
+      batchLimit: detailMax,
+      attemptedResults: [],
+      smokingpipesAccessed: false,
+      productionWritten: false,
+      browser,
+      stateConsistency: consistency,
+    });
+    return {
+      status: "state-inconsistent",
+      state,
+      report,
+      consistency,
+      productionWritten: false,
+    };
   }
   const validation = validateProgressiveDailyState(state);
   if (!validation.valid) {
@@ -1188,6 +1465,7 @@ export async function runSmokingpipesManualFetchDetailBatch({
       candidate.convertedProduct =
         result.convertedProduct || null;
       candidate.detailStatus = "complete";
+      candidate.queueDisposition = "no-detail-required";
       candidate.lastSuccessfulDetailRunId =
         next.dailyRunId || "manual-full-reconcile";
       candidate.nextEligibleAt = null;
@@ -1197,6 +1475,7 @@ export async function runSmokingpipesManualFetchDetailBatch({
       );
       if (result.reviewOnly === true) {
         candidate.detailStatus = "review-only";
+        candidate.queueDisposition = "review-only";
         candidate.publicStatus = "review-only";
         candidate.reviewReason =
           result.reviewReason ||
@@ -1222,6 +1501,7 @@ export async function runSmokingpipesManualFetchDetailBatch({
       candidate.lastError = message;
       if (error?.code === "CAPTCHA_REQUIRED") {
         candidate.detailStatus = "blocked";
+        candidate.queueDisposition = "no-detail-required";
         candidate.publicStatus = "not-public";
         candidate.blockedCount += 1;
         candidate.lastBlockedAt = now;
@@ -1253,6 +1533,7 @@ export async function runSmokingpipesManualFetchDetailBatch({
         break;
       }
       candidate.detailStatus = "failed";
+      candidate.queueDisposition = "no-detail-required";
       candidate.publicStatus = "not-public";
       attemptedResults.push({
         sourceProductId: candidate.sourceProductId,
@@ -1319,6 +1600,11 @@ export async function runSmokingpipesManualFetchDetailBatch({
     smokingpipesAccessed: networkAccessed,
     productionWritten: false,
     browser,
+    stateConsistency:
+      buildManualFullReconcileStateConsistencyReport({
+        state: next,
+        generatedAt: next.latestRun.finishedAt,
+      }),
   });
   return {
     status: blockedReason
@@ -1370,6 +1656,84 @@ ${blocked}
 ## Items
 
 ${items}
+`;
+}
+
+function stateConsistencyMarkdown(report) {
+  const blockers = report.blockers.length
+    ? report.blockers.map((item) => `- ${item}`).join("\n")
+    : "- none";
+  const samples = Object.entries(report.samples || {})
+    .map(([name, values]) => {
+      const rows = values.length
+        ? values
+            .map(
+              (item) =>
+                `  - ${item.sourceProductId}: ${item.queueDisposition} / ${item.detailStatus} / ${item.publicStatus}`
+            )
+            .join("\n")
+        : "  - none";
+      return `### ${name}\n\n${rows}`;
+    })
+    .join("\n\n");
+  return `# Smokingpipes Manual Full Reconcile State Inconsistency Report
+
+- status: ${report.status}
+- canFetchDetailBatch: ${report.canFetchDetailBatch}
+- smokingpipesAccessed: false
+- productionWritten: false
+
+## Counts
+
+- eligibleThisBatch: ${report.counts.eligibleThisBatch}
+- pending: ${report.counts.pending}
+- eligiblePending: ${report.counts.eligiblePending}
+- queuedLater: ${report.counts.queuedLater}
+- queuedLaterDeferred: ${report.counts.queuedLaterDeferred}
+- reviewOnlyDisposition: ${report.counts.reviewOnlyDisposition}
+- reviewOnlyStatus: ${report.counts.reviewOnlyStatus}
+- reviewOnlyAligned: ${report.counts.reviewOnlyAligned}
+- noDetailRequired: ${report.counts.noDetailRequired}
+- invalidQueueDisposition: ${report.counts.invalidQueueDisposition}
+
+## Blockers
+
+${blockers}
+
+## Samples
+
+${samples}
+`;
+}
+
+function stateRepairMarkdown(report) {
+  return `# Smokingpipes Manual Full Reconcile State Repair Report
+
+- generatedAt: ${report.generatedAt}
+- eligibleRestoredToPending: ${report.eligibleRestoredToPending}
+- queuedLaterRestoredToDeferred: ${report.queuedLaterRestoredToDeferred}
+- reviewOnlyRestored: ${report.reviewOnlyRestored}
+- preservedCompleteDispositionRewritten: ${report.preservedCompleteDispositionRewritten}
+- cachedDetailCleared: ${report.cachedDetailCleared}
+- smokingpipesAccessed: false
+- productionWritten: false
+
+## Before
+
+- status: ${report.before.status}
+- eligibleThisBatch: ${report.before.counts.eligibleThisBatch}
+- pending: ${report.before.counts.pending}
+- eligiblePending: ${report.before.counts.eligiblePending}
+- invalidQueueDisposition: ${report.before.counts.invalidQueueDisposition}
+
+## After
+
+- status: ${report.after.status}
+- eligibleThisBatch: ${report.after.counts.eligibleThisBatch}
+- pending: ${report.after.counts.pending}
+- eligiblePending: ${report.after.counts.eligiblePending}
+- invalidQueueDisposition: ${report.after.counts.invalidQueueDisposition}
+- canFetchDetailBatch: ${report.after.canFetchDetailBatch}
 `;
 }
 
@@ -1665,10 +2029,31 @@ async function writeDetailBatchReport(report) {
   );
 }
 
+async function writeStateConsistencyReport(report) {
+  await writeJsonAtomic(DEFAULT_PATHS.stateInconsistencyJson, report);
+  await writeTextAtomic(
+    DEFAULT_PATHS.stateInconsistencyMarkdown,
+    `\ufeff${stateConsistencyMarkdown(report)}`
+  );
+}
+
+async function writeStateRepairReport(report) {
+  await writeJsonAtomic(DEFAULT_PATHS.stateRepairJson, report);
+  await writeTextAtomic(
+    DEFAULT_PATHS.stateRepairMarkdown,
+    `\ufeff${stateRepairMarkdown(report)}`
+  );
+}
+
 async function main(argv = process.argv.slice(2)) {
   const options = parseArguments(argv);
   if (
-    !["plan-only", "rebuild-state", "fetch-detail-batch"].includes(
+    ![
+      "plan-only",
+      "rebuild-state",
+      "fetch-detail-batch",
+      "repair-state",
+    ].includes(
       options.mode
     )
   ) {
@@ -1676,22 +2061,107 @@ async function main(argv = process.argv.slice(2)) {
       `Unsupported offline manual reconcile mode: ${options.mode}`
     );
   }
-  if (options.mode === "fetch-detail-batch") {
-    const currentState = readProgressiveDailyState(
-      DEFAULT_PATHS.state
-    );
-    if (currentState.status !== "passed") {
+  if (options.mode === "repair-state") {
+    if (!fs.existsSync(DEFAULT_PATHS.state)) {
       throw new Error(
-        `Manual FetchDetailBatch blocked by state validation: ${currentState.errors.join("; ")}`
+        `Manual RepairState requires an existing state: ${DEFAULT_PATHS.state}`
+      );
+    }
+    const repaired = repairManualFullReconcileState({
+      state: readJson(DEFAULT_PATHS.state),
+    });
+    const validation = validateProgressiveDailyState(
+      repaired.state
+    );
+    if (!validation.valid) {
+      throw new Error(
+        `Manual RepairState produced invalid state: ${validation.errors.join("; ")}`
+      );
+    }
+    await writeProgressiveDailyState(
+      DEFAULT_PATHS.state,
+      repaired.state
+    );
+    await writeStateRepairReport(repaired.report);
+    await writeStateConsistencyReport(repaired.report.after);
+    console.log(
+      JSON.stringify(
+        {
+          status: "state-repaired",
+          mode: options.mode,
+          before: repaired.report.before.counts,
+          after: repaired.report.after.counts,
+          canFetchDetailBatch:
+            repaired.report.after.canFetchDetailBatch,
+          eligibleRestoredToPending:
+            repaired.report.eligibleRestoredToPending,
+          smokingpipesAccessed: false,
+          productionWritten: false,
+          repairReportJson: path.relative(
+            ROOT,
+            DEFAULT_PATHS.stateRepairJson
+          ),
+        },
+        null,
+        2
+      )
+    );
+    return;
+  }
+  if (options.mode === "fetch-detail-batch") {
+    const rawState = readJson(DEFAULT_PATHS.state);
+    const consistency =
+      buildManualFullReconcileStateConsistencyReport({
+        state: rawState,
+      });
+    if (!consistency.canFetchDetailBatch) {
+      const result = await runSmokingpipesManualFetchDetailBatch({
+        state: rawState,
+        detailMax: options.detailMax,
+        networkAccessed: false,
+        browser: {
+          browserChannel: options.browserChannel,
+          browserProfile: options.browserProfile,
+        },
+        processDetail: async () => {
+          throw new Error("state inconsistent");
+        },
+      });
+      await writeStateConsistencyReport(consistency);
+      await writeDetailBatchReport(result.report);
+      console.log(
+        JSON.stringify(
+          {
+            status: "state-inconsistent",
+            mode: options.mode,
+            blockers: consistency.blockers,
+            counts: consistency.counts,
+            smokingpipesAccessed: false,
+            productionWritten: false,
+            inconsistencyReportJson: path.relative(
+              ROOT,
+              DEFAULT_PATHS.stateInconsistencyJson
+            ),
+          },
+          null,
+          2
+        )
+      );
+      return;
+    }
+    const validation = validateProgressiveDailyState(rawState);
+    if (!validation.valid) {
+      throw new Error(
+        `Manual FetchDetailBatch blocked by state validation: ${validation.errors.join("; ")}`
       );
     }
     const selected = selectManualFullReconcileDetailBatchCandidates({
-      state: currentState.state,
+      state: rawState,
       detailMax: options.detailMax,
     });
     if (!selected.length) {
       const result = await runSmokingpipesManualFetchDetailBatch({
-        state: currentState.state,
+        state: rawState,
         detailMax: options.detailMax,
         networkAccessed: false,
         browser: {
@@ -1753,7 +2223,7 @@ async function main(argv = process.argv.slice(2)) {
     let result;
     try {
       result = await runSmokingpipesManualFetchDetailBatch({
-        state: currentState.state,
+        state: rawState,
         detailMax: options.detailMax,
         networkAccessed: true,
         browser: processor.browser,
