@@ -420,6 +420,11 @@ export function buildSmokingpipesDailyMobileReport({
           typeof state.manualFullReconcile === "object"
         ? state.manualFullReconcile
         : null;
+  const manualDetailBatch =
+    manualFullReconcile?.detailBatch &&
+    typeof manualFullReconcile.detailBatch === "object"
+      ? manualFullReconcile.detailBatch
+      : null;
 
   if (verificationBlocker && !blockers.includes(verificationBlocker)) {
     blockers.unshift(verificationBlocker);
@@ -470,6 +475,10 @@ export function buildSmokingpipesDailyMobileReport({
     candidates,
     (item) => item?.detailStatus === "pending"
   );
+  const detailDeferred = countBy(
+    candidates,
+    (item) => item?.detailStatus === "deferred"
+  );
   const publicReady = countBy(
     candidates,
     (item) => item?.publicStatus === "ready"
@@ -490,7 +499,7 @@ export function buildSmokingpipesDailyMobileReport({
   const reason = detailQueueSpikeBlocked
     ? `待处理详情突然增加到 ${pendingDetailCount}，超过正常范围，已暂停自动续跑。`
     : manualFullReconcileMode
-      ? "当前为人工对齐模式，不是每日自动更新。"
+      ? "这是人工全量对齐模式，不是每日自动更新。"
     : deriveReasonV2({
         status,
         verificationBlocker,
@@ -513,8 +522,8 @@ export function buildSmokingpipesDailyMobileReport({
         : "暂停，详情队列异常"
       : manualFullReconcileMode
         ? verificationBlocker
-          ? "人工全量对齐需要源站验证"
-          : "人工全量对齐进行中"
+          ? "人工全量对齐暂停：源站验证"
+          : "人工全量对齐：详情分批处理中"
       : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
       : status === "success"
@@ -545,8 +554,8 @@ export function buildSmokingpipesDailyMobileReport({
       ? "先查看 detail-pending-spike 诊断报告，不要直接完成验证或重跑。"
       : manualFullReconcileMode
         ? verificationBlocker
-          ? "请在运行任务的电脑上完成验证；手机里不能完成验证。"
-          : "按 plan 分批抓详情，不直接恢复自动任务。"
+          ? "完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task。"
+          : "继续手动运行 FetchDetailBatch；全部详情完成后再进入安全预览和人工审计。"
       : unsafeApplyGap
       ? "检查 data/review/smokingpipes-apply-gap-diagnosis-report.md，确认隔离候选的分类。"
       : deriveNextStepV2({ status, failureType, cachedListResume }),
@@ -570,6 +579,7 @@ export function buildSmokingpipesDailyMobileReport({
       ? "manual-full-reconcile"
       : "daily-update",
     manualFullReconcile,
+    manualDetailBatch,
     verificationRequired: Boolean(verificationBlocker),
     retryAllowed:
       typeof taskState?.retryAllowed === "boolean"
@@ -605,6 +615,7 @@ export function buildSmokingpipesDailyMobileReport({
     detailComplete,
     detailFailed,
     detailPending,
+    detailDeferred,
     publicReady,
     publicReviewOnly,
     publicNotPublic,
@@ -1086,6 +1097,8 @@ export function buildPushDeerDailyMessage(report) {
       });
   if (report.runMode === "manual-full-reconcile") {
     const manual = report.manualFullReconcile || {};
+    const detailBatch =
+      report.manualDetailBatch || manual.detailBatch || {};
     const detailEligibleThisBatch = Number(
       manual.detailEligibleThisBatch || 0
     );
@@ -1100,23 +1113,51 @@ export function buildPushDeerDailyMessage(report) {
         report.wouldApplyCount ||
         0
     );
+    const completedThisBatch = Number(
+      detailBatch.completedCount || 0
+    );
+    const attemptedThisBatch = Number(
+      detailBatch.attemptedCount || 0
+    );
+    const remainingPending = Number(
+      detailBatch.remainingPendingCount ??
+        report.pendingDetailCount ??
+        detailPendingTotal
+    );
+    const deferredCount = Number(
+      detailBatch.deferredCount ?? report.detailDeferred ?? 0
+    );
+    const reviewOnlyCount = Number(
+      detailBatch.reviewOnlyCount ?? report.publicReviewOnly ?? 0
+    );
     return {
       title: "烟斗派人工全量对齐｜Smokingpipes",
       body: [
         `结论：${report.statusLabel}`,
         "",
+        ...(report.verificationRequired
+          ? [
+              "验证对象：Smokingpipes",
+              "验证位置：运行任务的电脑",
+              "浏览器：Chrome profile sp-chrome",
+              "验证页面：已打开的 Smokingpipes 页面",
+              "下一步：完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task。",
+              "",
+            ]
+          : []),
+        `本批详情：已完成 ${completedThisBatch} / 尝试 ${attemptedThisBatch}`,
+        `剩余待抓：${remainingPending}`,
+        `延后队列：${deferredCount}`,
+        `复核队列：${reviewOnlyCount}`,
         `列表快照：${Number(report.pagesScanned || 0)}/${Number(report.expectedPages || 0)} 页`,
         `本轮新增候选：${totalNewCandidates}`,
         `本轮待抓详情：${detailEligibleThisBatch} / 总待处理 ${detailPendingTotal}`,
         `本轮正式应用：${Number(report.appliedCount || 0)} / ${appliedTargetCount}`,
-        "说明：当前为人工对齐模式，不是每日自动更新。",
+        "说明：这是人工对齐模式，不是每日自动更新。",
+        "production 写入：否",
         ...(report.verificationRequired
           ? [
               "",
-              "验证对象：Smokingpipes",
-              "验证位置：运行任务的电脑",
-              "浏览器：Chrome profile sp-chrome",
-              "验证页面：已打开的 Smokingpipes 列表或详情页",
               "说明：手机里不能完成验证",
             ]
           : []),

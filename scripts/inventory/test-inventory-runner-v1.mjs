@@ -118,8 +118,11 @@ import {
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
 import {
+  buildManualFullReconcileDetailBatchReport,
   buildSmokingpipesManualFullReconcilePlan,
   rebuildSmokingpipesProgressiveState,
+  runSmokingpipesManualFetchDetailBatch,
+  selectManualFullReconcileDetailBatchCandidates,
 } from "./smokingpipes-manual-full-reconcile-v1.mjs";
 
 const defaults = parseRunnerOptions([]);
@@ -669,6 +672,215 @@ assert.equal(
 assert.equal(
   manualRebuiltState.summary.deferred,
   4
+);
+
+const manualDetailBatchState =
+  structuredClone(manualRebuiltState);
+const queuedLaterCandidate =
+  manualDetailBatchState.candidates.find(
+    (item) => item.detailStatus === "deferred"
+  );
+queuedLaterCandidate.detailStatus = "pending";
+queuedLaterCandidate.queueDisposition = "queued-later";
+const manualDetailBatchSelection =
+  selectManualFullReconcileDetailBatchCandidates({
+    state: manualDetailBatchState,
+    detailMax: 99,
+  });
+assert.equal(manualDetailBatchSelection.length, 30);
+assert.equal(
+  manualDetailBatchSelection.every(
+    (item) =>
+      item.detailStatus === "pending" &&
+      item.queueDisposition === "eligible-this-batch"
+  ),
+  true
+);
+assert.equal(
+  manualDetailBatchSelection.some(
+    (item) =>
+      item.sourceProductId ===
+      queuedLaterCandidate.sourceProductId
+  ),
+  false
+);
+
+const manualDetailBatchCheckpoints = [];
+const manualDetailBatchRun =
+  await runSmokingpipesManualFetchDetailBatch({
+    state: structuredClone(manualDetailBatchState),
+    detailMax: 99,
+    now: "2026-07-07T09:30:00.000Z",
+    networkAccessed: false,
+    browser: {
+      browserChannel: "chrome",
+      browserProfile: "sp-chrome",
+    },
+    processDetail: async (candidate) => ({
+      detail: {
+        sourceProductId: candidate.sourceProductId,
+        title: candidate.listTitle,
+      },
+      convertedProduct: {
+        sourceProductId: candidate.sourceProductId,
+        inventoryStatus: "available",
+        inventoryConfidence: "confirmed",
+        listingEligible: true,
+        publication: {
+          listingEligible: true,
+          publicIndexEligible: true,
+          publiclySellable: true,
+        },
+        price: {
+          current: {
+            amount: 100,
+          },
+        },
+        mainImageUrl:
+          candidate.listPrimaryImage ||
+          `https://images.invalid/${candidate.sourceProductId}.jpg`,
+      },
+    }),
+    checkpoint: async (state) => {
+      manualDetailBatchCheckpoints.push(
+        structuredClone(state)
+      );
+    },
+  });
+assert.equal(manualDetailBatchRun.status, "batch-complete");
+assert.equal(manualDetailBatchRun.report.batchLimit, 30);
+assert.equal(manualDetailBatchRun.report.attemptedCount, 30);
+assert.equal(manualDetailBatchRun.report.completedCount, 30);
+assert.equal(manualDetailBatchRun.report.failedCount, 0);
+assert.equal(manualDetailBatchRun.report.blockedCount, 0);
+assert.equal(
+  manualDetailBatchRun.report.remainingPendingCount,
+  0
+);
+assert.equal(manualDetailBatchRun.report.deferredCount, 4);
+assert.equal(manualDetailBatchRun.report.reviewOnlyCount, 4);
+assert.equal(manualDetailBatchRun.report.smokingpipesAccessed, false);
+assert.equal(manualDetailBatchRun.report.productionWritten, false);
+assert.equal(manualDetailBatchCheckpoints.length, 30);
+assert.equal(
+  manualDetailBatchRun.state.candidates.filter(
+    (item) =>
+      item.detailStatus === "complete" &&
+      item.queueDisposition === "eligible-this-batch"
+  ).length,
+  30
+);
+assert.equal(
+  manualDetailBatchRun.state.candidates.find(
+    (item) =>
+      item.sourceProductId ===
+      queuedLaterCandidate.sourceProductId
+  ).detailStatus,
+  "pending"
+);
+
+const manualDetailBlockedState =
+  structuredClone(manualRebuiltState);
+const manualDetailBlockedRun =
+  await runSmokingpipesManualFetchDetailBatch({
+    state: manualDetailBlockedState,
+    detailMax: 30,
+    now: "2026-07-07T09:45:00.000Z",
+    networkAccessed: true,
+    browser: {
+      browserChannel: "chrome",
+      browserProfile: "sp-chrome",
+    },
+    processDetail: async (candidate, index) => {
+      if (index === 1) {
+        throw Object.assign(
+          new Error(
+            `strong verification at ${candidate.sourceProductId}`
+          ),
+          {
+            code: "CAPTCHA_REQUIRED",
+            verificationPageUrl: candidate.sourceUrl,
+          }
+        );
+      }
+      return {
+        detail: {
+          sourceProductId: candidate.sourceProductId,
+          title: candidate.listTitle,
+        },
+        convertedProduct: {
+          sourceProductId: candidate.sourceProductId,
+          inventoryStatus: "available",
+          inventoryConfidence: "confirmed",
+          listingEligible: true,
+          publication: {
+            listingEligible: true,
+            publicIndexEligible: true,
+            publiclySellable: true,
+          },
+          price: {
+            current: {
+              amount: 100,
+            },
+          },
+          mainImageUrl:
+            candidate.listPrimaryImage ||
+            `https://images.invalid/${candidate.sourceProductId}.jpg`,
+        },
+      };
+    },
+  });
+assert.equal(manualDetailBlockedRun.status, "blocked");
+assert.equal(manualDetailBlockedRun.report.attemptedCount, 2);
+assert.equal(manualDetailBlockedRun.report.completedCount, 1);
+assert.equal(manualDetailBlockedRun.report.blockedCount, 1);
+assert.match(
+  manualDetailBlockedRun.report.blockedManualAction.object,
+  /Smokingpipes/
+);
+assert.match(
+  manualDetailBlockedRun.report.blockedManualAction.location,
+  /运行任务的电脑/
+);
+assert.match(
+  manualDetailBlockedRun.report.blockedManualAction.browser,
+  /Chrome profile sp-chrome/
+);
+assert.match(
+  manualDetailBlockedRun.report.blockedManualAction.nextStep,
+  /手动重跑 FetchDetailBatch/
+);
+assert.equal(
+  manualDetailBlockedRun.state.candidates.filter(
+    (item) => item.detailStatus === "pending"
+  ).length,
+  28
+);
+assert.equal(
+  manualDetailBlockedRun.state.candidates.filter(
+    (item) => item.detailStatus === "blocked"
+  ).length,
+  1
+);
+assert.equal(manualDetailBlockedRun.report.productionWritten, false);
+
+const manualDetailDryReport =
+  buildManualFullReconcileDetailBatchReport({
+    state: manualDetailBatchRun.state,
+    startedAt: "2026-07-07T09:30:00.000Z",
+    finishedAt: "2026-07-07T09:31:00.000Z",
+    batchLimit: 30,
+    attemptedResults: manualDetailBatchRun.report.items,
+    smokingpipesAccessed: false,
+    productionWritten: false,
+  });
+assert.equal(manualDetailDryReport.batchLimit, 30);
+assert.equal(manualDetailDryReport.productionWritten, false);
+assert.equal(
+  manualDetailDryReport.items.every((item) =>
+    ["complete", "failed", "blocked"].includes(item.detailStatus)
+  ),
+  true
 );
 
 const smokingpipesPricingForReferenceTests = {
@@ -6995,15 +7207,15 @@ const manualFullReconcileMobileReport =
   });
 assert.equal(
   manualFullReconcileMobileReport.statusLabel,
-  "人工全量对齐进行中"
+  "人工全量对齐：详情分批处理中"
 );
 assert.match(
   manualFullReconcileMobileReport.reason,
-  /当前为人工对齐模式，不是每日自动更新/
+  /这是人工全量对齐模式，不是每日自动更新/
 );
 assert.match(
   manualFullReconcileMobileReport.nextStep,
-  /按 plan 分批抓详情，不直接恢复自动任务/
+  /继续手动运行 FetchDetailBatch/
 );
 const manualFullReconcileMobileMessage =
   buildPushDeerDailyMessage(
@@ -7027,7 +7239,101 @@ assert.match(
 );
 assert.match(
   manualFullReconcileMobileMessage.body,
-  /当前为人工对齐模式，不是每日自动更新/
+  /本批详情：已完成 0 \/ 尝试 0/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /production 写入：否/
+);
+assert.match(
+  manualFullReconcileMobileMessage.body,
+  /这是人工对齐模式，不是每日自动更新/
+);
+
+const manualDetailVerificationMobileReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-07-07T09:46:00.000Z",
+    taskState: {
+      status: "running",
+      runMode: "manual-full-reconcile",
+      productionWritten: false,
+      appliedCount: 0,
+      manualFullReconcile: {
+        totalNewCandidates: 698,
+        detailEligibleThisBatch: 30,
+        detailPendingTotal: 297,
+        appliedTargetCount: 0,
+        detailBatch: {
+          attemptedCount: 2,
+          completedCount: 1,
+          failedCount: 0,
+          blockedCount: 1,
+          remainingPendingCount: 28,
+          deferredCount: 266,
+          reviewOnlyCount: 402,
+          productionWritten: false,
+        },
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      pagesScanned: 107,
+      expectedPages: 107,
+      verificationDetected: true,
+      blockedReason: "Smokingpipes strong verification detected at 700972.",
+      manualFullReconcile: {
+        mode: "fetch-detail-batch",
+      },
+      candidates: [],
+    },
+    audit: {
+      verdict: "PASS",
+      candidateCount: 30,
+      wouldApplyCount: 0,
+      productionWritten: false,
+      blockers: [],
+      warnings: [],
+    },
+  });
+assert.equal(
+  manualDetailVerificationMobileReport.statusLabel,
+  "人工全量对齐暂停：源站验证"
+);
+assert.equal(
+  manualDetailVerificationMobileReport.verificationRequired,
+  true
+);
+const manualDetailVerificationMobileMessage =
+  buildPushDeerDailyMessage(
+    manualDetailVerificationMobileReport
+  );
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /验证对象：Smokingpipes/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /验证位置：运行任务的电脑/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /浏览器：Chrome profile sp-chrome/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /验证页面：已打开的 Smokingpipes 页面/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /本批详情：已完成 1 \/ 尝试 2/
+);
+assert.match(
+  manualDetailVerificationMobileMessage.body,
+  /production 写入：否/
 );
 
 const noVerificationLogReport = buildSmokingpipesDailyMobileReport({
@@ -8163,11 +8469,35 @@ assert.ok(
 );
 assert.match(
   manualFullReconcileScript,
-  /RefreshSnapshot[\s\S]*offline phase/i
+  /RefreshSnapshot[\s\S]*disabled for this phase/i
 );
 assert.match(
   manualFullReconcileScript,
-  /FetchDetailBatch[\s\S]*offline phase/i
+  /fetch-detail-batch/
+);
+assert.match(
+  manualFullReconcileScript,
+  /--browser-channel=chrome/
+);
+assert.match(
+  manualFullReconcileScript,
+  /--browser-profile=sp-chrome/
+);
+assert.match(
+  manualFullReconcileScript,
+  /--allow-manual-verification=true/
+);
+assert.match(
+  manualFullReconcileScript,
+  /Current-list refresh: disabled/
+);
+assert.match(
+  manualFullReconcileScript,
+  /Daily task: disabled/
+);
+assert.doesNotMatch(
+  manualFullReconcileScript,
+  /FetchDetailBatch[\s\S]*reserved for a later manual online phase/i
 );
 assert.match(
   manualFullReconcileScript,

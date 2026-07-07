@@ -17,8 +17,9 @@ $StatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-progressive-dai
 
 Set-Location $ProjectRoot
 
-if ($PlanOnly -and $RebuildState) {
-  throw "Choose either PlanOnly or RebuildState, not both."
+$SelectedModes = @($PlanOnly, $RebuildState, $FetchDetailBatch) | Where-Object { $_ }
+if ($SelectedModes.Count -gt 1) {
+  throw "Choose only one mode: PlanOnly, RebuildState, or FetchDetailBatch."
 }
 
 if ($WriteProduction -and -not $ApplySafeSubset) {
@@ -26,11 +27,7 @@ if ($WriteProduction -and -not $ApplySafeSubset) {
 }
 
 if ($RefreshSnapshot) {
-  throw "RefreshSnapshot is reserved for a later manual online phase. This offline phase did not start a browser or access Smokingpipes."
-}
-
-if ($FetchDetailBatch) {
-  throw "FetchDetailBatch is reserved for a later manual online phase. This offline phase did not start detail fetching."
+  throw "RefreshSnapshot is disabled for this phase. FetchDetailBatch must reuse the existing manual reconcile state and must not rebuild the current-list snapshot."
 }
 
 if ($ApplySafeSubset -or $WriteProduction) {
@@ -39,6 +36,8 @@ if ($ApplySafeSubset -or $WriteProduction) {
 
 $Mode = if ($RebuildState) {
   "rebuild-state"
+} elseif ($FetchDetailBatch) {
+  "fetch-detail-batch"
 } else {
   "plan-only"
 }
@@ -70,11 +69,29 @@ if ($Mode -eq "rebuild-state") {
   Write-Host "State backup created: $StateBackupPath"
 }
 
+if ($Mode -eq "fetch-detail-batch") {
+  $NodeArguments += @(
+    "--browser-channel=chrome",
+    "--browser-profile=sp-chrome",
+    "--allow-manual-verification=true",
+    "--detail-warmup-min-ms=1000",
+    "--detail-warmup-max-ms=3000",
+    "--detail-delay-min-ms=3000",
+    "--detail-delay-max-ms=8000",
+    "--verbose=true"
+  )
+}
+
 Write-Host "Smokingpipes Manual Full Reconcile V1"
 Write-Host "Mode: $Mode"
 Write-Host "DetailMax: $DetailMax"
-Write-Host "Network access: disabled"
-Write-Host "Detail fetch: disabled"
+Write-Host "Network access: $([string]($Mode -eq "fetch-detail-batch"))"
+Write-Host "Detail fetch: $([string]($Mode -eq "fetch-detail-batch"))"
+if ($Mode -eq "fetch-detail-batch") {
+  Write-Host "Browser: Chrome profile sp-chrome"
+  Write-Host "Current-list refresh: disabled"
+  Write-Host "Daily task: disabled"
+}
 Write-Host "Production write: disabled"
 
 & node @NodeArguments

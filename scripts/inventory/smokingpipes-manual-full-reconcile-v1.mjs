@@ -3,17 +3,32 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import {
+  convertSmokingpipesCandidateDetails,
+} from "../convert-smokingpipes-products-v2.mjs";
+import {
+  addParsedMeasurements,
+  detectSmokingpipesVerification,
+  extractDetailProduct,
+  isNormalSmokingpipesDetail,
+  launchSmokingpipesContext,
+} from "../lib/smokingpipes-utils.mjs";
+import {
   writeJsonAtomic,
   writeTextAtomic,
 } from "./inventory-runner-core-v1.mjs";
 import {
   createProgressiveDailyState,
+  readProgressiveDailyState,
   validateProgressiveDailyState,
   writeProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
+  classifyProgressiveCandidatePublicStatus,
   buildProgressiveStateSummary,
 } from "./smokingpipes-progressive-daily-v1.mjs";
+import {
+  randomDelayMs,
+} from "./smokingpipes-fetch-current-list-v1.mjs";
 
 export const MANUAL_FULL_RECONCILE_VERSION =
   "smokingpipes-manual-full-reconcile-v1";
@@ -51,6 +66,14 @@ const DEFAULT_PATHS = {
   rebuildMarkdown: path.join(
     ROOT,
     "data/review/smokingpipes-progressive-state-rebuild-report.md"
+  ),
+  detailBatchJson: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-detail-batch-report.json"
+  ),
+  detailBatchMarkdown: path.join(
+    ROOT,
+    "data/review/smokingpipes-manual-full-reconcile-detail-batch-report.md"
   ),
 };
 
@@ -980,6 +1003,499 @@ export function rebuildSmokingpipesProgressiveState({
   };
 }
 
+export function selectManualFullReconcileDetailBatchCandidates({
+  state,
+  detailMax = 30,
+}) {
+  const cappedDetailMax = Math.min(
+    30,
+    Math.max(1, Number(detailMax) || 30)
+  );
+  return (state?.candidates || [])
+    .filter(
+      (item) =>
+        (item.changeTypes || []).includes("new-product") &&
+        item.detailStatus === "pending" &&
+        item.publicStatus === "not-public" &&
+        item.queueDisposition === "eligible-this-batch"
+    )
+    .slice(0, cappedDetailMax);
+}
+
+function countManualDetailStatus(state, predicate) {
+  return (state?.candidates || []).filter(predicate).length;
+}
+
+function manualVerificationAction({
+  blockedItem,
+  browser = {},
+}) {
+  return blockedItem
+    ? {
+        object: "Smokingpipes",
+        location: "运行任务的电脑",
+        browser: "Chrome profile sp-chrome",
+        page:
+          blockedItem.verificationPageUrl ||
+          blockedItem.sourceUrl ||
+          "已打开的 Smokingpipes 详情页或列表页",
+        nextStep:
+          "完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task。",
+        requestedBrowserChannel:
+          browser.browserChannel || browser.effectiveBrowserChannel || "chrome",
+        requestedBrowserProfile:
+          browser.browserProfile || "sp-chrome",
+      }
+    : null;
+}
+
+export function buildManualFullReconcileDetailBatchReport({
+  state,
+  startedAt,
+  finishedAt = new Date().toISOString(),
+  batchLimit = 30,
+  attemptedResults = [],
+  smokingpipesAccessed = false,
+  productionWritten = false,
+  browser = {},
+}) {
+  const cappedBatchLimit = Math.min(
+    30,
+    Math.max(1, Number(batchLimit) || 30)
+  );
+  const items = attemptedResults.map((item) => ({
+    sourceProductId: text(item.sourceProductId),
+    sourceUrl: text(item.sourceUrl),
+    title: text(item.title || item.listTitle),
+    detailStatus: text(item.detailStatus),
+    publicStatus: text(item.publicStatus),
+    error: text(item.error),
+    verificationPageUrl: text(item.verificationPageUrl),
+  }));
+  const blockedItem = items.find(
+    (item) => item.detailStatus === "blocked"
+  );
+  return {
+    version:
+      "smokingpipes-manual-full-reconcile-detail-batch-report-v1",
+    source: "smokingpipes",
+    mode: "fetch-detail-batch",
+    startedAt,
+    finishedAt,
+    batchLimit: cappedBatchLimit,
+    attemptedCount: items.length,
+    completedCount: items.filter(
+      (item) => item.detailStatus === "complete"
+    ).length,
+    failedCount: items.filter(
+      (item) => item.detailStatus === "failed"
+    ).length,
+    blockedCount: items.filter(
+      (item) => item.detailStatus === "blocked"
+    ).length,
+    remainingPendingCount: countManualDetailStatus(
+      state,
+      (item) =>
+        item.detailStatus === "pending" &&
+        item.queueDisposition === "eligible-this-batch"
+    ),
+    deferredCount: countManualDetailStatus(
+      state,
+      (item) =>
+        item.detailStatus === "deferred" ||
+        item.queueDisposition === "queued-later"
+    ),
+    reviewOnlyCount: countManualDetailStatus(
+      state,
+      (item) =>
+        item.detailStatus === "review-only" ||
+        item.publicStatus === "review-only"
+    ),
+    smokingpipesAccessed: Boolean(smokingpipesAccessed),
+    productionWritten: Boolean(productionWritten) && false,
+    browser: {
+      browserChannel:
+        browser.browserChannel ||
+        browser.effectiveBrowserChannel ||
+        "chrome",
+      browserProfile: browser.browserProfile || "sp-chrome",
+      profileDir: browser.profileDir || null,
+    },
+    blockedManualAction: manualVerificationAction({
+      blockedItem,
+      browser,
+    }),
+    items,
+  };
+}
+
+export async function runSmokingpipesManualFetchDetailBatch({
+  state,
+  detailMax = 30,
+  now = new Date().toISOString(),
+  processDetail,
+  checkpoint = async () => {},
+  networkAccessed = true,
+  browser = {
+    browserChannel: "chrome",
+    browserProfile: "sp-chrome",
+  },
+  retryDelayMs = 90 * 60 * 1000,
+  afterItem = async () => {},
+}) {
+  if (typeof processDetail !== "function") {
+    throw new Error("FetchDetailBatch requires processDetail");
+  }
+  const validation = validateProgressiveDailyState(state);
+  if (!validation.valid) {
+    throw Object.assign(
+      new Error(
+        `Manual FetchDetailBatch blocked by invalid state: ${validation.errors.join("; ")}`
+      ),
+      {
+        code: "MANUAL_RECONCILE_STATE_INVALID",
+        errors: validation.errors,
+      }
+    );
+  }
+  const cappedDetailMax = Math.min(
+    30,
+    Math.max(1, Number(detailMax) || 30)
+  );
+  const next = structuredClone(state);
+  const selected = selectManualFullReconcileDetailBatchCandidates({
+    state: next,
+    detailMax: cappedDetailMax,
+  });
+  const attemptedResults = [];
+  let blockedReason = null;
+  let recommendedNextRunAt = null;
+
+  for (let index = 0; index < selected.length; index += 1) {
+    const selectedItem = selected[index];
+    const candidate = next.candidates.find(
+      (item) =>
+        item.sourceProductId === selectedItem.sourceProductId
+    );
+    candidate.detailAttempts += 1;
+    candidate.lastAttemptAt = now;
+    try {
+      const result = await processDetail(
+        structuredClone(candidate),
+        index
+      );
+      candidate.detail = result.detail || null;
+      candidate.convertedProduct =
+        result.convertedProduct || null;
+      candidate.detailStatus = "complete";
+      candidate.lastSuccessfulDetailRunId =
+        next.dailyRunId || "manual-full-reconcile";
+      candidate.nextEligibleAt = null;
+      Object.assign(
+        candidate,
+        classifyProgressiveCandidatePublicStatus(candidate)
+      );
+      if (result.reviewOnly === true) {
+        candidate.detailStatus = "review-only";
+        candidate.publicStatus = "review-only";
+        candidate.reviewReason =
+          result.reviewReason ||
+          "manual detail batch marked product review-only";
+        candidate.lastError = candidate.reviewReason;
+      }
+      attemptedResults.push({
+        sourceProductId: candidate.sourceProductId,
+        sourceUrl: candidate.sourceUrl,
+        title: candidate.listTitle,
+        detailStatus:
+          candidate.detailStatus === "review-only"
+            ? "complete"
+            : candidate.detailStatus,
+        publicStatus: candidate.publicStatus,
+        error: candidate.lastError || null,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : String(error);
+      candidate.lastError = message;
+      if (error?.code === "CAPTCHA_REQUIRED") {
+        candidate.detailStatus = "blocked";
+        candidate.publicStatus = "not-public";
+        candidate.blockedCount += 1;
+        candidate.lastBlockedAt = now;
+        candidate.lastBlockedReason = message;
+        candidate.nextEligibleAt = new Date(
+          Date.parse(now) + retryDelayMs
+        ).toISOString();
+        next.verificationDetected = true;
+        next.blockedAt = now;
+        next.blockedReason = message;
+        blockedReason = message;
+        recommendedNextRunAt = candidate.nextEligibleAt;
+        attemptedResults.push({
+          sourceProductId: candidate.sourceProductId,
+          sourceUrl: candidate.sourceUrl,
+          title: candidate.listTitle,
+          detailStatus: "blocked",
+          publicStatus: candidate.publicStatus,
+          error: message,
+          verificationPageUrl:
+            error.verificationPageUrl || candidate.sourceUrl,
+        });
+        next.updatedAt = new Date().toISOString();
+        next.summary = buildProgressiveStateSummary(
+          next,
+          next.updatedAt
+        );
+        await checkpoint(next);
+        break;
+      }
+      candidate.detailStatus = "failed";
+      candidate.publicStatus = "not-public";
+      attemptedResults.push({
+        sourceProductId: candidate.sourceProductId,
+        sourceUrl: candidate.sourceUrl,
+        title: candidate.listTitle,
+        detailStatus: "failed",
+        publicStatus: candidate.publicStatus,
+        error: message,
+      });
+    }
+    next.updatedAt = new Date().toISOString();
+    next.summary = buildProgressiveStateSummary(next, next.updatedAt);
+    await checkpoint(next);
+    await afterItem({
+      index,
+      selectedCount: selected.length,
+      blocked: Boolean(blockedReason),
+    });
+    if (blockedReason) break;
+  }
+
+  next.latestRun = {
+    runId: next.dailyRunId,
+    mode: "manual-full-reconcile-fetch-detail-batch",
+    finishedAt: new Date().toISOString(),
+    selected: selected.length,
+    attempted: attemptedResults.length,
+    completedThisRun: attemptedResults.filter(
+      (item) => item.detailStatus === "complete"
+    ).length,
+    failedThisRun: attemptedResults.filter(
+      (item) => item.detailStatus === "failed"
+    ).length,
+    blockedReason,
+    recommendedNextRunAt,
+    productionWritten: false,
+  };
+  next.manualFullReconcile = {
+    ...(next.manualFullReconcile || {}),
+    mode: "fetch-detail-batch",
+    detailBatch: {
+      startedAt: now,
+      finishedAt: next.latestRun.finishedAt,
+      batchLimit: cappedDetailMax,
+      attemptedCount: attemptedResults.length,
+      completedCount: next.latestRun.completedThisRun,
+      failedCount: next.latestRun.failedThisRun,
+      blockedCount: attemptedResults.filter(
+        (item) => item.detailStatus === "blocked"
+      ).length,
+      productionWritten: false,
+    },
+    allowProductionApply: false,
+    allowDailyTaskResume: false,
+  };
+  next.productionWritten = false;
+  next.summary = buildProgressiveStateSummary(next, next.updatedAt);
+  const report = buildManualFullReconcileDetailBatchReport({
+    state: next,
+    startedAt: now,
+    finishedAt: next.latestRun.finishedAt,
+    batchLimit: cappedDetailMax,
+    attemptedResults,
+    smokingpipesAccessed: networkAccessed,
+    productionWritten: false,
+    browser,
+  });
+  return {
+    status: blockedReason
+      ? "blocked"
+      : attemptedResults.length
+        ? "batch-complete"
+        : "no-eligible-candidates",
+    state: next,
+    report,
+    productionWritten: false,
+  };
+}
+
+function detailBatchMarkdown(report) {
+  const items = report.items.length
+    ? report.items
+        .map(
+          (item) =>
+            `- ${item.sourceProductId}: ${item.detailStatus} / ${item.publicStatus || "not-public"}${item.error ? ` — ${item.error}` : ""}`
+        )
+        .join("\n")
+    : "- none";
+  const blocked = report.blockedManualAction
+    ? [
+        `- 验证对象: ${report.blockedManualAction.object}`,
+        `- 验证位置: ${report.blockedManualAction.location}`,
+        `- 浏览器: ${report.blockedManualAction.browser}`,
+        `- 验证页面: ${report.blockedManualAction.page}`,
+        `- 下一步: ${report.blockedManualAction.nextStep}`,
+      ].join("\n")
+    : "- 无";
+  return `# Smokingpipes Manual Full Reconcile Detail Batch Report
+
+- batchLimit: ${report.batchLimit}
+- attemptedCount: ${report.attemptedCount}
+- completedCount: ${report.completedCount}
+- failedCount: ${report.failedCount}
+- blockedCount: ${report.blockedCount}
+- remainingPendingCount: ${report.remainingPendingCount}
+- deferredCount: ${report.deferredCount}
+- reviewOnlyCount: ${report.reviewOnlyCount}
+- smokingpipesAccessed: ${report.smokingpipesAccessed}
+- productionWritten: ${report.productionWritten}
+
+## Blocked Manual Action
+
+${blocked}
+
+## Items
+
+${items}
+`;
+}
+
+async function createManualDetailProcessor({
+  detailWarmupMinMs = 1000,
+  detailWarmupMaxMs = 3000,
+  detailDelayMinMs = 3000,
+  detailDelayMaxMs = 8000,
+  browserChannel = "chrome",
+  browserProfile = "sp-chrome",
+  browserProfileDir = null,
+  allowManualVerification = true,
+  verbose = false,
+  runId = null,
+}) {
+  process.env.SMOKINGPIPES_HEADLESS = allowManualVerification
+    ? "false"
+    : process.env.SMOKINGPIPES_HEADLESS || "true";
+  const session = await launchSmokingpipesContext({
+    root: ROOT,
+    browserChannel,
+    browserProfile,
+    browserProfileDir,
+    runId,
+    mode: "manual-full-reconcile-fetch-detail-batch",
+  });
+  const page =
+    session.context.pages()[0] ||
+    (await session.context.newPage());
+  return {
+    browser: {
+      ...session.browser,
+      browserChannel,
+      browserProfile,
+    },
+    async process(candidate, index) {
+      if (verbose) {
+        console.log(
+          `manual reconcile detail ${index + 1}: ${candidate.sourceProductId}`
+        );
+      }
+      const response = await page.goto(candidate.sourceUrl, {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      });
+      const warmupMs = randomDelayMs(
+        detailWarmupMinMs,
+        detailWarmupMaxMs
+      );
+      if (verbose) {
+        console.log(`manual detail warmup delay: ${warmupMs} ms`);
+      }
+      if (warmupMs > 0) {
+        await page.waitForTimeout(warmupMs);
+      }
+      const detection = await detectSmokingpipesVerification(page, {
+        pageKind: "detail",
+        httpStatus: response?.status() || 0,
+      });
+      if (detection.verificationBlocked) {
+        throw Object.assign(
+          new Error(
+            `Smokingpipes strong verification detected at ${candidate.sourceProductId}.`
+          ),
+          {
+            code: "CAPTCHA_REQUIRED",
+            verificationPageUrl: page.url() || candidate.sourceUrl,
+          }
+        );
+      }
+      const detail = addParsedMeasurements(
+        await extractDetailProduct(page, candidate, "new")
+      );
+      if (
+        !isNormalSmokingpipesDetail(
+          detail,
+          candidate.sourceProductId
+        )
+      ) {
+        throw new Error(
+          `detail parse failed for ${candidate.sourceProductId}`
+        );
+      }
+      const conversion = convertSmokingpipesCandidateDetails(
+        [detail],
+        [
+          {
+            sourceProductId: candidate.sourceProductId,
+            sourceUrl: candidate.sourceUrl,
+            title: candidate.listTitle,
+            price: candidate.listPrice,
+            imageUrl: candidate.listPrimaryImage,
+          },
+        ]
+      );
+      const convertedProduct = conversion.products[0] || null;
+      if (!convertedProduct || conversion.failures.length) {
+        return {
+          detail,
+          convertedProduct,
+          reviewOnly: true,
+          reviewReason:
+            conversion.failures[0]?.reason ||
+            "detail conversion failed",
+        };
+      }
+      return {
+        detail,
+        convertedProduct,
+      };
+    },
+    async afterItem({ index, selectedCount, blocked }) {
+      if (blocked || index + 1 >= selectedCount) return;
+      const delayMs = randomDelayMs(
+        detailDelayMinMs,
+        detailDelayMaxMs
+      );
+      if (verbose) {
+        console.log(`manual detail next delay: ${delayMs} ms`);
+      }
+      if (delayMs > 0) await page.waitForTimeout(delayMs);
+    },
+    close: () => session.close(),
+  };
+}
+
 function planMarkdown(plan) {
   return `# Smokingpipes Manual Full Reconcile V1 Plan
 
@@ -1089,6 +1605,11 @@ function parseArguments(argv) {
     const [key, ...rest] = argument.slice(2).split("=");
     args.set(key, rest.length ? rest.join("=") : "true");
   }
+  const booleanValue = (value, fallback = false) => {
+    if (value === undefined) return fallback;
+    if (typeof value === "boolean") return value;
+    return /^(1|true|yes|y)$/i.test(String(value));
+  };
   const detailMax = Math.min(
     30,
     Math.max(1, Number(args.get("detail-max")) || 30)
@@ -1099,6 +1620,32 @@ function parseArguments(argv) {
     stateBackupPath: args.get("state-backup")
       ? path.resolve(args.get("state-backup"))
       : null,
+    browserChannel: text(args.get("browser-channel") || "chrome"),
+    browserProfile: text(args.get("browser-profile") || "sp-chrome"),
+    browserProfileDir: args.get("browser-profile-dir")
+      ? path.resolve(args.get("browser-profile-dir"))
+      : null,
+    allowManualVerification: booleanValue(
+      args.get("allow-manual-verification"),
+      true
+    ),
+    verbose: booleanValue(args.get("verbose"), false),
+    detailWarmupMinMs: Math.max(
+      0,
+      Number(args.get("detail-warmup-min-ms") || 1000)
+    ),
+    detailWarmupMaxMs: Math.max(
+      0,
+      Number(args.get("detail-warmup-max-ms") || 3000)
+    ),
+    detailDelayMinMs: Math.max(
+      0,
+      Number(args.get("detail-delay-min-ms") || 3000)
+    ),
+    detailDelayMaxMs: Math.max(
+      0,
+      Number(args.get("detail-delay-max-ms") || 8000)
+    ),
   };
 }
 
@@ -1110,12 +1657,149 @@ async function writePlan(plan) {
   );
 }
 
+async function writeDetailBatchReport(report) {
+  await writeJsonAtomic(DEFAULT_PATHS.detailBatchJson, report);
+  await writeTextAtomic(
+    DEFAULT_PATHS.detailBatchMarkdown,
+    `\ufeff${detailBatchMarkdown(report)}`
+  );
+}
+
 async function main(argv = process.argv.slice(2)) {
   const options = parseArguments(argv);
-  if (!["plan-only", "rebuild-state"].includes(options.mode)) {
+  if (
+    !["plan-only", "rebuild-state", "fetch-detail-batch"].includes(
+      options.mode
+    )
+  ) {
     throw new Error(
       `Unsupported offline manual reconcile mode: ${options.mode}`
     );
+  }
+  if (options.mode === "fetch-detail-batch") {
+    const currentState = readProgressiveDailyState(
+      DEFAULT_PATHS.state
+    );
+    if (currentState.status !== "passed") {
+      throw new Error(
+        `Manual FetchDetailBatch blocked by state validation: ${currentState.errors.join("; ")}`
+      );
+    }
+    const selected = selectManualFullReconcileDetailBatchCandidates({
+      state: currentState.state,
+      detailMax: options.detailMax,
+    });
+    if (!selected.length) {
+      const result = await runSmokingpipesManualFetchDetailBatch({
+        state: currentState.state,
+        detailMax: options.detailMax,
+        networkAccessed: false,
+        browser: {
+          browserChannel: options.browserChannel,
+          browserProfile: options.browserProfile,
+        },
+        processDetail: async () => {
+          throw new Error("no eligible candidates");
+        },
+      });
+      await writeProgressiveDailyState(
+        DEFAULT_PATHS.state,
+        result.state
+      );
+      await writeDetailBatchReport(result.report);
+      console.log(
+        JSON.stringify(
+          {
+            status: result.status,
+            mode: options.mode,
+            batchLimit: result.report.batchLimit,
+            attemptedCount: 0,
+            completedCount: 0,
+            failedCount: 0,
+            blockedCount: 0,
+            remainingPendingCount:
+              result.report.remainingPendingCount,
+            deferredCount: result.report.deferredCount,
+            reviewOnlyCount: result.report.reviewOnlyCount,
+            smokingpipesAccessed: false,
+            productionWritten: false,
+            reportJson: path.relative(
+              ROOT,
+              DEFAULT_PATHS.detailBatchJson
+            ),
+          },
+          null,
+          2
+        )
+      );
+      return;
+    }
+    const runId = `manual-detail-${new Date()
+      .toISOString()
+      .replace(/[^0-9]/g, "")
+      .slice(0, 14)}`;
+    const processor = await createManualDetailProcessor({
+      detailWarmupMinMs: options.detailWarmupMinMs,
+      detailWarmupMaxMs: options.detailWarmupMaxMs,
+      detailDelayMinMs: options.detailDelayMinMs,
+      detailDelayMaxMs: options.detailDelayMaxMs,
+      browserChannel: options.browserChannel,
+      browserProfile: options.browserProfile,
+      browserProfileDir: options.browserProfileDir,
+      allowManualVerification: options.allowManualVerification,
+      verbose: options.verbose,
+      runId,
+    });
+    let result;
+    try {
+      result = await runSmokingpipesManualFetchDetailBatch({
+        state: currentState.state,
+        detailMax: options.detailMax,
+        networkAccessed: true,
+        browser: processor.browser,
+        processDetail: processor.process,
+        afterItem: processor.afterItem,
+        checkpoint: async (state) => {
+          await writeProgressiveDailyState(
+            DEFAULT_PATHS.state,
+            state
+          );
+        },
+      });
+    } finally {
+      await processor.close();
+    }
+    await writeProgressiveDailyState(
+      DEFAULT_PATHS.state,
+      result.state
+    );
+    await writeDetailBatchReport(result.report);
+    console.log(
+      JSON.stringify(
+        {
+          status: result.status,
+          mode: options.mode,
+          batchLimit: result.report.batchLimit,
+          attemptedCount: result.report.attemptedCount,
+          completedCount: result.report.completedCount,
+          failedCount: result.report.failedCount,
+          blockedCount: result.report.blockedCount,
+          remainingPendingCount:
+            result.report.remainingPendingCount,
+          deferredCount: result.report.deferredCount,
+          reviewOnlyCount: result.report.reviewOnlyCount,
+          smokingpipesAccessed: true,
+          productionWritten: false,
+          reportJson: path.relative(
+            ROOT,
+            DEFAULT_PATHS.detailBatchJson
+          ),
+        },
+        null,
+        2
+      )
+    );
+    return;
   }
   const currentList = readJson(DEFAULT_PATHS.currentList);
   const diff = readJson(DEFAULT_PATHS.diff);
