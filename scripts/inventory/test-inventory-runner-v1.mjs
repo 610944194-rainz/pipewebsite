@@ -101,6 +101,9 @@ import {
   validateProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
+  reconcileProgressiveState,
+} from "./smokingpipes-progressive-state-reconcile-v1.mjs";
+import {
   buildProgressiveStateSummary,
   ingestProgressiveListSnapshot,
   runProgressiveDetailChunk,
@@ -7187,6 +7190,179 @@ assert.equal(
   ).some((item) => item.sourceProductId === "200"),
   false
 );
+
+const reconcileManualRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-reconcile-manual-")
+);
+const reconcileManualPaths =
+  runnerCore.getRunnerPaths(reconcileManualRoot);
+fs.mkdirSync(path.dirname(reconcileManualPaths.progressiveState), {
+  recursive: true,
+});
+fs.mkdirSync(path.dirname(reconcileManualPaths.existingProducts), {
+  recursive: true,
+});
+fs.mkdirSync(reconcileManualPaths.productionPublicRoot, {
+  recursive: true,
+});
+const reconcileManualState = {
+  ...progressiveApplyState,
+  dailyRunId: "manual-reconcile-20260705093305",
+};
+fs.writeFileSync(
+  reconcileManualPaths.progressiveState,
+  JSON.stringify(reconcileManualState),
+  "utf8"
+);
+fs.writeFileSync(
+  reconcileManualPaths.existingProducts,
+  JSON.stringify([{ sourceProductId: "production-unchanged" }]),
+  "utf8"
+);
+fs.writeFileSync(
+  reconcileManualPaths.unifiedProductsStaging,
+  JSON.stringify([{ id: "unified-unchanged" }]),
+  "utf8"
+);
+fs.writeFileSync(
+  path.join(reconcileManualPaths.productionPublicRoot, "catalog.json"),
+  JSON.stringify({ products: [{ id: "catalog-unchanged" }] }),
+  "utf8"
+);
+const reconcileManifestPath = path.join(
+  reconcileManualPaths.productionPublicRoot,
+  "manifest.json"
+);
+fs.writeFileSync(
+  reconcileManifestPath,
+  JSON.stringify({ productionWritten: true }),
+  "utf8"
+);
+const productionGuardBefore = {
+  existing: fs.readFileSync(reconcileManualPaths.existingProducts, "utf8"),
+  unified: fs.readFileSync(reconcileManualPaths.unifiedProductsStaging, "utf8"),
+  catalog: fs.readFileSync(
+    path.join(reconcileManualPaths.productionPublicRoot, "catalog.json"),
+    "utf8"
+  ),
+  manifest: fs.readFileSync(reconcileManifestPath, "utf8"),
+};
+const reconcileManualDryRun = await reconcileProgressiveState({
+  root: reconcileManualRoot,
+  dryRun: true,
+});
+assert.equal(reconcileManualDryRun.status, "archive-recommended");
+assert.equal(reconcileManualDryRun.dryRun, true);
+assert.equal(reconcileManualDryRun.archivePerformed, false);
+assert.equal(reconcileManualDryRun.stateIsManualReconcile, true);
+assert.equal(
+  reconcileManualDryRun.stateDailyRunId,
+  "manual-reconcile-20260705093305"
+);
+assert.equal(
+  reconcileManualDryRun.totalCandidates,
+  reconcileManualState.candidates.length
+);
+assert.equal(
+  fs.readFileSync(reconcileManualPaths.progressiveState, "utf8"),
+  JSON.stringify(reconcileManualState)
+);
+assert.equal(
+  fs.readFileSync(reconcileManualPaths.existingProducts, "utf8"),
+  productionGuardBefore.existing
+);
+const reconcileManualArchive = await reconcileProgressiveState({
+  root: reconcileManualRoot,
+  archive: true,
+  now: new Date("2026-07-08T12:34:56.000Z"),
+});
+assert.equal(reconcileManualArchive.status, "archived");
+assert.equal(reconcileManualArchive.dryRun, false);
+assert.equal(reconcileManualArchive.archivePerformed, true);
+assert.equal(fs.existsSync(reconcileManualPaths.progressiveState), false);
+assert.equal(
+  readProgressiveDailyState(reconcileManualPaths.progressiveState).status,
+  "missing"
+);
+const reconcileArchiveDir = path.dirname(
+  path.join(reconcileManualRoot, reconcileManualArchive.archiveTarget)
+);
+assert.equal(
+  fs.existsSync(
+    path.join(reconcileArchiveDir, "smokingpipes-progressive-daily-state.json")
+  ),
+  true
+);
+const reconcileManifest = JSON.parse(
+  fs.readFileSync(path.join(reconcileArchiveDir, "manifest.json"), "utf8")
+);
+assert.equal(
+  reconcileManifest.stateDailyRunId,
+  "manual-reconcile-20260705093305"
+);
+assert.equal(
+  reconcileManifest.totalCandidates,
+  reconcileManualState.candidates.length
+);
+assert.match(reconcileManifest.reason, /manual-reconcile state archived/);
+assert.match(
+  reconcileManifest.postArchiveStateHandling,
+  /original state deleted/
+);
+assert.equal(
+  fs.readFileSync(reconcileManualPaths.existingProducts, "utf8"),
+  productionGuardBefore.existing
+);
+assert.equal(
+  fs.readFileSync(reconcileManualPaths.unifiedProductsStaging, "utf8"),
+  productionGuardBefore.unified
+);
+assert.equal(
+  fs.readFileSync(
+    path.join(reconcileManualPaths.productionPublicRoot, "catalog.json"),
+    "utf8"
+  ),
+  productionGuardBefore.catalog
+);
+assert.equal(
+  fs.readFileSync(reconcileManifestPath, "utf8"),
+  productionGuardBefore.manifest
+);
+
+const reconcileNonManualRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-reconcile-nonmanual-")
+);
+const reconcileNonManualPaths =
+  runnerCore.getRunnerPaths(reconcileNonManualRoot);
+fs.mkdirSync(path.dirname(reconcileNonManualPaths.progressiveState), {
+  recursive: true,
+});
+fs.writeFileSync(
+  reconcileNonManualPaths.progressiveState,
+  JSON.stringify({
+    ...progressiveApplyState,
+    dailyRunId: "daily-update-20260708",
+  }),
+  "utf8"
+);
+const reconcileNonManual = await reconcileProgressiveState({
+  root: reconcileNonManualRoot,
+  archive: true,
+});
+assert.equal(reconcileNonManual.status, "no-action-needed");
+assert.equal(reconcileNonManual.archivePerformed, false);
+assert.equal(fs.existsSync(reconcileNonManualPaths.progressiveState), true);
+
+const reconcileMissingRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-reconcile-missing-")
+);
+const reconcileMissing = await reconcileProgressiveState({
+  root: reconcileMissingRoot,
+});
+assert.equal(reconcileMissing.status, "missing-state");
+assert.equal(reconcileMissing.stateExists, false);
+assert.equal(reconcileMissing.archivePerformed, false);
+
 const progressiveApplyBlockedRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "inventory-progressive-apply-blocked-")
 );
