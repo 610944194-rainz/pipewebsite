@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+﻿import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
@@ -35,13 +35,13 @@ const OUTPUTS = {
 };
 
 const EXPECTED = {
-  stagingSha256: "CE37E41336AE7650F8B8667F03BB2750B7601DCBC4D842B83E69E6C6EB7EF3C0",
-  stagingTotal: 7942,
-  publicProductCount: 7415,
+  stagingSha256: "5BEA3B58F79A5341BBC33EF7FE72926545D22E6C48FDC11F2F04A02420DBE81C",
+  stagingTotal: 8135,
+  publicProductCount: 7608,
   excludedProductCount: 527,
   sourceCounts: {
     danish: 2121,
-    smokingpipes: 5294,
+    smokingpipes: 5487,
   },
   detailShardCount: 64,
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
@@ -59,10 +59,10 @@ const BRAND_CANONICAL_PUBLIC_MAP = new Map([
   ["tsuge-ikebana", { brandName: "Tsuge", brandSlug: "tsuge", brandCountry: "Japan" }],
   ["ashton for paul olsen", { brandName: "Ashton", brandSlug: "ashton", brandCountry: "United Kingdom" }],
   ["ashton-for-paul-olsen", { brandName: "Ashton", brandSlug: "ashton", brandCountry: "United Kingdom" }],
-  ["son (nording)", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
-  ["son-nording", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
-  ["eriksen keystone filter pipe", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
-  ["eriksen-keystone-filter-pipe", { brandName: "Nørding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["son (nording)", { brandName: "N酶rding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["son-nording", { brandName: "N酶rding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["eriksen keystone filter pipe", { brandName: "N酶rding", brandSlug: "nording", brandCountry: "Denmark" }],
+  ["eriksen-keystone-filter-pipe", { brandName: "N酶rding", brandSlug: "nording", brandCountry: "Denmark" }],
 ]);
 
 const HIDDEN_PUBLIC_BRAND_KEYS = new Set(["pipe key ring", "pipe-key-ring", "pipepack"]);
@@ -309,7 +309,7 @@ function getWeightRange(weightGrams) {
 function normalizeKey(value) {
   return requiredText(value)
     .normalize("NFKC")
-    .replace(/[’‘`´]/g, "'")
+    .replace(/[鈥欌€榒麓]/g, "'")
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
@@ -1124,3 +1124,4 @@ const directExecution =
       .toLowerCase();
 
 if (directExecution) await main();
+
