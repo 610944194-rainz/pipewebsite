@@ -396,8 +396,47 @@ function parseUsdPrice(value) {
 function normalizeInventory(detail, listItem) {
   const includedInActiveListRange = Boolean(listItem);
   const rawDetailStatus = normalizeText(detail.status);
-  const rawListStatus = normalizeText(listItem?.status);
+  const rawListStatus = normalizeText(listItem?.status || listItem?.inventoryStatus);
+  const detailPrice = parseUsdPrice(detail.price);
+  const statusEvidence = detail.statusEvidence || {};
+  const soldEvidence = Array.isArray(statusEvidence.soldEvidence)
+    ? statusEvidence.soldEvidence.map(normalizeText).filter(Boolean)
+    : [];
+  const availableEvidence = Array.isArray(statusEvidence.availableEvidence)
+    ? statusEvidence.availableEvidence.map(normalizeText).filter(Boolean)
+    : [];
+  const strongSoldEvidence = soldEvidence.filter((item) => !item.startsWith("weak/"));
   const reasons = [];
+  const warnings = [];
+
+  if (
+    rawDetailStatus === "sold" &&
+    detailPrice.amount &&
+    rawListStatus === "available" &&
+    strongSoldEvidence.length === 0
+  ) {
+    warnings.push("sold status has available evidence; treating sold signal as weak.");
+    if (!soldEvidence.length) {
+      soldEvidence.push("weak/legacy-detail-status-sold-with-price-and-active-list");
+    }
+
+    return {
+      inventoryStatus: "available",
+      inventoryConfidence: "high",
+      includedInActiveListRange,
+      rawListStatus,
+      rawDetailStatus,
+      inventoryReviewReasons: [],
+      inventoryWarnings: warnings,
+      soldEvidence,
+      availableEvidence: availableEvidence.length
+        ? availableEvidence
+        : ["detail-price-present", "current-list-available"],
+      rawStatusSource:
+        statusEvidence.rawStatusSource ||
+        "legacy-detail-status-sold-overridden-by-available-evidence",
+    };
+  }
 
   if (includedInActiveListRange && rawDetailStatus === "available") {
     return {
@@ -407,6 +446,10 @@ function normalizeInventory(detail, listItem) {
       rawListStatus,
       rawDetailStatus,
       inventoryReviewReasons: reasons,
+      inventoryWarnings: warnings,
+      soldEvidence,
+      availableEvidence,
+      rawStatusSource: statusEvidence.rawStatusSource || "detail-status-available",
     };
   }
 
@@ -420,6 +463,10 @@ function normalizeInventory(detail, listItem) {
       rawListStatus,
       rawDetailStatus,
       inventoryReviewReasons: reasons,
+      inventoryWarnings: warnings,
+      soldEvidence,
+      availableEvidence,
+      rawStatusSource: statusEvidence.rawStatusSource || "detail-status-sold",
     };
   }
 
@@ -438,6 +485,10 @@ function normalizeInventory(detail, listItem) {
     rawListStatus,
     rawDetailStatus,
     inventoryReviewReasons: reasons,
+    inventoryWarnings: warnings,
+    soldEvidence,
+    availableEvidence,
+    rawStatusSource: statusEvidence.rawStatusSource || "detail-status-unknown",
   };
 }
 
@@ -932,11 +983,16 @@ function convertProduct(detail, listItem, indexes) {
     rawListStatus: inventory.rawListStatus,
     rawDetailStatus: inventory.rawDetailStatus,
     inventoryReviewReasons: inventory.inventoryReviewReasons,
+    inventoryWarnings: inventory.inventoryWarnings,
     inventoryEvidence: {
       includedInActiveListRange: inventory.includedInActiveListRange,
       rawListStatus: inventory.rawListStatus,
       rawDetailStatus: inventory.rawDetailStatus,
       reasons: inventory.inventoryReviewReasons,
+      warnings: inventory.inventoryWarnings,
+      soldEvidence: inventory.soldEvidence,
+      availableEvidence: inventory.availableEvidence,
+      rawStatusSource: inventory.rawStatusSource,
     },
     ...images,
     ...measurements,
@@ -952,6 +1008,8 @@ function convertProduct(detail, listItem, indexes) {
     sourceSpecific: {
       smokingpipes: {
         rawStatus: normalizeText(detail.status),
+        rawStatusSource: inventory.rawStatusSource,
+        statusEvidence: detail.statusEvidence || null,
         verificationBlocked: Boolean(detail.verificationBlocked),
         excludedSimilarImageCount: detail.excludedSimilarImageCount ?? 0,
         updatedAt: normalizeText(detail.updatedAt),

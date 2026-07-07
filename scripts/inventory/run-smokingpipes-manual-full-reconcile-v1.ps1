@@ -3,6 +3,7 @@ param(
   [switch]$RebuildState,
   [switch]$RepairState,
   [switch]$PromoteNextBatch,
+  [switch]$RepairDetailSoldFalsePositives,
   [switch]$RefreshSnapshot,
   [switch]$FetchDetailBatch,
   [switch]$ApplySafeSubset,
@@ -19,9 +20,9 @@ $StatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-progressive-dai
 
 Set-Location $ProjectRoot
 
-$SelectedModes = @($PlanOnly, $RebuildState, $RepairState, $PromoteNextBatch, $FetchDetailBatch) | Where-Object { $_ }
+$SelectedModes = @($PlanOnly, $RebuildState, $RepairState, $PromoteNextBatch, $RepairDetailSoldFalsePositives, $FetchDetailBatch) | Where-Object { $_ }
 if ($SelectedModes.Count -gt 1) {
-  throw "Choose only one mode: PlanOnly, RebuildState, RepairState, PromoteNextBatch, or FetchDetailBatch."
+  throw "Choose only one mode: PlanOnly, RebuildState, RepairState, PromoteNextBatch, RepairDetailSoldFalsePositives, or FetchDetailBatch."
 }
 
 if ($WriteProduction -and -not $ApplySafeSubset) {
@@ -42,6 +43,8 @@ $Mode = if ($RebuildState) {
   "repair-state"
 } elseif ($PromoteNextBatch) {
   "promote-next-batch"
+} elseif ($RepairDetailSoldFalsePositives) {
+  "repair-detail-sold-false-positives"
 } elseif ($FetchDetailBatch) {
   "fetch-detail-batch"
 } else {
@@ -102,6 +105,12 @@ if ($Mode -eq "promote-next-batch") {
 if ($Mode -eq "repair-state") {
   Write-Host "State repair: enabled"
   Write-Host "Current-list refresh: disabled"
+  Write-Host "Daily task: disabled"
+}
+if ($Mode -eq "repair-detail-sold-false-positives") {
+  Write-Host "Detail sold false-positive repair: enabled"
+  Write-Host "Current-list refresh: disabled"
+  Write-Host "Detail fetch: disabled"
   Write-Host "Daily task: disabled"
 }
 if ($Mode -eq "fetch-detail-batch") {

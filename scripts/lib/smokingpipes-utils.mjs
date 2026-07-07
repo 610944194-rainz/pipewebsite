@@ -34,6 +34,104 @@ export function normalizeText(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
+function hasPositiveUsdPrice(value) {
+  const match = normalizeText(value).replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
+  return Boolean(match && Number.parseFloat(match[1]) > 0);
+}
+
+export function classifySmokingpipesDetailStatusEvidence({
+  rawText = "",
+  purchaseAreaText = "",
+  price = "",
+  listInventoryStatus = "",
+  addToCartEvidence = false,
+  quantityEvidence = false,
+  cartFormEvidence = false,
+  disabledSoldButtonEvidence = false,
+  structuredAvailability = "",
+  globalSoldTextMatched = null,
+} = {}) {
+  const normalizedRawText = normalizeText(rawText);
+  const normalizedPurchaseAreaText = normalizeText(purchaseAreaText);
+  const normalizedListStatus = normalizeText(listInventoryStatus).toLowerCase();
+  const normalizedAvailability = normalizeText(structuredAvailability).toLowerCase();
+  const priceExists = hasPositiveUsdPrice(price);
+  const availableEvidence = [];
+  const soldEvidence = [];
+
+  if (priceExists) availableEvidence.push("detail-price-present");
+  if (addToCartEvidence) availableEvidence.push("add-to-cart-present");
+  if (quantityEvidence) availableEvidence.push("quantity-input-present");
+  if (cartFormEvidence) availableEvidence.push("cart-form-present");
+  if (normalizedListStatus === "available") {
+    availableEvidence.push("current-list-available");
+  }
+  if (/instock|in stock/i.test(normalizedAvailability)) {
+    availableEvidence.push("structured-availability-instock");
+  }
+
+  if (/outofstock|out of stock|sold out|unavailable/i.test(normalizedAvailability)) {
+    soldEvidence.push("structured-availability-out-of-stock");
+  }
+  if (disabledSoldButtonEvidence) {
+    soldEvidence.push("disabled-sold-button");
+  }
+  if (/\b(?:sold out|out of stock|unavailable)\b/i.test(normalizedPurchaseAreaText)) {
+    soldEvidence.push("purchase-area-sold-text");
+  }
+
+  const weakGlobalTextMatched =
+    globalSoldTextMatched === null
+      ? /\b(?:sold|out of stock|unavailable)\b/i.test(normalizedRawText)
+      : Boolean(globalSoldTextMatched);
+  if (weakGlobalTextMatched && !soldEvidence.length) {
+    soldEvidence.push("weak/global-text-match");
+  }
+
+  const strongSoldEvidence = soldEvidence.filter(
+    (item) => !item.startsWith("weak/")
+  );
+  const availableEvidencePresent = availableEvidence.length > 0;
+
+  if (availableEvidencePresent && !strongSoldEvidence.length) {
+    return {
+      status: "available",
+      rawStatusSource: weakGlobalTextMatched
+        ? "available-evidence-overrides-weak-global-sold-text"
+        : "available-evidence",
+      soldEvidence,
+      availableEvidence,
+      warning: weakGlobalTextMatched
+        ? "sold status has available evidence; treating sold signal as weak."
+        : null,
+    };
+  }
+
+  if (strongSoldEvidence.length) {
+    return {
+      status: "sold",
+      rawStatusSource: "strong-sold-evidence",
+      soldEvidence,
+      availableEvidence,
+      warning: availableEvidencePresent
+        ? "strong sold evidence conflicts with available evidence."
+        : null,
+    };
+  }
+
+  return {
+    status: "available",
+    rawStatusSource: weakGlobalTextMatched
+      ? "weak-global-sold-text-only"
+      : "no-sold-evidence",
+    soldEvidence,
+    availableEvidence,
+    warning: weakGlobalTextMatched
+      ? "sold status signal came only from global page text and was ignored."
+      : null,
+  };
+}
+
 export function uniqueItems(items) {
   return Array.from(new Set(items.map(normalizeText).filter(Boolean)));
 }
@@ -1012,7 +1110,7 @@ export async function extractDetailProduct(page, listItem, listType = "new") {
   const saveRawText = shouldSaveSmokingpipesRawText();
   const saveDebugImages = shouldSaveSmokingpipesDebugImages();
 
-  return page.evaluate(
+  const detail = await page.evaluate(
     ({ listItem, sourceSite, listType, saveRawText, saveDebugImages }) => {
       const normalizeText = (value) => String(value || "").replace(/\s+/g, " ").trim();
 
@@ -1144,6 +1242,84 @@ export async function extractDetailProduct(page, listItem, listType = "new") {
       const msrp = normalizeText(priceText.match(/\bMSRP\s*:?\s*(\$\s*[\d,]+(?:\.\d{2})?)/i)?.[1] || "");
       const price = prices.find((item) => item !== originalPrice && item !== msrp) || listItem.price || "";
 
+      const purchaseElements = Array.from(
+        usefulRoot.querySelectorAll(
+          "form, button, input, a, [role='button'], .cart, .add-to-cart, .product-price, .price, .availability, .stock, .purchase"
+        )
+      ).filter((element) => !isInsideExcludedSection(element));
+      const purchaseAreaText = normalizeText(
+        purchaseElements
+          .map((element) =>
+            [
+              element.innerText,
+              element.textContent,
+              element.getAttribute?.("value"),
+              element.getAttribute?.("aria-label"),
+              element.getAttribute?.("title"),
+            ]
+              .map(normalizeText)
+              .filter(Boolean)
+              .join(" ")
+          )
+          .filter(Boolean)
+          .join("\n")
+      ).slice(0, 4000);
+      const buttons = purchaseElements.filter((element) =>
+        /^(button|input|a)$/i.test(element.tagName || "") ||
+        element.getAttribute?.("role") === "button"
+      );
+      const buttonText = (element) =>
+        normalizeText(
+          [
+            element.innerText,
+            element.textContent,
+            element.getAttribute?.("value"),
+            element.getAttribute?.("aria-label"),
+            element.getAttribute?.("title"),
+          ]
+            .filter(Boolean)
+            .join(" ")
+        );
+      const isDisabled = (element) =>
+        Boolean(
+          element.disabled ||
+            element.getAttribute?.("disabled") !== null ||
+            element.getAttribute?.("aria-disabled") === "true" ||
+            /\bdisabled\b/i.test(element.className || "")
+        );
+      const addToCartEvidence = buttons.some(
+        (element) =>
+          /\badd\s+to\s+(?:cart|bag|basket)\b/i.test(buttonText(element)) &&
+          !isDisabled(element)
+      );
+      const disabledSoldButtonEvidence = buttons.some(
+        (element) =>
+          isDisabled(element) &&
+          /\b(?:sold\s*out|out\s*of\s*stock|unavailable)\b/i.test(
+            buttonText(element)
+          )
+      );
+      const cartFormEvidence = purchaseElements.some(
+        (element) =>
+          /^form$/i.test(element.tagName || "") &&
+          /cart|basket|bag/i.test(
+            `${element.getAttribute?.("action") || ""} ${element.id || ""} ${element.className || ""}`
+          )
+      );
+      const quantityEvidence = purchaseElements.some(
+        (element) =>
+          /^input$/i.test(element.tagName || "") &&
+          /^(?:qty|quantity)$/i.test(
+            element.getAttribute?.("name") || element.id || ""
+          )
+      );
+      const structuredAvailability = normalizeText(
+        document.querySelector("[itemprop='availability'], meta[property='product:availability'], link[itemprop='availability']")?.getAttribute("content") ||
+          document.querySelector("[itemprop='availability'], meta[property='product:availability'], link[itemprop='availability']")?.getAttribute("href") ||
+          ""
+      );
+      const globalSoldTextMatched = /\b(?:sold|out of stock|unavailable)\b/i.test(rawText);
+
       const rawLines = String(rawText).split(/\n+/).map(normalizeText).filter(Boolean);
 
       const findSpecLine = (patterns) =>
@@ -1185,7 +1361,17 @@ export async function extractDetailProduct(page, listItem, listType = "new") {
         price,
         originalPrice: originalPrice || listItem.originalPrice || "",
         msrp,
-        status: /sold|out of stock|unavailable/i.test(rawText) ? "sold" : "available",
+        status: "available",
+        statusSignals: {
+          purchaseAreaText,
+          addToCartEvidence,
+          quantityEvidence,
+          cartFormEvidence,
+          disabledSoldButtonEvidence,
+          structuredAvailability,
+          globalSoldTextMatched,
+          listInventoryStatus: listItem.status || listItem.inventoryStatus || "",
+        },
         mainImageUrl: images.galleryImages[0] || "",
         galleryImages: images.galleryImages,
         galleryCount: images.galleryImages.length,
@@ -1216,6 +1402,23 @@ export async function extractDetailProduct(page, listItem, listType = "new") {
     },
     { listItem, sourceSite: SOURCE_SITE, listType, saveRawText, saveDebugImages }
   );
+
+  const statusEvidence = classifySmokingpipesDetailStatusEvidence({
+    ...(detail.statusSignals || {}),
+    rawText: detail.rawText || "",
+    price: detail.price,
+    listInventoryStatus:
+      detail.statusSignals?.listInventoryStatus ||
+      listItem?.status ||
+      listItem?.inventoryStatus ||
+      "",
+  });
+  return {
+    ...detail,
+    status: statusEvidence.status,
+    statusEvidence,
+    rawStatusSource: statusEvidence.rawStatusSource,
+  };
 }
 
 

@@ -53,12 +53,16 @@ import {
 } from "./smokingpipes-apply-dry-run-v1.mjs";
 import {
   classifySmokingpipesVerificationSignals,
+  classifySmokingpipesDetailStatusEvidence,
   isNormalSmokingpipesDetail,
   launchSmokingpipesContext,
   resolveSmokingpipesBrowserLaunch,
   summarizeSmokingpipesListProducts,
   waitForSmokingpipesManualRecovery,
 } from "../lib/smokingpipes-utils.mjs";
+import {
+  convertSmokingpipesCandidateDetails,
+} from "../convert-smokingpipes-products-v2.mjs";
 import {
   acquireBrowserProfileLock,
   buildSmokingpipesBrowserDescriptor,
@@ -121,9 +125,11 @@ import {
 import {
   buildManualFullReconcileStateConsistencyReport,
   buildManualFullReconcileDetailBatchReport,
+  buildManualFullReconcileDetailSoldParserAuditReport,
   buildSmokingpipesManualFullReconcilePlan,
   promoteManualFullReconcileNextBatch,
   repairManualFullReconcileState,
+  repairManualFullReconcileDetailSoldFalsePositives,
   rebuildSmokingpipesProgressiveState,
   runSmokingpipesManualFetchDetailBatch,
   selectManualFullReconcileDetailBatchCandidates,
@@ -1287,6 +1293,244 @@ const missingSmokingpipesPriceReference =
   });
 assert.equal(missingSmokingpipesPriceReference.siteDisplayReady, false);
 assert.equal(missingSmokingpipesPriceReference.siteDisplayAmount, null);
+
+const weakGlobalSoldDetailStatus =
+  classifySmokingpipesDetailStatusEvidence({
+    rawText:
+      "Peterson Junior Bulldog $164.50 Add to Cart Related item sold out",
+    price: "$164.50",
+    listInventoryStatus: "available",
+    addToCartEvidence: true,
+    quantityEvidence: true,
+    globalSoldTextMatched: true,
+  });
+assert.equal(weakGlobalSoldDetailStatus.status, "available");
+assert.deepEqual(weakGlobalSoldDetailStatus.soldEvidence, [
+  "weak/global-text-match",
+]);
+assert.ok(
+  weakGlobalSoldDetailStatus.availableEvidence.includes(
+    "detail-price-present"
+  )
+);
+assert.match(
+  weakGlobalSoldDetailStatus.warning,
+  /sold status has available evidence/
+);
+
+const strongPurchaseSoldDetailStatus =
+  classifySmokingpipesDetailStatusEvidence({
+    rawText: "Sold Out",
+    price: "",
+    purchaseAreaText: "Sold Out",
+    disabledSoldButtonEvidence: true,
+    listInventoryStatus: "",
+  });
+assert.equal(strongPurchaseSoldDetailStatus.status, "sold");
+assert.ok(
+  strongPurchaseSoldDetailStatus.soldEvidence.includes(
+    "disabled-sold-button"
+  )
+);
+
+const falsePositiveSoldConversion =
+  convertSmokingpipesCandidateDetails(
+    [
+      {
+        sourceProductId: "732410",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732410",
+        productCode: "002-029-145796",
+        conditionType: "new",
+        brand: "Peterson",
+        title: "Dracula Rusticated (221) Fishtail",
+        fullTitle:
+          "Peterson: Dracula Rusticated (221) Fishtail Tobacco Pipe",
+        price: "$164.50",
+        status: "sold",
+        statusEvidence: weakGlobalSoldDetailStatus,
+        mainImageUrl:
+          "https://images.smokingpipes.com/test/732410.jpg",
+        galleryImages: [
+          "https://images.smokingpipes.com/test/732410.jpg",
+        ],
+        galleryCount: 1,
+        specsText: ["Shape: Billiard", "Finish: Rusticated"],
+        shape: "Billiard",
+        finish: "Rusticated",
+        material: "Briar",
+      },
+    ],
+    [
+      {
+        sourceProductId: "732410",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732410",
+        title: "Dracula Rusticated (221) Fishtail",
+        price: "$164.50",
+        imageUrl:
+          "https://images.smokingpipes.com/test/732410.jpg",
+        status: "available",
+      },
+    ]
+  );
+assert.equal(falsePositiveSoldConversion.products.length, 1);
+assert.equal(
+  falsePositiveSoldConversion.products[0].inventoryStatus,
+  "available"
+);
+assert.equal(
+  falsePositiveSoldConversion.products[0].inventoryConfidence,
+  "high"
+);
+assert.deepEqual(
+  falsePositiveSoldConversion.products[0].inventoryReviewReasons,
+  []
+);
+assert.doesNotMatch(
+  JSON.stringify(falsePositiveSoldConversion.products[0]),
+  /Detail page says sold while the product remains in the active list range/
+);
+
+const manualSoldFalsePositiveState = createProgressiveDailyState({
+  dailyRunId: "manual-sold-false-positive-test",
+  now: "2026-07-07T11:00:00.000Z",
+});
+manualSoldFalsePositiveState.candidates.push({
+  sourceProductId: "732410",
+  sourceUrl:
+    "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732410",
+  listTitle: "Dracula Rusticated (221) Fishtail",
+  listPrice: "$164.50",
+  listPrimaryImage:
+    "https://images.smokingpipes.com/test/732410.jpg",
+  inventoryStatus: "available",
+  discoveredAt: "2026-07-07T11:00:00.000Z",
+  firstSeenRunId: "manual-sold-false-positive-test",
+  lastSeenRunId: "manual-sold-false-positive-test",
+  lastSeenAt: "2026-07-07T11:00:00.000Z",
+  changeTypes: ["new-product"],
+  detailStatus: "complete",
+  publicStatus: "review-only",
+  detailAttempts: 1,
+  retryCount: 0,
+  lastAttemptAt: "2026-07-07T11:00:00.000Z",
+  lastSuccessfulDetailRunId: "manual-sold-false-positive-test",
+  lastAppliedAt: null,
+  appliedInCommit: null,
+  lastError:
+    "inventory conflict: Detail page says sold while the product remains in the active list range.",
+  priority: 100,
+  blockedCount: 0,
+  lastBlockedAt: null,
+  lastBlockedReason: null,
+  nextEligibleAt: null,
+  detail: {
+    sourceProductId: "732410",
+    sourceUrl:
+      "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732410",
+    productCode: "002-029-145796",
+    conditionType: "new",
+    brand: "Peterson",
+    title: "Dracula Rusticated (221) Fishtail",
+    fullTitle:
+      "Peterson: Dracula Rusticated (221) Fishtail Tobacco Pipe",
+    price: "$164.50",
+    status: "sold",
+    mainImageUrl:
+      "https://images.smokingpipes.com/test/732410.jpg",
+    galleryImages: [
+      "https://images.smokingpipes.com/test/732410.jpg",
+    ],
+    galleryCount: 1,
+    specsText: ["Shape: Billiard", "Finish: Rusticated"],
+    shape: "Billiard",
+    finish: "Rusticated",
+    material: "Briar",
+  },
+  convertedProduct: {
+    ...falsePositiveSoldConversion.products[0],
+    inventoryStatus: "needs-review",
+    inventoryConfidence: "conflicting-signals",
+    inventoryReviewReasons: [
+      "Detail page says sold while the product remains in the active list range.",
+    ],
+    inventoryEvidence: {
+      rawDetailStatus: "sold",
+      rawListStatus: "available",
+      reasons: [
+        "Detail page says sold while the product remains in the active list range.",
+      ],
+    },
+  },
+  productionProductId: null,
+  lastBuiltAt: null,
+  queueDisposition: "no-detail-required",
+});
+manualSoldFalsePositiveState.candidates.push({
+  ...structuredClone(manualSoldFalsePositiveState.candidates[0]),
+  sourceProductId: "strong-sold-sample",
+  sourceUrl: "https://example.invalid/strong-sold-sample",
+  listTitle: "Strong sold sample",
+  listPrice: "",
+  inventoryStatus: "available",
+  detail: {
+    ...structuredClone(manualSoldFalsePositiveState.candidates[0].detail),
+    sourceProductId: "strong-sold-sample",
+    sourceUrl: "https://example.invalid/strong-sold-sample",
+    price: "",
+    status: "sold",
+    statusEvidence: strongPurchaseSoldDetailStatus,
+  },
+});
+const manualSoldAudit =
+  buildManualFullReconcileDetailSoldParserAuditReport({
+    state: manualSoldFalsePositiveState,
+    generatedAt: "2026-07-07T11:01:00.000Z",
+  });
+assert.equal(manualSoldAudit.auditedCount, 2);
+assert.equal(manualSoldAudit.repairableFalsePositiveCount, 1);
+assert.equal(manualSoldAudit.trueOrStrongSoldCount, 1);
+assert.equal(
+  manualSoldAudit.rows.find(
+    (item) => item.sourceProductId === "732410"
+  ).rawStatusSource,
+  "legacy-global-raw-text-match-likely"
+);
+const manualSoldRepair =
+  repairManualFullReconcileDetailSoldFalsePositives({
+    state: manualSoldFalsePositiveState,
+    now: "2026-07-07T11:02:00.000Z",
+  });
+assert.equal(manualSoldRepair.report.beforeAuditedCount, 2);
+assert.equal(
+  manualSoldRepair.report.beforeRepairableFalsePositiveCount,
+  1
+);
+assert.equal(manualSoldRepair.report.repairedCount, 1);
+assert.equal(manualSoldRepair.report.notRepairedCount, 0);
+assert.equal(manualSoldRepair.report.smokingpipesAccessed, false);
+assert.equal(manualSoldRepair.report.productionWritten, false);
+const repairedFalsePositive =
+  manualSoldRepair.state.candidates.find(
+    (item) => item.sourceProductId === "732410"
+  );
+assert.equal(repairedFalsePositive.detail.status, "available");
+assert.equal(
+  repairedFalsePositive.convertedProduct.inventoryStatus,
+  "available"
+);
+assert.notEqual(repairedFalsePositive.publicStatus, "review-only");
+assert.doesNotMatch(
+  `${repairedFalsePositive.lastError || ""} ${repairedFalsePositive.reviewReason || ""}`,
+  /inventory conflict/
+);
+const unrepairedStrongSold =
+  manualSoldRepair.state.candidates.find(
+    (item) => item.sourceProductId === "strong-sold-sample"
+  );
+assert.equal(unrepairedStrongSold.detail.status, "sold");
+assert.equal(unrepairedStrongSold.publicStatus, "review-only");
 
 const progressiveLockRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "smokingpipes-progressive-lock-")
@@ -8779,6 +9023,10 @@ assert.match(manualFullReconcileScript, /\[switch\]\$RepairState/);
 assert.match(manualFullReconcileScript, /\[switch\]\$PromoteNextBatch/);
 assert.match(
   manualFullReconcileScript,
+  /\[switch\]\$RepairDetailSoldFalsePositives/
+);
+assert.match(
+  manualFullReconcileScript,
   /\[ValidateRange\(1,\s*30\)\][\s\S]*\$DetailMax\s*=\s*30/
 );
 assert.match(
@@ -8799,11 +9047,19 @@ assert.match(
 );
 assert.match(
   manualFullReconcileScript,
+  /repair-detail-sold-false-positives/
+);
+assert.match(
+  manualFullReconcileScript,
   /State repair: enabled/
 );
 assert.match(
   manualFullReconcileScript,
   /Promote next batch: enabled/
+);
+assert.match(
+  manualFullReconcileScript,
+  /Detail sold false-positive repair: enabled/
 );
 assert.ok(
   manualFullReconcileScript.indexOf("Copy-Item") <

@@ -83,6 +83,14 @@ const DEFAULT_PATHS = {
     ROOT,
     "data/review/smokingpipes-manual-full-reconcile-promote-next-batch-report.md"
   ),
+  detailSoldParserAuditJson: path.join(
+    ROOT,
+    "data/review/smokingpipes-detail-sold-parser-audit-report.json"
+  ),
+  detailSoldParserAuditMarkdown: path.join(
+    ROOT,
+    "data/review/smokingpipes-detail-sold-parser-audit-report.md"
+  ),
   stateInconsistencyJson: path.join(
     ROOT,
     "data/review/smokingpipes-manual-full-reconcile-state-inconsistency-report.json"
@@ -1604,6 +1612,287 @@ export function promoteManualFullReconcileNextBatch({
   };
 }
 
+function manualDetailPrice(candidate) {
+  return (
+    text(candidate?.detail?.price) ||
+    text(candidate?.convertedProduct?.price?.current?.rawText) ||
+    text(candidate?.listPrice)
+  );
+}
+
+function manualDetailHasPrice(candidate) {
+  return Boolean(numericPrice(manualDetailPrice(candidate)));
+}
+
+function manualListSaysAvailable(candidate) {
+  return (
+    text(candidate?.inventoryStatus).toLowerCase() === "available" ||
+    text(candidate?.rawListStatus).toLowerCase() === "available" ||
+    text(candidate?.convertedProduct?.rawListStatus).toLowerCase() === "available" ||
+    text(candidate?.convertedProduct?.inventoryEvidence?.rawListStatus).toLowerCase() === "available"
+  );
+}
+
+function manualSoldEvidence(candidate) {
+  const evidence = [
+    ...(candidate?.detail?.statusEvidence?.soldEvidence || []),
+    ...(candidate?.convertedProduct?.inventoryEvidence?.soldEvidence || []),
+  ]
+    .map(text)
+    .filter(Boolean);
+  if (
+    text(candidate?.detail?.status).toLowerCase() === "sold" &&
+    !evidence.length
+  ) {
+    evidence.push(
+      "weak/legacy-detail-status-sold-without-source-evidence"
+    );
+  }
+  return uniqueStrings(evidence);
+}
+
+function manualAvailableEvidence(candidate) {
+  const evidence = [
+    ...(candidate?.detail?.statusEvidence?.availableEvidence || []),
+    ...(candidate?.convertedProduct?.inventoryEvidence?.availableEvidence || []),
+  ]
+    .map(text)
+    .filter(Boolean);
+  if (manualDetailHasPrice(candidate)) {
+    evidence.push("detail-price-present");
+  }
+  if (manualListSaysAvailable(candidate)) {
+    evidence.push("current-list-available");
+  }
+  return uniqueStrings(evidence);
+}
+
+function manualRawStatusSource(candidate) {
+  return (
+    text(candidate?.detail?.rawStatusSource) ||
+    text(candidate?.detail?.statusEvidence?.rawStatusSource) ||
+    text(candidate?.convertedProduct?.inventoryEvidence?.rawStatusSource) ||
+    (text(candidate?.detail?.status).toLowerCase() === "sold"
+      ? "legacy-global-raw-text-match-likely"
+      : "unknown")
+  );
+}
+
+function isDetailSoldParserAuditCandidate(candidate) {
+  return Boolean(
+    /Detail page says sold while the product remains in the active list range/i.test(
+      `${candidate?.lastError || ""} ${candidate?.reviewReason || ""} ${(candidate?.convertedProduct?.inventoryReviewReasons || []).join(" ")}`
+    ) ||
+      (text(candidate?.detail?.status).toLowerCase() === "sold" &&
+        manualDetailHasPrice(candidate) &&
+        manualListSaysAvailable(candidate))
+  );
+}
+
+function detailSoldParserAuditRow(candidate) {
+  const soldEvidence = manualSoldEvidence(candidate);
+  const availableEvidence = manualAvailableEvidence(candidate);
+  return {
+    sourceProductId: productId(candidate),
+    sourceUrl: text(candidate?.sourceUrl),
+    topInventoryStatus: text(candidate?.inventoryStatus),
+    detailStatus: text(candidate?.detail?.status),
+    parsedPrice: manualDetailPrice(candidate),
+    convertedInventoryStatus: text(
+      candidate?.convertedProduct?.inventoryStatus
+    ),
+    reviewReason: text(
+      candidate?.lastError ||
+        candidate?.reviewReason ||
+        (candidate?.convertedProduct?.inventoryReviewReasons || []).join(" | ")
+    ),
+    soldEvidence,
+    availableEvidence,
+    rawStatusSource: manualRawStatusSource(candidate),
+    whetherPriceExists: manualDetailHasPrice(candidate),
+    whetherListSaysAvailable: manualListSaysAvailable(candidate),
+  };
+}
+
+function shouldRepairDetailSoldFalsePositive(row) {
+  const strongSoldEvidence = (row.soldEvidence || []).filter(
+    (item) => !String(item).startsWith("weak/")
+  );
+  return Boolean(
+    row.detailStatus === "sold" &&
+      row.whetherPriceExists &&
+      row.whetherListSaysAvailable &&
+      strongSoldEvidence.length === 0
+  );
+}
+
+export function buildManualFullReconcileDetailSoldParserAuditReport({
+  state,
+  generatedAt = new Date().toISOString(),
+  repairedRows = [],
+  mode = "audit",
+} = {}) {
+  const rows = (state?.candidates || [])
+    .filter(isDetailSoldParserAuditCandidate)
+    .map(detailSoldParserAuditRow);
+  return {
+    version:
+      "smokingpipes-detail-sold-parser-audit-report-v1",
+    source: "smokingpipes",
+    mode,
+    generatedAt,
+    auditedCount: rows.length,
+    repairableFalsePositiveCount: rows.filter(
+      shouldRepairDetailSoldFalsePositive
+    ).length,
+    trueOrStrongSoldCount: rows.filter(
+      (row) =>
+        row.detailStatus === "sold" &&
+        !shouldRepairDetailSoldFalsePositive(row)
+    ).length,
+    repairedCount: repairedRows.length,
+    rows,
+    repairedRows,
+    smokingpipesAccessed: false,
+    productionWritten: false,
+  };
+}
+
+function manualListItemForCandidate(candidate) {
+  return {
+    sourceProductId: productId(candidate),
+    sourceUrl: text(candidate?.sourceUrl),
+    title: text(candidate?.listTitle),
+    price: text(candidate?.listPrice || manualDetailPrice(candidate)),
+    imageUrl: text(candidate?.listPrimaryImage),
+    status: manualListSaysAvailable(candidate)
+      ? "available"
+      : text(candidate?.inventoryStatus),
+    inventoryStatus: text(candidate?.inventoryStatus),
+  };
+}
+
+export function repairManualFullReconcileDetailSoldFalsePositives({
+  state,
+  now = new Date().toISOString(),
+} = {}) {
+  const next = structuredClone(state);
+  const beforeReport =
+    buildManualFullReconcileDetailSoldParserAuditReport({
+      state: next,
+      generatedAt: now,
+      mode: "repair-before",
+    });
+  const repairedRows = [];
+  for (const candidate of next.candidates || []) {
+    if (!isDetailSoldParserAuditCandidate(candidate)) continue;
+    const beforeRow = detailSoldParserAuditRow(candidate);
+    if (!shouldRepairDetailSoldFalsePositive(beforeRow)) continue;
+    const repairedDetail = {
+      ...(candidate.detail || {}),
+      status: "available",
+      statusEvidence: {
+        status: "available",
+        rawStatusSource:
+          "repair-available-evidence-overrides-legacy-sold",
+        soldEvidence: beforeRow.soldEvidence,
+        availableEvidence: beforeRow.availableEvidence,
+        warning:
+          "sold status has available evidence; treating sold signal as weak.",
+      },
+      rawStatusSource:
+        "repair-available-evidence-overrides-legacy-sold",
+    };
+    const conversion = convertSmokingpipesCandidateDetails(
+      [repairedDetail],
+      [manualListItemForCandidate(candidate)]
+    );
+    const convertedProduct = conversion.products[0] || null;
+    if (
+      !convertedProduct ||
+      convertedProduct.inventoryStatus === "needs-review" ||
+      conversion.failures.length
+    ) {
+      repairedRows.push({
+        ...beforeRow,
+        repairStatus: "not-repaired",
+        repairReason:
+          conversion.failures[0]?.reason ||
+          "conversion still requires review",
+      });
+      continue;
+    }
+    candidate.detail = repairedDetail;
+    candidate.convertedProduct = convertedProduct;
+    candidate.detailStatus = "complete";
+    candidate.queueDisposition = "no-detail-required";
+    candidate.reviewReason = null;
+    candidate.lastError = null;
+    candidate.readyReason = null;
+    Object.assign(
+      candidate,
+      classifyProgressiveCandidatePublicStatus(candidate)
+    );
+    repairedRows.push({
+      ...beforeRow,
+      repairStatus: "repaired",
+      repairedDetailStatus: candidate.detail.status,
+      repairedInventoryStatus:
+        candidate.convertedProduct.inventoryStatus,
+      repairedPublicStatus: candidate.publicStatus,
+      repairedReviewReason: candidate.reviewReason || null,
+    });
+  }
+  next.updatedAt = now;
+  next.manualFullReconcile = {
+    ...(next.manualFullReconcile || {}),
+    mode: "repair-detail-sold-false-positives",
+    detailSoldFalsePositiveRepair: {
+      repairedAt: now,
+      auditedCount: beforeReport.auditedCount,
+      repairedCount: repairedRows.filter(
+        (row) => row.repairStatus === "repaired"
+      ).length,
+      smokingpipesAccessed: false,
+      productionWritten: false,
+    },
+    allowProductionApply: false,
+    allowDailyTaskResume: false,
+  };
+  next.productionWritten = false;
+  next.summary = buildProgressiveStateSummary(next, now);
+  const validation = validateProgressiveDailyState(next);
+  if (!validation.valid) {
+    throw new Error(
+      `Manual detail sold false-positive repair produced invalid state: ${validation.errors.join("; ")}`
+    );
+  }
+  const afterReport =
+    buildManualFullReconcileDetailSoldParserAuditReport({
+      state: next,
+      generatedAt: now,
+      repairedRows,
+      mode: "repair-after",
+    });
+  return {
+    status: "detail-sold-false-positives-repaired",
+    state: next,
+    report: {
+      ...afterReport,
+      beforeAuditedCount: beforeReport.auditedCount,
+      beforeRepairableFalsePositiveCount:
+        beforeReport.repairableFalsePositiveCount,
+      repairedCount: repairedRows.filter(
+        (row) => row.repairStatus === "repaired"
+      ).length,
+      notRepairedCount: repairedRows.filter(
+        (row) => row.repairStatus !== "repaired"
+      ).length,
+    },
+    productionWritten: false,
+  };
+}
+
 function countManualDetailStatus(state, predicate) {
   return (state?.candidates || []).filter(predicate).length;
 }
@@ -2055,6 +2344,44 @@ ${promoted}
 `;
 }
 
+function detailSoldParserAuditMarkdown(report) {
+  const rows = report.rows.length
+    ? report.rows
+        .map(
+          (item) =>
+            `- ${item.sourceProductId}: top=${item.topInventoryStatus || "(empty)"} detail=${item.detailStatus || "(empty)"} price=${item.parsedPrice || "(empty)"} converted=${item.convertedInventoryStatus || "(empty)"} priceExists=${item.whetherPriceExists} listAvailable=${item.whetherListSaysAvailable} source=${item.rawStatusSource}`
+        )
+        .join("\n")
+    : "- none";
+  const repaired = report.repairedRows?.length
+    ? report.repairedRows
+        .map(
+          (item) =>
+            `- ${item.sourceProductId}: ${item.repairStatus} -> ${item.repairedInventoryStatus || "(unchanged)"} / ${item.repairedPublicStatus || "(unchanged)"}`
+        )
+        .join("\n")
+    : "- none";
+  return `# Smokingpipes Detail Sold Parser Audit Report
+
+- mode: ${report.mode}
+- generatedAt: ${report.generatedAt}
+- auditedCount: ${report.auditedCount}
+- repairableFalsePositiveCount: ${report.repairableFalsePositiveCount}
+- trueOrStrongSoldCount: ${report.trueOrStrongSoldCount}
+- repairedCount: ${report.repairedCount}
+- smokingpipesAccessed: false
+- productionWritten: false
+
+## Rows
+
+${rows}
+
+## Repaired Rows
+
+${repaired}
+`;
+}
+
 function stateConsistencyMarkdown(report) {
   const blockers = report.blockers.length
     ? report.blockers.map((item) => `- ${item}`).join("\n")
@@ -2433,6 +2760,14 @@ async function writePromoteNextBatchReport(report) {
   );
 }
 
+async function writeDetailSoldParserAuditReport(report) {
+  await writeJsonAtomic(DEFAULT_PATHS.detailSoldParserAuditJson, report);
+  await writeTextAtomic(
+    DEFAULT_PATHS.detailSoldParserAuditMarkdown,
+    `\ufeff${detailSoldParserAuditMarkdown(report)}`
+  );
+}
+
 async function writeStateConsistencyReport(report) {
   await writeJsonAtomic(DEFAULT_PATHS.stateInconsistencyJson, report);
   await writeTextAtomic(
@@ -2458,6 +2793,7 @@ async function main(argv = process.argv.slice(2)) {
       "fetch-detail-batch",
       "repair-state",
       "promote-next-batch",
+      "repair-detail-sold-false-positives",
     ].includes(
       options.mode
     )
@@ -2525,6 +2861,46 @@ async function main(argv = process.argv.slice(2)) {
           promoteReportJson: path.relative(
             ROOT,
             DEFAULT_PATHS.promoteNextBatchJson
+          ),
+        },
+        null,
+        2
+      )
+    );
+    return;
+  }
+  if (options.mode === "repair-detail-sold-false-positives") {
+    if (!fs.existsSync(DEFAULT_PATHS.state)) {
+      throw new Error(
+        `Manual RepairDetailSoldFalsePositives requires an existing state: ${DEFAULT_PATHS.state}`
+      );
+    }
+    const result =
+      repairManualFullReconcileDetailSoldFalsePositives({
+        state: readJson(DEFAULT_PATHS.state),
+      });
+    await writeProgressiveDailyState(
+      DEFAULT_PATHS.state,
+      result.state
+    );
+    await writeDetailSoldParserAuditReport(result.report);
+    console.log(
+      JSON.stringify(
+        {
+          status: result.status,
+          mode: options.mode,
+          auditedCount: result.report.beforeAuditedCount,
+          repairableFalsePositiveCount:
+            result.report.beforeRepairableFalsePositiveCount,
+          repairedCount: result.report.repairedCount,
+          notRepairedCount: result.report.notRepairedCount,
+          remainingAuditedCount: result.report.auditedCount,
+          trueOrStrongSoldCount: result.report.trueOrStrongSoldCount,
+          smokingpipesAccessed: false,
+          productionWritten: false,
+          auditReportJson: path.relative(
+            ROOT,
+            DEFAULT_PATHS.detailSoldParserAuditJson
           ),
         },
         null,
