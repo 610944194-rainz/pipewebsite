@@ -3738,6 +3738,47 @@ assert.equal(fallbackEmptyBlockedDecision.endOfList, false);
 assert.equal(fallbackEmptyBlockedDecision.shouldWriteFailureSnapshot, true);
 assert.equal(fallbackEmptyBlockedDecision.reason, "blocked-or-verification-signal");
 
+for (const blockingEmptyPageFixture of [
+  { label: "Cloudflare", title: "Smokingpipes", html: "Cloudflare" },
+  {
+    label: "Verify",
+    title: "Smokingpipes",
+    html: "Verify you are human",
+  },
+  {
+    label: "Just a moment",
+    title: "Just a moment...",
+    html: "",
+  },
+  { label: "Access denied", title: "Smokingpipes", html: "Access denied" },
+  { label: "captcha", title: "Smokingpipes", html: "CAPTCHA" },
+  { label: "blocked", title: "Smokingpipes", html: "Request blocked" },
+]) {
+  const classification = classifySmokingpipesFailureSnapshotText({
+    title: blockingEmptyPageFixture.title,
+    html: blockingEmptyPageFixture.html,
+  });
+  const decision = shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+    pageNumber: 105,
+    productCount: 0,
+    detectionConfidence: "low",
+    detectedTotalPages: null,
+    classification,
+    strongVerificationSignals: [],
+  });
+  assert.equal(
+    decision.endOfList,
+    false,
+    `${blockingEmptyPageFixture.label} empty page must remain a failure`
+  );
+  assert.equal(
+    decision.shouldWriteFailureSnapshot,
+    true,
+    `${blockingEmptyPageFixture.label} empty page must preserve failure evidence`
+  );
+  assert.equal(decision.reason, "blocked-or-verification-signal");
+}
+
 const firstPageEmptyDecision =
   shouldTreatSmokingpipesEmptyListPageAsEndOfList({
     pageNumber: 1,
