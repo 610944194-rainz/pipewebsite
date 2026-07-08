@@ -117,6 +117,7 @@ Options:
   --current-list=PATH                   Progressive ingest current-list input
   --diff=PATH                           Progressive ingest inventory diff input
   --write-production                    Explicitly write progressive partial apply outputs to production
+  --manual-large-apply                  Manually authorize an offline prepared batch above the automatic limit; requires --write-production
   --no-commit | --commit                Commit intent flag; V1 never commits automatically
   --no-deploy                           Deployment stays disabled
   --verbose                             Print detail progress

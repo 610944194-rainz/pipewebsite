@@ -1253,6 +1253,7 @@ async function prepareProgressiveApplyGate({
   paths,
   state,
   options,
+  maxAutoApplyOverride = null,
 }) {
   const normalized =
     normalizeProgressivePublicStatuses(state);
@@ -1288,7 +1289,11 @@ async function prepareProgressiveApplyGate({
     preview,
     candidateProducts,
     publicPayloads: publicNext.payloads,
-    maxAutoApply: progressiveMaxAutoApplyFromEnv(),
+    maxAutoApply:
+      Number.isFinite(maxAutoApplyOverride) &&
+      maxAutoApplyOverride > 0
+        ? maxAutoApplyOverride
+        : progressiveMaxAutoApplyFromEnv(),
   });
   gate.blockers.push(...publicNext.blockers);
   gate.blockers = [...new Set(gate.blockers)];
@@ -1325,6 +1330,211 @@ async function prepareProgressiveApplyGate({
     preview,
     gate,
     report,
+  };
+}
+
+export function validateManualLargeApplyEvidence({
+  state,
+  gateReport,
+  preview,
+  audit,
+}) {
+  const blockers = [];
+  const candidates = state?.candidates || [];
+  const excludedCandidates = candidates.filter(
+    isExcludedBrandCandidate
+  );
+  const readyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.publicStatus === "ready" &&
+      candidate.detailStatus === "complete" &&
+      !isExcludedBrandCandidate(candidate)
+  );
+  const reviewOnlyCandidates = candidates.filter(
+    (candidate) => candidate.publicStatus === "review-only"
+  );
+  const notPublicCandidates = candidates.filter(
+    (candidate) => candidate.publicStatus === "not-public"
+  );
+  const failedCandidates = candidates.filter(
+    (candidate) => candidate.detailStatus === "failed"
+  );
+  const failedOutsideNotPublic = failedCandidates.filter(
+    (candidate) => candidate.publicStatus !== "not-public"
+  );
+  const pendingCandidates = candidates.filter(
+    (candidate) => candidate.detailStatus === "pending"
+  );
+  const readyIds = new Set(
+    readyCandidates.map(sourceProductId)
+  );
+  const previewWouldApplyIds = Array.isArray(
+    preview?.wouldApplyProductIds
+  )
+    ? preview.wouldApplyProductIds.map(String)
+    : [];
+  const previewWouldApplyIdSet = new Set(
+    previewWouldApplyIds
+  );
+  const isolatedLeakIds = [
+    ...reviewOnlyCandidates,
+    ...notPublicCandidates,
+    ...excludedCandidates,
+  ]
+    .map(sourceProductId)
+    .filter((id) => previewWouldApplyIdSet.has(id));
+  const missingReadyIds = [...readyIds].filter(
+    (id) => !previewWouldApplyIdSet.has(id)
+  );
+  const duplicateWouldApplyIds =
+    previewWouldApplyIds.length -
+    previewWouldApplyIdSet.size;
+
+  if (!state) blockers.push("progressive state is missing");
+  if (state?.productionWritten !== false) {
+    blockers.push(
+      "progressive state productionWritten must be false"
+    );
+  }
+  if (pendingCandidates.length) {
+    blockers.push(`pending candidates=${pendingCandidates.length}`);
+  }
+  if (failedOutsideNotPublic.length) {
+    blockers.push(
+      `failed candidates outside not-public=${failedOutsideNotPublic.length}`
+    );
+  }
+  if (audit?.verdict !== "PASS") {
+    blockers.push(`audit verdict=${audit?.verdict || "missing"}`);
+  }
+  if ((audit?.blockers || []).length) {
+    blockers.push(...audit.blockers);
+  }
+  for (const key of [
+    "pendingLeak",
+    "failedLeak",
+    "blockedLeak",
+    "reviewOnlyLeak",
+    "excludedBrandLeak",
+    "zeroPriceSellable",
+  ]) {
+    const value = Number(audit?.counts?.[key] || 0);
+    if (value !== 0) blockers.push(`${key}=${value}`);
+  }
+  for (const [name, report] of [
+    ["gate report", gateReport],
+    ["preview", preview],
+    ["audit", audit],
+  ]) {
+    if (!report) {
+      blockers.push(`${name} is missing`);
+      continue;
+    }
+    if (report.productionWritten !== false) {
+      blockers.push(`${name} productionWritten must be false`);
+    }
+  }
+  if (preview?.status !== "preview-ready") {
+    blockers.push(
+      `preview status=${preview?.status || "missing"}`
+    );
+  }
+  if (duplicateWouldApplyIds) {
+    blockers.push(
+      `duplicate wouldApplyProductIds=${duplicateWouldApplyIds}`
+    );
+  }
+  if (isolatedLeakIds.length) {
+    blockers.push(
+      `isolated candidates leaked into preview=${isolatedLeakIds.length}`
+    );
+  }
+  if (missingReadyIds.length) {
+    blockers.push(
+      `ready candidates missing from preview=${missingReadyIds.length}`
+    );
+  }
+
+  const expectedCounts = {
+    candidateCount: candidates.length,
+    wouldApplyCount: readyCandidates.length,
+    isolatedCandidateCount:
+      candidates.length - readyCandidates.length,
+    readyCount: readyCandidates.length,
+    reviewOnlyCount: reviewOnlyCandidates.length,
+    notPublicCount: notPublicCandidates.length,
+    failedNotPublicCount:
+      failedCandidates.length - failedOutsideNotPublic.length,
+    excludedBrandCount: excludedCandidates.length,
+  };
+  for (const [key, expected] of Object.entries(expectedCounts)) {
+    for (const [name, report] of [
+      ["gate report", gateReport],
+      ["audit", audit],
+    ]) {
+      if (
+        report &&
+        Number(report[key]) !== expected
+      ) {
+        blockers.push(
+          `${name} ${key}=${report[key]} does not match state ${expected}`
+        );
+      }
+    }
+    if (
+      ["candidateCount", "wouldApplyCount", "isolatedCandidateCount"].includes(
+        key
+      ) &&
+      preview &&
+      Number(preview[key]) !== expected
+    ) {
+      blockers.push(
+        `preview ${key}=${preview[key]} does not match state ${expected}`
+      );
+    }
+  }
+  if (
+    gateReport?.stateDailyRunId &&
+    gateReport.stateDailyRunId !== state?.dailyRunId
+  ) {
+    blockers.push(
+      `gate report stateDailyRunId=${gateReport.stateDailyRunId} does not match state ${state?.dailyRunId}`
+    );
+  }
+  const stateUpdatedAt = Date.parse(state?.updatedAt || "");
+  const gateGeneratedAt = Date.parse(
+    gateReport?.generatedAt || ""
+  );
+  if (
+    Number.isFinite(stateUpdatedAt) &&
+    (!Number.isFinite(gateGeneratedAt) ||
+      gateGeneratedAt < stateUpdatedAt)
+  ) {
+    blockers.push("gate report is older than progressive state");
+  }
+  const gateBlockReasons =
+    gateReport?.blockReasons ||
+    gateReport?.blockers ||
+    (gateReport?.blockedReason
+      ? [gateReport.blockedReason]
+      : []);
+  const unexpectedGateBlockReasons = gateBlockReasons.filter(
+    (reason) =>
+      !/^wouldApplyCount \d+ exceeds max auto apply \d+$/i.test(
+        text(reason)
+      )
+  );
+  if (unexpectedGateBlockReasons.length) {
+    blockers.push(...unexpectedGateBlockReasons);
+  }
+
+  return {
+    allowed: blockers.length === 0,
+    blockers: [...new Set(blockers)],
+    blockedReason: [...new Set(blockers)].join("; ") || null,
+    ...expectedCounts,
+    authorizedWouldApplyCount: readyCandidates.length,
+    authorizedWouldApplyIds: [...readyIds].sort(),
   };
 }
 
@@ -2302,11 +2512,53 @@ export async function runSmokingpipesProgressiveMode({
     });
     if (options.writeProduction) {
       assertMockProductionPathsAreIsolated(paths, options);
+      let manualLargeApplyEvidence = null;
+      if (options.manualLargeApply) {
+        const existingGateReport = readJsonIfExists(
+          paths.progressiveApplyGateReport,
+          null
+        );
+        const existingPreview = readJsonIfExists(
+          paths.progressiveApplyPreview,
+          null
+        );
+        manualLargeApplyEvidence =
+          validateManualLargeApplyEvidence({
+            state,
+            gateReport: existingGateReport,
+            preview: existingPreview,
+            audit,
+          });
+        if (!manualLargeApplyEvidence.allowed) {
+          return {
+            version:
+              "smokingpipes-progressive-partial-apply-preview-v1",
+            generatedAt: new Date().toISOString(),
+            status: "apply-blocked",
+            manualLargeApply: true,
+            candidateCount:
+              manualLargeApplyEvidence.candidateCount,
+            wouldApplyCount:
+              manualLargeApplyEvidence.wouldApplyCount,
+            isolatedCandidateCount:
+              manualLargeApplyEvidence.isolatedCandidateCount,
+            blockers: manualLargeApplyEvidence.blockers,
+            blockedReason:
+              manualLargeApplyEvidence.blockedReason,
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          };
+        }
+      }
       const prepared = await prepareProgressiveApplyGate({
         root,
         paths,
         state,
         options,
+        maxAutoApplyOverride:
+          manualLargeApplyEvidence?.authorizedWouldApplyCount ||
+          null,
       });
       state = prepared.state;
       audit = prepared.artifacts.audit;
@@ -2315,6 +2567,41 @@ export async function runSmokingpipesProgressiveMode({
       const gate = prepared.gate;
       const publicNext = readProgressivePublicNext(paths);
       gate.blockers.push(...publicNext.blockers);
+      if (
+        !options.manualLargeApply &&
+        gate.wouldApplyCount > 300
+      ) {
+        gate.blockers.push(
+          `wouldApplyCount ${gate.wouldApplyCount} requires --manual-large-apply`
+        );
+      }
+      if (manualLargeApplyEvidence) {
+        if (
+          gate.wouldApplyCount !==
+          manualLargeApplyEvidence.wouldApplyCount
+        ) {
+          gate.blockers.push(
+            `rebuilt wouldApplyCount ${gate.wouldApplyCount} does not match authorized ${manualLargeApplyEvidence.wouldApplyCount}`
+          );
+        }
+        const rebuiltWouldApplyIds = [
+          ...new Set(
+            (freshPreview.wouldApplyProductIds || [])
+              .map(String)
+              .filter(Boolean)
+          ),
+        ].sort();
+        if (
+          JSON.stringify(rebuiltWouldApplyIds) !==
+          JSON.stringify(
+            manualLargeApplyEvidence.authorizedWouldApplyIds
+          )
+        ) {
+          gate.blockers.push(
+            "rebuilt wouldApplyProductIds do not match the offline authorized set"
+          );
+        }
+      }
       gate.blockers = [...new Set(gate.blockers)];
       gate.blockedReason = gate.blockers.join("; ") || null;
       gate.applyReady = gate.blockers.length === 0;
@@ -2341,6 +2628,8 @@ export async function runSmokingpipesProgressiveMode({
             gate.stateManualReconcileBlocked,
           auditGeneratedAt: gate.auditGeneratedAt,
           previewGeneratedAt: gate.previewGeneratedAt,
+          manualLargeApply:
+            options.manualLargeApply === true,
           productionWritten: false,
           commitPerformed: false,
           pushPerformed: false,
@@ -2452,6 +2741,8 @@ export async function runSmokingpipesProgressiveMode({
         isolatedCandidateCount:
           gate.isolatedCandidateCount,
         applyGap: gate.applyGap,
+        manualLargeApply:
+          options.manualLargeApply === true,
         productionWritten: true,
         publicCatalogWritten: true,
         unifiedProductsStagingWritten: true,

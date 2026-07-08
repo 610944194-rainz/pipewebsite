@@ -2440,6 +2440,31 @@ assert.equal(
   parseRunnerOptions(["--write-production"]).writeProduction,
   true
 );
+assert.equal(
+  parseRunnerOptions([
+    "--mode=progressive-partial-apply",
+    "--write-production",
+    "--manual-large-apply",
+  ]).manualLargeApply,
+  true
+);
+assert.throws(
+  () =>
+    parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--manual-large-apply",
+    ]),
+  /requires --write-production/
+);
+assert.throws(
+  () =>
+    parseRunnerOptions([
+      "--mode=progressive-prepare-apply",
+      "--write-production",
+      "--manual-large-apply",
+    ]),
+  /requires --mode=progressive-partial-apply/
+);
 
 const dailyDefaults = parseRunnerOptions(["--mode=daily-update"]);
 assert.equal(dailyDefaults.mode, "daily-update");
@@ -7841,12 +7866,68 @@ assert.equal(
   fs.existsSync(progressiveApplyPaths.progressiveApplyGateReport),
   true
 );
+const validOfflineApplyGate = JSON.parse(
+  fs.readFileSync(
+    progressiveApplyPaths.progressiveApplyGateReport,
+    "utf8"
+  )
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveApplyGateReport,
+  JSON.stringify({
+    ...validOfflineApplyGate,
+    status: "apply-blocked",
+    applyReady: false,
+    blockedReason: "auditStatus=FAIL",
+    blockReasons: ["auditStatus=FAIL"],
+    blockers: ["auditStatus=FAIL"],
+  }),
+  "utf8"
+);
+const progressiveManualLargeEvidenceBlocked =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+      "--manual-large-apply",
+      "--no-commit",
+      "--no-deploy",
+    ]),
+  });
+assert.equal(
+  progressiveManualLargeEvidenceBlocked.status,
+  "apply-blocked"
+);
+assert.equal(
+  progressiveManualLargeEvidenceBlocked.productionWritten,
+  false
+);
+assert.match(
+  progressiveManualLargeEvidenceBlocked.blockedReason,
+  /auditStatus=FAIL/
+);
+assert.equal(
+  JSON.parse(
+    fs.readFileSync(
+      progressiveApplyPaths.existingProducts,
+      "utf8"
+    )
+  ).some((item) => item.sourceProductId === "200"),
+  false
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveApplyGateReport,
+  JSON.stringify(validOfflineApplyGate),
+  "utf8"
+);
 const progressiveApplyWriteResult =
   await runSmokingpipesProgressiveMode({
     root: progressiveApplyRoot,
     options: parseRunnerOptions([
       "--mode=progressive-partial-apply",
       "--write-production",
+      "--manual-large-apply",
       "--no-commit",
       "--no-deploy",
     ]),

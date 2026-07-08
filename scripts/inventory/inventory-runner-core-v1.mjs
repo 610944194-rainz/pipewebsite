@@ -269,6 +269,14 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const fetchNewDetails =
     booleanValue(args.get("fetch-new-details"), false) &&
     !booleanValue(args.get("skip-new-details"), false);
+  const writeProduction = booleanValue(
+    args.get("write-production"),
+    false
+  );
+  const manualLargeApply = booleanValue(
+    args.get("manual-large-apply"),
+    false
+  );
   const browserChannel = args.has("browser-channel")
     ? String(args.get("browser-channel") || "").toLowerCase()
     : null;
@@ -322,6 +330,19 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   if (autoRepeatCatchUp && !catchUpCurrent) {
     throw new Error(
       "--auto-repeat-catch-up requires --catch-up-current."
+    );
+  }
+  if (
+    manualLargeApply &&
+    mode !== "progressive-partial-apply"
+  ) {
+    throw new Error(
+      "--manual-large-apply requires --mode=progressive-partial-apply."
+    );
+  }
+  if (manualLargeApply && !writeProduction) {
+    throw new Error(
+      "--manual-large-apply requires --write-production."
     );
   }
 
@@ -429,10 +450,8 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     maxNewDetailsPerRun: detailMaxPerRun,
     commit: args.has("commit") && !args.has("no-commit"),
     deploy: args.has("deploy") && !args.has("no-deploy"),
-    writeProduction: booleanValue(
-      args.get("write-production"),
-      false
-    ),
+    writeProduction,
+    manualLargeApply,
     verbose: booleanValue(args.get("verbose"), false),
     forceUnlock: booleanValue(args.get("force-unlock"), false),
     mock: booleanValue(args.get("mock"), false),
