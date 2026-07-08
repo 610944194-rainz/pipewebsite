@@ -186,12 +186,40 @@ export function detectSmokingpipesTotalPagesFromHtml(html = "") {
       pages.push(pageNumber);
     }
   }
-  return pages.length ? Math.max(...pages) : 0;
+  for (const match of text.matchAll(
+    /<(?:a|span|button)[^>]*(?:page|pager|pagination|aria-label|aria-current)[^>]*>\s*(\d{1,4})\s*</gi
+  )) {
+    const pageNumber = Number.parseInt(match[1], 10);
+    if (Number.isFinite(pageNumber) && pageNumber > 0) {
+      pages.push(pageNumber);
+    }
+  }
+  const maxPage = pages.length ? Math.max(...pages) : 0;
+  return maxPage > 1 ? maxPage : 0;
+}
+
+export function detectSmokingpipesPaginationFromHtml(html = "") {
+  const text = String(html || "");
+  const pageParams = [...text.matchAll(/[?&]page=(\d+)/gi)]
+    .map((match) => Number.parseInt(match[1], 10))
+    .filter((pageNumber) => Number.isFinite(pageNumber) && pageNumber > 0);
+  const detectedTotalPages = detectSmokingpipesTotalPagesFromHtml(text);
+  const paginationLinksFound = pageParams.length;
+  const paginationMaxPageParam = pageParams.length
+    ? Math.max(...pageParams)
+    : null;
+
+  return {
+    detectedTotalPages: detectedTotalPages || null,
+    detectionConfidence: detectedTotalPages > 1 ? "high" : "low",
+    paginationLinksFound,
+    paginationMaxPageParam,
+  };
 }
 
 async function detectSmokingpipesTotalPagesFromPage(page) {
   const html = await page.content().catch(() => "");
-  return detectSmokingpipesTotalPagesFromHtml(html);
+  return detectSmokingpipesPaginationFromHtml(html);
 }
 
 function normalizeTailStatus(value) {
@@ -370,6 +398,9 @@ export function buildSmokingpipesAdaptiveScanPlan({
   requestedMaxPages,
   expectedPages,
   detectedTotalPages = 0,
+  detectionConfidence = null,
+  paginationLinksFound = 0,
+  paginationMaxPageParam = null,
   startPage = 1,
   tailCache = null,
   now = new Date().toISOString(),
@@ -401,6 +432,14 @@ export function buildSmokingpipesAdaptiveScanPlan({
   return {
     requestedMaxPages: requested,
     detectedTotalPages: detected || null,
+    detectionConfidence: detected
+      ? detectionConfidence || "high"
+      : "low",
+    paginationLinksFound: Number(paginationLinksFound || 0),
+    paginationMaxPageParam:
+      paginationMaxPageParam === null || paginationMaxPageParam === undefined
+        ? null
+        : Number(paginationMaxPageParam),
     expectedPages: resolvedExpectedPages,
     pagesToVisit,
     effectiveLastPageToVisit: lastPageToVisit,
@@ -778,10 +817,19 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     ? Math.max(...pages.map((item) => Number(item.page) || 0)) + 1
     : 1;
   let detectedTotalPages = Number(checkpoint?.detectedTotalPages || 0) || null;
+  let detectionConfidence = checkpoint?.detectionConfidence || "low";
+  let paginationLinksFound = Number(checkpoint?.paginationLinksFound || 0);
+  let paginationMaxPageParam =
+    checkpoint?.paginationMaxPageParam === undefined
+      ? null
+      : checkpoint.paginationMaxPageParam;
   let adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
     requestedMaxPages: maxPages,
     expectedPages,
     detectedTotalPages,
+    detectionConfidence,
+    paginationLinksFound,
+    paginationMaxPageParam,
     startPage: firstPage,
   });
   let effectiveMaxPages = adaptivePlan.effectiveLastPageToVisit;
@@ -853,14 +901,29 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         await page.waitForTimeout(warmupDelayMs);
       }
 
-      const detectedFromPage =
-        await detectSmokingpipesTotalPagesFromPage(page).catch(() => 0);
-      if (detectedFromPage > 0 && detectedFromPage !== detectedTotalPages) {
-        detectedTotalPages = detectedFromPage;
+      const paginationDetection =
+        await detectSmokingpipesTotalPagesFromPage(page).catch(() => ({
+          detectedTotalPages: null,
+          detectionConfidence: "low",
+          paginationLinksFound: 0,
+          paginationMaxPageParam: null,
+        }));
+      detectionConfidence = paginationDetection.detectionConfidence || "low";
+      paginationLinksFound = Number(paginationDetection.paginationLinksFound || 0);
+      paginationMaxPageParam =
+        paginationDetection.paginationMaxPageParam ?? null;
+      if (
+        paginationDetection.detectedTotalPages &&
+        paginationDetection.detectedTotalPages !== detectedTotalPages
+      ) {
+        detectedTotalPages = paginationDetection.detectedTotalPages;
         adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
           requestedMaxPages: maxPages,
           expectedPages,
           detectedTotalPages,
+          detectionConfidence,
+          paginationLinksFound,
+          paginationMaxPageParam,
           startPage: pageNumber,
           tailCache: outOfStockTailCache,
           now: new Date().toISOString(),
@@ -880,6 +943,16 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
             `detected pagination total pages: ${detectedTotalPages}; effective last page: ${effectiveMaxPages}; tail cache: ${tailCacheReason}`
           );
         }
+      } else if (!detectedTotalPages) {
+        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
+          requestedMaxPages: maxPages,
+          expectedPages,
+          detectedTotalPages: 0,
+          detectionConfidence,
+          paginationLinksFound,
+          paginationMaxPageParam,
+          startPage: pageNumber,
+        });
       }
 
       const detection = await detectSmokingpipesVerification(page, {
@@ -1139,10 +1212,17 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
           maxPages,
           expectedPages,
           detectedTotalPages,
+          detectionConfidence,
+          paginationLinksFound,
+          paginationMaxPageParam,
           effectiveMaxPages,
           displayNum,
           ...pacing,
         },
+        detectedTotalPages,
+        detectionConfidence,
+        paginationLinksFound,
+        paginationMaxPageParam,
         pages,
         products: collected,
       });
@@ -1166,12 +1246,13 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     await browserSession.close();
   }
 
-  const resolvedDetectedTotalPages =
-    detectedTotalPages || Math.max(maxPages, expectedPages);
+  const detectedTotalPagesForSummary = detectedTotalPages || null;
+  const resolvedExpectedPages =
+    detectedTotalPagesForSummary || Math.max(maxPages, expectedPages);
   if (!tailCacheUsed) {
     const tailEvaluation = evaluateSmokingpipesOutOfStockTail({
       pages: outOfStockTailPageInputs,
-      detectedTotalPages: resolvedDetectedTotalPages,
+      detectedTotalPages: resolvedExpectedPages,
       confirmedAt: new Date().toISOString(),
     });
     firstOutOfStockOnlyPage = tailEvaluation.firstOutOfStockOnlyPage;
@@ -1202,24 +1283,30 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     config: {
       maxPages,
       requestedMaxPages: maxPages,
-      expectedPages: resolvedDetectedTotalPages,
-      detectedTotalPages: resolvedDetectedTotalPages,
+      expectedPages: resolvedExpectedPages,
+      detectedTotalPages: detectedTotalPagesForSummary,
+      detectionConfidence,
+      paginationLinksFound,
+      paginationMaxPageParam,
       displayNum,
       ...pacing,
       allowManualVerification,
       manualVerification: allowManualVerification,
       browser,
-      partialScan: effectiveScannedPages < resolvedDetectedTotalPages,
+      partialScan: effectiveScannedPages < resolvedExpectedPages,
     },
     startedAt,
     completedAt,
     pages,
     products: deduped.products,
     summary: {
-      pagesRequested: resolvedDetectedTotalPages,
+      pagesRequested: resolvedExpectedPages,
       pagesScanned: pages.length,
-      expectedPages: resolvedDetectedTotalPages,
-      detectedTotalPages: resolvedDetectedTotalPages,
+      expectedPages: resolvedExpectedPages,
+      detectedTotalPages: detectedTotalPagesForSummary,
+      detectionConfidence,
+      paginationLinksFound,
+      paginationMaxPageParam,
       effectiveScannedPages,
       firstOutOfStockOnlyPage,
       skippedOutOfStockTailPages,
@@ -1245,8 +1332,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       manualVerificationRecovered,
       weakVerificationDetected: weakVerificationPages.length > 0,
       weakVerificationPages: [...new Set(weakVerificationPages)],
-      completeRequestedRange: effectiveScannedPages >= resolvedDetectedTotalPages,
-      fullExpectedRangeScanned: effectiveScannedPages >= resolvedDetectedTotalPages,
+      completeRequestedRange: effectiveScannedPages >= resolvedExpectedPages,
+      fullExpectedRangeScanned: effectiveScannedPages >= resolvedExpectedPages,
     },
   };
 

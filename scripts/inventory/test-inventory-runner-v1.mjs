@@ -3649,6 +3649,57 @@ assert.equal(adaptivePlan150.expectedPages, 150);
 assert.equal(adaptivePlan150.pagesToVisit.length, 150);
 assert.equal(adaptivePlan150.pagesToVisit.at(-1), 150);
 
+assert.equal(
+  detectSmokingpipesTotalPagesFromHtml(`
+    <nav class="pagination">
+      <a class="page">102</a>
+      <a class="page">103</a>
+      <a class="page">104</a>
+    </nav>
+  `),
+  104
+);
+
+const smokingpipesPaginationCurrentPageOnly =
+  detectSmokingpipesTotalPagesFromHtml(`
+    <nav class="pagination">
+      <span class="current">1</span>
+      <a aria-current="page" href="/pipes/?DISPLAYNUM=48&page=1">1</a>
+    </nav>
+  `);
+assert.equal(
+  smokingpipesPaginationCurrentPageOnly,
+  0,
+  "page=1 alone is not trustworthy total-page evidence"
+);
+const adaptivePlanCurrentPageOnly = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: smokingpipesPaginationCurrentPageOnly,
+  paginationLinksFound: 1,
+  paginationMaxPageParam: 1,
+});
+assert.equal(adaptivePlanCurrentPageOnly.detectedTotalPages, null);
+assert.equal(adaptivePlanCurrentPageOnly.expectedPages, 107);
+assert.equal(adaptivePlanCurrentPageOnly.pagesToVisit.length, 107);
+assert.equal(adaptivePlanCurrentPageOnly.detectionConfidence, "low");
+assert.equal(adaptivePlanCurrentPageOnly.paginationLinksFound, 1);
+assert.equal(adaptivePlanCurrentPageOnly.paginationMaxPageParam, 1);
+
+const adaptivePlanNoPagination = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: 0,
+  paginationLinksFound: 0,
+  paginationMaxPageParam: null,
+});
+assert.equal(adaptivePlanNoPagination.detectedTotalPages, null);
+assert.equal(adaptivePlanNoPagination.expectedPages, 107);
+assert.equal(adaptivePlanNoPagination.pagesToVisit.at(-1), 107);
+assert.equal(adaptivePlanNoPagination.detectionConfidence, "low");
+assert.equal(adaptivePlanNoPagination.paginationLinksFound, 0);
+assert.equal(adaptivePlanNoPagination.paginationMaxPageParam, null);
+
 function smokingpipesTailTestPage(page, statuses) {
   return {
     page,
