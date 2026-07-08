@@ -7622,6 +7622,10 @@ progressiveApplyState.candidates = [
   },
 ];
 progressiveApplyState.updatedAt = progressiveNow;
+progressiveApplyState.listSnapshotStatus = "complete";
+progressiveApplyState.pagesScanned = 104;
+progressiveApplyState.expectedPages = 104;
+progressiveApplyState.fullExpectedRangeScanned = true;
 const progressiveApplyAudit = {
   version: "smokingpipes-progressive-partial-audit-v1",
   generatedAt: progressiveNow,
@@ -7677,6 +7681,44 @@ fs.writeFileSync(
 fs.writeFileSync(
   progressiveApplyPaths.progressiveAuditJson,
   JSON.stringify(progressiveApplyAudit),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.currentList,
+  JSON.stringify({
+    source: "smokingpipes",
+    summary: {
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      verificationDetected: false,
+    },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.diff,
+  JSON.stringify({
+    source: "smokingpipes",
+    allowApply: true,
+    fatalWarnings: [],
+    coverage: {
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+    },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyPaths.progressiveBrandExclusionReportJson,
+  JSON.stringify({
+    source: "smokingpipes",
+    excludedBrandCount: 0,
+    excludedBrandBreakdown: {},
+    plannedHideProductionCount: 0,
+    plannedHidePublicCount: 0,
+    productionWritten: false,
+  }),
   "utf8"
 );
 fs.writeFileSync(
@@ -7790,8 +7832,9 @@ const progressivePrepareApplyReady =
   });
 assert.equal(progressivePrepareApplyReady.status, "apply-ready");
 assert.equal(progressivePrepareApplyReady.applyReady, true);
-assert.equal(progressivePrepareApplyReady.candidateCount, 2);
+assert.equal(progressivePrepareApplyReady.candidateCount, 4);
 assert.equal(progressivePrepareApplyReady.wouldApplyCount, 2);
+assert.equal(progressivePrepareApplyReady.isolatedCandidateCount, 2);
 assert.equal(progressivePrepareApplyReady.maxAutoApply, 300);
 assert.equal(progressivePrepareApplyReady.productionWritten, false);
 assert.equal(
@@ -8168,6 +8211,187 @@ for (const mode of [
     mode
   );
 }
+assert.equal(
+  parseRunnerOptions(["--progressive-prepare-apply"]).mode,
+  "progressive-prepare-apply"
+);
+assert.throws(
+  () =>
+    parseRunnerOptions([
+      "--progressive-prepare-apply",
+      "--mode=dry-run",
+    ]),
+  /conflicts with --mode=dry-run/
+);
+
+const offlinePrepareRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-offline-prepare-")
+);
+const offlinePreparePaths =
+  runnerCore.getRunnerPaths(offlinePrepareRoot);
+fs.mkdirSync(path.dirname(offlinePreparePaths.progressiveState), {
+  recursive: true,
+});
+fs.mkdirSync(path.dirname(offlinePreparePaths.currentList), {
+  recursive: true,
+});
+fs.mkdirSync(
+  path.dirname(
+    offlinePreparePaths.progressiveBrandExclusionReportJson
+  ),
+  { recursive: true }
+);
+const offlinePrepareState = createProgressiveDailyState({
+  dailyRunId: "progressive-offline-prepare",
+  now: progressiveNow,
+});
+const makeOfflinePrepareCandidate = ({
+  sourceProductId,
+  detailStatus,
+  publicStatus,
+  exclusionReason = null,
+}) => ({
+  sourceProductId,
+  sourceUrl: `https://example.invalid/${sourceProductId}`,
+  listTitle: `Offline candidate ${sourceProductId}`,
+  listPrice: "$100.00",
+  listPrimaryImage: "https://example.invalid/pipe.jpg",
+  inventoryStatus: "available",
+  discoveredAt: progressiveNow,
+  firstSeenRunId: "progressive-offline-prepare",
+  lastSeenRunId: "progressive-offline-prepare",
+  lastSeenAt: progressiveNow,
+  changeTypes: ["new-product"],
+  detailStatus,
+  publicStatus,
+  detailAttempts: detailStatus === "complete" ? 1 : 0,
+  retryCount: detailStatus === "failed" ? 1 : 0,
+  blockedCount: 0,
+  priority: 100,
+  exclusionReason,
+});
+offlinePrepareState.listSnapshotStatus = "complete";
+offlinePrepareState.pagesScanned = 104;
+offlinePrepareState.expectedPages = 104;
+offlinePrepareState.fullExpectedRangeScanned = true;
+offlinePrepareState.currentListPath =
+  "data/inventory/smokingpipes-current-list-dry-run.json";
+offlinePrepareState.diffPath =
+  "data/inventory/smokingpipes-inventory-diff-dry-run.json";
+offlinePrepareState.candidates = [
+  ...Array.from({ length: 1389 }, (_, index) =>
+    makeOfflinePrepareCandidate({
+      sourceProductId: `ready-${index + 1}`,
+      detailStatus: "complete",
+      publicStatus: "ready",
+    })
+  ),
+  ...Array.from({ length: 4 }, (_, index) =>
+    makeOfflinePrepareCandidate({
+      sourceProductId: `review-${index + 1}`,
+      detailStatus: "complete",
+      publicStatus: "review-only",
+    })
+  ),
+  ...Array.from({ length: 149 }, (_, index) =>
+    makeOfflinePrepareCandidate({
+      sourceProductId: `failed-${index + 1}`,
+      detailStatus: "failed",
+      publicStatus: "not-public",
+    })
+  ),
+  ...Array.from({ length: 86 }, (_, index) =>
+    makeOfflinePrepareCandidate({
+      sourceProductId: `falcon-${index + 1}`,
+      detailStatus: "excluded",
+      publicStatus: "not-public",
+      exclusionReason: "excluded-brand:falcon",
+    })
+  ),
+];
+offlinePrepareState.updatedAt = progressiveNow;
+fs.writeFileSync(
+  offlinePreparePaths.progressiveState,
+  JSON.stringify(offlinePrepareState),
+  "utf8"
+);
+fs.writeFileSync(
+  offlinePreparePaths.currentList,
+  JSON.stringify({
+    source: "smokingpipes",
+    summary: {
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      verificationDetected: false,
+    },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  offlinePreparePaths.diff,
+  JSON.stringify({
+    source: "smokingpipes",
+    allowApply: true,
+    fatalWarnings: [],
+    coverage: {
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+    },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  offlinePreparePaths.progressiveBrandExclusionReportJson,
+  JSON.stringify({
+    source: "smokingpipes",
+    excludedBrandCount: 86,
+    excludedBrandBreakdown: { falcon: 86 },
+    plannedHideProductionCount: 51,
+    productionWritten: false,
+  }),
+  "utf8"
+);
+const offlinePrepareResult =
+  await runSmokingpipesProgressiveMode({
+    root: offlinePrepareRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-prepare-apply",
+      "--no-commit",
+      "--no-deploy",
+    ]),
+  });
+assert.equal(offlinePrepareResult.networkAccessed, false);
+assert.equal(offlinePrepareResult.browserStarted, false);
+assert.equal(offlinePrepareResult.productionWritten, false);
+assert.equal(offlinePrepareResult.readyCount, 1389);
+assert.equal(offlinePrepareResult.reviewOnlyCount, 4);
+assert.equal(offlinePrepareResult.notPublicCount, 235);
+assert.equal(offlinePrepareResult.failedNotPublicCount, 149);
+assert.equal(offlinePrepareResult.excludedBrandCount, 86);
+assert.equal(offlinePrepareResult.candidateCount, 1628);
+assert.equal(offlinePrepareResult.wouldApplyCount, 1389);
+assert.equal(offlinePrepareResult.isolatedCandidateCount, 239);
+assert.equal(
+  fs.existsSync(offlinePreparePaths.progressiveApplyGateReport),
+  true
+);
+assert.equal(
+  fs.existsSync(offlinePreparePaths.progressiveApplyPreview),
+  true
+);
+assert.equal(
+  fs.existsSync(offlinePreparePaths.progressiveAuditJson),
+  true
+);
+assert.equal(
+  fs.existsSync(offlinePreparePaths.progressiveProductsNext),
+  false
+);
+assert.equal(
+  fs.existsSync(offlinePreparePaths.progressivePublicNextRoot),
+  false
+);
 assert.equal(
   parseRunnerOptions([
     "--mode=progressive-detail-chunk",

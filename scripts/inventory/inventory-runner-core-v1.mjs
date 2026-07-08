@@ -70,9 +70,27 @@ function parseArguments(argv) {
 
 export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const args = parseArguments(argv);
+  const progressivePrepareApplyAlias = booleanValue(
+    args.get("progressive-prepare-apply"),
+    false
+  );
+  const explicitMode = args.has("mode")
+    ? String(args.get("mode") || "").toLowerCase()
+    : null;
+  if (
+    progressivePrepareApplyAlias &&
+    explicitMode &&
+    explicitMode !== "progressive-prepare-apply"
+  ) {
+    throw new Error(
+      `--progressive-prepare-apply conflicts with --mode=${explicitMode}.`
+    );
+  }
   const mode = String(
     booleanValue(args.get("manual-detail-backfill-all"), false)
       ? "progressive-manual-detail-backfill"
+      : progressivePrepareApplyAlias
+        ? "progressive-prepare-apply"
       : booleanValue(args.get("detail-probe"), false)
       ? "detail-probe"
       : booleanValue(args.get("verification-probe"), false)

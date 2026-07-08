@@ -1328,6 +1328,381 @@ async function prepareProgressiveApplyGate({
   };
 }
 
+function readOfflinePrepareInput(filePath, label, blockReasons) {
+  if (!fs.existsSync(filePath)) {
+    blockReasons.push(`${label} is missing`);
+    return null;
+  }
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    blockReasons.push(`${label} JSON parse failed: ${error.message}`);
+    return null;
+  }
+}
+
+function isExcludedBrandCandidate(candidate) {
+  return (
+    candidate?.detailStatus === "excluded" ||
+    /excluded-brand:/i.test(
+      text(
+        candidate?.exclusionReason ||
+          candidate?.reviewReason ||
+          candidate?.reason
+      )
+    )
+  );
+}
+
+function offlinePrepareInputBlockReasons({
+  state,
+  stateErrors,
+  currentList,
+  diff,
+}) {
+  const blockReasons = [...stateErrors];
+  const currentSummary = currentList?.summary || {};
+  const diffCoverage = diff?.coverage || {};
+
+  if (!state) {
+    blockReasons.push("progressive state is required");
+  } else {
+    if (stateIsManualReconcile(state)) {
+      blockReasons.push(
+        `progressive state dailyRunId ${state.dailyRunId} comes from manual-reconcile and cannot be used by automatic daily apply`
+      );
+    }
+    if (state.listSnapshotStatus !== "complete") {
+      blockReasons.push(
+        `state listSnapshotStatus=${state.listSnapshotStatus || "missing"}`
+      );
+    }
+    if (state.fullExpectedRangeScanned !== true) {
+      blockReasons.push("state fullExpectedRangeScanned must be true");
+    }
+    if (
+      state.captchaDetected === true ||
+      state.verificationDetected === true
+    ) {
+      blockReasons.push("state contains verification/captcha evidence");
+    }
+  }
+
+  if (!currentList) {
+    blockReasons.push("current-list evidence is required");
+  } else {
+    if (currentSummary.fullExpectedRangeScanned !== true) {
+      blockReasons.push(
+        "current-list fullExpectedRangeScanned must be true"
+      );
+    }
+    if (
+      currentSummary.captchaDetected === true ||
+      currentSummary.verificationDetected === true ||
+      currentSummary.verificationDetectedAt
+    ) {
+      blockReasons.push(
+        "current-list contains verification/captcha evidence"
+      );
+    }
+  }
+
+  if (!diff) {
+    blockReasons.push("inventory diff evidence is required");
+  } else {
+    if (diff.allowApply !== true) {
+      blockReasons.push("inventory diff allowApply must be true");
+    }
+    if (diffCoverage.fullExpectedRangeScanned !== true) {
+      blockReasons.push(
+        "inventory diff fullExpectedRangeScanned must be true"
+      );
+    }
+    if ((diff.fatalWarnings || []).length) {
+      blockReasons.push(
+        `inventory diff fatal warnings: ${diff.fatalWarnings.join("; ")}`
+      );
+    }
+  }
+
+  return [...new Set(blockReasons)];
+}
+
+export async function prepareSmokingpipesOfflineProgressiveApply({
+  root = process.cwd(),
+  options = {},
+}) {
+  const paths = getRunnerPaths(root, {
+    mock: options.mock,
+  });
+  const inputBlockReasons = [];
+  const stateRead = readProgressiveDailyState(
+    paths.progressiveState
+  );
+  const state =
+    stateRead.status === "passed" ? stateRead.state : null;
+  const stateErrors =
+    stateRead.status === "missing"
+      ? ["progressive state is required"]
+      : stateRead.errors || [];
+  const currentList = readOfflinePrepareInput(
+    paths.currentList,
+    "current-list",
+    inputBlockReasons
+  );
+  const diff = readOfflinePrepareInput(
+    paths.diff,
+    "inventory diff",
+    inputBlockReasons
+  );
+  const brandExclusionReport = readOfflinePrepareInput(
+    paths.progressiveBrandExclusionReportJson,
+    "brand exclusion report",
+    inputBlockReasons
+  );
+  const candidates = state?.candidates || [];
+  const readyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.publicStatus === "ready" &&
+      candidate.detailStatus === "complete" &&
+      !isExcludedBrandCandidate(candidate)
+  );
+  const reviewOnlyCandidates = candidates.filter(
+    (candidate) => candidate.publicStatus === "review-only"
+  );
+  const notPublicCandidates = candidates.filter(
+    (candidate) => candidate.publicStatus === "not-public"
+  );
+  const failedNotPublicCandidates = candidates.filter(
+    (candidate) =>
+      candidate.detailStatus === "failed" &&
+      candidate.publicStatus === "not-public"
+  );
+  const excludedBrandCandidates = candidates.filter(
+    isExcludedBrandCandidate
+  );
+  const pendingReadyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.detailStatus === "pending" &&
+      candidate.publicStatus === "ready"
+  );
+  const failedReadyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.detailStatus === "failed" &&
+      candidate.publicStatus === "ready"
+  );
+  const blockedReadyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.detailStatus === "blocked" &&
+      candidate.publicStatus === "ready"
+  );
+  const excludedReadyCandidates = candidates.filter(
+    (candidate) =>
+      candidate.publicStatus === "ready" &&
+      isExcludedBrandCandidate(candidate)
+  );
+  const readyCandidateIds = new Set(
+    readyCandidates.map(sourceProductId)
+  );
+  const isolatedCandidates = candidates.filter(
+    (candidate) =>
+      !readyCandidateIds.has(sourceProductId(candidate))
+  );
+  const inputGateReasons = offlinePrepareInputBlockReasons({
+    state,
+    stateErrors: inputBlockReasons.concat(stateErrors),
+    currentList,
+    diff,
+  });
+  const auditBlockers = [...inputGateReasons];
+  if (pendingReadyCandidates.length) {
+    auditBlockers.push(
+      `pending ready candidates=${pendingReadyCandidates.length}`
+    );
+  }
+  if (failedReadyCandidates.length) {
+    auditBlockers.push(
+      `failed candidates leaked into ready=${failedReadyCandidates.length}`
+    );
+  }
+  if (blockedReadyCandidates.length) {
+    auditBlockers.push(
+      `blocked candidates leaked into ready=${blockedReadyCandidates.length}`
+    );
+  }
+  if (excludedReadyCandidates.length) {
+    auditBlockers.push(
+      `excluded-brand candidates leaked into ready=${excludedReadyCandidates.length}`
+    );
+  }
+  const uniqueAuditBlockers = [...new Set(auditBlockers)];
+  const readyIds = readyCandidates.map(sourceProductId);
+  const isolatedIds = isolatedCandidates.map(sourceProductId);
+  const excludedBrandCount = excludedBrandCandidates.length;
+  const reportedExcludedBrandCount = Number(
+    brandExclusionReport?.excludedBrandCount || 0
+  );
+  const warnings = [];
+  if (
+    brandExclusionReport &&
+    reportedExcludedBrandCount !== excludedBrandCount
+  ) {
+    warnings.push(
+      `brand exclusion report count ${reportedExcludedBrandCount} differs from state ${excludedBrandCount}`
+    );
+  }
+  const audit = {
+    version:
+      "smokingpipes-progressive-partial-audit-report-offline-v1",
+    generatedAt: new Date().toISOString(),
+    mode: "progressive-prepare-apply",
+    verdict: uniqueAuditBlockers.length ? "FAIL" : "PASS",
+    blockers: uniqueAuditBlockers,
+    warnings,
+    networkAccessed: false,
+    browserStarted: false,
+    productionWritten: false,
+    candidateCount: candidates.length,
+    wouldApplyCount: readyCandidates.length,
+    isolatedCandidateCount: isolatedCandidates.length,
+    readyCount: readyCandidates.length,
+    reviewOnlyCount: reviewOnlyCandidates.length,
+    notPublicCount: notPublicCandidates.length,
+    failedNotPublicCount: failedNotPublicCandidates.length,
+    excludedBrandCount,
+    counts: {
+      deletedProducts: 0,
+      pendingLeak: pendingReadyCandidates.length,
+      failedLeak: failedReadyCandidates.length,
+      blockedLeak: blockedReadyCandidates.length,
+      reviewOnlyLeak: 0,
+      excludedBrandLeak: excludedReadyCandidates.length,
+      zeroPriceSellable: 0,
+    },
+    sourceEvidence: {
+      statePath: path.relative(root, paths.progressiveState),
+      currentListPath: path.relative(root, paths.currentList),
+      diffPath: path.relative(root, paths.diff),
+      brandExclusionReportPath: path.relative(
+        root,
+        paths.progressiveBrandExclusionReportJson
+      ),
+      currentListFullExpectedRangeScanned:
+        currentList?.summary?.fullExpectedRangeScanned === true,
+      currentListCaptchaDetected:
+        currentList?.summary?.captchaDetected === true,
+      diffAllowApply: diff?.allowApply === true,
+    },
+  };
+  const preview = {
+    version:
+      "smokingpipes-progressive-partial-apply-preview-offline-v1",
+    generatedAt: new Date().toISOString(),
+    status:
+      audit.verdict === "PASS" && readyCandidates.length
+        ? "preview-ready"
+        : "preview-blocked",
+    candidateCount: candidates.length,
+    wouldApplyCount: readyCandidates.length,
+    isolatedCandidateCount: isolatedCandidates.length,
+    wouldApplyProductIds: readyIds,
+    isolatedCandidateIds: isolatedIds,
+    reviewOnlyIds: reviewOnlyCandidates.map(sourceProductId),
+    notPublicIds: notPublicCandidates.map(sourceProductId),
+    failedNotPublicIds:
+      failedNotPublicCandidates.map(sourceProductId),
+    excludedBrandIds:
+      excludedBrandCandidates.map(sourceProductId),
+    falconPlannedHide: {
+      productionCount: Number(
+        brandExclusionReport?.plannedHideProductionCount || 0
+      ),
+      productionIds:
+        brandExclusionReport?.plannedHideProductionIds || [],
+      publicCount: Number(
+        brandExclusionReport?.plannedHidePublicCount || 0
+      ),
+      publicIds:
+        brandExclusionReport?.plannedHidePublicIds || [],
+      applied: false,
+    },
+    networkAccessed: false,
+    browserStarted: false,
+    productionWritten: false,
+    commitPerformed: false,
+    pushPerformed: false,
+  };
+  const blockReasons = [...uniqueAuditBlockers];
+  if (!readyCandidates.length) {
+    blockReasons.push("wouldApplyCount must be greater than 0");
+  }
+  const maxAutoApply = progressiveMaxAutoApplyFromEnv();
+  if (readyCandidates.length > maxAutoApply) {
+    blockReasons.push(
+      `wouldApplyCount ${readyCandidates.length} exceeds max auto apply ${maxAutoApply}`
+    );
+  }
+  const uniqueBlockReasons = [...new Set(blockReasons)];
+  const gateReport = {
+    version:
+      "smokingpipes-progressive-apply-gate-report-offline-v1",
+    generatedAt: new Date().toISOString(),
+    mode: "progressive-prepare-apply",
+    status: uniqueBlockReasons.length
+      ? "apply-blocked"
+      : "apply-ready",
+    applyReady: uniqueBlockReasons.length === 0,
+    blockedReason: uniqueBlockReasons.join("; ") || null,
+    blockReasons: uniqueBlockReasons,
+    blockers: uniqueBlockReasons,
+    networkAccessed: false,
+    browserStarted: false,
+    productionWritten: false,
+    commitPerformed: false,
+    pushPerformed: false,
+    readyCount: readyCandidates.length,
+    reviewOnlyCount: reviewOnlyCandidates.length,
+    notPublicCount: notPublicCandidates.length,
+    failedNotPublicCount: failedNotPublicCandidates.length,
+    excludedBrandCount,
+    candidateCount: candidates.length,
+    wouldApplyCount: readyCandidates.length,
+    isolatedCandidateCount: isolatedCandidates.length,
+    maxAutoApply,
+    stateDailyRunId: state?.dailyRunId || null,
+    stateManualReconcileBlocked:
+      state ? stateIsManualReconcile(state) : false,
+    auditPath: path.relative(root, paths.progressiveAuditJson),
+    previewPath: path.relative(
+      root,
+      paths.progressiveApplyPreview
+    ),
+    brandExclusionReport: {
+      excludedBrandCount: reportedExcludedBrandCount,
+      excludedBrandBreakdown:
+        brandExclusionReport?.excludedBrandBreakdown || {},
+      plannedHideProductionCount: Number(
+        brandExclusionReport?.plannedHideProductionCount || 0
+      ),
+      plannedHidePublicCount: Number(
+        brandExclusionReport?.plannedHidePublicCount || 0
+      ),
+      applied: false,
+    },
+  };
+  await writeJsonAtomic(paths.progressiveAuditJson, audit);
+  await writeJsonAtomic(paths.progressiveApplyPreview, preview);
+  await writeJsonAtomic(
+    paths.progressiveApplyGateReport,
+    gateReport
+  );
+  return {
+    ...gateReport,
+    audit,
+    preview,
+  };
+}
+
 export async function runSmokingpipesProgressiveMode({
   root = process.cwd(),
   options,
@@ -1335,6 +1710,12 @@ export async function runSmokingpipesProgressiveMode({
   const paths = getRunnerPaths(root, {
     mock: options.mock,
   });
+  if (options.mode === "progressive-prepare-apply") {
+    return prepareSmokingpipesOfflineProgressiveApply({
+      root,
+      options,
+    });
+  }
   const runId = formatRunId();
   let lock = null;
   let state = null;
@@ -1897,26 +2278,6 @@ export async function runSmokingpipesProgressiveMode({
         isolatedCandidateCount:
           artifacts.audit.isolatedCandidateCount || 0,
         productionWritten: false,
-      };
-      await writeProgressiveReport(
-        paths,
-        makeReport({ mode: options.mode, state, result })
-      );
-      return result;
-    }
-
-    if (options.mode === "progressive-prepare-apply") {
-      const prepared = await prepareProgressiveApplyGate({
-        root,
-        paths,
-        state,
-        options,
-      });
-      state = prepared.state;
-      const result = {
-        ...prepared.report,
-        audit: prepared.artifacts.audit,
-        preview: prepared.preview,
       };
       await writeProgressiveReport(
         paths,

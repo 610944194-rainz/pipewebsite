@@ -74,6 +74,7 @@ Options:
   --max-total=500                       Manual backfill safety ceiling across this invocation
   --mode=progressive-build-candidate    Build isolated additive partial-next data
   --mode=progressive-prepare-apply      Build fresh audit/preview and run apply gate without writing production
+  --progressive-prepare-apply           Alias for offline --mode=progressive-prepare-apply
   --mode=progressive-partial-apply      Preview partial apply; writes production only with --write-production
   --mode=apply                          Reserved; V1 rejects production apply
   --refresh-list                        Refresh list/diff before apply-dry-run (default: reuse existing)
