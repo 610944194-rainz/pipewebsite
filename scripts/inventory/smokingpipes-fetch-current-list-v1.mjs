@@ -497,6 +497,68 @@ export function classifySmokingpipesFailureSnapshotText({
   };
 }
 
+export function shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+  pageNumber = 1,
+  productCount = 0,
+  detectionConfidence = "low",
+  detectedTotalPages = null,
+  classification = {},
+  strongVerificationSignals = [],
+} = {}) {
+  const parsedProductCount = Number(productCount || 0);
+  const currentPageNumber = Number(pageNumber || 0);
+  const blockedOrVerificationSignal =
+    classification.cloudflareSuspected === true ||
+    classification.verificationSuspected === true ||
+    classification.blockedPageSuspected === true ||
+    (Array.isArray(classification.keywordsFound) &&
+      classification.keywordsFound.length > 0) ||
+    (Array.isArray(strongVerificationSignals) &&
+      strongVerificationSignals.length > 0);
+
+  if (parsedProductCount > 0) {
+    return {
+      endOfList: false,
+      reason: "products-parsed",
+      shouldWriteFailureSnapshot: false,
+    };
+  }
+
+  if (currentPageNumber <= 1) {
+    return {
+      endOfList: false,
+      reason: "first-page-empty",
+      shouldWriteFailureSnapshot: true,
+    };
+  }
+
+  if (blockedOrVerificationSignal) {
+    return {
+      endOfList: false,
+      reason: "blocked-or-verification-signal",
+      shouldWriteFailureSnapshot: true,
+    };
+  }
+
+  const hasHighConfidenceTotal =
+    detectionConfidence === "high" && Number(detectedTotalPages || 0) > 1;
+  if (hasHighConfidenceTotal) {
+    return {
+      endOfList: false,
+      reason: "outside-fallback-scan",
+      shouldWriteFailureSnapshot: true,
+    };
+  }
+
+  return {
+    endOfList: true,
+    reason: "empty-out-of-range-page",
+    endOfListPage: currentPageNumber,
+    effectiveLastProductPage: currentPageNumber - 1,
+    shouldWriteFailureSnapshot: false,
+  };
+}
+
 export function buildSmokingpipesFailureSnapshotMetadata({
   source = "smokingpipes",
   stage = "current-list",
@@ -848,6 +910,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   const weakVerificationPages = [];
   let verificationDetectedAt = null;
   let manualVerificationRecovered = false;
+  let endedByEmptyOutOfRangePage = false;
+  let endOfListPage = null;
 
   process.env.SMOKINGPIPES_HEADLESS = allowManualVerification
     ? "false"
@@ -1094,6 +1158,56 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       }
 
       if (extracted.length === 0) {
+        const emptyPageTitle = await page.title().catch(() => "");
+        const emptyPageHtml = await page.content().catch(() => "");
+        const emptyPageClassification =
+          classifySmokingpipesFailureSnapshotText({
+            title: emptyPageTitle,
+            html: emptyPageHtml,
+          });
+        const emptyEndDecision =
+          shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+            pageNumber,
+            productCount: extracted.length,
+            detectionConfidence,
+            detectedTotalPages,
+            classification: emptyPageClassification,
+            strongVerificationSignals: finalStrongSignals,
+          });
+
+        if (emptyEndDecision.endOfList) {
+          endedByEmptyOutOfRangePage = true;
+          endOfListPage = emptyEndDecision.endOfListPage;
+          effectiveMaxPages = emptyEndDecision.effectiveLastProductPage;
+          if (verbose) {
+            console.log(
+              `normal end-of-list detected at page ${pageNumber}; treating page ${effectiveMaxPages} as the final product page`
+            );
+          }
+          await onPageTelemetry({
+            page: pageNumber,
+            url,
+            startedAt: pageStartedAt,
+            endedAt: new Date().toISOString(),
+            durationMs: Date.now() - Date.parse(pageStartedAt),
+            warmupMs: warmupDelayMs,
+            delayMs: 0,
+            batchCooldownMs: 0,
+            productsParsed: 0,
+            outOfStockProducts: 0,
+            missingPriceProducts: 0,
+            weakVerificationSignals: finalWeakSignals,
+            strongVerificationSignals: [],
+            finalClassification: "empty-out-of-range-end-of-list",
+            screenshotPath: null,
+            htmlSamplePath: null,
+            verificationDetectedAt: null,
+            manualVerificationAllowed: allowManualVerification,
+            manualVerificationRecovered: false,
+          });
+          break;
+        }
+
         const parseFailureMessage =
           `No products were extracted from requested page ${pageNumber}; parse failure${waitError ? `: ${waitError.message}` : ""}.`;
         const failureSnapshot =
@@ -1247,8 +1361,14 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   }
 
   const detectedTotalPagesForSummary = detectedTotalPages || null;
+  const emptyOutOfRangeExpectedPages =
+    endedByEmptyOutOfRangePage && endOfListPage
+      ? Math.max(0, Number(endOfListPage) - 1)
+      : null;
   const resolvedExpectedPages =
-    detectedTotalPagesForSummary || Math.max(maxPages, expectedPages);
+    detectedTotalPagesForSummary ||
+    emptyOutOfRangeExpectedPages ||
+    Math.max(maxPages, expectedPages);
   if (!tailCacheUsed) {
     const tailEvaluation = evaluateSmokingpipesOutOfStockTail({
       pages: outOfStockTailPageInputs,
@@ -1288,6 +1408,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       detectionConfidence,
       paginationLinksFound,
       paginationMaxPageParam,
+      endedByEmptyOutOfRangePage,
+      endOfListPage,
       displayNum,
       ...pacing,
       allowManualVerification,
@@ -1308,6 +1430,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       paginationLinksFound,
       paginationMaxPageParam,
       effectiveScannedPages,
+      endedByEmptyOutOfRangePage,
+      endOfListPage,
       firstOutOfStockOnlyPage,
       skippedOutOfStockTailPages,
       tailCacheUsed,

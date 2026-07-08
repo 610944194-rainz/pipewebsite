@@ -37,6 +37,7 @@ import {
   evaluateSmokingpipesOutOfStockTailCache,
   randomDelayMs,
   resolveListPacingOptions,
+  shouldTreatSmokingpipesEmptyListPageAsEndOfList,
   shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
 import {
@@ -3699,6 +3700,78 @@ assert.equal(adaptivePlanNoPagination.pagesToVisit.at(-1), 107);
 assert.equal(adaptivePlanNoPagination.detectionConfidence, "low");
 assert.equal(adaptivePlanNoPagination.paginationLinksFound, 0);
 assert.equal(adaptivePlanNoPagination.paginationMaxPageParam, null);
+
+const fallbackEmptyTailDecision =
+  shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+    pageNumber: 105,
+    productCount: 0,
+    detectionConfidence: "low",
+    detectedTotalPages: null,
+    classification: {
+      cloudflareSuspected: false,
+      verificationSuspected: false,
+      blockedPageSuspected: false,
+      keywordsFound: [],
+    },
+    strongVerificationSignals: [],
+  });
+assert.equal(fallbackEmptyTailDecision.endOfList, true);
+assert.equal(fallbackEmptyTailDecision.endOfListPage, 105);
+assert.equal(fallbackEmptyTailDecision.effectiveLastProductPage, 104);
+assert.equal(fallbackEmptyTailDecision.shouldWriteFailureSnapshot, false);
+
+const fallbackEmptyBlockedDecision =
+  shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+    pageNumber: 105,
+    productCount: 0,
+    detectionConfidence: "low",
+    detectedTotalPages: null,
+    classification: {
+      cloudflareSuspected: true,
+      verificationSuspected: true,
+      blockedPageSuspected: true,
+      keywordsFound: ["Cloudflare", "Verify you are human"],
+    },
+    strongVerificationSignals: ["explicit challenge element"],
+  });
+assert.equal(fallbackEmptyBlockedDecision.endOfList, false);
+assert.equal(fallbackEmptyBlockedDecision.shouldWriteFailureSnapshot, true);
+assert.equal(fallbackEmptyBlockedDecision.reason, "blocked-or-verification-signal");
+
+const firstPageEmptyDecision =
+  shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+    pageNumber: 1,
+    productCount: 0,
+    detectionConfidence: "low",
+    detectedTotalPages: null,
+    classification: {
+      cloudflareSuspected: false,
+      verificationSuspected: false,
+      blockedPageSuspected: false,
+      keywordsFound: [],
+    },
+    strongVerificationSignals: [],
+  });
+assert.equal(firstPageEmptyDecision.endOfList, false);
+assert.equal(firstPageEmptyDecision.shouldWriteFailureSnapshot, true);
+assert.equal(firstPageEmptyDecision.reason, "first-page-empty");
+
+const highConfidenceEmptyTailDecision =
+  shouldTreatSmokingpipesEmptyListPageAsEndOfList({
+    pageNumber: 105,
+    productCount: 0,
+    detectionConfidence: "high",
+    detectedTotalPages: 104,
+    classification: {
+      cloudflareSuspected: false,
+      verificationSuspected: false,
+      blockedPageSuspected: false,
+      keywordsFound: [],
+    },
+    strongVerificationSignals: [],
+  });
+assert.equal(highConfidenceEmptyTailDecision.endOfList, false);
+assert.equal(highConfidenceEmptyTailDecision.reason, "outside-fallback-scan");
 
 function smokingpipesTailTestPage(page, statuses) {
   return {
