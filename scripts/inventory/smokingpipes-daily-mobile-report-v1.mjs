@@ -247,6 +247,33 @@ function hasApplyBlockedSignal(audit) {
   );
 }
 
+function isNoProductionWriteTask(taskState) {
+  const runMode = normalizeText(taskState?.runMode);
+  return (
+    runMode === "safe-bootstrap" ||
+    taskState?.safeBootstrap === true ||
+    taskState?.noProductionWrite === true
+  );
+}
+
+function isCurrentListFailureBeforePrepare(taskState) {
+  const failureType = normalizeText(taskState?.lastFailureType);
+  const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
+  const currentListStatus = normalizeText(taskState?.currentList?.status);
+  return (
+    failureType === "current-list" ||
+    (currentListStatus === "failed" &&
+      (!detailPhaseStatus || detailPhaseStatus === "not-started"))
+  );
+}
+
+function isSafeBootstrapCurrentListFailure(taskState) {
+  return (
+    isNoProductionWriteTask(taskState) &&
+    isCurrentListFailureBeforePrepare(taskState)
+  );
+}
+
 function getAppliedCount({ audit, wouldApplyCount }) {
   if (Number.isFinite(audit?.appliedCount)) {
     return Number(audit.appliedCount);
@@ -267,6 +294,7 @@ function normalizeTaskStatus(taskState) {
     "terminal-failed",
     "skipped-success",
     "safe-bootstrap-complete",
+    "safe-bootstrap-current-list-failed",
     "running",
   ]);
 
@@ -300,6 +328,10 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
     ? Number(audit.wouldApplyCount)
     : 0;
   const appliedCount = getAppliedCount({ audit, wouldApplyCount });
+
+  if (isSafeBootstrapCurrentListFailure(taskState)) {
+    return "safe-bootstrap-current-list-failed";
+  }
 
   if (verificationBlocker) {
     return "blocked";
@@ -430,6 +462,76 @@ export function buildSmokingpipesDailyMobileReport({
     typeof manualFullReconcile.detailBatch === "object"
       ? manualFullReconcile.detailBatch
       : null;
+
+  if (isSafeBootstrapCurrentListFailure(taskState)) {
+    const failureReason = sanitizeMobileTextV2(
+      taskState?.lastFailureReason ||
+        taskState?.currentList?.reuseReason ||
+        taskFailure ||
+        "current-list failed before candidate generation"
+    );
+    return {
+      source: "smokingpipes",
+      status: "safe-bootstrap-current-list-failed",
+      statusLabel: "安全首跑失败，未写入生产",
+      reason: failureReason,
+      nextStep:
+        "定时任务尚未恢复。请先检查 data/review/smokingpipes-failure-snapshots/ 里的失败快照；修复后手动重新运行 Safe Bootstrap。",
+      runAt,
+      pagesScanned: Number(taskState?.currentList?.pagesScanned || state?.pagesScanned || 0),
+      expectedPages: Number(taskState?.currentList?.expectedPages || state?.expectedPages || 0),
+      candidateCount: 0,
+      attemptedCandidateCount: 0,
+      wouldApplyCount: 0,
+      isolatedCandidateCount: 0,
+      appliedCount: 0,
+      productionWritten: false,
+      taskStatus: normalizeTaskStatus(taskState) || null,
+      inventoryLocks,
+      progressiveLock,
+      currentList,
+      cachedListResume,
+      detailPhaseStatus: "not-started",
+      detailQueueSpike,
+      runMode: "safe-bootstrap",
+      manualFullReconcile: null,
+      manualDetailBatch: null,
+      verificationRequired: false,
+      retryAllowed:
+        typeof taskState?.retryAllowed === "boolean"
+          ? taskState.retryAllowed
+          : true,
+      nextRetryRecommendedAt: taskState?.nextRetryRecommendedAt || null,
+      failureType: "current-list",
+      todayAlreadySucceeded: false,
+      attempts: Number(taskState?.attempts || 0),
+      newProductReady: 0,
+      newProductReviewOnly: 0,
+      newProductNotReady: 0,
+      detailComplete: 0,
+      detailFailed: 0,
+      detailPending: 0,
+      detailDeferred: 0,
+      publicReady: 0,
+      publicReviewOnly: 0,
+      publicNotPublic: 0,
+      pendingDetailCount: 0,
+      blockers: [failureReason],
+      warnings: [],
+      auditStatus: null,
+      auditCounts: {
+        deletedProducts: 0,
+        pendingLeak: 0,
+        failedLeak: 0,
+        blockedLeak: 0,
+        reviewOnlyLeak: 0,
+        zeroPriceSellable: 0,
+      },
+      notificationSent: Boolean(notification.notificationSent),
+      notificationSkipped: Boolean(notification.notificationSkipped),
+      notificationReason: notification.notificationReason || "not requested",
+    };
+  }
 
   if (verificationBlocker && !blockers.includes(verificationBlocker)) {
     blockers.unshift(verificationBlocker);
@@ -1112,6 +1214,33 @@ export function buildPushDeerDailyMessage(report) {
         publicNotPublic: report.publicNotPublic,
         detailFailed: report.detailFailed,
       });
+  if (report.status === "safe-bootstrap-current-list-failed") {
+    const scanText =
+      report.pagesScanned && report.expectedPages
+        ? `${report.pagesScanned}/${report.expectedPages} 页`
+        : "未完成";
+    return {
+      title: "烟斗派库存日报｜Smokingpipes",
+      body: [
+        "结论：安全首跑失败，未写入生产",
+        "",
+        "阶段：current-list 源站列表抓取",
+        "结果：failed",
+        `原因：${report.reason || "current-list failed"}`,
+        `扫描：${scanText}`,
+        "源站访问：已访问",
+        "详情抓取：未开始",
+        "候选生成：未开始",
+        "自动写入：已禁止",
+        "production 写入：0",
+        "",
+        "说明：production apply 尚未到达，本轮没有写入生产数据。",
+        "",
+        "下一步：",
+        report.nextStep,
+      ].join("\n"),
+    };
+  }
   if (report.runMode === "manual-full-reconcile") {
     const manual = report.manualFullReconcile || {};
     const detailBatch =

@@ -287,7 +287,8 @@ function Read-DailyTaskState {
   }
 
   try {
-    return Get-Content -Path $DailyTaskStatePath -Encoding UTF8 | ConvertFrom-Json
+    $json = (Get-Content -Path $DailyTaskStatePath -Encoding UTF8 -Raw).TrimStart([char]0xFEFF)
+    return $json | ConvertFrom-Json
   } catch {
     Write-DailyLog "daily task state unreadable: $($_.Exception.Message)"
     return $null
@@ -323,6 +324,9 @@ function Write-DailyTaskState {
   $cachedListResumeForState = if ($CachedListResume) { $CachedListResume } else { $script:CachedListResumeState }
   $state = [ordered]@{
     source = "smokingpipes"
+    runMode = if ($script:NoProductionWriteEffective) { "safe-bootstrap" } else { "daily-update" }
+    safeBootstrap = [bool]$SafeBootstrap
+    noProductionWrite = [bool]$script:NoProductionWriteEffective
     dateKey = Get-TodayDateKey
     status = $Status
     attempts = $Attempts
@@ -367,7 +371,9 @@ function Write-DailyTaskState {
     $state.lastFailureAt = $now.ToString("o")
   }
 
-  $state | ConvertTo-Json -Depth 6 | Set-Content -Path $DailyTaskStatePath -Encoding UTF8
+  $json = $state | ConvertTo-Json -Depth 6
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($DailyTaskStatePath, "$json`n", $utf8NoBom)
 }
 
 function Convert-ProgressiveLockInspectionToState {
@@ -708,6 +714,37 @@ function Get-AuditCandidateCount {
   } catch {
     return 0
   }
+}
+
+function Clear-StaleProgressiveApplyReports {
+  param([string]$Reason = "daily-start")
+
+  Remove-Item -Path $AuditPath, $ApplyPreviewPath, $ApplyGateReportPath -Force -ErrorAction SilentlyContinue
+  Write-DailyLog "cleared stale progressive audit/apply preview/gate reports: $Reason"
+}
+
+function Get-InventoryNodeFailureMessage {
+  param([string]$Fallback = "inventory node failed")
+
+  $lines = @($script:LastInventoryNodeOutput) |
+    ForEach-Object { [string]$_ } |
+    Where-Object { $_ -and $_.Trim() }
+
+  $important = $lines |
+    Where-Object {
+      $_ -match "No products were extracted|parse failure|Timeout|Error:|strong verification|verification|captcha|Cloudflare|blocked"
+    } |
+    Select-Object -First 1
+
+  if ($important) {
+    return [string]$important
+  }
+
+  if ($lines.Count -gt 0) {
+    return [string]($lines[-1])
+  }
+
+  return $Fallback
 }
 
 function Get-CurrentListCacheStatus {
@@ -1141,6 +1178,8 @@ try {
     exit 0
   }
 
+  Clear-StaleProgressiveApplyReports -Reason "before current-list"
+
   $currentListCache = Get-CurrentListCacheStatus
 
   if ($script:SkipCurrentListEffective -eq $true) {
@@ -1205,7 +1244,7 @@ try {
       -CurrentList $script:CurrentListState
   } else {
     Write-DailyLog "current-list cache not reusable: $($currentListCache.reason)"
-    Invoke-InventoryNode -StepName "current-list" -Arguments @(
+    $currentListExit = Invoke-InventoryNode -StepName "current-list" -Arguments @(
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=dry-run",
@@ -1217,7 +1256,51 @@ try {
       "--no-commit",
       "--no-deploy",
       "--verbose"
-    )
+    ) -ContinueOnFailure
+
+    if ($currentListExit -ne 0) {
+      $currentListFailureReason = Get-InventoryNodeFailureMessage `
+        -Fallback "current-list failed with exit code $currentListExit"
+      $script:CurrentListState = [ordered]@{
+        status = "failed"
+        reused = $false
+        skippedFetch = $false
+        stale = $false
+        manualRecovery = $false
+        path = $CurrentListPath
+        pagesScanned = [int]($currentListCache.pagesScanned)
+        expectedPages = [int]($currentListCache.expectedPages)
+        productsExtracted = [int]($currentListCache.productsExtracted)
+        lastCompletedAt = $null
+        reuseReason = $currentListFailureReason
+        safety = [ordered]@{
+          soldByAbsenceAllowed = $false
+          disappearedApplyAllowed = $false
+        }
+      }
+      $script:DetailPhaseStatus = "not-started"
+      Write-DailyTaskState `
+        -Status "retryable-failed" `
+        -Attempts $attempts `
+        -ProductionWritten $false `
+        -AppliedCount 0 `
+        -CandidateCount 0 `
+        -WouldApplyCount 0 `
+        -IsolatedCandidateCount 0 `
+        -FailureReason $currentListFailureReason `
+        -FailureType "current-list" `
+        -RetryAllowed $true `
+        -NextRetryRecommendedAt (Get-NextRetryAt) `
+        -CurrentList $script:CurrentListState `
+        -DetailPhaseStatus "not-started" `
+        -DetailPendingCount 0 `
+        -CachedListResume $script:CachedListResumeState
+      Send-MobileReport
+      Write-DailyLog "DAILY TASK FAILED: $currentListFailureReason"
+      Write-DailyLog "safe bootstrap/current-list failure: production apply was not reached"
+      exit $currentListExit
+    }
+
     $currentListCache = Get-CurrentListCacheStatus
 
     if ($currentListCache.usable -eq $true) {
@@ -1244,12 +1327,22 @@ try {
       Write-DailyTaskState `
         -Status "retryable-failed" `
         -Attempts $attempts `
+        -ProductionWritten $false `
+        -AppliedCount 0 `
+        -CandidateCount 0 `
+        -WouldApplyCount 0 `
+        -IsolatedCandidateCount 0 `
         -FailureReason "current-list cache not reusable after fetch: $($currentListCache.reason)" `
-        -FailureType "network" `
+        -FailureType "current-list" `
         -RetryAllowed $true `
         -NextRetryRecommendedAt (Get-NextRetryAt) `
-        -CurrentList $script:CurrentListState
-      throw "current-list cache not reusable after fetch: $($currentListCache.reason)"
+        -CurrentList $script:CurrentListState `
+        -DetailPhaseStatus "not-started" `
+        -DetailPendingCount 0
+      Send-MobileReport
+      Write-DailyLog "DAILY TASK FAILED: current-list cache not reusable after fetch: $($currentListCache.reason)"
+      Write-DailyLog "safe bootstrap/current-list failure: production apply was not reached"
+      exit 1
     }
   }
 
@@ -1404,8 +1497,7 @@ try {
     exit 0
   }
 
-  Remove-Item -Path $AuditPath, $ApplyPreviewPath, $ApplyGateReportPath -Force -ErrorAction SilentlyContinue
-  Write-DailyLog "cleared stale progressive audit/apply preview/gate before prepare-apply"
+  Clear-StaleProgressiveApplyReports -Reason "before prepare-apply"
 
   $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments @(
     "scripts/inventory/run-inventory-automation-v1.mjs",

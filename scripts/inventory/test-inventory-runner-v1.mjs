@@ -28,6 +28,8 @@ import {
   shouldFetchNewDetails,
 } from "./inventory-runner-core-v1.mjs";
 import {
+  buildSmokingpipesFailureSnapshotMetadata,
+  classifySmokingpipesFailureSnapshotText,
   randomDelayMs,
   resolveListPacingOptions,
   shouldApplyPageBatchCooldown,
@@ -3584,6 +3586,65 @@ const emptyListPage = classifySmokingpipesVerificationSignals({
 });
 assert.equal(emptyListPage.verificationBlocked, false);
 assert.equal(emptyListPage.classification, "empty-or-parse-failure");
+
+const cloudflareFailureSnapshotClassification =
+  classifySmokingpipesFailureSnapshotText({
+    title: "Just a moment...",
+    html: "<html><body>Cloudflare Verify you are human cf-chl Turnstile</body></html>",
+  });
+assert.equal(cloudflareFailureSnapshotClassification.cloudflareSuspected, true);
+assert.equal(
+  cloudflareFailureSnapshotClassification.verificationSuspected,
+  true
+);
+assert.equal(
+  cloudflareFailureSnapshotClassification.blockedPageSuspected,
+  true
+);
+assert.deepEqual(
+  cloudflareFailureSnapshotClassification.keywordsFound.sort(),
+  ["Cloudflare", "Just a moment", "Turnstile", "Verify you are human", "cf-chl"].sort()
+);
+
+const normalFailureSnapshotClassification =
+  classifySmokingpipesFailureSnapshotText({
+    title: "Smokingpipes | New Pipes",
+    html: "<main><a href='moreinfo.cfm?product_id=1'>Normal pipe</a></main>",
+  });
+assert.equal(normalFailureSnapshotClassification.cloudflareSuspected, false);
+assert.equal(normalFailureSnapshotClassification.verificationSuspected, false);
+assert.equal(normalFailureSnapshotClassification.blockedPageSuspected, false);
+assert.deepEqual(normalFailureSnapshotClassification.keywordsFound, []);
+
+const failureSnapshotMetadata = buildSmokingpipesFailureSnapshotMetadata({
+  source: "smokingpipes",
+  stage: "current-list",
+  page: 107,
+  url: "https://www.smokingpipes.com/pipes/?DISPLAYNUM=48&page=107",
+  title: "Just a moment...",
+  html: "<html>Cloudflare challenge</html>",
+  errorMessage:
+    "No products were extracted from requested page 107; parse failure: selector timeout 15000ms",
+  selector: "a[href*='moreinfo.cfm'][href*='product_id=']",
+  screenshotPath:
+    "data/review/smokingpipes-failure-snapshots/smokingpipes-current-list-page-107-20260708-103000.png",
+  htmlPath:
+    "data/review/smokingpipes-failure-snapshots/smokingpipes-current-list-page-107-20260708-103000.html",
+  capturedAt: "2026-07-08T10:30:00.000+08:00",
+});
+assert.equal(failureSnapshotMetadata.source, "smokingpipes");
+assert.equal(failureSnapshotMetadata.stage, "current-list");
+assert.equal(failureSnapshotMetadata.page, 107);
+assert.match(failureSnapshotMetadata.url, /page=107/);
+assert.equal(failureSnapshotMetadata.title, "Just a moment...");
+assert.match(failureSnapshotMetadata.errorMessage, /No products were extracted/);
+assert.deepEqual(failureSnapshotMetadata.keywordsFound, [
+  "Cloudflare",
+  "Just a moment",
+  "challenge",
+]);
+assert.equal(failureSnapshotMetadata.cloudflareSuspected, true);
+assert.equal(failureSnapshotMetadata.verificationSuspected, true);
 
 const latePageFixture = Array.from({ length: 48 }, (_, index) => ({
   sourceProductId: String(800000 + index),
@@ -7877,6 +7938,120 @@ const safeBootstrapMobileMessage = buildPushDeerDailyMessage(
 assert.match(safeBootstrapMobileMessage.body, /安全首跑完成/);
 assert.match(safeBootstrapMobileMessage.body, /production/);
 
+const safeBootstrapCurrentListFailureReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-07-08T21:10:00.000+08:00",
+    taskLogText:
+      "DAILY TASK FAILED: No products were extracted from requested page 107; parse failure: page.waitForSelector: Timeout 15000ms exceeded.",
+    taskState: {
+      source: "smokingpipes",
+      runMode: "safe-bootstrap",
+      safeBootstrap: true,
+      noProductionWrite: true,
+      dateKey: "2026-07-08",
+      status: "retryable-failed",
+      attempts: 1,
+      productionWritten: false,
+      appliedCount: 0,
+      candidateCount: 0,
+      wouldApplyCount: 0,
+      isolatedCandidateCount: 0,
+      retryAllowed: true,
+      lastFailureReason:
+        "No products were extracted from requested page 107; parse failure: page.waitForSelector: Timeout 15000ms exceeded.",
+      lastFailureType: "current-list",
+      detailPhaseStatus: "not-started",
+      currentList: {
+        status: "failed",
+        reused: false,
+        path: "data/inventory/smokingpipes-current-list-dry-run.json",
+        pagesScanned: 106,
+        expectedPages: 107,
+        productsExtracted: 5088,
+        reuseReason:
+          "page 107 no products / selector timeout 15000ms",
+      },
+    },
+    state: {
+      source: "smokingpipes",
+      listSnapshotStatus: "blocked",
+      pagesScanned: 106,
+      expectedPages: 107,
+      candidates: [{ sourceProductId: "old-stale-candidate" }],
+    },
+    audit: {
+      verdict: "PASS",
+      candidateCount: 4039,
+      attemptedCandidateCount: 4039,
+      wouldApplyCount: 4039,
+      isolatedCandidateCount: 465,
+      productionWritten: false,
+      newProductReady: 179,
+      newProductReviewOnly: 465,
+      newProductNotReady: 267,
+      blockers: [],
+      warnings: [],
+      counts: {},
+    },
+  });
+assert.equal(
+  safeBootstrapCurrentListFailureReport.status,
+  "safe-bootstrap-current-list-failed"
+);
+assert.equal(
+  safeBootstrapCurrentListFailureReport.statusLabel,
+  "安全首跑失败，未写入生产"
+);
+assert.equal(safeBootstrapCurrentListFailureReport.candidateCount, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.attemptedCandidateCount, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.wouldApplyCount, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.isolatedCandidateCount, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.newProductReady, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.newProductReviewOnly, 0);
+assert.equal(safeBootstrapCurrentListFailureReport.newProductNotReady, 0);
+assert.equal(
+  safeBootstrapCurrentListFailureReport.detailPhaseStatus,
+  "not-started"
+);
+assert.equal(safeBootstrapCurrentListFailureReport.productionWritten, false);
+assert.match(
+  safeBootstrapCurrentListFailureReport.reason,
+  /page\.waitForSelector: Timeout 15000ms exceeded/
+);
+assert.match(
+  safeBootstrapCurrentListFailureReport.nextStep,
+  /定时任务尚未恢复/
+);
+assert.doesNotMatch(
+  safeBootstrapCurrentListFailureReport.nextStep,
+  /等待 Windows 定时任务自动重试/
+);
+const safeBootstrapCurrentListFailureMessage =
+  buildPushDeerDailyMessage(safeBootstrapCurrentListFailureReport);
+assert.match(
+  safeBootstrapCurrentListFailureMessage.body,
+  /结论：安全首跑失败，未写入生产/
+);
+assert.match(
+  safeBootstrapCurrentListFailureMessage.body,
+  /阶段：current-list 源站列表抓取/
+);
+assert.match(
+  safeBootstrapCurrentListFailureMessage.body,
+  /详情抓取：未开始/
+);
+assert.match(
+  safeBootstrapCurrentListFailureMessage.body,
+  /候选生成：未开始/
+);
+assert.match(
+  safeBootstrapCurrentListFailureMessage.body,
+  /自动写入：已禁止/
+);
+assert.doesNotMatch(safeBootstrapCurrentListFailureMessage.body, /4039/);
+assert.doesNotMatch(safeBootstrapCurrentListFailureMessage.body, /179/);
+assert.doesNotMatch(safeBootstrapCurrentListFailureMessage.body, /465/);
+
 const missingPushKeyResult = await sendPushDeerNotification({
   title: "烟斗派库存日报｜Smokingpipes",
   body: "状态：成功",
@@ -9477,6 +9652,22 @@ assert.doesNotMatch(
   /run-smokingpipes-progressive-daily\.ps1/
 );
 const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
+assert.match(dailyTaskScript, /function Clear-StaleProgressiveApplyReports/);
+assert.ok(
+  dailyTaskScript.indexOf("Clear-StaleProgressiveApplyReports") <
+    dailyTaskScript.indexOf('StepName "current-list"'),
+  "stale progressive apply reports must be cleared before current-list starts"
+);
+assert.match(
+  dailyTaskScript,
+  /System\.Text\.UTF8Encoding\s*\(\s*\$false\s*\)/
+);
+assert.doesNotMatch(
+  dailyTaskScript,
+  /Set-Content\s+-Path\s+\$DailyTaskStatePath\s+-Encoding\s+UTF8/
+);
+assert.match(dailyTaskScript, /-FailureType\s+"current-list"/);
+assert.match(dailyTaskScript, /-DetailPhaseStatus\s+"not-started"/);
 
 function extractPowerShellFunction(source, functionName) {
   const match = source.match(

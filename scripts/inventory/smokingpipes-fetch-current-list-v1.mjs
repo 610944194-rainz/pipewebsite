@@ -32,12 +32,33 @@ const DEFAULT_PAGE_BATCH_SIZE = 0;
 const DEFAULT_PAGE_BATCH_COOLDOWN_MIN_MS = 0;
 const DEFAULT_PAGE_BATCH_COOLDOWN_MAX_MS = 0;
 const DEFAULT_CAPTCHA_COOLDOWN_MS = 60000;
+const LIST_PRODUCT_SELECTOR =
+  "a[href*='moreinfo.cfm'][href*='product_id=']";
 const CHECKPOINT_PATH = path.join(
   ROOT,
   ".cache",
   "inventory-v1",
   "smokingpipes-current-list-checkpoint.json"
 );
+const FAILURE_SNAPSHOT_DIR = path.join(
+  ROOT,
+  "data",
+  "review",
+  "smokingpipes-failure-snapshots"
+);
+const FAILURE_SNAPSHOT_KEYWORDS = [
+  "Cloudflare",
+  "Just a moment",
+  "Verify you are human",
+  "Checking your browser",
+  "challenge",
+  "cf-chl",
+  "Turnstile",
+  "captcha",
+  "Attention Required",
+  "Access denied",
+  "blocked",
+];
 
 function enabled(value) {
   return value === true || ["1", "true", "yes"].includes(
@@ -127,6 +148,153 @@ export function shouldApplyPageBatchCooldown({
     pageNumber < maxPages &&
     pageNumber % batchSize === 0
   );
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function toSnapshotTimestamp(date = new Date()) {
+  return date
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}Z$/, "");
+}
+
+export function classifySmokingpipesFailureSnapshotText({
+  title = "",
+  html = "",
+  bodyText = "",
+} = {}) {
+  const haystack = `${title}\n${html}\n${bodyText}`;
+  const keywordsFound = FAILURE_SNAPSHOT_KEYWORDS.filter((keyword) =>
+    new RegExp(escapeRegExp(keyword), "i").test(haystack)
+  );
+  const cloudflareSuspected = keywordsFound.some((keyword) =>
+    /cloudflare|just a moment|checking your browser|cf-chl|turnstile/i.test(
+      keyword
+    )
+  );
+  const verificationSuspected = keywordsFound.some((keyword) =>
+    /verify|challenge|turnstile|captcha|attention required|access denied|blocked|cf-chl/i.test(
+      keyword
+    )
+  );
+
+  return {
+    cloudflareSuspected,
+    verificationSuspected,
+    blockedPageSuspected:
+      cloudflareSuspected ||
+      verificationSuspected ||
+      keywordsFound.length > 0,
+    keywordsFound,
+  };
+}
+
+export function buildSmokingpipesFailureSnapshotMetadata({
+  source = "smokingpipes",
+  stage = "current-list",
+  page: pageNumber = null,
+  url = "",
+  title = "",
+  html = "",
+  bodyText = "",
+  errorMessage = "",
+  selector = LIST_PRODUCT_SELECTOR,
+  screenshotPath = null,
+  htmlPath = null,
+  capturedAt = new Date().toISOString(),
+} = {}) {
+  const classification = classifySmokingpipesFailureSnapshotText({
+    title,
+    html,
+    bodyText,
+  });
+
+  return {
+    source,
+    stage,
+    page: pageNumber,
+    url,
+    title,
+    capturedAt,
+    errorMessage,
+    selector,
+    ...classification,
+    screenshotPath,
+    htmlPath,
+  };
+}
+
+export async function writeSmokingpipesFailureSnapshot({
+  page: browserPage,
+  pageNumber,
+  url,
+  stage = "current-list",
+  errorMessage,
+  selector = LIST_PRODUCT_SELECTOR,
+  snapshotDir = FAILURE_SNAPSHOT_DIR,
+} = {}) {
+  await fs.promises.mkdir(snapshotDir, { recursive: true });
+  const capturedAt = new Date().toISOString();
+  const timestamp = toSnapshotTimestamp(new Date(capturedAt));
+  const baseName = `smokingpipes-${stage}-page-${pageNumber}-${timestamp}`;
+  const absoluteHtmlPath = path.join(snapshotDir, `${baseName}.html`);
+  const absoluteScreenshotPath = path.join(snapshotDir, `${baseName}.png`);
+  const absoluteMetadataPath = path.join(snapshotDir, `${baseName}.json`);
+  let title = "";
+  let html = "";
+  let screenshotPath = relativePath(absoluteScreenshotPath);
+
+  try {
+    title = await browserPage.title();
+  } catch {
+    title = "";
+  }
+
+  try {
+    html = await browserPage.content();
+  } catch (error) {
+    html = `<!-- failed to capture html: ${error.message} -->`;
+  }
+
+  await fs.promises.writeFile(absoluteHtmlPath, html, "utf8");
+
+  try {
+    await browserPage.screenshot({
+      path: absoluteScreenshotPath,
+      fullPage: true,
+    });
+  } catch {
+    screenshotPath = null;
+  }
+
+  const metadata = buildSmokingpipesFailureSnapshotMetadata({
+    source: "smokingpipes",
+    stage,
+    page: pageNumber,
+    url,
+    title,
+    html,
+    errorMessage,
+    selector,
+    screenshotPath,
+    htmlPath: relativePath(absoluteHtmlPath),
+    capturedAt,
+  });
+  await fs.promises.writeFile(
+    absoluteMetadataPath,
+    `${JSON.stringify(metadata, null, 2)}\n`,
+    "utf8"
+  );
+
+  return {
+    metadata,
+    metadataPath: relativePath(absoluteMetadataPath),
+    htmlPath: metadata.htmlPath,
+    screenshotPath: metadata.screenshotPath,
+  };
 }
 
 async function waitForManualVerification(page, targetUrl, timeoutMs) {
@@ -282,7 +450,7 @@ async function writeCheckpoint(payload) {
 
 async function waitForListProducts(page) {
   await page.waitForSelector(
-    "a[href*='moreinfo.cfm'][href*='product_id=']",
+    LIST_PRODUCT_SELECTOR,
     { timeout: 15000 }
   );
   await page.waitForTimeout(500);
@@ -517,9 +685,31 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       }
 
       if (extracted.length === 0) {
-        throw new Error(
-          `No products were extracted from requested page ${pageNumber}; parse failure${waitError ? `: ${waitError.message}` : ""}.`
-        );
+        const parseFailureMessage =
+          `No products were extracted from requested page ${pageNumber}; parse failure${waitError ? `: ${waitError.message}` : ""}.`;
+        const failureSnapshot =
+          await writeSmokingpipesFailureSnapshot({
+            page,
+            pageNumber,
+            url,
+            stage: "current-list",
+            errorMessage: parseFailureMessage,
+            selector: LIST_PRODUCT_SELECTOR,
+          }).catch((error) => ({
+            errorMessage: `failed to write failure snapshot: ${error.message}`,
+          }));
+        if (failureSnapshot?.metadataPath) {
+          console.warn(
+            `Smokingpipes current-list failure snapshot written: ${failureSnapshot.metadataPath}`
+          );
+        } else if (failureSnapshot?.errorMessage) {
+          console.warn(failureSnapshot.errorMessage);
+        }
+        throw Object.assign(new Error(parseFailureMessage), {
+          code: "CURRENT_LIST_PARSE_FAILURE",
+          pageNumber,
+          failureSnapshot,
+        });
       }
 
       const scrapedAt = new Date().toISOString();
