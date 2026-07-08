@@ -4,6 +4,10 @@ import {
 import {
   evaluateSmokingpipesPublicReadiness,
 } from "../lib/smokingpipes-public-readiness-v1.mjs";
+import {
+  classifySmokingpipesBrandExclusion,
+  isSmokingpipesExcludedBrand,
+} from "../lib/smokingpipes-brand-exclusions-v1.mjs";
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -249,6 +253,7 @@ function stateSummary(state, now = new Date().toISOString()) {
     complete: statusCount("complete"),
     failed: statusCount("failed"),
     blocked: statusCount("blocked"),
+    excluded: statusCount("excluded"),
     readyForDetailChunk,
   };
 }
@@ -261,6 +266,7 @@ function makeCandidate({
   now,
 }) {
   const needsDetail = changeTypes.includes("new-product");
+  const exclusion = classifySmokingpipesBrandExclusion(current);
   return {
     sourceProductId: productId(current),
     sourceUrl: text(current.sourceUrl || current.href),
@@ -279,8 +285,16 @@ function makeCandidate({
     lastSeenRunId: runId,
     lastSeenAt: now,
     changeTypes,
-    detailStatus: needsDetail ? "pending" : "complete",
-    publicStatus: needsDetail ? "not-public" : "ready",
+    detailStatus: exclusion.excluded
+      ? "excluded"
+      : needsDetail
+        ? "pending"
+        : "complete",
+    publicStatus: exclusion.excluded
+      ? "not-public"
+      : needsDetail
+        ? "not-public"
+        : "ready",
     detailAttempts: 0,
     retryCount: 0,
     lastAttemptAt: null,
@@ -297,6 +311,10 @@ function makeCandidate({
     convertedProduct: null,
     productionProductId: production?.id || null,
     lastBuiltAt: null,
+    excludedBrand: exclusion.brand,
+    exclusionReason: exclusion.reason,
+    exclusionEvidence: exclusion.evidence,
+    excludedAt: exclusion.excluded ? now : null,
   };
 }
 
@@ -377,6 +395,11 @@ export function ingestProgressiveListSnapshot({
 
     const existing = candidatesById.get(id);
     if (existing) {
+      const exclusion =
+        classifySmokingpipesBrandExclusion({
+          ...existing,
+          ...current,
+        });
       existing.changeTypes = addUnique(
         existing.changeTypes,
         changeTypes
@@ -402,10 +425,23 @@ export function ingestProgressiveListSnapshot({
       existing.lastSeenRunId = runId;
       existing.lastSeenAt = now;
       existing.retryCount ??= 0;
+      if (exclusion.excluded) {
+        existing.detailStatus = "excluded";
+        existing.publicStatus = "not-public";
+        existing.excludedBrand = exclusion.brand;
+        existing.exclusionReason = exclusion.reason;
+        existing.exclusionEvidence = exclusion.evidence;
+        existing.excludedAt ||= now;
+        existing.readyReason = null;
+        existing.reviewReason = exclusion.reason;
+        existing.lastError = exclusion.reason;
+        existing.nextEligibleAt = null;
+      }
       const protectedStatus =
         existing.detailStatus === "complete" ||
         existing.publicStatus === "published";
       if (
+        !exclusion.excluded &&
         !protectedStatus &&
         existing.changeTypes.includes("new-product") &&
         existing.detailStatus === "blocked" &&
@@ -523,6 +559,7 @@ export function summarizeProgressiveState(state) {
     detailsDeferred: count("deferred"),
     detailsFailed: count("failed"),
     detailsBlocked: count("blocked"),
+    detailsExcluded: count("excluded"),
     readyForPartialApply: candidates.filter(
       (item) =>
         item.publicStatus === "ready" &&
@@ -541,9 +578,12 @@ export function selectProgressiveDetailCandidates({
   const nowMs = Date.parse(now);
   return (state?.candidates || [])
     .filter((item) => {
+      if (isSmokingpipesExcludedBrand(item)) return false;
       if (!item.changeTypes.includes("new-product")) return false;
       if (
-        ["complete", "review-only"].includes(item.detailStatus) ||
+        ["complete", "review-only", "excluded"].includes(
+          item.detailStatus
+        ) ||
         ["published", "review-only"].includes(item.publicStatus)
       ) {
         return false;

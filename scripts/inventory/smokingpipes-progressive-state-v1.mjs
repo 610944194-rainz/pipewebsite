@@ -18,6 +18,7 @@ const DETAIL_STATUSES = new Set([
   "failed",
   "blocked",
   "review-only",
+  "excluded",
 ]);
 const QUEUE_DISPOSITIONS = new Set([
   "eligible-this-batch",
@@ -154,6 +155,7 @@ export function createProgressiveDailyState({
       complete: 0,
       failed: 0,
       blocked: 0,
+      excluded: 0,
       readyForDetailChunk: 0,
     },
     latestRun: null,

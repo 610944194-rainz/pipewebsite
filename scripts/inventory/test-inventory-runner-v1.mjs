@@ -115,8 +115,17 @@ import {
   buildProgressiveStateSummary,
   ingestProgressiveListSnapshot,
   runProgressiveDetailChunk,
+  selectProgressiveDetailCandidates,
   summarizeProgressiveState,
 } from "./smokingpipes-progressive-daily-v1.mjs";
+import {
+  applySmokingpipesBrandExclusions,
+  classifySmokingpipesBrandExclusion,
+} from "../lib/smokingpipes-brand-exclusions-v1.mjs";
+import {
+  buildSmokingpipesManualBackfillVerificationMessage,
+  runSmokingpipesManualDetailBackfill,
+} from "./smokingpipes-manual-detail-backfill-v1.mjs";
 import {
   auditProgressivePartialCandidate,
   buildProgressivePartialApplyPreview,
@@ -6274,6 +6283,278 @@ assert.equal(
   "blocked"
 );
 
+assert.deepEqual(
+  classifySmokingpipesBrandExclusion({
+    sourceUrl:
+      "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=700001",
+    title: "AKB Carved Dublin",
+  }),
+  {
+    excluded: true,
+    brand: "falcon",
+    reason: "excluded-brand:falcon",
+    evidence: "source-url-brand-slug",
+  }
+);
+assert.equal(
+  classifySmokingpipesBrandExclusion({
+    brandSlug: "falcon",
+    title: "Replacement bowl",
+  }).excluded,
+  true
+);
+assert.equal(
+  classifySmokingpipesBrandExclusion({
+    productName: "Falcon Standard Stem",
+  }).excluded,
+  true
+);
+assert.equal(
+  classifySmokingpipesBrandExclusion({
+    sourceUrl:
+      "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=700002",
+    title: "Peterson System Standard",
+  }).excluded,
+  false
+);
+
+const falconExclusionState = ingestProgressiveListSnapshot({
+  state: createProgressiveDailyState({
+    dailyRunId: "falcon-exclusion-test",
+    now: progressiveNow,
+  }),
+  currentPayload: {
+    generatedAt: progressiveNow,
+    summary: {
+      pagesScanned: 1,
+      expectedPages: 104,
+      fullExpectedRangeScanned: false,
+      captchaDetected: false,
+      captchaPages: [],
+    },
+    products: [
+      {
+        sourceProductId: "700001",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=700001",
+        title: "AKB Carved Dublin",
+        price: "$100.00",
+        imageUrl: "https://example.invalid/700001.jpg",
+      },
+      {
+        sourceProductId: "700002",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=700002",
+        title: "Peterson System Standard",
+        price: "$120.00",
+        imageUrl: "https://example.invalid/700002.jpg",
+      },
+      {
+        sourceProductId: "700003",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=700003",
+        title: "Falcon Standard Stem",
+        price: "$80.00",
+        imageUrl: "https://example.invalid/700003.jpg",
+      },
+    ],
+  },
+  productionProducts: [],
+  runId: "falcon-exclusion-test",
+  now: progressiveNow,
+});
+const falconExclusion = applySmokingpipesBrandExclusions({
+  state: falconExclusionState,
+  productionProducts: [
+    {
+      source: "smokingpipes",
+      sourceProductId: "existing-falcon",
+      brand: "Falcon",
+      sourceUrl:
+        "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=699999",
+    },
+  ],
+  publicProducts: [
+    {
+      source: "smokingpipes",
+      sourceProductId: "public-falcon",
+      brand: "Falcon",
+    },
+    {
+      source: "danish",
+      sourceProductId: "danish-falcon",
+      brand: "Falcon",
+    },
+  ],
+  now: progressiveNow,
+});
+assert.equal(falconExclusion.report.pendingBefore, 1);
+assert.equal(falconExclusion.report.excludedBrandCount, 2);
+assert.deepEqual(falconExclusion.report.excludedBrandBreakdown, {
+  falcon: 2,
+});
+assert.equal(
+  falconExclusion.report.pendingAfterBrandExclusion,
+  1
+);
+assert.equal(falconExclusion.report.plannedHideProductionCount, 1);
+assert.equal(falconExclusion.report.plannedHidePublicCount, 1);
+assert.equal(falconExclusion.report.productionWritten, false);
+for (const id of ["700001", "700003"]) {
+  const excluded = falconExclusion.state.candidates.find(
+    (item) => item.sourceProductId === id
+  );
+  assert.equal(excluded.detailStatus, "excluded");
+  assert.equal(excluded.publicStatus, "not-public");
+  assert.equal(excluded.exclusionReason, "excluded-brand:falcon");
+}
+assert.deepEqual(
+  selectProgressiveDetailCandidates({
+    state: falconExclusion.state,
+    maxItems: 30,
+    now: progressiveNow,
+  }).map((item) => item.sourceProductId),
+  ["700002"],
+  "Falcon candidates must never enter the detail batch"
+);
+
+const manualBackfillOptions = parseRunnerOptions([
+  "--manual-detail-backfill-all",
+  "--limit=50",
+  "--until-empty",
+  "--cooldown-ms=1234",
+  "--max-total=200",
+]);
+assert.equal(
+  manualBackfillOptions.mode,
+  "progressive-manual-detail-backfill"
+);
+assert.equal(manualBackfillOptions.manualDetailBackfill, true);
+assert.equal(manualBackfillOptions.manualDetailLimit, 50);
+assert.equal(manualBackfillOptions.manualDetailUntilEmpty, true);
+assert.equal(manualBackfillOptions.manualDetailCooldownMs, 1234);
+assert.equal(manualBackfillOptions.manualDetailMaxTotal, 200);
+assert.equal(
+  parseRunnerOptions([
+    "--manual-detail-backfill-all",
+    "--limit=500",
+  ]).manualDetailLimit,
+  50,
+  "manual detail batches must be capped at 50"
+);
+
+const manualBackfillState = ingestProgressiveListSnapshot({
+  state: createProgressiveDailyState({
+    dailyRunId: "manual-backfill-test",
+    now: progressiveNow,
+  }),
+  currentPayload: {
+    generatedAt: progressiveNow,
+    summary: {
+      pagesScanned: 104,
+      expectedPages: 104,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      captchaPages: [],
+    },
+    products: [
+      {
+        sourceProductId: "710001",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=710001",
+        title: "Falcon bowl",
+        price: "$80.00",
+        imageUrl: "https://example.invalid/710001.jpg",
+      },
+      ...["710002", "710003", "710004"].map((id) => ({
+        sourceProductId: id,
+        sourceUrl: `https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=${id}`,
+        title: `Peterson test pipe ${id}`,
+        price: "$120.00",
+        imageUrl: `https://example.invalid/${id}.jpg`,
+      })),
+    ],
+  },
+  productionProducts: [],
+  runId: "manual-backfill-test",
+  now: progressiveNow,
+});
+const manualBackfillCheckpoints = [];
+const manualBackfillWaits = [];
+const manualBackfillResult =
+  await runSmokingpipesManualDetailBackfill({
+    state: manualBackfillState,
+    batchLimit: 2,
+    untilEmpty: true,
+    cooldownMs: 500,
+    maxTotal: 3,
+    now: progressiveNow,
+    checkpoint: async (state) => {
+      manualBackfillCheckpoints.push(structuredClone(state));
+    },
+    wait: async (delayMs) => {
+      manualBackfillWaits.push(delayMs);
+    },
+    processDetail: async (candidate, index) => {
+      if (candidate.sourceProductId === "710004") {
+        throw Object.assign(new Error("strong verification"), {
+          code: "CAPTCHA_REQUIRED",
+        });
+      }
+      return {
+        detail: {
+          sourceProductId: candidate.sourceProductId,
+          fullTitle: candidate.listTitle,
+        },
+        convertedProduct: {
+          id: `smokingpipes-${candidate.sourceProductId}`,
+          source: "smokingpipes",
+          sourceProductId: candidate.sourceProductId,
+          fullTitle: candidate.listTitle,
+          inventoryStatus: "available",
+          publication: {
+            publicIndexEligible: true,
+            publiclySellable: true,
+          },
+          mainImageUrl: candidate.listPrimaryImage,
+          galleryImages: [candidate.listPrimaryImage],
+          price: {
+            current: {
+              rawText: candidate.listPrice,
+              currency: "USD",
+              amount: 120,
+              parseStatus: "parsed",
+            },
+          },
+        },
+        publicReady: true,
+      };
+    },
+  });
+assert.equal(manualBackfillResult.report.pendingBefore, 3);
+assert.equal(manualBackfillResult.report.excludedBrandCount, 1);
+assert.equal(manualBackfillResult.report.fetchedTotal, 3);
+assert.equal(manualBackfillResult.report.completed, 2);
+assert.equal(manualBackfillResult.report.blocked, 1);
+assert.equal(manualBackfillResult.report.verificationRequired, true);
+assert.equal(manualBackfillResult.report.productionWritten, false);
+assert.deepEqual(manualBackfillWaits, [500]);
+assert.ok(manualBackfillCheckpoints.length >= 4);
+assert.equal(
+  manualBackfillResult.state.candidates.find(
+    (item) => item.sourceProductId === "710001"
+  ).detailStatus,
+  "excluded"
+);
+assert.match(
+  buildSmokingpipesManualBackfillVerificationMessage({
+    sourceProductId: "710004",
+    sourceUrl:
+      "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=710004",
+  }).body,
+  /运行任务的电脑[\s\S]*Chrome profile sp-chrome[\s\S]*不要关闭浏览器/
+);
+
 const progressiveProduction = [
   {
     id: "smokingpipes-100",
@@ -8139,6 +8420,7 @@ assert.deepEqual(progressiveIngestState.summary, {
   complete: 3,
   failed: 0,
   blocked: 0,
+  excluded: 0,
   readyForDetailChunk: 3,
 });
 const progressiveIngestReport = JSON.parse(

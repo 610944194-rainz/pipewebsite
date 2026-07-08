@@ -64,7 +64,14 @@ Options:
   --detail-probe                        Alias for --mode=detail-probe
   --mode=browser-preflight              Browser/profile startup check only
   --mode=progressive-ingest-list        Ingest existing current-list/diff into state
+  --mode=progressive-apply-brand-exclusions  Offline exclusion/state review; no browser
   --mode=progressive-detail-chunk       Resume a checkpointed new-detail batch
+  --mode=progressive-manual-detail-backfill  Explicit state-only pending detail backfill
+  --manual-detail-backfill-all          Alias for --mode=progressive-manual-detail-backfill
+  --limit=30                            Manual detail batch size; maximum 50
+  --until-empty                         Continue manual detail batches until empty or blocked
+  --cooldown-ms=0                       Pause between manual detail batches
+  --max-total=500                       Manual backfill safety ceiling across this invocation
   --mode=progressive-build-candidate    Build isolated additive partial-next data
   --mode=progressive-prepare-apply      Build fresh audit/preview and run apply gate without writing production
   --mode=progressive-partial-apply      Preview partial apply; writes production only with --write-production

@@ -33,11 +33,22 @@ import {
   writeProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
+  buildProgressiveStateSummary,
   ingestProgressiveListSnapshot,
   normalizeProgressivePublicStatuses,
   runProgressiveDetailChunk,
+  selectProgressiveDetailCandidates,
   summarizeProgressiveState,
 } from "./smokingpipes-progressive-daily-v1.mjs";
+import {
+  applySmokingpipesBrandExclusions,
+  smokingpipesBrandExclusionMarkdown,
+} from "../lib/smokingpipes-brand-exclusions-v1.mjs";
+import {
+  buildSmokingpipesManualBackfillVerificationMessage,
+  runSmokingpipesManualDetailBackfill,
+  smokingpipesManualBackfillMarkdown,
+} from "./smokingpipes-manual-detail-backfill-v1.mjs";
 import {
   auditProgressivePartialCandidate,
   buildProgressivePartialApplyPreview,
@@ -45,6 +56,9 @@ import {
   diagnoseProgressiveApplyGap,
   selectProgressiveRecentNew,
 } from "./smokingpipes-progressive-candidate-v1.mjs";
+import {
+  sendPushDeerNotification,
+} from "./inventory-pushdeer-notifier-v1.mjs";
 import {
   randomDelayMs,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
@@ -243,6 +257,34 @@ function loadProduction(paths, mock) {
   return mock ? products.slice(0, 20) : products;
 }
 
+function loadProductionPublicProducts(paths, mock) {
+  if (mock) return [];
+  return items(
+    readJsonIfExists(
+      productionPublicFile(paths, "catalog.json"),
+      []
+    )
+  );
+}
+
+function refreshProgressiveSummary(state, now = new Date().toISOString()) {
+  const next = structuredClone(state);
+  next.updatedAt = now;
+  next.summary = buildProgressiveStateSummary(next, now);
+  return next;
+}
+
+async function writeBrandExclusionReport(paths, report) {
+  await writeJsonAtomic(
+    paths.progressiveBrandExclusionReportJson,
+    report
+  );
+  await writeTextAtomic(
+    paths.progressiveBrandExclusionReportMarkdown,
+    smokingpipesBrandExclusionMarkdown(report)
+  );
+}
+
 function seedMockState(paths, runId) {
   const state = createProgressiveDailyState({
     dailyRunId: runId,
@@ -306,6 +348,8 @@ async function createRealDetailProcessor({
   paths,
   options,
   runId,
+  mode = "progressive-detail-chunk",
+  onVerificationDetected = async () => {},
 }) {
   const session = await launchSmokingpipesContext({
     root,
@@ -314,13 +358,19 @@ async function createRealDetailProcessor({
     browserProfileDir: options.browserProfileDir,
     profileLockPath: paths.browserProfileLock,
     runId,
-    mode: "progressive-detail-chunk",
+    mode,
   });
   const page =
     session.context.pages()[0] ||
     (await session.context.newPage());
+  const verificationState = {
+    verificationDetected: false,
+    manualVerificationRecovered: false,
+    notification: null,
+  };
   return {
     browserStarted: true,
+    verificationState,
     async process(candidate) {
       const response = await page.goto(candidate.sourceUrl, {
         waitUntil: "domcontentloaded",
@@ -345,6 +395,15 @@ async function createRealDetailProcessor({
         detection.verificationBlocked &&
         options.allowManualVerification
       ) {
+        if (!verificationState.verificationDetected) {
+          verificationState.verificationDetected = true;
+          verificationState.notification =
+            await onVerificationDetected({
+              candidate,
+              detection,
+              page,
+            });
+        }
         const recovery =
           await waitForSmokingpipesManualRecovery(page, {
             pageKind: "detail",
@@ -375,8 +434,22 @@ async function createRealDetailProcessor({
             },
           });
         if (recovery.recovered) {
+          verificationState.manualVerificationRecovered = true;
           detail = recovery.parsedValue;
         }
+      }
+      if (
+        detection.verificationBlocked &&
+        !options.allowManualVerification &&
+        !verificationState.verificationDetected
+      ) {
+        verificationState.verificationDetected = true;
+        verificationState.notification =
+          await onVerificationDetected({
+            candidate,
+            detection,
+            page,
+          });
       }
       if (detection.verificationBlocked && !detail) {
         throw Object.assign(
@@ -1440,7 +1513,292 @@ export async function runSmokingpipesProgressiveMode({
       return result;
     }
 
+    if (options.mode === "progressive-apply-brand-exclusions") {
+      const now = new Date().toISOString();
+      const exclusion = applySmokingpipesBrandExclusions({
+        state,
+        productionProducts: loadProduction(paths, options.mock),
+        publicProducts: loadProductionPublicProducts(
+          paths,
+          options.mock
+        ),
+        now,
+      });
+      state = refreshProgressiveSummary(exclusion.state, now);
+      state.latestRun = {
+        ...(state.latestRun || {}),
+        runId,
+        mode: options.mode,
+        finishedAt: now,
+        blockedReason: null,
+        recommendedNextRunAt: null,
+      };
+      await writeProgressiveDailyState(
+        paths.progressiveState,
+        state
+      );
+      await writeBrandExclusionReport(
+        paths,
+        exclusion.report
+      );
+      const result = {
+        status: "brand-exclusions-applied",
+        browserStarted: false,
+        detailsFetched: false,
+        candidateGenerated: false,
+        excludedBrandCount:
+          exclusion.report.excludedBrandCount,
+        excludedBrandBreakdown:
+          exclusion.report.excludedBrandBreakdown,
+        pendingBefore: exclusion.report.pendingBefore,
+        pendingAfterBrandExclusion:
+          exclusion.report.pendingAfterBrandExclusion,
+        plannedHideProductionCount:
+          exclusion.report.plannedHideProductionCount,
+        plannedHidePublicCount:
+          exclusion.report.plannedHidePublicCount,
+        productionWritten: false,
+      };
+      await writeProgressiveReport(
+        paths,
+        makeReport({ mode: options.mode, state, result })
+      );
+      return result;
+    }
+
+    if (options.mode === "progressive-manual-detail-backfill") {
+      const now = new Date().toISOString();
+      const productionProducts = loadProduction(
+        paths,
+        options.mock
+      );
+      const publicProducts = loadProductionPublicProducts(
+        paths,
+        options.mock
+      );
+      const stateBeforeExclusion = state;
+      const preflightExclusion =
+        applySmokingpipesBrandExclusions({
+          state,
+          productionProducts,
+          publicProducts,
+          now,
+        });
+      state = refreshProgressiveSummary(
+        preflightExclusion.state,
+        now
+      );
+      await writeProgressiveDailyState(
+        paths.progressiveState,
+        state
+      );
+      await writeBrandExclusionReport(
+        paths,
+        preflightExclusion.report
+      );
+
+      const pendingForBackfill =
+        selectProgressiveDetailCandidates({
+          state,
+          maxItems: 1,
+          now,
+        }).length;
+      let processor = null;
+      if (pendingForBackfill === 0) {
+        processor = {
+          browserStarted: false,
+          verificationState: {
+            verificationDetected: false,
+            manualVerificationRecovered: false,
+            notification: null,
+          },
+          async process() {
+            throw new Error(
+              "processDetail should not be called without pending candidates"
+            );
+          },
+          async close() {},
+        };
+      } else if (options.mock) {
+        const template = loadProduction(paths, true)[0] || {};
+        processor = {
+          browserStarted: false,
+          verificationState: {
+            verificationDetected: false,
+            manualVerificationRecovered: false,
+            notification: null,
+          },
+          async process(candidate, index) {
+            if (
+              options.mockVerification === "strong" &&
+              index === 3
+            ) {
+              throw Object.assign(
+                new Error("strong verification"),
+                { code: "CAPTCHA_REQUIRED" }
+              );
+            }
+            const convertedProduct = mockConvertedProduct(
+              template,
+              candidate
+            );
+            return {
+              detail: {
+                sourceProductId:
+                  candidate.sourceProductId,
+                fullTitle: candidate.listTitle,
+              },
+              convertedProduct,
+              publicReady: true,
+            };
+          },
+          async close() {},
+        };
+      } else {
+        processor = await createRealDetailProcessor({
+          root,
+          paths,
+          options,
+          runId,
+          mode: options.mode,
+          onVerificationDetected: async ({ candidate }) => {
+            const message =
+              buildSmokingpipesManualBackfillVerificationMessage({
+                sourceProductId:
+                  candidate.sourceProductId,
+                sourceUrl: candidate.sourceUrl,
+              });
+            return sendPushDeerNotification({
+              title: message.title,
+              body: message.body,
+              dryRun: false,
+            });
+          },
+        });
+      }
+
+      let backfill;
+      try {
+        backfill =
+          await runSmokingpipesManualDetailBackfill({
+            state: stateBeforeExclusion,
+            productionProducts,
+            publicProducts,
+            batchLimit: options.manualDetailLimit,
+            untilEmpty: options.manualDetailUntilEmpty,
+            cooldownMs: options.manualDetailCooldownMs,
+            maxTotal: options.manualDetailMaxTotal,
+            runId,
+            processDetail: processor.process,
+            checkpoint: (checkpointState) =>
+              writeProgressiveDailyState(
+                paths.progressiveState,
+                refreshProgressiveSummary(
+                  checkpointState,
+                  new Date().toISOString()
+                )
+              ),
+            wait: (ms) =>
+              new Promise((resolve) => setTimeout(resolve, ms)),
+            smokingpipesAccessed:
+              !options.mock && pendingForBackfill > 0,
+            manualVerificationRecovered:
+              processor.verificationState
+                ?.manualVerificationRecovered === true,
+          });
+      } finally {
+        await processor.close();
+      }
+      backfill.report.manualVerificationRecovered =
+        processor.verificationState
+          ?.manualVerificationRecovered === true;
+      backfill.report.verificationNotification =
+        processor.verificationState?.notification || null;
+      state = refreshProgressiveSummary(
+        backfill.state,
+        new Date().toISOString()
+      );
+      await writeProgressiveDailyState(
+        paths.progressiveState,
+        state
+      );
+      await writeBrandExclusionReport(
+        paths,
+        backfill.exclusionReport
+      );
+      await writeJsonAtomic(
+        paths.progressiveManualBackfillReportJson,
+        backfill.report
+      );
+      await writeTextAtomic(
+        paths.progressiveManualBackfillReportMarkdown,
+        smokingpipesManualBackfillMarkdown(backfill.report)
+      );
+      const result = {
+        ...backfill.report,
+        status: backfill.report.status,
+        browserStarted: processor.browserStarted === true,
+        completedThisRun: backfill.report.completed,
+        blockedReason: backfill.report.blockedReason,
+        recommendedNextRunAt:
+          state.latestRun?.recommendedNextRunAt || null,
+        productionWritten: false,
+      };
+      await writeProgressiveReport(
+        paths,
+        makeReport({ mode: options.mode, state, result })
+      );
+      return result;
+    }
+
     if (options.mode === "progressive-detail-chunk") {
+      const now = new Date().toISOString();
+      const exclusion = applySmokingpipesBrandExclusions({
+        state,
+        productionProducts: loadProduction(paths, options.mock),
+        publicProducts: loadProductionPublicProducts(
+          paths,
+          options.mock
+        ),
+        now,
+      });
+      state = refreshProgressiveSummary(exclusion.state, now);
+      await writeProgressiveDailyState(
+        paths.progressiveState,
+        state
+      );
+      await writeBrandExclusionReport(
+        paths,
+        exclusion.report
+      );
+      const pendingForChunk =
+        selectProgressiveDetailCandidates({
+          state,
+          maxItems: 1,
+          now,
+        }).length;
+      if (pendingForChunk === 0) {
+        const result = {
+          status: "no-eligible-candidates",
+          browserStarted: false,
+          selected: 0,
+          completedThisRun: 0,
+          failedThisRun: 0,
+          blockedReason: null,
+          recommendedNextRunAt: null,
+          excludedBrandCount:
+            exclusion.report.excludedBrandCount,
+          pendingBefore: exclusion.report.pendingBefore,
+          pendingAfterBrandExclusion:
+            exclusion.report.pendingAfterBrandExclusion,
+          productionWritten: false,
+        };
+        await writeProgressiveReport(
+          paths,
+          makeReport({ mode: options.mode, state, result })
+        );
+        return result;
+      }
       let processor = null;
       if (options.mock) {
         const template =

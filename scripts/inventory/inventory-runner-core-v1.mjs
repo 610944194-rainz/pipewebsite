@@ -10,7 +10,9 @@ const ALLOWED_MODES = new Set([
   "detail-probe",
   "browser-preflight",
   "progressive-ingest-list",
+  "progressive-apply-brand-exclusions",
   "progressive-detail-chunk",
+  "progressive-manual-detail-backfill",
   "progressive-build-candidate",
   "progressive-prepare-apply",
   "progressive-partial-apply",
@@ -69,7 +71,9 @@ function parseArguments(argv) {
 export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const args = parseArguments(argv);
   const mode = String(
-    booleanValue(args.get("detail-probe"), false)
+    booleanValue(args.get("manual-detail-backfill-all"), false)
+      ? "progressive-manual-detail-backfill"
+      : booleanValue(args.get("detail-probe"), false)
       ? "detail-probe"
       : booleanValue(args.get("verification-probe"), false)
         ? "verification-probe"
@@ -83,6 +87,20 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   const detailProbe = mode === "detail-probe";
   const browserPreflight = mode === "browser-preflight";
   const progressiveMode = mode.startsWith("progressive-");
+  const manualDetailBackfill =
+    mode === "progressive-manual-detail-backfill";
+  const manualDetailLimit = Math.min(
+    50,
+    positiveInteger(args.get("limit"), 30)
+  );
+  const manualDetailUntilEmpty = booleanValue(
+    args.get("until-empty"),
+    false
+  );
+  const manualDetailMaxTotal = positiveInteger(
+    args.get("max-total"),
+    manualDetailUntilEmpty ? 500 : manualDetailLimit
+  );
   const maxPages = positiveInteger(args.get("max-pages"), 107);
   const fullReconcile =
     (dailyUpdate || verificationProbe) && maxPages > 10;
@@ -262,7 +280,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
 
   if (!ALLOWED_MODES.has(mode)) {
     throw new Error(
-      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, daily-update, verification-probe, detail-probe, browser-preflight, progressive-ingest-list, progressive-detail-chunk, progressive-build-candidate, progressive-prepare-apply, progressive-partial-apply, apply.`
+      `Unsupported mode ${mode}. Supported: dry-run, apply-dry-run, daily-update, verification-probe, detail-probe, browser-preflight, progressive-ingest-list, progressive-apply-brand-exclusions, progressive-detail-chunk, progressive-manual-detail-backfill, progressive-build-candidate, progressive-prepare-apply, progressive-partial-apply, apply.`
     );
   }
   if (source !== "smokingpipes") {
@@ -297,6 +315,14 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     detailProbe,
     browserPreflight,
     progressiveMode,
+    manualDetailBackfill,
+    manualDetailLimit,
+    manualDetailUntilEmpty,
+    manualDetailCooldownMs: nonNegativeInteger(
+      args.get("cooldown-ms"),
+      0
+    ),
+    manualDetailMaxTotal,
     fullReconcile,
     shortDailyNewScan,
     pacingDowngraded,
@@ -743,6 +769,22 @@ export function getRunnerPaths(root, options = {}) {
     progressiveReportJson: path.join(
       reviewRoot,
       "smokingpipes-progressive-daily-report.json"
+    ),
+    progressiveBrandExclusionReportMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-brand-exclusion-report.md"
+    ),
+    progressiveBrandExclusionReportJson: path.join(
+      reviewRoot,
+      "smokingpipes-brand-exclusion-report.json"
+    ),
+    progressiveManualBackfillReportMarkdown: path.join(
+      reviewRoot,
+      "smokingpipes-manual-detail-backfill-report.md"
+    ),
+    progressiveManualBackfillReportJson: path.join(
+      reviewRoot,
+      "smokingpipes-manual-detail-backfill-report.json"
     ),
     progressiveApplyPreview: path.join(
       reviewRoot,

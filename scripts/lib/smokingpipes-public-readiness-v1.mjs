@@ -1,3 +1,7 @@
+import {
+  classifySmokingpipesBrandExclusion,
+} from "./smokingpipes-brand-exclusions-v1.mjs";
+
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
@@ -31,6 +35,18 @@ export function getSmokingpipesReadinessCategory(product) {
 }
 
 export function evaluateSmokingpipesPublicReadiness(product) {
+  const brandExclusion =
+    classifySmokingpipesBrandExclusion(product);
+  if (brandExclusion.excluded) {
+    return {
+      publicIndexEligible: false,
+      publiclySellable: false,
+      publicReady: false,
+      category: "excludedBrand",
+      reason: brandExclusion.reason,
+    };
+  }
+
   const status = text(product?.inventoryStatus).toLowerCase();
   const category = getSmokingpipesReadinessCategory(product);
   const baselineReason = text(
