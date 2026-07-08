@@ -29,7 +29,12 @@ import {
 } from "./inventory-runner-core-v1.mjs";
 import {
   buildSmokingpipesFailureSnapshotMetadata,
+  buildSmokingpipesAdaptiveScanPlan,
+  buildSmokingpipesOutOfStockTailCache,
   classifySmokingpipesFailureSnapshotText,
+  detectSmokingpipesTotalPagesFromHtml,
+  evaluateSmokingpipesOutOfStockTail,
+  evaluateSmokingpipesOutOfStockTailCache,
   randomDelayMs,
   resolveListPacingOptions,
   shouldApplyPageBatchCooldown,
@@ -1850,6 +1855,39 @@ assert.equal(
 assert.equal(staleAllowedCurrentListCache.safety.soldByAbsenceAllowed, false);
 assert.equal(staleAllowedCurrentListCache.safety.disappearedApplyAllowed, false);
 
+writeCurrentListCacheFixture({
+  summary: {
+    pagesRequested: 104,
+    pagesScanned: 83,
+    expectedPages: 104,
+    detectedTotalPages: 104,
+    effectiveScannedPages: 104,
+    skippedOutOfStockTailPages: Array.from(
+      { length: 21 },
+      (_, index) => 84 + index
+    ),
+    tailCacheUsed: true,
+    tailCacheReason: "valid",
+    firstOutOfStockOnlyPage: 84,
+    completeRequestedRange: true,
+    fullExpectedRangeScanned: true,
+    soldByAbsenceAllowed: false,
+    disappearedApplyAllowed: false,
+  },
+});
+const tailSkippedCurrentListCache = evaluateSmokingpipesCurrentListCache({
+  currentListPath: currentListCachePath,
+  now: currentListCacheNow,
+});
+assert.equal(tailSkippedCurrentListCache.usable, true);
+assert.equal(tailSkippedCurrentListCache.expectedPages, 104);
+assert.equal(tailSkippedCurrentListCache.pagesScanned, 83);
+assert.equal(tailSkippedCurrentListCache.effectiveScannedPages, 104);
+assert.equal(tailSkippedCurrentListCache.tailCacheUsed, true);
+assert.equal(tailSkippedCurrentListCache.skippedOutOfStockTailPages.length, 21);
+assert.equal(tailSkippedCurrentListCache.safety.soldByAbsenceAllowed, false);
+assert.equal(tailSkippedCurrentListCache.safety.disappearedApplyAllowed, false);
+
 writeCurrentListCacheFixture({ summary: { pagesScanned: 106 } });
 assert.equal(
   evaluateSmokingpipesCurrentListCache({
@@ -2621,6 +2659,67 @@ assert.match(
 assert.match(
   captchaInventoryDiff.applyBlockedReasons.join("\n"),
   /verification/i
+);
+
+const tailSkippedInventoryDiff = buildInventoryDiff(
+  {
+    version: "smokingpipes-current-list-dry-run-v1",
+    source: "smokingpipes",
+    products: [
+      {
+        sourceProductId: "tail-visible",
+        sourceUrl: "https://example.test/?product_id=tail-visible",
+        title: "Visible available pipe",
+        price: "$100.00",
+      },
+    ],
+    summary: {
+      pagesRequested: 104,
+      pagesScanned: 83,
+      expectedPages: 104,
+      detectedTotalPages: 104,
+      effectiveScannedPages: 104,
+      skippedOutOfStockTailPages: Array.from(
+        { length: 21 },
+        (_, index) => 84 + index
+      ),
+      tailCacheUsed: true,
+      tailCacheReason: "valid",
+      firstOutOfStockOnlyPage: 84,
+      captchaDetected: false,
+      captchaPages: [],
+      completeRequestedRange: true,
+      fullExpectedRangeScanned: true,
+      soldByAbsenceAllowed: false,
+      disappearedApplyAllowed: false,
+    },
+  },
+  {
+    products: [
+      {
+        sourceProductId: "tail-visible",
+        inventoryStatus: "available",
+      },
+      {
+        sourceProductId: "tail-skipped-existing",
+        inventoryStatus: "available",
+      },
+    ],
+  }
+);
+assert.equal(tailSkippedInventoryDiff.coverage.fullExpectedRangeScanned, true);
+assert.equal(tailSkippedInventoryDiff.coverage.tailCacheUsed, true);
+assert.equal(tailSkippedInventoryDiff.coverage.soldByAbsenceAllowed, false);
+assert.equal(tailSkippedInventoryDiff.coverage.disappearedApplyAllowed, false);
+assert.deepEqual(
+  tailSkippedInventoryDiff.disappearedIds,
+  [],
+  "skipped OOS tail pages must not create disappeared candidates"
+);
+assert.equal(tailSkippedInventoryDiff.allowApply, false);
+assert.match(
+  tailSkippedInventoryDiff.applyBlockedReasons.join("\n"),
+  /sold-by-absence|disappeared/i
 );
 
 const untrustedQueue = {
@@ -3513,6 +3612,129 @@ assert.equal(
 );
 assert.equal(randomDelayMs(8000, 18000, () => 0), 8000);
 assert.equal(randomDelayMs(8000, 18000, () => 1), 18000);
+
+const smokingpipesPagination104 = detectSmokingpipesTotalPagesFromHtml(`
+  <nav class="pagination">
+    <a href="/pipes/?DISPLAYNUM=48&page=103">103</a>
+    <a href="/pipes/?DISPLAYNUM=48&page=104">104</a>
+  </nav>
+`);
+assert.equal(smokingpipesPagination104, 104);
+const adaptivePlan104 = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: smokingpipesPagination104,
+});
+assert.equal(adaptivePlan104.detectedTotalPages, 104);
+assert.equal(adaptivePlan104.expectedPages, 104);
+assert.equal(adaptivePlan104.pagesToVisit.length, 104);
+assert.equal(adaptivePlan104.pagesToVisit.at(-1), 104);
+assert.equal(
+  adaptivePlan104.pagesToVisit.includes(105),
+  false,
+  "dynamic pagination must avoid visiting obsolete empty tail pages"
+);
+
+const smokingpipesPagination150 = detectSmokingpipesTotalPagesFromHtml(`
+  <a href="/pipes/?DISPLAYNUM=48&page=1">1</a>
+  <a href="/pipes/?DISPLAYNUM=48&page=150">Last</a>
+`);
+const adaptivePlan150 = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: smokingpipesPagination150,
+});
+assert.equal(adaptivePlan150.detectedTotalPages, 150);
+assert.equal(adaptivePlan150.expectedPages, 150);
+assert.equal(adaptivePlan150.pagesToVisit.length, 150);
+assert.equal(adaptivePlan150.pagesToVisit.at(-1), 150);
+
+function smokingpipesTailTestPage(page, statuses) {
+  return {
+    page,
+    productCount: statuses.length,
+    outOfStockCount: statuses.filter((status) => status === "out-of-stock").length,
+    products: statuses.map((status, index) => ({
+      sourceProductId: `${page}-${index + 1}`,
+      rawListStatus: status,
+      inventoryStatus: status,
+    })),
+  };
+}
+
+const tailCandidatePages = [
+  smokingpipesTailTestPage(82, ["available", "out-of-stock"]),
+  smokingpipesTailTestPage(83, ["available", "available"]),
+  ...Array.from({ length: 21 }, (_, index) =>
+    smokingpipesTailTestPage(84 + index, ["out-of-stock", "out-of-stock"])
+  ),
+];
+const tailEvaluation = evaluateSmokingpipesOutOfStockTail({
+  pages: tailCandidatePages,
+  detectedTotalPages: 104,
+  confirmedAt: "2026-07-08T10:00:00.000+08:00",
+});
+assert.equal(tailEvaluation.firstOutOfStockOnlyPage, 84);
+assert.equal(tailEvaluation.tailCache.tailStartPage, 84);
+assert.equal(tailEvaluation.tailCache.tailEndPage, 104);
+assert.equal(tailEvaluation.tailCache.pages.length, 21);
+assert.deepEqual(tailEvaluation.tailCache.pages[0].productIds, ["84-1", "84-2"]);
+assert.match(tailEvaluation.tailCache.pages[0].statusHash, /^[a-f0-9]{64}$/);
+
+const explicitTailCache = buildSmokingpipesOutOfStockTailCache({
+  pages: tailCandidatePages.slice(2),
+  tailStartPage: 84,
+  detectedTotalPages: 104,
+  confirmedAt: "2026-07-08T10:00:00.000+08:00",
+});
+assert.equal(explicitTailCache.pages.length, 21);
+assert.equal(
+  evaluateSmokingpipesOutOfStockTailCache({
+    cache: explicitTailCache,
+    detectedTotalPages: 104,
+    now: "2026-07-08T20:00:00.000+08:00",
+    maxAgeHours: 24,
+  }).usable,
+  true
+);
+const adaptiveTailSkipPlan = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: 104,
+  tailCache: explicitTailCache,
+  now: "2026-07-08T20:00:00.000+08:00",
+  tailCacheMaxAgeHours: 24,
+});
+assert.equal(adaptiveTailSkipPlan.tailCacheUsed, true);
+assert.equal(adaptiveTailSkipPlan.firstOutOfStockOnlyPage, 84);
+assert.equal(adaptiveTailSkipPlan.skippedOutOfStockTailPages.length, 21);
+assert.equal(adaptiveTailSkipPlan.pagesToVisit.at(-1), 83);
+assert.equal(adaptiveTailSkipPlan.safety.soldByAbsenceAllowed, false);
+assert.equal(adaptiveTailSkipPlan.safety.disappearedApplyAllowed, false);
+
+const expiredTailPlan = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: 104,
+  tailCache: explicitTailCache,
+  now: "2026-07-10T20:00:00.000+08:00",
+  tailCacheMaxAgeHours: 24,
+});
+assert.equal(expiredTailPlan.tailCacheUsed, false);
+assert.equal(expiredTailPlan.pagesToVisit.at(-1), 104);
+assert.match(expiredTailPlan.tailCacheReason, /expired/);
+
+const changedTotalPagesTailPlan = buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages: 107,
+  expectedPages: 107,
+  detectedTotalPages: 105,
+  tailCache: explicitTailCache,
+  now: "2026-07-08T20:00:00.000+08:00",
+  tailCacheMaxAgeHours: 24,
+});
+assert.equal(changedTotalPagesTailPlan.tailCacheUsed, false);
+assert.equal(changedTotalPagesTailPlan.pagesToVisit.at(-1), 105);
+assert.match(changedTotalPagesTailPlan.tailCacheReason, /page-count-changed/);
 
 const normalOutOfStockPage = classifySmokingpipesVerificationSignals({
   pageKind: "list",

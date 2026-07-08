@@ -166,13 +166,43 @@ function summarizeCurrentListPayload(payload) {
     pagesScanned: toNumber(
       pickFirstDefined(summary.pagesScanned, payload?.pagesScanned)
     ),
+    effectiveScannedPages: toNumber(
+      pickFirstDefined(
+        summary.effectiveScannedPages,
+        summary.pagesScanned,
+        payload?.pagesScanned
+      )
+    ),
     expectedPages: toNumber(
       pickFirstDefined(
         summary.expectedPages,
+        summary.detectedTotalPages,
         payload?.expectedPages,
         summary.pagesRequested,
         payload?.pagesRequested
       )
+    ),
+    detectedTotalPages: toNumber(
+      pickFirstDefined(
+        summary.detectedTotalPages,
+        summary.expectedPages,
+        payload?.expectedPages,
+        summary.pagesRequested
+      )
+    ),
+    firstOutOfStockOnlyPage: toNumber(summary.firstOutOfStockOnlyPage),
+    skippedOutOfStockTailPages: toArray(summary.skippedOutOfStockTailPages),
+    tailCacheUsed: Boolean(summary.tailCacheUsed),
+    tailCacheReason: summary.tailCacheReason || null,
+    soldByAbsenceAllowed: pickFirstDefined(
+      summary.soldByAbsenceAllowed,
+      summary.tailCacheUsed ? false : undefined,
+      true
+    ),
+    disappearedApplyAllowed: pickFirstDefined(
+      summary.disappearedApplyAllowed,
+      summary.tailCacheUsed ? false : undefined,
+      true
     ),
     productsExtracted: toNumber(
       pickFirstDefined(
@@ -252,7 +282,13 @@ function buildResult({
         disappearedApplyAllowed: usable && !stale,
       },
     pagesScanned: toNumber(summary.pagesScanned),
+    effectiveScannedPages: toNumber(summary.effectiveScannedPages),
     expectedPages: toNumber(summary.expectedPages),
+    detectedTotalPages: toNumber(summary.detectedTotalPages),
+    firstOutOfStockOnlyPage: toNumber(summary.firstOutOfStockOnlyPage),
+    skippedOutOfStockTailPages: toArray(summary.skippedOutOfStockTailPages),
+    tailCacheUsed: Boolean(summary.tailCacheUsed),
+    tailCacheReason: summary.tailCacheReason || null,
     productsExtracted: toNumber(summary.productsExtracted),
     uniqueProducts: toNumber(summary.uniqueProducts),
     duplicateIdCount: toNumber(summary.duplicateIdCount),
@@ -312,9 +348,8 @@ export function evaluateSmokingpipesCurrentListCache({
   );
 
   if (
-    summary.pagesScanned !== EXPECTED_SMOKINGPIPES_LIST_PAGES ||
-    summary.expectedPages !== EXPECTED_SMOKINGPIPES_LIST_PAGES ||
-    summary.pagesScanned !== summary.expectedPages ||
+    summary.expectedPages <= 0 ||
+    summary.effectiveScannedPages < summary.expectedPages ||
     summary.completeRequestedRange !== true ||
     summary.fullExpectedRangeScanned !== true
   ) {
@@ -412,6 +447,12 @@ export function evaluateSmokingpipesCurrentListCache({
     currentListPath,
     dateKey: generatedDateKey,
     summary,
+    safety: {
+      soldByAbsenceAllowed:
+        summary.soldByAbsenceAllowed !== false && !summary.tailCacheUsed,
+      disappearedApplyAllowed:
+        summary.disappearedApplyAllowed !== false && !summary.tailCacheUsed,
+    },
   });
 }
 

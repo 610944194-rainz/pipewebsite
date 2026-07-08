@@ -100,17 +100,20 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       .map(productId)
       .filter(Boolean)
   );
+  const soldByAbsenceAllowed =
+    currentPayload?.summary?.soldByAbsenceAllowed !== false &&
+    currentPayload?.summary?.disappearedApplyAllowed !== false;
 
   const newIds = sortIds([...currentIds].filter((id) => !existingIds.has(id)));
   const stillAvailableIds = sortIds(
     [...currentIds].filter((id) => existingIds.has(id))
   );
-  const disappearedIds = sortIds(
-    [...existingAvailableIds].filter((id) => !currentIds.has(id))
-  );
-  const unchangedSoldIds = sortIds(
-    [...existingSoldIds].filter((id) => !currentIds.has(id))
-  );
+  const disappearedIds = soldByAbsenceAllowed
+    ? sortIds([...existingAvailableIds].filter((id) => !currentIds.has(id)))
+    : [];
+  const unchangedSoldIds = soldByAbsenceAllowed
+    ? sortIds([...existingSoldIds].filter((id) => !currentIds.has(id)))
+    : [];
   const reappearedIds = sortIds(
     [...existingSoldIds].filter((id) => currentIds.has(id))
   );
@@ -133,12 +136,19 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   );
 
   const pagesScanned = Number(currentPayload?.summary?.pagesScanned || 0);
+  const effectiveScannedPages = Number(
+    currentPayload?.summary?.effectiveScannedPages || pagesScanned
+  );
   const pagesRequested = Number(currentPayload?.summary?.pagesRequested || 0);
   const expectedPages = Number(
     currentPayload?.summary?.expectedPages ||
+      currentPayload?.summary?.detectedTotalPages ||
       currentPayload?.config?.expectedPages ||
       0
   );
+  const tailCacheUsed = currentPayload?.summary?.tailCacheUsed === true;
+  const skippedOutOfStockTailPages =
+    currentPayload?.summary?.skippedOutOfStockTailPages || [];
   const currentVsHistoricalRatio = ratio(
     currentIds.size,
     existingAvailableIds.size
@@ -155,9 +165,9 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   const fatalWarnings = [];
   const warnings = [];
 
-  if (pagesScanned < pagesRequested) {
+  if (effectiveScannedPages < pagesRequested) {
     fatalWarnings.push(
-      `Only ${pagesScanned}/${pagesRequested} requested pages were scanned.`
+      `Only ${effectiveScannedPages}/${pagesRequested} requested pages were effectively scanned.`
     );
   }
   if (captchaDetected) {
@@ -165,9 +175,14 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       "captcha/currentListVerificationDetected: current-list verification was detected; this snapshot is not trusted."
     );
   }
-  if (expectedPages > 0 && pagesScanned < expectedPages) {
+  if (expectedPages > 0 && effectiveScannedPages < expectedPages) {
     warnings.push(
-      `Partial scan: ${pagesScanned}/${expectedPages} expected full-list pages.`
+      `Partial scan: ${effectiveScannedPages}/${expectedPages} expected full-list pages.`
+    );
+  }
+  if (!soldByAbsenceAllowed) {
+    warnings.push(
+      "sold-by-absence/disappeared apply disabled because out-of-stock tail pages were skipped."
     );
   }
   if (
@@ -218,16 +233,22 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   }
 
   const fullExpectedRangeScanned =
-    expectedPages > 0 && pagesScanned >= expectedPages;
+    expectedPages > 0 && effectiveScannedPages >= expectedPages;
   const allowApply =
     fatalWarnings.length === 0 &&
     fullExpectedRangeScanned &&
-    suspiciousRecords.length === 0;
+    suspiciousRecords.length === 0 &&
+    soldByAbsenceAllowed;
   const applyBlockedReasons = [];
 
   if (!fullExpectedRangeScanned) {
     applyBlockedReasons.push(
-      `partial page coverage: ${pagesScanned}/${expectedPages} pages; full coverage is required`
+      `partial page coverage: ${effectiveScannedPages}/${expectedPages} pages; full coverage is required`
+    );
+  }
+  if (!soldByAbsenceAllowed) {
+    applyBlockedReasons.push(
+      "sold-by-absence/disappeared apply is disabled because out-of-stock tail pages were skipped"
     );
   }
   if (captchaDetected) {
@@ -255,8 +276,15 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     coverage: {
       pagesRequested,
       pagesScanned,
+      effectiveScannedPages,
       expectedPages,
+      detectedTotalPages:
+        currentPayload?.summary?.detectedTotalPages || expectedPages,
       fullExpectedRangeScanned,
+      tailCacheUsed,
+      skippedOutOfStockTailPages,
+      soldByAbsenceAllowed,
+      disappearedApplyAllowed: soldByAbsenceAllowed,
       captchaDetected,
       captchaPages: currentPayload?.summary?.captchaPages || [],
       currentVsHistoricalAvailableRatio: currentVsHistoricalRatio,

@@ -1,6 +1,7 @@
 import process from "node:process";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import {
   buildSmokingpipesListUrl,
   detectSmokingpipesVerification,
@@ -45,6 +46,12 @@ const FAILURE_SNAPSHOT_DIR = path.join(
   "data",
   "review",
   "smokingpipes-failure-snapshots"
+);
+const OUT_OF_STOCK_TAIL_CACHE_PATH = path.join(
+  ROOT,
+  "data",
+  "inventory",
+  "smokingpipes-out-of-stock-tail-cache.json"
 );
 const FAILURE_SNAPSHOT_KEYWORDS = [
   "Cloudflare",
@@ -148,6 +155,265 @@ export function shouldApplyPageBatchCooldown({
     pageNumber < maxPages &&
     pageNumber % batchSize === 0
   );
+}
+
+function rangeInclusive(start, end) {
+  const first = Math.max(1, Number(start) || 1);
+  const last = Math.max(first - 1, Number(end) || 0);
+  return Array.from({ length: Math.max(0, last - first + 1) }, (_, index) =>
+    first + index
+  );
+}
+
+export function detectSmokingpipesTotalPagesFromHtml(html = "") {
+  const text = String(html || "");
+  const pages = [];
+  for (const match of text.matchAll(/[?&]page=(\d+)/gi)) {
+    const pageNumber = Number.parseInt(match[1], 10);
+    if (Number.isFinite(pageNumber) && pageNumber > 0) {
+      pages.push(pageNumber);
+    }
+  }
+  for (const match of text.matchAll(/\bpage\s+(\d+)\s+of\s+(\d+)\b/gi)) {
+    const pageNumber = Number.parseInt(match[2], 10);
+    if (Number.isFinite(pageNumber) && pageNumber > 0) {
+      pages.push(pageNumber);
+    }
+  }
+  for (const match of text.matchAll(/\b(?:last|末页|尾页)[^0-9]{0,40}(\d+)\b/gi)) {
+    const pageNumber = Number.parseInt(match[1], 10);
+    if (Number.isFinite(pageNumber) && pageNumber > 0) {
+      pages.push(pageNumber);
+    }
+  }
+  return pages.length ? Math.max(...pages) : 0;
+}
+
+async function detectSmokingpipesTotalPagesFromPage(page) {
+  const html = await page.content().catch(() => "");
+  return detectSmokingpipesTotalPagesFromHtml(html);
+}
+
+function normalizeTailStatus(value) {
+  const text = normalizeText(value).toLowerCase();
+  if (/out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable|sold/.test(text)) {
+    return "out-of-stock";
+  }
+  if (text === "out-of-stock") return "out-of-stock";
+  return text || "available";
+}
+
+function productStatusForTail(product) {
+  return normalizeTailStatus(
+    product?.rawListStatus ||
+      product?.inventoryStatus ||
+      product?.status ||
+      product?.rawStatusText ||
+      product?.rawText
+  );
+}
+
+function pageProductsFromTailInput(pageSummary) {
+  return Array.isArray(pageSummary?.products)
+    ? pageSummary.products
+    : Array.isArray(pageSummary?.normalizedProducts)
+      ? pageSummary.normalizedProducts
+      : [];
+}
+
+function isOutOfStockOnlyPage(pageSummary) {
+  const products = pageProductsFromTailInput(pageSummary);
+  const productCount = Number(pageSummary?.productCount || products.length || 0);
+  const outOfStockCount = Number(pageSummary?.outOfStockCount || 0);
+  if (productCount <= 0) return false;
+  if (outOfStockCount >= productCount) return true;
+  return (
+    products.length > 0 &&
+    products.every((product) => productStatusForTail(product) === "out-of-stock")
+  );
+}
+
+function hashTailPageStatus(records) {
+  return crypto
+    .createHash("sha256")
+    .update(JSON.stringify(records))
+    .digest("hex");
+}
+
+function buildOutOfStockTailCachePage(pageSummary) {
+  const products = pageProductsFromTailInput(pageSummary);
+  const statusRecords = products
+    .map((product) => ({
+      sourceProductId: normalizeText(product?.sourceProductId),
+      status: productStatusForTail(product),
+    }))
+    .filter((item) => item.sourceProductId)
+    .sort((a, b) => a.sourceProductId.localeCompare(b.sourceProductId));
+
+  return {
+    page: Number(pageSummary?.page),
+    productCount: Number(pageSummary?.productCount || products.length || 0),
+    outOfStockCount: Number(
+      pageSummary?.outOfStockCount ||
+        statusRecords.filter((item) => item.status === "out-of-stock").length
+    ),
+    productIds: statusRecords.map((item) => item.sourceProductId),
+    statusHash: hashTailPageStatus(statusRecords),
+  };
+}
+
+export function buildSmokingpipesOutOfStockTailCache({
+  pages = [],
+  tailStartPage,
+  detectedTotalPages,
+  confirmedAt = new Date().toISOString(),
+} = {}) {
+  const tailStart = Number(tailStartPage || 0);
+  const totalPages = Number(detectedTotalPages || 0);
+  const tailPages = pages
+    .filter((page) => Number(page?.page) >= tailStart)
+    .sort((a, b) => Number(a.page) - Number(b.page));
+
+  return {
+    version: "smokingpipes-out-of-stock-tail-cache-v1",
+    source: "smokingpipes",
+    confirmedAt,
+    detectedTotalPages: totalPages,
+    tailStartPage: tailStart,
+    tailEndPage: totalPages,
+    pages: tailPages.map(buildOutOfStockTailCachePage),
+  };
+}
+
+export function evaluateSmokingpipesOutOfStockTail({
+  pages = [],
+  detectedTotalPages,
+  confirmedAt = new Date().toISOString(),
+} = {}) {
+  const totalPages = Number(detectedTotalPages || 0);
+  const byPage = new Map(
+    pages.map((page) => [Number(page?.page), page]).filter(([page]) => page > 0)
+  );
+  let tailStart = null;
+
+  for (let pageNumber = totalPages; pageNumber >= 1; pageNumber -= 1) {
+    const pageSummary = byPage.get(pageNumber);
+    if (!pageSummary || !isOutOfStockOnlyPage(pageSummary)) break;
+    tailStart = pageNumber;
+  }
+
+  const tailCache = tailStart
+    ? buildSmokingpipesOutOfStockTailCache({
+        pages: rangeInclusive(tailStart, totalPages)
+          .map((pageNumber) => byPage.get(pageNumber))
+          .filter(Boolean),
+        tailStartPage: tailStart,
+        detectedTotalPages: totalPages,
+        confirmedAt,
+      })
+    : null;
+
+  return {
+    firstOutOfStockOnlyPage: tailStart,
+    tailCache,
+  };
+}
+
+export function evaluateSmokingpipesOutOfStockTailCache({
+  cache,
+  detectedTotalPages,
+  now = new Date().toISOString(),
+  maxAgeHours = 24,
+} = {}) {
+  if (!cache || typeof cache !== "object") {
+    return { usable: false, reason: "missing" };
+  }
+  if (cache.version !== "smokingpipes-out-of-stock-tail-cache-v1") {
+    return { usable: false, reason: "version-mismatch" };
+  }
+  if (Number(cache.detectedTotalPages || 0) !== Number(detectedTotalPages || 0)) {
+    return { usable: false, reason: "page-count-changed" };
+  }
+  const confirmedAt = new Date(cache.confirmedAt || 0);
+  const nowDate = new Date(now);
+  if (
+    Number.isNaN(confirmedAt.getTime()) ||
+    Number.isNaN(nowDate.getTime())
+  ) {
+    return { usable: false, reason: "invalid-timestamp" };
+  }
+  const ageHours = (nowDate.getTime() - confirmedAt.getTime()) / 3600000;
+  if (ageHours < 0 || ageHours > Number(maxAgeHours || 0)) {
+    return { usable: false, reason: "expired" };
+  }
+  const tailStart = Number(cache.tailStartPage || 0);
+  const tailEnd = Number(cache.tailEndPage || 0);
+  const expectedPageCount = Math.max(0, tailEnd - tailStart + 1);
+  if (
+    tailStart <= 0 ||
+    tailEnd !== Number(detectedTotalPages || 0) ||
+    !Array.isArray(cache.pages) ||
+    cache.pages.length !== expectedPageCount
+  ) {
+    return { usable: false, reason: "incomplete-tail-cache" };
+  }
+  return {
+    usable: true,
+    reason: "valid",
+    tailStartPage: tailStart,
+    tailEndPage: tailEnd,
+    skippedPages: rangeInclusive(tailStart, tailEnd),
+  };
+}
+
+export function buildSmokingpipesAdaptiveScanPlan({
+  requestedMaxPages,
+  expectedPages,
+  detectedTotalPages = 0,
+  startPage = 1,
+  tailCache = null,
+  now = new Date().toISOString(),
+  tailCacheMaxAgeHours = 24,
+} = {}) {
+  const requested = Math.max(1, Number(requestedMaxPages || 1));
+  const fallbackExpected = Math.max(1, Number(expectedPages || requested));
+  const detected = Math.max(0, Number(detectedTotalPages || 0));
+  const resolvedExpectedPages = detected || fallbackExpected || requested;
+  const requestedUpperBound = detected ? resolvedExpectedPages : requested;
+  const cacheEvaluation = evaluateSmokingpipesOutOfStockTailCache({
+    cache: tailCache,
+    detectedTotalPages: resolvedExpectedPages,
+    now,
+    maxAgeHours: tailCacheMaxAgeHours,
+  });
+  const tailCacheUsed = cacheEvaluation.usable === true;
+  const firstOutOfStockOnlyPage = tailCacheUsed
+    ? cacheEvaluation.tailStartPage
+    : null;
+  const lastPageToVisit = tailCacheUsed
+    ? Math.max(0, cacheEvaluation.tailStartPage - 1)
+    : requestedUpperBound;
+  const pagesToVisit = rangeInclusive(startPage, lastPageToVisit);
+  const skippedOutOfStockTailPages = tailCacheUsed
+    ? cacheEvaluation.skippedPages
+    : [];
+
+  return {
+    requestedMaxPages: requested,
+    detectedTotalPages: detected || null,
+    expectedPages: resolvedExpectedPages,
+    pagesToVisit,
+    effectiveLastPageToVisit: lastPageToVisit,
+    effectiveScannedPages: pagesToVisit.length + skippedOutOfStockTailPages.length,
+    firstOutOfStockOnlyPage,
+    skippedOutOfStockTailPages,
+    tailCacheUsed,
+    tailCacheReason: cacheEvaluation.reason,
+    safety: {
+      soldByAbsenceAllowed: !tailCacheUsed,
+      disappearedApplyAllowed: !tailCacheUsed,
+    },
+  };
 }
 
 function escapeRegExp(value) {
@@ -448,6 +714,28 @@ async function writeCheckpoint(payload) {
   await fs.promises.rm(tempPath, { force: true });
 }
 
+function readOutOfStockTailCache(cachePath = OUT_OF_STOCK_TAIL_CACHE_PATH) {
+  if (!fs.existsSync(cachePath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(cachePath, "utf8").replace(/^\ufeff/, ""));
+  } catch {
+    return null;
+  }
+}
+
+async function writeOutOfStockTailCache(
+  cache,
+  cachePath = OUT_OF_STOCK_TAIL_CACHE_PATH
+) {
+  if (!cache) return;
+  await fs.promises.mkdir(path.dirname(cachePath), { recursive: true });
+  await fs.promises.writeFile(
+    cachePath,
+    `${JSON.stringify(cache, null, 2)}\n`,
+    "utf8"
+  );
+}
+
 async function waitForListProducts(page) {
   await page.waitForSelector(
     LIST_PRODUCT_SELECTOR,
@@ -485,9 +773,28 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     checkpoint?.startedAt || new Date().toISOString();
   const pages = checkpoint?.pages || [];
   const collected = checkpoint?.products || [];
+  const outOfStockTailPageInputs = [];
   const firstPage = pages.length
     ? Math.max(...pages.map((item) => Number(item.page) || 0)) + 1
     : 1;
+  let detectedTotalPages = Number(checkpoint?.detectedTotalPages || 0) || null;
+  let adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
+    requestedMaxPages: maxPages,
+    expectedPages,
+    detectedTotalPages,
+    startPage: firstPage,
+  });
+  let effectiveMaxPages = adaptivePlan.effectiveLastPageToVisit;
+  let firstOutOfStockOnlyPage = null;
+  let skippedOutOfStockTailPages = [];
+  let tailCacheUsed = false;
+  let tailCacheReason = "not-evaluated";
+  const outOfStockTailCachePath =
+    options.outOfStockTailCachePath || OUT_OF_STOCK_TAIL_CACHE_PATH;
+  const outOfStockTailCache =
+    options.useOutOfStockTailCache === false
+      ? null
+      : readOutOfStockTailCache(outOfStockTailCachePath);
   let captchaDetected = false;
   const captchaPages = [];
   const weakVerificationPages = [];
@@ -514,13 +821,13 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   try {
     if (checkpoint) {
       console.log(
-        `Resuming dry-run checkpoint at page ${firstPage}/${maxPages} with ${collected.length} products.`
+        `Resuming dry-run checkpoint at page ${firstPage}/${effectiveMaxPages} with ${collected.length} products.`
       );
     }
 
     for (
       let pageNumber = firstPage;
-      pageNumber <= maxPages;
+      pageNumber <= effectiveMaxPages;
       pageNumber += 1
     ) {
       const url = buildSmokingpipesListUrl("new", pageNumber, displayNum);
@@ -529,8 +836,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       let pageManualVerificationRecovered = false;
       console.log(
         verbose
-          ? `fetching page ${pageNumber}/${maxPages}`
-          : `Fetching Smokingpipes list page ${pageNumber}/${maxPages}`
+          ? `fetching page ${pageNumber}/${effectiveMaxPages}`
+          : `Fetching Smokingpipes list page ${pageNumber}/${effectiveMaxPages}`
       );
 
       const response = await page.goto(url, {
@@ -544,6 +851,35 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       if (verbose) console.log(`warmup delay: ${warmupDelayMs} ms`);
       if (warmupDelayMs > 0) {
         await page.waitForTimeout(warmupDelayMs);
+      }
+
+      const detectedFromPage =
+        await detectSmokingpipesTotalPagesFromPage(page).catch(() => 0);
+      if (detectedFromPage > 0 && detectedFromPage !== detectedTotalPages) {
+        detectedTotalPages = detectedFromPage;
+        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
+          requestedMaxPages: maxPages,
+          expectedPages,
+          detectedTotalPages,
+          startPage: pageNumber,
+          tailCache: outOfStockTailCache,
+          now: new Date().toISOString(),
+          tailCacheMaxAgeHours: nonNegativeInteger(
+            options.outOfStockTailCacheMaxAgeHours,
+            24
+          ),
+        });
+        effectiveMaxPages = adaptivePlan.effectiveLastPageToVisit;
+        firstOutOfStockOnlyPage = adaptivePlan.firstOutOfStockOnlyPage;
+        skippedOutOfStockTailPages =
+          adaptivePlan.skippedOutOfStockTailPages;
+        tailCacheUsed = adaptivePlan.tailCacheUsed;
+        tailCacheReason = adaptivePlan.tailCacheReason;
+        if (verbose) {
+          console.log(
+            `detected pagination total pages: ${detectedTotalPages}; effective last page: ${effectiveMaxPages}; tail cache: ${tailCacheReason}`
+          );
+        }
       }
 
       const detection = await detectSmokingpipesVerification(page, {
@@ -732,10 +1068,10 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       }
       collected.push(...normalized);
       const pageBatchCooldownMs =
-        pageNumber < maxPages &&
+        pageNumber < effectiveMaxPages &&
         shouldApplyPageBatchCooldown({
           pageNumber,
-          maxPages,
+          maxPages: effectiveMaxPages,
           pageBatchSize: pacing.pageBatchSize,
         })
           ? randomDelayMs(
@@ -744,7 +1080,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
             )
           : 0;
       const nextPageDelayMs =
-        pageNumber < maxPages
+        pageNumber < effectiveMaxPages
           ? randomDelayMs(
               pacing.pageDelayMinMs,
               pacing.pageDelayMaxMs
@@ -758,10 +1094,19 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         productCount: normalized.length,
         outOfStockCount: pageProductSummary.outOfStockCount,
         missingPriceCount: pageProductSummary.missingPriceCount,
+        outOfStockOnly:
+          normalized.length > 0 &&
+          pageProductSummary.outOfStockCount >= normalized.length,
         scrapedAt,
         weakVerificationSignals: finalWeakSignals,
         strongVerificationSignals: [],
         finalClassification,
+      });
+      outOfStockTailPageInputs.push({
+        page: pageNumber,
+        productCount: normalized.length,
+        outOfStockCount: pageProductSummary.outOfStockCount,
+        products: normalized,
       });
       await onPageTelemetry({
         page: pageNumber,
@@ -793,6 +1138,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         config: {
           maxPages,
           expectedPages,
+          detectedTotalPages,
+          effectiveMaxPages,
           displayNum,
           ...pacing,
         },
@@ -800,7 +1147,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         products: collected,
       });
 
-      if (pageNumber < maxPages) {
+      if (pageNumber < effectiveMaxPages) {
         if (pageBatchCooldownMs > 0) {
           if (verbose) {
             console.log(
@@ -819,8 +1166,34 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     await browserSession.close();
   }
 
+  const resolvedDetectedTotalPages =
+    detectedTotalPages || Math.max(maxPages, expectedPages);
+  if (!tailCacheUsed) {
+    const tailEvaluation = evaluateSmokingpipesOutOfStockTail({
+      pages: outOfStockTailPageInputs,
+      detectedTotalPages: resolvedDetectedTotalPages,
+      confirmedAt: new Date().toISOString(),
+    });
+    firstOutOfStockOnlyPage = tailEvaluation.firstOutOfStockOnlyPage;
+    if (
+      tailEvaluation.tailCache &&
+      options.writeOutOfStockTailCache !== false
+    ) {
+      await writeOutOfStockTailCache(
+        tailEvaluation.tailCache,
+        outOfStockTailCachePath
+      ).catch((error) => {
+        console.warn(`failed to write OOS tail cache: ${error.message}`);
+      });
+    }
+  }
+
   const deduped = dedupeCurrentProducts(collected);
   const completedAt = new Date().toISOString();
+  const effectiveScannedPages =
+    pages.length + skippedOutOfStockTailPages.length;
+  const soldByAbsenceAllowed = !tailCacheUsed;
+  const disappearedApplyAllowed = !tailCacheUsed;
   const payload = {
     version: "smokingpipes-current-list-dry-run-v1",
     generatedAt: completedAt,
@@ -828,22 +1201,32 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     scrapeType: "new-list-current-dry-run",
     config: {
       maxPages,
-      expectedPages,
+      requestedMaxPages: maxPages,
+      expectedPages: resolvedDetectedTotalPages,
+      detectedTotalPages: resolvedDetectedTotalPages,
       displayNum,
       ...pacing,
       allowManualVerification,
       manualVerification: allowManualVerification,
       browser,
-      partialScan: maxPages < expectedPages,
+      partialScan: effectiveScannedPages < resolvedDetectedTotalPages,
     },
     startedAt,
     completedAt,
     pages,
     products: deduped.products,
     summary: {
-      pagesRequested: maxPages,
+      pagesRequested: resolvedDetectedTotalPages,
       pagesScanned: pages.length,
-      expectedPages,
+      expectedPages: resolvedDetectedTotalPages,
+      detectedTotalPages: resolvedDetectedTotalPages,
+      effectiveScannedPages,
+      firstOutOfStockOnlyPage,
+      skippedOutOfStockTailPages,
+      tailCacheUsed,
+      tailCacheReason,
+      soldByAbsenceAllowed,
+      disappearedApplyAllowed,
       productsExtracted: collected.length,
       uniqueProducts: deduped.products.length,
       duplicateSourceProductIds: deduped.duplicateIds,
@@ -862,8 +1245,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       manualVerificationRecovered,
       weakVerificationDetected: weakVerificationPages.length > 0,
       weakVerificationPages: [...new Set(weakVerificationPages)],
-      completeRequestedRange: pages.length === maxPages,
-      fullExpectedRangeScanned: pages.length >= expectedPages,
+      completeRequestedRange: effectiveScannedPages >= resolvedDetectedTotalPages,
+      fullExpectedRangeScanned: effectiveScannedPages >= resolvedDetectedTotalPages,
     },
   };
 
@@ -900,6 +1283,9 @@ if (isDirectExecution(import.meta.url)) {
     captchaCooldownMs: cli["captcha-cooldown-ms"],
     allowManualVerification: cli["allow-manual-verification"],
     manualVerificationTimeoutMs: cli["manual-verification-timeout-ms"],
+    outOfStockTailCachePath: cli["out-of-stock-tail-cache"],
+    outOfStockTailCacheMaxAgeHours: cli["out-of-stock-tail-cache-max-age-hours"],
+    useOutOfStockTailCache: cli["use-out-of-stock-tail-cache"] !== "false",
     verbose: cli.verbose,
   }).catch((error) => {
     console.error(error);
