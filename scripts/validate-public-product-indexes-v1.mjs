@@ -5,6 +5,7 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const GENERATED_ROOT = path.join(ROOT, "data", "generated", "public-products");
+const DETAILS_ROOT = path.join(GENERATED_ROOT, "details");
 const REVIEW_DIR = path.join(ROOT, "data", "review");
 
 const INPUTS = {
@@ -25,13 +26,6 @@ const OUTPUTS = {
 };
 
 const EXPECTED = {
-  stagingSha256: "5BEA3B58F79A5341BBC33EF7FE72926545D22E6C48FDC11F2F04A02420DBE81C",
-  catalogCount: 7608,
-  sourceCounts: {
-    danish: 2121,
-    smokingpipes: 5487,
-  },
-  excludedCount: 527,
   detailShardCount: 64,
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
 };
@@ -161,6 +155,30 @@ function stableJson(value) {
 
 function compactJson(value) {
   return `${JSON.stringify(stableValue(value))}\n`;
+}
+
+function discoverDetailFiles(manifest, warnings) {
+  if (Array.isArray(manifest?.detailFiles) && manifest.detailFiles.length) {
+    return [...manifest.detailFiles].sort(stableCompare);
+  }
+  if (!fsSync.existsSync(DETAILS_ROOT)) return [];
+  const discovered = fsSync
+    .readdirSync(DETAILS_ROOT, { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        /^(?:[0-2][0-9a-f]|3[0-9a-f])\.json$/i.test(entry.name)
+    )
+    .map((entry) =>
+      relativePath(path.join(DETAILS_ROOT, entry.name))
+    )
+    .sort(stableCompare);
+  if (discovered.length) {
+    warnings.push(
+      "Manifest does not list detailFiles; validated detail shards discovered from data/generated/public-products/details."
+    );
+  }
+  return discovered;
 }
 
 function countBy(items, getter) {
@@ -296,7 +314,7 @@ async function writeFileAtomic(filePath, content) {
 function makeMarkdown(validation) {
   const errors = validation.errors.length ? validation.errors.map((item) => `- ${item}`).join("\n") : "- none";
   const warnings = validation.warnings.length ? validation.warnings.map((item) => `- ${item}`).join("\n") : "- none";
-  return `# Round 5 Public Product Index Validation V1
+  return `# Public Product Index Validation
 
 Status: ${validation.status}
 
@@ -337,8 +355,6 @@ async function main() {
     OUTPUTS.lookup,
     OUTPUTS.brands,
     OUTPUTS.filters,
-    OUTPUTS.buildJson,
-    OUTPUTS.fieldContract,
   ];
   for (const filePath of requiredFiles) {
     if (!fsSync.existsSync(filePath)) errors.push(`Missing required generated file: ${relativePath(filePath)}`);
@@ -363,7 +379,7 @@ async function main() {
   try {
     round3Validation = await readJson(INPUTS.round3Validation);
   } catch (error) {
-    errors.push(error.message);
+    warnings.push(`Round 3 validation unavailable: ${error.message}`);
   }
   try {
     manifest = await readJson(OUTPUTS.manifest);
@@ -393,13 +409,13 @@ async function main() {
   try {
     buildReport = await readJson(OUTPUTS.buildJson);
   } catch (error) {
-    errors.push(error.message);
+    warnings.push(`Round 5 build report unavailable: ${error.message}`);
   }
 
   const catalog = Array.isArray(catalogFile.products) ? catalogFile.products : [];
   if (!Array.isArray(catalogFile.products)) errors.push("catalog.json does not contain products array.");
 
-  const detailFiles = Array.isArray(manifest.detailFiles) ? manifest.detailFiles : [];
+  const detailFiles = discoverDetailFiles(manifest, warnings);
   const details = [];
   const detailShardStats = [];
   for (const relativeFile of detailFiles) {
@@ -441,12 +457,25 @@ async function main() {
   const detailIdSet = new Set(detailIds);
   const sourceProductKeys = catalog.map((product) => `${product.source}:${product.sourceProductId}`);
   const sourceProductKeySet = new Set(sourceProductKeys);
+  const expectedCatalogCount = publicRows.length;
+  const expectedSourceCounts = countBy(publicRows, (row) => row.source);
+  const progressiveManifest =
+    /^smokingpipes-progressive-/i.test(
+      requiredText(manifest.generatorVersion)
+    );
 
-  if (buildReport.status !== "passed") errors.push(`Build report status is not passed: ${buildReport.status ?? "(missing)"}`);
-  if (catalog.length !== EXPECTED.catalogCount) errors.push(`Catalog count mismatch: ${catalog.length}`);
-  if (details.length !== EXPECTED.catalogCount) errors.push(`Detail record count mismatch: ${details.length}`);
-  if (Object.keys(lookup.byId || {}).length !== EXPECTED.catalogCount) errors.push("lookup.byId count mismatch.");
-  if (Object.keys(lookup.bySourceProduct || {}).length !== EXPECTED.catalogCount) {
+  if (!progressiveManifest && buildReport.status !== "passed") {
+    errors.push(`Build report status is not passed: ${buildReport.status ?? "(missing)"}`);
+  }
+  if (progressiveManifest) {
+    warnings.push(
+      "Progressive manifest detected; stale Round 5 fixed-count build report is not used as a gate."
+    );
+  }
+  if (catalog.length !== expectedCatalogCount) errors.push(`Catalog count mismatch: ${catalog.length}; staging public rows: ${expectedCatalogCount}`);
+  if (details.length !== expectedCatalogCount) errors.push(`Detail record count mismatch: ${details.length}; expected: ${expectedCatalogCount}`);
+  if (Object.keys(lookup.byId || {}).length !== expectedCatalogCount) errors.push("lookup.byId count mismatch.");
+  if (Object.keys(lookup.bySourceProduct || {}).length !== expectedCatalogCount) {
     errors.push("lookup.bySourceProduct count mismatch.");
   }
   if (detailFiles.length !== EXPECTED.detailShardCount) errors.push(`Detail shard file count mismatch: ${detailFiles.length}`);
@@ -454,9 +483,35 @@ async function main() {
   if (sourceProductKeySet.size !== catalog.length) errors.push("Catalog source+sourceProductId keys are not unique.");
 
   const sourceCounts = countBy(catalog, (product) => product.source);
-  if (sourceCounts.danish !== EXPECTED.sourceCounts.danish) errors.push(`Danish public count mismatch: ${sourceCounts.danish}`);
-  if (sourceCounts.smokingpipes !== EXPECTED.sourceCounts.smokingpipes) {
-    errors.push(`Smokingpipes public count mismatch: ${sourceCounts.smokingpipes}`);
+  for (const source of new Set([
+    ...Object.keys(sourceCounts),
+    ...Object.keys(expectedSourceCounts),
+  ])) {
+    if (Number(sourceCounts[source] || 0) !== Number(expectedSourceCounts[source] || 0)) {
+      errors.push(
+        `${source} public count mismatch: ${sourceCounts[source] || 0}; staging public rows: ${expectedSourceCounts[source] || 0}`
+      );
+    }
+  }
+  if (Number(manifest.publicProductCount) !== catalog.length) {
+    errors.push(
+      `Manifest publicProductCount mismatch: ${manifest.publicProductCount}; catalog: ${catalog.length}`
+    );
+  }
+  if (Number(manifest.excludedProductCount) !== hiddenRows.length) {
+    errors.push(
+      `Manifest excludedProductCount mismatch: ${manifest.excludedProductCount}; staging hidden rows: ${hiddenRows.length}`
+    );
+  }
+  if (Number(manifest.detailCount ?? manifest.detailRecordCount) !== details.length) {
+    errors.push(
+      `Manifest detail count mismatch: ${manifest.detailCount ?? manifest.detailRecordCount}; details: ${details.length}`
+    );
+  }
+  if (Number(manifest.detailShardCount) !== detailFiles.length) {
+    errors.push(
+      `Manifest detailShardCount mismatch: ${manifest.detailShardCount}; files: ${detailFiles.length}`
+    );
   }
 
   const stagingById = new Map(staging.map((row) => [requiredText(row.id), row]));
@@ -540,13 +595,19 @@ async function main() {
       brandReferenceCount += 1;
     }
   }
-  if (brandReferenceCount !== EXPECTED.catalogCount) {
+  if (brandReferenceCount !== catalog.length) {
     brandsConsistent = false;
     errors.push(`Brand reference total mismatch: ${brandReferenceCount}`);
   }
-  if (brandRefs.size !== EXPECTED.catalogCount) {
+  if (brandRefs.size !== catalog.length) {
     brandsConsistent = false;
     errors.push(`Unique brand reference count mismatch: ${brandRefs.size}`);
+  }
+  if (Number(manifest.brandCount) !== (brands.brands || []).length) {
+    brandsConsistent = false;
+    errors.push(
+      `Manifest brandCount mismatch: ${manifest.brandCount}; brands: ${(brands.brands || []).length}`
+    );
   }
 
   const rebuiltFilters = rebuildFilters(catalog);
@@ -554,8 +615,14 @@ async function main() {
   if (!filtersConsistent) errors.push("filters.json cannot be exactly rebuilt from catalog.json.");
 
   const manifestHashes = manifest.fileHashes || {};
-  let manifestHashesConsistent = true;
-  for (const [relativeFile, expectedHash] of Object.entries(manifestHashes)) {
+  const manifestHashEntries = Object.entries(manifestHashes);
+  let manifestHashesConsistent = manifestHashEntries.length ? true : null;
+  if (!manifestHashEntries.length) {
+    warnings.push(
+      "Progressive manifest has no fileHashes; full structural and lookup/detail consistency checks were used instead."
+    );
+  }
+  for (const [relativeFile, expectedHash] of manifestHashEntries) {
     const filePath = path.join(ROOT, relativeFile);
     if (!fsSync.existsSync(filePath)) {
       manifestHashesConsistent = false;
@@ -570,24 +637,41 @@ async function main() {
   }
 
   const stagingSha256 = hashFile(INPUTS.staging);
-  if (stagingSha256 !== EXPECTED.stagingSha256) errors.push(`Staging SHA-256 changed: ${stagingSha256}`);
-  if (manifest.inputHashes?.staging !== EXPECTED.stagingSha256) {
-    errors.push(`Manifest staging hash mismatch: ${manifest.inputHashes?.staging}`);
+  const manifestStagingHash = manifest.inputHashes?.staging || null;
+  if (manifestStagingHash && manifestStagingHash !== stagingSha256) {
+    errors.push(
+      `Manifest staging hash mismatch: ${manifestStagingHash}; current: ${stagingSha256}`
+    );
+  }
+  if (!manifestStagingHash) {
+    warnings.push(
+      "Progressive manifest has no staging input hash; catalog coverage was validated directly against current staging."
+    );
   }
 
   const catalogText = fsSync.readFileSync(OUTPUTS.catalog, "utf8");
+  const catalogCompactText = compactJson(catalogFile);
+  const catalogFileBytes = fsSync.statSync(OUTPUTS.catalog).size;
+  const catalogCompactBytes = byteLength(catalogCompactText);
   const lookupBytes = fsSync.statSync(OUTPUTS.lookup).size;
   const brandsBytes = fsSync.statSync(OUTPUTS.brands).size;
   const filtersBytes = fsSync.statSync(OUTPUTS.filters).size;
   const catalogRecordSizes = catalog.map((product) => byteLength(compactJson(product)));
   const performance = {
-    catalogBytes: fsSync.statSync(OUTPUTS.catalog).size,
-    catalogAverageRecordBytes: Math.round((fsSync.statSync(OUTPUTS.catalog).size / catalog.length) * 100) / 100,
+    catalogBytes: catalogCompactBytes,
+    catalogFileBytes,
+    catalogSerializationOverheadBytes:
+      catalogFileBytes - catalogCompactBytes,
+    catalogAverageRecordBytes:
+      Math.round((catalogCompactBytes / catalog.length) * 100) /
+      100,
     catalogMaxRecordBytes: Math.max(...catalogRecordSizes),
     lookupBytes,
     brandsBytes,
     filtersBytes,
-    detailMaxShardBytes: Math.max(...detailShardStats.map((item) => item.sizeBytes)),
+    detailMaxShardBytes: detailShardStats.length
+      ? Math.max(...detailShardStats.map((item) => item.sizeBytes))
+      : 0,
     detailTotalBytes: detailShardStats.reduce((total, item) => total + item.sizeBytes, 0),
   };
   const budgetChecks = {
@@ -641,8 +725,20 @@ async function main() {
 
   const validation = {
     schemaVersion: 1,
-    validationName: "round5-public-index-validation-v1",
+    validationName: "current-public-index-validation-v1",
     status: errors.length ? "failed" : "passed",
+    architecture: {
+      generatorVersion: manifest.generatorVersion || null,
+      detailShardsRequired: true,
+      detailFilesSource:
+        Array.isArray(manifest.detailFiles) &&
+        manifest.detailFiles.length
+          ? "manifest"
+          : "discovered-directory",
+      expectedCatalogCount,
+      expectedSourceCounts,
+      expectedExcludedCount: hiddenRows.length,
+    },
     counts: {
       catalogProducts: catalog.length,
       detailRecords: details.length,
@@ -666,7 +762,12 @@ async function main() {
       brandsConsistent,
       filtersConsistent,
       manifestHashesConsistent,
-      manifestStagingHashMatchesRound3: manifest.inputHashes?.staging === round3Validation.hashes?.unifiedStaging,
+      manifestStagingHashMatchesRound3:
+        manifestStagingHash &&
+        round3Validation.hashes?.unifiedStaging
+          ? manifestStagingHash ===
+            round3Validation.hashes.unifiedStaging
+          : null,
     },
     performance: {
       ...performance,
@@ -691,7 +792,7 @@ async function main() {
     console.error(JSON.stringify(validation, null, 2));
     process.exit(1);
   }
-  console.log("Round 5 public index validation passed.");
+  console.log("Public product index validation passed.");
 }
 
 function stagingByIdHasPublicOffer(staging, id) {

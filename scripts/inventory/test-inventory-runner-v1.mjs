@@ -6443,6 +6443,147 @@ assert.deepEqual(
   "Falcon candidates must never enter the detail batch"
 );
 
+const listNotPublicState = ingestProgressiveListSnapshot({
+  state: createProgressiveDailyState({
+    dailyRunId: "list-not-public-test",
+    expectedPages: 104,
+    now: progressiveNow,
+  }),
+  currentPayload: {
+    generatedAt: progressiveNow,
+    summary: {
+      pagesScanned: 104,
+      expectedPages: 104,
+      fullExpectedRangeScanned: true,
+      firstOutOfStockOnlyPage: 88,
+      captchaDetected: false,
+      captchaPages: [],
+    },
+    products: [
+      {
+        sourceProductId: "705001",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=705001",
+        title: "Peterson explicit missingPrice flag",
+        price: "$101.00",
+        missingPrice: true,
+        rawListStatus: "",
+        listPage: 12,
+      },
+      {
+        sourceProductId: "705002",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=705002",
+        title: "Peterson explicit out of stock",
+        price: "$99.00",
+        rawListStatus: "out-of-stock",
+        listPage: 30,
+      },
+      {
+        sourceProductId: "705003",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=705003",
+        title: "Peterson out of stock tail",
+        price: null,
+        rawListStatus: "out-of-stock",
+        listPage: 88,
+      },
+      {
+        sourceProductId: "705004",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=705004",
+        title: "Short Army Rusticated",
+        price: "$124.00",
+        rawListStatus: "",
+        listPage: 4,
+      },
+      {
+        sourceProductId: "705005",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/falcon/moreinfo.cfm?product_id=705005",
+        title: "Falcon complete pipe",
+        price: "$100.00",
+        rawListStatus: "",
+        listPage: 5,
+      },
+      {
+        sourceProductId: "705006",
+        sourceUrl:
+          "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=705006",
+        title: "Peterson empty price before tail",
+        price: "",
+        rawListStatus: "",
+        listPage: 20,
+      },
+    ],
+  },
+  diffPayload: {
+    newIds: [
+      "705001",
+      "705002",
+      "705003",
+      "705004",
+      "705005",
+      "705006",
+    ],
+    reappearedIds: [],
+    disappearedIds: [],
+    fatalWarnings: [],
+    warnings: [],
+    coverage: {
+      pagesScanned: 104,
+      expectedPages: 104,
+      fullExpectedRangeScanned: true,
+    },
+  },
+  productionProducts: [],
+  runId: "list-not-public-test",
+  now: progressiveNow,
+});
+for (const [id, reason] of [
+  ["705001", "list-not-public:missing-price"],
+  ["705002", "list-not-public:oos-tail"],
+  ["705003", "list-not-public:oos-tail"],
+  ["705006", "list-not-public:missing-price"],
+]) {
+  const candidate = listNotPublicState.candidates.find(
+    (item) => item.sourceProductId === id
+  );
+  assert.equal(
+    candidate.detailStatus,
+    "excluded-list-not-public"
+  );
+  assert.equal(candidate.publicStatus, "not-public");
+  assert.equal(candidate.listNotPublicReason, reason);
+  assert.equal(candidate.reason, reason);
+}
+assert.equal(
+  listNotPublicState.candidates.find(
+    (item) => item.sourceProductId === "705004"
+  ).detailStatus,
+  "pending"
+);
+assert.equal(
+  listNotPublicState.candidates.find(
+    (item) => item.sourceProductId === "705005"
+  ).detailStatus,
+  "excluded"
+);
+assert.equal(listNotPublicState.summary.listNotPublicFiltered, 4);
+assert.equal(listNotPublicState.summary.pending, 1);
+assert.deepEqual(
+  selectProgressiveDetailCandidates({
+    state: listNotPublicState,
+    maxItems: 30,
+    now: progressiveNow,
+  }).map((item) => item.sourceProductId),
+  ["705004"]
+);
+assert.equal(
+  validateProgressiveDailyState(listNotPublicState).valid,
+  true
+);
+
 const manualBackfillOptions = parseRunnerOptions([
   "--manual-detail-backfill-all",
   "--limit=50",
@@ -8726,6 +8867,7 @@ assert.deepEqual(progressiveIngestState.summary, {
   failed: 0,
   blocked: 0,
   excluded: 0,
+  listNotPublicFiltered: 0,
   readyForDetailChunk: 3,
 });
 const progressiveIngestReport = JSON.parse(

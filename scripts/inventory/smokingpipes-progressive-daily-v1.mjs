@@ -42,9 +42,51 @@ function isSold(product) {
 }
 
 function isExplicitOutOfStock(item) {
-  return /\b(?:out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable)\b/i.test(
-    `${item?.rawListStatus || ""} ${item?.rawText || ""}`
+  const rawListStatus = text(item?.rawListStatus);
+  const rawText = text(item?.rawText);
+  return (
+    /\b(?:out[\s-]+of[\s-]+stock|sold(?:[\s-]+out)?|unavailable)\b/i.test(
+      rawListStatus
+    ) ||
+    /\b(?:out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable)\b/i.test(
+      rawText
+    )
   );
+}
+
+export function classifySmokingpipesListNotPublic({
+  item,
+  firstOutOfStockOnlyPage = null,
+} = {}) {
+  const missingPrice =
+    item?.missingPrice === true || !numericPrice(item?.price);
+  const explicitOutOfStock = isExplicitOutOfStock(item);
+  const listPage = Number(item?.listPage);
+  const tailStartPage = Number(firstOutOfStockOnlyPage);
+  const inOutOfStockTail =
+    missingPrice &&
+    Number.isFinite(listPage) &&
+    Number.isFinite(tailStartPage) &&
+    tailStartPage > 0 &&
+    listPage >= tailStartPage;
+  const reason =
+    explicitOutOfStock || inOutOfStockTail
+      ? "list-not-public:oos-tail"
+      : missingPrice
+        ? "list-not-public:missing-price"
+        : null;
+  return {
+    excluded: Boolean(reason),
+    reason,
+    missingPrice,
+    explicitOutOfStock,
+    inOutOfStockTail,
+    listPage: Number.isFinite(listPage) ? listPage : null,
+    firstOutOfStockOnlyPage:
+      Number.isFinite(tailStartPage) && tailStartPage > 0
+        ? tailStartPage
+        : null,
+  };
 }
 
 function productImage(product) {
@@ -254,6 +296,9 @@ function stateSummary(state, now = new Date().toISOString()) {
     failed: statusCount("failed"),
     blocked: statusCount("blocked"),
     excluded: statusCount("excluded"),
+    listNotPublicFiltered: statusCount(
+      "excluded-list-not-public"
+    ),
     readyForDetailChunk,
   };
 }
@@ -264,9 +309,16 @@ function makeCandidate({
   changeTypes,
   runId,
   now,
+  firstOutOfStockOnlyPage,
 }) {
   const needsDetail = changeTypes.includes("new-product");
   const exclusion = classifySmokingpipesBrandExclusion(current);
+  const listNotPublic = classifySmokingpipesListNotPublic({
+    item: current,
+    firstOutOfStockOnlyPage,
+  });
+  const listNotPublicExcluded =
+    needsDetail && listNotPublic.excluded;
   return {
     sourceProductId: productId(current),
     sourceUrl: text(current.sourceUrl || current.href),
@@ -277,6 +329,16 @@ function makeCandidate({
         current.mainImageUrl ||
         current.imageUrl
     ),
+    listPage: listNotPublic.listPage,
+    rawListStatus: text(current.rawListStatus),
+    listMissingPrice: listNotPublic.missingPrice,
+    listExplicitOutOfStock:
+      listNotPublic.explicitOutOfStock,
+    listOutOfStockTail:
+      listNotPublic.inOutOfStockTail,
+    listNotPublicReason: listNotPublicExcluded
+      ? listNotPublic.reason
+      : null,
     inventoryStatus: isExplicitOutOfStock(current)
       ? "sold"
       : "available",
@@ -287,9 +349,11 @@ function makeCandidate({
     changeTypes,
     detailStatus: exclusion.excluded
       ? "excluded"
-      : needsDetail
-        ? "pending"
-        : "complete",
+      : listNotPublicExcluded
+        ? "excluded-list-not-public"
+        : needsDetail
+          ? "pending"
+          : "complete",
     publicStatus: exclusion.excluded
       ? "not-public"
       : needsDetail
@@ -301,7 +365,15 @@ function makeCandidate({
     lastSuccessfulDetailRunId: null,
     lastAppliedAt: null,
     appliedInCommit: null,
-    lastError: null,
+    lastError: listNotPublicExcluded
+      ? listNotPublic.reason
+      : null,
+    reason: listNotPublicExcluded
+      ? listNotPublic.reason
+      : null,
+    reviewReason: listNotPublicExcluded
+      ? listNotPublic.reason
+      : null,
     priority: needsDetail ? 100 : 50,
     blockedCount: 0,
     lastBlockedAt: null,
@@ -354,6 +426,10 @@ export function ingestProgressiveListSnapshot({
   const authoritativeReappearedIds = diffPayload
     ? new Set((diffPayload.reappearedIds || []).map(String))
     : null;
+  const summary = currentPayload?.summary || {};
+  const firstOutOfStockOnlyPage = Number(
+    summary.firstOutOfStockOnlyPage
+  );
 
   for (const current of currentPayload?.products || []) {
     const id = productId(current);
@@ -400,6 +476,11 @@ export function ingestProgressiveListSnapshot({
           ...existing,
           ...current,
         });
+      const listNotPublic =
+        classifySmokingpipesListNotPublic({
+          item: current,
+          firstOutOfStockOnlyPage,
+        });
       existing.changeTypes = addUnique(
         existing.changeTypes,
         changeTypes
@@ -410,14 +491,21 @@ export function ingestProgressiveListSnapshot({
       existing.listTitle =
         text(current.title || current.rawTitle) ||
         existing.listTitle;
-      existing.listPrice =
-        text(current.price) || existing.listPrice;
+      existing.listPrice = text(current.price);
       existing.listPrimaryImage =
         text(
           current.mainImage ||
             current.mainImageUrl ||
             current.imageUrl
         ) || existing.listPrimaryImage;
+      existing.listPage = listNotPublic.listPage;
+      existing.rawListStatus = text(current.rawListStatus);
+      existing.listMissingPrice =
+        listNotPublic.missingPrice;
+      existing.listExplicitOutOfStock =
+        listNotPublic.explicitOutOfStock;
+      existing.listOutOfStockTail =
+        listNotPublic.inOutOfStockTail;
       existing.inventoryStatus =
         isExplicitOutOfStock(current)
           ? "sold"
@@ -425,6 +513,9 @@ export function ingestProgressiveListSnapshot({
       existing.lastSeenRunId = runId;
       existing.lastSeenAt = now;
       existing.retryCount ??= 0;
+      const protectedStatus =
+        existing.detailStatus === "complete" ||
+        existing.publicStatus === "published";
       if (exclusion.excluded) {
         existing.detailStatus = "excluded";
         existing.publicStatus = "not-public";
@@ -436,12 +527,38 @@ export function ingestProgressiveListSnapshot({
         existing.reviewReason = exclusion.reason;
         existing.lastError = exclusion.reason;
         existing.nextEligibleAt = null;
+      } else if (
+        !protectedStatus &&
+        existing.changeTypes.includes("new-product") &&
+        listNotPublic.excluded
+      ) {
+        existing.detailStatus =
+          "excluded-list-not-public";
+        existing.publicStatus = "not-public";
+        existing.listNotPublicReason =
+          listNotPublic.reason;
+        existing.reason = listNotPublic.reason;
+        existing.readyReason = null;
+        existing.reviewReason = listNotPublic.reason;
+        existing.lastError = listNotPublic.reason;
+        existing.nextEligibleAt = null;
+      } else if (
+        !protectedStatus &&
+        existing.changeTypes.includes("new-product") &&
+        existing.detailStatus ===
+          "excluded-list-not-public" &&
+        !listNotPublic.excluded
+      ) {
+        existing.detailStatus = "pending";
+        existing.publicStatus = "not-public";
+        existing.listNotPublicReason = null;
+        existing.reason = null;
+        existing.reviewReason = null;
+        existing.lastError = null;
       }
-      const protectedStatus =
-        existing.detailStatus === "complete" ||
-        existing.publicStatus === "published";
       if (
         !exclusion.excluded &&
+        !listNotPublic.excluded &&
         !protectedStatus &&
         existing.changeTypes.includes("new-product") &&
         existing.detailStatus === "blocked" &&
@@ -457,13 +574,13 @@ export function ingestProgressiveListSnapshot({
         changeTypes,
         runId,
         now,
+        firstOutOfStockOnlyPage,
       });
       next.candidates.push(candidate);
       candidatesById.set(id, candidate);
     }
   }
 
-  const summary = currentPayload?.summary || {};
   const diffCoverage = diffPayload?.coverage || {};
   const expectedPages = Number(
     summary.expectedPages ||
@@ -560,6 +677,9 @@ export function summarizeProgressiveState(state) {
     detailsFailed: count("failed"),
     detailsBlocked: count("blocked"),
     detailsExcluded: count("excluded"),
+    detailsListNotPublic: count(
+      "excluded-list-not-public"
+    ),
     readyForPartialApply: candidates.filter(
       (item) =>
         item.publicStatus === "ready" &&
@@ -581,7 +701,12 @@ export function selectProgressiveDetailCandidates({
       if (isSmokingpipesExcludedBrand(item)) return false;
       if (!item.changeTypes.includes("new-product")) return false;
       if (
-        ["complete", "review-only", "excluded"].includes(
+        [
+          "complete",
+          "review-only",
+          "excluded",
+          "excluded-list-not-public",
+        ].includes(
           item.detailStatus
         ) ||
         ["published", "review-only"].includes(item.publicStatus)
