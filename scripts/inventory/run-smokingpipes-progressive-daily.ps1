@@ -1687,4 +1687,3 @@ try {
   }
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
 }
-
