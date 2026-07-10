@@ -292,6 +292,8 @@ function normalizeTaskStatus(taskState) {
     "success",
     "retryable-failed",
     "terminal-failed",
+    "manual-review-required",
+    "safety-gate-blocked",
     "skipped-success",
     "safe-bootstrap-complete",
     "safe-bootstrap-current-list-failed",
@@ -354,6 +356,14 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
 
   if (taskStatus === "terminal-failed") {
     return "terminal-failed";
+  }
+
+  if (taskStatus === "manual-review-required") {
+    return "manual-review-required";
+  }
+
+  if (taskStatus === "safety-gate-blocked") {
+    return "safety-gate-blocked";
   }
 
   if (taskStatus === "skipped-success") {
@@ -750,6 +760,8 @@ function statusLabelV2(status) {
   if (status === "detail-complete") return "详情队列已完成，正在进入候选应用";
   if (status === "retryable-failed") return "更新失败，将自动重试";
   if (status === "terminal-failed") return "更新失败，已停止重试";
+  if (status === "manual-review-required") return "需要人工复核，已停止自动重试";
+  if (status === "safety-gate-blocked") return "安全门禁已阻断，已停止自动重试";
   if (status === "skipped-success") return "已跳过";
   if (status === "blocked") return "需要人工验证";
   if (status === "failed") return "更新失败";
@@ -795,7 +807,7 @@ function deriveReasonV2({
     return "详情队列已完成，正在进入候选应用。";
   }
 
-  if (status === "retryable-failed" || status === "terminal-failed") {
+  if (["retryable-failed", "terminal-failed", "manual-review-required", "safety-gate-blocked"].includes(status)) {
     if (taskState?.lastFailureType === "preflight") {
       return `恢复预检失败：${sanitizeMobileTextV2(
         taskState?.lastFailureReason || "请查看 recovery preflight report"
@@ -873,6 +885,10 @@ function deriveNextStepV2({ status, failureType = null, cachedListResume = null 
 
   if (status === "terminal-failed") {
     return "人工检查 audit report";
+  }
+
+  if (status === "manual-review-required" || status === "safety-gate-blocked") {
+    return "查看 audit / gate report 并人工确认；不要自动重试。";
   }
 
   if (cachedListResume?.enabled === true && cachedListResume?.completed !== true) {

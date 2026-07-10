@@ -12,7 +12,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$ProjectRoot = "C:\Users\NING MEI\Desktop\pipewebsite"
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $LogPath = Join-Path $ProjectRoot "data\review\smokingpipes-daily-task-latest.log"
 $EnvPath = Join-Path $ProjectRoot ".env.inventory.local"
 $AuditPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-audit-report.json"
@@ -367,7 +367,7 @@ function Write-DailyTaskState {
     $state.lastSuccessAt = $now.ToString("o")
   }
 
-  if ($Status -eq "retryable-failed" -or $Status -eq "terminal-failed") {
+  if ($Status -in @("retryable-failed", "terminal-failed", "manual-review-required", "safety-gate-blocked")) {
     $state.lastFailureAt = $now.ToString("o")
   }
 
@@ -1400,7 +1400,7 @@ try {
     }
     Write-DailyLog "detail queue spike guard blocked: pending=$detailPendingCount reasons=$detailQueueBlockReasons"
     Write-DailyTaskState `
-      -Status "terminal-failed" `
+      -Status "manual-review-required" `
       -Attempts $attempts `
       -CandidateCount (Get-AuditCandidateCount) `
       -FailureReason "Detail queue anomaly requires manual review: $detailQueueBlockReasons" `
@@ -1634,7 +1634,7 @@ try {
     $failureReason = "自动写入已阻断：$prepareBlockedReason"
     Write-DailyLog "progressive prepare apply gate blocked: $prepareBlockedReason"
     Write-DailyTaskState `
-      -Status "terminal-failed" `
+      -Status "safety-gate-blocked" `
       -Attempts $attempts `
       -CandidateCount $prepareCandidateCount `
       -IsolatedCandidateCount $prepareIsolatedCandidateCount `

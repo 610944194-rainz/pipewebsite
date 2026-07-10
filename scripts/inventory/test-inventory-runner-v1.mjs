@@ -11039,7 +11039,7 @@ assert.match(
 assert.match(dailyTaskScript, /--mode=progressive-prepare-apply/);
 assert.match(
   dailyTaskScript,
-  /progressive prepare apply gate blocked:[\s\S]*-Status "terminal-failed"[\s\S]*-FailureType "audit"[\s\S]*-CachedListResume \$script:CachedListResumeState/
+  /progressive prepare apply gate blocked:[\s\S]*-Status "safety-gate-blocked"[\s\S]*-FailureType "audit"[\s\S]*-CachedListResume \$script:CachedListResumeState/
 );
 assert.doesNotMatch(dailyTaskScript, /function Test-AuditAllowsProductionWrite/);
 assert.match(
@@ -11048,7 +11048,7 @@ assert.match(
 );
 assert.match(
   dailyTaskScript,
-  /detail queue spike guard blocked[\s\S]*-Status "terminal-failed"[\s\S]*-FailureType "detail-queue-spike"[\s\S]*-RetryAllowed \$false/
+  /detail queue spike guard blocked[\s\S]*-Status "manual-review-required"[\s\S]*-FailureType "detail-queue-spike"[\s\S]*-RetryAllowed \$false/
 );
 assert.ok(
   dailyTaskScript.indexOf(
@@ -11107,6 +11107,10 @@ assert.match(dailyTaskScript, /\[switch\]\$ResumeFromCachedList/);
 assert.match(dailyTaskScript, /\[switch\]\$LockCurrentListSnapshotUntilComplete/);
 assert.match(dailyTaskScript, /\[switch\]\$SafeBootstrap/);
 assert.match(dailyTaskScript, /\[switch\]\$NoProductionWrite/);
+assert.match(
+  dailyTaskScript,
+  /\$ProjectRoot\s*=\s*\(Resolve-Path \(Join-Path \$PSScriptRoot "\.\.\\\.\."\)\)\.Path/
+);
 assert.match(dailyTaskScript, /YAN_DOUBUY_FORCE_RUN_ONCE/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_SKIP_CURRENT_LIST/);
 assert.match(dailyTaskScript, /YAN_DOUBUY_ALLOW_STALE_CURRENT_LIST_CACHE/);
@@ -11183,6 +11187,8 @@ assert.match(dailyTaskScript, /-Status\s+"reused"/);
 assert.match(dailyTaskScript, /-Status\s+"fetched"/);
 assert.match(dailyTaskScript, /retryable-failed/);
 assert.match(dailyTaskScript, /terminal-failed/);
+assert.match(dailyTaskScript, /manual-review-required/);
+assert.match(dailyTaskScript, /safety-gate-blocked/);
 assert.match(dailyTaskScript, /skipped-success/);
 assert.match(dailyTaskScript, /AddHours\(-4\)|LockStaleHours\s*=\s*4/);
 assert.match(dailyTaskScript, /nextRetryRecommendedAt/);
