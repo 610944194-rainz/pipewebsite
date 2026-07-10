@@ -5,7 +5,9 @@ param(
   [switch]$ForceRunOnce,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
-  [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-automation"
+  [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-automation",
+  [string]$NodeExecutable = "node",
+  [string]$NotificationScriptPath = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,6 +16,12 @@ $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-
 $ReportMarkdownPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.md"
 $DailyTaskStatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-state.json"
 $DailyScriptPath = Join-Path $ProjectRoot "scripts\inventory\run-smokingpipes-progressive-daily.ps1"
+$ValidatorScriptPath = Join-Path $ProjectRoot "scripts\validate-public-product-indexes-v1.mjs"
+$InventoryDefaultTestPath = Join-Path $ProjectRoot "scripts\test-public-products-inventory-default-v1.mjs"
+$InventoryRunnerTestPath = Join-Path $ProjectRoot "scripts\inventory\test-inventory-runner-v1.mjs"
+if (-not $NotificationScriptPath) {
+  $NotificationScriptPath = Join-Path $ProjectRoot "scripts\inventory\smokingpipes-auto-publish-notify-v1.mjs"
+}
 $LockPaths = @(
   "data\inventory\smokingpipes-daily-task-lock.json",
   "data\inventory\state\smokingpipes.lock",
@@ -26,7 +34,7 @@ $ProductionExactPaths = @(
 
 function Invoke-GitChecked {
   param([string[]]$Arguments)
-  $output = @(& git -C $ProjectRoot @Arguments 2>&1)
+  $output = @(& git -c http.sslBackend=openssl -C $ProjectRoot @Arguments 2>&1)
   if ($LASTEXITCODE -ne 0) {
     throw "git $($Arguments -join ' ') failed: $($output -join [Environment]::NewLine)"
   }
@@ -35,11 +43,23 @@ function Invoke-GitChecked {
 
 function Invoke-CheckedCommand {
   param([string]$FilePath, [string[]]$Arguments, [string]$Stage)
+  if (-not (Test-Path -LiteralPath $FilePath -PathType Leaf)) {
+    throw "$Stage executable is missing: $FilePath"
+  }
   $output = @(& $FilePath @Arguments 2>&1)
   if ($LASTEXITCODE -ne 0) {
     throw "$Stage failed with exit code ${LASTEXITCODE}: $($output -join [Environment]::NewLine)"
   }
   return ($output -join [Environment]::NewLine)
+}
+
+function Resolve-LocalExecutable {
+  param([string]$Name, [string]$Stage)
+  $command = Get-Command $Name -CommandType Application -ErrorAction Stop
+  if (-not $command.Source) {
+    throw "$Stage executable is missing: $Name"
+  }
+  return $command.Source
 }
 
 function Test-AutomationWorktree {
@@ -121,10 +141,21 @@ function Write-AutoPublishReport {
 }
 
 function Send-AutoPublishNotification {
+  if (-not (Test-Path -LiteralPath $NotificationScriptPath -PathType Leaf)) {
+    throw "notification helper is missing: $NotificationScriptPath"
+  }
+  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($NotificationScriptPath, "--report=$ReportJsonPath") -Stage "notification-helper" | Out-Null
+}
+
+function Complete-AutoPublish {
+  param([string]$Status, [string]$FailureStage = $null, [string]$FailureReason = $null)
+  Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
   try {
-    & node "scripts/inventory/smokingpipes-auto-publish-notify-v1.mjs" "--report=$ReportJsonPath" | Out-Null
+    Send-AutoPublishNotification
   } catch {
-    Write-Output "PushDeer notification helper failed: $($_.Exception.Message)"
+    $notificationFailure = $_.Exception.Message
+    Write-AutoPublishReport -Status "notification-helper-failed" -FailureStage "notification-helper" -FailureReason $notificationFailure
+    throw $notificationFailure
   }
 }
 
@@ -135,7 +166,12 @@ function Stop-AutoPublish {
   throw $Reason
 }
 
+ $locationPushed = $false
 try {
+  Push-Location -LiteralPath $ProjectRoot
+  $locationPushed = $true
+  $NodeExecutablePath = Resolve-LocalExecutable -Name $NodeExecutable -Stage "node"
+  $PowerShellExecutablePath = Resolve-LocalExecutable -Name "powershell.exe" -Stage "powershell"
   Test-AutomationWorktree
   Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
   $report.startingMainSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
@@ -168,8 +204,7 @@ try {
   }
   if ($PreflightOnly) {
     $report.deploymentStatus = "not-requested"
-    Write-AutoPublishReport -Status "preflight-passed"
-    Send-AutoPublishNotification
+    Complete-AutoPublish -Status "preflight-passed"
     exit 0
   }
 
@@ -178,9 +213,10 @@ try {
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
   if ($SkipCurrentList) { $dailyArguments += "-SkipCurrentList" }
   if ($AllowStaleCurrentListCache) { $dailyArguments += "-AllowStaleCurrentListCache" }
-  & powershell.exe @dailyArguments
-  if ($LASTEXITCODE -ne 0) {
-    Stop-AutoPublish -Status "daily-failed" -Stage "daily" -Reason "daily pipeline exited with code $LASTEXITCODE"
+  try {
+    Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" | Out-Null
+  } catch {
+    Stop-AutoPublish -Status "daily-failed" -Stage "daily" -Reason $_.Exception.Message
   }
   if (-not (Test-Path -LiteralPath $DailyTaskStatePath)) {
     Stop-AutoPublish -Status "daily-failed" -Stage "daily" -Reason "daily task state is missing"
@@ -195,22 +231,20 @@ try {
   }
   if ($dailyState.status -eq "detail-progress") {
     $report.deploymentStatus = "not-requested"
-    Write-AutoPublishReport -Status "detail-progress"
-    Send-AutoPublishNotification
+    Complete-AutoPublish -Status "detail-progress"
     exit 0
   }
   if (-not $report.productionWritten) {
     $report.deploymentStatus = "not-requested"
-    Write-AutoPublishReport -Status "no-production-change"
-    Send-AutoPublishNotification
+    Complete-AutoPublish -Status "no-production-change"
     exit 0
   }
 
-  Invoke-CheckedCommand -FilePath "node" -Arguments @("scripts/validate-public-product-indexes-v1.mjs") -Stage "validator" | Out-Null
+  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($ValidatorScriptPath) -Stage "validator" | Out-Null
   $report.validatorPassed = $true
-  Invoke-CheckedCommand -FilePath "node" -Arguments @("scripts/test-public-products-inventory-default-v1.mjs") -Stage "inventory-default-test" | Out-Null
+  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryDefaultTestPath) -Stage "inventory-default-test" | Out-Null
   $report.inventoryDefaultPassed = $true
-  Invoke-CheckedCommand -FilePath "node" -Arguments @("scripts/inventory/test-inventory-runner-v1.mjs") -Stage "inventory-runner-test" | Out-Null
+  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryRunnerTestPath) -Stage "inventory-runner-test" | Out-Null
   $report.inventoryRunnerPassed = $true
   Invoke-CheckedCommand -FilePath "npm.cmd" -Arguments @("run", "build") -Stage "build" | Out-Null
   $report.buildPassed = $true
@@ -219,8 +253,7 @@ try {
   $report.changedProductionFiles = @($changed)
   if ($changed.Count -eq 0) {
     $report.deploymentStatus = "not-requested"
-    Write-AutoPublishReport -Status "no-production-change"
-    Send-AutoPublishNotification
+    Complete-AutoPublish -Status "no-production-change"
     exit 0
   }
   foreach ($filePath in $changed) {
@@ -238,8 +271,7 @@ try {
   }
   if ($NoPush) {
     $report.deploymentStatus = "not-requested"
-    Write-AutoPublishReport -Status "validated-no-push"
-    Send-AutoPublishNotification
+    Complete-AutoPublish -Status "validated-no-push"
     exit 0
   }
   Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
@@ -275,8 +307,7 @@ try {
   } else {
     $report.deploymentStatus = "push-complete-deployment-pending-verification"
   }
-  Write-AutoPublishReport -Status "success"
-  Send-AutoPublishNotification
+  Complete-AutoPublish -Status "success"
 } catch {
   if (-not $report.completedAt) {
     Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message
@@ -284,4 +315,8 @@ try {
   }
   Write-Error $_.Exception.Message
   exit 1
+} finally {
+  if ($locationPushed) {
+    Pop-Location -ErrorAction SilentlyContinue
+  }
 }

@@ -37,18 +37,28 @@ try {
   assert.match(publishScript, /\[switch\]\$PreflightOnly/);
   assert.match(publishScript, /\[switch\]\$NoProductionWrite/);
   assert.match(publishScript, /\[switch\]\$NoPush/);
+  assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
+  assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
   assert.match(publishScript, /auto publish must run from the dedicated automation worktree/);
   assert.match(publishScript, /\$ProjectRoot\s*=\s*\(Resolve-Path \(Join-Path \$PSScriptRoot "\.\.\\\.\."\)\)\.Path/);
-  assert.match(publishScript, /scripts\/validate-public-product-indexes-v1\.mjs/);
-  assert.match(publishScript, /scripts\/test-public-products-inventory-default-v1\.mjs/);
-  assert.match(publishScript, /scripts\/inventory\/test-inventory-runner-v1\.mjs/);
+  assert.match(publishScript, /Push-Location -LiteralPath \$ProjectRoot/);
+  assert.match(publishScript, /finally\s*\{[\s\S]*?Pop-Location/);
+  assert.match(publishScript, /\$NotificationScriptPath\s*=\s*Join-Path \$ProjectRoot/);
+  assert.match(publishScript, /notification helper is missing/);
+  assert.match(publishScript, /Invoke-CheckedCommand -FilePath \$NodeExecutablePath/);
+  assert.match(publishScript, /Complete-AutoPublish/);
+  assert.match(publishScript, /git -c http\.sslBackend=openssl -C \$ProjectRoot/);
+  assert.doesNotMatch(publishScript, /& node "scripts\/inventory\/smokingpipes-auto-publish-notify-v1\.mjs"/);
+  assert.match(publishScript, /scripts[\\/]validate-public-product-indexes-v1\.mjs/);
+  assert.match(publishScript, /scripts[\\/]test-public-products-inventory-default-v1\.mjs/);
+  assert.match(publishScript, /scripts[\\/]inventory[\\/]test-inventory-runner-v1\.mjs/);
   assert.match(publishScript, /npm\.cmd/);
   assert.match(publishScript, /"add", "--"/);
   assert.match(publishScript, /"reset"/);
   assert.match(publishScript, /origin\/main changed during run/);
   assert.match(
     publishScript,
-    /\$dailyState\.status -eq "detail-progress"[\s\S]*?Write-AutoPublishReport -Status "detail-progress"/
+    /\$dailyState\.status -eq "detail-progress"[\s\S]*?Complete-AutoPublish -Status "detail-progress"/
   );
   assert.doesNotMatch(publishScript, /manual-large-apply/);
   assert.doesNotMatch(publishScript, /--force(?:-with-lease)?/);
