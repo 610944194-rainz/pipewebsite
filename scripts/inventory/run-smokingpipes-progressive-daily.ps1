@@ -45,6 +45,7 @@ $LastInventoryNodeResult = $null
 $LastInventoryNodeOutput = @()
 $DetailPhaseStatus = $null
 $DetailPendingCount = 0
+$DetailCompletedThisRun = 0
 $DetailQueueSpikeState = $null
 $CurrentListState = [ordered]@{
   status = "skipped"
@@ -314,6 +315,7 @@ function Write-DailyTaskState {
     [object]$CachedListResume = $null,
     [string]$DetailPhaseStatus = $null,
     [object]$DetailPendingCount = $null,
+    [object]$DetailCompletedThisRun = $null,
     [object]$DetailQueueSpike = $null
   )
 
@@ -355,6 +357,11 @@ function Write-DailyTaskState {
       [int]$DetailPendingCount
     } else {
       [int]$script:DetailPendingCount
+    }
+    detailCompletedThisRun = if ($null -ne $DetailCompletedThisRun) {
+      [int]$DetailCompletedThisRun
+    } else {
+      [int]$script:DetailCompletedThisRun
     }
     detailQueueSpike = if ($null -ne $DetailQueueSpike) {
       $DetailQueueSpike
@@ -1448,6 +1455,13 @@ try {
     ""
   }
   $script:DetailPhaseStatus = $detailStatus
+  $script:DetailCompletedThisRun = if (
+    $detailResult -and $null -ne $detailResult.completedThisRun
+  ) {
+    [int]$detailResult.completedThisRun
+  } else {
+    0
+  }
 
   if (-not (Test-DetailPhaseCanContinue -ExitCode $detailExit -Status $detailStatus)) {
     $detailBlockedReason = if ($detailResult -and $detailResult.blockedReason) {
@@ -1483,6 +1497,44 @@ try {
   } else {
     Write-DailyLog "DETAIL chunk complete: status=$detailStatus"
   }
+
+  $detailPendingRemaining = if (
+    $detailResult -and $null -ne $detailResult.remainingPendingCount
+  ) {
+    [int]$detailResult.remainingPendingCount
+  } else {
+    [int]$script:DetailPendingCount
+  }
+  $script:DetailPendingCount = $detailPendingRemaining
+
+  if ($detailPendingRemaining -gt 0) {
+    $script:DetailPhaseStatus = "detail-progress"
+    $script:ResumeFromCachedListEffective = $true
+    $script:LockCurrentListSnapshotUntilCompleteEffective = $true
+    if ($currentListCache -and $currentListCache.usable -eq $true) {
+      Set-CachedListResumeFromCache -Cache $currentListCache -Completed $false
+    }
+    Write-DailyLog "DETAIL progress: completed=$($script:DetailCompletedThisRun) remaining=$detailPendingRemaining; prepare/apply deferred and current-list snapshot locked"
+    Write-DailyTaskState `
+      -Status "detail-progress" `
+      -Attempts $attempts `
+      -ProductionWritten $false `
+      -AppliedCount 0 `
+      -CandidateCount (Get-AuditCandidateCount) `
+      -WouldApplyCount 0 `
+      -IsolatedCandidateCount 0 `
+      -RetryAllowed $true `
+      -NextRetryRecommendedAt (Get-NextRetryAt) `
+      -CurrentList $script:CurrentListState `
+      -DetailPhaseStatus $script:DetailPhaseStatus `
+      -DetailPendingCount $detailPendingRemaining `
+      -DetailCompletedThisRun $script:DetailCompletedThisRun `
+      -CachedListResume $script:CachedListResumeState
+    Send-MobileReport
+    Write-DailyLog "DAILY TASK DETAIL PROGRESS: production write and auto apply gate deferred until pending details reach zero"
+    exit 0
+  }
+
   Write-DailyLog "CONTINUE candidate/apply transition"
   Write-DailyTaskState `
     -Status "running" `
@@ -1490,6 +1542,8 @@ try {
     -CandidateCount (Get-AuditCandidateCount) `
     -RetryAllowed $true `
     -DetailPhaseStatus $detailStatus `
+    -DetailPendingCount $detailPendingRemaining `
+    -DetailCompletedThisRun $script:DetailCompletedThisRun `
     -CachedListResume $script:CachedListResumeState
 
   if (-not (Test-InventoryLocksBeforeStage -StageName "progressive-prepare-apply")) {

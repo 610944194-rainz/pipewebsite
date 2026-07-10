@@ -6920,6 +6920,12 @@ const progressiveChunk = await runProgressiveDetailChunk({
 });
 assert.equal(progressiveChunk.status, "blocked");
 assert.equal(progressiveChunk.completedThisRun, 3);
+assert.equal(
+  progressiveChunk.remainingPendingCount,
+  progressiveChunk.state.candidates.filter(
+    (item) => item.detailStatus === "pending"
+  ).length
+);
 assert.equal(progressiveCheckpointSnapshots.length, 4);
 const progressiveAfterBlocked = progressiveChunk.state;
 assert.equal(
@@ -9327,6 +9333,48 @@ const verificationLogReport = buildSmokingpipesDailyMobileReport({
     warnings: [],
   },
 });
+
+const detailProgressMobileReport = buildSmokingpipesDailyMobileReport({
+  runAt: "2026-07-11T10:30:00.000+08:00",
+  taskState: {
+    source: "smokingpipes",
+    status: "detail-progress",
+    productionWritten: false,
+    retryAllowed: true,
+    detailPhaseStatus: "detail-progress",
+    detailCompletedThisRun: 30,
+    detailPendingCount: 141,
+    cachedListResume: {
+      enabled: true,
+      lockedUntilComplete: true,
+      completed: false,
+    },
+  },
+  state: {
+    source: "smokingpipes",
+    pagesScanned: 107,
+    expectedPages: 107,
+    candidates: [],
+  },
+  audit: {
+    verdict: "PASS",
+    candidateCount: 316,
+    wouldApplyCount: 316,
+    productionWritten: false,
+    blockers: [],
+    warnings: [],
+  },
+});
+assert.equal(detailProgressMobileReport.status, "detail-progress");
+assert.equal(detailProgressMobileReport.productionWritten, false);
+assert.equal(detailProgressMobileReport.retryAllowed, true);
+assert.equal(detailProgressMobileReport.detailCompletedThisRun, 30);
+assert.equal(detailProgressMobileReport.pendingDetailCount, 141);
+const detailProgressMessage = buildPushDeerDailyMessage(detailProgressMobileReport);
+assert.match(detailProgressMessage.body, /30/);
+assert.match(detailProgressMessage.body, /141/);
+assert.doesNotMatch(detailProgressMessage.body, /候选应用被安全门禁阻断/);
+
 assert.equal(verificationLogReport.status, "blocked");
 assert.equal(verificationLogReport.pagesScanned, 107);
 assert.equal(verificationLogReport.expectedPages, 107);
@@ -11257,6 +11305,31 @@ assert.match(
 assert.match(dailyTaskScript, /--write-production/);
 assert.match(dailyTaskScript, /auditStatus/);
 assert.match(dailyTaskScript, /candidateCount/);
+const detailProgressStart = dailyTaskScript.indexOf(
+  "if ($detailPendingRemaining -gt 0)"
+);
+const detailProgressEnd = dailyTaskScript.indexOf(
+  'Write-DailyLog "CONTINUE candidate/apply transition"'
+);
+const detailProgressBranch =
+  detailProgressStart >= 0 && detailProgressEnd > detailProgressStart
+    ? dailyTaskScript.slice(detailProgressStart, detailProgressEnd)
+    : "";
+assert.ok(
+  detailProgressBranch,
+  "pending details must exit as detail-progress before prepare-apply"
+);
+assert.match(detailProgressBranch, /-Status "detail-progress"/);
+assert.match(detailProgressBranch, /-ProductionWritten \$false/);
+assert.match(detailProgressBranch, /-RetryAllowed \$true/);
+assert.doesNotMatch(
+  detailProgressBranch,
+  /StepName "progressive-prepare-apply"/
+);
+assert.ok(
+  dailyTaskScript.indexOf("$detailPendingRemaining -gt 0") <
+    dailyTaskScript.indexOf('StepName "progressive-prepare-apply"')
+);
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+commit\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+push\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bvercel\b/i);

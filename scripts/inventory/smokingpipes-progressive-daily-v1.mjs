@@ -748,6 +748,7 @@ export async function runProgressiveDetailChunk({
       status: "blocked",
       state,
       completedThisRun: 0,
+      remainingPendingCount: null,
       blockedReason: validation.errors.join("; "),
       recommendedNextRunAt: null,
       productionWritten: false,
@@ -840,6 +841,9 @@ export async function runProgressiveDetailChunk({
     blockedReason,
     recommendedNextRunAt,
   };
+  const remainingPendingCount = next.candidates.filter(
+    (candidate) => candidate.detailStatus === "pending"
+  ).length;
   return {
     status: blockedReason
       ? "blocked"
@@ -850,6 +854,7 @@ export async function runProgressiveDetailChunk({
     selected: selected.length,
     completedThisRun,
     failedThisRun,
+    remainingPendingCount,
     blockedReason,
     recommendedNextRunAt,
     productionWritten: false,

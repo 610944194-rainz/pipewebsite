@@ -46,6 +46,10 @@ try {
   assert.match(publishScript, /"add", "--"/);
   assert.match(publishScript, /"reset"/);
   assert.match(publishScript, /origin\/main changed during run/);
+  assert.match(
+    publishScript,
+    /\$dailyState\.status -eq "detail-progress"[\s\S]*?Write-AutoPublishReport -Status "detail-progress"/
+  );
   assert.doesNotMatch(publishScript, /manual-large-apply/);
   assert.doesNotMatch(publishScript, /--force(?:-with-lease)?/);
 

@@ -297,6 +297,7 @@ function normalizeTaskStatus(taskState) {
     "skipped-success",
     "safe-bootstrap-complete",
     "safe-bootstrap-current-list-failed",
+    "detail-progress",
     "running",
   ]);
 
@@ -337,6 +338,10 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
 
   if (verificationBlocker) {
     return "blocked";
+  }
+
+  if (taskStatus === "detail-progress") {
+    return "detail-progress";
   }
 
   if (
@@ -448,6 +453,7 @@ export function buildSmokingpipesDailyMobileReport({
   });
   const taskFailure = findDailyTaskFailure(taskLogText);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
+  const detailCompletedThisRun = Number(taskState?.detailCompletedThisRun || 0);
   const detailQueueSpike =
     taskState?.detailQueueSpike &&
     typeof taskState.detailQueueSpike === "object"
@@ -608,9 +614,13 @@ export function buildSmokingpipesDailyMobileReport({
     candidates,
     (item) => item?.publicStatus === "not-public"
   );
-  const pendingDetailCount = calculatePendingDetailCount({
-    detailPending,
-  });
+  const taskPendingDetailCount = Number(taskState?.detailPendingCount);
+  const pendingDetailCount =
+    Number.isFinite(taskPendingDetailCount) && taskPendingDetailCount >= 0
+      ? taskPendingDetailCount
+      : calculatePendingDetailCount({
+          detailPending,
+        });
   const status = deriveStatus({ state, audit, taskLogText, taskState });
   const failureType = taskState?.lastFailureType || null;
   const reason = detailQueueSpikeBlocked
@@ -641,6 +651,8 @@ export function buildSmokingpipesDailyMobileReport({
         ? verificationBlocker
           ? "人工全量对齐暂停：源站验证"
           : "人工全量对齐：详情分批处理中"
+      : status === "detail-progress"
+      ? "详情分批处理中"
       : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
       : status === "success"
@@ -673,6 +685,8 @@ export function buildSmokingpipesDailyMobileReport({
         ? verificationBlocker
           ? "完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task。"
           : "继续手动运行 FetchDetailBatch；全部详情完成后再进入安全预览和人工审计。"
+      : status === "detail-progress"
+      ? "下轮继续处理剩余详情；将复用同一天完整 current-list 快照，不进入候选应用。"
       : unsafeApplyGap
       ? "检查 data/review/smokingpipes-apply-gap-diagnosis-report.md，确认隔离候选的分类。"
       : deriveNextStepV2({ status, failureType, cachedListResume }),
@@ -691,6 +705,7 @@ export function buildSmokingpipesDailyMobileReport({
     currentList,
     cachedListResume,
     detailPhaseStatus: detailPhaseStatus || null,
+    detailCompletedThisRun,
     detailQueueSpike,
     runMode: manualFullReconcileMode
       ? "manual-full-reconcile"
@@ -758,6 +773,7 @@ function statusLabelV2(status) {
   if (status === "lock-active") return "库存任务正在运行，等待下一轮";
   if (status === "stale-lock-cleared") return "已清理过期任务锁，继续执行";
   if (status === "detail-complete") return "详情队列已完成，正在进入候选应用";
+  if (status === "detail-progress") return "详情分批处理中";
   if (status === "retryable-failed") return "更新失败，将自动重试";
   if (status === "terminal-failed") return "更新失败，已停止重试";
   if (status === "manual-review-required") return "需要人工复核，已停止自动重试";
@@ -805,6 +821,10 @@ function deriveReasonV2({
 
   if (status === "detail-complete") {
     return "详情队列已完成，正在进入候选应用。";
+  }
+
+  if (status === "detail-progress") {
+    return `本轮已完成 ${Number(taskState?.detailCompletedThisRun || 0)} 条详情，剩余 ${Number(taskState?.detailPendingCount || 0)} 条；当前列表快照已保留，下一轮继续处理。`;
   }
 
   if (["retryable-failed", "terminal-failed", "manual-review-required", "safety-gate-blocked"].includes(status)) {
@@ -874,6 +894,10 @@ function deriveNextStepV2({ status, failureType = null, cachedListResume = null 
 
   if (status === "detail-complete") {
     return "执行 candidate/audit/apply";
+  }
+
+  if (status === "detail-progress") {
+    return "继续处理剩余详情；复用同一天完整 current-list 快照，待 pending 归零后才进入 apply gate。";
   }
 
   if (
@@ -1362,6 +1386,13 @@ export function buildPushDeerDailyMessage(report) {
       `源站访问：${sourceAccessText}`,
       `候选更新：${report.candidateCount}`,
       `正式应用：${report.appliedCount || 0}`,
+      ...(report.status === "detail-progress"
+        ? [
+            `本轮详情完成：${Number(report.detailCompletedThisRun || 0)}`,
+            `剩余详情：${pendingDetailCount}`,
+            "下轮：继续处理详情，不进入候选应用",
+          ]
+        : []),
       ...(report.isolatedCandidateCount > 0
         ? [`隔离候选：${report.isolatedCandidateCount}`]
         : []),

@@ -193,6 +193,12 @@ try {
   if ($dailyState.status -in @("manual-review-required", "safety-gate-blocked", "terminal-failed", "retryable-failed")) {
     Stop-AutoPublish -Status "safety-gate-blocked" -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
   }
+  if ($dailyState.status -eq "detail-progress") {
+    $report.deploymentStatus = "not-requested"
+    Write-AutoPublishReport -Status "detail-progress"
+    Send-AutoPublishNotification
+    exit 0
+  }
   if (-not $report.productionWritten) {
     $report.deploymentStatus = "not-requested"
     Write-AutoPublishReport -Status "no-production-change"
