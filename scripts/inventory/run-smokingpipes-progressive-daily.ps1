@@ -315,6 +315,7 @@ function Write-DailyTaskState {
     [object]$CachedListResume = $null,
     [string]$DetailPhaseStatus = $null,
     [object]$DetailPendingCount = $null,
+    [object]$DetailPending = $null,
     [object]$DetailCompletedThisRun = $null,
     [object]$DetailQueueSpike = $null
   )
@@ -354,6 +355,13 @@ function Write-DailyTaskState {
       $script:DetailPhaseStatus
     }
     detailPendingCount = if ($null -ne $DetailPendingCount) {
+      [int]$DetailPendingCount
+    } else {
+      [int]$script:DetailPendingCount
+    }
+    detailPending = if ($null -ne $DetailPending) {
+      [int]$DetailPending
+    } elseif ($null -ne $DetailPendingCount) {
       [int]$DetailPendingCount
     } else {
       [int]$script:DetailPendingCount
@@ -1399,6 +1407,8 @@ try {
       }
     }
     $detailPendingCount = [int]($detailQueueGuard.detailPendingCount)
+    $detailQueueGuard | Add-Member -NotePropertyName "measurementPhase" -NotePropertyValue "pre-detail-chunk" -Force
+    $detailQueueGuard | Add-Member -NotePropertyName "preChunkPendingDetailCount" -NotePropertyValue $detailPendingCount -Force
     $script:DetailPendingCount = $detailPendingCount
     $script:DetailQueueSpikeState = $detailQueueGuard
     $detailQueueBlockReasons = @($detailQueueGuard.blockReasons) -join "; "
@@ -1423,6 +1433,8 @@ try {
   }
 
   $script:DetailPendingCount = [int]($detailQueueGuard.detailPendingCount)
+  $detailQueueGuard | Add-Member -NotePropertyName "measurementPhase" -NotePropertyValue "pre-detail-chunk" -Force
+  $detailQueueGuard | Add-Member -NotePropertyName "preChunkPendingDetailCount" -NotePropertyValue $script:DetailPendingCount -Force
   $script:DetailQueueSpikeState = $detailQueueGuard
   Write-DailyLog "detail queue spike guard passed: pending=$($detailQueueGuard.detailPendingCount)"
 
@@ -1528,6 +1540,7 @@ try {
       -CurrentList $script:CurrentListState `
       -DetailPhaseStatus $script:DetailPhaseStatus `
       -DetailPendingCount $detailPendingRemaining `
+      -DetailPending $detailPendingRemaining `
       -DetailCompletedThisRun $script:DetailCompletedThisRun `
       -CachedListResume $script:CachedListResumeState
     Send-MobileReport
@@ -1543,6 +1556,7 @@ try {
     -RetryAllowed $true `
     -DetailPhaseStatus $detailStatus `
     -DetailPendingCount $detailPendingRemaining `
+    -DetailPending $detailPendingRemaining `
     -DetailCompletedThisRun $script:DetailCompletedThisRun `
     -CachedListResume $script:CachedListResumeState
 

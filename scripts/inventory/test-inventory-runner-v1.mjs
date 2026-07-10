@@ -5,7 +5,6 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import {
-  REFERENCE_PRICE_COMMON_CONFIG,
   calculateSmokingpipesReferencePrice,
   getSmokingpipesShippingUsd,
   getSmokingpipesShippingTier,
@@ -42,6 +41,7 @@ import {
   shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
 import {
+  auditSmokingpipesDuplicateIds,
   evaluateSmokingpipesCurrentListCache,
 } from "./smokingpipes-current-list-cache-v1.mjs";
 import {
@@ -1287,52 +1287,22 @@ for (const [orderAmountUsd, expectedShippingUsd] of [
   );
 }
 
-const petersonJuniorBulldogInput = {
-  sourcePriceAmount: 94,
-  brandName: "Peterson",
-  usdToCny: 6.8397,
-  pricingConfig: smokingpipesPricingForReferenceTests,
-};
 const petersonJuniorBulldogReference =
-  calculateSmokingpipesReferencePrice(petersonJuniorBulldogInput);
-const petersonExpectedImportCostFactor =
-  petersonJuniorBulldogInput.pricingConfig.importCostFactor ??
-  petersonJuniorBulldogInput.pricingConfig.taxFactor ??
-  1.2;
-const petersonExpectedPurchasePriceUsd =
-  petersonJuniorBulldogInput.sourcePriceAmount *
-  (1 - petersonJuniorBulldogInput.pricingConfig.brandDiscountRates.Peterson);
-const petersonExpectedShippingUsd = getSmokingpipesShippingUsd(
-  petersonExpectedPurchasePriceUsd,
-  petersonJuniorBulldogInput.pricingConfig
-);
-const petersonExpectedBaseCostCny =
-  (petersonExpectedPurchasePriceUsd * petersonExpectedImportCostFactor +
-    petersonExpectedShippingUsd) *
-  petersonJuniorBulldogInput.usdToCny;
-const petersonExpectedSiteDisplayAmount =
-  petersonExpectedBaseCostCny +
-  Math.max(
-    petersonExpectedBaseCostCny *
-      petersonJuniorBulldogInput.pricingConfig.serviceFeeRate,
-    petersonJuniorBulldogInput.pricingConfig.minServiceFeeCny
-  ) +
-  REFERENCE_PRICE_COMMON_CONFIG.domesticShippingCny;
+  calculateSmokingpipesReferencePrice({
+    sourcePriceAmount: 94,
+    brandName: "Peterson",
+    usdToCny: 6.8397,
+    pricingConfig: smokingpipesPricingForReferenceTests,
+  });
 assert.equal(petersonJuniorBulldogReference.purchasePriceUsd, 89.3);
 assert.equal(petersonJuniorBulldogReference.brandDiscountRate, 0.05);
 assert.equal(petersonJuniorBulldogReference.shippingUsd, 6);
 assert.notEqual(petersonJuniorBulldogReference.shippingUsd, 19);
 assert.equal(petersonJuniorBulldogReference.siteDisplayReady, true);
-assert.equal(
-  petersonJuniorBulldogReference.importCostFactor,
-  petersonExpectedImportCostFactor
-);
 assert.ok(
-  Math.abs(
-    petersonJuniorBulldogReference.siteDisplayAmount -
-      petersonExpectedSiteDisplayAmount
-  ) < 1e-6,
-  `Peterson Junior Bulldog reference price should equal CNY ${petersonExpectedSiteDisplayAmount}, got ${petersonJuniorBulldogReference.siteDisplayAmount}`
+  Math.abs(petersonJuniorBulldogReference.siteDisplayAmount - 1003.980452) <
+    1e-6,
+  `Peterson Junior Bulldog reference price should equal CNY 1003.980452, got ${petersonJuniorBulldogReference.siteDisplayAmount}`
 );
 
 const missingSmokingpipesPriceReference =
@@ -2036,6 +2006,33 @@ assert.equal(safeDuplicateManualRecoveryCache.conflictDuplicateIdCount, 0);
 assert.equal(safeDuplicateManualRecoveryCache.duplicateSamples[0].count, 2);
 assert.equal(safeDuplicateManualRecoveryCache.duplicateSamples[0].conflict, false);
 
+const threeDuplicateIdAudit = auditSmokingpipesDuplicateIds({
+  products: [
+    { sourceProductId: "safe", sourceUrl: "https://example.test/safe", title: "Safe", priceRaw: "$10", inventoryStatus: "available" },
+    { sourceProductId: "safe", sourceUrl: "https://example.test/safe", title: "Safe", priceRaw: "$10", inventoryStatus: "available" },
+    { sourceProductId: "conflict", sourceUrl: "https://example.test/conflict", title: "Conflict", priceRaw: "$20", inventoryStatus: "available" },
+    { sourceProductId: "conflict", sourceUrl: "https://example.test/conflict", title: "Conflict", priceRaw: "$21", inventoryStatus: "available" },
+    { sourceProductId: "single", sourceUrl: "https://example.test/single", title: "Single", priceRaw: "$30", inventoryStatus: "available" },
+  ],
+  sourceProductIds: ["safe", "conflict", "single"],
+});
+assert.equal(threeDuplicateIdAudit.requestedCount, 3);
+assert.equal(threeDuplicateIdAudit.safeDuplicateCount, 1);
+assert.equal(threeDuplicateIdAudit.conflictDuplicateCount, 1);
+assert.deepEqual(
+  threeDuplicateIdAudit.entries.map((entry) => entry.status),
+  ["safe-duplicate", "conflict-duplicate", "single"]
+);
+
+const crossDayCacheWithoutManualRecovery = evaluateSmokingpipesCurrentListCache({
+  currentListPath: currentListCachePath,
+  now: new Date("2026-06-26T12:00:00.000Z"),
+  allowStale: false,
+  allowDuplicateDedupe: true,
+});
+assert.equal(crossDayCacheWithoutManualRecovery.stale, true);
+assert.equal(crossDayCacheWithoutManualRecovery.usable, false);
+
 writeCurrentListCacheFixture({
   generatedAt: "2026-06-24T23:00:00",
   products: [
@@ -2231,6 +2228,8 @@ assert.equal(
   ),
   true
 );
+assert.equal(forceRunRecoveryPreflight.networkPlan.willFetchDetails, false);
+assert.equal(forceRunRecoveryPreflight.networkPlan.willStartBrowser, false);
 
 const cachedListResumePreflight = evaluateSmokingpipesDailyRecoveryPreflight({
   root: recoveryPreflightRoot,
@@ -2274,6 +2273,21 @@ assert.equal(
 );
 assert.equal(cachedListResumePreflight.overall.willFetchCurrentList, false);
 assert.equal(cachedListResumePreflight.overall.willWriteProduction, false);
+
+const standardDailyPreflight = evaluateSmokingpipesDailyRecoveryPreflight({
+  root: recoveryPreflightRoot,
+  now: recoveryPreflightNow,
+  options: {
+    preflightOnly: false,
+    skipCurrentList: false,
+    allowStaleCurrentListCache: false,
+    allowDuplicateDedupe: false,
+    forceRunOnce: true,
+  },
+  isProcessAlive: () => false,
+});
+assert.equal(standardDailyPreflight.networkPlan.willFetchDetails, true);
+assert.equal(standardDailyPreflight.networkPlan.willStartBrowser, true);
 
 const unsafeCachedListResumePreflight =
   evaluateSmokingpipesDailyRecoveryPreflight({
@@ -9336,6 +9350,7 @@ const verificationLogReport = buildSmokingpipesDailyMobileReport({
 
 const detailProgressMobileReport = buildSmokingpipesDailyMobileReport({
   runAt: "2026-07-11T10:30:00.000+08:00",
+  taskLogText: '{"blocked": false, "auditStatus": "missing"}',
   taskState: {
     source: "smokingpipes",
     status: "detail-progress",
@@ -9343,7 +9358,8 @@ const detailProgressMobileReport = buildSmokingpipesDailyMobileReport({
     retryAllowed: true,
     detailPhaseStatus: "detail-progress",
     detailCompletedThisRun: 30,
-    detailPendingCount: 141,
+    detailPending: 149,
+    detailPendingCount: 179,
     cachedListResume: {
       enabled: true,
       lockedUntilComplete: true,
@@ -9356,23 +9372,19 @@ const detailProgressMobileReport = buildSmokingpipesDailyMobileReport({
     expectedPages: 107,
     candidates: [],
   },
-  audit: {
-    verdict: "PASS",
-    candidateCount: 316,
-    wouldApplyCount: 316,
-    productionWritten: false,
-    blockers: [],
-    warnings: [],
-  },
 });
 assert.equal(detailProgressMobileReport.status, "detail-progress");
 assert.equal(detailProgressMobileReport.productionWritten, false);
 assert.equal(detailProgressMobileReport.retryAllowed, true);
 assert.equal(detailProgressMobileReport.detailCompletedThisRun, 30);
-assert.equal(detailProgressMobileReport.pendingDetailCount, 141);
+assert.equal(detailProgressMobileReport.detailPending, 149);
+assert.equal(detailProgressMobileReport.pendingDetailCount, 149);
+assert.equal(detailProgressMobileReport.auditStatus, "DEFERRED");
+assert.deepEqual(detailProgressMobileReport.blockers, []);
+assert.equal(detailProgressMobileReport.verificationRequired, false);
 const detailProgressMessage = buildPushDeerDailyMessage(detailProgressMobileReport);
 assert.match(detailProgressMessage.body, /30/);
-assert.match(detailProgressMessage.body, /141/);
+assert.match(detailProgressMessage.body, /149/);
 assert.doesNotMatch(detailProgressMessage.body, /候选应用被安全门禁阻断/);
 
 assert.equal(verificationLogReport.status, "blocked");
@@ -11322,6 +11334,9 @@ assert.ok(
 assert.match(detailProgressBranch, /-Status "detail-progress"/);
 assert.match(detailProgressBranch, /-ProductionWritten \$false/);
 assert.match(detailProgressBranch, /-RetryAllowed \$true/);
+assert.match(detailProgressBranch, /ResumeFromCachedListEffective = \$true/);
+assert.match(detailProgressBranch, /LockCurrentListSnapshotUntilCompleteEffective = \$true/);
+assert.match(detailProgressBranch, /Set-CachedListResumeFromCache -Cache \$currentListCache -Completed \$false/);
 assert.doesNotMatch(
   detailProgressBranch,
   /StepName "progressive-prepare-apply"/
@@ -11329,6 +11344,10 @@ assert.doesNotMatch(
 assert.ok(
   dailyTaskScript.indexOf("$detailPendingRemaining -gt 0") <
     dailyTaskScript.indexOf('StepName "progressive-prepare-apply"')
+);
+assert.match(
+  dailyTaskScript,
+  /Set-CachedListResumeFromCache -Cache \$currentListCache -Completed \$true/
 );
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+commit\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+push\b/i);

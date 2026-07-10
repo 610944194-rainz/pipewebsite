@@ -45,7 +45,7 @@ const REPORT_TITLE = "烟斗派库存日报｜Smokingpipes";
 const VERIFICATION_PATTERN =
   /strong verification detected|captcha\/currentlistverificationdetected|current-list verification was detected|verification detected|captcha\s+(?:detected|required|blocked|challenge)|cloudflare|manual verification|profile blocked|\bblocked\b/i;
 const BENIGN_VERIFICATION_PATTERN =
-  /"?(?:captchaDetected|verificationDetected|verificationDetectedAt|manualVerificationRecovered|weakVerificationDetected)"?\s*:\s*(?:false|null)/i;
+  /"?(?:captchaDetected|verificationDetected|verificationDetectedAt|manualVerificationRecovered|weakVerificationDetected|blocked)"?\s*:\s*(?:false|null)/i;
 const DAILY_TASK_FAILED_PATTERN = /DAILY TASK FAILED:\s*(.+)$/im;
 const NON_VERIFICATION_BLOCKED_PATTERN =
   /apply\s+blocked|inventory automation is already running|missing input|lock:/i;
@@ -316,6 +316,10 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
   const taskStatus = normalizeTaskStatus(taskState);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
 
+  if (taskStatus === "detail-progress") {
+    return "detail-progress";
+  }
+
   const auditStatus = getAuditStatus(audit);
   const blockers = toArray(audit?.blockers);
   const verificationBlocker = findVerificationBlocker({
@@ -338,10 +342,6 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
 
   if (verificationBlocker) {
     return "blocked";
-  }
-
-  if (taskStatus === "detail-progress") {
-    return "detail-progress";
   }
 
   if (
@@ -431,7 +431,9 @@ export function buildSmokingpipesDailyMobileReport({
 } = {}) {
   const candidates = toArray(state?.candidates);
   const counts = getAuditCounts(audit);
-  const blockers = [...toArray(audit?.blockers)];
+  const taskStatus = normalizeTaskStatus(taskState);
+  const isDetailProgress = taskStatus === "detail-progress";
+  const blockers = isDetailProgress ? [] : [...toArray(audit?.blockers)];
   const warnings = toArray(audit?.warnings);
   const currentList =
     taskState?.currentList && typeof taskState.currentList === "object"
@@ -446,11 +448,13 @@ export function buildSmokingpipesDailyMobileReport({
   const progressiveLock = progressiveLockFromTaskState(taskState);
   const inventoryLocks = inventoryLocksFromTaskState(taskState);
   const stateBlockedReason = normalizeText(state?.blockedReason);
-  const verificationBlocker = findVerificationBlocker({
-    state,
-    audit,
-    taskLogText,
-  });
+  const verificationBlocker = isDetailProgress
+    ? ""
+    : findVerificationBlocker({
+        state,
+        audit,
+        taskLogText,
+      });
   const taskFailure = findDailyTaskFailure(taskLogText);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
   const detailCompletedThisRun = Number(taskState?.detailCompletedThisRun || 0);
@@ -549,13 +553,18 @@ export function buildSmokingpipesDailyMobileReport({
     };
   }
 
-  if (verificationBlocker && !blockers.includes(verificationBlocker)) {
+  if (!isDetailProgress && verificationBlocker && !blockers.includes(verificationBlocker)) {
     blockers.unshift(verificationBlocker);
   }
-  if (taskFailure && !verificationBlocker && !blockers.includes(taskFailure)) {
+  if (
+    !isDetailProgress &&
+    taskFailure &&
+    !verificationBlocker &&
+    !blockers.includes(taskFailure)
+  ) {
     blockers.unshift(taskFailure);
   }
-  if (stateBlockedReason && blockers.length === 0) {
+  if (!isDetailProgress && stateBlockedReason && blockers.length === 0) {
     blockers.push(stateBlockedReason);
   }
 
@@ -594,7 +603,7 @@ export function buildSmokingpipesDailyMobileReport({
     candidates,
     (item) => item?.detailStatus === "failed"
   );
-  const detailPending = countBy(
+  const candidateDetailPending = countBy(
     candidates,
     (item) => item?.detailStatus === "pending"
   );
@@ -614,15 +623,18 @@ export function buildSmokingpipesDailyMobileReport({
     candidates,
     (item) => item?.publicStatus === "not-public"
   );
-  const taskPendingDetailCount = Number(taskState?.detailPendingCount);
-  const pendingDetailCount =
+  const taskPendingDetailCount = Number(
+    taskState?.detailPending ?? taskState?.detailPendingCount
+  );
+  const detailPending =
     Number.isFinite(taskPendingDetailCount) && taskPendingDetailCount >= 0
       ? taskPendingDetailCount
-      : calculatePendingDetailCount({
-          detailPending,
-        });
+      : candidateDetailPending;
+  const pendingDetailCount = calculatePendingDetailCount({ detailPending });
   const status = deriveStatus({ state, audit, taskLogText, taskState });
-  const failureType = taskState?.lastFailureType || null;
+  const failureType = isDetailProgress
+    ? null
+    : taskState?.lastFailureType || null;
   const reason = detailQueueSpikeBlocked
     ? `待处理详情突然增加到 ${pendingDetailCount}，超过正常范围，已暂停自动续跑。`
     : manualFullReconcileMode
@@ -712,7 +724,7 @@ export function buildSmokingpipesDailyMobileReport({
       : "daily-update",
     manualFullReconcile,
     manualDetailBatch,
-    verificationRequired: Boolean(verificationBlocker),
+    verificationRequired: !isDetailProgress && Boolean(verificationBlocker),
     retryAllowed:
       typeof taskState?.retryAllowed === "boolean"
         ? taskState.retryAllowed
@@ -754,7 +766,9 @@ export function buildSmokingpipesDailyMobileReport({
     pendingDetailCount,
     blockers,
     warnings,
-    auditStatus: getAuditStatus(audit) || null,
+    auditStatus: isDetailProgress
+      ? "DEFERRED"
+      : getAuditStatus(audit) || null,
     auditCounts: {
       deletedProducts: Number(counts.deletedProducts || 0),
       pendingLeak: Number(counts.pendingLeak || 0),

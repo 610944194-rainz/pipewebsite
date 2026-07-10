@@ -225,13 +225,14 @@ function buildNetworkPlan(options, currentListCache) {
   const willFetchCurrentList = resumeFromCachedList
     ? false
     : !Boolean(options.skipCurrentList);
-  const willFetchDetails = resumeFromCachedList;
+  const willFetchDetails = !options.preflightOnly;
 
   return {
     willAccessSmokingpipes: willFetchCurrentList || willFetchDetails,
     willFetchCurrentList,
     willFetchDetails,
-    willStartBrowser: willFetchCurrentList || willFetchDetails,
+    willStartBrowser:
+      !options.preflightOnly && (willFetchCurrentList || willFetchDetails),
     willUseExistingCurrentListCache:
       Boolean(options.skipCurrentList) && Boolean(currentListCache.usable),
     willUseExistingStateOnly: false,

@@ -130,6 +130,48 @@ function analyzeDuplicateProducts(products, duplicateSourceProductIdsFromField =
   };
 }
 
+export function auditSmokingpipesDuplicateIds({
+  products = [],
+  sourceProductIds = [],
+} = {}) {
+  const requestedIds = [...new Set(sourceProductIds.map(normalizeComparable).filter(Boolean))];
+  const byId = new Map();
+  for (const product of toArray(products)) {
+    const sourceProductId = normalizeComparable(product?.sourceProductId);
+    if (!sourceProductId) continue;
+    if (!byId.has(sourceProductId)) byId.set(sourceProductId, []);
+    byId.get(sourceProductId).push(product);
+  }
+  const duplicateInfo = analyzeDuplicateProducts(toArray(products));
+  const samplesById = new Map(
+    duplicateInfo.duplicateSamples.map((sample) => [sample.sourceProductId, sample])
+  );
+  const entries = requestedIds.map((sourceProductId) => {
+    const records = byId.get(sourceProductId) || [];
+    const duplicateSample = samplesById.get(sourceProductId) || null;
+    return {
+      sourceProductId,
+      recordCount: records.length,
+      status:
+        records.length === 0
+          ? "missing"
+          : records.length === 1
+            ? "single"
+            : duplicateSample?.conflict
+              ? "conflict-duplicate"
+              : "safe-duplicate",
+      conflict: duplicateSample?.conflict === true,
+      records: records.slice(0, 3),
+    };
+  });
+  return {
+    requestedCount: requestedIds.length,
+    safeDuplicateCount: entries.filter((entry) => entry.status === "safe-duplicate").length,
+    conflictDuplicateCount: entries.filter((entry) => entry.status === "conflict-duplicate").length,
+    entries,
+  };
+}
+
 function summarizeCurrentListPayload(payload) {
   const summary = payload?.summary && typeof payload.summary === "object"
     ? payload.summary
