@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import {
+  REFERENCE_PRICE_COMMON_CONFIG,
   calculateSmokingpipesReferencePrice,
   getSmokingpipesShippingUsd,
   getSmokingpipesShippingTier,
@@ -1286,22 +1287,52 @@ for (const [orderAmountUsd, expectedShippingUsd] of [
   );
 }
 
+const petersonJuniorBulldogInput = {
+  sourcePriceAmount: 94,
+  brandName: "Peterson",
+  usdToCny: 6.8397,
+  pricingConfig: smokingpipesPricingForReferenceTests,
+};
 const petersonJuniorBulldogReference =
-  calculateSmokingpipesReferencePrice({
-    sourcePriceAmount: 94,
-    brandName: "Peterson",
-    usdToCny: 6.8397,
-    pricingConfig: smokingpipesPricingForReferenceTests,
-  });
+  calculateSmokingpipesReferencePrice(petersonJuniorBulldogInput);
+const petersonExpectedImportCostFactor =
+  petersonJuniorBulldogInput.pricingConfig.importCostFactor ??
+  petersonJuniorBulldogInput.pricingConfig.taxFactor ??
+  1.2;
+const petersonExpectedPurchasePriceUsd =
+  petersonJuniorBulldogInput.sourcePriceAmount *
+  (1 - petersonJuniorBulldogInput.pricingConfig.brandDiscountRates.Peterson);
+const petersonExpectedShippingUsd = getSmokingpipesShippingUsd(
+  petersonExpectedPurchasePriceUsd,
+  petersonJuniorBulldogInput.pricingConfig
+);
+const petersonExpectedBaseCostCny =
+  (petersonExpectedPurchasePriceUsd * petersonExpectedImportCostFactor +
+    petersonExpectedShippingUsd) *
+  petersonJuniorBulldogInput.usdToCny;
+const petersonExpectedSiteDisplayAmount =
+  petersonExpectedBaseCostCny +
+  Math.max(
+    petersonExpectedBaseCostCny *
+      petersonJuniorBulldogInput.pricingConfig.serviceFeeRate,
+    petersonJuniorBulldogInput.pricingConfig.minServiceFeeCny
+  ) +
+  REFERENCE_PRICE_COMMON_CONFIG.domesticShippingCny;
 assert.equal(petersonJuniorBulldogReference.purchasePriceUsd, 89.3);
 assert.equal(petersonJuniorBulldogReference.brandDiscountRate, 0.05);
 assert.equal(petersonJuniorBulldogReference.shippingUsd, 6);
 assert.notEqual(petersonJuniorBulldogReference.shippingUsd, 19);
 assert.equal(petersonJuniorBulldogReference.siteDisplayReady, true);
+assert.equal(
+  petersonJuniorBulldogReference.importCostFactor,
+  petersonExpectedImportCostFactor
+);
 assert.ok(
-  petersonJuniorBulldogReference.siteDisplayAmount >= 880 &&
-    petersonJuniorBulldogReference.siteDisplayAmount <= 900,
-  `Peterson Junior Bulldog reference price should be around CNY 880-900, got ${petersonJuniorBulldogReference.siteDisplayAmount}`
+  Math.abs(
+    petersonJuniorBulldogReference.siteDisplayAmount -
+      petersonExpectedSiteDisplayAmount
+  ) < 1e-6,
+  `Peterson Junior Bulldog reference price should equal CNY ${petersonExpectedSiteDisplayAmount}, got ${petersonJuniorBulldogReference.siteDisplayAmount}`
 );
 
 const missingSmokingpipesPriceReference =
