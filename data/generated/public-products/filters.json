@@ -12,7 +12,7 @@
         "value": "smokingpipes",
         "label": "smokingpipes",
         "labelZh": null,
-        "productCount": 6080
+        "productCount": 6242
       }
     ],
     "brand": [
@@ -224,7 +224,7 @@
         "value": "chacom",
         "label": "Chacom",
         "labelZh": null,
-        "productCount": 192
+        "productCount": 191
       },
       {
         "value": "charatans",
@@ -932,7 +932,7 @@
         "value": "Unknown",
         "label": "Unknown",
         "labelZh": null,
-        "productCount": 785
+        "productCount": 948
       },
       {
         "value": "Unknown Meerschaum",
@@ -1054,7 +1054,7 @@
         "value": "France",
         "label": "France",
         "labelZh": null,
-        "productCount": 303
+        "productCount": 302
       },
       {
         "value": "France / United Kingdom",
@@ -1128,19 +1128,19 @@
         "value": "Acorn/Pear",
         "label": "Acorn/Pear",
         "labelZh": null,
-        "productCount": 106
+        "productCount": 107
       },
       {
         "value": "Apple",
         "label": "Apple",
         "labelZh": "弯式苹果斗",
-        "productCount": 381
+        "productCount": 383
       },
       {
         "value": "Author",
         "label": "Author",
         "labelZh": "作家式斗",
-        "productCount": 67
+        "productCount": 68
       },
       {
         "value": "Bent Apple",
@@ -1158,7 +1158,7 @@
         "value": "Bent Billiard",
         "label": "Bent Billiard",
         "labelZh": "弯式撞球斗",
-        "productCount": 876
+        "productCount": 879
       },
       {
         "value": "Bent Brandy",
@@ -1170,13 +1170,13 @@
         "value": "Bent Bulldog",
         "label": "Bent Bulldog",
         "labelZh": "弯式斗牛犬斗",
-        "productCount": 101
+        "productCount": 137
       },
       {
         "value": "Bent Dublin",
         "label": "Bent Dublin",
         "labelZh": "弯式都柏林斗",
-        "productCount": 557
+        "productCount": 573
       },
       {
         "value": "Bent Egg",
@@ -1188,13 +1188,13 @@
         "value": "Bent Pot",
         "label": "Bent Pot",
         "labelZh": "弯式罐式斗",
-        "productCount": 119
+        "productCount": 120
       },
       {
         "value": "Billiard",
         "label": "Billiard",
         "labelZh": "撞球斗",
-        "productCount": 1351
+        "productCount": 1434
       },
       {
         "value": "Blowfish",
@@ -1212,7 +1212,7 @@
         "value": "Bulldog",
         "label": "Bulldog",
         "labelZh": "斗牛犬斗",
-        "productCount": 161
+        "productCount": 169
       },
       {
         "value": "Calabash",
@@ -1260,7 +1260,7 @@
         "value": "Dublin",
         "label": "Dublin",
         "labelZh": "都柏林斗",
-        "productCount": 436
+        "productCount": 442
       },
       {
         "value": "Figural",
@@ -1344,7 +1344,7 @@
         "value": "Rhodesian",
         "label": "Rhodesian",
         "labelZh": "牛头斗",
-        "productCount": 379
+        "productCount": 384
       },
       {
         "value": "Skater",
@@ -1418,7 +1418,7 @@
         "value": "Rusticated",
         "label": "Rusticated",
         "labelZh": "锈面",
-        "productCount": 1304
+        "productCount": 1386
       },
       {
         "value": "Rusticated and Sandblasted",
@@ -1430,19 +1430,19 @@
         "value": "Sandblast",
         "label": "Sandblast",
         "labelZh": "喷砂",
-        "productCount": 1649
+        "productCount": 1687
       },
       {
         "value": "Smooth",
         "label": "Smooth",
         "labelZh": "光面",
-        "productCount": 3119
+        "productCount": 3160
       },
       {
         "value": "Spot Carved",
         "label": "Spot Carved",
         "labelZh": "局部雕刻",
-        "productCount": 21
+        "productCount": 22
       },
       {
         "value": "z_N/A",
@@ -1456,7 +1456,7 @@
         "value": "Briar",
         "label": "Briar",
         "labelZh": "石楠根",
-        "productCount": 5602
+        "productCount": 5762
       },
       {
         "value": "Clay",
@@ -1474,7 +1474,7 @@
         "value": "Meerschaum",
         "label": "Meerschaum",
         "labelZh": "海泡石",
-        "productCount": 327
+        "productCount": 329
       },
       {
         "value": "Morta",
@@ -1500,7 +1500,7 @@
         "value": "Acrylic",
         "label": "Acrylic",
         "labelZh": "亚克力",
-        "productCount": 4295
+        "productCount": 4297
       },
       {
         "value": "Bakelite",
@@ -1518,13 +1518,13 @@
         "value": "Horn",
         "label": "Horn",
         "labelZh": "天然角质",
-        "productCount": 23
+        "productCount": 24
       },
       {
         "value": "Vulcanite",
         "label": "Vulcanite",
         "labelZh": "硫化橡胶",
-        "productCount": 1604
+        "productCount": 1763
       }
     ],
     "filter": [
@@ -1532,7 +1532,7 @@
         "value": "6mm",
         "label": "6mm",
         "labelZh": null,
-        "productCount": 857
+        "productCount": 858
       },
       {
         "value": "9mm",
@@ -1544,7 +1544,7 @@
         "value": "none",
         "label": "none",
         "labelZh": null,
-        "productCount": 4003
+        "productCount": 4164
       }
     ],
     "inventoryStatus": [
@@ -1552,18 +1552,18 @@
         "value": "available",
         "label": "available",
         "labelZh": null,
-        "productCount": 7207
+        "productCount": 7266
       },
       {
         "value": "sold",
         "label": "sold",
         "labelZh": null,
-        "productCount": 994
+        "productCount": 1097
       }
     ]
   },
   "sourcePriceUsdStats": {
-    "productCount": 8201,
+    "productCount": 8363,
     "min": 0.16,
     "max": 14185.6
   },
