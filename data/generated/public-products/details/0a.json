@@ -5259,12 +5259,12 @@
       "sourcePriceAmount": 8.99,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 332.527103,
+      "siteDisplayAmount": 344.8248836,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5289,7 +5289,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "pony express tobacco pipe",
-        "price": 332.527103,
+        "price": 344.8248836,
         "sourceProductId": "109742"
       },
       "displayNameZh": null,
@@ -5401,12 +5401,12 @@
       "sourcePriceAmount": 42.49,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 561.657053,
+      "siteDisplayAmount": 619.7808236000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5431,7 +5431,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "cobbit dwarf tobacco pipe",
-        "price": 561.657053,
+        "price": 619.7808236000001,
         "sourceProductId": "169876"
       },
       "displayNameZh": null,
@@ -5549,12 +5549,12 @@
       "sourcePriceAmount": 1,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 277.8779,
+      "siteDisplayAmount": 279.24584,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5579,7 +5579,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "highway nine deluxe smooth starter kit bent tobacco pipe",
-        "price": 277.8779,
+        "price": 279.24584,
         "sourceProductId": "361108"
       },
       "displayNameZh": null,
@@ -5705,7 +5705,7 @@
       "sourcePriceAmount": 3450,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 23567.9725875,
+      "siteDisplayAmount": 28181.179245,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5735,7 +5735,7 @@
       "sortKeys": {
         "brand": "dunhill",
         "name": "the suffragette movement county (2313) (13/18) (2023) tobacco pipe",
-        "price": 23567.9725875,
+        "price": 28181.179245,
         "sourceProductId": "590660"
       },
       "displayNameZh": null,
@@ -5870,7 +5870,7 @@
       "sourcePriceAmount": 236,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 295,
-      "siteDisplayAmount": 2035.7420249999996,
+      "siteDisplayAmount": 2407.000941,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5900,7 +5900,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "trafalgar ye olde wood (1822) (9mm) tobacco pipe",
-        "price": 2035.7420249999996,
+        "price": 2407.000941,
         "sourceProductId": "594137"
       },
       "displayNameZh": null,
@@ -6031,7 +6031,7 @@
       "sourcePriceAmount": 207,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 230,
-      "siteDisplayAmount": 1807.6380299999998,
+      "siteDisplayAmount": 2133.2761469999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -6061,7 +6061,7 @@
       "sortKeys": {
         "brand": "gh zhang",
         "name": "sanblasted bent apple with silver (ping zhan) (08) (2023) tobacco pipe",
-        "price": 1807.6380299999998,
+        "price": 2133.2761469999996,
         "sourceProductId": "608729"
       },
       "displayNameZh": null,
@@ -6188,7 +6188,7 @@
       "sourcePriceAmount": 630,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 700,
-      "siteDisplayAmount": 5457.301949999999,
+      "siteDisplayAmount": 6448.374479999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -6218,7 +6218,7 @@
       "sortKeys": {
         "brand": "cavicchi",
         "name": "smooth bent dublin (cccc) tobacco pipe",
-        "price": 5457.301949999999,
+        "price": 6448.374479999999,
         "sourceProductId": "641749"
       },
       "displayNameZh": null,
@@ -6345,7 +6345,7 @@
       "sourcePriceAmount": 99.75,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 105,
-      "siteDisplayAmount": 953.2982749999999,
+      "siteDisplayAmount": 1089.75029,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -6375,7 +6375,7 @@
       "sortKeys": {
         "brand": "the french pipe",
         "name": "marinière smooth (14) (6mm) tobacco pipe",
-        "price": 953.2982749999999,
+        "price": 1089.75029,
         "sourceProductId": "641947"
       },
       "displayNameZh": null,
@@ -6507,7 +6507,7 @@
       "sourcePriceAmount": 325,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2735.7853199999995,
+      "siteDisplayAmount": 3247.0528949999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -6537,7 +6537,7 @@
       "sortKeys": {
         "brand": "jacono",
         "name": "rook dublin (2024) tobacco pipe",
-        "price": 2735.7853199999995,
+        "price": 3247.0528949999994,
         "sourceProductId": "651925"
       },
       "displayNameZh": null,
@@ -6664,12 +6664,12 @@
       "sourcePriceAmount": 58,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 72.5,
-      "siteDisplayAmount": 667.7408,
+      "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6694,7 +6694,7 @@
       "sortKeys": {
         "brand": "molina",
         "name": "shorty black (mo4) (9mm) tobacco pipe",
-        "price": 667.7408,
+        "price": 747.0813199999999,
         "sourceProductId": "653719"
       },
       "displayNameZh": null,
@@ -6819,12 +6819,12 @@
       "sourcePriceAmount": 72,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 90,
-      "siteDisplayAmount": 763.4966,
+      "siteDisplayAmount": 861.9882799999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6849,7 +6849,7 @@
       "sortKeys": {
         "brand": "molina",
         "name": "barasso smooth natural (190) (9mm) tobacco pipe",
-        "price": 763.4966,
+        "price": 861.9882799999999,
         "sourceProductId": "653778"
       },
       "displayNameZh": null,
@@ -6979,7 +6979,7 @@
       "sourcePriceAmount": 234,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 260,
-      "siteDisplayAmount": 2020.0107149999997,
+      "siteDisplayAmount": 2388.123369,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7009,7 +7009,7 @@
       "sortKeys": {
         "brand": "gh zhang",
         "name": "red sandblasted bent dublin sitter (jared coles) (01) tobacco pipe",
-        "price": 2020.0107149999997,
+        "price": 2388.123369,
         "sourceProductId": "656924"
       },
       "displayNameZh": null,
@@ -7136,7 +7136,7 @@
       "sourcePriceAmount": 160,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 200,
-      "siteDisplayAmount": 1399.5886999999998,
+      "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7166,7 +7166,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "bosco rusticated (670 ks) (6mm) tobacco pipe",
-        "price": 1399.5886999999998,
+        "price": 1614.1429169999997,
         "sourceProductId": "659138"
       },
       "displayNameZh": null,
@@ -7296,7 +7296,7 @@
       "sourcePriceAmount": 272,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 340,
-      "siteDisplayAmount": 2318.905605,
+      "siteDisplayAmount": 2746.7972369999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7326,7 +7326,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "william guinea grain (1832) tobacco pipe",
-        "price": 2318.905605,
+        "price": 2746.7972369999998,
         "sourceProductId": "661165"
       },
       "displayNameZh": null,
@@ -7459,7 +7459,7 @@
       "sourcePriceAmount": 139.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 155,
-      "siteDisplayAmount": 1225.17635,
+      "siteDisplayAmount": 1416.00398,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7489,7 +7489,7 @@
       "sortKeys": {
         "brand": "briarworks",
         "name": "classic dark sandblasted with coffee stem (c142) tobacco pipe",
-        "price": 1225.17635,
+        "price": 1416.00398,
         "sourceProductId": "669566"
       },
       "displayNameZh": null,
@@ -7614,7 +7614,7 @@
       "sourcePriceAmount": 198,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 220,
-      "siteDisplayAmount": 1736.847135,
+      "siteDisplayAmount": 2048.327073,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7644,7 +7644,7 @@
       "sortKeys": {
         "brand": "erik stokkebye 4th generation",
         "name": "spring collection bent dublin tobacco pipe",
-        "price": 1736.847135,
+        "price": 2048.327073,
         "sourceProductId": "671113"
       },
       "displayNameZh": null,
@@ -7769,7 +7769,7 @@
       "sourcePriceAmount": 155.4,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1422.84368,
+      "siteDisplayAmount": 1646.2347893999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7799,7 +7799,7 @@
       "sortKeys": {
         "brand": "brigham",
         "name": "acadian (19) (rock maple inserts) tobacco pipe",
-        "price": 1422.84368,
+        "price": 1646.2347893999997,
         "sourceProductId": "675843"
       },
       "displayNameZh": null,
@@ -7918,7 +7918,7 @@
       "sourcePriceAmount": 144,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 180,
-      "siteDisplayAmount": 1255.955,
+      "siteDisplayAmount": 1452.9383599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7948,7 +7948,7 @@
       "sortKeys": {
         "brand": "brigham",
         "name": "chinook (47) (rock maple inserts) tobacco pipe",
-        "price": 1255.955,
+        "price": 1452.9383599999999,
         "sourceProductId": "675877"
       },
       "displayNameZh": null,
@@ -8067,7 +8067,7 @@
       "sourcePriceAmount": 150,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 187.5,
-      "siteDisplayAmount": 1385.9092999999998,
+      "siteDisplayAmount": 1595.265345,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8097,7 +8097,7 @@
       "sortKeys": {
         "brand": "brigham",
         "name": "heritage (24) (rock maple inserts) tobacco pipe",
-        "price": 1385.9092999999998,
+        "price": 1595.265345,
         "sourceProductId": "675896"
       },
       "displayNameZh": null,
@@ -8216,7 +8216,7 @@
       "sourcePriceAmount": 164,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 205,
-      "siteDisplayAmount": 1481.6650999999997,
+      "siteDisplayAmount": 1727.4083489999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8246,7 +8246,7 @@
       "sortKeys": {
         "brand": "brigham",
         "name": "klondike (16) (rock maple inserts) tobacco pipe",
-        "price": 1481.6650999999997,
+        "price": 1727.4083489999998,
         "sourceProductId": "675911"
       },
       "displayNameZh": null,
@@ -8365,12 +8365,12 @@
       "sourcePriceAmount": 230,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1988.5480949999996,
+      "siteDisplayAmount": 2350.3682249999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8395,7 +8395,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "lowland (67) (9mm) tobacco pipe",
-        "price": 1988.5480949999996,
+        "price": 2350.3682249999997,
         "sourceProductId": "676285"
       },
       "displayNameZh": null,
@@ -8520,7 +8520,7 @@
       "sourcePriceAmount": 168,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 210,
-      "siteDisplayAmount": 1509.0239000000001,
+      "siteDisplayAmount": 1765.1634929999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8550,7 +8550,7 @@
       "sortKeys": {
         "brand": "rattray's",
         "name": "majesty smooth black (18) (9mm) tobacco pipe",
-        "price": 1509.0239000000001,
+        "price": 1765.1634929999998,
         "sourceProductId": "676295"
       },
       "displayNameZh": null,
@@ -8681,7 +8681,7 @@
       "sourcePriceAmount": 224,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 280,
-      "siteDisplayAmount": 1941.3541649999997,
+      "siteDisplayAmount": 2293.7355089999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8711,7 +8711,7 @@
       "sortKeys": {
         "brand": "rattray's",
         "name": "rannoch smooth light (201) (9mm) tobacco pipe",
-        "price": 1941.3541649999997,
+        "price": 2293.7355089999996,
         "sourceProductId": "676404"
       },
       "displayNameZh": null,
@@ -8842,7 +8842,7 @@
       "sourcePriceAmount": 224,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 280,
-      "siteDisplayAmount": 1941.3541649999997,
+      "siteDisplayAmount": 2293.7355089999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8872,7 +8872,7 @@
       "sortKeys": {
         "brand": "rattray's",
         "name": "rannoch smooth light (204) (9mm) tobacco pipe",
-        "price": 1941.3541649999997,
+        "price": 2293.7355089999996,
         "sourceProductId": "676407"
       },
       "displayNameZh": null,
@@ -9003,7 +9003,7 @@
       "sourcePriceAmount": 220.15,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 259,
-      "siteDisplayAmount": 1911.0713932499998,
+      "siteDisplayAmount": 2257.3961829,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9033,7 +9033,7 @@
       "sortKeys": {
         "brand": "vauen",
         "name": "ambrosi (8146) (9mm) tobacco pipe",
-        "price": 1911.0713932499998,
+        "price": 2257.3961829,
         "sourceProductId": "676475"
       },
       "displayNameZh": null,
@@ -9164,7 +9164,7 @@
       "sourcePriceAmount": 322.57,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 379.5,
-      "siteDisplayAmount": 2716.67177835,
+      "siteDisplayAmount": 3224.1166450199994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9194,7 +9194,7 @@
       "sortKeys": {
         "brand": "vauen",
         "name": "auenland berwin sandblasted churchwarden (9mm) tobacco pipe",
-        "price": 2716.67177835,
+        "price": 3224.1166450199994,
         "sourceProductId": "676485"
       },
       "displayNameZh": null,
@@ -9326,7 +9326,7 @@
       "sourcePriceAmount": 192.07,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 295.5,
-      "siteDisplayAmount": 1690.20380085,
+      "siteDisplayAmount": 1992.3550720199999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -9356,7 +9356,7 @@
       "sortKeys": {
         "brand": "vauen",
         "name": "harlekin sandblasted (546) (9mm) tobacco pipe",
-        "price": 1690.20380085,
+        "price": 1992.3550720199999,
         "sourceProductId": "676624"
       },
       "displayNameZh": null,
@@ -9489,7 +9489,7 @@
       "sourcePriceAmount": 475,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 4238.125424999999,
+      "siteDisplayAmount": 4985.362649999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9519,7 +9519,7 @@
       "sortKeys": {
         "brand": "emiliano",
         "name": "sandblasted natural prince with jupati tobacco pipe",
-        "price": 4238.125424999999,
+        "price": 4985.362649999999,
         "sourceProductId": "680358"
       },
       "displayNameZh": null,
@@ -9646,7 +9646,7 @@
       "sourcePriceAmount": 172,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 215,
-      "siteDisplayAmount": 1536.3827,
+      "siteDisplayAmount": 1802.918637,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -9676,7 +9676,7 @@
       "sortKeys": {
         "brand": "brebbia",
         "name": "sun (834) (9mm) tobacco pipe",
-        "price": 1536.3827,
+        "price": 1802.918637,
         "sourceProductId": "680644"
       },
       "displayNameZh": null,
@@ -9807,7 +9807,7 @@
       "sourcePriceAmount": 172,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 215,
-      "siteDisplayAmount": 1536.3827,
+      "siteDisplayAmount": 1802.918637,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9837,7 +9837,7 @@
       "sortKeys": {
         "brand": "brebbia",
         "name": "serie 'x' (301) (9mm) tobacco pipe",
-        "price": 1536.3827,
+        "price": 1802.918637,
         "sourceProductId": "680778"
       },
       "displayNameZh": null,
@@ -9968,7 +9968,7 @@
       "sourcePriceAmount": 132,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 165,
-      "siteDisplayAmount": 1173.8786,
+      "siteDisplayAmount": 1354.44668,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9998,7 +9998,7 @@
       "sortKeys": {
         "brand": "brebbia",
         "name": "junior sabbiata (2735) (9mm) tobacco pipe",
-        "price": 1173.8786,
+        "price": 1354.44668,
         "sourceProductId": "680837"
       },
       "displayNameZh": null,
@@ -10116,6 +10116,160 @@
       "msrpRawText": "$165.00"
     },
     {
+      "id": "smokingpipes-684413",
+      "source": "smokingpipes",
+      "sourceProductId": "684413",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Unica Rusticated Dark Brown (U67) (6mm) Tobacco Pipe",
+      "displayNameEn": "Unica Rusticated Dark Brown (U67) (6mm) Tobacco Pipe",
+      "rawTitle": "Unica Rusticated Dark Brown (U67) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-104282.9138.jpg",
+      "sourcePriceAmount": 138,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172.5,
+      "siteDisplayAmount": 1403.6925199999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 48.19,
+      "shape": "Brandy",
+      "shapeZh": "白兰地斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "unica rusticated dark brown (u67) (6mm) tobacco pipe",
+        "price": 1403.6925199999998,
+        "sourceProductId": "684413"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-104282.9138.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 138.43,
+        "heightMm": 50.04,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 44.96,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 38.86
+      },
+      "model": {
+        "canonicalModelKey": "model-u67__series-unica-dark-brown-tobacco-pipe__shape-brandy",
+        "confidence": "high"
+      },
+      "series": "Unica Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-104282",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Brandy",
+          "labelZh": "白兰地斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 138.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=684413",
+      "sourceOriginalText": "Unica Rusticated Dark Brown (U67) (6mm) Tobacco Pipe",
+      "priceRawText": "$138.00",
+      "msrpRawText": "$172.50"
+    },
+    {
       "id": "smokingpipes-690953",
       "source": "smokingpipes",
       "sourceProductId": "690953",
@@ -10129,7 +10283,7 @@
       "sourcePriceAmount": 158,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 197.5,
-      "siteDisplayAmount": 1386.5932699999998,
+      "siteDisplayAmount": 1596.2092235999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10159,7 +10313,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "cobble (608) p-lip tobacco pipe",
-        "price": 1386.5932699999998,
+        "price": 1596.2092235999996,
         "sourceProductId": "690953"
       },
       "displayNameZh": null,
@@ -10290,7 +10444,7 @@
       "sourcePriceAmount": 424,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 530,
-      "siteDisplayAmount": 3836.97702,
+      "siteDisplayAmount": 4503.984563999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10320,7 +10474,7 @@
       "sortKeys": {
         "brand": "caminetto",
         "name": "smooth rhodesian (03) (at) tobacco pipe",
-        "price": 3836.97702,
+        "price": 4503.984563999999,
         "sourceProductId": "691813"
       },
       "displayNameZh": null,
@@ -10447,7 +10601,7 @@
       "sourcePriceAmount": 250,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2145.861195,
+      "siteDisplayAmount": 2539.143945,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10477,7 +10631,7 @@
       "sortKeys": {
         "brand": "jacono",
         "name": "olivewood paneled billiard (2025) tobacco pipe",
-        "price": 2145.861195,
+        "price": 2539.143945,
         "sourceProductId": "694030"
       },
       "displayNameZh": null,
@@ -10604,7 +10758,7 @@
       "sourcePriceAmount": 208,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 260,
-      "siteDisplayAmount": 1815.503685,
+      "siteDisplayAmount": 2142.7149329999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10634,7 +10788,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "marylebone the very finest (1816) (9mm) tobacco pipe",
-        "price": 1815.503685,
+        "price": 2142.7149329999997,
         "sourceProductId": "694458"
       },
       "displayNameZh": null,
@@ -10765,7 +10919,7 @@
       "sourcePriceAmount": 248,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 310,
-      "siteDisplayAmount": 2130.1298850000003,
+      "siteDisplayAmount": 2520.2663729999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10795,7 +10949,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "benjamin ye olde wood (1814) (9mm) tobacco pipe",
-        "price": 2130.1298850000003,
+        "price": 2520.2663729999995,
         "sourceProductId": "695963"
       },
       "displayNameZh": null,
@@ -10928,7 +11082,7 @@
       "sourcePriceAmount": 276,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 345,
-      "siteDisplayAmount": 2241.8221859999994,
+      "siteDisplayAmount": 2654.297134199999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10958,7 +11112,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "rua spigot (cp) (80s) p-lip tobacco pipe",
-        "price": 2241.8221859999994,
+        "price": 2654.297134199999,
         "sourceProductId": "696814"
       },
       "displayNameZh": null,
@@ -11091,7 +11245,7 @@
       "sourcePriceAmount": 463.25,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 545,
-      "siteDisplayAmount": 4145.70397875,
+      "siteDisplayAmount": 4874.4569145,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -11121,7 +11275,7 @@
       "sortKeys": {
         "brand": "rinaldo",
         "name": "sahara billiard (3) (yyy) tobacco pipe",
-        "price": 4145.70397875,
+        "price": 4874.4569145,
         "sourceProductId": "698288"
       },
       "displayNameZh": null,
@@ -11248,7 +11402,7 @@
       "sourcePriceAmount": 3075,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 21060.795056249997,
+      "siteDisplayAmount": 25172.5662075,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -11278,7 +11432,7 @@
       "sortKeys": {
         "brand": "dunhill",
         "name": "root briar with bamboo (dr***) (2022) tobacco pipe",
-        "price": 21060.795056249997,
+        "price": 25172.5662075,
         "sourceProductId": "704323"
       },
       "displayNameZh": null,
@@ -11411,7 +11565,7 @@
       "sourcePriceAmount": 322.58,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 379.5,
-      "siteDisplayAmount": 2716.7504348999996,
+      "siteDisplayAmount": 3224.211032879999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -11441,7 +11595,7 @@
       "sortKeys": {
         "brand": "vauen",
         "name": "hawaii (237) (9mm) tobacco pipe",
-        "price": 2716.7504348999996,
+        "price": 3224.211032879999,
         "sourceProductId": "707114"
       },
       "displayNameZh": null,
@@ -11574,7 +11728,7 @@
       "sourcePriceAmount": 860,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 7266.402599999999,
+      "siteDisplayAmount": 8619.295259999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -11604,7 +11758,7 @@
       "sortKeys": {
         "brand": "castello",
         "name": "collection canadian (kkk) (2025) tobacco pipe",
-        "price": 7266.402599999999,
+        "price": 8619.295259999999,
         "sourceProductId": "707467"
       },
       "displayNameZh": null,
@@ -11737,7 +11891,7 @@
       "sourcePriceAmount": 325,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2735.7853199999995,
+      "siteDisplayAmount": 3247.0528949999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -11767,7 +11921,7 @@
       "sortKeys": {
         "brand": "mark tinsky",
         "name": "sandblasted bent brandy christmas 2025 (two star) tobacco pipe",
-        "price": 2735.7853199999995,
+        "price": 3247.0528949999994,
         "sourceProductId": "709247"
       },
       "displayNameZh": null,
@@ -11894,7 +12048,7 @@
       "sourcePriceAmount": 132,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 165,
-      "siteDisplayAmount": 1128.7365799999998,
+      "siteDisplayAmount": 1300.2762559999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -11924,7 +12078,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "dracula rusticated (3085) fishtail tobacco pipe",
-        "price": 1128.7365799999998,
+        "price": 1300.2762559999999,
         "sourceProductId": "710251"
       },
       "displayNameZh": null,
@@ -12054,7 +12208,7 @@
       "sourcePriceAmount": 424,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 530,
-      "siteDisplayAmount": 3836.97702,
+      "siteDisplayAmount": 4503.984563999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -12084,7 +12238,7 @@
       "sortKeys": {
         "brand": "caminetto",
         "name": "smooth cauldron (03) (at) tobacco pipe",
-        "price": 3836.97702,
+        "price": 4503.984563999999,
         "sourceProductId": "710645"
       },
       "displayNameZh": null,
@@ -12211,12 +12365,12 @@
       "sourcePriceAmount": 189.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1669.9890674999997,
+      "siteDisplayAmount": 1968.097392,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12241,7 +12395,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "geant sandblasted pot tobacco pipe",
-        "price": 1669.9890674999997,
+        "price": 1968.097392,
         "sourceProductId": "711099"
       },
       "displayNameZh": null,
@@ -12366,7 +12520,7 @@
       "sourcePriceAmount": 120,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1091.8022,
+      "siteDisplayAmount": 1255.955,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -12396,7 +12550,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "honoré de balzac smooth (77) tobacco pipe",
-        "price": 1091.8022,
+        "price": 1255.955,
         "sourceProductId": "711128"
       },
       "displayNameZh": null,
@@ -12527,7 +12681,7 @@
       "sourcePriceAmount": 200,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 250,
-      "siteDisplayAmount": 1673.921895,
+      "siteDisplayAmount": 1972.8167849999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -12557,7 +12711,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "lunaria smooth bordeaux (316 ks) (6mm) tobacco pipe",
-        "price": 1673.921895,
+        "price": 1972.8167849999998,
         "sourceProductId": "714098"
       },
       "displayNameZh": null,
@@ -12690,7 +12844,7 @@
       "sourcePriceAmount": 112.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1040.50445,
+      "siteDisplayAmount": 1194.3977,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -12720,7 +12874,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "jura billiard tobacco pipe",
-        "price": 1040.50445,
+        "price": 1194.3977,
         "sourceProductId": "715310"
       },
       "displayNameZh": null,
@@ -12851,7 +13005,7 @@
       "sourcePriceAmount": 97.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 937.9089499999999,
+      "siteDisplayAmount": 1071.2830999999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -12881,7 +13035,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "mid-century sandblasted (m615) tobacco pipe",
-        "price": 937.9089499999999,
+        "price": 1071.2830999999999,
         "sourceProductId": "715324"
       },
       "displayNameZh": null,
@@ -13012,7 +13166,7 @@
       "sourcePriceAmount": 124,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 155,
-      "siteDisplayAmount": 1076.75486,
+      "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13042,7 +13196,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "donegal rocky (103) fishtail tobacco pipe",
-        "price": 1076.75486,
+        "price": 1237.8981919999997,
         "sourceProductId": "715897"
       },
       "displayNameZh": null,
@@ -13172,7 +13326,7 @@
       "sourcePriceAmount": 124,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 155,
-      "siteDisplayAmount": 1076.75486,
+      "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13202,7 +13356,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "dublin filter rusticated (b10) fishtail (9mm) tobacco pipe",
-        "price": 1076.75486,
+        "price": 1237.8981919999997,
         "sourceProductId": "715955"
       },
       "displayNameZh": null,
@@ -13332,7 +13486,7 @@
       "sourcePriceAmount": 192,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 240,
-      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayAmount": 1901.0820113999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13362,7 +13516,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "deluxe classic psb (3085) p-lip tobacco pipe",
-        "price": 1614.1429169999997,
+        "price": 1901.0820113999998,
         "sourceProductId": "716665"
       },
       "displayNameZh": null,
@@ -13493,7 +13647,7 @@
       "sourcePriceAmount": 375,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 3129.06807,
+      "siteDisplayAmount": 3718.992195,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13523,7 +13677,7 @@
       "sortKeys": {
         "brand": "winsløw",
         "name": "partially rusticated paneled bent apple (eg) (9mm) tobacco pipe",
-        "price": 3129.06807,
+        "price": 3718.992195,
         "sourceProductId": "717208"
       },
       "displayNameZh": null,
@@ -13656,7 +13810,7 @@
       "sourcePriceAmount": 360,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 400,
-      "siteDisplayAmount": 3011.083245,
+      "siteDisplayAmount": 3577.4104049999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13686,7 +13840,7 @@
       "sortKeys": {
         "brand": "ashton",
         "name": "old church dublin with silver (xx) (2026) tobacco pipe",
-        "price": 3011.083245,
+        "price": 3577.4104049999996,
         "sourceProductId": "717364"
       },
       "displayNameZh": null,
@@ -13819,7 +13973,7 @@
       "sourcePriceAmount": 195,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1713.25017,
+      "siteDisplayAmount": 2020.0107149999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -13849,7 +14003,7 @@
       "sortKeys": {
         "brand": "winsløw",
         "name": "crown smooth paneled bent pot (300) tobacco pipe",
-        "price": 1713.25017,
+        "price": 2020.0107149999997,
         "sourceProductId": "717388"
       },
       "displayNameZh": null,
@@ -13980,7 +14134,7 @@
       "sourcePriceAmount": 155,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1420.1077999999998,
+      "siteDisplayAmount": 1642.459275,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14010,7 +14164,7 @@
       "sortKeys": {
         "brand": "winsløw",
         "name": "crown smooth paneled bent apple (200) tobacco pipe",
-        "price": 1420.1077999999998,
+        "price": 1642.459275,
         "sourceProductId": "717452"
       },
       "displayNameZh": null,
@@ -14141,7 +14295,7 @@
       "sourcePriceAmount": 108,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 135,
-      "siteDisplayAmount": 972.7914199999999,
+      "siteDisplayAmount": 1113.142064,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14171,7 +14325,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "junior sandblasted silver mounted canted apple fishtail tobacco pipe",
-        "price": 972.7914199999999,
+        "price": 1113.142064,
         "sourceProductId": "717513"
       },
       "displayNameZh": null,
@@ -14302,7 +14456,7 @@
       "sourcePriceAmount": 175.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 195,
-      "siteDisplayAmount": 1560.3216499999999,
+      "siteDisplayAmount": 1835.9543879999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -14332,7 +14486,7 @@
       "sortKeys": {
         "brand": "erik stokkebye 4th generation",
         "name": "klassisk sandblasted bog (401) tobacco pipe",
-        "price": 1560.3216499999999,
+        "price": 1835.9543879999997,
         "sourceProductId": "717771"
       },
       "displayNameZh": null,
@@ -14457,7 +14611,7 @@
       "sourcePriceAmount": 372,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 460,
-      "siteDisplayAmount": 2959.1699219999996,
+      "siteDisplayAmount": 3515.114417399999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14487,7 +14641,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "deluxe classic natural (411) p-lip tobacco pipe",
-        "price": 2959.1699219999996,
+        "price": 3515.114417399999,
         "sourceProductId": "718068"
       },
       "displayNameZh": null,
@@ -14620,7 +14774,7 @@
       "sourcePriceAmount": 212,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 265,
-      "siteDisplayAmount": 1846.966305,
+      "siteDisplayAmount": 2180.470077,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14650,7 +14804,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "trafalgar fossil (1821) (9mm) tobacco pipe",
-        "price": 1846.966305,
+        "price": 2180.470077,
         "sourceProductId": "718428"
       },
       "displayNameZh": null,
@@ -14783,7 +14937,7 @@
       "sourcePriceAmount": 118,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 147.5,
-      "siteDisplayAmount": 1037.7685699999997,
+      "siteDisplayAmount": 1191.1146439999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14813,7 +14967,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "minuto rusticated brown (401) (6mm) tobacco pipe",
-        "price": 1037.7685699999997,
+        "price": 1191.1146439999998,
         "sourceProductId": "718966"
       },
       "displayNameZh": null,
@@ -14944,7 +15098,7 @@
       "sourcePriceAmount": 192,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 240,
-      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayAmount": 1901.0820113999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -14974,7 +15128,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "150th anniversary giancarlo rusticated (6mm) tobacco pipe",
-        "price": 1614.1429169999997,
+        "price": 1901.0820113999998,
         "sourceProductId": "719198"
       },
       "displayNameZh": null,
@@ -15104,7 +15258,7 @@
       "sourcePriceAmount": 1400,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 11513.8563,
+      "siteDisplayAmount": 13716.2397,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15134,7 +15288,7 @@
       "sortKeys": {
         "brand": "chris asteriou",
         "name": "smooth bent egg with corian (2026) tobacco pipe",
-        "price": 11513.8563,
+        "price": 13716.2397,
         "sourceProductId": "719210"
       },
       "displayNameZh": null,
@@ -15261,7 +15415,7 @@
       "sourcePriceAmount": 270,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2303.174295,
+      "siteDisplayAmount": 2727.9196649999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15291,7 +15445,7 @@
       "sortKeys": {
         "brand": "radice",
         "name": "rind dublin (2025) tobacco pipe",
-        "price": 2303.174295,
+        "price": 2727.9196649999994,
         "sourceProductId": "720671"
       },
       "displayNameZh": null,
@@ -15416,7 +15570,7 @@
       "sourcePriceAmount": 240,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 300,
-      "siteDisplayAmount": 1972.8167849999998,
+      "siteDisplayAmount": 2331.490653,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15446,7 +15600,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "barley spigot (406) fishtail tobacco pipe",
-        "price": 1972.8167849999998,
+        "price": 2331.490653,
         "sourceProductId": "722382"
       },
       "displayNameZh": null,
@@ -15579,7 +15733,7 @@
       "sourcePriceAmount": 240,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 300,
-      "siteDisplayAmount": 1972.8167849999998,
+      "siteDisplayAmount": 2331.490653,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15609,7 +15763,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "barley spigot (221) fishtail tobacco pipe",
-        "price": 1972.8167849999998,
+        "price": 2331.490653,
         "sourceProductId": "722436"
       },
       "displayNameZh": null,
@@ -15742,7 +15896,7 @@
       "sourcePriceAmount": 336,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 420,
-      "siteDisplayAmount": 2822.307525,
+      "siteDisplayAmount": 3350.8795409999993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15772,7 +15926,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "nelson guinea grain (1823) (9mm) (with case) tobacco pipe",
-        "price": 2822.307525,
+        "price": 3350.8795409999993,
         "sourceProductId": "722536"
       },
       "displayNameZh": null,
@@ -15905,7 +16059,7 @@
       "sourcePriceAmount": 368,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 460,
-      "siteDisplayAmount": 2929.2804329999994,
+      "siteDisplayAmount": 3479.247030599999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -15935,7 +16089,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "deluxe classic natural (701) p-lip tobacco pipe",
-        "price": 2929.2804329999994,
+        "price": 3479.247030599999,
         "sourceProductId": "722836"
       },
       "displayNameZh": null,
@@ -16068,7 +16222,7 @@
       "sourcePriceAmount": 156,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 182.5,
-      "siteDisplayAmount": 1284.68174,
+      "siteDisplayAmount": 1487.4104479999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16098,7 +16252,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "irish harp sandblasted (15) fishtail tobacco pipe",
-        "price": 1284.68174,
+        "price": 1487.4104479999996,
         "sourceProductId": "722844"
       },
       "displayNameZh": null,
@@ -16229,7 +16383,7 @@
       "sourcePriceAmount": 192,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 240,
-      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayAmount": 1901.0820113999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16259,7 +16413,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "vigna smooth brown (628) (6mm) tobacco pipe",
-        "price": 1614.1429169999997,
+        "price": 1901.0820113999998,
         "sourceProductId": "722967"
       },
       "displayNameZh": null,
@@ -16390,7 +16544,7 @@
       "sourcePriceAmount": 157.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 175,
-      "siteDisplayAmount": 1437.20705,
+      "siteDisplayAmount": 1666.05624,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16420,7 +16574,7 @@
       "sortKeys": {
         "brand": "genod",
         "name": "smooth natural bent apple (600) tobacco pipe",
-        "price": 1437.20705,
+        "price": 1666.05624,
         "sourceProductId": "723094"
       },
       "displayNameZh": null,
@@ -16545,7 +16699,7 @@
       "sourcePriceAmount": 168,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 210,
-      "siteDisplayAmount": 1509.0239000000001,
+      "siteDisplayAmount": 1765.1634929999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16575,7 +16729,7 @@
       "sortKeys": {
         "brand": "white elephant",
         "name": "erta ale (5) (9mm) tobacco pipe",
-        "price": 1509.0239000000001,
+        "price": 1765.1634929999998,
         "sourceProductId": "723441"
       },
       "displayNameZh": null,
@@ -16694,7 +16848,7 @@
       "sourcePriceAmount": 228,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 285,
-      "siteDisplayAmount": 1883.148318,
+      "siteDisplayAmount": 2223.8884925999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16724,7 +16878,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "miele smooth (311 ks) (6mm) tobacco pipe",
-        "price": 1883.148318,
+        "price": 2223.8884925999996,
         "sourceProductId": "723849"
       },
       "displayNameZh": null,
@@ -16858,7 +17012,7 @@
       "sourcePriceAmount": 118,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 147.5,
-      "siteDisplayAmount": 1037.7685699999997,
+      "siteDisplayAmount": 1191.1146439999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16888,7 +17042,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "minuto rusticated blue (609) (6mm) tobacco pipe",
-        "price": 1037.7685699999997,
+        "price": 1191.1146439999998,
         "sourceProductId": "724175"
       },
       "displayNameZh": null,
@@ -17019,7 +17173,7 @@
       "sourcePriceAmount": 344,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 430,
-      "siteDisplayAmount": 2885.2327649999997,
+      "siteDisplayAmount": 3426.3898289999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17049,7 +17203,7 @@
       "sortKeys": {
         "brand": "ser jacopo",
         "name": "delecta rusticated apple (r2) (b) (9mm) tobacco pipe",
-        "price": 2885.2327649999997,
+        "price": 3426.3898289999997,
         "sourceProductId": "724432"
       },
       "displayNameZh": null,
@@ -17174,7 +17328,7 @@
       "sourcePriceAmount": 236,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 295,
-      "siteDisplayAmount": 1942.9272959999998,
+      "siteDisplayAmount": 2295.6232661999993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17204,7 +17358,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "whisky smooth (320 ks) (6mm) tobacco pipe",
-        "price": 1942.9272959999998,
+        "price": 2295.6232661999993,
         "sourceProductId": "725064"
       },
       "displayNameZh": null,
@@ -17337,7 +17491,7 @@
       "sourcePriceAmount": 243,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 270,
-      "siteDisplayAmount": 2090.80161,
+      "siteDisplayAmount": 2473.0724429999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17367,7 +17521,7 @@
       "sortKeys": {
         "brand": "akb",
         "name": "spot carved billiard (ali) (with case) tobacco pipe",
-        "price": 2090.80161,
+        "price": 2473.0724429999996,
         "sourceProductId": "725094"
       },
       "displayNameZh": null,
@@ -17494,7 +17648,7 @@
       "sourcePriceAmount": 243,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 270,
-      "siteDisplayAmount": 2090.80161,
+      "siteDisplayAmount": 2473.0724429999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -17524,7 +17678,7 @@
       "sortKeys": {
         "brand": "akb",
         "name": "smooth billiard (with case) tobacco pipe",
-        "price": 2090.80161,
+        "price": 2473.0724429999996,
         "sourceProductId": "725107"
       },
       "displayNameZh": null,
@@ -17651,7 +17805,7 @@
       "sourcePriceAmount": 250,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2145.861195,
+      "siteDisplayAmount": 2539.143945,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17681,7 +17835,7 @@
       "sortKeys": {
         "brand": "musico",
         "name": "sandblasted acorn with silver (floodlight) tobacco pipe",
-        "price": 2145.861195,
+        "price": 2539.143945,
         "sourceProductId": "726388"
       },
       "displayNameZh": null,
@@ -17808,7 +17962,7 @@
       "sourcePriceAmount": 218.36,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 272.95,
-      "siteDisplayAmount": 1811.1146495100002,
+      "siteDisplayAmount": 2137.448090412,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17838,7 +17992,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "fragola rusticated natural (614) (6mm) tobacco pipe",
-        "price": 1811.1146495100002,
+        "price": 2137.448090412,
         "sourceProductId": "726523"
       },
       "displayNameZh": null,
@@ -17969,7 +18123,7 @@
       "sourcePriceAmount": 128,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 160,
-      "siteDisplayAmount": 1102.74572,
+      "siteDisplayAmount": 1269.0872239999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17999,7 +18153,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "petite rusticated (202) tobacco pipe",
-        "price": 1102.74572,
+        "price": 1269.0872239999999,
         "sourceProductId": "726969"
       },
       "displayNameZh": null,
@@ -18129,7 +18283,7 @@
       "sourcePriceAmount": 427.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 475,
-      "siteDisplayAmount": 3864.5068125,
+      "siteDisplayAmount": 4537.020315,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18159,7 +18313,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "brindle bent billiard with silver (xxx) (2026) tobacco pipe",
-        "price": 3864.5068125,
+        "price": 4537.020315,
         "sourceProductId": "727525"
       },
       "displayNameZh": null,
@@ -18286,7 +18440,7 @@
       "sourcePriceAmount": 427.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 475,
-      "siteDisplayAmount": 3864.5068125,
+      "siteDisplayAmount": 4537.020315,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18316,7 +18470,7 @@
       "sortKeys": {
         "brand": "ashton",
         "name": "brindle canadian with silver (xxx) (2026) tobacco pipe",
-        "price": 3864.5068125,
+        "price": 4537.020315,
         "sourceProductId": "727526"
       },
       "displayNameZh": null,
@@ -18449,7 +18603,7 @@
       "sourcePriceAmount": 427.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 475,
-      "siteDisplayAmount": 3864.5068125,
+      "siteDisplayAmount": 4537.020315,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -18479,7 +18633,7 @@
       "sortKeys": {
         "brand": "ashton",
         "name": "brindle rhodesian with silver (xxx) (2026) tobacco pipe",
-        "price": 3864.5068125,
+        "price": 4537.020315,
         "sourceProductId": "727530"
       },
       "displayNameZh": null,
@@ -18612,7 +18766,7 @@
       "sourcePriceAmount": 95,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 920.8096999999999,
+      "siteDisplayAmount": 1050.764,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18642,7 +18796,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth pot with briar ring (tapered stem) (9mm) tobacco pipe",
-        "price": 920.8096999999999,
+        "price": 1050.764,
         "sourceProductId": "727648"
       },
       "displayNameZh": null,
@@ -18767,7 +18921,7 @@
       "sourcePriceAmount": 224,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 265,
-      "siteDisplayAmount": 1853.2588289999997,
+      "siteDisplayAmount": 2188.0211057999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18797,7 +18951,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "house pipe rusticated billiard p-lip tobacco pipe",
-        "price": 1853.2588289999997,
+        "price": 2188.0211057999995,
         "sourceProductId": "727695"
       },
       "displayNameZh": null,
@@ -18928,7 +19082,7 @@
       "sourcePriceAmount": 1000,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 1250,
-      "siteDisplayAmount": 8367.594299999999,
+      "siteDisplayAmount": 9940.725299999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18958,7 +19112,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "autograph smooth rhodesian (8) (6mm) tobacco pipe",
-        "price": 8367.594299999999,
+        "price": 9940.725299999998,
         "sourceProductId": "727844"
       },
       "displayNameZh": null,
@@ -19085,7 +19239,7 @@
       "sourcePriceAmount": 513,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 570,
-      "siteDisplayAmount": 4537.020315,
+      "siteDisplayAmount": 5344.036518,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -19115,7 +19269,7 @@
       "sortKeys": {
         "brand": "imp meerschaum",
         "name": "rusticated reverse calabash bent egg with silver (with pocket case) tobacco pipe",
-        "price": 4537.020315,
+        "price": 5344.036518,
         "sourceProductId": "727888"
       },
       "displayNameZh": null,
@@ -19248,7 +19402,7 @@
       "sourcePriceAmount": 211.2,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 264,
-      "siteDisplayAmount": 1840.673781,
+      "siteDisplayAmount": 2172.9190482,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -19278,7 +19432,7 @@
       "sortKeys": {
         "brand": "nørding",
         "name": "plateau smooth bent dublin (1) tobacco pipe",
-        "price": 1840.673781,
+        "price": 2172.9190482,
         "sourceProductId": "727903"
       },
       "displayNameZh": null,
@@ -19411,7 +19565,7 @@
       "sourcePriceAmount": 208,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 260,
-      "siteDisplayAmount": 1815.503685,
+      "siteDisplayAmount": 2142.7149329999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -19441,7 +19595,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "pub pipe sandblasted billiard p-lip tobacco pipe",
-        "price": 1815.503685,
+        "price": 2142.7149329999997,
         "sourceProductId": "728119"
       },
       "displayNameZh": null,
@@ -19568,7 +19722,7 @@
       "sourcePriceAmount": 236,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 295,
-      "siteDisplayAmount": 1942.9272959999998,
+      "siteDisplayAmount": 2295.6232661999993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -19598,7 +19752,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "system spigot smooth (306) p-lip tobacco pipe",
-        "price": 1942.9272959999998,
+        "price": 2295.6232661999993,
         "sourceProductId": "728211"
       },
       "displayNameZh": null,
@@ -19731,7 +19885,7 @@
       "sourcePriceAmount": 220,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 275,
-      "siteDisplayAmount": 1823.3693399999997,
+      "siteDisplayAmount": 2152.153719,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -19761,7 +19915,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "sherlock holmes dark smooth hansom p-lip tobacco pipe",
-        "price": 1823.3693399999997,
+        "price": 2152.153719,
         "sourceProductId": "728883"
       },
       "displayNameZh": null,
@@ -19894,7 +20048,7 @@
       "sourcePriceAmount": 154,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 192.5,
-      "siteDisplayAmount": 1271.6863099999998,
+      "siteDisplayAmount": 1471.8159319999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -19924,7 +20078,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "siena (626) (9mm) tobacco pipe",
-        "price": 1271.6863099999998,
+        "price": 1471.8159319999997,
         "sourceProductId": "729136"
       },
       "displayNameZh": null,
@@ -20055,7 +20209,7 @@
       "sourcePriceAmount": 160,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 200,
-      "siteDisplayAmount": 1399.5886999999998,
+      "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -20085,7 +20239,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "eleganza rusticated dark brown (207) (6mm) tobacco pipe",
-        "price": 1399.5886999999998,
+        "price": 1614.1429169999997,
         "sourceProductId": "729141"
       },
       "displayNameZh": null,
@@ -20215,7 +20369,7 @@
       "sourcePriceAmount": 138,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 172.5,
-      "siteDisplayAmount": 1167.7228699999998,
+      "siteDisplayAmount": 1347.0598039999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -20245,7 +20399,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "unica rusticated dark brown (u45) (6mm) tobacco pipe",
-        "price": 1167.7228699999998,
+        "price": 1347.0598039999998,
         "sourceProductId": "729225"
       },
       "displayNameZh": null,
@@ -20375,7 +20529,7 @@
       "sourcePriceAmount": 2995,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 20525.930516250002,
+      "siteDisplayAmount": 24530.7287595,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -20405,7 +20559,7 @@
       "sortKeys": {
         "brand": "dunhill",
         "name": "notting hill shell briar (5103) (54/80) (with tamper and pouch) tobacco pipe",
-        "price": 20525.930516250002,
+        "price": 24530.7287595,
         "sourceProductId": "729454"
       },
       "displayNameZh": null,
@@ -20540,7 +20694,7 @@
       "sourcePriceAmount": 135.38,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 169.23,
-      "siteDisplayAmount": 1150.6988566999999,
+      "siteDisplayAmount": 1326.6309880399997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "sold",
@@ -20570,7 +20724,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "alligator elegance red (202e) tobacco pipe",
-        "price": 1150.6988566999999,
+        "price": 1326.6309880399997,
         "sourceProductId": "729488"
       },
       "displayNameZh": null,
@@ -20701,7 +20855,7 @@
       "sourcePriceAmount": 110,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 137.5,
-      "siteDisplayAmount": 985.78685,
+      "siteDisplayAmount": 1128.7365799999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -20731,7 +20885,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "tavern pipe rusticated billiard fishtail tobacco pipe",
-        "price": 985.78685,
+        "price": 1128.7365799999998,
         "sourceProductId": "729595"
       },
       "displayNameZh": null,
@@ -20861,7 +21015,7 @@
       "sourcePriceAmount": 464,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 580,
-      "siteDisplayAmount": 3969.120024,
+      "siteDisplayAmount": 4662.556168799999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -20891,7 +21045,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "natural spigot (120) fishtail tobacco pipe",
-        "price": 3969.120024,
+        "price": 4662.556168799999,
         "sourceProductId": "729873"
       },
       "displayNameZh": null,
@@ -21024,7 +21178,7 @@
       "sourcePriceAmount": 160,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 200,
-      "siteDisplayAmount": 1399.5886999999998,
+      "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21054,7 +21208,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "eleganza rusticated dark brown (310 ks) (6mm) tobacco pipe",
-        "price": 1399.5886999999998,
+        "price": 1614.1429169999997,
         "sourceProductId": "730109"
       },
       "displayNameZh": null,
@@ -21184,7 +21338,7 @@
       "sourcePriceAmount": 129.6,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 144,
-      "siteDisplayAmount": 1157.4633199999998,
+      "siteDisplayAmount": 1334.7483439999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21214,7 +21368,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "klassisk smooth (406) tobacco pipe",
-        "price": 1157.4633199999998,
+        "price": 1334.7483439999999,
         "sourceProductId": "730241"
       },
       "displayNameZh": null,
@@ -21339,7 +21493,7 @@
       "sourcePriceAmount": 280,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 330,
-      "siteDisplayAmount": 2271.711675,
+      "siteDisplayAmount": 2690.1645209999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21369,7 +21523,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "terracotta spigot (86) fishtail tobacco pipe",
-        "price": 2271.711675,
+        "price": 2690.1645209999997,
         "sourceProductId": "730429"
       },
       "displayNameZh": null,
@@ -21502,7 +21656,7 @@
       "sourcePriceAmount": 84,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 845.573,
+      "siteDisplayAmount": 960.4799599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21532,7 +21686,7 @@
       "sortKeys": {
         "brand": "nørding",
         "name": "compass brown grain smooth matte tobacco pipe",
-        "price": 845.573,
+        "price": 960.4799599999999,
         "sourceProductId": "730539"
       },
       "displayNameZh": null,
@@ -21662,7 +21816,7 @@
       "sourcePriceAmount": 475,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 4238.125424999999,
+      "siteDisplayAmount": 4985.362649999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21692,7 +21846,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "sandblasted morta rhodesian (2026) tobacco pipe",
-        "price": 4238.125424999999,
+        "price": 4985.362649999999,
         "sourceProductId": "730796"
       },
       "displayNameZh": null,
@@ -21819,7 +21973,7 @@
       "sourcePriceAmount": 124,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 155,
-      "siteDisplayAmount": 1119.161,
+      "siteDisplayAmount": 1288.7855599999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21849,7 +22003,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "short army rusticated (80s) p-lip tobacco pipe",
-        "price": 1119.161,
+        "price": 1288.7855599999998,
         "sourceProductId": "731102"
       },
       "displayNameZh": null,
@@ -21973,7 +22127,7 @@
       "sourcePriceAmount": 124,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 155,
-      "siteDisplayAmount": 1119.161,
+      "siteDisplayAmount": 1288.7855599999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22003,7 +22157,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "short army rusticated (605) p-lip tobacco pipe",
-        "price": 1119.161,
+        "price": 1288.7855599999998,
         "sourceProductId": "731174"
       },
       "displayNameZh": null,
@@ -22127,7 +22281,7 @@
       "sourcePriceAmount": 172.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1539.8025499999999,
+      "siteDisplayAmount": 1807.6380299999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22157,7 +22311,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "short army smooth (80s) p-lip tobacco pipe",
-        "price": 1539.8025499999999,
+        "price": 1807.6380299999998,
         "sourceProductId": "731234"
       },
       "displayNameZh": null,
@@ -22282,7 +22436,7 @@
       "sourcePriceAmount": 130,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 162.5,
-      "siteDisplayAmount": 1160.1992,
+      "siteDisplayAmount": 1338.0313999999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22312,7 +22466,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "short army sandblasted (605) p-lip tobacco pipe",
-        "price": 1160.1992,
+        "price": 1338.0313999999998,
         "sourceProductId": "731256"
       },
       "displayNameZh": null,
@@ -22437,7 +22591,7 @@
       "sourcePriceAmount": 130,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 162.5,
-      "siteDisplayAmount": 1160.1992,
+      "siteDisplayAmount": 1338.0313999999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22467,7 +22621,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "short army sandblasted (605) p-lip tobacco pipe",
-        "price": 1160.1992,
+        "price": 1338.0313999999998,
         "sourceProductId": "731265"
       },
       "displayNameZh": null,
@@ -22579,6 +22733,161 @@
       "msrpRawText": "$162.50"
     },
     {
+      "id": "smokingpipes-731632",
+      "source": "smokingpipes",
+      "sourceProductId": "731632",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Galleon Bent Dublin (55) Tobacco Pipe",
+      "displayNameEn": "Galleon Bent Dublin (55) Tobacco Pipe",
+      "rawTitle": "Galleon Bent Dublin (55) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3409.9973.jpg",
+      "sourcePriceAmount": 208.25,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 245,
+      "siteDisplayAmount": 2145.0746294999994,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 52.16,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "galleon bent dublin (55) tobacco pipe",
+        "price": 2145.0746294999994,
+        "sourceProductId": "731632"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3409.9973.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3409_1.3127.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 143,
+        "heightMm": 48.01,
+        "weightGrams": 52.16,
+        "chamberDepthMm": 40.13,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 43.69
+      },
+      "model": {
+        "canonicalModelKey": "model-55__series-galleon-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Galleon Tobacco Pipe",
+      "year": null,
+      "productCode": "002-093-3409",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 143,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 52.16,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/randy-wiley/moreinfo.cfm?product_id=731632",
+      "sourceOriginalText": "Galleon Bent Dublin (55) Tobacco Pipe",
+      "priceRawText": "$208.25",
+      "msrpRawText": "$245.00"
+    },
+    {
       "id": "smokingpipes-732101",
       "source": "smokingpipes",
       "sourceProductId": "732101",
@@ -22592,7 +22901,7 @@
       "sourcePriceAmount": 425,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 3844.842675,
+      "siteDisplayAmount": 4513.42335,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22622,7 +22931,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "partially rusticated poker (d) (9mm) tobacco pipe",
-        "price": 3844.842675,
+        "price": 4513.42335,
         "sourceProductId": "732101"
       },
       "displayNameZh": null,
@@ -22749,7 +23058,7 @@
       "sourcePriceAmount": 112,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 140,
-      "siteDisplayAmount": 1037.0846,
+      "siteDisplayAmount": 1190.29388,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22779,7 +23088,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "arcobaleno rusticated blue (606 ks) (6mm) tobacco pipe",
-        "price": 1037.0846,
+        "price": 1190.29388,
         "sourceProductId": "733047"
       },
       "displayNameZh": null,
@@ -22903,7 +23212,7 @@
       "sourcePriceAmount": 95.2,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 140,
-      "siteDisplayAmount": 922.17764,
+      "siteDisplayAmount": 1052.4055279999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -22933,7 +23242,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "arcobaleno rusticated red (207) (6mm) tobacco pipe",
-        "price": 922.17764,
+        "price": 1052.4055279999998,
         "sourceProductId": "733054"
       },
       "displayNameZh": null,
@@ -23042,6 +23351,315 @@
       "sourceOriginalText": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
       "priceRawText": "$95.20",
       "msrpRawText": "$140.00"
+    },
+    {
+      "id": "smokingpipes-733064",
+      "source": "smokingpipes",
+      "sourceProductId": "733064",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Eleganza Rusticated Dark Brown (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Rusticated Dark Brown (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Rusticated Dark Brown (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111265.7100.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1689.653205,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 45.36,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "eleganza rusticated dark brown (111 ks) (6mm) tobacco pipe",
+        "price": 1689.653205,
+        "sourceProductId": "733064"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111265.7100.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.42,
+        "heightMm": 50.8,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 43.43,
+        "chamberDiameterMm": 22.86,
+        "outsideDiameterMm": 39.12
+      },
+      "model": {
+        "canonicalModelKey": "series-eleganza-dark-brown-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111265",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733064",
+      "sourceOriginalText": "Eleganza Rusticated Dark Brown (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
+    },
+    {
+      "id": "smokingpipes-734544",
+      "source": "smokingpipes",
+      "sourceProductId": "734544",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Jekyll & Hyde (X105) Fishtail Tobacco Pipe",
+      "displayNameEn": "Jekyll & Hyde (X105) Fishtail Tobacco Pipe",
+      "rawTitle": "Jekyll & Hyde (X105) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146298.8309.jpg",
+      "sourcePriceAmount": 136,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 170,
+      "siteDisplayAmount": 1387.27724,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "jekyll & hyde (x105) fishtail tobacco pipe",
+        "price": 1387.27724,
+        "sourceProductId": "734544"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146298.8309.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146298_1.4901.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.45,
+        "heightMm": 47.5,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 38.86,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 36.07
+      },
+      "model": {
+        "canonicalModelKey": "model-x105__series-jekyll-hyde-fishtail-tobacco__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Jekyll Hyde Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146298",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=734544",
+      "sourceOriginalText": "Jekyll & Hyde (X105) Fishtail Tobacco Pipe",
+      "priceRawText": "$136.00",
+      "msrpRawText": "$170.00"
     }
   ]
 }
