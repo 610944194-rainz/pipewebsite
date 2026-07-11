@@ -2,6 +2,10 @@
 import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
+import {
+  evaluatePublicIndexPerformanceBudgets,
+  PUBLIC_INDEX_PERFORMANCE_BUDGETS,
+} from "./lib/public-index-performance-budget-v1.mjs";
 
 const ROOT = process.cwd();
 const GENERATED_ROOT = path.join(ROOT, "data", "generated", "public-products");
@@ -28,16 +32,6 @@ const OUTPUTS = {
 const EXPECTED = {
   detailShardCount: 64,
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
-};
-
-const PERFORMANCE_BUDGETS = {
-  catalogMaxBytes: 10 * 1024 * 1024,
-  catalogAverageRecordMaxBytes: 1300,
-  catalogMaxRecordBytes: 4000,
-  lookupMaxBytes: 2 * 1024 * 1024,
-  brandsMaxBytes: 2 * 1024 * 1024,
-  filtersMaxBytes: 1 * 1024 * 1024,
-  detailShardMaxBytes: 3 * 1024 * 1024,
 };
 
 const CATALOG_ALLOWLIST = new Set([
@@ -674,16 +668,11 @@ async function main() {
       : 0,
     detailTotalBytes: detailShardStats.reduce((total, item) => total + item.sizeBytes, 0),
   };
-  const budgetChecks = {
-    catalogMaxBytes: performance.catalogBytes <= PERFORMANCE_BUDGETS.catalogMaxBytes,
-    catalogAverageRecordMaxBytes:
-      performance.catalogAverageRecordBytes <= PERFORMANCE_BUDGETS.catalogAverageRecordMaxBytes,
-    catalogMaxRecordBytes: performance.catalogMaxRecordBytes <= PERFORMANCE_BUDGETS.catalogMaxRecordBytes,
-    lookupMaxBytes: performance.lookupBytes <= PERFORMANCE_BUDGETS.lookupMaxBytes,
-    brandsMaxBytes: performance.brandsBytes <= PERFORMANCE_BUDGETS.brandsMaxBytes,
-    filtersMaxBytes: performance.filtersBytes <= PERFORMANCE_BUDGETS.filtersMaxBytes,
-    detailShardMaxBytes: performance.detailMaxShardBytes <= PERFORMANCE_BUDGETS.detailShardMaxBytes,
-  };
+  const budgetEvaluation = evaluatePublicIndexPerformanceBudgets({
+    performance,
+    expectedCatalogCount,
+  });
+  const budgetChecks = budgetEvaluation.checks;
   for (const [name, passed] of Object.entries(budgetChecks)) {
     if (!passed) errors.push(`Performance budget failed: ${name}`);
   }
@@ -771,6 +760,16 @@ async function main() {
     },
     performance: {
       ...performance,
+      effectiveCatalogMaxBytes:
+        budgetEvaluation.effectiveCatalogMaxBytes,
+      budgetBasis: budgetEvaluation.budgetBasis,
+      expectedCatalogCount: budgetEvaluation.expectedCatalogCount,
+      averageRecordLimit: budgetEvaluation.averageRecordLimit,
+      absoluteCapConfigured:
+        budgetEvaluation.absoluteCapConfigured,
+      configuredAbsoluteCatalogMaxBytes:
+        budgetEvaluation.configuredAbsoluteCatalogMaxBytes,
+      fixedBudgets: PUBLIC_INDEX_PERFORMANCE_BUDGETS,
       budgetChecks,
       budgetsPassed: Object.values(budgetChecks).every(Boolean),
     },

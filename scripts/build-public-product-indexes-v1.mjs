@@ -3,6 +3,10 @@ import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
 import {
+  evaluatePublicIndexPerformanceBudgets,
+  PUBLIC_INDEX_PERFORMANCE_BUDGETS,
+} from "./lib/public-index-performance-budget-v1.mjs";
+import {
   REFERENCE_PRICE_COMMON_CONFIG,
   addDomesticShippingCny,
   calculateSmokingpipesReferencePrice,
@@ -66,16 +70,6 @@ const BRAND_CANONICAL_PUBLIC_MAP = new Map([
 ]);
 
 const HIDDEN_PUBLIC_BRAND_KEYS = new Set(["pipe key ring", "pipe-key-ring", "pipepack"]);
-
-const PERFORMANCE_BUDGETS = {
-  catalogMaxBytes: 10 * 1024 * 1024,
-  catalogAverageRecordMaxBytes: 1300,
-  catalogMaxRecordBytes: 4000,
-  lookupMaxBytes: 2 * 1024 * 1024,
-  brandsMaxBytes: 2 * 1024 * 1024,
-  filtersMaxBytes: 1 * 1024 * 1024,
-  detailShardMaxBytes: 3 * 1024 * 1024,
-};
 
 const CATALOG_ALLOWLIST = [
   "id",
@@ -897,19 +891,6 @@ function performanceForOutputs(stagingBytes, catalog, serializedFiles, detailSha
   };
 }
 
-function performanceBudgetStatus(performance) {
-  return {
-    catalogMaxBytes: performance.catalogBytes <= PERFORMANCE_BUDGETS.catalogMaxBytes,
-    catalogAverageRecordMaxBytes:
-      performance.catalogAverageRecordBytes <= PERFORMANCE_BUDGETS.catalogAverageRecordMaxBytes,
-    catalogMaxRecordBytes: performance.catalogMaxRecordBytes <= PERFORMANCE_BUDGETS.catalogMaxRecordBytes,
-    lookupMaxBytes: performance.lookupBytes <= PERFORMANCE_BUDGETS.lookupMaxBytes,
-    brandsMaxBytes: performance.brandsBytes <= PERFORMANCE_BUDGETS.brandsMaxBytes,
-    filtersMaxBytes: performance.filtersBytes <= PERFORMANCE_BUDGETS.filtersMaxBytes,
-    detailShardMaxBytes: performance.detailMaxShardBytes <= PERFORMANCE_BUDGETS.detailShardMaxBytes,
-  };
-}
-
 function repriceExistingSmokingpipesProduct(
   product,
   exchangeRates,
@@ -1144,7 +1125,11 @@ async function main() {
 
   const stagingBytes = fsSync.statSync(INPUTS.staging).size;
   const performance = performanceForOutputs(stagingBytes, catalog, serializedFiles, detailShardStats);
-  const budgetStatus = performanceBudgetStatus(performance);
+  const budgetEvaluation = evaluatePublicIndexPerformanceBudgets({
+    performance,
+    expectedCatalogCount: catalog.length,
+  });
+  const budgetStatus = budgetEvaluation.checks;
   const publicSourceCounts = countBy(catalog, (product) => product.source);
   const inventoryStatusCounts = countBy(catalog, (product) => product.inventoryStatus);
   const filterOptionCounts = Object.fromEntries(
@@ -1193,8 +1178,24 @@ async function main() {
           REFERENCE_PRICE_COMMON_CONFIG.domesticShippingCny,
       },
     },
-    performanceBudgets: PERFORMANCE_BUDGETS,
-    performance,
+    performanceBudgets: {
+      ...PUBLIC_INDEX_PERFORMANCE_BUDGETS,
+      effectiveCatalogMaxBytes:
+        budgetEvaluation.effectiveCatalogMaxBytes,
+      budgetBasis: budgetEvaluation.budgetBasis,
+      expectedCatalogCount: budgetEvaluation.expectedCatalogCount,
+      averageRecordLimit: budgetEvaluation.averageRecordLimit,
+      absoluteCapConfigured:
+        budgetEvaluation.absoluteCapConfigured,
+      configuredAbsoluteCatalogMaxBytes:
+        budgetEvaluation.configuredAbsoluteCatalogMaxBytes,
+    },
+    performance: {
+      ...performance,
+      effectiveCatalogMaxBytes:
+        budgetEvaluation.effectiveCatalogMaxBytes,
+      budgetBasis: budgetEvaluation.budgetBasis,
+    },
   };
   await writeFileAtomic(OUTPUTS.manifest, stableJson(manifest));
 
