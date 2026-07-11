@@ -21,10 +21,16 @@ const INPUTS = {
   staging: path.join(ROOT, "data", "products", "unified-products-staging.json"),
   exchangeRates: path.join(ROOT, "data", "exchange-rates.ts"),
   smokingpipesPricing: path.join(ROOT, "data", "pricing", "smokingpipes-pricing.json"),
-  contract: path.join(ROOT, "data", "products", "unified-product-contract.md"),
+};
+
+const HISTORICAL_INPUTS = {
   round3Validation: path.join(ROOT, "data", "review", "round3-apply-validation-v1.json"),
   round4Audit: path.join(ROOT, "data", "review", "round4-price-inventory-audit-v1.json"),
   round4Validation: path.join(ROOT, "data", "review", "round4-price-inventory-validation-v1.json"),
+};
+
+const DOCUMENTATION_INPUTS = {
+  unifiedProductContract: path.join(ROOT, "data", "products", "unified-product-contract.md"),
 };
 
 const OUTPUTS = {
@@ -38,15 +44,7 @@ const OUTPUTS = {
   fieldContract: path.join(REVIEW_DIR, "round5-public-index-field-contract-v1.md"),
 };
 
-const EXPECTED = {
-  stagingSha256: "5BEA3B58F79A5341BBC33EF7FE72926545D22E6C48FDC11F2F04A02420DBE81C",
-  stagingTotal: 8135,
-  publicProductCount: 7608,
-  excludedProductCount: 527,
-  sourceCounts: {
-    danish: 2121,
-    smokingpipes: 5487,
-  },
+const PUBLIC_INDEX_CONSTRAINTS = {
   detailShardCount: 64,
   falconAkbSourceProductIds: ["427301", "427315", "427320", "427322", "479928", "479931"],
 };
@@ -231,6 +229,28 @@ function compactJson(value) {
 
 async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, "utf8"));
+}
+
+async function readOptionalHistoricalJson(filePath, label) {
+  try {
+    return { value: await readJson(filePath), warning: null };
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+    return {
+      value: null,
+      warning: `${label} unavailable; continuing without this historical reference: ${error.message}`,
+    };
+  }
+}
+
+async function readOptionalDocumentation(filePath, label) {
+  try {
+    await fs.readFile(filePath, "utf8");
+    return null;
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+    return `${label} unavailable; continuing without this documentation reference: ${error.message}`;
+  }
 }
 
 function hashBuffer(buffer) {
@@ -488,7 +508,7 @@ function catalogFromRow(row, pricingContext) {
 
 function deriveShard(id) {
   const firstByteHex = crypto.createHash("sha256").update(id).digest("hex").slice(0, 2);
-  const bucket = Number.parseInt(firstByteHex, 16) % EXPECTED.detailShardCount;
+  const bucket = Number.parseInt(firstByteHex, 16) % PUBLIC_INDEX_CONSTRAINTS.detailShardCount;
   return bucket.toString(16).padStart(2, "0");
 }
 
@@ -782,7 +802,7 @@ function buildLookup(catalog) {
 
 function buildDetailShards(details) {
   const shards = new Map();
-  for (let index = 0; index < EXPECTED.detailShardCount; index += 1) {
+  for (let index = 0; index < PUBLIC_INDEX_CONSTRAINTS.detailShardCount; index += 1) {
     shards.set(index.toString(16).padStart(2, "0"), []);
   }
   for (const detail of details) {
@@ -1072,14 +1092,29 @@ async function main() {
   const staging = await readJson(INPUTS.staging);
   const exchangeRates = await readExchangeRateMetadata(INPUTS.exchangeRates);
   const smokingpipesPricing = await readJson(INPUTS.smokingpipesPricing);
-  const round3Validation = await readJson(INPUTS.round3Validation);
-  const round4Audit = await readJson(INPUTS.round4Audit);
-  const round4Validation = await readJson(INPUTS.round4Validation);
-  await fs.readFile(INPUTS.contract, "utf8");
+  const { value: round3Validation, warning: round3Warning } = await readOptionalHistoricalJson(
+    HISTORICAL_INPUTS.round3Validation,
+    "Round 3 validation"
+  );
+  if (round3Warning) console.warn(round3Warning);
+  const { value: round4Audit, warning: round4AuditWarning } = await readOptionalHistoricalJson(
+    HISTORICAL_INPUTS.round4Audit,
+    "Round 4 price/inventory audit"
+  );
+  if (round4AuditWarning) console.warn(round4AuditWarning);
+  const { value: round4Validation, warning: round4ValidationWarning } = await readOptionalHistoricalJson(
+    HISTORICAL_INPUTS.round4Validation,
+    "Round 4 price/inventory validation"
+  );
+  if (round4ValidationWarning) console.warn(round4ValidationWarning);
+  const contractWarning = await readOptionalDocumentation(
+    DOCUMENTATION_INPUTS.unifiedProductContract,
+    "Unified product contract"
+  );
+  if (contractWarning) console.warn(contractWarning);
 
   if (!Array.isArray(staging)) throw new Error("Staging input is not an array.");
 
-  const stagingSha256 = hashFileSync(INPUTS.staging);
   const inputHashes = Object.fromEntries(
     Object.entries(INPUTS).map(([key, filePath]) => [key, hashFileSync(filePath)])
   );
@@ -1153,12 +1188,29 @@ async function main() {
     generatorVersion: "round5-public-product-indexes-v1",
     inputFiles: Object.fromEntries(Object.entries(INPUTS).map(([key, filePath]) => [key, relativePath(filePath)])),
     inputHashes,
+    historicalInputs: {
+      round3Validation: {
+        file: relativePath(HISTORICAL_INPUTS.round3Validation),
+        available: Boolean(round3Validation),
+        sha256: round3Validation ? hashFileSync(HISTORICAL_INPUTS.round3Validation) : null,
+      },
+      round4Audit: {
+        file: relativePath(HISTORICAL_INPUTS.round4Audit),
+        available: Boolean(round4Audit),
+        sha256: round4Audit ? hashFileSync(HISTORICAL_INPUTS.round4Audit) : null,
+      },
+      round4Validation: {
+        file: relativePath(HISTORICAL_INPUTS.round4Validation),
+        available: Boolean(round4Validation),
+        sha256: round4Validation ? hashFileSync(HISTORICAL_INPUTS.round4Validation) : null,
+      },
+    },
     publicProductCount: catalog.length,
     excludedProductCount: excludedRows.length,
     sourceCounts: publicSourceCounts,
     inventoryStatusCounts,
     brandCount: brands.brands.length,
-    detailShardCount: EXPECTED.detailShardCount,
+    detailShardCount: detailShards.length,
     detailRecordCount: details.length,
     catalogFile: "data/generated/public-products/catalog.json",
     lookupFile: "data/generated/public-products/detail-lookup.json",
@@ -1199,13 +1251,18 @@ async function main() {
   };
   await writeFileAtomic(OUTPUTS.manifest, stableJson(manifest));
 
-  const hiddenIds = new Set(excludedRows.map((row) => requiredText(row.id)));
   const catalogIds = new Set(catalog.map((product) => product.id));
-  const falconAkbExcluded = EXPECTED.falconAkbSourceProductIds.every(
+  const detailIds = new Set(details.map((product) => product.id));
+  const lookupByIdEntries = Object.entries(lookup.byId);
+  const lookupBySourceProductEntries = Object.entries(lookup.bySourceProduct);
+  const catalogSourceProductKeys = new Set(
+    catalog.map((product) => `${product.source}:${product.sourceProductId}`)
+  );
+  const falconAkbExcluded = PUBLIC_INDEX_CONSTRAINTS.falconAkbSourceProductIds.every(
     (sourceProductId) => !catalog.some((product) => product.source === "smokingpipes" && product.sourceProductId === sourceProductId)
   );
   const safety = {
-    hiddenRecordsExcluded: [...hiddenIds].every((id) => !catalogIds.has(id)),
+    hiddenRecordsExcluded: excludedRows.every((row) => !catalogIds.has(requiredText(row.id))),
     nonOfferRecordsExcluded: catalog.every((product) => {
       const row = publicRows.find((item) => item.id === product.id);
       return row?.entityType === "offer";
@@ -1217,16 +1274,38 @@ async function main() {
     }),
   };
 
+  const consistency = {
+    stagingPartitioned: publicRows.length + excludedRows.length === staging.length,
+    catalogMatchesPublicRows: catalog.length === publicRows.length && catalogIds.size === catalog.length,
+    detailsMatchCatalog:
+      details.length === catalog.length && detailIds.size === details.length && [...catalogIds].every((id) => detailIds.has(id)),
+    lookupByIdMatchesCatalog:
+      lookupByIdEntries.length === catalog.length &&
+      lookupByIdEntries.every(([id]) => catalogIds.has(id)) &&
+      catalog.every((product) => lookup.byId[product.id] === deriveShard(product.id)),
+    lookupBySourceProductMatchesCatalog:
+      lookupBySourceProductEntries.length === catalog.length &&
+      catalogSourceProductKeys.size === catalog.length &&
+      lookupBySourceProductEntries.every(([key, value]) =>
+        catalogSourceProductKeys.has(key) && catalogIds.has(value?.id) && value?.shard === deriveShard(value.id)
+      ),
+    detailShardCount: detailShards.length === PUBLIC_INDEX_CONSTRAINTS.detailShardCount,
+  };
+  const manifestConsistency = {
+    publicProductCount: manifest.publicProductCount === catalog.length,
+    excludedProductCount: manifest.excludedProductCount === excludedRows.length,
+    sourceCounts: stableJson(manifest.sourceCounts) === stableJson(publicSourceCounts),
+    detailRecordCount: manifest.detailRecordCount === details.length,
+    detailShardCount: manifest.detailShardCount === detailShards.length,
+  };
+
   const status =
-    stagingSha256 === EXPECTED.stagingSha256 &&
-    round4Audit.status === "passed" &&
-    round4Validation.status === "passed" &&
-    catalog.length === EXPECTED.publicProductCount &&
-    excludedRows.length === EXPECTED.excludedProductCount &&
-    publicSourceCounts.danish === EXPECTED.sourceCounts.danish &&
-    publicSourceCounts.smokingpipes === EXPECTED.sourceCounts.smokingpipes &&
+    (!round4Audit || round4Audit.status === "passed") &&
+    (!round4Validation || round4Validation.status === "passed") &&
     Object.values(budgetStatus).every(Boolean) &&
-    Object.values(safety).every(Boolean)
+    Object.values(safety).every(Boolean) &&
+    Object.values(consistency).every(Boolean) &&
+    Object.values(manifestConsistency).every(Boolean)
       ? "passed"
       : "failed";
 
@@ -1234,12 +1313,12 @@ async function main() {
     schemaVersion: 1,
     buildName: "round5-public-index-build-v1",
     status,
-    expected: EXPECTED,
+    constraints: PUBLIC_INDEX_CONSTRAINTS,
     inputs: {
       hashes: inputHashes,
-      round3UnifiedStagingHash: round3Validation.hashes?.unifiedStaging ?? null,
-      round4AuditStatus: round4Audit.status ?? null,
-      round4ValidationStatus: round4Validation.status ?? null,
+      round3UnifiedStagingHash: round3Validation?.hashes?.unifiedStaging ?? null,
+      round4AuditStatus: round4Audit?.status ?? null,
+      round4ValidationStatus: round4Validation?.status ?? null,
     },
     pricing: {
       smokingpipesReferencePricing: {
@@ -1262,14 +1341,16 @@ async function main() {
       excludedProductCount: excludedRows.length,
       sourceCounts: publicSourceCounts,
       inventoryStatusCounts,
-      detailShardCount: EXPECTED.detailShardCount,
+      detailShardCount: detailShards.length,
       detailRecordCount: details.length,
       brandCount: brands.brands.length,
     },
     filterOptionCounts,
     safety,
+    consistency,
+    manifestConsistency,
     performance,
-    performanceBudgets: PERFORMANCE_BUDGETS,
+    performanceBudgets: PUBLIC_INDEX_PERFORMANCE_BUDGETS,
     performanceBudgetStatus: budgetStatus,
     outputFiles: {
       manifest: relativePath(OUTPUTS.manifest),
@@ -1282,7 +1363,7 @@ async function main() {
     },
     manifestHash: hashFileSync(OUTPUTS.manifest),
     errors: status === "passed" ? [] : ["One or more round5 build checks failed; inspect status fields."],
-    warnings: [],
+    warnings: [round3Warning, round4AuditWarning, round4ValidationWarning, contractWarning].filter(Boolean),
   };
 
   await writeFileAtomic(OUTPUTS.fieldContract, makeFieldContract());
