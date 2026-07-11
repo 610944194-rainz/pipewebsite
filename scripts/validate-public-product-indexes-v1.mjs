@@ -6,6 +6,12 @@ import {
   evaluatePublicIndexPerformanceBudgets,
   PUBLIC_INDEX_PERFORMANCE_BUDGETS,
 } from "./lib/public-index-performance-budget-v1.mjs";
+import {
+  catalogStagingReferenceErrors,
+  hiddenCatalogViolation,
+  isSoldReference,
+  shouldExcludeHiddenStagingRow,
+} from "./lib/public-index-publication-rules-v1.mjs";
 
 const ROOT = process.cwd();
 const GENERATED_ROOT = path.join(ROOT, "data", "generated", "public-products");
@@ -441,18 +447,34 @@ async function main() {
     }
   }
 
-  const publicRows = staging.filter(shouldIncludePublic);
-  const hiddenRows = staging.filter((row) => !shouldIncludePublic(row));
-  const publicIds = new Set(publicRows.map((row) => requiredText(row.id)));
-  const hiddenIds = new Set(hiddenRows.map((row) => requiredText(row.id)));
   const catalogIds = catalog.map((product) => requiredText(product.id));
   const catalogIdSet = new Set(catalogIds);
+  const catalogById = new Map(catalog.map((product) => [requiredText(product.id), product]));
+  const publicRows = staging.filter(shouldIncludePublic);
+  const publicIds = new Set(publicRows.map((row) => requiredText(row.id)));
+  const soldReferenceProducts = catalog.filter(
+    (product) =>
+      isSoldReference(product) &&
+      !publicIds.has(requiredText(product.id))
+  );
+  const soldReferenceIds = new Set(
+    soldReferenceProducts.map((product) => requiredText(product.id))
+  );
+  const hiddenRows = staging.filter(
+    (row) =>
+      !shouldIncludePublic(row) &&
+      shouldExcludeHiddenStagingRow({ row, soldReferenceIds })
+  );
+  const hiddenIds = new Set(hiddenRows.map((row) => requiredText(row.id)));
   const detailIds = details.map((product) => requiredText(product.id));
   const detailIdSet = new Set(detailIds);
   const sourceProductKeys = catalog.map((product) => `${product.source}:${product.sourceProductId}`);
   const sourceProductKeySet = new Set(sourceProductKeys);
-  const expectedCatalogCount = publicRows.length;
-  const expectedSourceCounts = countBy(publicRows, (row) => row.source);
+  const expectedCatalogCount = publicRows.length + soldReferenceProducts.length;
+  const expectedSourceCounts = countBy(
+    [...publicRows, ...soldReferenceProducts],
+    (row) => row.source
+  );
   const progressiveManifest =
     /^smokingpipes-progressive-/i.test(
       requiredText(manifest.generatorVersion)
@@ -511,11 +533,15 @@ async function main() {
   const stagingById = new Map(staging.map((row) => [requiredText(row.id), row]));
   for (const product of catalog) {
     const row = stagingById.get(product.id);
-    if (!row) errors.push(`Catalog product not found in staging: ${product.id}`);
-    else {
-      if (row.entityType !== "offer") errors.push(`Catalog product is not offer in staging: ${product.id}`);
-      if (row.inventory?.listingEligible !== true) errors.push(`Catalog product is not listing eligible in staging: ${product.id}`);
-      if (row.source === "smokingpipes" && row.inventory?.status === "needs-review") {
+    errors.push(
+      ...catalogStagingReferenceErrors({ product, stagingRow: row })
+    );
+    if (row) {
+      if (
+        product.publiclySellable === true &&
+        row.source === "smokingpipes" &&
+        row.inventory?.status === "needs-review"
+      ) {
         errors.push(`Smokingpipes needs-review product entered catalog: ${product.id}`);
       }
     }
@@ -527,8 +553,15 @@ async function main() {
     }
   }
 
-  for (const hiddenId of hiddenIds) {
-    if (catalogIdSet.has(hiddenId) || detailIdSet.has(hiddenId) || lookup.byId?.[hiddenId]) {
+  for (const hiddenRow of hiddenRows) {
+    const hiddenId = requiredText(hiddenRow.id);
+    if (
+      hiddenCatalogViolation({
+        stagingRow: hiddenRow,
+        catalogProduct: catalogById.get(hiddenId),
+      }) &&
+      (catalogIdSet.has(hiddenId) || detailIdSet.has(hiddenId) || lookup.byId?.[hiddenId])
+    ) {
       errors.push(`Hidden product entered public index: ${hiddenId}`);
     }
   }
@@ -702,8 +735,18 @@ async function main() {
     errors.push("catalog.json contains forbidden heavy field text.");
   }
 
-  const hiddenRecordsExcluded = [...hiddenIds].every((id) => !catalogIdSet.has(id) && !detailIdSet.has(id) && !lookup.byId?.[id]);
-  const nonOfferRecordsExcluded = catalog.every((product) => stagingByIdHasPublicOffer(staging, product.id));
+  const hiddenRecordsExcluded = hiddenRows.every((row) => {
+    const id = requiredText(row.id);
+    return !hiddenCatalogViolation({
+      stagingRow: row,
+      catalogProduct: catalogById.get(id),
+    }) || (!catalogIdSet.has(id) && !detailIdSet.has(id) && !lookup.byId?.[id]);
+  });
+  const nonOfferRecordsExcluded = catalog.every(
+    (product) =>
+      product.publiclySellable !== true ||
+      stagingByIdHasPublicOffer(staging, product.id)
+  );
   const falconAkbExcluded = EXPECTED.falconAkbSourceProductIds.every(
     (sourceProductId) => !sourceProductKeySet.has(`smokingpipes:${sourceProductId}`)
   );
