@@ -2,6 +2,7 @@ param(
   [switch]$Resume,
   [switch]$PreflightOnly,
   [switch]$StopAfterApply,
+  [switch]$StopAfterValidate,
   [switch]$DryRunFromState,
   [string]$AutomationWorktree,
   [string]$RolloutStatePath
@@ -714,6 +715,23 @@ function Assert-ProductionValidationCounts {
   Assert-True ($danishCount -ge 0 -and $smokingpipesCount -ge 0 -and ($danishCount + $smokingpipesCount -eq $catalogCount)) "Production source counts are inconsistent."
   Assert-True ((Get-RequiredJsonInt $counts "brandCount") -gt 0) "Production brand count must be positive."
 }
+
+function Get-ProductionCommitUnexpectedPaths {
+  param([Parameter(Mandatory)][string[]]$Changed)
+  $allowed = @(
+    "data/products/smokingpipes-products.json",
+    "data/products/unified-products-staging.json",
+    "data/generated/public-products/",
+    "data/audits/"
+  )
+  return @(
+    $Changed | Where-Object {
+      $name = $_
+      -not ($allowed | Where-Object { $name -eq $_ -or $name.StartsWith($_) })
+    }
+  )
+}
+
 function Assert-ProgressiveAudit {
   param([Parameter(Mandatory)][object]$Audit)
   $counts = Get-OptionalJsonObject $Audit "counts"
@@ -872,9 +890,8 @@ function Invoke-ResumeDryRun {
   Write-Host "DRY-RUN PASS: validate-production (warnings=$($validationWarnings.Count))"
 
   Write-Host "DRY-RUN START: commit-production"
-  $allowed = @("data/products/smokingpipes-products.json", "data/products/unified-products-staging.json", "data/generated/public-products/")
   $changed = @(Get-GitText $Automation @("diff", "--name-only") -split "`n" | Where-Object { $_ })
-  $unexpected = @($changed | Where-Object { $n = $_; -not ($allowed | Where-Object { $n -eq $_ -or $n.StartsWith($_) }) })
+  $unexpected = @(Get-ProductionCommitUnexpectedPaths -Changed $changed)
   Assert-True ($changed.Count -gt 0 -and $unexpected.Count -eq 0) "Dry-run production diff is unexpected: $($unexpected -join '; ')"
   Write-Host "DRY-RUN PASS: commit-production would stage $($changed.Count) allowed files"
 
@@ -1132,13 +1149,17 @@ Save-State
     Save-State
   }
 
+  if ($StopAfterValidate) {
+    Write-Host "STOP AFTER VALIDATE: validate-production passed; stopping before commit, push, and scheduler stages."
+    exit 0
+  }
+
   Invoke-Stage "commit-production" {
     Assert-True ([bool]$script:State.productionValidated) "Production is not validated."
     $head = Get-GitText $Automation @("rev-parse", "HEAD")
     if (-not $script:State.productionCommit -or $head -ne [string]$script:State.productionCommit) {
-      $allowed = @("data/products/smokingpipes-products.json", "data/products/unified-products-staging.json", "data/generated/public-products/")
       $changed = @(Get-GitText $Automation @("diff", "--name-only") -split "`n" | Where-Object { $_ })
-      $unexpected = @($changed | Where-Object { $n = $_; -not ($allowed | Where-Object { $n -eq $_ -or $n.StartsWith($_) }) })
+      $unexpected = @(Get-ProductionCommitUnexpectedPaths -Changed $changed)
       Assert-True ($changed.Count -gt 0 -and $unexpected.Count -eq 0) "Unexpected production diff: $($unexpected -join '; ')"
       Invoke-Git "stage-production" $Automation @("add", "--", "data/products/smokingpipes-products.json", "data/products/unified-products-staging.json", "data/generated/public-products")
       Invoke-Git "commit-production" $Automation @("commit", "-m", "chore(inventory): publish Smokingpipes progressive baseline")
