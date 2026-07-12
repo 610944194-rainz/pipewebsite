@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "status": "passed",
   "summary": {
-    "publicProductCount": 6872,
-    "publicBrandCount": 161,
+    "publicProductCount": 8596,
+    "publicBrandCount": 167,
     "detailShardCount": 64,
-    "detailRecordCount": 6872,
+    "detailRecordCount": 8596,
     "filterGroupCount": 9,
     "safeCandidateCount": 7301,
     "frontendThresholdExclusive": 100,
     "minimumFrontendSeriesProductCount": 2,
-    "frontendEligibleBrandCount": 13,
+    "frontendEligibleBrandCount": 16,
     "frontendEnabledBrandCount": 10,
     "frontendSeriesOptionCount": 137,
     "auditOnlyBrandCount": 7
@@ -27,7 +27,7 @@
       "brand": "Peterson",
       "brandZh": null,
       "brandSlug": "peterson",
-      "productCount": 1061,
+      "productCount": 1241,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -38,7 +38,7 @@
           "canonicalBrand": "Peterson",
           "series": "System",
           "seriesZh": null,
-          "count": 115,
+          "count": 142,
           "productIds": [
             "danish-21840",
             "danish-32171",
@@ -140,8 +140,16 @@
             "smokingpipes-728116",
             "smokingpipes-728153",
             "smokingpipes-728154",
+            "smokingpipes-728167",
+            "smokingpipes-728172",
+            "smokingpipes-728173",
+            "smokingpipes-728174",
+            "smokingpipes-728175",
             "smokingpipes-728178",
             "smokingpipes-728179",
+            "smokingpipes-728180",
+            "smokingpipes-728181",
+            "smokingpipes-728183",
             "smokingpipes-728192",
             "smokingpipes-728200",
             "smokingpipes-728205",
@@ -150,15 +158,34 @@
             "smokingpipes-728216",
             "smokingpipes-728585",
             "smokingpipes-728776",
+            "smokingpipes-728777",
+            "smokingpipes-728778",
+            "smokingpipes-728789",
+            "smokingpipes-728791",
             "smokingpipes-728792",
             "smokingpipes-728799",
             "smokingpipes-729524",
             "smokingpipes-729589",
-            "smokingpipes-729888"
+            "smokingpipes-729846",
+            "smokingpipes-729850",
+            "smokingpipes-729851",
+            "smokingpipes-729862",
+            "smokingpipes-729888",
+            "smokingpipes-729981",
+            "smokingpipes-730369",
+            "smokingpipes-730411",
+            "smokingpipes-730691",
+            "smokingpipes-730692",
+            "smokingpipes-731354",
+            "smokingpipes-731362",
+            "smokingpipes-731364",
+            "smokingpipes-731365",
+            "smokingpipes-731366",
+            "smokingpipes-731370"
           ],
           "sourceCounts": {
             "danish": 65,
-            "smokingpipes": 50
+            "smokingpipes": 77
           },
           "confidence": "high",
           "sampleTitles": [
@@ -176,7 +203,7 @@
           "canonicalBrand": "Peterson",
           "series": "Irish Harp",
           "seriesZh": null,
-          "count": 105,
+          "count": 115,
           "productIds": [
             "danish-33994",
             "danish-33995",
@@ -263,11 +290,15 @@
             "smokingpipes-725779",
             "smokingpipes-725824",
             "smokingpipes-725830",
+            "smokingpipes-725844",
             "smokingpipes-725845",
+            "smokingpipes-725847",
             "smokingpipes-726371",
             "smokingpipes-726988",
             "smokingpipes-727004",
+            "smokingpipes-727359",
             "smokingpipes-727363",
+            "smokingpipes-727712",
             "smokingpipes-728100",
             "smokingpipes-728101",
             "smokingpipes-728117",
@@ -275,18 +306,24 @@
             "smokingpipes-728609",
             "smokingpipes-728610",
             "smokingpipes-728924",
+            "smokingpipes-729548",
             "smokingpipes-729556",
+            "smokingpipes-729558",
             "smokingpipes-729914",
             "smokingpipes-729918",
             "smokingpipes-729926",
             "smokingpipes-729954",
+            "smokingpipes-729964",
             "smokingpipes-729965",
             "smokingpipes-729966",
-            "smokingpipes-730155"
+            "smokingpipes-730155",
+            "smokingpipes-730385",
+            "smokingpipes-731337",
+            "smokingpipes-731374"
           ],
           "sourceCounts": {
             "danish": 7,
-            "smokingpipes": 98
+            "smokingpipes": 108
           },
           "confidence": "high",
           "sampleTitles": [
@@ -304,7 +341,7 @@
           "canonicalBrand": "Peterson",
           "series": "Dracula",
           "seriesZh": null,
-          "count": 103,
+          "count": 114,
           "productIds": [
             "smokingpipes-672439",
             "smokingpipes-672440",
@@ -395,6 +432,7 @@
             "smokingpipes-724208",
             "smokingpipes-724209",
             "smokingpipes-724255",
+            "smokingpipes-724599",
             "smokingpipes-724717",
             "smokingpipes-724980",
             "smokingpipes-724985",
@@ -408,10 +446,20 @@
             "smokingpipes-727369",
             "smokingpipes-727370",
             "smokingpipes-727371",
-            "smokingpipes-730000"
+            "smokingpipes-728532",
+            "smokingpipes-728533",
+            "smokingpipes-729497",
+            "smokingpipes-730000",
+            "smokingpipes-730008",
+            "smokingpipes-730009",
+            "smokingpipes-730010",
+            "smokingpipes-730138",
+            "smokingpipes-730450",
+            "smokingpipes-730679",
+            "smokingpipes-730700"
           ],
           "sourceCounts": {
-            "smokingpipes": 103
+            "smokingpipes": 114
           },
           "confidence": "high",
           "sampleTitles": [
@@ -429,7 +477,7 @@
           "canonicalBrand": "Peterson",
           "series": "Aran",
           "seriesZh": null,
-          "count": 84,
+          "count": 106,
           "productIds": [
             "smokingpipes-619224",
             "smokingpipes-672738",
@@ -502,22 +550,44 @@
             "smokingpipes-724977",
             "smokingpipes-725395",
             "smokingpipes-725569",
+            "smokingpipes-725787",
+            "smokingpipes-725788",
             "smokingpipes-726700",
             "smokingpipes-727706",
+            "smokingpipes-728106",
             "smokingpipes-728326",
             "smokingpipes-728334",
+            "smokingpipes-728336",
+            "smokingpipes-728346",
             "smokingpipes-728353",
+            "smokingpipes-728362",
+            "smokingpipes-728369",
             "smokingpipes-728373",
             "smokingpipes-728384",
             "smokingpipes-728385",
             "smokingpipes-728386",
             "smokingpipes-728387",
+            "smokingpipes-728546",
+            "smokingpipes-728564",
+            "smokingpipes-728565",
+            "smokingpipes-728566",
             "smokingpipes-729534",
+            "smokingpipes-729543",
+            "smokingpipes-729872",
+            "smokingpipes-729910",
+            "smokingpipes-729931",
+            "smokingpipes-729947",
+            "smokingpipes-729948",
             "smokingpipes-730143",
-            "smokingpipes-730144"
+            "smokingpipes-730144",
+            "smokingpipes-730147",
+            "smokingpipes-730152",
+            "smokingpipes-730363",
+            "smokingpipes-731299",
+            "smokingpipes-731530"
           ],
           "sourceCounts": {
-            "smokingpipes": 84
+            "smokingpipes": 106
           },
           "confidence": "high",
           "sampleTitles": [
@@ -533,9 +603,90 @@
           "brand": "Peterson",
           "brandZh": null,
           "canonicalBrand": "Peterson",
+          "series": "Sherlock Holmes",
+          "seriesZh": null,
+          "count": 58,
+          "productIds": [
+            "danish-35701",
+            "danish-35703",
+            "danish-35706",
+            "danish-35707",
+            "danish-35708",
+            "danish-35709",
+            "danish-35710",
+            "danish-35711",
+            "danish-36522",
+            "danish-36523",
+            "danish-36524",
+            "smokingpipes-708882",
+            "smokingpipes-726355",
+            "smokingpipes-727693",
+            "smokingpipes-728734",
+            "smokingpipes-728735",
+            "smokingpipes-728736",
+            "smokingpipes-728741",
+            "smokingpipes-728742",
+            "smokingpipes-728751",
+            "smokingpipes-728753",
+            "smokingpipes-728754",
+            "smokingpipes-728757",
+            "smokingpipes-728762",
+            "smokingpipes-728763",
+            "smokingpipes-728803",
+            "smokingpipes-728808",
+            "smokingpipes-728815",
+            "smokingpipes-728816",
+            "smokingpipes-728818",
+            "smokingpipes-728822",
+            "smokingpipes-728823",
+            "smokingpipes-728824",
+            "smokingpipes-728830",
+            "smokingpipes-728854",
+            "smokingpipes-728856",
+            "smokingpipes-728882",
+            "smokingpipes-728883",
+            "smokingpipes-729502",
+            "smokingpipes-729503",
+            "smokingpipes-729504",
+            "smokingpipes-729505",
+            "smokingpipes-729818",
+            "smokingpipes-729865",
+            "smokingpipes-729957",
+            "smokingpipes-729958",
+            "smokingpipes-729988",
+            "smokingpipes-729989",
+            "smokingpipes-729990",
+            "smokingpipes-730386",
+            "smokingpipes-730683",
+            "smokingpipes-731276",
+            "smokingpipes-731277",
+            "smokingpipes-731306",
+            "smokingpipes-731307",
+            "smokingpipes-731359",
+            "smokingpipes-731360",
+            "smokingpipes-731361"
+          ],
+          "sourceCounts": {
+            "danish": 11,
+            "smokingpipes": 47
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Peterson, Sherlock Holmes, Original, P-Lip",
+            "Peterson, Sherlock Holmes, Original, P-Lip",
+            "Peterson, Sherlock Holmes, Hansom, P-Lip",
+            "Peterson, Sherlock Holmes, Hansom, P-Lip",
+            "Peterson, Sherlock Holmes, Hansom, P-Lip"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
           "series": "Junior",
           "seriesZh": null,
-          "count": 53,
+          "count": 56,
           "productIds": [
             "smokingpipes-675801",
             "smokingpipes-675802",
@@ -589,10 +740,13 @@
             "smokingpipes-729968",
             "smokingpipes-729969",
             "smokingpipes-729970",
-            "smokingpipes-729976"
+            "smokingpipes-729976",
+            "smokingpipes-730457",
+            "smokingpipes-730742",
+            "smokingpipes-731542"
           ],
           "sourceCounts": {
-            "smokingpipes": 53
+            "smokingpipes": 56
           },
           "confidence": "high",
           "sampleTitles": [
@@ -610,7 +764,7 @@
           "canonicalBrand": "Peterson",
           "series": "Arklow",
           "seriesZh": null,
-          "count": 52,
+          "count": 55,
           "productIds": [
             "danish-17583",
             "danish-20734",
@@ -656,6 +810,7 @@
             "smokingpipes-728377",
             "smokingpipes-728378",
             "smokingpipes-728379",
+            "smokingpipes-728581",
             "smokingpipes-728588",
             "smokingpipes-728592",
             "smokingpipes-728593",
@@ -663,11 +818,13 @@
             "smokingpipes-729887",
             "smokingpipes-729971",
             "smokingpipes-729972",
-            "smokingpipes-729973"
+            "smokingpipes-729973",
+            "smokingpipes-730136",
+            "smokingpipes-730137"
           ],
           "sourceCounts": {
             "danish": 5,
-            "smokingpipes": 47
+            "smokingpipes": 50
           },
           "confidence": "high",
           "sampleTitles": [
@@ -676,6 +833,68 @@
             "Peterson, Arklow 80S, Bent Bulldog, 9 mm.",
             "Peterson, Arklow 150, Bulldog, 9 mm.",
             "Peterson, Arklow 107, Billard, 9 mm."
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Kildare",
+          "seriesZh": null,
+          "count": 39,
+          "productIds": [
+            "danish-33963",
+            "danish-35719",
+            "danish-35721",
+            "danish-35722",
+            "danish-36533",
+            "danish-36535",
+            "danish-36536",
+            "smokingpipes-656048",
+            "smokingpipes-656049",
+            "smokingpipes-656050",
+            "smokingpipes-663559",
+            "smokingpipes-671617",
+            "smokingpipes-671624",
+            "smokingpipes-671694",
+            "smokingpipes-671695",
+            "smokingpipes-671696",
+            "smokingpipes-676883",
+            "smokingpipes-685865",
+            "smokingpipes-701507",
+            "smokingpipes-713726",
+            "smokingpipes-713730",
+            "smokingpipes-716416",
+            "smokingpipes-716445",
+            "smokingpipes-716466",
+            "smokingpipes-716467",
+            "smokingpipes-716468",
+            "smokingpipes-718943",
+            "smokingpipes-719275",
+            "smokingpipes-721511",
+            "smokingpipes-721512",
+            "smokingpipes-724213",
+            "smokingpipes-724214",
+            "smokingpipes-727009",
+            "smokingpipes-727010",
+            "smokingpipes-727011",
+            "smokingpipes-728843",
+            "smokingpipes-728934",
+            "smokingpipes-729565",
+            "smokingpipes-730161"
+          ],
+          "sourceCounts": {
+            "danish": 7,
+            "smokingpipes": 32
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Peterson, Kildare 05, Bent Dublin w. Silver, P-Lip",
+            "Peterson, Kildare 15, Billard w. Silver, P-Lip",
+            "Peterson, Kildare 221, B. Billard w. Silver, P-Lip",
+            "Peterson, Kildare 221, B. Billard w. Silver, P-Lip",
+            "Peterson, Kildare 230, B. Billard w. Silver, P-Lip"
           ],
           "frontendIncluded": true
         },
@@ -736,67 +955,6 @@
             "Donegal Rocky (103) Fishtail Tobacco Pipe",
             "Donegal Rocky (106) Fishtail Tobacco Pipe",
             "Donegal Rocky (107) Fishtail Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Kildare",
-          "seriesZh": null,
-          "count": 38,
-          "productIds": [
-            "danish-33963",
-            "danish-35719",
-            "danish-35721",
-            "danish-35722",
-            "danish-36533",
-            "danish-36535",
-            "danish-36536",
-            "smokingpipes-656048",
-            "smokingpipes-656049",
-            "smokingpipes-656050",
-            "smokingpipes-663559",
-            "smokingpipes-671617",
-            "smokingpipes-671624",
-            "smokingpipes-671694",
-            "smokingpipes-671695",
-            "smokingpipes-671696",
-            "smokingpipes-676883",
-            "smokingpipes-685865",
-            "smokingpipes-701507",
-            "smokingpipes-713726",
-            "smokingpipes-713730",
-            "smokingpipes-716416",
-            "smokingpipes-716445",
-            "smokingpipes-716466",
-            "smokingpipes-716467",
-            "smokingpipes-716468",
-            "smokingpipes-718943",
-            "smokingpipes-719275",
-            "smokingpipes-721511",
-            "smokingpipes-721512",
-            "smokingpipes-724213",
-            "smokingpipes-724214",
-            "smokingpipes-727009",
-            "smokingpipes-727010",
-            "smokingpipes-727011",
-            "smokingpipes-728843",
-            "smokingpipes-728934",
-            "smokingpipes-730161"
-          ],
-          "sourceCounts": {
-            "danish": 7,
-            "smokingpipes": 31
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Peterson, Kildare 05, Bent Dublin w. Silver, P-Lip",
-            "Peterson, Kildare 15, Billard w. Silver, P-Lip",
-            "Peterson, Kildare 221, B. Billard w. Silver, P-Lip",
-            "Peterson, Kildare 221, B. Billard w. Silver, P-Lip",
-            "Peterson, Kildare 230, B. Billard w. Silver, P-Lip"
           ],
           "frontendIncluded": true
         },
@@ -920,54 +1078,52 @@
           "brand": "Peterson",
           "brandZh": null,
           "canonicalBrand": "Peterson",
-          "series": "Sherlock Holmes",
+          "series": "Terracotta Spigot",
           "seriesZh": null,
-          "count": 32,
+          "count": 31,
           "productIds": [
-            "danish-35701",
-            "danish-35703",
-            "danish-35706",
-            "danish-35707",
-            "danish-35708",
-            "danish-35709",
-            "danish-35710",
-            "danish-35711",
-            "danish-36522",
-            "danish-36523",
-            "danish-36524",
-            "smokingpipes-708882",
-            "smokingpipes-726355",
-            "smokingpipes-727693",
-            "smokingpipes-728741",
-            "smokingpipes-728742",
-            "smokingpipes-728751",
-            "smokingpipes-728753",
-            "smokingpipes-728762",
-            "smokingpipes-728803",
-            "smokingpipes-728822",
-            "smokingpipes-728854",
-            "smokingpipes-728856",
-            "smokingpipes-728882",
-            "smokingpipes-728883",
-            "smokingpipes-729818",
-            "smokingpipes-729865",
-            "smokingpipes-729957",
-            "smokingpipes-729958",
-            "smokingpipes-729988",
-            "smokingpipes-729989",
-            "smokingpipes-729990"
+            "smokingpipes-673315",
+            "smokingpipes-673318",
+            "smokingpipes-673326",
+            "smokingpipes-694399",
+            "smokingpipes-701943",
+            "smokingpipes-703150",
+            "smokingpipes-703151",
+            "smokingpipes-703152",
+            "smokingpipes-705094",
+            "smokingpipes-705096",
+            "smokingpipes-705097",
+            "smokingpipes-705098",
+            "smokingpipes-713722",
+            "smokingpipes-716442",
+            "smokingpipes-716936",
+            "smokingpipes-719305",
+            "smokingpipes-719306",
+            "smokingpipes-719307",
+            "smokingpipes-719308",
+            "smokingpipes-719309",
+            "smokingpipes-720458",
+            "smokingpipes-720459",
+            "smokingpipes-720460",
+            "smokingpipes-720463",
+            "smokingpipes-722846",
+            "smokingpipes-726375",
+            "smokingpipes-727367",
+            "smokingpipes-728221",
+            "smokingpipes-729560",
+            "smokingpipes-730157",
+            "smokingpipes-730429"
           ],
           "sourceCounts": {
-            "danish": 11,
-            "smokingpipes": 21
+            "smokingpipes": 31
           },
           "confidence": "high",
           "sampleTitles": [
-            "Peterson, Sherlock Holmes, Original, P-Lip",
-            "Peterson, Sherlock Holmes, Original, P-Lip",
-            "Peterson, Sherlock Holmes, Hansom, P-Lip",
-            "Peterson, Sherlock Holmes, Hansom, P-Lip",
-            "Peterson, Sherlock Holmes, Hansom, P-Lip"
+            "Terracotta Spigot (X105) Fishtail Tobacco Pipe",
+            "Terracotta Spigot (128) Fishtail Tobacco Pipe",
+            "Terracotta Spigot (D17) Fishtail Tobacco Pipe",
+            "Terracotta Spigot (129) Fishtail Tobacco Pipe",
+            "Terracotta Spigot (221) Fishtail Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -1020,6 +1176,57 @@
             "Emerald Rusticated (05) P-Lip Tobacco Pipe",
             "Emerald Rusticated (106) P-Lip Tobacco Pipe",
             "Emerald Rusticated (120) P-Lip Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Newgrange Spigot",
+          "seriesZh": null,
+          "count": 29,
+          "productIds": [
+            "smokingpipes-674033",
+            "smokingpipes-689051",
+            "smokingpipes-689816",
+            "smokingpipes-703114",
+            "smokingpipes-706066",
+            "smokingpipes-707236",
+            "smokingpipes-707237",
+            "smokingpipes-713698",
+            "smokingpipes-716408",
+            "smokingpipes-721339",
+            "smokingpipes-721340",
+            "smokingpipes-724965",
+            "smokingpipes-724966",
+            "smokingpipes-724968",
+            "smokingpipes-727347",
+            "smokingpipes-727348",
+            "smokingpipes-727349",
+            "smokingpipes-728878",
+            "smokingpipes-728879",
+            "smokingpipes-728907",
+            "smokingpipes-728908",
+            "smokingpipes-731291",
+            "smokingpipes-731293",
+            "smokingpipes-731294",
+            "smokingpipes-731295",
+            "smokingpipes-731321",
+            "smokingpipes-731322",
+            "smokingpipes-731323",
+            "smokingpipes-731327"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 29
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Newgrange Spigot (128) Fishtail Tobacco Pipe",
+            "Newgrange Spigot (608) Fishtail Tobacco Pipe",
+            "Newgrange Spigot (X105) Fishtail Tobacco Pipe",
+            "Newgrange Spigot (6) Fishtail Tobacco Pipe",
+            "Newgrange Spigot (05) Fishtail Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -1129,7 +1336,7 @@
           "canonicalBrand": "Peterson",
           "series": "Red Spigot",
           "seriesZh": null,
-          "count": 26,
+          "count": 27,
           "productIds": [
             "smokingpipes-670685",
             "smokingpipes-670686",
@@ -1156,10 +1363,11 @@
             "smokingpipes-728876",
             "smokingpipes-728885",
             "smokingpipes-729557",
-            "smokingpipes-730135"
+            "smokingpipes-730135",
+            "smokingpipes-730688"
           ],
           "sourceCounts": {
-            "smokingpipes": 26
+            "smokingpipes": 27
           },
           "confidence": "high",
           "sampleTitles": [
@@ -1168,49 +1376,6 @@
             "Red Spigot (6) Fishtail Tobacco Pipe",
             "Red Spigot (221) Fishtail Tobacco Pipe",
             "Red Spigot (127) Fishtail Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Newgrange Spigot",
-          "seriesZh": null,
-          "count": 21,
-          "productIds": [
-            "smokingpipes-674033",
-            "smokingpipes-689051",
-            "smokingpipes-689816",
-            "smokingpipes-703114",
-            "smokingpipes-706066",
-            "smokingpipes-707236",
-            "smokingpipes-707237",
-            "smokingpipes-713698",
-            "smokingpipes-716408",
-            "smokingpipes-721339",
-            "smokingpipes-721340",
-            "smokingpipes-724965",
-            "smokingpipes-724966",
-            "smokingpipes-724968",
-            "smokingpipes-727347",
-            "smokingpipes-727348",
-            "smokingpipes-727349",
-            "smokingpipes-728878",
-            "smokingpipes-728879",
-            "smokingpipes-728907",
-            "smokingpipes-728908"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 21
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Newgrange Spigot (128) Fishtail Tobacco Pipe",
-            "Newgrange Spigot (608) Fishtail Tobacco Pipe",
-            "Newgrange Spigot (X105) Fishtail Tobacco Pipe",
-            "Newgrange Spigot (6) Fishtail Tobacco Pipe",
-            "Newgrange Spigot (05) Fishtail Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -1345,49 +1510,9 @@
           "brand": "Peterson",
           "brandZh": null,
           "canonicalBrand": "Peterson",
-          "series": "Terracotta Spigot",
-          "seriesZh": null,
-          "count": 18,
-          "productIds": [
-            "smokingpipes-673315",
-            "smokingpipes-673326",
-            "smokingpipes-701943",
-            "smokingpipes-703150",
-            "smokingpipes-703151",
-            "smokingpipes-703152",
-            "smokingpipes-705097",
-            "smokingpipes-705098",
-            "smokingpipes-713722",
-            "smokingpipes-716442",
-            "smokingpipes-716936",
-            "smokingpipes-720458",
-            "smokingpipes-720459",
-            "smokingpipes-720460",
-            "smokingpipes-722846",
-            "smokingpipes-726375",
-            "smokingpipes-727367",
-            "smokingpipes-728221"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 18
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Terracotta Spigot (X105) Fishtail Tobacco Pipe",
-            "Terracotta Spigot (D17) Fishtail Tobacco Pipe",
-            "Terracotta Spigot (221) Fishtail Tobacco Pipe",
-            "Terracotta Spigot (6) Fishtail Tobacco Pipe",
-            "Terracotta Spigot (6) Fishtail Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
           "series": "Killarney",
           "seriesZh": null,
-          "count": 15,
+          "count": 18,
           "productIds": [
             "smokingpipes-721766",
             "smokingpipes-724943",
@@ -1402,11 +1527,14 @@
             "smokingpipes-729516",
             "smokingpipes-729517",
             "smokingpipes-729861",
+            "smokingpipes-730129",
             "smokingpipes-730164",
-            "smokingpipes-730165"
+            "smokingpipes-730165",
+            "smokingpipes-730380",
+            "smokingpipes-731283"
           ],
           "sourceCounts": {
-            "smokingpipes": 15
+            "smokingpipes": 18
           },
           "confidence": "high",
           "sampleTitles": [
@@ -1415,6 +1543,44 @@
             "Killarney Red (999) Fishtail Tobacco Pipe",
             "Killarney Red (221) Fishtail Tobacco Pipe",
             "Killarney Red (230) Fishtail Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Tavern",
+          "seriesZh": null,
+          "count": 15,
+          "productIds": [
+            "danish-29424",
+            "danish-29425",
+            "danish-29426",
+            "danish-29427",
+            "danish-29428",
+            "danish-29429",
+            "smokingpipes-722235",
+            "smokingpipes-722239",
+            "smokingpipes-724983",
+            "smokingpipes-729575",
+            "smokingpipes-729595",
+            "smokingpipes-729596",
+            "smokingpipes-730166",
+            "smokingpipes-730167",
+            "smokingpipes-730449"
+          ],
+          "sourceCounts": {
+            "danish": 6,
+            "smokingpipes": 9
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Peterson, Tavern, Prince",
+            "Peterson, Tavern, Apple",
+            "Peterson, Tavern, Pear",
+            "Peterson, Tavern, Belgique",
+            "Peterson, Tavern, Billard"
           ],
           "frontendIncluded": true
         },
@@ -1452,36 +1618,6 @@
             "House Pipe Rusticated Silver Cap Billiard P-Lip Tobacco Pipe"
           ],
           "frontendIncluded": true
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Tavern",
-          "seriesZh": null,
-          "count": 7,
-          "productIds": [
-            "danish-29424",
-            "danish-29425",
-            "danish-29426",
-            "danish-29427",
-            "danish-29428",
-            "danish-29429",
-            "smokingpipes-722239"
-          ],
-          "sourceCounts": {
-            "danish": 6,
-            "smokingpipes": 1
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Peterson, Tavern, Prince",
-            "Peterson, Tavern, Apple",
-            "Peterson, Tavern, Pear",
-            "Peterson, Tavern, Belgique",
-            "Peterson, Tavern, Billard"
-          ],
-          "frontendIncluded": true
         }
       ],
       "frontendSeriesOptions": [
@@ -1491,7 +1627,7 @@
           "canonicalBrand": "Peterson",
           "series": "System",
           "seriesZh": null,
-          "count": 115,
+          "count": 142,
           "productIds": [
             "danish-21840",
             "danish-32171",
@@ -1593,8 +1729,16 @@
             "smokingpipes-728116",
             "smokingpipes-728153",
             "smokingpipes-728154",
+            "smokingpipes-728167",
+            "smokingpipes-728172",
+            "smokingpipes-728173",
+            "smokingpipes-728174",
+            "smokingpipes-728175",
             "smokingpipes-728178",
             "smokingpipes-728179",
+            "smokingpipes-728180",
+            "smokingpipes-728181",
+            "smokingpipes-728183",
             "smokingpipes-728192",
             "smokingpipes-728200",
             "smokingpipes-728205",
@@ -1603,11 +1747,30 @@
             "smokingpipes-728216",
             "smokingpipes-728585",
             "smokingpipes-728776",
+            "smokingpipes-728777",
+            "smokingpipes-728778",
+            "smokingpipes-728789",
+            "smokingpipes-728791",
             "smokingpipes-728792",
             "smokingpipes-728799",
             "smokingpipes-729524",
             "smokingpipes-729589",
-            "smokingpipes-729888"
+            "smokingpipes-729846",
+            "smokingpipes-729850",
+            "smokingpipes-729851",
+            "smokingpipes-729862",
+            "smokingpipes-729888",
+            "smokingpipes-729981",
+            "smokingpipes-730369",
+            "smokingpipes-730411",
+            "smokingpipes-730691",
+            "smokingpipes-730692",
+            "smokingpipes-731354",
+            "smokingpipes-731362",
+            "smokingpipes-731364",
+            "smokingpipes-731365",
+            "smokingpipes-731366",
+            "smokingpipes-731370"
           ],
           "confidence": "high"
         },
@@ -1617,7 +1780,7 @@
           "canonicalBrand": "Peterson",
           "series": "Irish Harp",
           "seriesZh": null,
-          "count": 105,
+          "count": 115,
           "productIds": [
             "danish-33994",
             "danish-33995",
@@ -1704,11 +1867,15 @@
             "smokingpipes-725779",
             "smokingpipes-725824",
             "smokingpipes-725830",
+            "smokingpipes-725844",
             "smokingpipes-725845",
+            "smokingpipes-725847",
             "smokingpipes-726371",
             "smokingpipes-726988",
             "smokingpipes-727004",
+            "smokingpipes-727359",
             "smokingpipes-727363",
+            "smokingpipes-727712",
             "smokingpipes-728100",
             "smokingpipes-728101",
             "smokingpipes-728117",
@@ -1716,14 +1883,20 @@
             "smokingpipes-728609",
             "smokingpipes-728610",
             "smokingpipes-728924",
+            "smokingpipes-729548",
             "smokingpipes-729556",
+            "smokingpipes-729558",
             "smokingpipes-729914",
             "smokingpipes-729918",
             "smokingpipes-729926",
             "smokingpipes-729954",
+            "smokingpipes-729964",
             "smokingpipes-729965",
             "smokingpipes-729966",
-            "smokingpipes-730155"
+            "smokingpipes-730155",
+            "smokingpipes-730385",
+            "smokingpipes-731337",
+            "smokingpipes-731374"
           ],
           "confidence": "high"
         },
@@ -1733,7 +1906,7 @@
           "canonicalBrand": "Peterson",
           "series": "Dracula",
           "seriesZh": null,
-          "count": 103,
+          "count": 114,
           "productIds": [
             "smokingpipes-672439",
             "smokingpipes-672440",
@@ -1824,6 +1997,7 @@
             "smokingpipes-724208",
             "smokingpipes-724209",
             "smokingpipes-724255",
+            "smokingpipes-724599",
             "smokingpipes-724717",
             "smokingpipes-724980",
             "smokingpipes-724985",
@@ -1837,7 +2011,17 @@
             "smokingpipes-727369",
             "smokingpipes-727370",
             "smokingpipes-727371",
-            "smokingpipes-730000"
+            "smokingpipes-728532",
+            "smokingpipes-728533",
+            "smokingpipes-729497",
+            "smokingpipes-730000",
+            "smokingpipes-730008",
+            "smokingpipes-730009",
+            "smokingpipes-730010",
+            "smokingpipes-730138",
+            "smokingpipes-730450",
+            "smokingpipes-730679",
+            "smokingpipes-730700"
           ],
           "confidence": "high"
         },
@@ -1847,7 +2031,7 @@
           "canonicalBrand": "Peterson",
           "series": "Aran",
           "seriesZh": null,
-          "count": 84,
+          "count": 106,
           "productIds": [
             "smokingpipes-619224",
             "smokingpipes-672738",
@@ -1920,19 +2104,110 @@
             "smokingpipes-724977",
             "smokingpipes-725395",
             "smokingpipes-725569",
+            "smokingpipes-725787",
+            "smokingpipes-725788",
             "smokingpipes-726700",
             "smokingpipes-727706",
+            "smokingpipes-728106",
             "smokingpipes-728326",
             "smokingpipes-728334",
+            "smokingpipes-728336",
+            "smokingpipes-728346",
             "smokingpipes-728353",
+            "smokingpipes-728362",
+            "smokingpipes-728369",
             "smokingpipes-728373",
             "smokingpipes-728384",
             "smokingpipes-728385",
             "smokingpipes-728386",
             "smokingpipes-728387",
+            "smokingpipes-728546",
+            "smokingpipes-728564",
+            "smokingpipes-728565",
+            "smokingpipes-728566",
             "smokingpipes-729534",
+            "smokingpipes-729543",
+            "smokingpipes-729872",
+            "smokingpipes-729910",
+            "smokingpipes-729931",
+            "smokingpipes-729947",
+            "smokingpipes-729948",
             "smokingpipes-730143",
-            "smokingpipes-730144"
+            "smokingpipes-730144",
+            "smokingpipes-730147",
+            "smokingpipes-730152",
+            "smokingpipes-730363",
+            "smokingpipes-731299",
+            "smokingpipes-731530"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Sherlock Holmes",
+          "seriesZh": null,
+          "count": 58,
+          "productIds": [
+            "danish-35701",
+            "danish-35703",
+            "danish-35706",
+            "danish-35707",
+            "danish-35708",
+            "danish-35709",
+            "danish-35710",
+            "danish-35711",
+            "danish-36522",
+            "danish-36523",
+            "danish-36524",
+            "smokingpipes-708882",
+            "smokingpipes-726355",
+            "smokingpipes-727693",
+            "smokingpipes-728734",
+            "smokingpipes-728735",
+            "smokingpipes-728736",
+            "smokingpipes-728741",
+            "smokingpipes-728742",
+            "smokingpipes-728751",
+            "smokingpipes-728753",
+            "smokingpipes-728754",
+            "smokingpipes-728757",
+            "smokingpipes-728762",
+            "smokingpipes-728763",
+            "smokingpipes-728803",
+            "smokingpipes-728808",
+            "smokingpipes-728815",
+            "smokingpipes-728816",
+            "smokingpipes-728818",
+            "smokingpipes-728822",
+            "smokingpipes-728823",
+            "smokingpipes-728824",
+            "smokingpipes-728830",
+            "smokingpipes-728854",
+            "smokingpipes-728856",
+            "smokingpipes-728882",
+            "smokingpipes-728883",
+            "smokingpipes-729502",
+            "smokingpipes-729503",
+            "smokingpipes-729504",
+            "smokingpipes-729505",
+            "smokingpipes-729818",
+            "smokingpipes-729865",
+            "smokingpipes-729957",
+            "smokingpipes-729958",
+            "smokingpipes-729988",
+            "smokingpipes-729989",
+            "smokingpipes-729990",
+            "smokingpipes-730386",
+            "smokingpipes-730683",
+            "smokingpipes-731276",
+            "smokingpipes-731277",
+            "smokingpipes-731306",
+            "smokingpipes-731307",
+            "smokingpipes-731359",
+            "smokingpipes-731360",
+            "smokingpipes-731361"
           ],
           "confidence": "high"
         },
@@ -1942,7 +2217,7 @@
           "canonicalBrand": "Peterson",
           "series": "Junior",
           "seriesZh": null,
-          "count": 53,
+          "count": 56,
           "productIds": [
             "smokingpipes-675801",
             "smokingpipes-675802",
@@ -1996,7 +2271,10 @@
             "smokingpipes-729968",
             "smokingpipes-729969",
             "smokingpipes-729970",
-            "smokingpipes-729976"
+            "smokingpipes-729976",
+            "smokingpipes-730457",
+            "smokingpipes-730742",
+            "smokingpipes-731542"
           ],
           "confidence": "high"
         },
@@ -2006,7 +2284,7 @@
           "canonicalBrand": "Peterson",
           "series": "Arklow",
           "seriesZh": null,
-          "count": 52,
+          "count": 55,
           "productIds": [
             "danish-17583",
             "danish-20734",
@@ -2052,6 +2330,7 @@
             "smokingpipes-728377",
             "smokingpipes-728378",
             "smokingpipes-728379",
+            "smokingpipes-728581",
             "smokingpipes-728588",
             "smokingpipes-728592",
             "smokingpipes-728593",
@@ -2059,7 +2338,59 @@
             "smokingpipes-729887",
             "smokingpipes-729971",
             "smokingpipes-729972",
-            "smokingpipes-729973"
+            "smokingpipes-729973",
+            "smokingpipes-730136",
+            "smokingpipes-730137"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Kildare",
+          "seriesZh": null,
+          "count": 39,
+          "productIds": [
+            "danish-33963",
+            "danish-35719",
+            "danish-35721",
+            "danish-35722",
+            "danish-36533",
+            "danish-36535",
+            "danish-36536",
+            "smokingpipes-656048",
+            "smokingpipes-656049",
+            "smokingpipes-656050",
+            "smokingpipes-663559",
+            "smokingpipes-671617",
+            "smokingpipes-671624",
+            "smokingpipes-671694",
+            "smokingpipes-671695",
+            "smokingpipes-671696",
+            "smokingpipes-676883",
+            "smokingpipes-685865",
+            "smokingpipes-701507",
+            "smokingpipes-713726",
+            "smokingpipes-713730",
+            "smokingpipes-716416",
+            "smokingpipes-716445",
+            "smokingpipes-716466",
+            "smokingpipes-716467",
+            "smokingpipes-716468",
+            "smokingpipes-718943",
+            "smokingpipes-719275",
+            "smokingpipes-721511",
+            "smokingpipes-721512",
+            "smokingpipes-724213",
+            "smokingpipes-724214",
+            "smokingpipes-727009",
+            "smokingpipes-727010",
+            "smokingpipes-727011",
+            "smokingpipes-728843",
+            "smokingpipes-728934",
+            "smokingpipes-729565",
+            "smokingpipes-730161"
           ],
           "confidence": "high"
         },
@@ -2109,55 +2440,6 @@
             "smokingpipes-715937",
             "smokingpipes-715938",
             "smokingpipes-715939"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Kildare",
-          "seriesZh": null,
-          "count": 38,
-          "productIds": [
-            "danish-33963",
-            "danish-35719",
-            "danish-35721",
-            "danish-35722",
-            "danish-36533",
-            "danish-36535",
-            "danish-36536",
-            "smokingpipes-656048",
-            "smokingpipes-656049",
-            "smokingpipes-656050",
-            "smokingpipes-663559",
-            "smokingpipes-671617",
-            "smokingpipes-671624",
-            "smokingpipes-671694",
-            "smokingpipes-671695",
-            "smokingpipes-671696",
-            "smokingpipes-676883",
-            "smokingpipes-685865",
-            "smokingpipes-701507",
-            "smokingpipes-713726",
-            "smokingpipes-713730",
-            "smokingpipes-716416",
-            "smokingpipes-716445",
-            "smokingpipes-716466",
-            "smokingpipes-716467",
-            "smokingpipes-716468",
-            "smokingpipes-718943",
-            "smokingpipes-719275",
-            "smokingpipes-721511",
-            "smokingpipes-721512",
-            "smokingpipes-724213",
-            "smokingpipes-724214",
-            "smokingpipes-727009",
-            "smokingpipes-727010",
-            "smokingpipes-727011",
-            "smokingpipes-728843",
-            "smokingpipes-728934",
-            "smokingpipes-730161"
           ],
           "confidence": "high"
         },
@@ -2257,42 +2539,41 @@
           "brand": "Peterson",
           "brandZh": null,
           "canonicalBrand": "Peterson",
-          "series": "Sherlock Holmes",
+          "series": "Terracotta Spigot",
           "seriesZh": null,
-          "count": 32,
+          "count": 31,
           "productIds": [
-            "danish-35701",
-            "danish-35703",
-            "danish-35706",
-            "danish-35707",
-            "danish-35708",
-            "danish-35709",
-            "danish-35710",
-            "danish-35711",
-            "danish-36522",
-            "danish-36523",
-            "danish-36524",
-            "smokingpipes-708882",
-            "smokingpipes-726355",
-            "smokingpipes-727693",
-            "smokingpipes-728741",
-            "smokingpipes-728742",
-            "smokingpipes-728751",
-            "smokingpipes-728753",
-            "smokingpipes-728762",
-            "smokingpipes-728803",
-            "smokingpipes-728822",
-            "smokingpipes-728854",
-            "smokingpipes-728856",
-            "smokingpipes-728882",
-            "smokingpipes-728883",
-            "smokingpipes-729818",
-            "smokingpipes-729865",
-            "smokingpipes-729957",
-            "smokingpipes-729958",
-            "smokingpipes-729988",
-            "smokingpipes-729989",
-            "smokingpipes-729990"
+            "smokingpipes-673315",
+            "smokingpipes-673318",
+            "smokingpipes-673326",
+            "smokingpipes-694399",
+            "smokingpipes-701943",
+            "smokingpipes-703150",
+            "smokingpipes-703151",
+            "smokingpipes-703152",
+            "smokingpipes-705094",
+            "smokingpipes-705096",
+            "smokingpipes-705097",
+            "smokingpipes-705098",
+            "smokingpipes-713722",
+            "smokingpipes-716442",
+            "smokingpipes-716936",
+            "smokingpipes-719305",
+            "smokingpipes-719306",
+            "smokingpipes-719307",
+            "smokingpipes-719308",
+            "smokingpipes-719309",
+            "smokingpipes-720458",
+            "smokingpipes-720459",
+            "smokingpipes-720460",
+            "smokingpipes-720463",
+            "smokingpipes-722846",
+            "smokingpipes-726375",
+            "smokingpipes-727367",
+            "smokingpipes-728221",
+            "smokingpipes-729560",
+            "smokingpipes-730157",
+            "smokingpipes-730429"
           ],
           "confidence": "high"
         },
@@ -2333,6 +2614,46 @@
             "smokingpipes-715987",
             "smokingpipes-715988",
             "smokingpipes-715990"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Newgrange Spigot",
+          "seriesZh": null,
+          "count": 29,
+          "productIds": [
+            "smokingpipes-674033",
+            "smokingpipes-689051",
+            "smokingpipes-689816",
+            "smokingpipes-703114",
+            "smokingpipes-706066",
+            "smokingpipes-707236",
+            "smokingpipes-707237",
+            "smokingpipes-713698",
+            "smokingpipes-716408",
+            "smokingpipes-721339",
+            "smokingpipes-721340",
+            "smokingpipes-724965",
+            "smokingpipes-724966",
+            "smokingpipes-724968",
+            "smokingpipes-727347",
+            "smokingpipes-727348",
+            "smokingpipes-727349",
+            "smokingpipes-728878",
+            "smokingpipes-728879",
+            "smokingpipes-728907",
+            "smokingpipes-728908",
+            "smokingpipes-731291",
+            "smokingpipes-731293",
+            "smokingpipes-731294",
+            "smokingpipes-731295",
+            "smokingpipes-731321",
+            "smokingpipes-731322",
+            "smokingpipes-731323",
+            "smokingpipes-731327"
           ],
           "confidence": "high"
         },
@@ -2420,7 +2741,7 @@
           "canonicalBrand": "Peterson",
           "series": "Red Spigot",
           "seriesZh": null,
-          "count": 26,
+          "count": 27,
           "productIds": [
             "smokingpipes-670685",
             "smokingpipes-670686",
@@ -2447,39 +2768,8 @@
             "smokingpipes-728876",
             "smokingpipes-728885",
             "smokingpipes-729557",
-            "smokingpipes-730135"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Newgrange Spigot",
-          "seriesZh": null,
-          "count": 21,
-          "productIds": [
-            "smokingpipes-674033",
-            "smokingpipes-689051",
-            "smokingpipes-689816",
-            "smokingpipes-703114",
-            "smokingpipes-706066",
-            "smokingpipes-707236",
-            "smokingpipes-707237",
-            "smokingpipes-713698",
-            "smokingpipes-716408",
-            "smokingpipes-721339",
-            "smokingpipes-721340",
-            "smokingpipes-724965",
-            "smokingpipes-724966",
-            "smokingpipes-724968",
-            "smokingpipes-727347",
-            "smokingpipes-727348",
-            "smokingpipes-727349",
-            "smokingpipes-728878",
-            "smokingpipes-728879",
-            "smokingpipes-728907",
-            "smokingpipes-728908"
+            "smokingpipes-730135",
+            "smokingpipes-730688"
           ],
           "confidence": "high"
         },
@@ -2580,38 +2870,9 @@
           "brand": "Peterson",
           "brandZh": null,
           "canonicalBrand": "Peterson",
-          "series": "Terracotta Spigot",
-          "seriesZh": null,
-          "count": 18,
-          "productIds": [
-            "smokingpipes-673315",
-            "smokingpipes-673326",
-            "smokingpipes-701943",
-            "smokingpipes-703150",
-            "smokingpipes-703151",
-            "smokingpipes-703152",
-            "smokingpipes-705097",
-            "smokingpipes-705098",
-            "smokingpipes-713722",
-            "smokingpipes-716442",
-            "smokingpipes-716936",
-            "smokingpipes-720458",
-            "smokingpipes-720459",
-            "smokingpipes-720460",
-            "smokingpipes-722846",
-            "smokingpipes-726375",
-            "smokingpipes-727367",
-            "smokingpipes-728221"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
           "series": "Killarney",
           "seriesZh": null,
-          "count": 15,
+          "count": 18,
           "productIds": [
             "smokingpipes-721766",
             "smokingpipes-724943",
@@ -2626,8 +2887,37 @@
             "smokingpipes-729516",
             "smokingpipes-729517",
             "smokingpipes-729861",
+            "smokingpipes-730129",
             "smokingpipes-730164",
-            "smokingpipes-730165"
+            "smokingpipes-730165",
+            "smokingpipes-730380",
+            "smokingpipes-731283"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Peterson",
+          "brandZh": null,
+          "canonicalBrand": "Peterson",
+          "series": "Tavern",
+          "seriesZh": null,
+          "count": 15,
+          "productIds": [
+            "danish-29424",
+            "danish-29425",
+            "danish-29426",
+            "danish-29427",
+            "danish-29428",
+            "danish-29429",
+            "smokingpipes-722235",
+            "smokingpipes-722239",
+            "smokingpipes-724983",
+            "smokingpipes-729575",
+            "smokingpipes-729595",
+            "smokingpipes-729596",
+            "smokingpipes-730166",
+            "smokingpipes-730167",
+            "smokingpipes-730449"
           ],
           "confidence": "high"
         },
@@ -2653,32 +2943,25 @@
             "smokingpipes-729992"
           ],
           "confidence": "high"
-        },
-        {
-          "brand": "Peterson",
-          "brandZh": null,
-          "canonicalBrand": "Peterson",
-          "series": "Tavern",
-          "seriesZh": null,
-          "count": 7,
-          "productIds": [
-            "danish-29424",
-            "danish-29425",
-            "danish-29426",
-            "danish-29427",
-            "danish-29428",
-            "danish-29429",
-            "smokingpipes-722239"
-          ],
-          "confidence": "high"
         }
       ]
+    },
+    {
+      "brand": "Unknown",
+      "brandZh": null,
+      "brandSlug": null,
+      "productCount": 1180,
+      "frontendEligible": true,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
     },
     {
       "brand": "Savinelli",
       "brandZh": null,
       "brandSlug": "savinelli",
-      "productCount": 982,
+      "productCount": 1067,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -2832,9 +3115,80 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
+          "series": "Miele",
+          "seriesZh": null,
+          "count": 48,
+          "productIds": [
+            "danish-34296",
+            "danish-35492",
+            "danish-35493",
+            "smokingpipes-673499",
+            "smokingpipes-715128",
+            "smokingpipes-718544",
+            "smokingpipes-718611",
+            "smokingpipes-719841",
+            "smokingpipes-719844",
+            "smokingpipes-721919",
+            "smokingpipes-722574",
+            "smokingpipes-722582",
+            "smokingpipes-722924",
+            "smokingpipes-723232",
+            "smokingpipes-723751",
+            "smokingpipes-723849",
+            "smokingpipes-724495",
+            "smokingpipes-724520",
+            "smokingpipes-725009",
+            "smokingpipes-725012",
+            "smokingpipes-725318",
+            "smokingpipes-725533",
+            "smokingpipes-725541",
+            "smokingpipes-726351",
+            "smokingpipes-726521",
+            "smokingpipes-726967",
+            "smokingpipes-727317",
+            "smokingpipes-727318",
+            "smokingpipes-729203",
+            "smokingpipes-729206",
+            "smokingpipes-729207",
+            "smokingpipes-729211",
+            "smokingpipes-729212",
+            "smokingpipes-729213",
+            "smokingpipes-729214",
+            "smokingpipes-729220",
+            "smokingpipes-729223",
+            "smokingpipes-729224",
+            "smokingpipes-729492",
+            "smokingpipes-729493",
+            "smokingpipes-729704",
+            "smokingpipes-729724",
+            "smokingpipes-730076",
+            "smokingpipes-730113",
+            "smokingpipes-730117",
+            "smokingpipes-730118",
+            "smokingpipes-730628",
+            "smokingpipes-730649"
+          ],
+          "sourceCounts": {
+            "danish": 3,
+            "smokingpipes": 45
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Savinelli, Miele 316 KS, Dublin, rustic",
+            "Savinelli, Miele 601, Bent Billard, rustic",
+            "Savinelli, Miele 106, Billard, rustic",
+            "Miele Smooth (601) (6mm) Tobacco Pipe",
+            "Miele Smooth (311 KS) (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
           "series": "Tre",
           "seriesZh": null,
-          "count": 46,
+          "count": 48,
           "productIds": [
             "danish-18354",
             "danish-18355",
@@ -2881,11 +3235,13 @@
             "smokingpipes-729714",
             "smokingpipes-729715",
             "smokingpipes-729716",
-            "smokingpipes-730095"
+            "smokingpipes-730094",
+            "smokingpipes-730095",
+            "smokingpipes-730096"
           ],
           "sourceCounts": {
             "danish": 20,
-            "smokingpipes": 26
+            "smokingpipes": 28
           },
           "confidence": "high",
           "sampleTitles": [
@@ -2901,71 +3257,9 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
-          "series": "Miele",
-          "seriesZh": null,
-          "count": 39,
-          "productIds": [
-            "danish-34296",
-            "danish-35492",
-            "danish-35493",
-            "smokingpipes-673499",
-            "smokingpipes-715128",
-            "smokingpipes-718544",
-            "smokingpipes-718611",
-            "smokingpipes-719841",
-            "smokingpipes-719844",
-            "smokingpipes-721919",
-            "smokingpipes-722574",
-            "smokingpipes-722582",
-            "smokingpipes-722924",
-            "smokingpipes-723232",
-            "smokingpipes-723751",
-            "smokingpipes-723849",
-            "smokingpipes-724495",
-            "smokingpipes-724520",
-            "smokingpipes-725009",
-            "smokingpipes-725012",
-            "smokingpipes-725318",
-            "smokingpipes-725533",
-            "smokingpipes-725541",
-            "smokingpipes-726351",
-            "smokingpipes-726521",
-            "smokingpipes-726967",
-            "smokingpipes-727317",
-            "smokingpipes-727318",
-            "smokingpipes-729203",
-            "smokingpipes-729206",
-            "smokingpipes-729207",
-            "smokingpipes-729220",
-            "smokingpipes-729492",
-            "smokingpipes-729493",
-            "smokingpipes-729704",
-            "smokingpipes-729724",
-            "smokingpipes-730113",
-            "smokingpipes-730117",
-            "smokingpipes-730118"
-          ],
-          "sourceCounts": {
-            "danish": 3,
-            "smokingpipes": 36
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Savinelli, Miele 316 KS, Dublin, rustic",
-            "Savinelli, Miele 601, Bent Billard, rustic",
-            "Savinelli, Miele 106, Billard, rustic",
-            "Miele Smooth (601) (6mm) Tobacco Pipe",
-            "Miele Smooth (311 KS) (6mm) Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
           "series": "Autograph",
           "seriesZh": null,
-          "count": 38,
+          "count": 42,
           "productIds": [
             "danish-33543",
             "smokingpipes-660809",
@@ -3003,12 +3297,16 @@
             "smokingpipes-718907",
             "smokingpipes-718910",
             "smokingpipes-727838",
+            "smokingpipes-727839",
             "smokingpipes-727840",
-            "smokingpipes-727842"
+            "smokingpipes-727841",
+            "smokingpipes-727842",
+            "smokingpipes-727843",
+            "smokingpipes-727844"
           ],
           "sourceCounts": {
             "danish": 1,
-            "smokingpipes": 37
+            "smokingpipes": 41
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3086,7 +3384,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Tortuga",
           "seriesZh": null,
-          "count": 34,
+          "count": 35,
           "productIds": [
             "danish-27657",
             "danish-31838",
@@ -3121,11 +3419,12 @@
             "smokingpipes-729466",
             "smokingpipes-729706",
             "smokingpipes-729708",
-            "smokingpipes-730073"
+            "smokingpipes-730073",
+            "smokingpipes-730075"
           ],
           "sourceCounts": {
             "danish": 5,
-            "smokingpipes": 29
+            "smokingpipes": 30
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3143,7 +3442,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Minuto",
           "seriesZh": null,
-          "count": 30,
+          "count": 34,
           "productIds": [
             "danish-3823",
             "danish-3824",
@@ -3171,14 +3470,18 @@
             "smokingpipes-729711",
             "smokingpipes-729712",
             "smokingpipes-730078",
+            "smokingpipes-730079",
             "smokingpipes-730080",
             "smokingpipes-730081",
             "smokingpipes-730114",
-            "smokingpipes-730115"
+            "smokingpipes-730115",
+            "smokingpipes-730327",
+            "smokingpipes-730349",
+            "smokingpipes-730652"
           ],
           "sourceCounts": {
             "danish": 8,
-            "smokingpipes": 22
+            "smokingpipes": 26
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3194,9 +3497,64 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
+          "series": "Unica",
+          "seriesZh": null,
+          "count": 33,
+          "productIds": [
+            "smokingpipes-678484",
+            "smokingpipes-678549",
+            "smokingpipes-684945",
+            "smokingpipes-684946",
+            "smokingpipes-694596",
+            "smokingpipes-709073",
+            "smokingpipes-710448",
+            "smokingpipes-713498",
+            "smokingpipes-713499",
+            "smokingpipes-715123",
+            "smokingpipes-716779",
+            "smokingpipes-718371",
+            "smokingpipes-718868",
+            "smokingpipes-721105",
+            "smokingpipes-722580",
+            "smokingpipes-724182",
+            "smokingpipes-724183",
+            "smokingpipes-724514",
+            "smokingpipes-724750",
+            "smokingpipes-725068",
+            "smokingpipes-725069",
+            "smokingpipes-725356",
+            "smokingpipes-725357",
+            "smokingpipes-725361",
+            "smokingpipes-727686",
+            "smokingpipes-728077",
+            "smokingpipes-729225",
+            "smokingpipes-729227",
+            "smokingpipes-729739",
+            "smokingpipes-729740",
+            "smokingpipes-729741",
+            "smokingpipes-729742",
+            "smokingpipes-729743"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 33
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Unica Rusticated Dark Brown (U67) (6mm) Tobacco Pipe",
+            "Unica Rusticated Dark Brown (U47) (6mm) Tobacco Pipe",
+            "Unica Rusticated Dark Brown (U15) (6mm) Tobacco Pipe",
+            "Unica Rusticated Dark Brown (U41) (6mm) Tobacco Pipe",
+            "Unica Rusticated Dark Brown (U15) (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
           "series": "Siena",
           "seriesZh": null,
-          "count": 28,
+          "count": 31,
           "productIds": [
             "danish-34295",
             "danish-34930",
@@ -3225,11 +3583,14 @@
             "smokingpipes-730102",
             "smokingpipes-730103",
             "smokingpipes-730104",
-            "smokingpipes-730105"
+            "smokingpipes-730105",
+            "smokingpipes-730640",
+            "smokingpipes-730641",
+            "smokingpipes-730642"
           ],
           "sourceCounts": {
             "danish": 2,
-            "smokingpipes": 26
+            "smokingpipes": 29
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3238,6 +3599,58 @@
             "Siena (111 KS) (9mm) Tobacco Pipe",
             "Siena (141 KS) (9mm) Tobacco Pipe",
             "Siena (111 KS) (9mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Lunaria",
+          "seriesZh": null,
+          "count": 30,
+          "productIds": [
+            "smokingpipes-714098",
+            "smokingpipes-714103",
+            "smokingpipes-714106",
+            "smokingpipes-714115",
+            "smokingpipes-714126",
+            "smokingpipes-714128",
+            "smokingpipes-714130",
+            "smokingpipes-714151",
+            "smokingpipes-714153",
+            "smokingpipes-714155",
+            "smokingpipes-714157",
+            "smokingpipes-714159",
+            "smokingpipes-714161",
+            "smokingpipes-714164",
+            "smokingpipes-714173",
+            "smokingpipes-714174",
+            "smokingpipes-717986",
+            "smokingpipes-717987",
+            "smokingpipes-718984",
+            "smokingpipes-719191",
+            "smokingpipes-719192",
+            "smokingpipes-719193",
+            "smokingpipes-719195",
+            "smokingpipes-719877",
+            "smokingpipes-720352",
+            "smokingpipes-724751",
+            "smokingpipes-725546",
+            "smokingpipes-729485",
+            "smokingpipes-729748",
+            "smokingpipes-729749"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 30
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
+            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
+            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
+            "Lunaria Smooth Bordeaux (642) (6mm) Tobacco Pipe",
+            "Lunaria Smooth Bordeaux (920 KS) (6mm) Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -3287,6 +3700,55 @@
             "Bosco Smooth (670 KS) (6mm) Tobacco Pipe",
             "Bosco Rusticated (101) (6mm) Tobacco Pipe",
             "Bosco Smooth (316 KS) (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Oceano",
+          "seriesZh": null,
+          "count": 27,
+          "productIds": [
+            "smokingpipes-721900",
+            "smokingpipes-722569",
+            "smokingpipes-722908",
+            "smokingpipes-723224",
+            "smokingpipes-724161",
+            "smokingpipes-725258",
+            "smokingpipes-725259",
+            "smokingpipes-725354",
+            "smokingpipes-725712",
+            "smokingpipes-727309",
+            "smokingpipes-727676",
+            "smokingpipes-729098",
+            "smokingpipes-729099",
+            "smokingpipes-729101",
+            "smokingpipes-729102",
+            "smokingpipes-729106",
+            "smokingpipes-729107",
+            "smokingpipes-729108",
+            "smokingpipes-729119",
+            "smokingpipes-729472",
+            "smokingpipes-729473",
+            "smokingpipes-729474",
+            "smokingpipes-729719",
+            "smokingpipes-730097",
+            "smokingpipes-730098",
+            "smokingpipes-730638",
+            "smokingpipes-730639"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 27
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+            "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+            "Oceano Smooth (626) (6mm) Tobacco Pipe",
+            "Oceano Smooth (606 KS) (6mm) Tobacco Pipe",
+            "Oceano Smooth (111 KS) (6mm) Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -3393,148 +3855,9 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
-          "series": "Lunaria",
-          "seriesZh": null,
-          "count": 25,
-          "productIds": [
-            "smokingpipes-714098",
-            "smokingpipes-714103",
-            "smokingpipes-714106",
-            "smokingpipes-714115",
-            "smokingpipes-714126",
-            "smokingpipes-714128",
-            "smokingpipes-714130",
-            "smokingpipes-714151",
-            "smokingpipes-714153",
-            "smokingpipes-714155",
-            "smokingpipes-714157",
-            "smokingpipes-714159",
-            "smokingpipes-714161",
-            "smokingpipes-714164",
-            "smokingpipes-714173",
-            "smokingpipes-714174",
-            "smokingpipes-717986",
-            "smokingpipes-719191",
-            "smokingpipes-719192",
-            "smokingpipes-719193",
-            "smokingpipes-719195",
-            "smokingpipes-719877",
-            "smokingpipes-724751",
-            "smokingpipes-725546",
-            "smokingpipes-729485"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 25
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
-            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
-            "Lunaria Smooth Bordeaux (316 KS) (6mm) Tobacco Pipe",
-            "Lunaria Smooth Bordeaux (642) (6mm) Tobacco Pipe",
-            "Lunaria Smooth Bordeaux (920 KS) (6mm) Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Oceano",
-          "seriesZh": null,
-          "count": 24,
-          "productIds": [
-            "smokingpipes-721900",
-            "smokingpipes-722569",
-            "smokingpipes-722908",
-            "smokingpipes-723224",
-            "smokingpipes-724161",
-            "smokingpipes-725258",
-            "smokingpipes-725259",
-            "smokingpipes-725354",
-            "smokingpipes-725712",
-            "smokingpipes-727309",
-            "smokingpipes-727676",
-            "smokingpipes-729098",
-            "smokingpipes-729099",
-            "smokingpipes-729101",
-            "smokingpipes-729102",
-            "smokingpipes-729106",
-            "smokingpipes-729107",
-            "smokingpipes-729108",
-            "smokingpipes-729472",
-            "smokingpipes-729473",
-            "smokingpipes-729474",
-            "smokingpipes-729719",
-            "smokingpipes-730097",
-            "smokingpipes-730098"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 24
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
-            "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
-            "Oceano Smooth (626) (6mm) Tobacco Pipe",
-            "Oceano Smooth (606 KS) (6mm) Tobacco Pipe",
-            "Oceano Smooth (111 KS) (6mm) Tobacco Pipe"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Dolomiti",
-          "seriesZh": null,
-          "count": 23,
-          "productIds": [
-            "danish-23216",
-            "danish-25087",
-            "danish-31335",
-            "danish-36514",
-            "danish-3838",
-            "danish-3839",
-            "danish-3840",
-            "danish-6931",
-            "danish-6932",
-            "danish-7497",
-            "danish-7498",
-            "danish-7499",
-            "danish-7500",
-            "danish-7501",
-            "smokingpipes-721883",
-            "smokingpipes-723837",
-            "smokingpipes-725352",
-            "smokingpipes-726525",
-            "smokingpipes-729081",
-            "smokingpipes-729083",
-            "smokingpipes-729084",
-            "smokingpipes-729087",
-            "smokingpipes-729089"
-          ],
-          "sourceCounts": {
-            "danish": 14,
-            "smokingpipes": 9
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Savinelli, Dolomiti 320KS, Chubby Apple, Smooth",
-            "Savinelli, Dolomiti 321, Chubby Apple, Rustic",
-            "Savinelli, Dolomiti 311KS, Poker, Rusticated",
-            "Savinelli, Dolomiti 673, Rhodesian, Rusticated",
-            "Savinelli, Dolomiti 673, Rhodesian, Smooth"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
           "series": "Eleganza",
           "seriesZh": null,
-          "count": 22,
+          "count": 25,
           "productIds": [
             "danish-16300",
             "danish-16301",
@@ -3557,11 +3880,14 @@
             "smokingpipes-729141",
             "smokingpipes-729144",
             "smokingpipes-729475",
-            "smokingpipes-729691"
+            "smokingpipes-729691",
+            "smokingpipes-729700",
+            "smokingpipes-730109",
+            "smokingpipes-730343"
           ],
           "sourceCounts": {
             "danish": 10,
-            "smokingpipes": 12
+            "smokingpipes": 15
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3577,43 +3903,46 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
-          "series": "Unica",
+          "series": "Dolomiti",
           "seriesZh": null,
-          "count": 22,
+          "count": 24,
           "productIds": [
-            "smokingpipes-684945",
-            "smokingpipes-684946",
-            "smokingpipes-694596",
-            "smokingpipes-709073",
-            "smokingpipes-710448",
-            "smokingpipes-713498",
-            "smokingpipes-713499",
-            "smokingpipes-715123",
-            "smokingpipes-716779",
-            "smokingpipes-718371",
-            "smokingpipes-721105",
-            "smokingpipes-722580",
-            "smokingpipes-724182",
-            "smokingpipes-724183",
-            "smokingpipes-724514",
-            "smokingpipes-724750",
-            "smokingpipes-725068",
-            "smokingpipes-725069",
-            "smokingpipes-725356",
-            "smokingpipes-725357",
-            "smokingpipes-725361",
-            "smokingpipes-729225"
+            "danish-23216",
+            "danish-25087",
+            "danish-31335",
+            "danish-36514",
+            "danish-3838",
+            "danish-3839",
+            "danish-3840",
+            "danish-6931",
+            "danish-6932",
+            "danish-7497",
+            "danish-7498",
+            "danish-7499",
+            "danish-7500",
+            "danish-7501",
+            "smokingpipes-721883",
+            "smokingpipes-723837",
+            "smokingpipes-725352",
+            "smokingpipes-726525",
+            "smokingpipes-727121",
+            "smokingpipes-729081",
+            "smokingpipes-729083",
+            "smokingpipes-729084",
+            "smokingpipes-729087",
+            "smokingpipes-729089"
           ],
           "sourceCounts": {
-            "smokingpipes": 22
+            "danish": 14,
+            "smokingpipes": 10
           },
           "confidence": "high",
           "sampleTitles": [
-            "Unica Rusticated Dark Brown (U15) (6mm) Tobacco Pipe",
-            "Unica Rusticated Dark Brown (U41) (6mm) Tobacco Pipe",
-            "Unica Rusticated Dark Brown (U15) (6mm) Tobacco Pipe",
-            "Unica Rusticated Dark Brown (U36) (6mm) Tobacco Pipe",
-            "Unica Rusticated Dark Brown (U44) (6mm) Tobacco Pipe"
+            "Savinelli, Dolomiti 320KS, Chubby Apple, Smooth",
+            "Savinelli, Dolomiti 321, Chubby Apple, Rustic",
+            "Savinelli, Dolomiti 311KS, Poker, Rusticated",
+            "Savinelli, Dolomiti 673, Rhodesian, Rusticated",
+            "Savinelli, Dolomiti 673, Rhodesian, Smooth"
           ],
           "frontendIncluded": true
         },
@@ -3623,7 +3952,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Sasso",
           "seriesZh": null,
-          "count": 21,
+          "count": 23,
           "productIds": [
             "smokingpipes-706048",
             "smokingpipes-713505",
@@ -3645,10 +3974,12 @@
             "smokingpipes-729193",
             "smokingpipes-729194",
             "smokingpipes-729196",
-            "smokingpipes-729726"
+            "smokingpipes-729726",
+            "smokingpipes-730351",
+            "smokingpipes-730656"
           ],
           "sourceCounts": {
-            "smokingpipes": 21
+            "smokingpipes": 23
           },
           "confidence": "high",
           "sampleTitles": [
@@ -3657,6 +3988,40 @@
             "Sasso Rusticated (701) (6mm) Tobacco Pipe",
             "Sasso Rusticated (601) (6mm) Tobacco Pipe",
             "Sasso Rusticated (601) (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Tundra",
+          "seriesZh": null,
+          "count": 11,
+          "productIds": [
+            "danish-15765",
+            "danish-20898",
+            "danish-27383",
+            "danish-32990",
+            "danish-32991",
+            "danish-32992",
+            "danish-33745",
+            "danish-35697",
+            "smokingpipes-725705",
+            "smokingpipes-729468",
+            "smokingpipes-730321"
+          ],
+          "sourceCounts": {
+            "danish": 8,
+            "smokingpipes": 3
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Savinelli, Tundra 122, Rustic, Q. B. Pot, 6 mm.",
+            "Savinelli, Tundra 673, Bent Rhodesian, Smooth",
+            "Savinelli, Tundra 706, Billard, Smooth",
+            "Savinelli, Tundra 626, Bent Apple, Smooth",
+            "Savinelli, Tundra 128, Billard, Smooth"
           ],
           "frontendIncluded": true
         },
@@ -3723,39 +4088,6 @@
             "Savinelli, ONE Starter Kit, 106, Rusticated",
             "Savinelli, ONE Starter Kit, 106, Smooth",
             "Savinelli, ONE Starter Kit, 601, Smooth"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Tundra",
-          "seriesZh": null,
-          "count": 10,
-          "productIds": [
-            "danish-15765",
-            "danish-20898",
-            "danish-27383",
-            "danish-32990",
-            "danish-32991",
-            "danish-32992",
-            "danish-33745",
-            "danish-35697",
-            "smokingpipes-725705",
-            "smokingpipes-729468"
-          ],
-          "sourceCounts": {
-            "danish": 8,
-            "smokingpipes": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Savinelli, Tundra 122, Rustic, Q. B. Pot, 6 mm.",
-            "Savinelli, Tundra 673, Bent Rhodesian, Smooth",
-            "Savinelli, Tundra 706, Billard, Smooth",
-            "Savinelli, Tundra 626, Bent Apple, Smooth",
-            "Savinelli, Tundra 128, Billard, Smooth"
           ],
           "frontendIncluded": true
         },
@@ -4027,9 +4359,68 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
+          "series": "Miele",
+          "seriesZh": null,
+          "count": 48,
+          "productIds": [
+            "danish-34296",
+            "danish-35492",
+            "danish-35493",
+            "smokingpipes-673499",
+            "smokingpipes-715128",
+            "smokingpipes-718544",
+            "smokingpipes-718611",
+            "smokingpipes-719841",
+            "smokingpipes-719844",
+            "smokingpipes-721919",
+            "smokingpipes-722574",
+            "smokingpipes-722582",
+            "smokingpipes-722924",
+            "smokingpipes-723232",
+            "smokingpipes-723751",
+            "smokingpipes-723849",
+            "smokingpipes-724495",
+            "smokingpipes-724520",
+            "smokingpipes-725009",
+            "smokingpipes-725012",
+            "smokingpipes-725318",
+            "smokingpipes-725533",
+            "smokingpipes-725541",
+            "smokingpipes-726351",
+            "smokingpipes-726521",
+            "smokingpipes-726967",
+            "smokingpipes-727317",
+            "smokingpipes-727318",
+            "smokingpipes-729203",
+            "smokingpipes-729206",
+            "smokingpipes-729207",
+            "smokingpipes-729211",
+            "smokingpipes-729212",
+            "smokingpipes-729213",
+            "smokingpipes-729214",
+            "smokingpipes-729220",
+            "smokingpipes-729223",
+            "smokingpipes-729224",
+            "smokingpipes-729492",
+            "smokingpipes-729493",
+            "smokingpipes-729704",
+            "smokingpipes-729724",
+            "smokingpipes-730076",
+            "smokingpipes-730113",
+            "smokingpipes-730117",
+            "smokingpipes-730118",
+            "smokingpipes-730628",
+            "smokingpipes-730649"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
           "series": "Tre",
           "seriesZh": null,
-          "count": 46,
+          "count": 48,
           "productIds": [
             "danish-18354",
             "danish-18355",
@@ -4076,57 +4467,9 @@
             "smokingpipes-729714",
             "smokingpipes-729715",
             "smokingpipes-729716",
-            "smokingpipes-730095"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Miele",
-          "seriesZh": null,
-          "count": 39,
-          "productIds": [
-            "danish-34296",
-            "danish-35492",
-            "danish-35493",
-            "smokingpipes-673499",
-            "smokingpipes-715128",
-            "smokingpipes-718544",
-            "smokingpipes-718611",
-            "smokingpipes-719841",
-            "smokingpipes-719844",
-            "smokingpipes-721919",
-            "smokingpipes-722574",
-            "smokingpipes-722582",
-            "smokingpipes-722924",
-            "smokingpipes-723232",
-            "smokingpipes-723751",
-            "smokingpipes-723849",
-            "smokingpipes-724495",
-            "smokingpipes-724520",
-            "smokingpipes-725009",
-            "smokingpipes-725012",
-            "smokingpipes-725318",
-            "smokingpipes-725533",
-            "smokingpipes-725541",
-            "smokingpipes-726351",
-            "smokingpipes-726521",
-            "smokingpipes-726967",
-            "smokingpipes-727317",
-            "smokingpipes-727318",
-            "smokingpipes-729203",
-            "smokingpipes-729206",
-            "smokingpipes-729207",
-            "smokingpipes-729220",
-            "smokingpipes-729492",
-            "smokingpipes-729493",
-            "smokingpipes-729704",
-            "smokingpipes-729724",
-            "smokingpipes-730113",
-            "smokingpipes-730117",
-            "smokingpipes-730118"
+            "smokingpipes-730094",
+            "smokingpipes-730095",
+            "smokingpipes-730096"
           ],
           "confidence": "high"
         },
@@ -4136,7 +4479,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Autograph",
           "seriesZh": null,
-          "count": 38,
+          "count": 42,
           "productIds": [
             "danish-33543",
             "smokingpipes-660809",
@@ -4174,8 +4517,12 @@
             "smokingpipes-718907",
             "smokingpipes-718910",
             "smokingpipes-727838",
+            "smokingpipes-727839",
             "smokingpipes-727840",
-            "smokingpipes-727842"
+            "smokingpipes-727841",
+            "smokingpipes-727842",
+            "smokingpipes-727843",
+            "smokingpipes-727844"
           ],
           "confidence": "high"
         },
@@ -4234,7 +4581,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Tortuga",
           "seriesZh": null,
-          "count": 34,
+          "count": 35,
           "productIds": [
             "danish-27657",
             "danish-31838",
@@ -4269,7 +4616,8 @@
             "smokingpipes-729466",
             "smokingpipes-729706",
             "smokingpipes-729708",
-            "smokingpipes-730073"
+            "smokingpipes-730073",
+            "smokingpipes-730075"
           ],
           "confidence": "high"
         },
@@ -4279,7 +4627,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Minuto",
           "seriesZh": null,
-          "count": 30,
+          "count": 34,
           "productIds": [
             "danish-3823",
             "danish-3824",
@@ -4307,10 +4655,58 @@
             "smokingpipes-729711",
             "smokingpipes-729712",
             "smokingpipes-730078",
+            "smokingpipes-730079",
             "smokingpipes-730080",
             "smokingpipes-730081",
             "smokingpipes-730114",
-            "smokingpipes-730115"
+            "smokingpipes-730115",
+            "smokingpipes-730327",
+            "smokingpipes-730349",
+            "smokingpipes-730652"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Unica",
+          "seriesZh": null,
+          "count": 33,
+          "productIds": [
+            "smokingpipes-678484",
+            "smokingpipes-678549",
+            "smokingpipes-684945",
+            "smokingpipes-684946",
+            "smokingpipes-694596",
+            "smokingpipes-709073",
+            "smokingpipes-710448",
+            "smokingpipes-713498",
+            "smokingpipes-713499",
+            "smokingpipes-715123",
+            "smokingpipes-716779",
+            "smokingpipes-718371",
+            "smokingpipes-718868",
+            "smokingpipes-721105",
+            "smokingpipes-722580",
+            "smokingpipes-724182",
+            "smokingpipes-724183",
+            "smokingpipes-724514",
+            "smokingpipes-724750",
+            "smokingpipes-725068",
+            "smokingpipes-725069",
+            "smokingpipes-725356",
+            "smokingpipes-725357",
+            "smokingpipes-725361",
+            "smokingpipes-727686",
+            "smokingpipes-728077",
+            "smokingpipes-729225",
+            "smokingpipes-729227",
+            "smokingpipes-729739",
+            "smokingpipes-729740",
+            "smokingpipes-729741",
+            "smokingpipes-729742",
+            "smokingpipes-729743"
           ],
           "confidence": "high"
         },
@@ -4320,7 +4716,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Siena",
           "seriesZh": null,
-          "count": 28,
+          "count": 31,
           "productIds": [
             "danish-34295",
             "danish-34930",
@@ -4349,7 +4745,51 @@
             "smokingpipes-730102",
             "smokingpipes-730103",
             "smokingpipes-730104",
-            "smokingpipes-730105"
+            "smokingpipes-730105",
+            "smokingpipes-730640",
+            "smokingpipes-730641",
+            "smokingpipes-730642"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Lunaria",
+          "seriesZh": null,
+          "count": 30,
+          "productIds": [
+            "smokingpipes-714098",
+            "smokingpipes-714103",
+            "smokingpipes-714106",
+            "smokingpipes-714115",
+            "smokingpipes-714126",
+            "smokingpipes-714128",
+            "smokingpipes-714130",
+            "smokingpipes-714151",
+            "smokingpipes-714153",
+            "smokingpipes-714155",
+            "smokingpipes-714157",
+            "smokingpipes-714159",
+            "smokingpipes-714161",
+            "smokingpipes-714164",
+            "smokingpipes-714173",
+            "smokingpipes-714174",
+            "smokingpipes-717986",
+            "smokingpipes-717987",
+            "smokingpipes-718984",
+            "smokingpipes-719191",
+            "smokingpipes-719192",
+            "smokingpipes-719193",
+            "smokingpipes-719195",
+            "smokingpipes-719877",
+            "smokingpipes-720352",
+            "smokingpipes-724751",
+            "smokingpipes-725546",
+            "smokingpipes-729485",
+            "smokingpipes-729748",
+            "smokingpipes-729749"
           ],
           "confidence": "high"
         },
@@ -4388,6 +4828,44 @@
             "smokingpipes-729480",
             "smokingpipes-729481",
             "smokingpipes-729482"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Oceano",
+          "seriesZh": null,
+          "count": 27,
+          "productIds": [
+            "smokingpipes-721900",
+            "smokingpipes-722569",
+            "smokingpipes-722908",
+            "smokingpipes-723224",
+            "smokingpipes-724161",
+            "smokingpipes-725258",
+            "smokingpipes-725259",
+            "smokingpipes-725354",
+            "smokingpipes-725712",
+            "smokingpipes-727309",
+            "smokingpipes-727676",
+            "smokingpipes-729098",
+            "smokingpipes-729099",
+            "smokingpipes-729101",
+            "smokingpipes-729102",
+            "smokingpipes-729106",
+            "smokingpipes-729107",
+            "smokingpipes-729108",
+            "smokingpipes-729119",
+            "smokingpipes-729472",
+            "smokingpipes-729473",
+            "smokingpipes-729474",
+            "smokingpipes-729719",
+            "smokingpipes-730097",
+            "smokingpipes-730098",
+            "smokingpipes-730638",
+            "smokingpipes-730639"
           ],
           "confidence": "high"
         },
@@ -4470,114 +4948,9 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
-          "series": "Lunaria",
-          "seriesZh": null,
-          "count": 25,
-          "productIds": [
-            "smokingpipes-714098",
-            "smokingpipes-714103",
-            "smokingpipes-714106",
-            "smokingpipes-714115",
-            "smokingpipes-714126",
-            "smokingpipes-714128",
-            "smokingpipes-714130",
-            "smokingpipes-714151",
-            "smokingpipes-714153",
-            "smokingpipes-714155",
-            "smokingpipes-714157",
-            "smokingpipes-714159",
-            "smokingpipes-714161",
-            "smokingpipes-714164",
-            "smokingpipes-714173",
-            "smokingpipes-714174",
-            "smokingpipes-717986",
-            "smokingpipes-719191",
-            "smokingpipes-719192",
-            "smokingpipes-719193",
-            "smokingpipes-719195",
-            "smokingpipes-719877",
-            "smokingpipes-724751",
-            "smokingpipes-725546",
-            "smokingpipes-729485"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Oceano",
-          "seriesZh": null,
-          "count": 24,
-          "productIds": [
-            "smokingpipes-721900",
-            "smokingpipes-722569",
-            "smokingpipes-722908",
-            "smokingpipes-723224",
-            "smokingpipes-724161",
-            "smokingpipes-725258",
-            "smokingpipes-725259",
-            "smokingpipes-725354",
-            "smokingpipes-725712",
-            "smokingpipes-727309",
-            "smokingpipes-727676",
-            "smokingpipes-729098",
-            "smokingpipes-729099",
-            "smokingpipes-729101",
-            "smokingpipes-729102",
-            "smokingpipes-729106",
-            "smokingpipes-729107",
-            "smokingpipes-729108",
-            "smokingpipes-729472",
-            "smokingpipes-729473",
-            "smokingpipes-729474",
-            "smokingpipes-729719",
-            "smokingpipes-730097",
-            "smokingpipes-730098"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Dolomiti",
-          "seriesZh": null,
-          "count": 23,
-          "productIds": [
-            "danish-23216",
-            "danish-25087",
-            "danish-31335",
-            "danish-36514",
-            "danish-3838",
-            "danish-3839",
-            "danish-3840",
-            "danish-6931",
-            "danish-6932",
-            "danish-7497",
-            "danish-7498",
-            "danish-7499",
-            "danish-7500",
-            "danish-7501",
-            "smokingpipes-721883",
-            "smokingpipes-723837",
-            "smokingpipes-725352",
-            "smokingpipes-726525",
-            "smokingpipes-729081",
-            "smokingpipes-729083",
-            "smokingpipes-729084",
-            "smokingpipes-729087",
-            "smokingpipes-729089"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
           "series": "Eleganza",
           "seriesZh": null,
-          "count": 22,
+          "count": 25,
           "productIds": [
             "danish-16300",
             "danish-16301",
@@ -4600,7 +4973,10 @@
             "smokingpipes-729141",
             "smokingpipes-729144",
             "smokingpipes-729475",
-            "smokingpipes-729691"
+            "smokingpipes-729691",
+            "smokingpipes-729700",
+            "smokingpipes-730109",
+            "smokingpipes-730343"
           ],
           "confidence": "high"
         },
@@ -4608,32 +4984,34 @@
           "brand": "Savinelli",
           "brandZh": null,
           "canonicalBrand": "Savinelli",
-          "series": "Unica",
+          "series": "Dolomiti",
           "seriesZh": null,
-          "count": 22,
+          "count": 24,
           "productIds": [
-            "smokingpipes-684945",
-            "smokingpipes-684946",
-            "smokingpipes-694596",
-            "smokingpipes-709073",
-            "smokingpipes-710448",
-            "smokingpipes-713498",
-            "smokingpipes-713499",
-            "smokingpipes-715123",
-            "smokingpipes-716779",
-            "smokingpipes-718371",
-            "smokingpipes-721105",
-            "smokingpipes-722580",
-            "smokingpipes-724182",
-            "smokingpipes-724183",
-            "smokingpipes-724514",
-            "smokingpipes-724750",
-            "smokingpipes-725068",
-            "smokingpipes-725069",
-            "smokingpipes-725356",
-            "smokingpipes-725357",
-            "smokingpipes-725361",
-            "smokingpipes-729225"
+            "danish-23216",
+            "danish-25087",
+            "danish-31335",
+            "danish-36514",
+            "danish-3838",
+            "danish-3839",
+            "danish-3840",
+            "danish-6931",
+            "danish-6932",
+            "danish-7497",
+            "danish-7498",
+            "danish-7499",
+            "danish-7500",
+            "danish-7501",
+            "smokingpipes-721883",
+            "smokingpipes-723837",
+            "smokingpipes-725352",
+            "smokingpipes-726525",
+            "smokingpipes-727121",
+            "smokingpipes-729081",
+            "smokingpipes-729083",
+            "smokingpipes-729084",
+            "smokingpipes-729087",
+            "smokingpipes-729089"
           ],
           "confidence": "high"
         },
@@ -4643,7 +5021,7 @@
           "canonicalBrand": "Savinelli",
           "series": "Sasso",
           "seriesZh": null,
-          "count": 21,
+          "count": 23,
           "productIds": [
             "smokingpipes-706048",
             "smokingpipes-713505",
@@ -4665,7 +5043,31 @@
             "smokingpipes-729193",
             "smokingpipes-729194",
             "smokingpipes-729196",
-            "smokingpipes-729726"
+            "smokingpipes-729726",
+            "smokingpipes-730351",
+            "smokingpipes-730656"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Savinelli",
+          "brandZh": null,
+          "canonicalBrand": "Savinelli",
+          "series": "Tundra",
+          "seriesZh": null,
+          "count": 11,
+          "productIds": [
+            "danish-15765",
+            "danish-20898",
+            "danish-27383",
+            "danish-32990",
+            "danish-32991",
+            "danish-32992",
+            "danish-33745",
+            "danish-35697",
+            "smokingpipes-725705",
+            "smokingpipes-729468",
+            "smokingpipes-730321"
           ],
           "confidence": "high"
         },
@@ -4708,27 +5110,6 @@
             "smokingpipes-702074",
             "smokingpipes-702075",
             "smokingpipes-702078"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Savinelli",
-          "brandZh": null,
-          "canonicalBrand": "Savinelli",
-          "series": "Tundra",
-          "seriesZh": null,
-          "count": 10,
-          "productIds": [
-            "danish-15765",
-            "danish-20898",
-            "danish-27383",
-            "danish-32990",
-            "danish-32991",
-            "danish-32992",
-            "danish-33745",
-            "danish-35697",
-            "smokingpipes-725705",
-            "smokingpipes-729468"
           ],
           "confidence": "high"
         },
@@ -4824,7 +5205,7 @@
       "brand": "Nørding",
       "brandZh": null,
       "brandSlug": "nording",
-      "productCount": 499,
+      "productCount": 532,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -4835,7 +5216,7 @@
           "canonicalBrand": "Nørding",
           "series": "Extra",
           "seriesZh": null,
-          "count": 66,
+          "count": 67,
           "productIds": [
             "danish-27693",
             "danish-27844",
@@ -4902,11 +5283,12 @@
             "smokingpipes-700991",
             "smokingpipes-700993",
             "smokingpipes-700994",
-            "smokingpipes-700995"
+            "smokingpipes-700995",
+            "smokingpipes-730568"
           ],
           "sourceCounts": {
             "danish": 38,
-            "smokingpipes": 28
+            "smokingpipes": 29
           },
           "confidence": "high",
           "sampleTitles": [
@@ -4922,9 +5304,68 @@
           "brand": "Nørding",
           "brandZh": null,
           "canonicalBrand": "Nørding",
+          "series": "Compass",
+          "seriesZh": null,
+          "count": 36,
+          "productIds": [
+            "danish-31399",
+            "danish-31400",
+            "danish-31401",
+            "danish-31402",
+            "danish-32695",
+            "danish-32696",
+            "danish-35235",
+            "danish-35236",
+            "danish-35237",
+            "smokingpipes-505019",
+            "smokingpipes-505020",
+            "smokingpipes-654421",
+            "smokingpipes-679379",
+            "smokingpipes-679390",
+            "smokingpipes-701028",
+            "smokingpipes-701045",
+            "smokingpipes-701047",
+            "smokingpipes-701071",
+            "smokingpipes-701072",
+            "smokingpipes-701129",
+            "smokingpipes-701130",
+            "smokingpipes-701131",
+            "smokingpipes-701152",
+            "smokingpipes-701153",
+            "smokingpipes-701154",
+            "smokingpipes-723629",
+            "smokingpipes-723630",
+            "smokingpipes-730536",
+            "smokingpipes-730537",
+            "smokingpipes-730538",
+            "smokingpipes-730539",
+            "smokingpipes-730544",
+            "smokingpipes-730547",
+            "smokingpipes-730548",
+            "smokingpipes-730550",
+            "smokingpipes-730551"
+          ],
+          "sourceCounts": {
+            "danish": 9,
+            "smokingpipes": 27
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Nording, Compass, Sailor Poker Pipe, Gold",
+            "Nording, Compass, Sailor Poker Pipe, Copper",
+            "Nording, Compass, Sailor Poker Pipe, Gun Metal",
+            "Nording, Compass, Sailor Poker Pipe, Raw",
+            "Nording, Compass, Sailor Poker Pipe, Matte Brown"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
           "series": "Double Silver",
           "seriesZh": null,
-          "count": 32,
+          "count": 35,
           "productIds": [
             "danish-21542",
             "danish-27851",
@@ -4957,11 +5398,14 @@
             "danish-35477",
             "smokingpipes-718207",
             "smokingpipes-718208",
-            "smokingpipes-723778"
+            "smokingpipes-723778",
+            "smokingpipes-730556",
+            "smokingpipes-730557",
+            "smokingpipes-730559"
           ],
           "sourceCounts": {
             "danish": 29,
-            "smokingpipes": 3
+            "smokingpipes": 6
           },
           "confidence": "high",
           "sampleTitles": [
@@ -4970,56 +5414,6 @@
             "Nording Pipe, Double Silver Gr. 3 , Brandy",
             "Nording Pipe, Double Silver Gr. 2 , Brandy",
             "Nording Pipe, Double Silver Gr. 1 , Brandy"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Compass",
-          "seriesZh": null,
-          "count": 27,
-          "productIds": [
-            "danish-31399",
-            "danish-31400",
-            "danish-31401",
-            "danish-31402",
-            "danish-32695",
-            "danish-32696",
-            "danish-35235",
-            "danish-35236",
-            "danish-35237",
-            "smokingpipes-505019",
-            "smokingpipes-505020",
-            "smokingpipes-654421",
-            "smokingpipes-679379",
-            "smokingpipes-679390",
-            "smokingpipes-701028",
-            "smokingpipes-701045",
-            "smokingpipes-701047",
-            "smokingpipes-701071",
-            "smokingpipes-701072",
-            "smokingpipes-701129",
-            "smokingpipes-701130",
-            "smokingpipes-701131",
-            "smokingpipes-701152",
-            "smokingpipes-701153",
-            "smokingpipes-701154",
-            "smokingpipes-723629",
-            "smokingpipes-723630"
-          ],
-          "sourceCounts": {
-            "danish": 9,
-            "smokingpipes": 18
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Nording, Compass, Sailor Poker Pipe, Gold",
-            "Nording, Compass, Sailor Poker Pipe, Copper",
-            "Nording, Compass, Sailor Poker Pipe, Gun Metal",
-            "Nording, Compass, Sailor Poker Pipe, Raw",
-            "Nording, Compass, Sailor Poker Pipe, Matte Brown"
           ],
           "frontendIncluded": true
         },
@@ -5072,6 +5466,75 @@
           "brand": "Nørding",
           "brandZh": null,
           "canonicalBrand": "Nørding",
+          "series": "Silver Classic",
+          "seriesZh": null,
+          "count": 13,
+          "productIds": [
+            "danish-25059",
+            "danish-25060",
+            "danish-25061",
+            "danish-25062",
+            "smokingpipes-686941",
+            "smokingpipes-700804",
+            "smokingpipes-700805",
+            "smokingpipes-700825",
+            "smokingpipes-700826",
+            "smokingpipes-730596",
+            "smokingpipes-730599",
+            "smokingpipes-730606",
+            "smokingpipes-730609"
+          ],
+          "sourceCounts": {
+            "danish": 4,
+            "smokingpipes": 9
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Nording Pipes, Silver Classic, Zulu, Smooth",
+            "Nording Pipes, Silver Classic, Zulu, Sand",
+            "Nording Pipes, Silver Classic, Rhodesian, Smooth",
+            "Nording Pipes, Silver Classic, Rhodesian, Sand",
+            "Silver Classic Smooth Billiard Tobacco Pipe"
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
+          "series": "Point Clear",
+          "seriesZh": null,
+          "count": 10,
+          "productIds": [
+            "danish-27875",
+            "danish-27877",
+            "danish-35304",
+            "danish-35305",
+            "danish-35306",
+            "danish-35307",
+            "danish-35309",
+            "danish-35534",
+            "danish-35535",
+            "smokingpipes-730587"
+          ],
+          "sourceCounts": {
+            "danish": 9,
+            "smokingpipes": 1
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Nording Pipes, Point Clear, Freehand",
+            "Nording Pipes, Point Clear, Freehand",
+            "Nording Pipes, Point Clear, Freehand, 9 mm.",
+            "Nording Pipes, Point Clear, Freehand, 9 mm.",
+            "Nording Pipes, Point Clear, Freehand, 9 mm."
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
           "series": "Signature",
           "seriesZh": null,
           "count": 10,
@@ -5098,69 +5561,6 @@
             "Nording Pipes, Signature, Freehand, Rustic",
             "Nording Pipes, Signature, Freehand, Rustic",
             "Nording Pipes, Signature, Freehand, Rustic"
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Point Clear",
-          "seriesZh": null,
-          "count": 9,
-          "productIds": [
-            "danish-27875",
-            "danish-27877",
-            "danish-35304",
-            "danish-35305",
-            "danish-35306",
-            "danish-35307",
-            "danish-35309",
-            "danish-35534",
-            "danish-35535"
-          ],
-          "sourceCounts": {
-            "danish": 9
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Nording Pipes, Point Clear, Freehand",
-            "Nording Pipes, Point Clear, Freehand",
-            "Nording Pipes, Point Clear, Freehand, 9 mm.",
-            "Nording Pipes, Point Clear, Freehand, 9 mm.",
-            "Nording Pipes, Point Clear, Freehand, 9 mm."
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Silver Classic",
-          "seriesZh": null,
-          "count": 9,
-          "productIds": [
-            "danish-25059",
-            "danish-25060",
-            "danish-25061",
-            "danish-25062",
-            "smokingpipes-686941",
-            "smokingpipes-700804",
-            "smokingpipes-700805",
-            "smokingpipes-700825",
-            "smokingpipes-700826"
-          ],
-          "sourceCounts": {
-            "danish": 4,
-            "smokingpipes": 5
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Nording Pipes, Silver Classic, Zulu, Smooth",
-            "Nording Pipes, Silver Classic, Zulu, Sand",
-            "Nording Pipes, Silver Classic, Rhodesian, Smooth",
-            "Nording Pipes, Silver Classic, Rhodesian, Sand",
-            "Silver Classic Smooth Billiard Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -5197,7 +5597,7 @@
           "canonicalBrand": "Nørding",
           "series": "Extra",
           "seriesZh": null,
-          "count": 66,
+          "count": 67,
           "productIds": [
             "danish-27693",
             "danish-27844",
@@ -5264,7 +5664,55 @@
             "smokingpipes-700991",
             "smokingpipes-700993",
             "smokingpipes-700994",
-            "smokingpipes-700995"
+            "smokingpipes-700995",
+            "smokingpipes-730568"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
+          "series": "Compass",
+          "seriesZh": null,
+          "count": 36,
+          "productIds": [
+            "danish-31399",
+            "danish-31400",
+            "danish-31401",
+            "danish-31402",
+            "danish-32695",
+            "danish-32696",
+            "danish-35235",
+            "danish-35236",
+            "danish-35237",
+            "smokingpipes-505019",
+            "smokingpipes-505020",
+            "smokingpipes-654421",
+            "smokingpipes-679379",
+            "smokingpipes-679390",
+            "smokingpipes-701028",
+            "smokingpipes-701045",
+            "smokingpipes-701047",
+            "smokingpipes-701071",
+            "smokingpipes-701072",
+            "smokingpipes-701129",
+            "smokingpipes-701130",
+            "smokingpipes-701131",
+            "smokingpipes-701152",
+            "smokingpipes-701153",
+            "smokingpipes-701154",
+            "smokingpipes-723629",
+            "smokingpipes-723630",
+            "smokingpipes-730536",
+            "smokingpipes-730537",
+            "smokingpipes-730538",
+            "smokingpipes-730539",
+            "smokingpipes-730544",
+            "smokingpipes-730547",
+            "smokingpipes-730548",
+            "smokingpipes-730550",
+            "smokingpipes-730551"
           ],
           "confidence": "high"
         },
@@ -5274,7 +5722,7 @@
           "canonicalBrand": "Nørding",
           "series": "Double Silver",
           "seriesZh": null,
-          "count": 32,
+          "count": 35,
           "productIds": [
             "danish-21542",
             "danish-27851",
@@ -5307,45 +5755,10 @@
             "danish-35477",
             "smokingpipes-718207",
             "smokingpipes-718208",
-            "smokingpipes-723778"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Compass",
-          "seriesZh": null,
-          "count": 27,
-          "productIds": [
-            "danish-31399",
-            "danish-31400",
-            "danish-31401",
-            "danish-31402",
-            "danish-32695",
-            "danish-32696",
-            "danish-35235",
-            "danish-35236",
-            "danish-35237",
-            "smokingpipes-505019",
-            "smokingpipes-505020",
-            "smokingpipes-654421",
-            "smokingpipes-679379",
-            "smokingpipes-679390",
-            "smokingpipes-701028",
-            "smokingpipes-701045",
-            "smokingpipes-701047",
-            "smokingpipes-701071",
-            "smokingpipes-701072",
-            "smokingpipes-701129",
-            "smokingpipes-701130",
-            "smokingpipes-701131",
-            "smokingpipes-701152",
-            "smokingpipes-701153",
-            "smokingpipes-701154",
-            "smokingpipes-723629",
-            "smokingpipes-723630"
+            "smokingpipes-723778",
+            "smokingpipes-730556",
+            "smokingpipes-730557",
+            "smokingpipes-730559"
           ],
           "confidence": "high"
         },
@@ -5386,6 +5799,51 @@
           "brand": "Nørding",
           "brandZh": null,
           "canonicalBrand": "Nørding",
+          "series": "Silver Classic",
+          "seriesZh": null,
+          "count": 13,
+          "productIds": [
+            "danish-25059",
+            "danish-25060",
+            "danish-25061",
+            "danish-25062",
+            "smokingpipes-686941",
+            "smokingpipes-700804",
+            "smokingpipes-700805",
+            "smokingpipes-700825",
+            "smokingpipes-700826",
+            "smokingpipes-730596",
+            "smokingpipes-730599",
+            "smokingpipes-730606",
+            "smokingpipes-730609"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
+          "series": "Point Clear",
+          "seriesZh": null,
+          "count": 10,
+          "productIds": [
+            "danish-27875",
+            "danish-27877",
+            "danish-35304",
+            "danish-35305",
+            "danish-35306",
+            "danish-35307",
+            "danish-35309",
+            "danish-35534",
+            "danish-35535",
+            "smokingpipes-730587"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Nørding",
+          "brandZh": null,
+          "canonicalBrand": "Nørding",
           "series": "Signature",
           "seriesZh": null,
           "count": 10,
@@ -5400,46 +5858,6 @@
             "smokingpipes-700370",
             "smokingpipes-700371",
             "smokingpipes-729270"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Point Clear",
-          "seriesZh": null,
-          "count": 9,
-          "productIds": [
-            "danish-27875",
-            "danish-27877",
-            "danish-35304",
-            "danish-35305",
-            "danish-35306",
-            "danish-35307",
-            "danish-35309",
-            "danish-35534",
-            "danish-35535"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Nørding",
-          "brandZh": null,
-          "canonicalBrand": "Nørding",
-          "series": "Silver Classic",
-          "seriesZh": null,
-          "count": 9,
-          "productIds": [
-            "danish-25059",
-            "danish-25060",
-            "danish-25061",
-            "danish-25062",
-            "smokingpipes-686941",
-            "smokingpipes-700804",
-            "smokingpipes-700805",
-            "smokingpipes-700825",
-            "smokingpipes-700826"
           ],
           "confidence": "high"
         },
@@ -5464,7 +5882,7 @@
       "brand": "Vauen",
       "brandZh": null,
       "brandSlug": "vauen",
-      "productCount": 387,
+      "productCount": 390,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -6522,7 +6940,7 @@
       "brand": "Rattray's",
       "brandZh": null,
       "brandSlug": "rattrays",
-      "productCount": 348,
+      "productCount": 360,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -6776,6 +7194,41 @@
           "brand": "Rattray's",
           "brandZh": null,
           "canonicalBrand": "Rattray's",
+          "series": "Ahoy",
+          "seriesZh": null,
+          "count": 12,
+          "productIds": [
+            "danish-19660",
+            "danish-19661",
+            "danish-19662",
+            "danish-23285",
+            "danish-31029",
+            "smokingpipes-676139",
+            "smokingpipes-676140",
+            "smokingpipes-676142",
+            "smokingpipes-676143",
+            "smokingpipes-676144",
+            "smokingpipes-676145",
+            "smokingpipes-676146"
+          ],
+          "sourceCounts": {
+            "danish": 5,
+            "smokingpipes": 7
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Rattray's, Ahoy, Poker, Terracotta, 9 mm.",
+            "Rattray's, Ahoy, Poker, Rustic, 9 mm.",
+            "Rattray's, Ahoy, Poker, Sand, 9 mm.",
+            "Rattray's, Ahoy, Poker, Grey, 9 mm.",
+            "Rattray's, Ahoy, Poker, Burgundy, 9 mm."
+          ],
+          "frontendIncluded": true
+        },
+        {
+          "brand": "Rattray's",
+          "brandZh": null,
+          "canonicalBrand": "Rattray's",
           "series": "Slainte",
           "seriesZh": null,
           "count": 12,
@@ -6938,37 +7391,6 @@
             "Rattray's, Lowland 46, Green Prince, 9 mm.",
             "Rattray's, Lowland 48, Green Bent Dublin, 9 mm.",
             "Rattray's, Lowland 63, Green Bent Billard, 9 mm."
-          ],
-          "frontendIncluded": true
-        },
-        {
-          "brand": "Rattray's",
-          "brandZh": null,
-          "canonicalBrand": "Rattray's",
-          "series": "Ahoy",
-          "seriesZh": null,
-          "count": 8,
-          "productIds": [
-            "danish-19660",
-            "danish-19661",
-            "danish-19662",
-            "danish-23285",
-            "danish-31029",
-            "smokingpipes-676139",
-            "smokingpipes-676142",
-            "smokingpipes-676145"
-          ],
-          "sourceCounts": {
-            "danish": 5,
-            "smokingpipes": 3
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Rattray's, Ahoy, Poker, Terracotta, 9 mm.",
-            "Rattray's, Ahoy, Poker, Rustic, 9 mm.",
-            "Rattray's, Ahoy, Poker, Sand, 9 mm.",
-            "Rattray's, Ahoy, Poker, Grey, 9 mm.",
-            "Rattray's, Ahoy, Poker, Burgundy, 9 mm."
           ],
           "frontendIncluded": true
         },
@@ -7296,6 +7718,29 @@
           "brand": "Rattray's",
           "brandZh": null,
           "canonicalBrand": "Rattray's",
+          "series": "Ahoy",
+          "seriesZh": null,
+          "count": 12,
+          "productIds": [
+            "danish-19660",
+            "danish-19661",
+            "danish-19662",
+            "danish-23285",
+            "danish-31029",
+            "smokingpipes-676139",
+            "smokingpipes-676140",
+            "smokingpipes-676142",
+            "smokingpipes-676143",
+            "smokingpipes-676144",
+            "smokingpipes-676145",
+            "smokingpipes-676146"
+          ],
+          "confidence": "high"
+        },
+        {
+          "brand": "Rattray's",
+          "brandZh": null,
+          "canonicalBrand": "Rattray's",
           "series": "Slainte",
           "seriesZh": null,
           "count": 12,
@@ -7406,25 +7851,6 @@
           "brand": "Rattray's",
           "brandZh": null,
           "canonicalBrand": "Rattray's",
-          "series": "Ahoy",
-          "seriesZh": null,
-          "count": 8,
-          "productIds": [
-            "danish-19660",
-            "danish-19661",
-            "danish-19662",
-            "danish-23285",
-            "danish-31029",
-            "smokingpipes-676139",
-            "smokingpipes-676142",
-            "smokingpipes-676145"
-          ],
-          "confidence": "high"
-        },
-        {
-          "brand": "Rattray's",
-          "brandZh": null,
-          "canonicalBrand": "Rattray's",
           "series": "Blowers Daughter",
           "seriesZh": null,
           "count": 6,
@@ -7493,7 +7919,7 @@
       "brand": "Barling",
       "brandZh": null,
       "brandSlug": "barling",
-      "productCount": 240,
+      "productCount": 278,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -7504,7 +7930,7 @@
           "canonicalBrand": "Barling",
           "series": "Trafalgar",
           "seriesZh": null,
-          "count": 65,
+          "count": 66,
           "productIds": [
             "smokingpipes-577945",
             "smokingpipes-594137",
@@ -7570,10 +7996,11 @@
             "smokingpipes-722545",
             "smokingpipes-723256",
             "smokingpipes-725381",
-            "smokingpipes-725382"
+            "smokingpipes-725382",
+            "smokingpipes-730475"
           ],
           "sourceCounts": {
-            "smokingpipes": 65
+            "smokingpipes": 66
           },
           "confidence": "high",
           "sampleTitles": [
@@ -7591,7 +8018,7 @@
           "canonicalBrand": "Barling",
           "series": "Nelson",
           "seriesZh": null,
-          "count": 57,
+          "count": 61,
           "productIds": [
             "smokingpipes-636764",
             "smokingpipes-651888",
@@ -7649,10 +8076,14 @@
             "smokingpipes-725727",
             "smokingpipes-727113",
             "smokingpipes-727114",
-            "smokingpipes-727116"
+            "smokingpipes-727116",
+            "smokingpipes-730470",
+            "smokingpipes-730471",
+            "smokingpipes-730472",
+            "smokingpipes-730473"
           ],
           "sourceCounts": {
-            "smokingpipes": 57
+            "smokingpipes": 61
           },
           "confidence": "high",
           "sampleTitles": [
@@ -7670,7 +8101,7 @@
           "canonicalBrand": "Barling",
           "series": "Marylebone",
           "seriesZh": null,
-          "count": 56,
+          "count": 57,
           "productIds": [
             "smokingpipes-622774",
             "smokingpipes-671125",
@@ -7727,10 +8158,11 @@
             "smokingpipes-727111",
             "smokingpipes-727725",
             "smokingpipes-727726",
-            "smokingpipes-727727"
+            "smokingpipes-727727",
+            "smokingpipes-730469"
           ],
           "sourceCounts": {
-            "smokingpipes": 56
+            "smokingpipes": 57
           },
           "confidence": "high",
           "sampleTitles": [
@@ -7748,7 +8180,7 @@
           "canonicalBrand": "Barling",
           "series": "Benjamin",
           "seriesZh": null,
-          "count": 48,
+          "count": 52,
           "productIds": [
             "smokingpipes-667726",
             "smokingpipes-671115",
@@ -7797,10 +8229,14 @@
             "smokingpipes-725367",
             "smokingpipes-725723",
             "smokingpipes-725724",
-            "smokingpipes-727108"
+            "smokingpipes-727108",
+            "smokingpipes-730463",
+            "smokingpipes-730464",
+            "smokingpipes-730465",
+            "smokingpipes-730466"
           ],
           "sourceCounts": {
-            "smokingpipes": 48
+            "smokingpipes": 52
           },
           "confidence": "high",
           "sampleTitles": [
@@ -7854,7 +8290,7 @@
           "canonicalBrand": "Barling",
           "series": "Trafalgar",
           "seriesZh": null,
-          "count": 65,
+          "count": 66,
           "productIds": [
             "smokingpipes-577945",
             "smokingpipes-594137",
@@ -7920,7 +8356,8 @@
             "smokingpipes-722545",
             "smokingpipes-723256",
             "smokingpipes-725381",
-            "smokingpipes-725382"
+            "smokingpipes-725382",
+            "smokingpipes-730475"
           ],
           "confidence": "high"
         },
@@ -7930,7 +8367,7 @@
           "canonicalBrand": "Barling",
           "series": "Nelson",
           "seriesZh": null,
-          "count": 57,
+          "count": 61,
           "productIds": [
             "smokingpipes-636764",
             "smokingpipes-651888",
@@ -7988,7 +8425,11 @@
             "smokingpipes-725727",
             "smokingpipes-727113",
             "smokingpipes-727114",
-            "smokingpipes-727116"
+            "smokingpipes-727116",
+            "smokingpipes-730470",
+            "smokingpipes-730471",
+            "smokingpipes-730472",
+            "smokingpipes-730473"
           ],
           "confidence": "high"
         },
@@ -7998,7 +8439,7 @@
           "canonicalBrand": "Barling",
           "series": "Marylebone",
           "seriesZh": null,
-          "count": 56,
+          "count": 57,
           "productIds": [
             "smokingpipes-622774",
             "smokingpipes-671125",
@@ -8055,7 +8496,8 @@
             "smokingpipes-727111",
             "smokingpipes-727725",
             "smokingpipes-727726",
-            "smokingpipes-727727"
+            "smokingpipes-727727",
+            "smokingpipes-730469"
           ],
           "confidence": "high"
         },
@@ -8065,7 +8507,7 @@
           "canonicalBrand": "Barling",
           "series": "Benjamin",
           "seriesZh": null,
-          "count": 48,
+          "count": 52,
           "productIds": [
             "smokingpipes-667726",
             "smokingpipes-671115",
@@ -8114,7 +8556,11 @@
             "smokingpipes-725367",
             "smokingpipes-725723",
             "smokingpipes-725724",
-            "smokingpipes-727108"
+            "smokingpipes-727108",
+            "smokingpipes-730463",
+            "smokingpipes-730464",
+            "smokingpipes-730465",
+            "smokingpipes-730466"
           ],
           "confidence": "high"
         },
@@ -8144,10 +8590,21 @@
       ]
     },
     {
+      "brand": "AKB",
+      "brandZh": null,
+      "brandSlug": "akb",
+      "productCount": 216,
+      "frontendEligible": true,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Dunhill",
       "brandZh": null,
       "brandSlug": "dunhill",
-      "productCount": 201,
+      "productCount": 205,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -8158,7 +8615,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Shell Briar",
           "seriesZh": null,
-          "count": 74,
+          "count": 76,
           "productIds": [
             "danish-30386",
             "danish-30387",
@@ -8222,6 +8679,7 @@
             "smokingpipes-713976",
             "smokingpipes-713980",
             "smokingpipes-717659",
+            "smokingpipes-717682",
             "smokingpipes-717684",
             "smokingpipes-717685",
             "smokingpipes-721976",
@@ -8231,13 +8689,14 @@
             "smokingpipes-728840",
             "smokingpipes-728841",
             "smokingpipes-728943",
+            "smokingpipes-729056",
             "smokingpipes-729454",
             "smokingpipes-729456",
             "smokingpipes-729459"
           ],
           "sourceCounts": {
             "danish": 35,
-            "smokingpipes": 39
+            "smokingpipes": 41
           },
           "confidence": "high",
           "sampleTitles": [
@@ -8420,7 +8879,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Chestnut",
           "seriesZh": null,
-          "count": 10,
+          "count": 11,
           "productIds": [
             "danish-35951",
             "danish-35959",
@@ -8431,11 +8890,12 @@
             "smokingpipes-573646",
             "smokingpipes-573648",
             "smokingpipes-590662",
+            "smokingpipes-729046",
             "smokingpipes-729047"
           ],
           "sourceCounts": {
             "danish": 5,
-            "smokingpipes": 5
+            "smokingpipes": 6
           },
           "confidence": "high",
           "sampleTitles": [
@@ -8453,7 +8913,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Ruby Bark",
           "seriesZh": null,
-          "count": 7,
+          "count": 8,
           "productIds": [
             "danish-30388",
             "danish-34186",
@@ -8461,11 +8921,12 @@
             "smokingpipes-713958",
             "smokingpipes-722016",
             "smokingpipes-722018",
-            "smokingpipes-728727"
+            "smokingpipes-728727",
+            "smokingpipes-728728"
           ],
           "sourceCounts": {
             "danish": 2,
-            "smokingpipes": 5
+            "smokingpipes": 6
           },
           "confidence": "high",
           "sampleTitles": [
@@ -8533,7 +8994,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Shell Briar",
           "seriesZh": null,
-          "count": 74,
+          "count": 76,
           "productIds": [
             "danish-30386",
             "danish-30387",
@@ -8597,6 +9058,7 @@
             "smokingpipes-713976",
             "smokingpipes-713980",
             "smokingpipes-717659",
+            "smokingpipes-717682",
             "smokingpipes-717684",
             "smokingpipes-717685",
             "smokingpipes-721976",
@@ -8606,6 +9068,7 @@
             "smokingpipes-728840",
             "smokingpipes-728841",
             "smokingpipes-728943",
+            "smokingpipes-729056",
             "smokingpipes-729454",
             "smokingpipes-729456",
             "smokingpipes-729459"
@@ -8747,7 +9210,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Chestnut",
           "seriesZh": null,
-          "count": 10,
+          "count": 11,
           "productIds": [
             "danish-35951",
             "danish-35959",
@@ -8758,6 +9221,7 @@
             "smokingpipes-573646",
             "smokingpipes-573648",
             "smokingpipes-590662",
+            "smokingpipes-729046",
             "smokingpipes-729047"
           ],
           "confidence": "high"
@@ -8768,7 +9232,7 @@
           "canonicalBrand": "Dunhill",
           "series": "Ruby Bark",
           "seriesZh": null,
-          "count": 7,
+          "count": 8,
           "productIds": [
             "danish-30388",
             "danish-34186",
@@ -8776,7 +9240,8 @@
             "smokingpipes-713958",
             "smokingpipes-722016",
             "smokingpipes-722018",
-            "smokingpipes-728727"
+            "smokingpipes-728727",
+            "smokingpipes-728728"
           ],
           "confidence": "high"
         },
@@ -8800,21 +9265,10 @@
       ]
     },
     {
-      "brand": "AKB",
-      "brandZh": null,
-      "brandSlug": "akb",
-      "productCount": 183,
-      "frontendEligible": true,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Chacom",
       "brandZh": null,
       "brandSlug": "chacom",
-      "productCount": 180,
+      "productCount": 192,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -8825,7 +9279,7 @@
           "canonicalBrand": "Chacom",
           "series": "Spigot",
           "seriesZh": null,
-          "count": 18,
+          "count": 20,
           "productIds": [
             "danish-10739",
             "danish-10744",
@@ -8844,11 +9298,13 @@
             "danish-30898",
             "danish-35792",
             "danish-36187",
-            "smokingpipes-685401"
+            "smokingpipes-685401",
+            "smokingpipes-692197",
+            "smokingpipes-692199"
           ],
           "sourceCounts": {
             "danish": 17,
-            "smokingpipes": 1
+            "smokingpipes": 3
           },
           "confidence": "high",
           "sampleTitles": [
@@ -9101,22 +9557,25 @@
           "canonicalBrand": "Chacom",
           "series": "Baccara",
           "seriesZh": null,
-          "count": 4,
+          "count": 5,
           "productIds": [
             "danish-23224",
             "danish-23225",
             "danish-23226",
-            "danish-23227"
+            "danish-23227",
+            "smokingpipes-675984"
           ],
           "sourceCounts": {
-            "danish": 4
+            "danish": 4,
+            "smokingpipes": 1
           },
           "confidence": "high",
           "sampleTitles": [
             "Chacom, Baccara 43, Bent Billard, Sandblasted",
             "Chacom, Baccara 43, Bent Billard, Smooth",
             "Chacom, Baccara 186, Straight Billard, Smooth",
-            "Chacom, Baccara 186, Straight Billard, Sand"
+            "Chacom, Baccara 186, Straight Billard, Sand",
+            "Baccara Smooth (186) Tobacco Pipe"
           ],
           "frontendIncluded": true
         },
@@ -9287,7 +9746,7 @@
           "canonicalBrand": "Chacom",
           "series": "Spigot",
           "seriesZh": null,
-          "count": 18,
+          "count": 20,
           "productIds": [
             "danish-10739",
             "danish-10744",
@@ -9306,7 +9765,9 @@
             "danish-30898",
             "danish-35792",
             "danish-36187",
-            "smokingpipes-685401"
+            "smokingpipes-685401",
+            "smokingpipes-692197",
+            "smokingpipes-692199"
           ],
           "confidence": "high"
         },
@@ -9461,12 +9922,13 @@
           "canonicalBrand": "Chacom",
           "series": "Baccara",
           "seriesZh": null,
-          "count": 4,
+          "count": 5,
           "productIds": [
             "danish-23224",
             "danish-23225",
             "danish-23226",
-            "danish-23227"
+            "danish-23227",
+            "smokingpipes-675984"
           ],
           "confidence": "high"
         },
@@ -9573,7 +10035,7 @@
       "brand": "Cavicchi",
       "brandZh": null,
       "brandSlug": "cavicchi",
-      "productCount": 137,
+      "productCount": 139,
       "frontendEligible": true,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
@@ -9592,10 +10054,21 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "GH Zhang",
+      "brandZh": null,
+      "brandSlug": "gh-zhang",
+      "productCount": 113,
+      "frontendEligible": true,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Molina",
       "brandZh": null,
       "brandSlug": "molina",
-      "productCount": 107,
+      "productCount": 113,
       "frontendEligible": true,
       "frontendEnabled": true,
       "frontendReason": "brandProductCount > 100 and controlled series candidates matched",
@@ -9606,7 +10079,7 @@
           "canonicalBrand": "Molina",
           "series": "Barasso",
           "seriesZh": null,
-          "count": 42,
+          "count": 47,
           "productIds": [
             "smokingpipes-653728",
             "smokingpipes-653730",
@@ -9635,11 +10108,16 @@
             "smokingpipes-653773",
             "smokingpipes-653778",
             "smokingpipes-653779",
+            "smokingpipes-653780",
             "smokingpipes-653781",
             "smokingpipes-653784",
             "smokingpipes-653785",
+            "smokingpipes-653800",
+            "smokingpipes-653804",
+            "smokingpipes-653805",
             "smokingpipes-653808",
             "smokingpipes-653809",
+            "smokingpipes-653810",
             "smokingpipes-681820",
             "smokingpipes-681822",
             "smokingpipes-681823",
@@ -9652,7 +10130,7 @@
             "smokingpipes-681831"
           ],
           "sourceCounts": {
-            "smokingpipes": 42
+            "smokingpipes": 47
           },
           "confidence": "high",
           "sampleTitles": [
@@ -9843,7 +10321,7 @@
           "canonicalBrand": "Molina",
           "series": "Barasso",
           "seriesZh": null,
-          "count": 42,
+          "count": 47,
           "productIds": [
             "smokingpipes-653728",
             "smokingpipes-653730",
@@ -9872,11 +10350,16 @@
             "smokingpipes-653773",
             "smokingpipes-653778",
             "smokingpipes-653779",
+            "smokingpipes-653780",
             "smokingpipes-653781",
             "smokingpipes-653784",
             "smokingpipes-653785",
+            "smokingpipes-653800",
+            "smokingpipes-653804",
+            "smokingpipes-653805",
             "smokingpipes-653808",
             "smokingpipes-653809",
+            "smokingpipes-653810",
             "smokingpipes-681820",
             "smokingpipes-681822",
             "smokingpipes-681823",
@@ -9997,6 +10480,17 @@
           "confidence": "high"
         }
       ]
+    },
+    {
+      "brand": "Brigham",
+      "brandZh": null,
+      "brandSlug": "brigham",
+      "productCount": 102,
+      "frontendEligible": true,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount > 100 but no controlled series candidate reached the minimum count",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
     },
     {
       "brand": "Erik Stokkebye 4th Generation",
@@ -10408,32 +10902,10 @@
       ]
     },
     {
-      "brand": "Brigham",
-      "brandZh": null,
-      "brandSlug": "brigham",
-      "productCount": 95,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Castello",
       "brandZh": null,
       "brandSlug": "castello",
-      "productCount": 94,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "GH Zhang",
-      "brandZh": null,
-      "brandSlug": "gh-zhang",
-      "productCount": 88,
+      "productCount": 96,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -10740,6 +11212,131 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "Ashton",
+      "brandZh": null,
+      "brandSlug": "ashton",
+      "productCount": 68,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [
+        {
+          "brand": "Ashton",
+          "brandZh": null,
+          "canonicalBrand": "Ashton",
+          "series": "Pebble Grain",
+          "seriesZh": null,
+          "count": 22,
+          "productIds": [
+            "smokingpipes-705952",
+            "smokingpipes-705955",
+            "smokingpipes-705962",
+            "smokingpipes-717297",
+            "smokingpipes-717334",
+            "smokingpipes-717335",
+            "smokingpipes-717339",
+            "smokingpipes-717340",
+            "smokingpipes-717407",
+            "smokingpipes-717408",
+            "smokingpipes-717411",
+            "smokingpipes-717412",
+            "smokingpipes-717413",
+            "smokingpipes-717414",
+            "smokingpipes-727450",
+            "smokingpipes-727451",
+            "smokingpipes-727468",
+            "smokingpipes-727469",
+            "smokingpipes-727536",
+            "smokingpipes-727537",
+            "smokingpipes-727800",
+            "smokingpipes-727803"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 22
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Pebble Grain Bent Billiard (XXX) (2025) Tobacco Pipe",
+            "Pebble Grain Bent Billiard (XXX) (2025) Tobacco Pipe",
+            "Pebble Grain Poker (XXX) (2025) Tobacco Pipe",
+            "Pebble Grain Apple with Silver (X) (2026) Tobacco Pipe",
+            "Pebble Grain Billiard with Silver (XX) (2026) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Ashton",
+          "brandZh": null,
+          "canonicalBrand": "Ashton",
+          "series": "Old Church",
+          "seriesZh": null,
+          "count": 19,
+          "productIds": [
+            "smokingpipes-717364",
+            "smokingpipes-717417",
+            "smokingpipes-717419",
+            "smokingpipes-717432",
+            "smokingpipes-727437",
+            "smokingpipes-727438",
+            "smokingpipes-727474",
+            "smokingpipes-727486",
+            "smokingpipes-727489",
+            "smokingpipes-727490",
+            "smokingpipes-727496",
+            "smokingpipes-727539",
+            "smokingpipes-727541",
+            "smokingpipes-727542",
+            "smokingpipes-727543",
+            "smokingpipes-727555",
+            "smokingpipes-727557",
+            "smokingpipes-727558",
+            "smokingpipes-727560"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 19
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Old Church Dublin with Silver (XX) (2026) Tobacco Pipe",
+            "Old Church Bent Billiard (XXX) (2026) (9mm) Tobacco Pipe",
+            "Old Church Bent Billiard (XXX) (2026) (9mm) Tobacco Pipe",
+            "Old Church Paneled Poker (ELX) (2026) Tobacco Pipe",
+            "Old Church Pot with Silver (X) (2026) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Ashton",
+          "brandZh": null,
+          "canonicalBrand": "Ashton",
+          "series": "Sovereign",
+          "seriesZh": null,
+          "count": 6,
+          "productIds": [
+            "smokingpipes-706004",
+            "smokingpipes-717424",
+            "smokingpipes-727546",
+            "smokingpipes-727553",
+            "smokingpipes-727554",
+            "smokingpipes-727806"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 6
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Sovereign Poker (XXX) (2025) Tobacco Pipe",
+            "Sovereign Paneled Poker (XXX) (2026) Tobacco Pipe",
+            "Sovereign Bulldog (XXX) (2026) Tobacco Pipe",
+            "Sovereign Paneled Billiard (XXX) (2026) Tobacco Pipe",
+            "Sovereign Bent Billiard with Silver (LX) (2026) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        }
+      ],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Brebbia",
       "brandZh": null,
       "brandSlug": "brebbia",
@@ -10776,7 +11373,7 @@
       "brand": "Ropp",
       "brandZh": null,
       "brandSlug": "ropp",
-      "productCount": 58,
+      "productCount": 59,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -10823,7 +11420,7 @@
           "canonicalBrand": "Ropp",
           "series": "Vintage",
           "seriesZh": null,
-          "count": 8,
+          "count": 9,
           "productIds": [
             "smokingpipes-565908",
             "smokingpipes-565909",
@@ -10832,10 +11429,11 @@
             "smokingpipes-682442",
             "smokingpipes-685423",
             "smokingpipes-715749",
-            "smokingpipes-715751"
+            "smokingpipes-715751",
+            "smokingpipes-715795"
           ],
           "sourceCounts": {
-            "smokingpipes": 8
+            "smokingpipes": 9
           },
           "confidence": "high",
           "sampleTitles": [
@@ -10874,124 +11472,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Ashton",
-      "brandZh": null,
-      "brandSlug": "ashton",
-      "productCount": 55,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [
-        {
-          "brand": "Ashton",
-          "brandZh": null,
-          "canonicalBrand": "Ashton",
-          "series": "Pebble Grain",
-          "seriesZh": null,
-          "count": 19,
-          "productIds": [
-            "smokingpipes-705952",
-            "smokingpipes-705955",
-            "smokingpipes-705962",
-            "smokingpipes-717297",
-            "smokingpipes-717334",
-            "smokingpipes-717335",
-            "smokingpipes-717339",
-            "smokingpipes-717340",
-            "smokingpipes-717407",
-            "smokingpipes-717408",
-            "smokingpipes-717411",
-            "smokingpipes-717412",
-            "smokingpipes-717413",
-            "smokingpipes-717414",
-            "smokingpipes-727450",
-            "smokingpipes-727536",
-            "smokingpipes-727537",
-            "smokingpipes-727800",
-            "smokingpipes-727803"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 19
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Pebble Grain Bent Billiard (XXX) (2025) Tobacco Pipe",
-            "Pebble Grain Bent Billiard (XXX) (2025) Tobacco Pipe",
-            "Pebble Grain Poker (XXX) (2025) Tobacco Pipe",
-            "Pebble Grain Apple with Silver (X) (2026) Tobacco Pipe",
-            "Pebble Grain Billiard with Silver (XX) (2026) Tobacco Pipe"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Ashton",
-          "brandZh": null,
-          "canonicalBrand": "Ashton",
-          "series": "Old Church",
-          "seriesZh": null,
-          "count": 15,
-          "productIds": [
-            "smokingpipes-717364",
-            "smokingpipes-717417",
-            "smokingpipes-717419",
-            "smokingpipes-717432",
-            "smokingpipes-727437",
-            "smokingpipes-727438",
-            "smokingpipes-727486",
-            "smokingpipes-727490",
-            "smokingpipes-727496",
-            "smokingpipes-727539",
-            "smokingpipes-727541",
-            "smokingpipes-727543",
-            "smokingpipes-727555",
-            "smokingpipes-727558",
-            "smokingpipes-727560"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 15
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Old Church Dublin with Silver (XX) (2026) Tobacco Pipe",
-            "Old Church Bent Billiard (XXX) (2026) (9mm) Tobacco Pipe",
-            "Old Church Bent Billiard (XXX) (2026) (9mm) Tobacco Pipe",
-            "Old Church Paneled Poker (ELX) (2026) Tobacco Pipe",
-            "Old Church Pot with Silver (X) (2026) Tobacco Pipe"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Ashton",
-          "brandZh": null,
-          "canonicalBrand": "Ashton",
-          "series": "Sovereign",
-          "seriesZh": null,
-          "count": 6,
-          "productIds": [
-            "smokingpipes-706004",
-            "smokingpipes-717424",
-            "smokingpipes-727546",
-            "smokingpipes-727553",
-            "smokingpipes-727554",
-            "smokingpipes-727806"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 6
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Sovereign Poker (XXX) (2025) Tobacco Pipe",
-            "Sovereign Paneled Poker (XXX) (2026) Tobacco Pipe",
-            "Sovereign Bulldog (XXX) (2026) Tobacco Pipe",
-            "Sovereign Paneled Billiard (XXX) (2026) Tobacco Pipe",
-            "Sovereign Bent Billiard with Silver (LX) (2026) Tobacco Pipe"
-          ],
-          "frontendIncluded": false
-        }
-      ],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "BPK",
       "brandZh": null,
       "brandSlug": "bpk",
@@ -11003,43 +11483,10 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "White Elephant",
-      "brandZh": null,
-      "brandSlug": "white-elephant",
-      "productCount": 48,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Kai Nielsen",
-      "brandZh": null,
-      "brandSlug": "kai-nielsen",
-      "productCount": 47,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Mastro Geppetto",
-      "brandZh": null,
-      "brandSlug": "mastro-geppetto",
-      "productCount": 47,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Tsuge",
       "brandZh": null,
       "brandSlug": "tsuge",
-      "productCount": 44,
+      "productCount": 52,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11050,8 +11497,9 @@
           "canonicalBrand": "Tsuge",
           "series": "Ikebana",
           "seriesZh": null,
-          "count": 8,
+          "count": 11,
           "productIds": [
+            "smokingpipes-477302",
             "smokingpipes-513049",
             "smokingpipes-670246",
             "smokingpipes-714353",
@@ -11059,18 +11507,47 @@
             "smokingpipes-725526",
             "smokingpipes-725527",
             "smokingpipes-725530",
-            "smokingpipes-725532"
+            "smokingpipes-725532",
+            "smokingpipes-727954",
+            "smokingpipes-727955"
           ],
           "sourceCounts": {
-            "smokingpipes": 8
+            "smokingpipes": 11
           },
           "confidence": "high",
           "sampleTitles": [
+            "Smooth Tomato with Horn (Fukuda) (R) (146) (2021) Tobacco Pipe",
             "Smooth Volcano (Fukuda) (R) (117) (2021) Tobacco Pipe",
             "Smooth Freehand (Kikuchi) (L) (009) (2025) Tobacco Pipe",
             "Smooth Bent Brandy (Kikuchi) (L) (089) (2025) Tobacco Pipe",
-            "Smooth Volcano (Kikuchi) (M) (061) (2025) Tobacco Pipe",
-            "Sandblasted Bent Apple (Kikuchi) (008) (2026) Tobacco Pipe"
+            "Smooth Volcano (Kikuchi) (M) (061) (2025) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Tsuge",
+          "brandZh": null,
+          "canonicalBrand": "Tsuge",
+          "series": "Capito",
+          "seriesZh": null,
+          "count": 5,
+          "productIds": [
+            "smokingpipes-708642",
+            "smokingpipes-708643",
+            "smokingpipes-725652",
+            "smokingpipes-725657",
+            "smokingpipes-725658"
+          ],
+          "sourceCounts": {
+            "smokingpipes": 5
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Capito Black Sandblasted Egg Tobacco Pipe",
+            "Capito Black Sandblasted Egg Tobacco Pipe",
+            "Capito Brown Sandblasted Poker Tobacco Pipe",
+            "Capito Black Smooth Poker Tobacco Pipe",
+            "Capito Black Smooth Poker Tobacco Pipe"
           ],
           "frontendIncluded": false
         },
@@ -11125,42 +11602,237 @@
             "Tevina Sandblasted (103) Tobacco Pipe"
           ],
           "frontendIncluded": false
-        },
-        {
-          "brand": "Tsuge",
-          "brandZh": null,
-          "canonicalBrand": "Tsuge",
-          "series": "Capito",
-          "seriesZh": null,
-          "count": 3,
-          "productIds": [
-            "smokingpipes-708642",
-            "smokingpipes-708643",
-            "smokingpipes-725652"
-          ],
-          "sourceCounts": {
-            "smokingpipes": 3
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Capito Black Sandblasted Egg Tobacco Pipe",
-            "Capito Black Sandblasted Egg Tobacco Pipe",
-            "Capito Brown Sandblasted Poker Tobacco Pipe"
-          ],
-          "frontendIncluded": false
         }
       ],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "White Elephant",
+      "brandZh": null,
+      "brandSlug": "white-elephant",
+      "productCount": 48,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Kai Nielsen",
+      "brandZh": null,
+      "brandSlug": "kai-nielsen",
+      "productCount": 47,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Mastro Geppetto",
+      "brandZh": null,
+      "brandSlug": "mastro-geppetto",
+      "productCount": 47,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Caminetto",
+      "brandZh": null,
+      "brandSlug": "caminetto",
+      "productCount": 42,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
       "frontendSeriesOptions": []
     },
     {
       "brand": "IMP Meerschaum",
       "brandZh": null,
       "brandSlug": "imp-meerschaum",
-      "productCount": 39,
+      "productCount": 42,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
       "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Unknown Meerschaum",
+      "brandZh": null,
+      "brandSlug": null,
+      "productCount": 41,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Missouri Meerschaum",
+      "brandZh": null,
+      "brandSlug": "missouri-meerschaum",
+      "productCount": 40,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Corn Cob",
+          "seriesZh": null,
+          "count": 8,
+          "productIds": [
+            "danish-16286",
+            "danish-21158",
+            "danish-21159",
+            "danish-213",
+            "danish-220",
+            "danish-28671",
+            "danish-30496",
+            "danish-36199"
+          ],
+          "sourceCounts": {
+            "danish": 8
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Little Devil Cutty",
+            "Corn Cob Pipe, Mini",
+            "Corn Cob Pipe, Emerald, Bent",
+            "Corn Cob Pipe, Boone, Bent",
+            "Corn Cob Pipe, Boone, Straight"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Legend",
+          "seriesZh": null,
+          "count": 6,
+          "productIds": [
+            "danish-3409",
+            "danish-3442",
+            "smokingpipes-109738",
+            "smokingpipes-109739",
+            "smokingpipes-275437",
+            "smokingpipes-275438"
+          ],
+          "sourceCounts": {
+            "danish": 2,
+            "smokingpipes": 4
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Missouri Legend, Bent",
+            "Corn Cob Pipe, Missouri Legend, Straight",
+            "Legend 5th Avenue Straight (6mm) Tobacco Pipe",
+            "Legend 5th Avenue Bent (6mm) Tobacco Pipe",
+            "Legend Rob Roy Straight (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Missouri Pride",
+          "seriesZh": null,
+          "count": 4,
+          "productIds": [
+            "danish-3408",
+            "danish-3438",
+            "smokingpipes-109736",
+            "smokingpipes-109737"
+          ],
+          "sourceCounts": {
+            "danish": 2,
+            "smokingpipes": 2
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Missouri Pride, Straight",
+            "Corn Cob Pipe, Missouri Pride, Bent",
+            "Missouri Pride Straight (6mm) Tobacco Pipe",
+            "Missouri Pride Bent (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Washington",
+          "seriesZh": null,
+          "count": 3,
+          "productIds": [
+            "danish-16996",
+            "danish-17196",
+            "smokingpipes-109740"
+          ],
+          "sourceCounts": {
+            "danish": 2,
+            "smokingpipes": 1
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Washington, Bent",
+            "Corn Cob Pipe, Washington, Straight",
+            "Washington 5th Avenue Straight (6mm) Tobacco Pipe"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Country Gentleman",
+          "seriesZh": null,
+          "count": 2,
+          "productIds": [
+            "danish-5362",
+            "danish-5364"
+          ],
+          "sourceCounts": {
+            "danish": 2
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Country Gentleman, Bent",
+            "Corn Cob Pipe, Country Gentleman, Straight"
+          ],
+          "frontendIncluded": false
+        },
+        {
+          "brand": "Missouri Meerschaum",
+          "brandZh": null,
+          "canonicalBrand": "Missouri Meerschaum",
+          "series": "Mark Twain",
+          "seriesZh": null,
+          "count": 2,
+          "productIds": [
+            "danish-18776",
+            "danish-18777"
+          ],
+          "sourceCounts": {
+            "danish": 2
+          },
+          "confidence": "high",
+          "sampleTitles": [
+            "Corn Cob Pipe, Mark Twain, Bent",
+            "Corn Cob Pipe, Mark Twain, Straight"
+          ],
+          "frontendIncluded": false
+        }
+      ],
       "frontendSeriesOptions": []
     },
     {
@@ -11175,10 +11847,10 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Caminetto",
+      "brand": "Rinaldo",
       "brandZh": null,
-      "brandSlug": "caminetto",
-      "productCount": 36,
+      "brandSlug": "rinaldo",
+      "productCount": 37,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11230,17 +11902,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Rinaldo",
-      "brandZh": null,
-      "brandSlug": "rinaldo",
-      "productCount": 31,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Georg Jensen",
       "brandZh": null,
       "brandSlug": "georg-jensen",
@@ -11274,6 +11935,28 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "The French Pipe",
+      "brandZh": null,
+      "brandSlug": "the-french-pipe",
+      "productCount": 25,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Bruno Nuttens",
+      "brandZh": null,
+      "brandSlug": "bruno-nuttens",
+      "productCount": 24,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Lanatra",
       "brandZh": null,
       "brandSlug": "lanatra",
@@ -11282,164 +11965,6 @@
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
       "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "The French Pipe",
-      "brandZh": null,
-      "brandSlug": "the-french-pipe",
-      "productCount": 24,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Missouri Meerschaum",
-      "brandZh": null,
-      "brandSlug": "missouri-meerschaum",
-      "productCount": 23,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Corn Cob",
-          "seriesZh": null,
-          "count": 8,
-          "productIds": [
-            "danish-16286",
-            "danish-21158",
-            "danish-21159",
-            "danish-213",
-            "danish-220",
-            "danish-28671",
-            "danish-30496",
-            "danish-36199"
-          ],
-          "sourceCounts": {
-            "danish": 8
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Little Devil Cutty",
-            "Corn Cob Pipe, Mini",
-            "Corn Cob Pipe, Emerald, Bent",
-            "Corn Cob Pipe, Boone, Bent",
-            "Corn Cob Pipe, Boone, Straight"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Country Gentleman",
-          "seriesZh": null,
-          "count": 2,
-          "productIds": [
-            "danish-5362",
-            "danish-5364"
-          ],
-          "sourceCounts": {
-            "danish": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Country Gentleman, Bent",
-            "Corn Cob Pipe, Country Gentleman, Straight"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Legend",
-          "seriesZh": null,
-          "count": 2,
-          "productIds": [
-            "danish-3409",
-            "danish-3442"
-          ],
-          "sourceCounts": {
-            "danish": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Missouri Legend, Bent",
-            "Corn Cob Pipe, Missouri Legend, Straight"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Mark Twain",
-          "seriesZh": null,
-          "count": 2,
-          "productIds": [
-            "danish-18776",
-            "danish-18777"
-          ],
-          "sourceCounts": {
-            "danish": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Mark Twain, Bent",
-            "Corn Cob Pipe, Mark Twain, Straight"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Missouri Pride",
-          "seriesZh": null,
-          "count": 2,
-          "productIds": [
-            "danish-3408",
-            "danish-3438"
-          ],
-          "sourceCounts": {
-            "danish": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Missouri Pride, Straight",
-            "Corn Cob Pipe, Missouri Pride, Bent"
-          ],
-          "frontendIncluded": false
-        },
-        {
-          "brand": "Missouri Meerschaum",
-          "brandZh": null,
-          "canonicalBrand": "Missouri Meerschaum",
-          "series": "Washington",
-          "seriesZh": null,
-          "count": 2,
-          "productIds": [
-            "danish-16996",
-            "danish-17196"
-          ],
-          "sourceCounts": {
-            "danish": 2
-          },
-          "confidence": "high",
-          "sampleTitles": [
-            "Corn Cob Pipe, Washington, Bent",
-            "Corn Cob Pipe, Washington, Straight"
-          ],
-          "frontendIncluded": false
-        }
-      ],
       "frontendSeriesOptions": []
     },
     {
@@ -11531,9 +12056,9 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Former",
-      "brandZh": "佛么",
-      "brandSlug": "former",
+      "brand": "Volkan",
+      "brandZh": null,
+      "brandSlug": "volkan",
       "productCount": 17,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -11542,10 +12067,10 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Volkan",
+      "brand": "Mark Tinsky",
       "brandZh": null,
-      "brandSlug": "volkan",
-      "productCount": 17,
+      "brandSlug": "mark-tinsky",
+      "productCount": 16,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11564,10 +12089,21 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Bruno Nuttens",
+      "brand": "Ardor",
       "brandZh": null,
-      "brandSlug": "bruno-nuttens",
-      "productCount": 15,
+      "brandSlug": "ardor",
+      "productCount": 13,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Hans Former Nielsen",
+      "brandZh": null,
+      "brandSlug": "hans-former-nielsen",
+      "productCount": 13,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11586,10 +12122,32 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "Duca",
+      "brandZh": null,
+      "brandSlug": "duca",
+      "productCount": 12,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Il Cerchio",
       "brandZh": null,
       "brandSlug": "il-cerchio",
       "productCount": 12,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Davide Iafisco",
+      "brandZh": null,
+      "brandSlug": "davide-iafisco",
+      "productCount": 11,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11652,28 +12210,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Davide Iafisco",
-      "brandZh": null,
-      "brandSlug": "davide-iafisco",
-      "productCount": 10,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Duca",
-      "brandZh": null,
-      "brandSlug": "duca",
-      "productCount": 10,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Sara Eltang Pipes",
       "brandZh": null,
       "brandSlug": "sara-eltang-pipes",
@@ -11707,9 +12243,20 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Mark Tinsky",
+      "brand": "Todd Johnson",
       "brandZh": null,
-      "brandSlug": "mark-tinsky",
+      "brandSlug": "todd-johnson",
+      "productCount": 9,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Unbranded",
+      "brandZh": null,
+      "brandSlug": null,
       "productCount": 9,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -11729,10 +12276,21 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Skovgaard",
-      "brandZh": "拉塞",
-      "brandSlug": "skovgaard",
+      "brand": "Randy Wiley",
+      "brandZh": null,
+      "brandSlug": "randy-wiley",
       "productCount": 8,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Alan",
+      "brandZh": null,
+      "brandSlug": "alan",
+      "productCount": 7,
       "frontendEligible": false,
       "frontendEnabled": false,
       "frontendReason": "brandProductCount <= 100; audit-only by product rule",
@@ -11751,9 +12309,20 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Randy Wiley",
+      "brand": "Sam Adebayo",
       "brandZh": null,
-      "brandSlug": "randy-wiley",
+      "brandSlug": "sam-adebayo",
+      "productCount": 7,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Skovgaard",
+      "brandZh": null,
+      "brandSlug": "skovgaard",
       "productCount": 7,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -11776,17 +12345,6 @@
       "brand": "TDPS",
       "brandZh": null,
       "brandSlug": "tdps",
-      "productCount": 7,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Todd Johnson",
-      "brandZh": null,
-      "brandSlug": "todd-johnson",
       "productCount": 7,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -11828,9 +12386,9 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Ardor",
+      "brand": "Askwith",
       "brandZh": null,
-      "brandSlug": "ardor",
+      "brandSlug": "askwith",
       "productCount": 6,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -11905,17 +12463,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Sam Adebayo",
-      "brandZh": null,
-      "brandSlug": "sam-adebayo",
-      "productCount": 6,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Wojtek Pastuch",
       "brandZh": null,
       "brandSlug": "wojtek-pastuch",
@@ -11927,20 +12474,9 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Alan",
+      "brand": "Becker",
       "brandZh": null,
-      "brandSlug": "alan",
-      "productCount": 5,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Askwith",
-      "brandZh": null,
-      "brandSlug": "askwith",
+      "brandSlug": "becker",
       "productCount": 5,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12037,9 +12573,31 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "Doctor's Pipes",
+      "brandZh": null,
+      "brandSlug": "doctors-pipes",
+      "productCount": 4,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Emiliano",
       "brandZh": null,
       "brandSlug": "emiliano",
+      "productCount": 4,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Former",
+      "brandZh": null,
+      "brandSlug": "former",
       "productCount": 4,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12103,6 +12661,17 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "Scott Thile",
+      "brandZh": null,
+      "brandSlug": "scott-thile",
+      "productCount": 4,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Silver Gray",
       "brandZh": null,
       "brandSlug": "silver-gray",
@@ -12128,6 +12697,17 @@
       "brand": "Martelo",
       "brandZh": null,
       "brandSlug": "martelo",
+      "productCount": 3,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Old Dominion",
+      "brandZh": null,
+      "brandSlug": "old-dominion",
       "productCount": 3,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12255,9 +12835,9 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Doctor's Pipes",
+      "brand": "David Huber",
       "brandZh": null,
-      "brandSlug": "doctors-pipes",
+      "brandSlug": "david-huber",
       "productCount": 2,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12280,6 +12860,17 @@
       "brand": "Florov",
       "brandZh": null,
       "brandSlug": "florov",
+      "productCount": 2,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "G Penzo",
+      "brandZh": null,
+      "brandSlug": "g-penzo",
       "productCount": 2,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12343,9 +12934,9 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Scott Thile",
+      "brand": "Sam Cui",
       "brandZh": null,
-      "brandSlug": "scott-thile",
+      "brandSlug": "sam-cui",
       "productCount": 2,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12357,6 +12948,17 @@
       "brand": "Suhr",
       "brandZh": null,
       "brandSlug": "suhr",
+      "productCount": 2,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Trey Rice",
+      "brandZh": null,
+      "brandSlug": "trey-rice",
       "productCount": 2,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12390,17 +12992,6 @@
       "brand": "Balleby",
       "brandZh": null,
       "brandSlug": "balleby",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Becker",
-      "brandZh": null,
-      "brandSlug": "becker",
       "productCount": 1,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12475,17 +13066,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "David Huber",
-      "brandZh": null,
-      "brandSlug": "david-huber",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Finn Andersen",
       "brandZh": null,
       "brandSlug": "finn-andersen",
@@ -12500,17 +13080,6 @@
       "brand": "Flemming",
       "brandZh": null,
       "brandSlug": "flemming",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "G Penzo",
-      "brandZh": null,
-      "brandSlug": "g-penzo",
       "productCount": 1,
       "frontendEligible": false,
       "frontendEnabled": false,
@@ -12574,6 +13143,28 @@
       "frontendSeriesOptions": []
     },
     {
+      "brand": "KS Pipe",
+      "brandZh": null,
+      "brandSlug": null,
+      "productCount": 1,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
+      "brand": "Lasse Skovgaard",
+      "brandZh": null,
+      "brandSlug": "lasse-skovgaard",
+      "productCount": 1,
+      "frontendEligible": false,
+      "frontendEnabled": false,
+      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
+      "seriesCandidates": [],
+      "frontendSeriesOptions": []
+    },
+    {
       "brand": "Leopold",
       "brandZh": null,
       "brandSlug": "leopold",
@@ -12629,17 +13220,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Old Dominion",
-      "brandZh": null,
-      "brandSlug": "old-dominion",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Parker",
       "brandZh": null,
       "brandSlug": "parker",
@@ -12673,17 +13253,6 @@
       "frontendSeriesOptions": []
     },
     {
-      "brand": "Sam Cui",
-      "brandZh": null,
-      "brandSlug": "sam-cui",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
       "brand": "Scott Klein",
       "brandZh": null,
       "brandSlug": "scott-klein",
@@ -12709,17 +13278,6 @@
       "brand": "Thurmann",
       "brandZh": null,
       "brandSlug": "thurmann",
-      "productCount": 1,
-      "frontendEligible": false,
-      "frontendEnabled": false,
-      "frontendReason": "brandProductCount <= 100; audit-only by product rule",
-      "seriesCandidates": [],
-      "frontendSeriesOptions": []
-    },
-    {
-      "brand": "Trey Rice",
-      "brandZh": null,
-      "brandSlug": "trey-rice",
       "productCount": 1,
       "frontendEligible": false,
       "frontendEnabled": false,

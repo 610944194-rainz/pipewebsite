@@ -122,18 +122,24 @@ function readText(filePath) {
   return fs.readFileSync(filePath, "utf8");
 }
 
-function writeJson(filePath, payload) {
+function writeTextFile(filePath, text) {
   fs.mkdirSync(path.dirname(filePath), {
     recursive: true,
   });
 
-  fs.writeFileSync(filePath, stringifyJson(payload), "utf8");
+  const normalized = String(text ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n+$/, "");
+  fs.writeFileSync(filePath, `${normalized}\n`, "utf8");
+}
+
+function writeJson(filePath, payload) {
+  writeTextFile(filePath, stringifyJson(payload));
 }
 
 function stringifyJson(payload) {
-  return `${JSON.stringify(payload, null, 2)}\n`;
+  return JSON.stringify(payload, null, 2);
 }
-
 function sha256Buffer(buffer) {
   return crypto.createHash("sha256").update(buffer).digest("hex").toUpperCase();
 }
@@ -145,13 +151,8 @@ function safeRemoveFile(filePath) {
 }
 
 function writeText(filePath, text) {
-  fs.mkdirSync(path.dirname(filePath), {
-    recursive: true,
-  });
-
-  fs.writeFileSync(filePath, text.endsWith("\n") ? text : `${text}\n`, "utf8");
+  writeTextFile(filePath, text);
 }
-
 function normalizeText(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
@@ -2552,8 +2553,7 @@ function writeProductionFromFreshConversion({ fullProducts, fullAudit, fullDryRu
   }
 
   try {
-    fs.mkdirSync(path.dirname(paths.outputProductionTmp), { recursive: true });
-    fs.writeFileSync(paths.outputProductionTmp, stringifyJson(fullProducts), "utf8");
+    writeTextFile(paths.outputProductionTmp, stringifyJson(fullProducts));
 
     const tmpBuffer = fs.readFileSync(paths.outputProductionTmp);
     const tmpParsed = JSON.parse(tmpBuffer.toString("utf8"));

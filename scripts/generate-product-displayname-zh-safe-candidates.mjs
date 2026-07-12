@@ -25,9 +25,17 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(projectPath(relativePath), "utf8"));
 }
 
+async function writeTextFile(relativePath, text) {
+  const filePath = projectPath(relativePath);
+  await mkdir(path.dirname(filePath), { recursive: true });
+  const normalized = String(text ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n+$/, "");
+  await writeFile(filePath, `${normalized}\n`, "utf8");
+}
+
 async function writeJson(relativePath, value) {
-  await mkdir(path.dirname(projectPath(relativePath)), { recursive: true });
-  await writeFile(projectPath(relativePath), `${JSON.stringify(value, null, 2)}\n`, "utf8");
+  await writeTextFile(relativePath, JSON.stringify(value, null, 2));
 }
 
 async function sha256File(relativePath) {
@@ -805,8 +813,7 @@ async function main() {
   };
 
   await writeJson(PATHS.report, report);
-  await mkdir(path.dirname(projectPath(PATHS.samples)), { recursive: true });
-  await writeFile(projectPath(PATHS.samples), buildMarkdown(report), "utf8");
+  await writeTextFile(PATHS.samples, buildMarkdown(report));
 
   console.log(JSON.stringify(report, null, 2));
 }

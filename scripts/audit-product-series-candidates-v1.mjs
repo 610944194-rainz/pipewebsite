@@ -23,6 +23,13 @@ const AUDIT_MD_PATH = path.join(
 const FRONTEND_THRESHOLD_EXCLUSIVE = 100;
 const MIN_FRONTEND_SERIES_COUNT = 2;
 
+function writeTextFile(filePath, text) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  const normalized = String(text ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n+$/, "");
+  fs.writeFileSync(filePath, `${normalized}\n`, "utf8");
+}
 function rule(series, aliases = [series], confidence = "high") {
   return { series, aliases, confidence };
 }
@@ -564,10 +571,9 @@ function main() {
     brands: auditBrands,
   };
 
-  fs.mkdirSync(REVIEW_ROOT, { recursive: true });
-  fs.writeFileSync(SERIES_INDEX_PATH, `${JSON.stringify(seriesIndex, null, 2)}\n`);
-  fs.writeFileSync(AUDIT_JSON_PATH, `${JSON.stringify(audit, null, 2)}\n`);
-  fs.writeFileSync(AUDIT_MD_PATH, buildMarkdown(audit));
+  writeTextFile(SERIES_INDEX_PATH, JSON.stringify(seriesIndex, null, 2));
+  writeTextFile(AUDIT_JSON_PATH, JSON.stringify(audit, null, 2));
+  writeTextFile(AUDIT_MD_PATH, buildMarkdown(audit));
 
   console.log(
     JSON.stringify(

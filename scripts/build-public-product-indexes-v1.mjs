@@ -1,4 +1,4 @@
-﻿import crypto from "node:crypto";
+import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
@@ -281,11 +281,18 @@ async function sleep(ms) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function writeTextFile(filePath, content) {
+  const normalized = String(content ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n+$/, "");
+  await fs.writeFile(filePath, `${normalized}\n`, "utf8");
+}
+
 async function writeFileAtomic(filePath, content) {
   assertWritablePath(filePath);
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   const tempPath = `${filePath}.tmp-${process.pid}`;
-  await fs.writeFile(tempPath, content, "utf8");
+  await writeTextFile(tempPath, content);
   let lastError = null;
   for (let attempt = 0; attempt < 8; attempt += 1) {
     try {
