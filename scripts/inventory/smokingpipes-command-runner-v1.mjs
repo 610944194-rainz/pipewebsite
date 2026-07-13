@@ -69,13 +69,25 @@ try {
 
   let executable = filePath;
   let commandArgs = options.commandArgs;
+  let windowsVerbatimArguments = false;
   if (process.platform === "win32" && /\.(?:cmd|bat)$/i.test(filePath)) {
     executable = process.env.ComSpec || `${process.env.SystemRoot}\\System32\\cmd.exe`;
     commandArgs = ["/d", "/s", "/c", `call ${quoteCmdArg(filePath)} ${commandArgs.map(quoteCmdArg).join(" ")}`];
+    // Node's default Windows argument quoting turns the embedded cmd.exe
+    // quotes into literal \" characters. cmd.exe then looks for an executable
+    // whose name includes those quotes. This command line is already escaped
+    // for cmd.exe, so pass it through verbatim.
+    windowsVerbatimArguments = true;
   }
 
   process.stdout.write(`[START] ${stage} timeout=${timeoutSeconds}s\n`);
-  const child = spawn(executable, commandArgs, { cwd, shell: false, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
+  const child = spawn(executable, commandArgs, {
+    cwd,
+    shell: false,
+    windowsHide: true,
+    windowsVerbatimArguments,
+    stdio: ["ignore", "pipe", "pipe"],
+  });
   let stdoutTail = "";
   let stderrTail = "";
   let timedOut = false;
