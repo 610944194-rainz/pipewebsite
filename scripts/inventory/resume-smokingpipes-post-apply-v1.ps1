@@ -65,15 +65,29 @@ $report = [ordered]@{
   buildExecutableRequested = $BuildExecutable; buildExecutableResolved = $null; buildExecutableResolutionMode = "explicit-absolute"
   validatorPassed = $false; inventoryDefaultPassed = $false; buildPassed = $false; postApplyAuditPassed = $false
   changedProductionFiles = @(); stagedFiles = @(); commitPerformed = $false; commitSha = $null; pushPerformed = $false
+  pushTarget = "origin HEAD:main"; finalAutoPublishReportWritten = $false
   deploymentStatus = "not-started"; diagnostic = Get-DiagnosticSnapshot
 }
 
 function Write-RecoveryReport { param([string]$Status, [string]$Stage = $null, [string]$Reason = $null)
   $report.status = $Status; $report.failureStage = $Stage; $report.failureReason = $Reason; $report.completedAt = (Get-Date).ToString("o")
   New-Item -ItemType Directory -Force -Path (Split-Path $ReportJsonPath) | Out-Null
-  [IO.File]::WriteAllText($ReportJsonPath, (($report | ConvertTo-Json -Depth 10) + "`n"), [Text.UTF8Encoding]::new($false))
+  Write-JsonAtomically -Path $ReportJsonPath -Value $report
   $markdown = @("# Smokingpipes Post-Apply Recovery", "", "- status: $($report.status)", "- productionWritten: $($report.productionWritten)", "- appliedCount: $($report.appliedCount)", "- buildExecutableRequested: $($report.buildExecutableRequested)", "- buildExecutableResolved: $($report.buildExecutableResolved)", "- buildPassed: $($report.buildPassed)", "- commitPerformed: $($report.commitPerformed)", "- pushPerformed: $($report.pushPerformed)", "- failureStage: $($report.failureStage)", "- failureReason: $($report.failureReason)") -join "`n"
   [IO.File]::WriteAllText($ReportMarkdownPath, "`uFEFF$markdown`n", [Text.UTF8Encoding]::new($true))
+}
+
+function Write-JsonAtomically { param([string]$Path, [object]$Value)
+  $directory = Split-Path $Path
+  New-Item -ItemType Directory -Force -Path $directory | Out-Null
+  $temporary = Join-Path $directory ("." + [IO.Path]::GetFileName($Path) + "." + [guid]::NewGuid().ToString("N") + ".tmp")
+  try { [IO.File]::WriteAllText($temporary, (($Value | ConvertTo-Json -Depth 10) + "`n"), [Text.UTF8Encoding]::new($false)); Move-Item -LiteralPath $temporary -Destination $Path -Force } finally { if (Test-Path -LiteralPath $temporary) { Remove-Item -LiteralPath $temporary -Force } }
+}
+
+function Write-FinalAutoPublishReport {
+  $final = [ordered]@{ status="success"; productionWritten=$true; appliedCount=$report.appliedCount; validatorPassed=$report.validatorPassed; buildPassed=$report.buildPassed; buildExecutableRequested=$report.buildExecutableRequested; buildExecutableResolved=$report.buildExecutableResolved; buildExecutableResolutionMode=$report.buildExecutableResolutionMode; commitPerformed=$true; commitSha=$report.commitSha; pushPerformed=$true; pushTarget=$report.pushTarget; deploymentStatus="pending-verification"; failureStage=$null; failureReason=$null; completedAt=(Get-Date).ToString("o") }
+  Write-JsonAtomically -Path $AutoPublishReportPath -Value $final
+  $report.finalAutoPublishReportWritten = $true
 }
 
 function Stop-Recovery { param([string]$Stage, [string]$Reason)
@@ -111,7 +125,9 @@ try {
   $report.failureStage = "diff-guard"; Invoke-GitChecked @("diff", "--check") | Out-Null; $changed = @(& git -C $ProjectRoot diff --name-only) | Where-Object { $_ }; if (($changed | Where-Object { -not (Test-AllowedProductionPath $_) }).Count) { Stop-Recovery -Stage "diff-guard" -Reason "non-production dirty files appeared after build" }
   $report.failureStage = "stage"; foreach ($file in $changed) { Invoke-GitChecked @("add", "--", $file) | Out-Null }; $report.stagedFiles = @(& git -C $ProjectRoot diff --cached --name-only) | Where-Object { $_ }; if ($report.stagedFiles.Count -ne $changed.Count) { Stop-Recovery -Stage "stage" -Reason "staged file count does not match production diff" }
   $report.failureStage = "commit"; Invoke-GitChecked @("commit", "-m", "chore: publish Smokingpipes daily update $(Get-Date -Format yyyyMMdd)") | Out-Null; $report.commitPerformed = $true; $report.commitSha = Invoke-GitChecked @("rev-parse", "HEAD")
-  $report.failureStage = "push"; Invoke-GitChecked @("push", "origin", "HEAD:main") | Out-Null; $report.pushPerformed = $true; $report.deploymentStatus = "push-complete-deployment-pending-verification"; $report.failureStage = $null; Write-RecoveryReport -Status "success"
+  $report.failureStage = "push"; Invoke-GitChecked @("push", "origin", "HEAD:main") | Out-Null; $report.pushPerformed = $true; $report.deploymentStatus = "pending-verification"; $report.failureStage = $null
+  try { Write-FinalAutoPublishReport } catch { $report.failureStage = "final-report"; $report.failureReason = $_.Exception.Message; Write-RecoveryReport -Status "push-complete-final-report-failed" -Stage "final-report" -Reason $_.Exception.Message; throw }
+  Write-RecoveryReport -Status "success"
 } catch {
   $exception = $_
   $reason = $exception.Exception.Message
