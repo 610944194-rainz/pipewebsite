@@ -488,12 +488,12 @@ try {
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryRunnerTestPath) -Stage "inventory-runner-test" | Out-Null
   $report.inventoryRunnerPassed = $true
   $report.failureStage = "executable-resolution"
-  $buildExecutable = Resolve-BuildExecutable -Requested $EffectiveBuildExecutable
-  $report.buildExecutableRequested = $buildExecutable.requested
-  $report.buildExecutableResolved = $buildExecutable.resolved
-  $report.buildExecutableResolutionMode = $buildExecutable.resolutionMode
+  $resolvedBuildExecutable = Resolve-BuildExecutable -Requested $EffectiveBuildExecutable
+  $report.buildExecutableRequested = $resolvedBuildExecutable.requested
+  $report.buildExecutableResolved = $resolvedBuildExecutable.resolved
+  $report.buildExecutableResolutionMode = $resolvedBuildExecutable.resolutionMode
   $report.failureStage = "build"
-  Invoke-CheckedCommand -FilePath $buildExecutable.resolved -Arguments @("run", "build") -Stage "build" | Out-Null
+  Invoke-CheckedCommand -FilePath $resolvedBuildExecutable.resolved -Arguments @("run", "build") -Stage "build" | Out-Null
   $report.buildPassed = $true
 
   $report.failureStage = "diff-guard"

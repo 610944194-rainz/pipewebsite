@@ -87,6 +87,8 @@ try {
   assert.match(publishScript, /npm\.cmd/);
   assert.match(publishScript, /function Resolve-BuildExecutable/);
   assert.match(publishScript, /buildExecutableResolved/);
+  assert.match(publishScript, /\$resolvedBuildExecutable = Resolve-BuildExecutable/);
+  assert.doesNotMatch(publishScript, /\$buildExecutable = Resolve-BuildExecutable/);
   assert.match(publishScript, /build executable request is not initialized/);
   assert.match(publishScript, /\$EffectiveBuildExecutable = if \(\[string\]::IsNullOrWhiteSpace\(\$BuildExecutable\)\) \{ "npm\.cmd" \}/);
   assert.match(publishScript, /post-apply-production-audit/);
