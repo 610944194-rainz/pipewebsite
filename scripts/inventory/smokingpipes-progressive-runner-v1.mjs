@@ -649,6 +649,9 @@ export function evaluateProgressiveProductionApplyGate({
   maxAutoApply = progressiveMaxAutoApplyFromEnv(),
 }) {
   const blockers = [];
+  const failedCandidates = (state?.candidates || []).filter(
+    (candidate) => candidate.detailStatus === "failed"
+  );
   const stateDailyRunId = text(state?.dailyRunId);
   const stateManualReconcileBlocked =
     stateIsManualReconcile(state);
@@ -656,6 +659,9 @@ export function evaluateProgressiveProductionApplyGate({
     blockers.push(
       `progressive state dailyRunId ${stateDailyRunId} comes from manual-reconcile and cannot be used by automatic daily apply`
     );
+  }
+  if (failedCandidates.length) {
+    blockers.push(`failed candidates=${failedCandidates.length}`);
   }
   const auditStatus = audit?.verdict || audit?.status;
   if (auditStatus !== "PASS") {
@@ -1359,9 +1365,6 @@ export function validateManualLargeApplyEvidence({
   const failedCandidates = candidates.filter(
     (candidate) => candidate.detailStatus === "failed"
   );
-  const failedOutsideNotPublic = failedCandidates.filter(
-    (candidate) => candidate.publicStatus !== "not-public"
-  );
   const pendingCandidates = candidates.filter(
     (candidate) => candidate.detailStatus === "pending"
   );
@@ -1399,10 +1402,8 @@ export function validateManualLargeApplyEvidence({
   if (pendingCandidates.length) {
     blockers.push(`pending candidates=${pendingCandidates.length}`);
   }
-  if (failedOutsideNotPublic.length) {
-    blockers.push(
-      `failed candidates outside not-public=${failedOutsideNotPublic.length}`
-    );
+  if (failedCandidates.length) {
+    blockers.push(`failed candidates=${failedCandidates.length}`);
   }
   if (audit?.verdict !== "PASS") {
     blockers.push(`audit verdict=${audit?.verdict || "missing"}`);
@@ -1463,8 +1464,9 @@ export function validateManualLargeApplyEvidence({
     readyCount: readyCandidates.length,
     reviewOnlyCount: reviewOnlyCandidates.length,
     notPublicCount: notPublicCandidates.length,
-    failedNotPublicCount:
-      failedCandidates.length - failedOutsideNotPublic.length,
+    failedNotPublicCount: failedCandidates.filter(
+      (candidate) => candidate.publicStatus === "not-public"
+    ).length,
     excludedBrandCount: excludedCandidates.length,
   };
   for (const [key, expected] of Object.entries(expectedCounts)) {

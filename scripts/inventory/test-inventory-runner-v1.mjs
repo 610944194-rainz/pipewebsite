@@ -142,6 +142,10 @@ import {
   runSmokingpipesProgressiveMode,
 } from "./smokingpipes-progressive-runner-v1.mjs";
 import {
+  planFailedSmokingpipesDetailRetry,
+  runFailedSmokingpipesDetailRetry,
+} from "./smokingpipes-retry-failed-details-v1.mjs";
+import {
   buildSmokingpipesDetailPendingSpikeDiagnosis,
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
@@ -7180,6 +7184,228 @@ const progressiveCliResult = JSON.parse(
 assert.equal(progressiveCliResult.completedThisRun, 1);
 assert.equal(progressiveCliResult.remainingPendingCount, 4);
 
+const failedDetailRetryRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-failed-detail-retry-")
+);
+const failedDetailRetryPaths = runnerCore.getRunnerPaths(
+  failedDetailRetryRoot
+);
+const failedDetailRetryState = ingestProgressiveListSnapshot({
+  state: createProgressiveDailyState({
+    dailyRunId: "failed-detail-retry-test",
+    now: progressiveNow,
+  }),
+  currentPayload: {
+    generatedAt: progressiveNow,
+    summary: {
+      pagesScanned: 1,
+      expectedPages: 1,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      captchaPages: [],
+    },
+    products: ["910001", "910002", "910003", "910004"].map(
+      (sourceProductId) => ({
+        sourceProductId,
+        sourceUrl: `https://example.invalid/moreinfo.cfm?product_id=${sourceProductId}`,
+        title: `Failed retry ${sourceProductId}`,
+        price: "$131.60",
+        imageUrl: `https://example.invalid/${sourceProductId}.jpg`,
+        rawText: "Available",
+      })
+    ),
+  },
+  diffPayload: {
+    newIds: ["910001", "910002", "910003", "910004"],
+    reappearedIds: [],
+    disappearedIds: [],
+    coverage: {
+      pagesScanned: 1,
+      expectedPages: 1,
+      fullExpectedRangeScanned: true,
+    },
+  },
+  productionProducts: [],
+  runId: "failed-detail-retry-test",
+  now: progressiveNow,
+});
+const retryCandidate = (id) =>
+  failedDetailRetryState.candidates.find(
+    (candidate) => candidate.sourceProductId === id
+  );
+Object.assign(retryCandidate("910001"), {
+  detailStatus: "failed",
+  publicStatus: "not-public",
+  detailAttempts: 2,
+  lastError: "detail parse failed for 910001",
+});
+Object.assign(retryCandidate("910002"), {
+  detailStatus: "complete",
+  publicStatus: "ready",
+});
+Object.assign(retryCandidate("910003"), {
+  detailStatus: "excluded",
+  publicStatus: "not-public",
+});
+Object.assign(retryCandidate("910004"), {
+  detailStatus: "failed",
+  publicStatus: "not-public",
+  detailAttempts: 1,
+  lastError: "detail parse failed for 910004",
+});
+failedDetailRetryState.summary = buildProgressiveStateSummary(
+  failedDetailRetryState,
+  progressiveNow
+);
+const failedDetailRetryTaskState = {
+  source: "smokingpipes",
+  status: "detail-progress",
+  productionWritten: false,
+  detailPendingCount: 0,
+  detailPending: 0,
+  cachedListResume: {
+    enabled: true,
+    lockedUntilComplete: true,
+    completed: false,
+    allowNextListFetch: false,
+  },
+};
+const failedDetailRetryPlan = planFailedSmokingpipesDetailRetry({
+  state: failedDetailRetryState,
+  taskState: failedDetailRetryTaskState,
+  sourceProductIds: ["910001"],
+  now: progressiveNow,
+});
+assert.equal(failedDetailRetryPlan.report.before.failed, 2);
+assert.equal(failedDetailRetryPlan.report.after.failed, 1);
+assert.equal(failedDetailRetryPlan.report.after.pending, 1);
+assert.equal(
+  failedDetailRetryPlan.state.candidates.find(
+    (candidate) => candidate.sourceProductId === "910001"
+  ).detailStatus,
+  "pending"
+);
+assert.equal(
+  failedDetailRetryPlan.state.candidates.find(
+    (candidate) => candidate.sourceProductId === "910001"
+  ).lastError,
+  "detail parse failed for 910001"
+);
+assert.equal(
+  failedDetailRetryPlan.state.candidates.find(
+    (candidate) => candidate.sourceProductId === "910001"
+  ).retryHistory[0].previousDetailAttempts,
+  2
+);
+assert.equal(failedDetailRetryPlan.taskState.detailPendingCount, 1);
+assert.equal(failedDetailRetryPlan.taskState.productionWritten, false);
+assert.throws(
+  () =>
+    planFailedSmokingpipesDetailRetry({
+      state: failedDetailRetryState,
+      taskState: failedDetailRetryTaskState,
+      sourceProductIds: ["910002"],
+      now: progressiveNow,
+    }),
+  /only detailStatus=failed/i
+);
+assert.throws(
+  () =>
+    planFailedSmokingpipesDetailRetry({
+      state: failedDetailRetryState,
+      taskState: failedDetailRetryTaskState,
+      sourceProductIds: ["910003"],
+      now: progressiveNow,
+    }),
+  /only detailStatus=failed/i
+);
+assert.throws(
+  () =>
+    planFailedSmokingpipesDetailRetry({
+      state: failedDetailRetryState,
+      taskState: failedDetailRetryTaskState,
+      sourceProductIds: ["missing"],
+      now: progressiveNow,
+    }),
+  /unknown sourceProductId/i
+);
+fs.mkdirSync(path.dirname(failedDetailRetryPaths.progressiveState), {
+  recursive: true,
+});
+fs.writeFileSync(
+  failedDetailRetryPaths.progressiveState,
+  JSON.stringify(failedDetailRetryState, null, 2),
+  "utf8"
+);
+const failedDetailRetryTaskPath = path.join(
+  failedDetailRetryRoot,
+  "data",
+  "inventory",
+  "smokingpipes-daily-task-state.json"
+);
+fs.writeFileSync(
+  failedDetailRetryTaskPath,
+  JSON.stringify(failedDetailRetryTaskState, null, 2),
+  "utf8"
+);
+const beforeRetryDryRunState = fs.readFileSync(
+  failedDetailRetryPaths.progressiveState,
+  "utf8"
+);
+const beforeRetryDryRunTask = fs.readFileSync(
+  failedDetailRetryTaskPath,
+  "utf8"
+);
+const failedDetailRetryDryRun = await runFailedSmokingpipesDetailRetry({
+  root: failedDetailRetryRoot,
+  source: "smokingpipes",
+  sourceProductIds: ["910001"],
+  now: progressiveNow,
+});
+assert.equal(failedDetailRetryDryRun.status, "dry-run");
+assert.equal(failedDetailRetryDryRun.wrote, false);
+assert.equal(
+  fs.readFileSync(failedDetailRetryPaths.progressiveState, "utf8"),
+  beforeRetryDryRunState
+);
+assert.equal(
+  fs.readFileSync(failedDetailRetryTaskPath, "utf8"),
+  beforeRetryDryRunTask
+);
+const failedDetailRetryWrite = await runFailedSmokingpipesDetailRetry({
+  root: failedDetailRetryRoot,
+  source: "smokingpipes",
+  sourceProductIds: ["910001"],
+  write: true,
+  now: progressiveNow,
+});
+assert.equal(failedDetailRetryWrite.status, "recovered");
+assert.equal(failedDetailRetryWrite.wrote, true);
+const writtenFailedDetailRetryState = JSON.parse(
+  fs.readFileSync(failedDetailRetryPaths.progressiveState, "utf8")
+);
+assert.equal(
+  writtenFailedDetailRetryState.candidates.find(
+    (candidate) => candidate.sourceProductId === "910001"
+  ).detailStatus,
+  "pending"
+);
+assert.equal(
+  writtenFailedDetailRetryState.candidates.find(
+    (candidate) => candidate.sourceProductId === "910004"
+  ).detailStatus,
+  "failed"
+);
+assert.equal(writtenFailedDetailRetryState.productionWritten, false);
+const writtenFailedDetailRetryTask = JSON.parse(
+  fs.readFileSync(failedDetailRetryTaskPath, "utf8")
+);
+assert.equal(writtenFailedDetailRetryTask.detailPendingCount, 1);
+assert.equal(
+  writtenFailedDetailRetryTask.cachedListResume.lockedUntilComplete,
+  true
+);
+
 const progressiveClassificationState =
   ingestProgressiveListSnapshot({
     state: createProgressiveDailyState({
@@ -7708,6 +7934,7 @@ assert.deepEqual(safeSubsetGate.blockers, []);
 
 for (const [countName, countValue] of [
   ["pendingLeak", 1],
+  ["failedLeak", 1],
   ["reviewOnlyLeak", 1],
   ["zeroPriceSellable", 1],
 ]) {
@@ -8229,6 +8456,21 @@ const validOfflineApplyGate = JSON.parse(
     "utf8"
   )
 );
+const progressiveFailedDetailApplyBlocked =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+      "--no-commit",
+      "--no-deploy",
+    ]),
+  });
+assert.equal(progressiveFailedDetailApplyBlocked.status, "apply-blocked");
+assert.match(
+  progressiveFailedDetailApplyBlocked.blockedReason,
+  /failed candidates=1/
+);
 fs.writeFileSync(
   progressiveApplyPaths.progressiveApplyGateReport,
   JSON.stringify({
@@ -8274,10 +8516,29 @@ assert.equal(
   false
 );
 fs.writeFileSync(
-  progressiveApplyPaths.progressiveApplyGateReport,
-  JSON.stringify(validOfflineApplyGate),
+  progressiveApplyPaths.progressiveState,
+  JSON.stringify({
+    ...progressiveApplyState,
+    candidates: progressiveApplyState.candidates.map((candidate) =>
+      candidate.sourceProductId === "202"
+        ? {
+            ...candidate,
+            detailStatus: "review-only",
+            publicStatus: "review-only",
+          }
+        : candidate
+    ),
+  }),
   "utf8"
 );
+const progressivePrepareAfterFailedRetry =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveApplyRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-prepare-apply",
+    ]),
+  });
+assert.equal(progressivePrepareAfterFailedRetry.status, "apply-ready");
 const progressiveApplyWriteResult =
   await runSmokingpipesProgressiveMode({
     root: progressiveApplyRoot,
@@ -8601,7 +8862,18 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   progressiveApplyBlockedPaths.progressiveState,
-  JSON.stringify(progressiveApplyState),
+  JSON.stringify({
+    ...progressiveApplyState,
+    candidates: progressiveApplyState.candidates.map((candidate) =>
+      candidate.sourceProductId === "202"
+        ? {
+            ...candidate,
+            detailStatus: "review-only",
+            publicStatus: "review-only",
+          }
+        : candidate
+    ),
+  }),
   "utf8"
 );
 fs.writeFileSync(
