@@ -24,16 +24,18 @@ $ProductionPaths = @(
 )
 
 function Invoke-GitChecked { param([string[]]$Arguments)
-  $output = @(& git -C $ProjectRoot @Arguments 2>&1)
-  if ($LASTEXITCODE -ne 0) { throw "git $($Arguments -join ' ') failed: $($output -join [Environment]::NewLine)" }
+  $priorErrorAction = $ErrorActionPreference; $ErrorActionPreference = "Continue"
+  try { $output = @(& git -C $ProjectRoot @Arguments 2>&1); $exitCode = $LASTEXITCODE } finally { $ErrorActionPreference = $priorErrorAction }
+  if ($exitCode -ne 0) { throw "git $($Arguments -join ' ') failed: $($output -join [Environment]::NewLine)" }
   return ($output -join [Environment]::NewLine).Trim()
 }
 
 function Invoke-CheckedCommand { param([string]$FilePath, [string[]]$Arguments, [string]$Stage)
   if ([string]::IsNullOrWhiteSpace($FilePath)) { throw "$Stage executable path is not initialized" }
   if (-not (Test-Path -LiteralPath $FilePath -PathType Leaf)) { throw "$Stage executable is missing: $FilePath" }
-  $output = @(& $FilePath @Arguments 2>&1)
-  if ($LASTEXITCODE -ne 0) { throw "$Stage failed with exit code ${LASTEXITCODE}: $($output -join [Environment]::NewLine)" }
+  $priorErrorAction = $ErrorActionPreference; $ErrorActionPreference = "Continue"
+  try { $output = @(& $FilePath @Arguments 2>&1); $exitCode = $LASTEXITCODE } finally { $ErrorActionPreference = $priorErrorAction }
+  if ($exitCode -ne 0) { throw "$Stage failed with exit code ${exitCode}: $($output -join [Environment]::NewLine)" }
   return ($output -join [Environment]::NewLine)
 }
 
