@@ -4,6 +4,8 @@ param(
   [Parameter(Mandatory = $true)]
   [string]$BuildExecutable,
   [switch]$PreflightOnly,
+  [switch]$FaultInjectFinalReportWriteFailure,
+  [switch]$AllowTestFaultInjection,
   [ValidateRange(1, 100000)]
   [int]$ExpectedAppliedCount = 895
 )
@@ -92,6 +94,19 @@ function Test-AllowedProductionPath { param([string]$PathToCheck)
   return $value -eq $ProductionPaths[0] -or $value -eq $ProductionPaths[1] -or $value.StartsWith("data/generated/public-products/")
 }
 
+function Test-AllowedTestFaultInjection {
+  if (-not $FaultInjectFinalReportWriteFailure) { return }
+  if (-not $AllowTestFaultInjection) { throw "FaultInjectFinalReportWriteFailure requires AllowTestFaultInjection" }
+  $branch = Invoke-GitChecked @("branch", "--show-current")
+  $origin = Invoke-GitChecked @("remote", "get-url", "origin")
+  $isFixturePath = $ProjectRoot -match "(?i)(fixture|e2e|test)"
+  $isTestBranch = $branch -match "(?i)(fixture|e2e|test)"
+  $isLocalBareRemote = -not ($origin -match "^[a-z]+://") -and (Test-Path -LiteralPath (Join-Path $origin "HEAD") -PathType Leaf)
+  if (-not $isFixturePath -or -not $isTestBranch -or -not $isLocalBareRemote) {
+    throw "FaultInjectFinalReportWriteFailure is restricted to a fixture path, explicit test branch, and local bare origin"
+  }
+}
+
 $report = [ordered]@{
   runId = "smokingpipes-post-apply-recovery-" + (Get-Date -Format "yyyyMMdd-HHmmss")
   startedAt = (Get-Date).ToString("o"); completedAt = $null; status = "running"; failureStage = $null; failureReason = $null
@@ -165,6 +180,7 @@ function Write-RecoveryReport { param([string]$Status, [string]$Stage = $null, [
 }
 
 function Write-FinalAutoPublishReport {
+  if ($FaultInjectFinalReportWriteFailure) { throw "fault injected: final auto-publish report write failure" }
   $final = [ordered]@{ status="success"; completedAt=(Get-Date).ToString("o"); expectedAppliedCount=$report.expectedAppliedCount; appliedCount=$report.appliedCount; productionWritten=$true; validatorPassed=$report.validatorPassed; buildPassed=$report.buildPassed; buildExecutableRequested=$report.buildExecutableRequested; buildExecutableResolved=$report.buildExecutableResolved; buildExecutableResolutionMode=$report.buildExecutableResolutionMode; commitPerformed=$true; commitSha=$report.commitSha; pushPerformed=$true; pushTarget=$report.pushTarget; deploymentStatus="pending-verification"; failureStage=$null; failureReason=$null; failureType=$null }
   $json = ConvertTo-ReportJson $final
   [void](Assert-ReportSize -Text $json -Which "auto-publish JSON" -NormalBytes $ReportNormalJsonBytes)
@@ -179,6 +195,7 @@ function Stop-Recovery { param([string]$Stage, [string]$Reason)
 
 try {
   $report.failureStage = "recovery-state-validation"
+  Test-AllowedTestFaultInjection
   if (-not [IO.Path]::IsPathRooted($BuildExecutable) -or -not (Test-Path -LiteralPath $BuildExecutable -PathType Leaf)) { Stop-Recovery -Stage "executable-resolution" -Reason "BuildExecutable must be an existing absolute leaf path" }
   $report.buildExecutableResolved = (Resolve-Path -LiteralPath $BuildExecutable).Path
   if ([IO.Path]::GetFullPath($AutomationWorktree).TrimEnd("\") -ne [IO.Path]::GetFullPath($ProjectRoot).TrimEnd("\")) { Stop-Recovery -Stage "recovery-state-validation" -Reason "AutomationWorktree must equal this recovery script worktree" }

@@ -10,6 +10,8 @@ param(
   [string]$ProgressiveDetailMax = "30",
   [ValidatePattern('^[1-9]\d*$')]
   [string]$MaxAutoApply = "1000",
+  [ValidateRange(1, 100000)]
+  [int]$ExpectedAppliedCount = 895,
   [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-automation",
   [string]$NodeExecutable = "node",
   [string]$BuildExecutable = "npm.cmd",
@@ -378,6 +380,19 @@ try {
   $NodeExecutablePath = Resolve-LocalExecutable -Name $NodeExecutable -Stage "node"
   $PowerShellExecutablePath = Resolve-LocalExecutable -Name "powershell.exe" -Stage "powershell"
   Test-AutomationWorktree
+  if ($ResumeAfterProductionWrite) {
+    $resumeScriptPath = Join-Path $ProjectRoot "scripts\inventory\resume-smokingpipes-post-apply-v1.ps1"
+    if (-not (Test-Path -LiteralPath $resumeScriptPath -PathType Leaf)) { throw "dedicated post-apply recovery script is missing: $resumeScriptPath" }
+    $resolvedBuild = Resolve-BuildExecutable -Requested $EffectiveBuildExecutable
+    $resumeArguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $resumeScriptPath, "-AutomationWorktree", $AutomationWorktree, "-BuildExecutable", $resolvedBuild.resolved, "-ExpectedAppliedCount", $ExpectedAppliedCount)
+    if ($PreflightOnly) { $resumeArguments += "-PreflightOnly" }
+    Write-Host "[START] post-apply-recovery delegation"
+    & $PowerShellExecutablePath @resumeArguments
+    $resumeExitCode = $LASTEXITCODE
+    if ($resumeExitCode -ne 0) { throw "dedicated post-apply recovery failed with exit code $resumeExitCode" }
+    Write-Host "[PASS] post-apply-recovery delegation buildExecutable=$($resolvedBuild.resolved)"
+    exit 0
+  }
   Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
   $report.startingMainSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
   $originMainSha = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")

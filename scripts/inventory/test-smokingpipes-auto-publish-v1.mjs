@@ -85,9 +85,12 @@ try {
   assert.match(publishScript, /function Resolve-BuildExecutable/);
   assert.match(publishScript, /buildExecutableResolved/);
   assert.match(publishScript, /build executable request is not initialized/);
-  assert.match(publishScript, /\$BuildExecutable = if \(\[string\]::IsNullOrWhiteSpace\(\$BuildExecutable\)\) \{ "npm\.cmd" \}/);
+  assert.match(publishScript, /\$EffectiveBuildExecutable = if \(\[string\]::IsNullOrWhiteSpace\(\$BuildExecutable\)\) \{ "npm\.cmd" \}/);
   assert.match(publishScript, /post-apply-production-audit/);
   assert.match(publishScript, /ResumeAfterProductionWrite/);
+  assert.match(publishScript, /resume-smokingpipes-post-apply-v1\.ps1/);
+  assert.match(publishScript, /"-BuildExecutable", \$resolvedBuild\.resolved/);
+  assert.match(publishScript, /"-ExpectedAppliedCount", \$ExpectedAppliedCount/);
   assert.match(publishScript, /function Test-PostApplyRecoveryRequiredPaths/);
   assert.match(publishScript, /Test-PostApplyRecoveryRequiredPaths\s*\n\s*\$previousReport/);
   assert.match(publishScript, /daily task state path is not initialized/);
