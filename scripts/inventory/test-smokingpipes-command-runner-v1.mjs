@@ -14,16 +14,16 @@ function psLiteral(value) {
   return `'${value.replaceAll("'", "''")}'`;
 }
 
-async function runPowerShellCommand({ name, code, timeout = 30, result = true }) {
+async function runPowerShellCommand({ name, code = "", filePath = nodePath, args = null, timeout = 30, result = true }) {
   const driverPath = path.join(fixtureRoot, `${name}.ps1`);
   const resultPath = path.join(fixtureRoot, `${name}.result.json`);
   fs.writeFileSync(driverPath, [
     "$ErrorActionPreference='Stop'",
     `Import-Module -Force ${psLiteral(modulePath)}`,
     "try {",
-    `  $r=Invoke-SmokingpipesCommand -Stage ${psLiteral(name)} -FilePath ${psLiteral(nodePath)} -Arguments @('-e',${psLiteral(code)}) -WorkingDirectory ${psLiteral(fixtureRoot)} -TimeoutSeconds ${timeout}`,
+    `  $r=Invoke-SmokingpipesCommand -Stage ${psLiteral(name)} -FilePath ${psLiteral(filePath)} -Arguments @(${(args || ["-e", code]).map(psLiteral).join(",")}) -WorkingDirectory ${psLiteral(fixtureRoot)} -TimeoutSeconds ${timeout}`,
     result ? `  [IO.File]::WriteAllText(${psLiteral(resultPath)},($r | ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false))` : "  Write-Output 'COMMAND-SUCCEEDED'",
-    "} catch { Write-Error $_.Exception.Message; exit 1 }",
+    `} catch { if ($_.Exception.Data['stdoutTail'] -or $_.Exception.Data['stderrTail']) { $failure=[ordered]@{stdoutTail=[string]$_.Exception.Data['stdoutTail'];stderrTail=[string]$_.Exception.Data['stderrTail']};[IO.File]::WriteAllText(${psLiteral(resultPath)},($failure | ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false)) }; Write-Error $_.Exception.Message; exit 1 }`,
   ].join("\r\n"), "utf8");
   const started = Date.now();
   const events = [];
@@ -33,7 +33,7 @@ async function runPowerShellCommand({ name, code, timeout = 30, result = true })
   child.stdout.on("data", (chunk) => { stdout += chunk.toString("utf8"); events.push({ stream: "stdout", text: chunk.toString("utf8"), at: Date.now() }); });
   child.stderr.on("data", (chunk) => { stderr += chunk.toString("utf8"); events.push({ stream: "stderr", text: chunk.toString("utf8"), at: Date.now() }); });
   const exitCode = await new Promise((resolve) => child.on("close", resolve));
-  const commandResult = result && fs.existsSync(resultPath) ? JSON.parse(fs.readFileSync(resultPath, "utf8")) : null;
+  const commandResult = fs.existsSync(resultPath) ? JSON.parse(fs.readFileSync(resultPath, "utf8")) : null;
   return { exitCode, stdout, stderr, events, started, ended: Date.now(), commandResult };
 }
 
@@ -77,7 +77,25 @@ try {
 
   const nonzero = await runPowerShellCommand({ name: "stream-nonzero", code: "process.stderr.write('EXPECTED-FAIL\\n');process.exit(7);", result: false });
   assert.notEqual(nonzero.exitCode, 0);
-  assert.equal(count(nonzero.stderr, "EXPECTED-FAIL"), 2, "one live marker plus one bounded exception tail expected");
+  assert.equal(count(nonzero.stderr, "EXPECTED-FAIL"), 1, "live stderr must not be printed again in the exception");
+  assert.match(nonzero.commandResult.stderrTail, /EXPECTED-FAIL/);
+
+  const diffRoot = path.join(fixtureRoot, "crlf-diff");
+  fs.mkdirSync(diffRoot);
+  const gitPath = spawnSync("where.exe", ["git.exe"], { encoding: "utf8" }).stdout.split(/\r?\n/).find(Boolean);
+  spawnSync(gitPath, ["init"], { cwd: diffRoot });
+  spawnSync(gitPath, ["config", "user.email", "stream@example.invalid"], { cwd: diffRoot });
+  spawnSync(gitPath, ["config", "user.name", "Stream Test"], { cwd: diffRoot });
+  const noisyPath = path.join(diffRoot, "noisy.txt");
+  fs.writeFileSync(noisyPath, Array.from({ length: 12000 }, (_, index) => `line-${index}`).join("\n") + "\n");
+  spawnSync(gitPath, ["add", "noisy.txt"], { cwd: diffRoot });
+  spawnSync(gitPath, ["commit", "-m", "fixture"], { cwd: diffRoot });
+  fs.writeFileSync(noisyPath, Array.from({ length: 12000 }, (_, index) => `line-${index}   \r\n`).join(""));
+  const diffCheck = await runPowerShellCommand({ name: "crlf-diff-check", filePath: gitPath, args: ["-C", diffRoot, "diff", "--check"], result: false });
+  assert.notEqual(diffCheck.exitCode, 0);
+  assert.ok(diffCheck.commandResult.stdoutTail.length <= 32768);
+  assert.ok(diffCheck.commandResult.stderrTail.length <= 32768);
+  assert.match(diffCheck.commandResult.stdoutTail, /trailing whitespace/);
 
   const grandchildPidPath = path.join(fixtureRoot, "grandchild.pid");
   const grandchildCode = "setInterval(()=>{},1000)";

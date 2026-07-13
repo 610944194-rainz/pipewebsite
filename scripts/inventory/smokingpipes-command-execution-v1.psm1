@@ -41,9 +41,19 @@ function Invoke-SmokingpipesCommand {
     $helper.WaitForExit(); [void]$stdoutCopy.GetAwaiter().GetResult(); [void]$stderrCopy.GetAwaiter().GetResult(); $helperExitCode = $helper.ExitCode
     if (-not (Test-Path -LiteralPath $resultPath -PathType Leaf)) { throw "$Stage command runner did not produce a result (helperExitCode=$helperExitCode)" }
     $result = Get-Content -LiteralPath $resultPath -Raw -Encoding utf8 | ConvertFrom-Json
-    if ($helperExitCode -ne 0 -or $result.spawnError) { throw "$Stage command runner failed: $($result.stderrTail)" }
+    if ($helperExitCode -ne 0 -or $result.spawnError) {
+      $failure = [InvalidOperationException]::new("$Stage command runner failed (helperExitCode=$helperExitCode)")
+      $failure.Data["stdoutTail"] = [string]$result.stdoutTail
+      $failure.Data["stderrTail"] = [string]$result.stderrTail
+      throw $failure
+    }
     if ($result.timedOut -eq $true) { throw "$Stage timed out after $TimeoutSeconds seconds" }
-    if ([int]$result.exitCode -ne 0) { throw "$Stage failed with exit code $($result.exitCode): $($result.stderrTail)$($result.stdoutTail)" }
+    if ([int]$result.exitCode -ne 0) {
+      $failure = [InvalidOperationException]::new("$Stage failed with exit code $($result.exitCode)")
+      $failure.Data["stdoutTail"] = [string]$result.stdoutTail
+      $failure.Data["stderrTail"] = [string]$result.stderrTail
+      throw $failure
+    }
     return $result
   } finally {
     foreach ($path in @($requestPath, $resultPath)) { if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path -Force } }
