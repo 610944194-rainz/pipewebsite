@@ -1263,7 +1263,7 @@ try {
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=dry-run",
-      "--max-pages=107",
+      "--max-pages=200",
       "--allow-manual-verification=true",
       "--browser-channel=chrome",
       "--browser-profile=sp-chrome",

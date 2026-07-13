@@ -86,7 +86,7 @@ Options:
   --catch-up-repeat-delay-max-ms=600000 Maximum delay between catch-up cycles
   --catch-up-max-total-details=200      Maximum details across all cycles
   --catch-up-max-runtime-minutes=90     Maximum catch-up runtime
-  --max-pages=107                       List pages to scan (default: 107)
+  --max-pages=200                       List safety ceiling (default: 200; actual total is detected dynamically)
   --allow-manual-verification=true      Open a visible browser; strong verification still stops
   --browser-channel=msedge              Use msedge, chrome, or Playwright chromium
   --browser-profile=sp-chrome           Use the dedicated YandouBuy Chrome profile
@@ -292,8 +292,8 @@ function buildRunReport(run) {
 - current CAPTCHA product: ${run.currentProductId || "none"}
 - maxPages: ${run.maxPages}
 - pages scanned: ${coverage.pagesScanned ?? 0}
-- expected pages: ${coverage.expectedPages ?? 107}
-- complete 107-page coverage: ${Boolean(coverage.fullExpectedRangeScanned)}
+- expected pages: ${coverage.expectedPages ?? "unavailable"}
+- complete dynamic expected-page coverage: ${Boolean(coverage.fullExpectedRangeScanned)}
 - current-list count: ${counts.currentAvailable ?? 0}
 - new: ${counts.new ?? 0}
 - stillAvailable: ${counts.stillAvailable ?? 0}

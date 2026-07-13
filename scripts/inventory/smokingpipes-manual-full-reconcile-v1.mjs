@@ -225,7 +225,7 @@ function snapshotTrust(currentList, diff) {
     summary.pagesScanned || coverage.pagesScanned || 0
   );
   const expectedPages = Number(
-    summary.expectedPages || coverage.expectedPages || 107
+    summary.expectedPages || coverage.expectedPages || 0
   );
   const captchaDetected =
     summary.captchaDetected === true ||

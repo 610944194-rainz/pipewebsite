@@ -83,7 +83,7 @@ function progressiveMarkdown(report) {
 - dailyRunId: ${report.dailyRunId || "none"}
 - listSnapshotStatus: ${report.listSnapshotStatus || "none"}
 - pagesScanned: ${report.pagesScanned || 0}
-- expectedPages: ${report.expectedPages || 107}
+- expectedPages: ${report.expectedPages || "unavailable"}
 - fullExpectedRangeScanned: ${Boolean(report.fullExpectedRangeScanned)}
 - captchaDetected: ${Boolean(report.captchaDetected)}
 - verificationDetected: ${Boolean(report.verificationDetected)}
@@ -171,7 +171,7 @@ function makeReport({ mode, state, result = {} }) {
     dailyRunId: state?.dailyRunId || null,
     listSnapshotStatus: state?.listSnapshotStatus || null,
     pagesScanned: state?.pagesScanned || 0,
-    expectedPages: state?.expectedPages || 107,
+    expectedPages: state?.expectedPages || 0,
     fullExpectedRangeScanned:
       state?.fullExpectedRangeScanned === true,
     captchaDetected: state?.captchaDetected === true,
@@ -231,7 +231,7 @@ function mockCurrentPayload() {
     generatedAt: new Date().toISOString(),
     summary: {
       pagesScanned: 3,
-      expectedPages: 107,
+      expectedPages: 3,
       fullExpectedRangeScanned: false,
       captchaDetected: true,
       captchaPages: [4],
@@ -2011,7 +2011,7 @@ export async function runSmokingpipesProgressiveMode({
         expectedPages: Number(
           currentPayload.summary?.expectedPages ||
             diffPayload.coverage?.expectedPages ||
-            107
+            0
         ),
       });
       state = ingestProgressiveListSnapshot({

@@ -59,7 +59,7 @@ function sorted(values) {
 export function buildSmokingpipesDailyDiff({
   productionProducts,
   currentPayload,
-  expectedPages = 107,
+  expectedPages = null,
   ignoredIds = [],
 }) {
   const productionById = new Map(
@@ -76,10 +76,27 @@ export function buildSmokingpipesDailyDiff({
   );
   const ignored = new Set((ignoredIds || []).map(String));
   const summary = currentPayload?.summary || {};
+  const pagesCompleted = Number(
+    summary.pagesCompleted ?? summary.pagesScanned ?? 0
+  );
+  const pagesFailed = Array.isArray(summary.failedPages)
+    ? summary.failedPages.length
+    : Number(summary.pagesFailed || 0);
+  const lastSuccessfulPage = Number(summary.lastSuccessfulPage || 0);
+  const resolvedExpectedPages = Number(
+    summary.expectedPages ??
+      currentPayload?.config?.expectedPages ??
+      expectedPages
+  );
+  const effectiveScannedPages = Number(
+    summary.effectiveScannedPages ?? summary.pagesScanned ?? 0
+  );
   const fullExpectedRangeScanned =
     summary.fullExpectedRangeScanned === true &&
-    Number(summary.pagesScanned || 0) === expectedPages &&
-    Number(summary.expectedPages || expectedPages) === expectedPages;
+    Number.isFinite(resolvedExpectedPages) &&
+    resolvedExpectedPages > 0 &&
+    Number.isFinite(effectiveScannedPages) &&
+    effectiveScannedPages >= resolvedExpectedPages;
   const captchaDetected =
     summary.captchaDetected === true ||
     (summary.captchaPages || []).length > 0;
@@ -123,7 +140,7 @@ export function buildSmokingpipesDailyDiff({
   const fatalWarnings = [];
   if (!fullExpectedRangeScanned) {
     fatalWarnings.push(
-      `Daily update requires a complete ${expectedPages}-page current-list scan.`
+      `Daily update requires a complete ${resolvedExpectedPages}-page current-list scan.`
     );
   }
   if (captchaDetected) {
@@ -140,7 +157,10 @@ export function buildSmokingpipesDailyDiff({
     productionWritten: false,
     coverage: {
       pagesScanned: Number(summary.pagesScanned || 0),
-      expectedPages,
+      pagesCompleted,
+      pagesFailed,
+      lastSuccessfulPage,
+      expectedPages: resolvedExpectedPages,
       fullExpectedRangeScanned,
       captchaDetected,
     },
@@ -482,6 +502,18 @@ export function buildSmokingpipesDailyAudit({
     counts: {
       productionProducts: (productionProducts || []).length,
       currentList: (currentPayload?.products || []).length,
+      pagesCompleted:
+        Number(
+          currentPayload?.summary?.pagesCompleted ??
+            currentPayload?.summary?.pagesScanned ??
+            0
+        ),
+      pagesFailed: Array.isArray(currentPayload?.summary?.failedPages)
+        ? currentPayload.summary.failedPages.length
+        : Number(currentPayload?.summary?.pagesFailed || 0),
+      lastSuccessfulPage: Number(
+        currentPayload?.summary?.lastSuccessfulPage || 0
+      ),
       dailyNewIds: dailyNewIds.size,
       detailsCompleted: queueSummary.completed,
       detailsPending: queueSummary.pending + queueSummary.inProgress,
@@ -711,6 +743,9 @@ function dailyMarkdown(report) {
 - list scan endedAt: ${report.timing?.list?.endedAt || "not finished"}
 - list scan durationSeconds: ${report.timing?.list?.durationSeconds ?? 0}
 - pages scanned: ${report.timing?.list?.pagesScanned ?? 0}
+- pages completed: ${counts.pagesCompleted ?? report.dailyDiff?.coverage?.pagesCompleted ?? 0}
+- pages failed: ${counts.pagesFailed ?? report.dailyDiff?.coverage?.pagesFailed ?? 0}
+- last successful page: ${counts.lastSuccessfulPage ?? report.dailyDiff?.coverage?.lastSuccessfulPage ?? 0}
 - avg seconds per page: ${report.timing?.list?.avgSecondsPerPage ?? 0}
 - detail fetch durationSeconds: ${report.timing?.details?.durationSeconds ?? 0}
 - details attempted: ${report.timing?.details?.detailsAttempted ?? 0}
@@ -797,6 +832,15 @@ function pendingDailyAudit(report) {
     counts: {
       productionProducts: diffCounts.production || 0,
       currentList: diffCounts.current || 0,
+      pagesCompleted: Number(
+        report.dailyDiff?.coverage?.pagesCompleted ??
+          report.dailyDiff?.coverage?.pagesScanned ??
+          0
+      ),
+      pagesFailed: Number(report.dailyDiff?.coverage?.pagesFailed || 0),
+      lastSuccessfulPage: Number(
+        report.dailyDiff?.coverage?.lastSuccessfulPage || 0
+      ),
       dailyNewIds: diffCounts.dailyNew || 0,
       detailsCompleted: queue.completed || 0,
       detailsPending: queue.remaining || 0,

@@ -1106,7 +1106,7 @@ function buildSourceScanText(report) {
     const pageText =
       pagesScanned && expectedPages
         ? `${pagesScanned}/${expectedPages}`
-        : "107/107";
+        : "未知";
     return `复用今日完整列表快照（${pageText}）`;
   }
 
@@ -1184,7 +1184,7 @@ function buildSourceScanTextV2(report) {
     const pageText =
       pagesScanned && expectedPages
         ? `${pagesScanned}/${expectedPages}`
-        : "107/107";
+        : "未知";
     return `复用今日完整列表快照（${pageText}）`;
   }
 

@@ -130,9 +130,9 @@ function buildCurrentListPreflight({
     allowDuplicateDedupe,
   });
   const complete =
-    cache.pagesScanned === 107 &&
-    cache.expectedPages === 107 &&
-    cache.pagesScanned === cache.expectedPages &&
+    cache.expectedPages > 0 &&
+    cache.effectiveScannedPages >= cache.expectedPages &&
+    cache.failedPages.length === 0 &&
     cache.productsExtracted > 0 &&
     cache.uniqueProducts > 0 &&
     !["captcha", "verification", "incomplete", "empty-products"].includes(
@@ -156,6 +156,7 @@ function buildCurrentListPreflight({
     usable: Boolean(cache.usable),
     reason: cache.reason,
     pagesScanned: Number(cache.pagesScanned || 0),
+    failedPages: toArray(cache.failedPages),
     expectedPages: Number(cache.expectedPages || 0),
     productsExtracted: Number(cache.productsExtracted || 0),
     uniqueProducts: Number(cache.uniqueProducts || 0),

@@ -9,8 +9,6 @@ export const DEFAULT_SMOKINGPIPES_CURRENT_LIST_CACHE_PATH = path.join(
   "smokingpipes-current-list-dry-run.json"
 );
 
-const EXPECTED_SMOKINGPIPES_LIST_PAGES = 107;
-
 function toNumber(value, fallback = 0) {
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
@@ -208,6 +206,9 @@ function summarizeCurrentListPayload(payload) {
     pagesScanned: toNumber(
       pickFirstDefined(summary.pagesScanned, payload?.pagesScanned)
     ),
+    failedPages: toArray(
+      pickFirstDefined(summary.failedPages, payload?.failedPages, [])
+    ),
     effectiveScannedPages: toNumber(
       pickFirstDefined(
         summary.effectiveScannedPages,
@@ -324,6 +325,7 @@ function buildResult({
         disappearedApplyAllowed: usable && !stale,
       },
     pagesScanned: toNumber(summary.pagesScanned),
+    failedPages: toArray(summary.failedPages),
     effectiveScannedPages: toNumber(summary.effectiveScannedPages),
     expectedPages: toNumber(summary.expectedPages),
     detectedTotalPages: toNumber(summary.detectedTotalPages),
@@ -392,6 +394,7 @@ export function evaluateSmokingpipesCurrentListCache({
   if (
     summary.expectedPages <= 0 ||
     summary.effectiveScannedPages < summary.expectedPages ||
+    summary.failedPages.length > 0 ||
     summary.completeRequestedRange !== true ||
     summary.fullExpectedRangeScanned !== true
   ) {

@@ -119,7 +119,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     args.get("max-total"),
     manualDetailUntilEmpty ? 500 : manualDetailLimit
   );
-  const maxPages = positiveInteger(args.get("max-pages"), 107);
+  const maxPages = positiveInteger(args.get("max-pages"), 200);
   const fullReconcile =
     (dailyUpdate || verificationProbe) && maxPages > 10;
   const shortDailyNewScan = dailyUpdate && maxPages <= 10;
@@ -371,7 +371,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       ? !booleanValue(args.get("no-refresh-list"), false)
       : booleanValue(args.get("refresh-list"), false),
     maxPages,
-    expectedPages: positiveInteger(args.get("expected-pages"), 107),
+    expectedPages: positiveInteger(args.get("expected-pages"), maxPages),
     allowManualVerification: booleanValue(
       args.get("allow-manual-verification"),
       false
@@ -479,7 +479,6 @@ export function resolveInventoryInputStrategy({
 export function validateReusableInventoryArtifacts({
   current,
   diff,
-  expectedPages = 107,
 }) {
   const errors = [];
   const warnings = [];
@@ -491,25 +490,28 @@ export function validateReusableInventoryArtifacts({
     const summary = current.summary || {};
     const coverage = diff.coverage || {};
     const products = Array.isArray(current.products) ? current.products : [];
-    const pagesScanned = Number(summary.pagesScanned || 0);
+    const failedPages = Array.isArray(summary.failedPages)
+      ? summary.failedPages
+      : [];
     const currentExpectedPages = Number(
-      summary.expectedPages || current.config?.expectedPages || expectedPages
+      summary.expectedPages ?? current.config?.expectedPages ?? 0
     );
     const productsExtracted = Number(summary.productsExtracted || 0);
     const uniqueProducts = Number(summary.uniqueProducts || 0);
     const duplicateIds = summary.duplicateSourceProductIds || [];
-    const diffPagesScanned = Number(coverage.pagesScanned || 0);
-    const diffExpectedPages = Number(coverage.expectedPages || expectedPages);
+    const diffExpectedPages = Number(coverage.expectedPages ?? 0);
 
     if (summary.fullExpectedRangeScanned !== true) {
       errors.push("Current list does not cover the full expected page range.");
     }
-    if (
-      pagesScanned !== expectedPages ||
-      currentExpectedPages !== expectedPages
-    ) {
+    if (currentExpectedPages <= 0) {
       errors.push(
-        `Current list scanned ${pagesScanned}/${currentExpectedPages} pages; ${expectedPages} expected pages are required.`
+        "Current list is missing a trustworthy dynamically detected expected page count."
+      );
+    }
+    if (failedPages.length > 0) {
+      errors.push(
+        `Current list has failed pages: ${failedPages.join(", ")}.`
       );
     }
     if (
@@ -534,11 +536,11 @@ export function validateReusableInventoryArtifacts({
       errors.push("Inventory diff does not cover the full expected page range.");
     }
     if (
-      diffPagesScanned !== expectedPages ||
-      diffExpectedPages !== expectedPages
+      diffExpectedPages <= 0 ||
+      diffExpectedPages !== currentExpectedPages
     ) {
       errors.push(
-        `Inventory diff covers ${diffPagesScanned}/${diffExpectedPages} pages; ${expectedPages} expected pages are required.`
+        `Inventory diff expected pages (${diffExpectedPages}) do not match the current-list dynamic expected pages (${currentExpectedPages}).`
       );
     }
     if (diff.allowApply !== true) {

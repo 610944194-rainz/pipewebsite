@@ -165,11 +165,6 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   const fatalWarnings = [];
   const warnings = [];
 
-  if (effectiveScannedPages < pagesRequested) {
-    fatalWarnings.push(
-      `Only ${effectiveScannedPages}/${pagesRequested} requested pages were effectively scanned.`
-    );
-  }
   if (captchaDetected) {
     fatalWarnings.push(
       "captcha/currentListVerificationDetected: current-list verification was detected; this snapshot is not trusted."
@@ -232,8 +227,12 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     );
   }
 
+  const failedPages = currentPayload?.summary?.failedPages || [];
   const fullExpectedRangeScanned =
-    expectedPages > 0 && effectiveScannedPages >= expectedPages;
+    currentPayload?.summary?.fullExpectedRangeScanned === true &&
+    expectedPages > 0 &&
+    failedPages.length === 0 &&
+    effectiveScannedPages >= expectedPages;
   const allowApply =
     fatalWarnings.length === 0 &&
     fullExpectedRangeScanned &&
@@ -278,6 +277,7 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       pagesScanned,
       effectiveScannedPages,
       expectedPages,
+      failedPages,
       detectedTotalPages:
         currentPayload?.summary?.detectedTotalPages || expectedPages,
       fullExpectedRangeScanned,

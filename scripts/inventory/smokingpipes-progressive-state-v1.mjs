@@ -114,7 +114,7 @@ function candidateErrors(candidate, index) {
 
 export function createProgressiveDailyState({
   dailyRunId,
-  expectedPages = 107,
+  expectedPages = 1,
   now = new Date().toISOString(),
 } = {}) {
   return {

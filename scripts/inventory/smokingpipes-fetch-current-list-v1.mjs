@@ -23,7 +23,6 @@ import {
   writeJsonAtomic,
 } from "./inventory-common-v1.mjs";
 
-const DEFAULT_EXPECTED_PAGES = 107;
 const DEFAULT_DISPLAY_NUM = 48;
 const DEFAULT_PAGE_DELAY_MIN_MS = 8000;
 const DEFAULT_PAGE_DELAY_MAX_MS = 18000;
@@ -845,11 +844,36 @@ async function waitForListProducts(page) {
   await page.waitForTimeout(500);
 }
 
+async function gotoSmokingpipesListPageWithRetry({ page, url }) {
+  const maxRetries = 3;
+  let lastError = null;
+
+  for (let retry = 0; retry <= maxRetries; retry += 1) {
+    try {
+      return await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      });
+    } catch (error) {
+      lastError = error;
+      if (retry === maxRetries) break;
+
+      const retryDelayMs = randomDelayMs(2000, 5000);
+      console.warn(
+        `Smokingpipes list navigation failed; retry ${retry + 1}/${maxRetries} after ${retryDelayMs} ms: ${error.message}`
+      );
+      if (retryDelayMs > 0) await page.waitForTimeout(retryDelayMs);
+    }
+  }
+
+  throw lastError;
+}
+
 export async function fetchSmokingpipesCurrentList(options = {}) {
   const maxPages = parsePositiveInteger(options.maxPages, 3);
   const expectedPages = parsePositiveInteger(
     options.expectedPages,
-    DEFAULT_EXPECTED_PAGES
+    maxPages
   );
   const displayNum = parsePositiveInteger(
     options.displayNum,
@@ -874,6 +898,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     checkpoint?.startedAt || new Date().toISOString();
   const pages = checkpoint?.pages || [];
   const collected = checkpoint?.products || [];
+  const failedPages = Array.isArray(checkpoint?.failedPages)
+    ? checkpoint.failedPages
+    : [];
   const outOfStockTailPageInputs = [];
   const firstPage = pages.length
     ? Math.max(...pages.map((item) => Number(item.page) || 0)) + 1
@@ -912,6 +939,32 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   let manualVerificationRecovered = false;
   let endedByEmptyOutOfRangePage = false;
   let endOfListPage = null;
+  const writeCurrentCheckpoint = async () => {
+    if (options.useCheckpoint === false) return;
+    await writeCheckpoint({
+      version: "smokingpipes-current-list-checkpoint-v1",
+      startedAt,
+      updatedAt: new Date().toISOString(),
+      config: {
+        maxPages,
+        expectedPages,
+        detectedTotalPages,
+        detectionConfidence,
+        paginationLinksFound,
+        paginationMaxPageParam,
+        effectiveMaxPages,
+        displayNum,
+        ...pacing,
+      },
+      detectedTotalPages,
+      detectionConfidence,
+      paginationLinksFound,
+      paginationMaxPageParam,
+      pages,
+      failedPages,
+      products: collected,
+    });
+  };
 
   process.env.SMOKINGPIPES_HEADLESS = allowManualVerification
     ? "false"
@@ -952,10 +1005,43 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
           : `Fetching Smokingpipes list page ${pageNumber}/${effectiveMaxPages}`
       );
 
-      const response = await page.goto(url, {
-        waitUntil: "domcontentloaded",
-        timeout: 60000,
-      });
+      let response;
+      try {
+        response = await gotoSmokingpipesListPageWithRetry({
+          page,
+          url,
+        });
+      } catch (error) {
+        if (!failedPages.includes(pageNumber)) failedPages.push(pageNumber);
+        await writeCurrentCheckpoint();
+        const pageEndedAt = new Date().toISOString();
+        await onPageTelemetry({
+          page: pageNumber,
+          url,
+          startedAt: pageStartedAt,
+          endedAt: pageEndedAt,
+          durationMs: Date.parse(pageEndedAt) - Date.parse(pageStartedAt),
+          warmupMs: 0,
+          delayMs: 0,
+          batchCooldownMs: 0,
+          productsParsed: 0,
+          outOfStockProducts: 0,
+          missingPriceProducts: 0,
+          weakVerificationSignals: [],
+          strongVerificationSignals: [],
+          finalClassification: "navigation-failed",
+          navigationError: error instanceof Error ? error.message : String(error),
+          screenshotPath: null,
+          htmlSamplePath: null,
+          verificationDetectedAt: null,
+          manualVerificationAllowed: allowManualVerification,
+          manualVerificationRecovered: false,
+        });
+        console.warn(
+          `Smokingpipes list page ${pageNumber} failed after 3 retries; preserving completed pages and continuing.`
+        );
+        continue;
+      }
       const warmupDelayMs = randomDelayMs(
         pacing.pageWarmupMinMs,
         pacing.pageWarmupMaxMs
@@ -1318,28 +1404,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
           pageManualVerificationRecovered,
       });
 
-      if (options.useCheckpoint !== false) await writeCheckpoint({
-        version: "smokingpipes-current-list-checkpoint-v1",
-        startedAt,
-        updatedAt: new Date().toISOString(),
-        config: {
-          maxPages,
-          expectedPages,
-          detectedTotalPages,
-          detectionConfidence,
-          paginationLinksFound,
-          paginationMaxPageParam,
-          effectiveMaxPages,
-          displayNum,
-          ...pacing,
-        },
-        detectedTotalPages,
-        detectionConfidence,
-        paginationLinksFound,
-        paginationMaxPageParam,
-        pages,
-        products: collected,
-      });
+      await writeCurrentCheckpoint();
 
       if (pageNumber < effectiveMaxPages) {
         if (pageBatchCooldownMs > 0) {
@@ -1393,6 +1458,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   const completedAt = new Date().toISOString();
   const effectiveScannedPages =
     pages.length + skippedOutOfStockTailPages.length;
+  const lastSuccessfulPage = pages.length
+    ? Math.max(...pages.map((item) => Number(item.page) || 0))
+    : 0;
   const soldByAbsenceAllowed = !tailCacheUsed;
   const disappearedApplyAllowed = !tailCacheUsed;
   const payload = {
@@ -1415,15 +1483,21 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       allowManualVerification,
       manualVerification: allowManualVerification,
       browser,
-      partialScan: effectiveScannedPages < resolvedExpectedPages,
+      partialScan:
+        failedPages.length > 0 ||
+        effectiveScannedPages < resolvedExpectedPages,
     },
     startedAt,
     completedAt,
     pages,
     products: deduped.products,
     summary: {
-      pagesRequested: resolvedExpectedPages,
+      pagesRequested: maxPages,
       pagesScanned: pages.length,
+      pagesCompleted: pages.length,
+      pagesFailed: failedPages.length,
+      failedPages: [...failedPages],
+      lastSuccessfulPage,
       expectedPages: resolvedExpectedPages,
       detectedTotalPages: detectedTotalPagesForSummary,
       detectionConfidence,
@@ -1456,8 +1530,12 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       manualVerificationRecovered,
       weakVerificationDetected: weakVerificationPages.length > 0,
       weakVerificationPages: [...new Set(weakVerificationPages)],
-      completeRequestedRange: effectiveScannedPages >= resolvedExpectedPages,
-      fullExpectedRangeScanned: effectiveScannedPages >= resolvedExpectedPages,
+      completeRequestedRange:
+        failedPages.length === 0 &&
+        effectiveScannedPages >= resolvedExpectedPages,
+      fullExpectedRangeScanned:
+        failedPages.length === 0 &&
+        effectiveScannedPages >= resolvedExpectedPages,
     },
   };
 

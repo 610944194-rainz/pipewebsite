@@ -2465,7 +2465,7 @@ assert.equal(defaults.source, "smokingpipes");
 assert.equal(defaults.mode, "dry-run");
 assert.equal(defaults.commit, false);
 assert.equal(defaults.deploy, false);
-assert.equal(defaults.maxPages, 107);
+assert.equal(defaults.maxPages, 200);
 assert.equal(defaults.maxNewDetailsPerRun, 10);
 assert.equal(defaults.fetchNewDetails, false);
 assert.equal(defaults.allowPartialNewDetails, false);
