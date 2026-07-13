@@ -38,6 +38,7 @@ switch ($Mode) {
       multipleInstances = "IgnoreNew"
       restartCount = 2
       restartIntervalMinutes = 15
+      executionTimeLimit = "PT4H"
     }
   }
   "Backup" {
@@ -74,7 +75,8 @@ switch ($Mode) {
       -DontStopIfGoingOnBatteries `
       -MultipleInstances IgnoreNew `
       -RestartCount 2 `
-      -RestartInterval (New-TimeSpan -Minutes 15)
+      -RestartInterval (New-TimeSpan -Minutes 15) `
+      -ExecutionTimeLimit (New-TimeSpan -Hours 4)
     $settings.WakeToRun = $true
     Register-ScheduledTask `
       -TaskName $TaskName `

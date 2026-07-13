@@ -11868,8 +11868,9 @@ for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30
   assert.match(installDailyTaskScript, new RegExp(`-At\\s+"${time}"`));
 }
 assert.match(installDailyTaskScript, /WakeToRun\s*=\s*\$true/);
-assert.doesNotMatch(installDailyTaskScript, /-ExecutionTimeLimit/);
-assert.doesNotMatch(installDailyTaskScript, /\$settings\.ExecutionTimeLimit/);
+assert.match(installDailyTaskScript, /-ExecutionTimeLimit\s+\(New-TimeSpan\s+-Hours\s+4\)/);
+assert.match(installDailyTaskScript, /executionTimeLimit\s*=\s*"PT4H"/);
+assert.doesNotMatch(installDailyTaskScript, /PT72H/);
 assert.doesNotMatch(installDailyTaskScript, /03:00:00/);
 assert.doesNotMatch(installDailyTaskScript, /PT3H/);
 assert.match(installDailyTaskScript, /AllowStartIfOnBatteries/);
