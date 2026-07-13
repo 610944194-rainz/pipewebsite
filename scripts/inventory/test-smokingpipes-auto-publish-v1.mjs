@@ -56,6 +56,14 @@ try {
     path.join(projectRoot, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1"),
     "utf8"
   );
+  const scheduledLauncher = fs.readFileSync(
+    path.join(projectRoot, "scripts", "inventory", "run-smokingpipes-scheduled-task-v1.ps1"),
+    "utf8"
+  );
+  const scheduledTaskInstaller = fs.readFileSync(
+    path.join(projectRoot, "scripts", "inventory", "install-smokingpipes-daily-task-v1.ps1"),
+    "utf8"
+  );
   assert.match(setupScript, /"fetch", "origin"/);
   assert.match(setupScript, /required automation code is not yet on origin\/main/);
   assert.doesNotMatch(setupScript, /Copy-Item|Remove-Item/);
@@ -112,6 +120,19 @@ try {
   );
   assert.doesNotMatch(publishScript, /manual-large-apply/);
   assert.doesNotMatch(publishScript, /--force(?:-with-lease)?/);
+  assert.match(scheduledLauncher, /run-smokingpipes-auto-publish\.ps1/);
+  assert.match(scheduledLauncher, /-AutomationWorktree \$AutomationWorktree/);
+  assert.match(scheduledLauncher, /-BuildExecutable \$BuildExecutable/);
+  assert.match(scheduledLauncher, /-ForceRunOnce/);
+  assert.doesNotMatch(scheduledLauncher, /while\s*\(|for\s*\(;;\)/);
+  assert.match(scheduledTaskInstaller, /C:\\Windows\\System32\\WindowsPowerShell\\v1\.0\\powershell\.exe/);
+  assert.match(scheduledTaskInstaller, /C:\\Users\\NING MEI\\Desktop\\pipewebsite-smokingpipes-run/);
+  assert.match(scheduledTaskInstaller, /C:\\Program Files\\nodejs\\npm\.cmd/);
+  assert.match(scheduledTaskInstaller, /MultipleInstances IgnoreNew/);
+  for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30"]) assert.match(scheduledTaskInstaller, new RegExp(time));
+  assert.match(scheduledTaskInstaller, /-RestartCount 2/);
+  assert.match(scheduledTaskInstaller, /-RestartInterval \(New-TimeSpan -Minutes 15\)/);
+  assert.match(scheduledTaskInstaller, /Disable-ScheduledTask -TaskName \$TaskName/);
 
   const resolverSource = publishScript.match(
     /function Resolve-BuildExecutable\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Test-AutomationWorktree/
