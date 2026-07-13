@@ -7,7 +7,9 @@
   [switch]$ResumeFromCachedList,
   [switch]$LockCurrentListSnapshotUntilComplete,
   [switch]$SafeBootstrap,
-  [switch]$NoProductionWrite
+  [switch]$NoProductionWrite,
+  [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
+  [string]$ProgressiveDetailMax = "30"
 )
 
 $ErrorActionPreference = "Stop"
@@ -343,6 +345,7 @@ function Write-DailyTaskState {
     candidateCount = $CandidateCount
     wouldApplyCount = $WouldApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
+    progressiveDetailMax = [int]$ProgressiveDetailMax
     nextRetryRecommendedAt = $NextRetryRecommendedAt
     retryAllowed = $RetryAllowed
     currentList = $currentListForState
@@ -1084,6 +1087,7 @@ $lockAcquired = $false
 
 Import-InventoryEnv
 Resolve-ManualRecoveryOptions
+Write-DailyLog "progressive detail chunk size: $ProgressiveDetailMax"
 
 if ($script:PreflightOnlyEffective) {
   $preflightExit = Invoke-RecoveryPreflight -PreflightOnlyMode $true
@@ -1446,12 +1450,13 @@ try {
   if ($script:ResumeFromCachedListEffective -eq $true) {
     Write-DailyLog "START detail from cached-list resume"
   }
+  Write-DailyLog "START detail chunk: max=$ProgressiveDetailMax pending=$($script:DetailPendingCount)"
 
   $detailExit = Invoke-InventoryNode -StepName "progressive-detail-chunk" -Arguments @(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-detail-chunk",
-    "--progressive-detail-max=30",
+    "--progressive-detail-max=$ProgressiveDetailMax",
     "--browser-channel=chrome",
     "--browser-profile=sp-chrome",
     "--allow-manual-verification=true",

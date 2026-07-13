@@ -5,6 +5,8 @@ param(
   [switch]$ForceRunOnce,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
+  [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
+  [string]$ProgressiveDetailMax = "30",
   [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-automation",
   [string]$NodeExecutable = "node",
   [string]$NotificationScriptPath = ""
@@ -97,6 +99,7 @@ $report = [ordered]@{
   candidateCount = 0
   wouldApplyCount = 0
   appliedCount = 0
+  progressiveDetailMax = [int]$ProgressiveDetailMax
   validatorPassed = $false
   inventoryDefaultPassed = $false
   inventoryRunnerPassed = $false
@@ -131,6 +134,7 @@ function Write-AutoPublishReport {
     "- candidateCount: $($report.candidateCount)",
     "- wouldApplyCount: $($report.wouldApplyCount)",
     "- appliedCount: $($report.appliedCount)",
+    "- progressiveDetailMax: $($report.progressiveDetailMax)",
     "- commitPerformed: $($report.commitPerformed)",
     "- pushPerformed: $($report.pushPerformed)",
     "- deploymentStatus: $($report.deploymentStatus)",
@@ -213,6 +217,7 @@ try {
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
   if ($SkipCurrentList) { $dailyArguments += "-SkipCurrentList" }
   if ($AllowStaleCurrentListCache) { $dailyArguments += "-AllowStaleCurrentListCache" }
+  $dailyArguments += @("-ProgressiveDetailMax", $ProgressiveDetailMax)
   try {
     Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" | Out-Null
   } catch {
@@ -226,6 +231,7 @@ try {
   $report.candidateCount = Get-DailyNumber -State $dailyState -Name "candidateCount"
   $report.wouldApplyCount = Get-DailyNumber -State $dailyState -Name "wouldApplyCount"
   $report.appliedCount = Get-DailyNumber -State $dailyState -Name "appliedCount"
+  $report.progressiveDetailMax = Get-DailyNumber -State $dailyState -Name "progressiveDetailMax"
   if ($dailyState.status -in @("manual-review-required", "safety-gate-blocked", "terminal-failed", "retryable-failed")) {
     Stop-AutoPublish -Status "safety-gate-blocked" -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
   }

@@ -458,6 +458,7 @@ export function buildSmokingpipesDailyMobileReport({
   const taskFailure = findDailyTaskFailure(taskLogText);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
   const detailCompletedThisRun = Number(taskState?.detailCompletedThisRun || 0);
+  const progressiveDetailMax = Number(taskState?.progressiveDetailMax || 0);
   const detailQueueSpike =
     taskState?.detailQueueSpike &&
     typeof taskState.detailQueueSpike === "object"
@@ -718,6 +719,7 @@ export function buildSmokingpipesDailyMobileReport({
     cachedListResume,
     detailPhaseStatus: detailPhaseStatus || null,
     detailCompletedThisRun,
+    progressiveDetailMax,
     detailQueueSpike,
     runMode: manualFullReconcileMode
       ? "manual-full-reconcile"
@@ -1403,6 +1405,7 @@ export function buildPushDeerDailyMessage(report) {
       ...(report.status === "detail-progress"
         ? [
             `本轮详情完成：${Number(report.detailCompletedThisRun || 0)}`,
+            `本轮详情 chunk 上限：${Number(report.progressiveDetailMax || 0) || 30}`,
             `剩余详情：${pendingDetailCount}`,
             "下轮：继续处理详情，不进入候选应用",
           ]
