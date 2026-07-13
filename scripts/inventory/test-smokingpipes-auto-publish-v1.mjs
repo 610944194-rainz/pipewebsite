@@ -38,6 +38,13 @@ function runBuildResolver(functionSource, env) {
   });
 }
 
+function runPowerShell(script, env = {}) {
+  return spawnSync("powershell.exe", ["-NoProfile", "-Command", script], {
+    encoding: "utf8",
+    env: { ...process.env, ...env },
+  });
+}
+
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-auto-publish-"));
 try {
   const projectRoot = process.cwd();
@@ -77,8 +84,15 @@ try {
   assert.match(publishScript, /npm\.cmd/);
   assert.match(publishScript, /function Resolve-BuildExecutable/);
   assert.match(publishScript, /buildExecutableResolved/);
+  assert.match(publishScript, /build executable request is not initialized/);
+  assert.match(publishScript, /\$BuildExecutable = if \(\[string\]::IsNullOrWhiteSpace\(\$BuildExecutable\)\) \{ "npm\.cmd" \}/);
   assert.match(publishScript, /post-apply-production-audit/);
   assert.match(publishScript, /ResumeAfterProductionWrite/);
+  assert.match(publishScript, /function Test-PostApplyRecoveryRequiredPaths/);
+  assert.match(publishScript, /Test-PostApplyRecoveryRequiredPaths\s*\n\s*\$previousReport/);
+  assert.match(publishScript, /daily task state path is not initialized/);
+  assert.match(publishScript, /notificationStatus/);
+  assert.match(publishScript, /Send-AutoPublishNotificationSafely/);
   assert.match(publishScript, /-not \$ResumeAfterProductionWrite -and @\(& git -C \$ProjectRoot status --porcelain --untracked-files=no\)\.Count -gt 0/);
   assert.match(publishScript, /if \(-not \$ResumeAfterProductionWrite\) \{\s*\$dailyArguments/s);
   assert.match(publishScript, /"add", "--"/);
@@ -124,6 +138,11 @@ try {
       RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: "missing-npm.cmd", RESOLVE_PROGRAM_FILES: path.join(resolverRoot, "none"),
     });
     assert.notEqual(missing.status, 0);
+    const empty = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: "", RESOLVE_PROGRAM_FILES: programFiles,
+    });
+    assert.notEqual(empty.status, 0);
+    assert.match(empty.stderr, /build executable request is not initialized/);
     const directory = runBuildResolver(resolverSource, {
       RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: directoryOnly, RESOLVE_PROGRAM_FILES: programFiles,
     });
@@ -131,6 +150,58 @@ try {
   } finally {
     fs.rmSync(resolverRoot, { recursive: true, force: true });
   }
+
+  const requiredPathsSource = publishScript.match(
+    /function Test-PostApplyRecoveryRequiredPaths\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Copy-DailyStateToReport/
+  )?.[0].replace(/\r?\n\r?\nfunction Copy-DailyStateToReport$/, "");
+  assert.ok(requiredPathsSource, "recovery required-path validation must be present");
+  const requiredRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-recovery-paths-"));
+  try {
+    const reportPath = path.join(requiredRoot, "report.json");
+    const dailyPath = path.join(requiredRoot, "daily.json");
+    const progressivePath = path.join(requiredRoot, "progressive.json");
+    const auditPath = path.join(requiredRoot, "audit.mjs");
+    for (const filePath of [reportPath, dailyPath, progressivePath, auditPath]) fs.writeFileSync(filePath, "{}\n");
+    const variables = (daily) => [
+      `$ReportJsonPath='${reportPath.replaceAll("'", "''")}'`,
+      `$DailyTaskStatePath=${daily === null ? "''" : `'${daily.replaceAll("'", "''")}'`}`,
+      `$ProgressiveStatePath='${progressivePath.replaceAll("'", "''")}'`,
+      `$PostApplyAuditScriptPath='${auditPath.replaceAll("'", "''")}'`,
+      requiredPathsSource,
+      "Test-PostApplyRecoveryRequiredPaths",
+    ].join("\n");
+    assert.equal(runPowerShell(variables(dailyPath)).status, 0);
+    const missingDaily = runPowerShell(variables(path.join(requiredRoot, "missing.json")));
+    assert.notEqual(missingDaily.status, 0);
+    assert.match(missingDaily.stderr, /daily task state is missing:/);
+    const emptyDaily = runPowerShell(variables(null));
+    assert.notEqual(emptyDaily.status, 0);
+    assert.match(emptyDaily.stderr, /daily task state path is not initialized/);
+    assert.doesNotMatch(emptyDaily.stderr, /LiteralPath/);
+  } finally {
+    fs.rmSync(requiredRoot, { recursive: true, force: true });
+  }
+
+  const notificationSource = publishScript.match(
+    /function Send-AutoPublishNotification\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Complete-AutoPublish/
+  )?.[0].replace(/\r?\n\r?\nfunction Complete-AutoPublish$/, "");
+  assert.ok(notificationSource, "safe notification functions must be present");
+  const notificationHarness = (pathValue) => [
+    "$report = [ordered]@{ notificationStatus = 'not-attempted'; notificationFailure = $null }",
+    `$NotificationScriptPath = '${pathValue.replaceAll("'", "''")}'`,
+    "$NodeExecutablePath = 'node'",
+    "$ReportJsonPath = 'report.json'",
+    "function Invoke-CheckedCommand { throw 'should not run for this test' }",
+    notificationSource,
+    "Send-AutoPublishNotificationSafely",
+    "$report | ConvertTo-Json -Compress",
+  ].join("\n");
+  const notificationSkipped = runPowerShell(notificationHarness(""));
+  assert.equal(notificationSkipped.status, 0, notificationSkipped.stderr);
+  assert.equal(JSON.parse(notificationSkipped.stdout).notificationStatus, "skipped-not-configured");
+  const notificationFailed = runPowerShell(notificationHarness(path.join(os.tmpdir(), "missing-notification-helper.mjs")));
+  assert.equal(notificationFailed.status, 0, notificationFailed.stderr);
+  assert.equal(JSON.parse(notificationFailed.stdout).notificationStatus, "failed");
 
   git(fixtureRoot, ["init", "--initial-branch=main"]);
   git(fixtureRoot, ["config", "user.email", "test@example.invalid"]);

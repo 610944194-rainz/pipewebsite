@@ -17,6 +17,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$BuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.json"
 $ReportMarkdownPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.md"
@@ -76,6 +77,10 @@ function Resolve-BuildExecutable {
     [string]$Requested,
     [string]$ProgramFilesPath = $env:ProgramFiles
   )
+
+  if ([string]::IsNullOrWhiteSpace($Requested)) {
+    throw "build executable request is not initialized"
+  }
 
   if ([IO.Path]::IsPathRooted($Requested)) {
     if (Test-Path -LiteralPath $Requested -PathType Leaf) {
@@ -153,6 +158,26 @@ function Read-RequiredJson {
   return (Get-Content -LiteralPath $PathToRead -Raw -Encoding utf8 | ConvertFrom-Json)
 }
 
+function Test-PostApplyRecoveryRequiredPaths {
+  $requiredPaths = @(
+    [pscustomobject]@{ Description = "auto-publish report"; Path = $ReportJsonPath },
+    [pscustomobject]@{ Description = "daily task state"; Path = $DailyTaskStatePath },
+    [pscustomobject]@{ Description = "progressive daily state"; Path = $ProgressiveStatePath },
+    [pscustomobject]@{ Description = "post-apply production audit"; Path = $PostApplyAuditScriptPath }
+  )
+  foreach ($required in $requiredPaths) {
+    if ([string]::IsNullOrWhiteSpace([string]$required.Path)) {
+      if ($required.Description -eq "daily task state") {
+        throw "daily task state path is not initialized"
+      }
+      throw "$($required.Description) path is not initialized"
+    }
+    if (-not (Test-Path -LiteralPath $required.Path -PathType Leaf)) {
+      throw "$($required.Description) is missing: $($required.Path)"
+    }
+  }
+}
+
 function Copy-DailyStateToReport {
   param([object]$State)
   $report.productionWritten = $State.productionWritten -eq $true
@@ -179,6 +204,7 @@ function Copy-DailyStateToReport {
 function Get-PostApplyRecoveryReadiness {
   param([string]$HeadSha, [string]$OriginMainSha, [string]$Branch, [string]$Upstream)
 
+  Test-PostApplyRecoveryRequiredPaths
   $previousReport = Read-RequiredJson -PathToRead $ReportJsonPath -Description "auto-publish report"
   $dailyState = Read-RequiredJson -PathToRead $DailyTaskStatePath -Description "daily task state"
   $progressiveState = Read-RequiredJson -PathToRead $ProgressiveStatePath -Description "progressive daily state"
@@ -240,6 +266,8 @@ $report = [ordered]@{
   buildExecutableRequested = $BuildExecutable
   buildExecutableResolved = $null
   buildExecutableResolutionMode = $null
+  notificationStatus = "not-attempted"
+  notificationFailure = $null
   resumeAfterProductionWrite = $ResumeAfterProductionWrite -eq $true
   recoverySourceRunId = $null
   recoveryPreflightPassed = $false
@@ -286,6 +314,8 @@ function Write-AutoPublishReport {
     "- buildExecutableRequested: $($report.buildExecutableRequested)",
     "- buildExecutableResolved: $($report.buildExecutableResolved)",
     "- buildExecutableResolutionMode: $($report.buildExecutableResolutionMode)",
+    "- notificationStatus: $($report.notificationStatus)",
+    "- notificationFailure: $($report.notificationFailure)",
     "- commitPerformed: $($report.commitPerformed)",
     "- pushPerformed: $($report.pushPerformed)",
     "- deploymentStatus: $($report.deploymentStatus)",
@@ -296,28 +326,38 @@ function Write-AutoPublishReport {
 }
 
 function Send-AutoPublishNotification {
+  if ([string]::IsNullOrWhiteSpace($NotificationScriptPath)) {
+    $report.notificationStatus = "skipped-not-configured"
+    return
+  }
   if (-not (Test-Path -LiteralPath $NotificationScriptPath -PathType Leaf)) {
     throw "notification helper is missing: $NotificationScriptPath"
   }
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($NotificationScriptPath, "--report=$ReportJsonPath") -Stage "notification-helper" | Out-Null
+  $report.notificationStatus = "sent"
+}
+
+function Send-AutoPublishNotificationSafely {
+  try {
+    Send-AutoPublishNotification
+  } catch {
+    $report.notificationStatus = "failed"
+    $report.notificationFailure = $_.Exception.Message
+  }
 }
 
 function Complete-AutoPublish {
   param([string]$Status, [string]$FailureStage = $null, [string]$FailureReason = $null)
   Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
-  try {
-    Send-AutoPublishNotification
-  } catch {
-    $notificationFailure = $_.Exception.Message
-    Write-AutoPublishReport -Status "notification-helper-failed" -FailureStage "notification-helper" -FailureReason $notificationFailure
-    throw $notificationFailure
-  }
+  Send-AutoPublishNotificationSafely
+  Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
 }
 
 function Stop-AutoPublish {
   param([string]$Status, [string]$Stage, [string]$Reason, [int]$ExitCode = 1)
   Write-AutoPublishReport -Status $Status -FailureStage $Stage -FailureReason $Reason
-  Send-AutoPublishNotification
+  Send-AutoPublishNotificationSafely
+  Write-AutoPublishReport -Status $Status -FailureStage $Stage -FailureReason $Reason
   throw $Reason
 }
 
@@ -362,6 +402,7 @@ try {
   }
   $recoveryReadiness = $null
   if ($ResumeAfterProductionWrite) {
+    $report.failureStage = "recovery-state-validation"
     $recoveryReadiness = Get-PostApplyRecoveryReadiness -HeadSha $report.startingMainSha -OriginMainSha $originMainSha -Branch $branch -Upstream $upstream
     if (-not $recoveryReadiness.Allowed) {
       Stop-AutoPublish -Status "preflight-blocked" -Stage "post-apply-recovery-preflight" -Reason ($recoveryReadiness.Blockers -join "; ")
@@ -372,6 +413,7 @@ try {
     $report.pushPerformed = $false
     $report.recoveryPreflightPassed = $true
     $report.changedProductionFiles = @($recoveryReadiness.DirtyFiles)
+    $report.failureStage = $null
   }
   if ($PreflightOnly) {
     $report.deploymentStatus = "not-requested"
@@ -413,23 +455,29 @@ try {
   }
 
   if ($ResumeAfterProductionWrite) {
+    $report.failureStage = "diff-guard"
     Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($PostApplyAuditScriptPath, "--root=$ProjectRoot", "--expected-applied-count=$($report.appliedCount)") -Stage "post-apply-production-audit" | Out-Null
     $report.postApplyAuditPassed = $true
+    $report.failureStage = $null
   }
 
+  $report.failureStage = "validator"
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($ValidatorScriptPath) -Stage "validator" | Out-Null
   $report.validatorPassed = $true
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryDefaultTestPath) -Stage "inventory-default-test" | Out-Null
   $report.inventoryDefaultPassed = $true
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryRunnerTestPath) -Stage "inventory-runner-test" | Out-Null
   $report.inventoryRunnerPassed = $true
+  $report.failureStage = "executable-resolution"
   $buildExecutable = Resolve-BuildExecutable -Requested $BuildExecutable
   $report.buildExecutableRequested = $buildExecutable.requested
   $report.buildExecutableResolved = $buildExecutable.resolved
   $report.buildExecutableResolutionMode = $buildExecutable.resolutionMode
+  $report.failureStage = "build"
   Invoke-CheckedCommand -FilePath $buildExecutable.resolved -Arguments @("run", "build") -Stage "build" | Out-Null
   $report.buildPassed = $true
 
+  $report.failureStage = "diff-guard"
   if ($ResumeAfterProductionWrite) {
     Invoke-GitChecked -Arguments @("diff", "--check") | Out-Null
     $changed = @(& git -C $ProjectRoot diff --name-only) | Where-Object { $_ }
@@ -443,6 +491,7 @@ try {
     exit 0
   }
   foreach ($filePath in $changed) {
+    $report.failureStage = "stage"
     if (-not (Test-AllowedProductionPath -PathToCheck $filePath)) {
       Stop-AutoPublish -Status "stage-blocked" -Stage "whitelist" -Reason "non-whitelisted production change: $filePath"
     }
@@ -462,6 +511,7 @@ try {
     Complete-AutoPublish -Status "validated-no-push"
     exit 0
   }
+  $report.failureStage = "push"
   Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
   $remoteBeforePush = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
   if ($remoteBeforePush -ne $report.remoteMainShaBeforePush) {
@@ -475,10 +525,12 @@ try {
   } else {
     "chore: refresh Smokingpipes inventory $(Get-Date -Format yyyy-MM-dd)"
   }
+  $report.failureStage = "commit"
   Invoke-GitChecked -Arguments @("commit", "-m", $commitMessage) | Out-Null
   $report.commitPerformed = $true
   $report.commitSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
   try {
+    $report.failureStage = "push"
     Invoke-GitChecked -Arguments @("push", "origin", "HEAD:main") | Out-Null
     $report.pushPerformed = $true
     $report.endingMainSha = $report.commitSha
@@ -501,11 +553,13 @@ try {
   } else {
     $report.deploymentStatus = "push-complete-deployment-pending-verification"
   }
+  $report.failureStage = $null
   Complete-AutoPublish -Status "success"
 } catch {
   if (-not $report.completedAt) {
     Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message
-    Send-AutoPublishNotification
+    Send-AutoPublishNotificationSafely
+    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message
   }
   Write-Error $_.Exception.Message
   exit 1
