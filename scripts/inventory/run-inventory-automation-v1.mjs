@@ -114,6 +114,7 @@ Options:
   --daily-new-max-details=100           Maximum daily new details per invocation
   --detail-probe-max=5                  Maximum trusted newIds tested by detail-probe
   --progressive-detail-max=5            Maximum progressive pending details per chunk
+  --max-auto-apply=1000                 Positive hard ceiling for automatic production apply
   --current-list=PATH                   Progressive ingest current-list input
   --diff=PATH                           Progressive ingest inventory diff input
   --write-production                    Explicitly write progressive partial apply outputs to production
@@ -436,6 +437,14 @@ async function run() {
               result.candidateCount || 0,
             wouldApplyCount:
               result.wouldApplyCount || 0,
+            maxAutoApply:
+              result.maxAutoApply ?? options.maxAutoApply,
+            largeApplyWarningThreshold:
+              result.largeApplyWarningThreshold ?? 300,
+            largeApplyWarning:
+              result.largeApplyWarning === true,
+            largeApplyBlocked:
+              result.largeApplyBlocked === true,
             appliedCount:
               result.partialAppliedCount || 0,
             isolatedCandidateCount:

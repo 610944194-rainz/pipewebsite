@@ -7932,6 +7932,34 @@ assert.equal(safeSubsetGate.safeSubsetApply, true);
 assert.equal(safeSubsetGate.isolatedCandidateCount, 1);
 assert.deepEqual(safeSubsetGate.blockers, []);
 
+for (const [wouldApplyCount, warning, blocked] of [
+  [300, false, false],
+  [301, true, false],
+  [895, true, false],
+  [1000, true, false],
+  [1001, true, true],
+]) {
+  const largeApplyGate = evaluateProgressiveProductionApplyGate({
+    state: { dailyRunId: "daily-update-20260708" },
+    audit: {
+      ...safeGapAudit,
+      candidateCount: wouldApplyCount,
+      wouldApplyCount,
+    },
+    preview: {
+      ...safeGapPreview,
+      candidateCount: wouldApplyCount,
+      wouldApplyCount,
+    },
+    candidateProducts: safeGapCandidateProducts,
+    publicPayloads: completePublicPayloads,
+    maxAutoApply: 1000,
+  });
+  assert.equal(largeApplyGate.largeApplyWarning, warning);
+  assert.equal(largeApplyGate.largeApplyBlocked, blocked);
+  assert.equal(largeApplyGate.status, blocked ? "apply-blocked" : "apply-ready");
+}
+
 for (const [countName, countValue] of [
   ["pendingLeak", 1],
   ["failedLeak", 1],
@@ -8444,7 +8472,10 @@ assert.equal(progressivePrepareApplyReady.applyReady, true);
 assert.equal(progressivePrepareApplyReady.candidateCount, 4);
 assert.equal(progressivePrepareApplyReady.wouldApplyCount, 2);
 assert.equal(progressivePrepareApplyReady.isolatedCandidateCount, 2);
-assert.equal(progressivePrepareApplyReady.maxAutoApply, 300);
+assert.equal(progressivePrepareApplyReady.maxAutoApply, 1000);
+assert.equal(progressivePrepareApplyReady.largeApplyWarningThreshold, 300);
+assert.equal(progressivePrepareApplyReady.largeApplyWarning, false);
+assert.equal(progressivePrepareApplyReady.largeApplyBlocked, false);
 assert.equal(progressivePrepareApplyReady.productionWritten, false);
 assert.equal(
   fs.existsSync(progressiveApplyPaths.progressiveApplyGateReport),
@@ -9115,6 +9146,19 @@ assert.equal(
   ]).progressiveDetailMax,
   3
 );
+assert.equal(parseRunnerOptions([]).maxAutoApply, 1000);
+for (const value of ["0", "100.5", "Infinity", "unlimited"]) {
+  assert.throws(
+    () => parseRunnerOptions([`--max-auto-apply=${value}`]),
+    /positive (?:safe )?integer/i
+  );
+}
+for (const value of ["1", "30", "100", "200", "1000"]) {
+  assert.equal(
+    parseRunnerOptions([`--max-auto-apply=${value}`]).maxAutoApply,
+    Number(value)
+  );
+}
 const progressivePaths = runnerCore.getRunnerPaths(
   "C:\\progressive-test",
   { mock: false }

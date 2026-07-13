@@ -5,6 +5,8 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import {
   AUTO_PUBLISH_PRODUCTION_PATHS,
+  DEFAULT_MAX_AUTO_APPLY,
+  LARGE_APPLY_WARNING_THRESHOLD,
   evaluateAutoPublishGate,
   isAllowedProductionPath,
   validateAutoPublishStagedPaths,
@@ -39,6 +41,9 @@ try {
   assert.match(publishScript, /\[switch\]\$NoPush/);
   assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
   assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
+  assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(publishScript, /largeApplyWarningThreshold/);
+  assert.match(publishScript, /-MaxAutoApply/);
   assert.match(publishScript, /auto publish must run from the dedicated automation worktree/);
   assert.match(publishScript, /\$ProjectRoot\s*=\s*\(Resolve-Path \(Join-Path \$PSScriptRoot "\.\.\\\.\."\)\)\.Path/);
   assert.match(publishScript, /Push-Location -LiteralPath \$ProjectRoot/);
@@ -136,7 +141,7 @@ try {
     candidateCount: 4,
     wouldApplyCount: 4,
     appliedCount: 4,
-    maxAutoApply: 300,
+    maxAutoApply: DEFAULT_MAX_AUTO_APPLY,
     validatorPassed: true,
     inventoryDefaultPassed: true,
     inventoryRunnerPassed: true,
@@ -144,13 +149,32 @@ try {
     remoteMainUnchanged: true,
   };
   assert.equal(evaluateAutoPublishGate(base).allowed, true);
+  assert.equal(DEFAULT_MAX_AUTO_APPLY, 1000);
+  assert.equal(LARGE_APPLY_WARNING_THRESHOLD, 300);
+  for (const [count, warning, allowed] of [
+    [300, false, true],
+    [301, true, true],
+    [895, true, true],
+    [1000, true, true],
+    [1001, true, false],
+  ]) {
+    const result = evaluateAutoPublishGate({
+      ...base,
+      wouldApplyCount: count,
+      appliedCount: count,
+    });
+    assert.equal(result.largeApplyWarning, warning);
+    assert.equal(result.largeApplyBlocked, !allowed);
+    assert.equal(result.allowed, allowed);
+  }
   assert.equal(evaluateAutoPublishGate({ ...base, isAutomationWorktree: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, trackedWorktreeClean: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, headMatchesOriginMain: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, productionWritten: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, validatorPassed: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, buildPassed: false }).allowed, false);
-  assert.equal(evaluateAutoPublishGate({ ...base, wouldApplyCount: 301 }).allowed, false);
+  assert.equal(evaluateAutoPublishGate({ ...base, pendingCount: 1 }).allowed, false);
+  assert.equal(evaluateAutoPublishGate({ ...base, failedCount: 1 }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, remoteMainUnchanged: false }).allowed, false);
   assert.equal(evaluateAutoPublishGate({ ...base, noPush: true }).wouldCommit, false);
   assert.equal(evaluateAutoPublishGate({ ...base, dailySucceeded: false }).wouldCommit, false);

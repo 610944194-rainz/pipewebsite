@@ -4,6 +4,9 @@ export const AUTO_PUBLISH_PRODUCTION_PATHS = [
   "data/generated/public-products/**",
 ];
 
+export const LARGE_APPLY_WARNING_THRESHOLD = 300;
+export const DEFAULT_MAX_AUTO_APPLY = 1000;
+
 function text(value) {
   return String(value || "").trim().replaceAll("\\", "/");
 }
@@ -41,7 +44,10 @@ export function evaluateAutoPublishGate({
   candidateCount = 0,
   wouldApplyCount = 0,
   appliedCount = 0,
-  maxAutoApply = 300,
+  pendingCount = 0,
+  failedCount = 0,
+  maxAutoApply = DEFAULT_MAX_AUTO_APPLY,
+  largeApplyWarningThreshold = LARGE_APPLY_WARNING_THRESHOLD,
   validatorPassed = false,
   inventoryDefaultPassed = false,
   inventoryRunnerPassed = false,
@@ -52,6 +58,9 @@ export function evaluateAutoPublishGate({
   deployHookSucceeded = null,
 } = {}) {
   const blockers = [];
+  if (!Number.isSafeInteger(maxAutoApply) || maxAutoApply <= 0) {
+    blockers.push("maxAutoApply must be a positive safe integer");
+  }
   const stage = validateAutoPublishStagedPaths(stagedFiles);
   if (!isAutomationWorktree) blockers.push("not an automation worktree");
   if (!trackedWorktreeClean) blockers.push("tracked worktree is dirty");
@@ -64,7 +73,12 @@ export function evaluateAutoPublishGate({
   if (!(candidateCount > 0)) blockers.push("candidateCount must be greater than 0");
   if (!(wouldApplyCount > 0)) blockers.push("wouldApplyCount must be greater than 0");
   if (!(appliedCount > 0)) blockers.push("appliedCount must be greater than 0");
-  if (wouldApplyCount > maxAutoApply) {
+  if (pendingCount > 0) blockers.push(`pending candidates=${pendingCount}`);
+  if (failedCount > 0) blockers.push(`failed candidates=${failedCount}`);
+  const largeApplyWarning =
+    wouldApplyCount > largeApplyWarningThreshold;
+  const largeApplyBlocked = wouldApplyCount > maxAutoApply;
+  if (largeApplyBlocked) {
     blockers.push(`wouldApplyCount ${wouldApplyCount} exceeds max auto apply ${maxAutoApply}`);
   }
   if (!validatorPassed) blockers.push("public index validator failed");
@@ -82,6 +96,11 @@ export function evaluateAutoPublishGate({
   return {
     allowed,
     blockers,
+    wouldApplyCount,
+    maxAutoApply,
+    largeApplyWarningThreshold,
+    largeApplyWarning,
+    largeApplyBlocked,
     wouldCommit: allowed && !noPush,
     wouldPush: allowed && !noPush,
     deploymentMode: deployHookConfigured ? "deploy-hook" : "git-integration",

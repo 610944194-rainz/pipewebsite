@@ -30,6 +30,19 @@ function positiveInteger(value, fallback) {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+function positiveSafeInteger(value, fallback, label) {
+  if (value === undefined) return fallback;
+  const text = String(value).trim();
+  if (!/^[1-9]\d*$/.test(text)) {
+    throw new Error(`--${label} must be a positive integer.`);
+  }
+  const parsed = Number(text);
+  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
+    throw new Error(`--${label} must be a positive safe integer.`);
+  }
+  return parsed;
+}
+
 function nonNegativeInteger(value, fallback) {
   const parsed = Number.parseInt(String(value ?? ""), 10);
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
@@ -277,6 +290,11 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     args.get("manual-large-apply"),
     false
   );
+  const maxAutoApply = positiveSafeInteger(
+    args.get("max-auto-apply"),
+    1000,
+    "max-auto-apply"
+  );
   const browserChannel = args.has("browser-channel")
     ? String(args.get("browser-channel") || "").toLowerCase()
     : null;
@@ -429,6 +447,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       args.get("progressive-detail-max"),
       5
     ),
+    maxAutoApply,
     catchUpRepeatMaxCycles: positiveInteger(
       args.get("catch-up-repeat-max-cycles"),
       1

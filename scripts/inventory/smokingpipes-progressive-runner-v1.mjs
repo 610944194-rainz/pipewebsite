@@ -63,6 +63,9 @@ import {
   randomDelayMs,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
 
+export const LARGE_APPLY_WARNING_THRESHOLD = 300;
+export const DEFAULT_MAX_AUTO_APPLY = 1000;
+
 function items(payload) {
   return Array.isArray(payload) ? payload : payload?.products || [];
 }
@@ -105,6 +108,10 @@ function progressiveMarkdown(report) {
 - partialAppliedCount: ${report.partialAppliedCount || 0}
 - candidateCount: ${report.candidateCount || 0}
 - wouldApplyCount: ${report.wouldApplyCount || 0}
+- largeApplyWarningThreshold: ${report.largeApplyWarningThreshold ?? LARGE_APPLY_WARNING_THRESHOLD}
+- maxAutoApply: ${report.maxAutoApply ?? DEFAULT_MAX_AUTO_APPLY}
+- largeApplyWarning: ${Boolean(report.largeApplyWarning)}
+- largeApplyBlocked: ${Boolean(report.largeApplyBlocked)}
 - isolatedCandidateCount: ${report.isolatedCandidateCount || 0}
 - productionWritten: ${Boolean(report.productionWritten)}
 - commitPerformed: ${Boolean(report.commitPerformed)}
@@ -209,6 +216,13 @@ function makeReport({ mode, state, result = {} }) {
       result.partialAppliedCount || 0,
     candidateCount: result.candidateCount || 0,
     wouldApplyCount: result.wouldApplyCount || 0,
+    largeApplyWarningThreshold:
+      result.largeApplyWarningThreshold ??
+      LARGE_APPLY_WARNING_THRESHOLD,
+    maxAutoApply:
+      result.maxAutoApply ?? DEFAULT_MAX_AUTO_APPLY,
+    largeApplyWarning: result.largeApplyWarning === true,
+    largeApplyBlocked: result.largeApplyBlocked === true,
     isolatedCandidateCount:
       result.isolatedCandidateCount || 0,
     productionWritten: result.productionWritten === true,
@@ -629,11 +643,22 @@ function readProgressivePublicNext(paths) {
 }
 
 export function progressiveMaxAutoApplyFromEnv(env = process.env) {
-  const parsed = Number.parseInt(
-    String(env.YANDOUBUY_SMOKINGPIPES_MAX_AUTO_APPLY || ""),
-    10
-  );
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 300;
+  const raw = String(
+    env.YANDOUBUY_SMOKINGPIPES_MAX_AUTO_APPLY || ""
+  ).trim();
+  if (!raw) return DEFAULT_MAX_AUTO_APPLY;
+  if (!/^[1-9]\d*$/.test(raw)) {
+    throw new Error(
+      "YANDOUBUY_SMOKINGPIPES_MAX_AUTO_APPLY must be a positive integer."
+    );
+  }
+  const parsed = Number(raw);
+  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
+    throw new Error(
+      "YANDOUBUY_SMOKINGPIPES_MAX_AUTO_APPLY must be a positive safe integer."
+    );
+  }
+  return parsed;
 }
 
 function stateIsManualReconcile(state) {
@@ -647,6 +672,7 @@ export function evaluateProgressiveProductionApplyGate({
   candidateProducts,
   publicPayloads,
   maxAutoApply = progressiveMaxAutoApplyFromEnv(),
+  largeApplyWarningThreshold = LARGE_APPLY_WARNING_THRESHOLD,
 }) {
   const blockers = [];
   const failedCandidates = (state?.candidates || []).filter(
@@ -695,13 +721,16 @@ export function evaluateProgressiveProductionApplyGate({
     preview?.candidateCount ?? candidateCount
   );
   const wouldApplyCount = previewWouldApplyCount;
+  const largeApplyWarning =
+    previewWouldApplyCount > largeApplyWarningThreshold;
+  const largeApplyBlocked = previewWouldApplyCount > maxAutoApply;
   if (!(candidateCount > 0)) {
     blockers.push("candidateCount must be greater than 0");
   }
   if (!(previewWouldApplyCount > 0)) {
     blockers.push("preview wouldApplyCount must be greater than 0");
   }
-  if (previewWouldApplyCount > maxAutoApply) {
+  if (largeApplyBlocked) {
     blockers.push(
       `wouldApplyCount ${previewWouldApplyCount} exceeds max auto apply ${maxAutoApply}`
     );
@@ -785,6 +814,9 @@ export function evaluateProgressiveProductionApplyGate({
     isolatedCandidateCount: gapCount,
     applyGap,
     maxAutoApply,
+    largeApplyWarningThreshold,
+    largeApplyWarning,
+    largeApplyBlocked,
     stateDailyRunId,
     stateManualReconcileBlocked,
     auditGeneratedAt: audit?.generatedAt || null,
@@ -1299,7 +1331,10 @@ async function prepareProgressiveApplyGate({
       Number.isFinite(maxAutoApplyOverride) &&
       maxAutoApplyOverride > 0
         ? maxAutoApplyOverride
-        : progressiveMaxAutoApplyFromEnv(),
+        : Number.isFinite(options.maxAutoApply) &&
+            options.maxAutoApply > 0
+          ? options.maxAutoApply
+          : progressiveMaxAutoApplyFromEnv(),
   });
   gate.blockers.push(...publicNext.blockers);
   gate.blockers = [...new Set(gate.blockers)];
@@ -1318,6 +1353,10 @@ async function prepareProgressiveApplyGate({
     isolatedCandidateCount: gate.isolatedCandidateCount,
     safeSubsetApply: gate.safeSubsetApply,
     maxAutoApply: gate.maxAutoApply,
+    largeApplyWarningThreshold:
+      gate.largeApplyWarningThreshold,
+    largeApplyWarning: gate.largeApplyWarning,
+    largeApplyBlocked: gate.largeApplyBlocked,
     stateDailyRunId: gate.stateDailyRunId,
     stateManualReconcileBlocked:
       gate.stateManualReconcileBlocked,
@@ -1848,8 +1887,15 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
   if (!readyCandidates.length) {
     blockReasons.push("wouldApplyCount must be greater than 0");
   }
-  const maxAutoApply = progressiveMaxAutoApplyFromEnv();
-  if (readyCandidates.length > maxAutoApply) {
+  const maxAutoApply =
+    Number.isFinite(options.maxAutoApply) &&
+    options.maxAutoApply > 0
+      ? options.maxAutoApply
+      : progressiveMaxAutoApplyFromEnv();
+  const largeApplyWarning =
+    readyCandidates.length > LARGE_APPLY_WARNING_THRESHOLD;
+  const largeApplyBlocked = readyCandidates.length > maxAutoApply;
+  if (largeApplyBlocked) {
     blockReasons.push(
       `wouldApplyCount ${readyCandidates.length} exceeds max auto apply ${maxAutoApply}`
     );
@@ -1881,6 +1927,9 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     wouldApplyCount: readyCandidates.length,
     isolatedCandidateCount: isolatedCandidates.length,
     maxAutoApply,
+    largeApplyWarningThreshold: LARGE_APPLY_WARNING_THRESHOLD,
+    largeApplyWarning,
+    largeApplyBlocked,
     stateDailyRunId: state?.dailyRunId || null,
     stateManualReconcileBlocked:
       state ? stateIsManualReconcile(state) : false,
@@ -2550,6 +2599,15 @@ export async function runSmokingpipesProgressiveMode({
               manualLargeApplyEvidence.wouldApplyCount,
             isolatedCandidateCount:
               manualLargeApplyEvidence.isolatedCandidateCount,
+            maxAutoApply: progressiveMaxAutoApplyFromEnv(),
+            largeApplyWarningThreshold:
+              LARGE_APPLY_WARNING_THRESHOLD,
+            largeApplyWarning:
+              manualLargeApplyEvidence.wouldApplyCount >
+              LARGE_APPLY_WARNING_THRESHOLD,
+            largeApplyBlocked:
+              manualLargeApplyEvidence.wouldApplyCount >
+              progressiveMaxAutoApplyFromEnv(),
             blockers: manualLargeApplyEvidence.blockers,
             blockedReason:
               manualLargeApplyEvidence.blockedReason,
@@ -2566,7 +2624,7 @@ export async function runSmokingpipesProgressiveMode({
         options,
         maxAutoApplyOverride:
           manualLargeApplyEvidence?.authorizedWouldApplyCount ||
-          null,
+          options.maxAutoApply,
       });
       state = prepared.state;
       audit = prepared.artifacts.audit;
@@ -2575,12 +2633,9 @@ export async function runSmokingpipesProgressiveMode({
       const gate = prepared.gate;
       const publicNext = readProgressivePublicNext(paths);
       gate.blockers.push(...publicNext.blockers);
-      if (
-        !options.manualLargeApply &&
-        gate.wouldApplyCount > 300
-      ) {
-        gate.blockers.push(
-          `wouldApplyCount ${gate.wouldApplyCount} requires --manual-large-apply`
+      if (gate.largeApplyWarning && options.verbose) {
+        console.log(
+          `APPLY warning: wouldApplyCount ${gate.wouldApplyCount} exceeds large-apply warning threshold ${gate.largeApplyWarningThreshold}; automatic apply remains subject to all safety gates and maxAutoApply=${gate.maxAutoApply}`
         );
       }
       if (manualLargeApplyEvidence) {
@@ -2631,6 +2686,10 @@ export async function runSmokingpipesProgressiveMode({
             gate.isolatedCandidateCount,
           safeSubsetApply: gate.safeSubsetApply,
           maxAutoApply: gate.maxAutoApply,
+          largeApplyWarningThreshold:
+            gate.largeApplyWarningThreshold,
+          largeApplyWarning: gate.largeApplyWarning,
+          largeApplyBlocked: gate.largeApplyBlocked,
           stateDailyRunId: gate.stateDailyRunId,
           stateManualReconcileBlocked:
             gate.stateManualReconcileBlocked,
@@ -2703,6 +2762,11 @@ export async function runSmokingpipesProgressiveMode({
           applyGap: gate.applyGap,
           isolatedCandidateCount:
             gate.isolatedCandidateCount,
+          maxAutoApply: gate.maxAutoApply,
+          largeApplyWarningThreshold:
+            gate.largeApplyWarningThreshold,
+          largeApplyWarning: gate.largeApplyWarning,
+          largeApplyBlocked: gate.largeApplyBlocked,
           postApplyValidation,
           productionWritten: false,
           commitPerformed: false,
@@ -2749,6 +2813,11 @@ export async function runSmokingpipesProgressiveMode({
         isolatedCandidateCount:
           gate.isolatedCandidateCount,
         applyGap: gate.applyGap,
+        maxAutoApply: gate.maxAutoApply,
+        largeApplyWarningThreshold:
+          gate.largeApplyWarningThreshold,
+        largeApplyWarning: gate.largeApplyWarning,
+        largeApplyBlocked: gate.largeApplyBlocked,
         manualLargeApply:
           options.manualLargeApply === true,
         productionWritten: true,

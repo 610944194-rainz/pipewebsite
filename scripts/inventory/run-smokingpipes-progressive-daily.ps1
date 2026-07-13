@@ -9,7 +9,9 @@
   [switch]$SafeBootstrap,
   [switch]$NoProductionWrite,
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
-  [string]$ProgressiveDetailMax = "30"
+  [string]$ProgressiveDetailMax = "30",
+  [ValidatePattern('^[1-9]\d*$')]
+  [string]$MaxAutoApply = "1000"
 )
 
 $ErrorActionPreference = "Stop"
@@ -43,6 +45,7 @@ $AllowDuplicateDedupeEffective = $false
 $ResumeFromCachedListEffective = $false
 $LockCurrentListSnapshotUntilCompleteEffective = $false
 $NoProductionWriteEffective = $false
+$LargeApplyWarningThreshold = 300
 $LastInventoryNodeResult = $null
 $LastInventoryNodeOutput = @()
 $DetailPhaseStatus = $null
@@ -346,6 +349,10 @@ function Write-DailyTaskState {
     wouldApplyCount = $WouldApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
     progressiveDetailMax = [int]$ProgressiveDetailMax
+    maxAutoApply = [int]$MaxAutoApply
+    largeApplyWarningThreshold = $LargeApplyWarningThreshold
+    largeApplyWarning = [bool]($WouldApplyCount -gt $LargeApplyWarningThreshold)
+    largeApplyBlocked = [bool]($WouldApplyCount -gt [int]$MaxAutoApply)
     nextRetryRecommendedAt = $NextRetryRecommendedAt
     retryAllowed = $RetryAllowed
     currentList = $currentListForState
@@ -1088,6 +1095,7 @@ $lockAcquired = $false
 Import-InventoryEnv
 Resolve-ManualRecoveryOptions
 Write-DailyLog "progressive detail chunk size: $ProgressiveDetailMax"
+Write-DailyLog "auto apply limit: max=$MaxAutoApply large-warning-threshold=$LargeApplyWarningThreshold"
 
 if ($script:PreflightOnlyEffective) {
   $preflightExit = Invoke-RecoveryPreflight -PreflightOnlyMode $true
@@ -1576,6 +1584,7 @@ try {
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-prepare-apply",
+    "--max-auto-apply=$MaxAutoApply",
     "--no-commit",
     "--no-deploy",
     "--verbose"
@@ -1638,6 +1647,7 @@ try {
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=progressive-partial-apply",
+      "--max-auto-apply=$MaxAutoApply",
       "--write-production",
       "--no-commit",
       "--no-deploy",
@@ -1685,6 +1695,8 @@ try {
         -Status $(if ($retryAllowed) { "retryable-failed" } else { "terminal-failed" }) `
         -Attempts $attempts `
         -CandidateCount $prepareCandidateCount `
+        -WouldApplyCount $prepareWouldApplyCount `
+        -AppliedCount $applyAppliedCount `
         -IsolatedCandidateCount $applyIsolatedCandidateCount `
         -FailureReason $failureReason `
         -FailureType $failureType `
@@ -1710,6 +1722,7 @@ try {
       -Status "safety-gate-blocked" `
       -Attempts $attempts `
       -CandidateCount $prepareCandidateCount `
+      -WouldApplyCount $prepareWouldApplyCount `
       -IsolatedCandidateCount $prepareIsolatedCandidateCount `
       -FailureReason $failureReason `
       -FailureType "audit" `
@@ -1721,7 +1734,6 @@ try {
     exit 0
   }
 
-  $candidateCount = $applyAppliedCount
   if ($script:ResumeFromCachedListEffective -eq $true) {
     Set-CachedListResumeFromCache -Cache $currentListCache -Completed $true
   }
@@ -1729,8 +1741,9 @@ try {
     -Status "success" `
     -Attempts $attempts `
     -ProductionWritten $true `
-    -AppliedCount $candidateCount `
-    -CandidateCount $candidateCount `
+    -AppliedCount $applyAppliedCount `
+    -CandidateCount $prepareCandidateCount `
+    -WouldApplyCount $prepareWouldApplyCount `
     -IsolatedCandidateCount $applyIsolatedCandidateCount `
     -RetryAllowed $false `
     -DetailPhaseStatus $script:DetailPhaseStatus `
