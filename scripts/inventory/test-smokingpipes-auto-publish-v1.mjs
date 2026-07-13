@@ -132,6 +132,7 @@ try {
   for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30"]) assert.match(scheduledTaskInstaller, new RegExp(time));
   assert.match(scheduledTaskInstaller, /-RestartCount 2/);
   assert.match(scheduledTaskInstaller, /-RestartInterval \(New-TimeSpan -Minutes 15\)/);
+  assert.match(scheduledTaskInstaller, /WakeToRun\s*=\s*\$true/);
   assert.match(scheduledTaskInstaller, /Disable-ScheduledTask -TaskName \$TaskName/);
 
   const resolverSource = publishScript.match(

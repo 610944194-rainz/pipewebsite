@@ -10,6 +10,7 @@ $AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run"
 $PowerShellExecutable = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
 $BuildExecutable = "C:\Program Files\nodejs\npm.cmd"
 $Launcher = Join-Path $AutomationWorktree "scripts\inventory\run-smokingpipes-scheduled-task-v1.ps1"
+# The auto-publish launcher delegates normal inventory work to run-smokingpipes-progressive-daily.ps1.
 
 function Assert-ScheduledTaskPaths {
   foreach ($required in @(
@@ -37,7 +38,6 @@ switch ($Mode) {
       multipleInstances = "IgnoreNew"
       restartCount = 2
       restartIntervalMinutes = 15
-      executionTimeLimitMinutes = 110
     }
   }
   "Backup" {
@@ -50,15 +50,32 @@ switch ($Mode) {
     Assert-ScheduledTaskPaths
     $argument = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$Launcher`""
     $action = New-ScheduledTaskAction -Execute $PowerShellExecutable -Argument $argument -WorkingDirectory $AutomationWorktree
-    $triggers = @("10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30") | ForEach-Object {
-      New-ScheduledTaskTrigger -Daily -At $_
+    try {
+      $triggers = New-ScheduledTaskTrigger `
+        -Daily `
+        -At "10:30" `
+        -RepetitionInterval (New-TimeSpan -Hours 2) `
+        -RepetitionDuration (New-TimeSpan -Hours 12)
+    } catch {
+      $triggers = @(
+        New-ScheduledTaskTrigger -Daily -At "10:30"
+        New-ScheduledTaskTrigger -Daily -At "12:30"
+        New-ScheduledTaskTrigger -Daily -At "14:30"
+        New-ScheduledTaskTrigger -Daily -At "16:30"
+        New-ScheduledTaskTrigger -Daily -At "18:30"
+        New-ScheduledTaskTrigger -Daily -At "20:30"
+        New-ScheduledTaskTrigger -Daily -At "22:30"
+      )
     }
     $settings = New-ScheduledTaskSettingsSet `
       -StartWhenAvailable `
+      -WakeToRun `
+      -AllowStartIfOnBatteries `
+      -DontStopIfGoingOnBatteries `
       -MultipleInstances IgnoreNew `
       -RestartCount 2 `
-      -RestartInterval (New-TimeSpan -Minutes 15) `
-      -ExecutionTimeLimit (New-TimeSpan -Minutes 110)
+      -RestartInterval (New-TimeSpan -Minutes 15)
+    $settings.WakeToRun = $true
     Register-ScheduledTask `
       -TaskName $TaskName `
       -Action $action `
