@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { chromium } from "playwright";
 import {
   calculateSmokingpipesReferencePrice,
   getSmokingpipesShippingUsd,
@@ -63,6 +64,7 @@ import {
 import {
   classifySmokingpipesVerificationSignals,
   classifySmokingpipesDetailStatusEvidence,
+  extractDetailProduct,
   isNormalSmokingpipesDetail,
   launchSmokingpipesContext,
   resolveSmokingpipesBrowserLaunch,
@@ -3443,6 +3445,61 @@ assert.equal(
   ),
   false
 );
+
+const detailParserFixtureBrowser = await chromium.launch({
+  headless: true,
+});
+try {
+  const detailParserFixturePage =
+    await detailParserFixtureBrowser.newPage();
+  for (const fixture of [
+    {
+      sourceProductId: "715858",
+      productCode: "002-029-91059",
+      title: "Derry Rusticated (106) Fishtail Tobacco Pipe",
+      imageUrl:
+        "https://assets.smokingpipes.com/images/products-hr/002-029-140032.9587.jpg",
+    },
+    {
+      sourceProductId: "676110",
+      productCode: "002-512-12099",
+      title: "Rustic (1201) Tobacco Pipe",
+      imageUrl:
+        "https://assets.smokingpipes.com/images/products-hr/002-512-12099.9587.jpg",
+    },
+  ]) {
+    await detailParserFixturePage.setContent(`
+      <main class="detailPage-wrap">
+        <h1 class="detailPage-prodName">${fixture.title}</h1>
+        <div class="detailPage-prodSku">Product Number: ${fixture.productCode}</div>
+        <div class="detailPage-gallery">
+          <img src="${fixture.imageUrl}" alt="${fixture.title}">
+        </div>
+        <div class="detailPage-priceArea">$131.60</div>
+        <div>Shape: Billiard</div>
+        <div>Finish: Rusticated</div>
+      </main>
+    `);
+    const parsed = await extractDetailProduct(
+      detailParserFixturePage,
+      {
+        sourceProductId: fixture.sourceProductId,
+        title: fixture.title,
+      },
+      "new"
+    );
+    assert.equal(parsed.sourceProductId, fixture.sourceProductId);
+    assert.equal(parsed.productCode, fixture.productCode);
+    assert.equal(parsed.mainImageUrl, fixture.imageUrl);
+    assert.ok(parsed.specsText.includes("Shape: Billiard"));
+    assert.equal(
+      isNormalSmokingpipesDetail(parsed, fixture.sourceProductId),
+      true
+    );
+  }
+} finally {
+  await detailParserFixtureBrowser.close();
+}
 
 const browserProfileLockRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "inventory-browser-profile-lock-")
@@ -7014,6 +7071,114 @@ assert.equal(
   "strong verification"
 );
 assert.ok(progressiveRecoveredBlocked.lastBlockedAt);
+
+const progressiveSummaryPersistenceRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-summary-persistence-")
+);
+const progressiveSummaryPersistencePaths = runnerCore.getRunnerPaths(
+  progressiveSummaryPersistenceRoot,
+  { mock: true }
+);
+const progressiveSummaryPersistenceState =
+  ingestProgressiveListSnapshot({
+    state: createProgressiveDailyState({
+      dailyRunId: "summary-persistence-test",
+      now: progressiveNow,
+    }),
+    currentPayload: {
+      generatedAt: progressiveNow,
+      summary: {
+        pagesScanned: 1,
+        expectedPages: 1,
+        fullExpectedRangeScanned: true,
+        captchaDetected: false,
+        captchaPages: [],
+      },
+      products: ["800001", "800002"].map((sourceProductId) => ({
+        sourceProductId,
+        sourceUrl: `https://example.invalid/moreinfo.cfm?product_id=${sourceProductId}`,
+        title: `Summary persistence ${sourceProductId}`,
+        price: "$131.60",
+        imageUrl: `https://example.invalid/${sourceProductId}.jpg`,
+        rawText: "Available",
+      })),
+    },
+    diffPayload: {
+      newIds: ["800001", "800002"],
+      reappearedIds: [],
+      disappearedIds: [],
+      coverage: {
+        pagesScanned: 1,
+        expectedPages: 1,
+        fullExpectedRangeScanned: true,
+      },
+    },
+    productionProducts: [],
+    runId: "summary-persistence-test",
+    now: progressiveNow,
+  });
+fs.mkdirSync(
+  path.dirname(progressiveSummaryPersistencePaths.progressiveState),
+  { recursive: true }
+);
+fs.writeFileSync(
+  progressiveSummaryPersistencePaths.progressiveState,
+  JSON.stringify(progressiveSummaryPersistenceState, null, 2),
+  "utf8"
+);
+const progressiveSummaryPersistenceResult =
+  await runSmokingpipesProgressiveMode({
+    root: progressiveSummaryPersistenceRoot,
+    options: parseRunnerOptions([
+      "--mode=progressive-detail-chunk",
+      "--mock",
+      "--progressive-detail-max=1",
+    ]),
+  });
+assert.equal(progressiveSummaryPersistenceResult.completedThisRun, 1);
+assert.equal(progressiveSummaryPersistenceResult.remainingPendingCount, 1);
+const persistedProgressiveSummaryState = JSON.parse(
+  fs.readFileSync(
+    progressiveSummaryPersistencePaths.progressiveState,
+    "utf8"
+  )
+);
+assert.equal(persistedProgressiveSummaryState.summary.complete, 1);
+assert.equal(persistedProgressiveSummaryState.summary.pending, 1);
+assert.equal(persistedProgressiveSummaryState.summary.failed, 0);
+
+const progressiveCliOutputRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-progressive-cli-output-")
+);
+const progressiveCliOutput = spawnSync(
+  process.execPath,
+  [
+    path.join(
+      process.cwd(),
+      "scripts",
+      "inventory",
+      "run-inventory-automation-v1.mjs"
+    ),
+    "--source=smokingpipes",
+    "--mode=progressive-detail-chunk",
+    "--mock",
+    "--progressive-detail-max=1",
+  ],
+  {
+    cwd: progressiveCliOutputRoot,
+    encoding: "utf8",
+  }
+);
+assert.equal(
+  progressiveCliOutput.status,
+  0,
+  progressiveCliOutput.stderr || progressiveCliOutput.stdout
+);
+const progressiveCliResult = JSON.parse(
+  progressiveCliOutput.stdout.trim()
+);
+assert.equal(progressiveCliResult.completedThisRun, 1);
+assert.equal(progressiveCliResult.remainingPendingCount, 4);
 
 const progressiveClassificationState =
   ingestProgressiveListSnapshot({
@@ -11189,6 +11354,18 @@ assert.match(
   runInventoryAutomationScript,
   /appliedCount:\s*result\.partialAppliedCount\s*\|\|\s*0/
 );
+assert.match(
+  runInventoryAutomationScript,
+  /remainingPendingCount:\s*result\.remainingPendingCount\s*\?\?\s*null/
+);
+assert.match(
+  dailyTaskScript,
+  /\$detailResult\s+-and\s+\$null\s+-ne\s+\$detailResult\.remainingPendingCount/
+);
+assert.match(
+  dailyTaskScript,
+  /\[int\]\$detailResult\.remainingPendingCount/
+);
 assert.match(dailyTaskScript, /\[switch\]\$PreflightOnly/);
 assert.match(dailyTaskScript, /\[switch\]\$ForceRunOnce/);
 assert.match(dailyTaskScript, /\[switch\]\$SkipCurrentList/);
@@ -11283,7 +11460,10 @@ assert.match(dailyTaskScript, /safety-gate-blocked/);
 assert.match(dailyTaskScript, /skipped-success/);
 assert.match(dailyTaskScript, /AddHours\(-4\)|LockStaleHours\s*=\s*4/);
 assert.match(dailyTaskScript, /nextRetryRecommendedAt/);
-assert.match(dailyTaskScript, /progressive-detail-max=30/);
+assert.match(
+  dailyTaskScript,
+  /progressive-detail-max=\$ProgressiveDetailMax/
+);
 const safeBootstrapBranch = dailyTaskScript.match(
   /if \(\$script:NoProductionWriteEffective -eq \$true\) \{[\s\S]*?^\s*\}/m
 )?.[0];

@@ -2440,14 +2440,20 @@ export async function runSmokingpipesProgressiveMode({
           checkpoint: (checkpointState) =>
             writeProgressiveDailyState(
               paths.progressiveState,
-              checkpointState
+              refreshProgressiveSummary(
+                checkpointState,
+                new Date().toISOString()
+              )
             ),
         });
       } finally {
         await processor.close();
       }
       result.browserStarted = processor.browserStarted === true;
-      state = result.state;
+      state = refreshProgressiveSummary(
+        result.state,
+        new Date().toISOString()
+      );
       await writeProgressiveDailyState(
         paths.progressiveState,
         state

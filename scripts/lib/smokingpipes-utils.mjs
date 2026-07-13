@@ -1202,7 +1202,11 @@ export async function extractDetailProduct(page, listItem, listType = "new") {
           for (const rawUrl of rawCandidates) {
             const url = absolutizeUrl(rawUrl || "");
             if (!url || !/\.(?:jpg|jpeg|png|webp)(?:[?#].*)?$/i.test(url)) continue;
-            if (!/\/products\//i.test(url)) continue;
+            // Smokingpipes serves legacy gallery assets from /products/ and
+            // current detail galleries from /images/products-hr/. Both are
+            // first-party product image paths; retain the path allow-list so
+            // site chrome and related-product images are not collected.
+            if (!/\/(?:products|images\/products-hr)\//i.test(url)) continue;
 
             const largeUrl = getLargeProductImageUrl(url);
 

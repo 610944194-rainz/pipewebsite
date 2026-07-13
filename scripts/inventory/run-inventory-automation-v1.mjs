@@ -430,6 +430,8 @@ async function run() {
             mode: options.mode,
             completedThisRun:
               result.completedThisRun || 0,
+            remainingPendingCount:
+              result.remainingPendingCount ?? null,
             candidateCount:
               result.candidateCount || 0,
             wouldApplyCount:
