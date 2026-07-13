@@ -17,7 +17,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$BuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
+$EffectiveBuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.json"
 $ReportMarkdownPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.md"
@@ -263,7 +263,7 @@ $report = [ordered]@{
   inventoryDefaultPassed = $false
   inventoryRunnerPassed = $false
   buildPassed = $false
-  buildExecutableRequested = $BuildExecutable
+  buildExecutableRequested = $EffectiveBuildExecutable
   buildExecutableResolved = $null
   buildExecutableResolutionMode = $null
   notificationStatus = "not-attempted"
@@ -469,7 +469,7 @@ try {
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryRunnerTestPath) -Stage "inventory-runner-test" | Out-Null
   $report.inventoryRunnerPassed = $true
   $report.failureStage = "executable-resolution"
-  $buildExecutable = Resolve-BuildExecutable -Requested $BuildExecutable
+  $buildExecutable = Resolve-BuildExecutable -Requested $EffectiveBuildExecutable
   $report.buildExecutableRequested = $buildExecutable.requested
   $report.buildExecutableResolved = $buildExecutable.resolved
   $report.buildExecutableResolutionMode = $buildExecutable.resolutionMode
