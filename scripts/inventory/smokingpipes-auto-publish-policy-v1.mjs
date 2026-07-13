@@ -4,6 +4,10 @@ export const AUTO_PUBLISH_PRODUCTION_PATHS = [
   "data/generated/public-products/**",
 ];
 
+export const POST_APPLY_RECOVERY_ALLOWED_PATHS = [
+  ...AUTO_PUBLISH_PRODUCTION_PATHS,
+];
+
 export const LARGE_APPLY_WARNING_THRESHOLD = 300;
 export const DEFAULT_MAX_AUTO_APPLY = 1000;
 
@@ -105,5 +109,81 @@ export function evaluateAutoPublishGate({
     wouldPush: allowed && !noPush,
     deploymentMode: deployHookConfigured ? "deploy-hook" : "git-integration",
     deploymentStatus,
+  };
+}
+
+export function evaluatePostApplyRecoveryGate({
+  reportProductionWritten = false,
+  reportCommitPerformed = false,
+  reportPushPerformed = false,
+  taskProductionWritten = false,
+  reportAppliedCount = 0,
+  taskAppliedCount = 0,
+  reportWouldApplyCount = 0,
+  taskWouldApplyCount = 0,
+  pendingCount = 0,
+  failedCount = 0,
+  fullExpectedRangeScanned = false,
+  headMatchesOriginMain = false,
+  branch = "",
+  upstream = "",
+  trackedDirtyFiles = [],
+  stagedFiles = [],
+} = {}) {
+  const blockers = [];
+  const dirty = validateAutoPublishStagedPaths(trackedDirtyFiles);
+  if (!reportProductionWritten) {
+    blockers.push("report productionWritten must be true");
+  }
+  if (reportCommitPerformed) {
+    blockers.push("report commitPerformed must be false");
+  }
+  if (reportPushPerformed) {
+    blockers.push("report pushPerformed must be false");
+  }
+  if (!taskProductionWritten) {
+    blockers.push("task productionWritten must be true");
+  }
+  if (!(reportAppliedCount > 0)) {
+    blockers.push("report appliedCount must be greater than 0");
+  }
+  if (reportAppliedCount !== taskAppliedCount) {
+    blockers.push(
+      `task appliedCount ${taskAppliedCount} does not match report ${reportAppliedCount}`
+    );
+  }
+  if (reportWouldApplyCount !== taskWouldApplyCount) {
+    blockers.push(
+      `task wouldApplyCount ${taskWouldApplyCount} does not match report ${reportWouldApplyCount}`
+    );
+  }
+  if (pendingCount > 0) blockers.push(`pending candidates=${pendingCount}`);
+  if (failedCount > 0) blockers.push(`failed candidates=${failedCount}`);
+  if (!fullExpectedRangeScanned) {
+    blockers.push("list fullExpectedRangeScanned must be true");
+  }
+  if (!headMatchesOriginMain) blockers.push("HEAD does not match origin/main");
+  if (!/^automation\//.test(String(branch))) {
+    blockers.push("branch must match automation/* for post-apply recovery");
+  }
+  if (upstream !== "origin/main") {
+    blockers.push("upstream must be origin/main for post-apply recovery");
+  }
+  if (!dirty.stagedFiles.length) {
+    blockers.push("production dirty files are required for post-apply recovery");
+  }
+  if (dirty.disallowedFiles.length) {
+    blockers.push(
+      `non-production tracked changes: ${dirty.disallowedFiles.join(", ")}`
+    );
+  }
+  if (stagedFiles.length) {
+    blockers.push("post-apply recovery requires no pre-staged files");
+  }
+  return {
+    allowed: blockers.length === 0,
+    blockers,
+    allowedDirtyFiles: dirty.stagedFiles,
+    disallowedDirtyFiles: dirty.disallowedFiles,
   };
 }

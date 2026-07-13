@@ -8,9 +8,11 @@ import {
   DEFAULT_MAX_AUTO_APPLY,
   LARGE_APPLY_WARNING_THRESHOLD,
   evaluateAutoPublishGate,
+  evaluatePostApplyRecoveryGate,
   isAllowedProductionPath,
   validateAutoPublishStagedPaths,
 } from "./smokingpipes-auto-publish-policy-v1.mjs";
+import { summarizeSmokingpipesProductionDelta } from "./smokingpipes-post-apply-recovery-audit-v1.mjs";
 
 function git(cwd, args) {
   const result = spawnSync("git", args, { cwd, encoding: "utf8" });
@@ -20,6 +22,20 @@ function git(cwd, args) {
 
 function gitResult(cwd, args) {
   return spawnSync("git", args, { cwd, encoding: "utf8" });
+}
+
+function runBuildResolver(functionSource, env) {
+  const harness = [
+    "$ErrorActionPreference = 'Stop'",
+    "function Get-Command { param($Name, $CommandType, $ErrorAction); if ($env:RESOLVE_MODE -eq 'path') { [pscustomobject]@{ Source = $env:RESOLVE_CANDIDATE; Path = $env:RESOLVE_CANDIDATE } } else { throw 'not found' } }",
+    functionSource,
+    "$value = Resolve-BuildExecutable -Requested $env:RESOLVE_REQUESTED -ProgramFilesPath $env:RESOLVE_PROGRAM_FILES",
+    "$value | ConvertTo-Json -Compress",
+  ].join("\n");
+  return spawnSync("powershell.exe", ["-NoProfile", "-Command", harness], {
+    encoding: "utf8",
+    env: { ...process.env, ...env },
+  });
 }
 
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-auto-publish-"));
@@ -39,6 +55,7 @@ try {
   assert.match(publishScript, /\[switch\]\$PreflightOnly/);
   assert.match(publishScript, /\[switch\]\$NoProductionWrite/);
   assert.match(publishScript, /\[switch\]\$NoPush/);
+  assert.match(publishScript, /\[switch\]\$ResumeAfterProductionWrite/);
   assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
   assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
   assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
@@ -58,6 +75,12 @@ try {
   assert.match(publishScript, /scripts[\\/]test-public-products-inventory-default-v1\.mjs/);
   assert.match(publishScript, /scripts[\\/]inventory[\\/]test-inventory-runner-v1\.mjs/);
   assert.match(publishScript, /npm\.cmd/);
+  assert.match(publishScript, /function Resolve-BuildExecutable/);
+  assert.match(publishScript, /buildExecutableResolved/);
+  assert.match(publishScript, /post-apply-production-audit/);
+  assert.match(publishScript, /ResumeAfterProductionWrite/);
+  assert.match(publishScript, /-not \$ResumeAfterProductionWrite -and @\(& git -C \$ProjectRoot status --porcelain --untracked-files=no\)\.Count -gt 0/);
+  assert.match(publishScript, /if \(-not \$ResumeAfterProductionWrite\) \{\s*\$dailyArguments/s);
   assert.match(publishScript, /"add", "--"/);
   assert.match(publishScript, /"reset"/);
   assert.match(publishScript, /origin\/main changed during run/);
@@ -67,6 +90,47 @@ try {
   );
   assert.doesNotMatch(publishScript, /manual-large-apply/);
   assert.doesNotMatch(publishScript, /--force(?:-with-lease)?/);
+
+  const resolverSource = publishScript.match(
+    /function Resolve-BuildExecutable\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Test-AutomationWorktree/
+  )?.[0].replace(/\r?\n\r?\nfunction Test-AutomationWorktree$/, "");
+  assert.ok(resolverSource, "build resolver function must be present");
+  const resolverRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-npm-resolver-"));
+  try {
+    const pathNpm = path.join(resolverRoot, "path-npm.cmd");
+    const programFiles = path.join(resolverRoot, "Program Files");
+    const fallbackNpm = path.join(programFiles, "nodejs", "npm.cmd");
+    const directoryOnly = path.join(resolverRoot, "directory");
+    fs.mkdirSync(path.dirname(fallbackNpm), { recursive: true });
+    fs.mkdirSync(directoryOnly);
+    fs.writeFileSync(pathNpm, "@echo off\n");
+    fs.writeFileSync(fallbackNpm, "@echo off\n");
+    const fromPath = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "path", RESOLVE_CANDIDATE: pathNpm, RESOLVE_REQUESTED: "npm.cmd", RESOLVE_PROGRAM_FILES: programFiles,
+    });
+    assert.equal(fromPath.status, 0, fromPath.stderr);
+    assert.equal(JSON.parse(fromPath.stdout).resolutionMode, "get-command");
+    const fromFallback = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: "npm.cmd", RESOLVE_PROGRAM_FILES: programFiles,
+    });
+    assert.equal(fromFallback.status, 0, fromFallback.stderr);
+    assert.equal(JSON.parse(fromFallback.stdout).resolutionMode, "program-files-fallback");
+    const explicit = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: pathNpm, RESOLVE_PROGRAM_FILES: path.join(resolverRoot, "none"),
+    });
+    assert.equal(explicit.status, 0, explicit.stderr);
+    assert.equal(JSON.parse(explicit.stdout).resolutionMode, "explicit-path");
+    const missing = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: "missing-npm.cmd", RESOLVE_PROGRAM_FILES: path.join(resolverRoot, "none"),
+    });
+    assert.notEqual(missing.status, 0);
+    const directory = runBuildResolver(resolverSource, {
+      RESOLVE_MODE: "missing", RESOLVE_CANDIDATE: "", RESOLVE_REQUESTED: directoryOnly, RESOLVE_PROGRAM_FILES: programFiles,
+    });
+    assert.notEqual(directory.status, 0);
+  } finally {
+    fs.rmSync(resolverRoot, { recursive: true, force: true });
+  }
 
   git(fixtureRoot, ["init", "--initial-branch=main"]);
   git(fixtureRoot, ["config", "user.email", "test@example.invalid"]);
@@ -181,6 +245,42 @@ try {
   assert.equal(evaluateAutoPublishGate({ ...base, productionWritten: false }).wouldCommit, false);
   assert.equal(evaluateAutoPublishGate({ ...base, deployHookConfigured: false }).deploymentStatus, "push-complete-deployment-pending-verification");
   assert.equal(evaluateAutoPublishGate({ ...base, deployHookConfigured: true, deployHookSucceeded: false }).deploymentStatus, "deploy-hook-failed");
+  assert.equal(evaluateAutoPublishGate({ ...base, trackedWorktreeClean: false }).wouldCommit, false);
+
+  const recoveryBase = {
+    reportProductionWritten: true,
+    reportCommitPerformed: false,
+    reportPushPerformed: false,
+    taskProductionWritten: true,
+    reportAppliedCount: 895,
+    taskAppliedCount: 895,
+    reportWouldApplyCount: 895,
+    taskWouldApplyCount: 895,
+    pendingCount: 0,
+    failedCount: 0,
+    fullExpectedRangeScanned: true,
+    headMatchesOriginMain: true,
+    branch: "automation/smokingpipes-production-run",
+    upstream: "origin/main",
+    trackedDirtyFiles: ["data/products/smokingpipes-products.json", "data/generated/public-products/catalog.json"],
+    stagedFiles: [],
+  };
+  assert.equal(evaluatePostApplyRecoveryGate(recoveryBase).allowed, true);
+  for (const override of [
+    { reportProductionWritten: false }, { reportCommitPerformed: true }, { reportPushPerformed: true },
+    { pendingCount: 1 }, { failedCount: 1 }, { fullExpectedRangeScanned: false },
+    { trackedDirtyFiles: ["scripts/inventory/run-smokingpipes-auto-publish.ps1"] },
+    { stagedFiles: ["data/products/smokingpipes-products.json"] },
+    { taskAppliedCount: 894 },
+  ]) {
+    assert.equal(evaluatePostApplyRecoveryGate({ ...recoveryBase, ...override }).allowed, false);
+  }
+  const delta = summarizeSmokingpipesProductionDelta({
+    beforeProducts: [{ id: "one", inventoryStatus: "sold", price: { current: 1 } }],
+    afterProducts: [{ id: "one", inventoryStatus: "available", price: { current: 2 } }, { id: "two", inventoryStatus: "available", price: { current: 3 } }],
+  });
+  assert.deepEqual(delta.actions, { added: 1, updated: 1, soldOrOutOfStockToAvailable: 1, availableToSoldOrOutOfStock: 0, priceChanged: 1 });
+  assert.equal(delta.touchedUniqueIds, 2);
 
   const remoteRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-auto-publish-remote-"));
   const remotePath = path.join(remoteRoot, "origin.git");
