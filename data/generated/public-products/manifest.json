@@ -237,9 +237,9 @@
     "staging": "data/products/unified-products-staging.json"
   },
   "inputHashes": {
-    "exchangeRates": "278653C5C372D7F980E0868C7DDD21C78D68F1E1178B825AA06A722C705DFB53",
-    "smokingpipesPricing": "2515B1429E9BF1EFB33AE48F1FD2BEFF8041504ADE53D915F97E49AB2CE76F9E",
-    "staging": "DF5D75293E9F3CB1B548F273A6D54BD8FC31D5E6B68A2E4B9DF37D1FF46E197E"
+    "exchangeRates": "3B38C95E7DF91863AC51B4C6EFE34522D939A6D9649466824DF1674CA39EBEC6",
+    "smokingpipesPricing": "933EDF8DDABF1F57747E7F7F582CF80540A1B37D1B4DFA8DA6D7148777154A64",
+    "staging": "EC98F8078A9066D5752CA96796132467D310122A4A02A33200984118043C184D"
   },
   "inventoryStatusCounts": {
     "available": 7266,
@@ -252,8 +252,8 @@
     "catalogAverageRecordBytes": 1221.11,
     "catalogBytes": 10212149,
     "catalogMaxRecordBytes": 1541,
-    "catalogReductionRatio": 0.699002,
-    "catalogToStagingRatio": 0.300998,
+    "catalogReductionRatio": 0.688883,
+    "catalogToStagingRatio": 0.311117,
     "detailMaxShardBytes": 472830,
     "detailMaxShardRecordCount": 157,
     "detailMinShardRecordCount": 98,
@@ -393,7 +393,7 @@
     "effectiveCatalogMaxBytes": 10871900,
     "filtersBytes": 20099,
     "lookupBytes": 715935,
-    "stagingBytes": 33927653
+    "stagingBytes": 32824151
   },
   "performanceBudgets": {
     "absoluteCapConfigured": false,
