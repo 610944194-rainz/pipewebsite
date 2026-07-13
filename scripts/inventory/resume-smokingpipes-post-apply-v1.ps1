@@ -11,6 +11,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$CommandExecutionModulePath = Join-Path $PSScriptRoot "smokingpipes-command-execution-v1.psm1"
+Import-Module -Name $CommandExecutionModulePath -Force
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-post-apply-recovery-latest.json"
 $ReportMarkdownPath = Join-Path $ProjectRoot "data\review\smokingpipes-post-apply-recovery-latest.md"
@@ -31,10 +33,9 @@ $ProductionPaths = @(
 )
 
 function Invoke-GitChecked { param([string[]]$Arguments)
-  $priorErrorAction = $ErrorActionPreference; $ErrorActionPreference = "Continue"
-  try { $output = @(& git -C $ProjectRoot @Arguments 2>&1); $exitCode = $LASTEXITCODE } finally { $ErrorActionPreference = $priorErrorAction }
-  if ($exitCode -ne 0) { throw "git $($Arguments -join ' ') failed: $($output -join [Environment]::NewLine)" }
-  return ($output -join [Environment]::NewLine).Trim()
+  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+  $result = Invoke-SmokingpipesCommand -Stage "git" -FilePath $git -Arguments (@("-C", $ProjectRoot) + $Arguments) -WorkingDirectory $ProjectRoot -TimeoutSeconds 300
+  return $result.StdoutTail.Trim()
 }
 
 function Get-TextTail { param([AllowNull()][string]$Text, [int]$MaximumCharacters = $ReportOutputTailChars)
@@ -56,31 +57,17 @@ function Get-FileTextTail { param([string]$PathToRead, [int]$MaximumCharacters =
 }
 
 function Invoke-GitDiffCheck {
-  $temporary = Join-Path $env:TEMP ("smokingpipes-git-diff-check-" + [guid]::NewGuid().ToString("N") + ".log")
-  $priorErrorAction = $ErrorActionPreference; $ErrorActionPreference = "Continue"
-  try {
-    & git -C $ProjectRoot diff --check *> $temporary
-    $exitCode = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $priorErrorAction }
-  try {
-    $report.exitCodes["diff-guard"] = $exitCode
-    if ($exitCode -ne 0) {
-      $tail = Get-FileTextTail -PathToRead $temporary
-      $report.stderrTail = $tail
-      throw "git diff --check failed with exit code ${exitCode}: $tail"
-    }
-  } finally {
-    if (Test-Path -LiteralPath $temporary) { Remove-Item -LiteralPath $temporary -Force }
-  }
+  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+  try { $result = Invoke-SmokingpipesCommand -Stage "diff-guard" -FilePath $git -Arguments @("-C", $ProjectRoot, "diff", "--check") -WorkingDirectory $ProjectRoot -TimeoutSeconds 300 } catch { $report.stderrTail = Get-TextTail -Text $_.Exception.Message; throw }
+  $report.exitCodes["diff-guard"] = $result.ExitCode
 }
 
 function Invoke-CheckedCommand { param([string]$FilePath, [string[]]$Arguments, [string]$Stage)
   if ([string]::IsNullOrWhiteSpace($FilePath)) { throw "$Stage executable path is not initialized" }
-  if (-not (Test-Path -LiteralPath $FilePath -PathType Leaf)) { throw "$Stage executable is missing: $FilePath" }
-  $priorErrorAction = $ErrorActionPreference; $ErrorActionPreference = "Continue"
-  try { $output = @(& $FilePath @Arguments 2>&1); $exitCode = $LASTEXITCODE } finally { $ErrorActionPreference = $priorErrorAction }
-  if ($exitCode -ne 0) { throw "$Stage failed with exit code ${exitCode}: $($output -join [Environment]::NewLine)" }
-  return ($output -join [Environment]::NewLine)
+  $timeout = if ($Stage -match "build|inventory") { 1200 } else { 600 }
+  $result = Invoke-SmokingpipesCommand -Stage $Stage -FilePath $FilePath -Arguments $Arguments -WorkingDirectory $ProjectRoot -TimeoutSeconds $timeout
+  $report.durations[$Stage] = $result.DurationSeconds; $report.exitCodes[$Stage] = $result.ExitCode; $report.stdoutTail = $result.StdoutTail; $report.stderrTail = $result.StderrTail
+  return $result.StdoutTail
 }
 
 function Read-RequiredJson { param([string]$PathToRead, [string]$Description)

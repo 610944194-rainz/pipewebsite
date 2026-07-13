@@ -19,6 +19,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$CommandExecutionModulePath = Join-Path $PSScriptRoot "smokingpipes-command-execution-v1.psm1"
+Import-Module -Name $CommandExecutionModulePath -Force
 $EffectiveBuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.json"
@@ -46,33 +48,15 @@ $LargeApplyWarningThreshold = 300
 
 function Invoke-GitChecked {
   param([string[]]$Arguments)
-  $priorErrorAction = $ErrorActionPreference
-  $ErrorActionPreference = "Continue"
-  try {
-    $output = @(& git -c http.sslBackend=openssl -C $ProjectRoot @Arguments 2>&1)
-    $exitCode = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $priorErrorAction }
-  if ($exitCode -ne 0) {
-    throw "git $($Arguments -join ' ') failed: $($output -join [Environment]::NewLine)"
-  }
-  return ($output -join [Environment]::NewLine).Trim()
+  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+  $result = Invoke-SmokingpipesCommand -Stage "git" -FilePath $git -Arguments (@("-c", "http.sslBackend=openssl", "-C", $ProjectRoot) + $Arguments) -WorkingDirectory $ProjectRoot -TimeoutSeconds 300
+  return $result.StdoutTail.Trim()
 }
 
 function Invoke-CheckedCommand {
   param([string]$FilePath, [string[]]$Arguments, [string]$Stage)
-  if (-not (Test-Path -LiteralPath $FilePath -PathType Leaf)) {
-    throw "$Stage executable is missing: $FilePath"
-  }
-  $priorErrorAction = $ErrorActionPreference
-  $ErrorActionPreference = "Continue"
-  try {
-    $output = @(& $FilePath @Arguments 2>&1)
-    $exitCode = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $priorErrorAction }
-  if ($exitCode -ne 0) {
-    throw "$Stage failed with exit code ${exitCode}: $($output -join [Environment]::NewLine)"
-  }
-  return ($output -join [Environment]::NewLine)
+  $timeout = if ($Stage -match "build|inventory-runner") { 1200 } else { 600 }
+  return (Invoke-SmokingpipesCommand -Stage $Stage -FilePath $FilePath -Arguments $Arguments -WorkingDirectory $ProjectRoot -TimeoutSeconds $timeout)
 }
 
 function Resolve-LocalExecutable {

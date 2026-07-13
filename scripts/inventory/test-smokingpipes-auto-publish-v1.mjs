@@ -76,7 +76,8 @@ try {
   assert.match(publishScript, /notification helper is missing/);
   assert.match(publishScript, /Invoke-CheckedCommand -FilePath \$NodeExecutablePath/);
   assert.match(publishScript, /Complete-AutoPublish/);
-  assert.match(publishScript, /git -c http\.sslBackend=openssl -C \$ProjectRoot/);
+  assert.match(publishScript, /smokingpipes-command-execution-v1\.psm1/);
+  assert.match(publishScript, /Invoke-SmokingpipesCommand -Stage "git"/);
   assert.doesNotMatch(publishScript, /& node "scripts\/inventory\/smokingpipes-auto-publish-notify-v1\.mjs"/);
   assert.match(publishScript, /scripts[\\/]validate-public-product-indexes-v1\.mjs/);
   assert.match(publishScript, /scripts[\\/]test-public-products-inventory-default-v1\.mjs/);
