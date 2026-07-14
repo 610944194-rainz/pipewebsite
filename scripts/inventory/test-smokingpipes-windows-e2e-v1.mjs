@@ -103,12 +103,17 @@ function makeScenario(name, installDependencies = true) {
   run("git", ["clone", "--no-local", root, fixture]);
   git(fixture, ["config", "user.email", "e2e@example.invalid"]);
   git(fixture, ["config", "user.name", "Smokingpipes Windows E2E"]);
-  git(fixture, ["switch", "-c", `automation/${name}`, "dc8e03d"]);
+  git(fixture, ["switch", "-c", "automation/smokingpipes-production-run", "dc8e03d"]);
   for (const commit of codeCommits) git(fixture, ["cherry-pick", commit]);
+  for (const file of [
+    "scripts/inventory/run-smokingpipes-auto-publish.ps1",
+    "scripts/inventory/smokingpipes-command-execution-v1.psm1",
+    "scripts/inventory/smokingpipes-command-runner-v1.mjs",
+  ]) fs.copyFileSync(path.join(root, file), path.join(fixture, file));
   writeFixtureDaily(path.join(fixture, "scripts", "inventory", "run-smokingpipes-progressive-daily.ps1"));
   const failBuild = path.join(fixture, "scripts", "inventory", "e2e-npm-build-fail.cmd");
   fs.writeFileSync(failBuild, `@echo off\r\ncall "${npmPath}" %*\r\nif errorlevel 1 exit /b %errorlevel%\r\necho E2E-INJECTED-BUILD-FAIL 1>&2\r\nexit /b 23\r\n`, "utf8");
-  git(fixture, ["add", "--", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/e2e-npm-build-fail.cmd"]);
+  git(fixture, ["add", "--", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/e2e-npm-build-fail.cmd"]);
   git(fixture, ["commit", "-m", "test: install isolated daily fixture"]);
   git(fixture, ["remote", "set-url", "origin", bare]);
   git(fixture, ["push", "origin", "HEAD:main"]);
