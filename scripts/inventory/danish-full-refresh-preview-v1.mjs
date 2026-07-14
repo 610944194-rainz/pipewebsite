@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 // Phase 0A preview only.  This module deliberately has no production/public writer.
 const SOURCE = "danish";
@@ -102,7 +103,7 @@ function runPaths(root, runId) {
 }
 function assertRunId(value) { if (!/^[A-Za-z0-9][A-Za-z0-9._-]{2,80}$/.test(value || "")) throw new Error("RunId must be 3-81 characters: letters, digits, dot, underscore, hyphen."); }
 function read(filePath) { return JSON.parse(fs.readFileSync(filePath, "utf8")); }
-function gitSha(root) { try { return execFileSync("git", ["-C", root, "rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "unavailable"; } }
+function gitSha(root) { try { return execFileSync("git", ["-C", root, "rev-parse", "HEAD"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim(); } catch { return "unavailable"; } }
 function getBaseline(root) {
   const production = read(path.join(root, "data", "products", "danish-products.json"));
   const publicCatalog = products(read(path.join(root, "data", "generated", "public-products", "catalog.json"))).filter((item) => text(item.source).toLowerCase() === SOURCE || /^danish-/i.test(text(item.id)));
@@ -216,7 +217,19 @@ export async function runPreview(options) {
   return { paths, manifest, diff };
 }
 export function readRunReport(root, runId) { const paths = runPaths(path.resolve(root), runId); return { manifest: read(path.join(paths.raw, "manifest.json")), diff: read(path.join(paths.review, "diff-preview.json")), paths }; }
+function fixtureList(filePath) {
+  const content = fs.readFileSync(filePath, "utf8");
+  if (path.extname(filePath).toLowerCase() === ".html") {
+    const parsed = parseListHtml(content, `file://${filePath.replaceAll("\\", "/")}`, 1);
+    return { products: parsed.products, pages: [{ pageIndex: 1, url: filePath, kind: parsed.products.length ? "success" : "empty-failure", itemCount: parsed.products.length, endReason: "no-next", fixture: true }], expectedPages: parsed.expectedPages || 1 };
+  }
+  const parsed = JSON.parse(content);
+  return { products: products(parsed), pages: parsed.pages || [{ pageIndex: 1, url: filePath, kind: "success", itemCount: products(parsed).length, endReason: "no-next", fixture: true }], expectedPages: parsed.expectedPages || 1 };
+}
 function args(argv) { const values = {}; for (let index = 0; index < argv.length; index += 1) { const key = argv[index]; if (!key.startsWith("--")) continue; values[key.slice(2)] = argv[index + 1]?.startsWith("--") || argv[index + 1] === undefined ? true : argv[++index]; } return values; }
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"))) {
-  try { const cli = args(process.argv.slice(2)); if (cli.report) { console.log(json(readRunReport(cli["automation-worktree"], cli["run-id"]))); } else { const result = await runPreview({ automationWorktree: cli["automation-worktree"], runId: cli["run-id"], listOnly: Boolean(cli["list-only"]), resume: Boolean(cli.resume), maxDetailItems: Number(cli["max-detail-items"] || 30) }); console.log(json({ runId: result.manifest.runId, integrityGate: result.diff.integrityGate.complete, pending: result.manifest.pending, allowApply: false, productionWritten: false, publicWritten: false })); } } catch (error) { console.error(error?.stack || error); process.exitCode = 1; }
+function isDirectExecution() {
+  return Boolean(process.argv[1]) && path.resolve(process.argv[1]).toLowerCase() === path.resolve(fileURLToPath(import.meta.url)).toLowerCase();
+}
+if (isDirectExecution()) {
+  try { const cli = args(process.argv.slice(2)); const fixturePath = cli["fixture-list"] ? path.resolve(cli["fixture-list"]) : ""; if (cli.report) { console.log(json(readRunReport(cli["automation-worktree"], cli["run-id"]))); } else { console.log(`[NODE] Danish full refresh mode=${fixturePath ? "fixture" : "live"} listOnly=${Boolean(cli["list-only"])} resume=${Boolean(cli.resume)}`); const result = await runPreview({ automationWorktree: cli["automation-worktree"], runId: cli["run-id"], listOnly: Boolean(cli["list-only"]), resume: Boolean(cli.resume), maxDetailItems: Number(cli["max-detail-items"] || 30), collectedList: fixturePath ? fixtureList(fixturePath) : undefined, detailState: fixturePath ? {} : undefined }); console.log(json({ runId: result.manifest.runId, integrityGate: result.diff.integrityGate.complete, pending: result.manifest.pending, allowApply: false, productionWritten: false, publicWritten: false })); } } catch (error) { console.error(error?.stack || error); process.exitCode = 1; }
 }
