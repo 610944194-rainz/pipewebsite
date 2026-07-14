@@ -167,7 +167,7 @@ export function evaluateIntegrity({ pages, currentProducts, expectedPages, detai
 function makeManifest({ runId, root, paths, startedAt, list, details, diff }) {
   const files = [path.join(paths.raw, "list.json"), path.join(paths.raw, "details.json"), path.join(paths.raw, "checkpoint.json"), path.join(paths.audits, "page-audit.json"), path.join(paths.audits, "detail-audit.json"), path.join(paths.review, "diff-preview.json")].filter(fs.existsSync);
   const hashes = Object.fromEntries(files.map((file) => [path.relative(root, file).replaceAll("\\", "/"), sha256(fs.readFileSync(file))]));
-  return { schemaVersion: 1, source: SOURCE, runId, mode: "preview-only", startedAt, completedAt: iso(), entryUrl: list.entryUrl || START_URL, expectedPages: list.expectedPages, successfulPages: diff.integrityGate.successfulPages, failedPages: diff.integrityGate.failedPages, emptyPages: list.pages.filter((page) => page.kind.includes("empty")).length, blockedPages: diff.integrityGate.blockedPages, uniqueProducts: list.products.length, available: list.products.filter((item) => item.inventoryStatus === "available").length, sold: list.products.filter((item) => item.inventoryStatus === "sold").length, unavailable: list.products.filter((item) => item.inventoryStatus === "unavailable").length, unknown: diff.integrityGate.unknown, blocked: diff.integrityGate.blocked, duplicateIds: diff.integrityGate.duplicateIds, duplicateUrls: diff.integrityGate.duplicateUrls, detailSuccess: Object.values(details).filter(isCompleteDetail).length, detailFailed: diff.integrityGate.detailFailures, detailReused: Object.values(details).filter((detail) => detail?.reused).length, pending: list.products.filter((item) => !isCompleteDetail(details[item.sourceProductId])).length, integrityGate: diff.integrityGate, failureStage: list.failureStage || null, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerificationRequested: Boolean(list.manualVerification?.requested), manualVerificationCompleted: Boolean(list.manualVerification?.completed), manualVerificationTimeoutSeconds: list.manualVerification?.timeoutSeconds ?? null, manualVerificationWaitedSeconds: list.manualVerification?.waitedSeconds ?? 0, blockerType: list.manualVerification?.blockerType || null, blockerDetectedAt: list.manualVerification?.detectedAt || null, verificationCompletedAt: list.manualVerification?.completedAt || null, screenshotPath: list.manualVerification?.screenshotPath || null, blockedHtmlPath: list.manualVerification?.blockedHtmlPath || null, filesSha256: hashes, scriptCommitSha: gitSha(root), allowApply: false, productionWritten: false, publicWritten: false };
+  return { schemaVersion: 1, source: SOURCE, runId, mode: "preview-only", startedAt, completedAt: iso(), entryUrl: list.entryUrl || START_URL, expectedPages: list.expectedPages, successfulPages: diff.integrityGate.successfulPages, failedPages: diff.integrityGate.failedPages, emptyPages: list.pages.filter((page) => page.kind.includes("empty")).length, blockedPages: diff.integrityGate.blockedPages, uniqueProducts: list.products.length, available: list.products.filter((item) => item.inventoryStatus === "available").length, sold: list.products.filter((item) => item.inventoryStatus === "sold").length, unavailable: list.products.filter((item) => item.inventoryStatus === "unavailable").length, unknown: diff.integrityGate.unknown, blocked: diff.integrityGate.blocked, duplicateIds: diff.integrityGate.duplicateIds, duplicateUrls: diff.integrityGate.duplicateUrls, detailSuccess: Object.values(details).filter(isCompleteDetail).length, detailFailed: diff.integrityGate.detailFailures, detailReused: Object.values(details).filter((detail) => detail?.reused).length, pending: list.products.filter((item) => !isCompleteDetail(details[item.sourceProductId])).length, integrityGate: diff.integrityGate, failureStage: list.failureStage || null, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerificationRequested: Boolean(list.manualVerification?.requested), manualVerificationCompleted: Boolean(list.manualVerification?.completed), manualVerificationTimeoutSeconds: list.manualVerification?.timeoutSeconds ?? null, manualVerificationWaitedSeconds: list.manualVerification?.waitedSeconds ?? 0, blockerType: list.manualVerification?.blockerType || null, blockerDetectedAt: list.manualVerification?.detectedAt || null, verificationCompletedAt: list.manualVerification?.completedAt || null, screenshotPath: list.manualVerification?.screenshotPath || null, blockedHtmlPath: list.manualVerification?.blockedHtmlPath || null, languageSelectionDetected: Boolean(list.languageSelection?.detected), languageSelectionAutomatic: Boolean(list.languageSelection?.automatic), languageSelectionPreferredLanguage: list.languageSelection?.preferredLanguage || null, languageSelectionSelectedLanguage: list.languageSelection?.selectedLanguage || null, languageSelectionAttemptCount: list.languageSelection?.attemptCount ?? 0, languageSelectionCompleted: Boolean(list.languageSelection?.completed), languageSelectionFallbackToManual: Boolean(list.languageSelection?.fallbackToManual), languageSelectionFailureReason: list.languageSelection?.failureReason || null, filesSha256: hashes, scriptCommitSha: gitSha(root), allowApply: false, productionWritten: false, publicWritten: false };
 }
 
 async function launchDanishContext(options) {
@@ -180,10 +180,89 @@ async function launchDanishContext(options) {
   });
 }
 async function readPageState(page) {
-  const [html, title, cardCount] = await Promise.all([
+  const [html, title, cardCount, pipesNavigation] = await Promise.all([
     page.content(), page.title(), page.locator("#list-container-inner .list-item").count().catch(() => 0),
+    page.getByText("PIPES", { exact: true }).count().catch(() => 0),
   ]);
-  return { html, title: text(title), url: page.url(), cardCount, inspection: inspectHtml(html) };
+  return { html, title: text(title), url: page.url(), cardCount, pipesNavigation: pipesNavigation > 0, inspection: inspectHtml(html) };
+}
+async function findLanguageModal(page) {
+  const title = page.getByText("Welcome to The Danish Pipe Shop", { exact: true }).first();
+  if (!(await title.count().catch(() => 0)) || !(await title.isVisible().catch(() => false))) return null;
+  const modal = title.locator("xpath=ancestor::*[@role='dialog' or contains(translate(@class, 'MODAL', 'modal'), 'modal') or contains(translate(@class, 'WELCOME', 'welcome'), 'welcome') or contains(translate(@id, 'MODAL', 'modal'), 'modal')]").last();
+  return (await modal.count().catch(() => 0)) ? modal : title.locator("xpath=parent::*");
+}
+async function isReadyForProducts(page) {
+  const state = await readPageState(page);
+  return { ready: state.cardCount > 0 || state.pipesNavigation, state };
+}
+async function clickExactLanguageText(modal, value) {
+  const exactText = modal.getByText(value, { exact: true }).first();
+  if (await exactText.count().catch(() => 0) && await exactText.isVisible().catch(() => false)) {
+    try { await exactText.click({ timeout: 3000 }); return true; } catch {}
+    const clickableParent = exactText.locator("xpath=ancestor-or-self::*[self::button or self::a or @role='button' or @data-language or @lang][1]");
+    if (await clickableParent.count().catch(() => 0) && await clickableParent.isVisible().catch(() => false)) { await clickableParent.click({ timeout: 3000 }); return true; }
+  }
+  return false;
+}
+async function languageCandidates(modal) {
+  const selectChoices = await modal.locator("select").evaluateAll((selects) => selects.flatMap((select, selectIndex) => Array.from(select.options).map((option) => ({ selectIndex, value: option.value, text: (option.textContent || "").replace(/\s+/g, " ").trim(), disabled: option.disabled }))));
+  const textChoices = await modal.locator("button,a,[role='button'],[data-language],[lang],label,li").evaluateAll((nodes) => nodes.map((node) => ({ text: (node.textContent || "").replace(/\s+/g, " ").trim(), disabled: node.hasAttribute("disabled") || node.getAttribute("aria-disabled") === "true", visible: Boolean(node.offsetWidth || node.offsetHeight || node.getClientRects().length), close: /^(close|cancel|back)$/i.test((node.textContent || "").replace(/\s+/g, " ").trim()) || /privacy|terms|help/i.test((node.textContent || "").replace(/\s+/g, " ").trim()) })).filter((choice) => choice.text));
+  const validText = textChoices.filter((choice) => choice.visible && !choice.disabled && !choice.close);
+  const preferred = /^(english|english us|english uk|en)$/i;
+  const exactEnglish = "CLICK HERE TO CHOOSE ENGLISH";
+  const exactChinese = "请点击这里选择中文";
+  const ordered = [
+    { kind: "text", text: exactEnglish, preferred: true },
+    ...selectChoices.filter((choice) => !choice.disabled && (preferred.test(choice.text) || /english/i.test(choice.text))).map((choice) => ({ kind: "select", ...choice, preferred: true })),
+    ...validText.filter((choice) => preferred.test(choice.text) || /^english/i.test(choice.text)).map((choice) => ({ kind: "text", text: choice.text, preferred: true })),
+    { kind: "text", text: exactChinese, preferred: false, chinese: true },
+    ...selectChoices.filter((choice) => !choice.disabled && !preferred.test(choice.text)).map((choice) => ({ kind: "select", ...choice, preferred: false })),
+    ...validText.filter((choice) => !preferred.test(choice.text) && choice.text !== exactEnglish && choice.text !== exactChinese).map((choice) => ({ kind: "text", text: choice.text, preferred: false })),
+  ];
+  return ordered.filter((choice, index, values) => choice.text && values.findIndex((other) => `${other.kind}:${other.selectIndex ?? ""}:${other.value ?? other.text}` === `${choice.kind}:${choice.selectIndex ?? ""}:${choice.value ?? choice.text}`) === index);
+}
+async function waitForModalCloseAndProducts(page, modal, seconds) {
+  const deadline = Date.now() + seconds * 1000;
+  while (Date.now() <= deadline) {
+    const modalVisible = await modal.isVisible().catch(() => false);
+    const ready = await isReadyForProducts(page);
+    if (!modalVisible && ready.ready) return { passed: true, state: ready.state };
+    await page.waitForTimeout(1000);
+  }
+  return { passed: false, state: await readPageState(page) };
+}
+async function waitForManualLanguageFallback(page, options, pageIndex, state, language) {
+  const started = Date.now(); console.log("[WAIT] automatic language selection failed"); console.log("please select any language manually");
+  while (Date.now() - started <= options.manualVerificationSeconds * 1000) {
+    const modal = await findLanguageModal(page); const ready = await isReadyForProducts(page);
+    if (!modal && ready.ready) return { passed: true, state: ready.state, language: { ...language, completed: true, fallbackToManual: true, failureReason: language.failureReason || "automatic-selection-failed" } };
+    await page.waitForTimeout(1000);
+  }
+  const finalState = await readPageState(page); const diagnostics = await saveBlockDiagnostics(page, options, pageIndex, finalState);
+  return { passed: false, state: finalState, language: { ...language, completed: false, fallbackToManual: true, failureReason: language.failureReason || "automatic-selection-failed", ...diagnostics } };
+}
+async function handleLanguageModal(page, options, pageIndex) {
+  const modal = await findLanguageModal(page); if (!modal) return null;
+  console.log("[INFO] Danish age/language gate detected"); console.log("[INFO] Danish language modal detected");
+  const language = { detected: true, automatic: false, preferredLanguage: "English", selectedLanguage: null, attemptCount: 0, completed: false, fallbackToManual: false, failureReason: null };
+  for (const candidate of await languageCandidates(modal)) {
+    if (language.attemptCount >= 3) break;
+    try {
+      let clicked = false;
+      if (candidate.kind === "select") { await modal.locator("select").nth(candidate.selectIndex).selectOption(candidate.value); clicked = true; }
+      else clicked = await clickExactLanguageText(modal, candidate.text);
+      if (!clicked) continue;
+      language.attemptCount += 1;
+      language.selectedLanguage = candidate.text;
+      if (candidate.preferred) { console.log("[INFO] automatically selecting English"); console.log("[INFO] selected language: English"); } else console.log(`[INFO] selected fallback language: ${candidate.text}`);
+      await page.waitForTimeout(options.languageRetryDelayMs ?? 2000);
+      if (await modal.isVisible().catch(() => false)) continue;
+      const result = await waitForModalCloseAndProducts(page, modal, options.manualVerificationSeconds);
+      if (result.passed) { language.automatic = true; language.completed = true; console.log("[PASS] Danish age/language gate completed"); console.log("[PASS] Danish language selection completed"); return { passed: true, state: result.state, language }; }
+    } catch (error) { language.failureReason = text(error?.message || error); }
+  }
+  return waitForManualLanguageFallback(page, options, pageIndex, await readPageState(page), language);
 }
 async function saveBlockDiagnostics(page, options, pageIndex, state) {
   await fs.promises.mkdir(options.auditDir, { recursive: true });
@@ -203,7 +282,7 @@ async function waitForManualVerification(page, options, pageIndex, initialState)
   let state = initialState;
   while (Date.now() - started <= timeoutMs) {
     state = await readPageState(page);
-    if (state.inspection.kind === "ok" && state.cardCount > 0) {
+    if (state.inspection.kind !== "blocked") {
       const waitedSeconds = Number(((Date.now() - started) / 1000).toFixed(1));
       console.log("[PASS] Danish manual verification completed");
       return { passed: true, state, event: { pageIndex, url: state.url, blockerType: initialState.inspection.code, detectedAt: startedAt, completedAt: iso(), waitedSeconds } };
@@ -222,7 +301,7 @@ async function liveItems(page, currentUrl, pageIndex) {
 }
 export async function collectLiveList(options) {
   const browser = { mode: options.headed ? "headed" : "headless", channel: options.browserChannel ?? (options.headed ? "chrome" : "playwright-default"), profilePath: path.relative(options.root, options.profileDir).replaceAll("\\", "/") };
-  const pages = [], output = [], seen = new Set(), verificationEvents = [];
+  const pages = [], output = [], seen = new Set(), verificationEvents = []; let languageSelection = { detected: false, automatic: false, preferredLanguage: "English", selectedLanguage: null, attemptCount: 0, completed: false, fallbackToManual: false, failureReason: null };
   let context; const ownsContext = !options.context;
   try { context = options.context || await launchDanishContext(options); }
   catch (error) { return { entryUrl: options.startUrl, products: output, pages, expectedPages: null, browser, manualVerification: { requested: false, completed: false, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: 0 }, failureStage: "browser-launch", exitCode: 1, failureMessage: text(error?.message || error) }; }
@@ -233,20 +312,26 @@ export async function collectLiveList(options) {
       let state = await readPageState(page);
       if (state.inspection.kind === "blocked") {
         const verification = await waitForManualVerification(page, options, pageIndex, state); verificationEvents.push(verification.event);
-        if (!verification.passed) { pages.push({ pageIndex, url: state.url, kind: "blocked", reason: state.inspection.code, itemCount: 0, manualVerification: verification.event }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: true, completed: false, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verification.event.waitedSeconds, ...verification.event, events: verificationEvents }, failureStage: "manual-verification-timeout", exitCode: 3, failureMessage: "manual verification timed out" }; }
+        if (!verification.passed) { pages.push({ pageIndex, url: state.url, kind: "blocked", reason: state.inspection.code, itemCount: 0, manualVerification: verification.event }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: true, completed: false, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verification.event.waitedSeconds, ...verification.event, events: verificationEvents }, failureStage: "manual-verification-timeout", exitCode: 3, failureMessage: "manual verification timed out" }; }
         state = verification.state;
       }
-      if (state.inspection.kind === "structure-change") { pages.push({ pageIndex, url: state.url, kind: "structure-change", reason: state.inspection.code, itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "page-structure-unrecognized", exitCode: 5, failureMessage: state.inspection.code }; }
+      const language = await handleLanguageModal(page, options, pageIndex);
+      if (language) {
+        languageSelection = language.language;
+        if (!language.passed) { pages.push({ pageIndex, url: state.url, kind: "language-selection-failed", reason: language.language.failureReason, itemCount: 0, languageSelection }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "language-selection-failed", exitCode: 3, failureMessage: language.language.failureReason || "language selection failed" }; }
+        state = language.state;
+      }
+      if (state.inspection.kind === "structure-change") { pages.push({ pageIndex, url: state.url, kind: "structure-change", reason: state.inspection.code, itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "page-structure-unrecognized", exitCode: 5, failureMessage: state.inspection.code }; }
       const parsed = parseListHtml(state.html, state.url, pageIndex); expectedPages = Math.max(expectedPages || 0, parsed.expectedPages || 0) || null;
       const items = await liveItems(page, state.url, pageIndex);
-      if (!items.length) { const hasNext = Boolean(parsed.nextUrl); pages.push({ pageIndex, url: state.url, kind: pageIndex === 1 || hasNext ? "empty-failure" : "normal-end-empty", reason: "no-list-items", itemCount: 0, endReason: hasNext ? "unexpected-empty" : "no-next" }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "empty-list", exitCode: 4, failureMessage: "list page has no products" }; }
+      if (!items.length) { const hasNext = Boolean(parsed.nextUrl); pages.push({ pageIndex, url: state.url, kind: pageIndex === 1 || hasNext ? "empty-failure" : "normal-end-empty", reason: "no-list-items", itemCount: 0, endReason: hasNext ? "unexpected-empty" : "no-next" }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "empty-list", exitCode: 4, failureMessage: "list page has no products" }; }
       for (const item of items) if (!seen.has(item.sourceProductId)) { seen.add(item.sourceProductId); output.push(item); }
       const next = parsed.nextUrl; pages.push({ pageIndex, url: state.url, kind: "success", itemCount: items.length, uniqueCount: output.length, endReason: next ? "next" : "no-next", manualVerification: verificationEvents.at(-1) || null });
       currentUrl = next; pageIndex += 1;
     }
-  } catch (error) { pages.push({ pageIndex, url: page.url(), kind: "collector-error", reason: text(error?.message || error), itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "list-collector-error", exitCode: 2, failureMessage: text(error?.message || error) }; }
+  } catch (error) { pages.push({ pageIndex, url: page.url(), kind: "collector-error", reason: text(error?.message || error), itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "list-collector-error", exitCode: 2, failureMessage: text(error?.message || error) }; }
   finally { if (ownsContext) await context.close(); }
-  return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents } };
+  return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, languageSelection, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents } };
 }
 async function collectLiveDetails(items, existing, maxItems, onUpdate, browserOptions) {
   const context = await launchDanishContext(browserOptions); const page = context.pages()[0] || await context.newPage(); const updated = { ...existing }; let processed = 0;
@@ -264,9 +349,9 @@ export async function runPreview(options) {
   const paths = runPaths(outputRoot, runId), startedAt = iso(); const checkpointPath = path.join(paths.raw, "checkpoint.json");
   if (!options.collectedList && fs.existsSync(path.join(paths.raw, "list.json")) && !options.resume) throw new Error(`RunId already exists; use -Resume or select a new RunId: ${runId}`);
   let list = options.collectedList || (fs.existsSync(path.join(paths.raw, "list.json")) && options.resume ? read(path.join(paths.raw, "list.json")) : await collectLiveList({ root, startUrl: options.entryUrl || START_URL, headed: Boolean(options.headed), browserChannel: options.browserChannel, context: options.context, manualVerificationSeconds, profileDir: path.join(root, "data", "runtime", "danish-browser-profile"), auditDir: paths.audits }));
-  if (options.collectedList) list = { ...list, entryUrl: list.entryUrl || "fixture", browser: { mode: "fixture", channel: null }, manualVerification: { requested: false, completed: false, timeoutSeconds: manualVerificationSeconds, waitedSeconds: 0 } };
+  if (options.collectedList) list = { ...list, entryUrl: list.entryUrl || "fixture", browser: { mode: "fixture", channel: null }, manualVerification: { requested: false, completed: false, timeoutSeconds: manualVerificationSeconds, waitedSeconds: 0 }, languageSelection: list.languageSelection || { detected: false, automatic: false, preferredLanguage: "English", selectedLanguage: null, attemptCount: 0, completed: false, fallbackToManual: false, failureReason: null } };
   list.products = list.products.map((item) => ({ ...item, inventoryStatus: item.inventoryStatus || status(item.rawStatusText) }));
-  await writeAtomic(path.join(paths.raw, "list.json"), list, 25 * 1024 * 1024); await writeAtomic(path.join(paths.audits, "page-audit.json"), { source: SOURCE, runId, pages: list.pages, expectedPages: list.expectedPages, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerification: list.manualVerification || null, failureStage: list.failureStage || null });
+  await writeAtomic(path.join(paths.raw, "list.json"), list, 25 * 1024 * 1024); await writeAtomic(path.join(paths.audits, "page-audit.json"), { source: SOURCE, runId, pages: list.pages, expectedPages: list.expectedPages, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerification: list.manualVerification || null, languageSelection: list.languageSelection || null, failureStage: list.failureStage || null });
   let details = options.detailState || (fs.existsSync(path.join(paths.raw, "details.json")) ? read(path.join(paths.raw, "details.json")) : {});
   if (!options.listOnly && !options.detailState) details = await collectLiveDetails(list.products, details, options.maxDetailItems ?? 30, async (partial) => {
     await writeAtomic(path.join(paths.raw, "details.json"), partial, 25 * 1024 * 1024);
