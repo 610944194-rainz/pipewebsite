@@ -46,11 +46,60 @@ $ProductionExactPaths = @(
 )
 $LargeApplyWarningThreshold = 300
 
+function Format-GitCommand {
+  param([string]$GitPath, [string[]]$Arguments)
+  $displayArguments = @($Arguments | ForEach-Object {
+    if ($_ -match '[\s"]') { '"' + $_.Replace('"', '\"') + '"' } else { $_ }
+  })
+  return (@($GitPath) + $displayArguments) -join ' '
+}
+
+function Set-GitReportDiagnostics {
+  param([string]$Command, [object]$Result)
+  $report.gitCommand = $Command
+  $report.gitExitCode = $Result.ExitCode
+  $report.gitStdoutTail = Get-SmokingpipesTextTail -Text ([string]$Result.StdoutTail)
+  $report.gitStderrTail = Get-SmokingpipesTextTail -Text ([string]$Result.StderrTail)
+}
+
+function Invoke-GitCommand {
+  param(
+    [string[]]$Arguments,
+    [int[]]$AllowedExitCodes = @(0)
+  )
+  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+  $effectiveArguments = @("-c", "http.sslBackend=openssl", "-C", $ProjectRoot) + $Arguments
+  $command = Format-GitCommand -GitPath $git -Arguments $effectiveArguments
+  try {
+    $result = Invoke-SmokingpipesCommand -Stage "git" -FilePath $git -Arguments $effectiveArguments -WorkingDirectory $ProjectRoot -TimeoutSeconds 300
+  } catch {
+    $exitCode = $null
+    if ($null -ne $_.Exception.Data["exitCode"]) { $exitCode = [int]$_.Exception.Data["exitCode"] }
+    elseif ($_.Exception.Message -match 'exit code\s+(\d+)') { $exitCode = [int]$Matches[1] }
+    $result = [pscustomobject]@{
+      ExitCode = $exitCode
+      StdoutTail = [string]$_.Exception.Data["stdoutTail"]
+      StderrTail = [string]$_.Exception.Data["stderrTail"]
+    }
+  }
+  Set-GitReportDiagnostics -Command $command -Result $result
+  if ($AllowedExitCodes -notcontains $result.ExitCode) {
+    $stderr = Get-SmokingpipesTextTail -Text ([string]$result.StderrTail)
+    $reason = "git command failed: $command; exitCode=$($result.ExitCode)"
+    if (-not [string]::IsNullOrWhiteSpace($stderr)) { $reason += "; stderr=$stderr" }
+    $failure = [InvalidOperationException]::new($reason)
+    $failure.Data["gitCommand"] = $command
+    $failure.Data["gitExitCode"] = $result.ExitCode
+    $failure.Data["gitStdoutTail"] = [string]$result.StdoutTail
+    $failure.Data["gitStderrTail"] = [string]$result.StderrTail
+    throw $failure
+  }
+  return $result
+}
+
 function Invoke-GitChecked {
   param([string[]]$Arguments)
-  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
-  $result = Invoke-SmokingpipesCommand -Stage "git" -FilePath $git -Arguments (@("-c", "http.sslBackend=openssl", "-C", $ProjectRoot) + $Arguments) -WorkingDirectory $ProjectRoot -TimeoutSeconds 300
-  return $result.StdoutTail.Trim()
+  return (Invoke-GitCommand -Arguments $Arguments).StdoutTail.Trim()
 }
 
 function Invoke-CheckedCommand {
@@ -262,6 +311,17 @@ $report = [ordered]@{
   buildExecutableRequested = $EffectiveBuildExecutable
   buildExecutableResolved = $null
   buildExecutableResolutionMode = $null
+  syncAttempted = $false
+  syncPerformed = $false
+  headBeforeSync = $null
+  headAfterSync = $null
+  originMainSha = $null
+  gitCommand = $null
+  gitExitCode = $null
+  gitStdoutTail = $null
+  gitStderrTail = $null
+  schedulerUser = [Security.Principal.WindowsIdentity]::GetCurrent().Name
+  workingDirectory = $ProjectRoot
   notificationStatus = "not-attempted"
   notificationFailure = $null
   resumeAfterProductionWrite = $ResumeAfterProductionWrite -eq $true
@@ -310,6 +370,17 @@ function Write-AutoPublishReport {
     "- buildExecutableRequested: $($report.buildExecutableRequested)",
     "- buildExecutableResolved: $($report.buildExecutableResolved)",
     "- buildExecutableResolutionMode: $($report.buildExecutableResolutionMode)",
+    "- syncAttempted: $($report.syncAttempted)",
+    "- syncPerformed: $($report.syncPerformed)",
+    "- headBeforeSync: $($report.headBeforeSync)",
+    "- headAfterSync: $($report.headAfterSync)",
+    "- originMainSha: $($report.originMainSha)",
+    "- gitCommand: $($report.gitCommand)",
+    "- gitExitCode: $($report.gitExitCode)",
+    "- gitStdoutTail: $($report.gitStdoutTail)",
+    "- gitStderrTail: $($report.gitStderrTail)",
+    "- schedulerUser: $($report.schedulerUser)",
+    "- workingDirectory: $($report.workingDirectory)",
     "- notificationStatus: $($report.notificationStatus)",
     "- notificationFailure: $($report.notificationFailure)",
     "- commitPerformed: $($report.commitPerformed)",
@@ -357,6 +428,55 @@ function Stop-AutoPublish {
   throw $Reason
 }
 
+function Sync-AutomationRuntimeWithOriginMain {
+  $report.syncAttempted = $true
+  $report.failureStage = "sync"
+  Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
+  $headBefore = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
+  $originMain = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
+  $branch = Invoke-GitChecked -Arguments @("branch", "--show-current")
+  $upstream = Invoke-GitChecked -Arguments @("rev-parse", "--abbrev-ref", "@{u}")
+  $dirtyFiles = @(Invoke-GitChecked -Arguments @("status", "--porcelain")) | Where-Object { $_ }
+  $report.headBeforeSync = $headBefore
+  $report.originMainSha = $originMain
+
+  if ($dirtyFiles.Count -gt 0) {
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "automation worktree is dirty before sync"
+  }
+  if ($branch -ne "automation/smokingpipes-production-run") {
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "scheduled sync requires branch automation/smokingpipes-production-run; actual=$branch"
+  }
+  if ($upstream -ne "origin/main") {
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "scheduled sync requires upstream origin/main; actual=$upstream"
+  }
+
+  if ($headBefore -ne $originMain) {
+    $headIsAncestor = Invoke-GitCommand -Arguments @("merge-base", "--is-ancestor", "HEAD", "origin/main") -AllowedExitCodes @(0, 1)
+    if ($headIsAncestor.ExitCode -eq 0) {
+      Invoke-GitChecked -Arguments @("merge", "--ff-only", "origin/main") | Out-Null
+      $report.syncPerformed = $true
+    } else {
+      $originIsAncestor = Invoke-GitCommand -Arguments @("merge-base", "--is-ancestor", "origin/main", "HEAD") -AllowedExitCodes @(0, 1)
+      $reason = if ($originIsAncestor.ExitCode -eq 0) {
+        "local branch is ahead of origin/main; automatic sync is not allowed"
+      } else {
+        "local branch diverged from origin/main; automatic sync is not allowed"
+      }
+      Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason $reason
+    }
+  }
+
+  $headAfter = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
+  $originAfter = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
+  $report.headAfterSync = $headAfter
+  $report.originMainSha = $originAfter
+  if ($headAfter -ne $originAfter) {
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "HEAD does not match origin/main after sync"
+  }
+  $report.failureStage = $null
+  return [pscustomobject]@{ Head = $headAfter; OriginMain = $originAfter; Branch = $branch; Upstream = $upstream }
+}
+
  $locationPushed = $false
 try {
   Push-Location -LiteralPath $ProjectRoot
@@ -377,26 +497,22 @@ try {
     Write-Host "[PASS] post-apply-recovery delegation buildExecutable=$($resolvedBuild.resolved)"
     exit 0
   }
-  Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
-  $report.startingMainSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
-  $originMainSha = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
-  $report.remoteMainShaBeforePush = $originMainSha
-  if ($report.startingMainSha -ne $originMainSha) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "HEAD does not match origin/main"
+  if (-not $ResumeAfterProductionWrite) {
+    $sync = Sync-AutomationRuntimeWithOriginMain
+    $report.startingMainSha = $sync.Head
+    $originMainSha = $sync.OriginMain
+    $branch = $sync.Branch
+    $upstream = $sync.Upstream
+  } else {
+    Invoke-GitChecked -Arguments @("fetch", "origin") | Out-Null
+    $report.startingMainSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
+    $originMainSha = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
+    $branch = Invoke-GitChecked -Arguments @("branch", "--show-current")
+    $upstream = Invoke-GitChecked -Arguments @("rev-parse", "--abbrev-ref", "@{u}")
   }
-  $branch = Invoke-GitChecked -Arguments @("branch", "--show-current")
-  $upstream = Invoke-GitChecked -Arguments @("rev-parse", "--abbrev-ref", "@{u}")
+  $report.remoteMainShaBeforePush = $originMainSha
   if ($ResumeAfterProductionWrite -and ($branch -notlike "automation/*" -or $upstream -ne "origin/main")) {
     Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "post-apply recovery requires automation/* tracking origin/main"
-  }
-  if (-not $ResumeAfterProductionWrite -and $branch -ne "main" -and -not ($branch -like "automation/*" -and $upstream -eq "origin/main")) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "branch must be main or automation/* tracking origin/main"
-  }
-  if (-not $ResumeAfterProductionWrite -and @(& git -C $ProjectRoot status --porcelain --untracked-files=no).Count -gt 0) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "automation worktree has tracked changes"
-  }
-  if (-not $ResumeAfterProductionWrite -and @(& git -C $ProjectRoot diff --cached --name-only).Count -gt 0) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "automation worktree has staged files"
   }
   foreach ($lockPath in $LockPaths) {
     if (Test-Path -LiteralPath (Join-Path $ProjectRoot $lockPath)) {

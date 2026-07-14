@@ -109,7 +109,17 @@ try {
   assert.match(publishScript, /daily task state path is not initialized/);
   assert.match(publishScript, /notificationStatus/);
   assert.match(publishScript, /Send-AutoPublishNotificationSafely/);
-  assert.match(publishScript, /-not \$ResumeAfterProductionWrite -and @\(& git -C \$ProjectRoot status --porcelain --untracked-files=no\)\.Count -gt 0/);
+  assert.match(publishScript, /function Sync-AutomationRuntimeWithOriginMain/);
+  assert.match(publishScript, /Invoke-GitChecked -Arguments @\("fetch", "origin"\)/);
+  assert.match(publishScript, /"automation\/smokingpipes-production-run"/);
+  assert.match(publishScript, /"merge", "--ff-only", "origin\/main"/);
+  assert.match(publishScript, /"merge-base", "--is-ancestor", "HEAD", "origin\/main"/);
+  assert.match(publishScript, /local branch is ahead of origin\/main/);
+  assert.match(publishScript, /local branch diverged from origin\/main/);
+  for (const field of ["syncAttempted", "syncPerformed", "headBeforeSync", "headAfterSync", "originMainSha", "gitCommand", "gitExitCode", "gitStdoutTail", "gitStderrTail", "schedulerUser", "workingDirectory"]) {
+    assert.match(publishScript, new RegExp(field));
+  }
+  assert.match(publishScript, /git command failed: \$command; exitCode=/);
   assert.match(publishScript, /if \(-not \$ResumeAfterProductionWrite\) \{\s*\$dailyArguments/s);
   assert.match(publishScript, /"add", "--"/);
   assert.match(publishScript, /"reset"/);

@@ -43,13 +43,21 @@ function Invoke-SmokingpipesCommand {
     $result = Get-Content -LiteralPath $resultPath -Raw -Encoding utf8 | ConvertFrom-Json
     if ($helperExitCode -ne 0 -or $result.spawnError) {
       $failure = [InvalidOperationException]::new("$Stage command runner failed (helperExitCode=$helperExitCode)")
+      $failure.Data["exitCode"] = if ($null -ne $result.exitCode) { [int]$result.exitCode } else { $null }
       $failure.Data["stdoutTail"] = [string]$result.stdoutTail
       $failure.Data["stderrTail"] = [string]$result.stderrTail
       throw $failure
     }
-    if ($result.timedOut -eq $true) { throw "$Stage timed out after $TimeoutSeconds seconds" }
+    if ($result.timedOut -eq $true) {
+      $failure = [TimeoutException]::new("$Stage timed out after $TimeoutSeconds seconds")
+      $failure.Data["exitCode"] = if ($null -ne $result.exitCode) { [int]$result.exitCode } else { $null }
+      $failure.Data["stdoutTail"] = [string]$result.stdoutTail
+      $failure.Data["stderrTail"] = [string]$result.stderrTail
+      throw $failure
+    }
     if ([int]$result.exitCode -ne 0) {
       $failure = [InvalidOperationException]::new("$Stage failed with exit code $($result.exitCode)")
+      $failure.Data["exitCode"] = [int]$result.exitCode
       $failure.Data["stdoutTail"] = [string]$result.stdoutTail
       $failure.Data["stderrTail"] = [string]$result.stderrTail
       throw $failure
