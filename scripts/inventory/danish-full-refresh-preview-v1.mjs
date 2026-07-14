@@ -14,8 +14,10 @@ const FALCON = /\bfalcon\b/i;
 const BLOCK_PATTERNS = [
   [/cloudflare/i, "cloudflare"], [/verify\s+(you are|you.re human|human)/i, "verify"],
   [/captcha|recaptcha|hcaptcha/i, "captcha"], [/access\s+denied|forbidden\s*\(403\)/i, "access-denied"],
-  [/just a moment/i, "just-a-moment"], [/error\s*404|page not found|not found/i, "soft-404"],
+  [/just a moment/i, "just-a-moment"], [/checking your browser|managed challenge|cf-chl/i, "browser-challenge"],
+  [/error\s*404|page not found|not found/i, "soft-404"],
 ];
+class PreviewFailure extends Error { constructor(message, exitCode, failureStage) { super(message); this.exitCode = exitCode; this.failureStage = failureStage; } }
 
 function text(value) { return String(value ?? "").replace(/\s+/g, " ").trim(); }
 function iso() { return new Date().toISOString(); }
@@ -85,7 +87,7 @@ export function parseListHtml(html, listUrl = START_URL, pageIndex = 1) {
   const nextRaw = String(html).match(/<(?:a|link)[^>]+(?:rel=["']next["']|aria-label=["'][^"']*next[^"']*|title=["'][^"']*next[^"']*)[^>]*href=["']([^"']+)/i)?.[1]
     || String(html).match(/<a[^>]+href=["']([^"']+)["'][^>]*>\s*(?:Next|>|»|下一页)\s*<\/a>/i)?.[1] || "";
   const pageNumbers = [...String(html).matchAll(/(?:page=|\/page\/|data-page=["'])(\d+)/gi)].map((match) => Number(match[1])).filter(Number.isFinite);
-  return { inspection, products: found, nextUrl: absolute(nextRaw, listUrl), expectedPages: pageNumbers.length ? Math.max(...pageNumbers, pageIndex) : null };
+  return { inspection, products: found, nextUrl: nextRaw ? absolute(nextRaw, listUrl) : "", expectedPages: pageNumbers.length ? Math.max(...pageNumbers, pageIndex) : null };
 }
 
 export async function writeAtomic(filePath, payload, limit = MAX_REPORT_BYTES) {
@@ -157,63 +159,127 @@ export function evaluateIntegrity({ pages, currentProducts, expectedPages, detai
   const unknown = currentProducts.filter((item) => item.inventoryStatus === "unknown").length;
   const detailFailures = Object.values(detailState || {}).filter((detail) => detail?.error).length;
   const detailTotal = Object.keys(detailState || {}).length;
-  const complete = Boolean(first?.kind === "success" && !blocked && !abnormalEmpty && currentProducts.length && (!expectedPages || pages.filter((page) => page.kind === "success").length >= expectedPages));
-  return { complete, homepageSuccess: first?.kind === "success", expectedPages, successfulPages: pages.filter((page) => page.kind === "success").length, failedPages: pages.filter((page) => !["success", "normal-end-empty"].includes(page.kind)).length, abnormalEmptyPages: abnormalEmpty, blockedPages: blocked, endConditionTrusted: pages.at(-1)?.endReason === "no-next" || pages.at(-1)?.kind === "normal-end-empty", uniqueIdStable: duplicateIds === 0, duplicateIds, duplicateUrls, duplicateRate: currentProducts.length ? Number(((duplicateIds + duplicateUrls) / currentProducts.length).toFixed(6)) : 1, unknown, blocked, detailFailures, detailFailureRate: detailTotal ? Number((detailFailures / detailTotal).toFixed(6)) : 0, noFailureMappedToSold: !currentProducts.some((item) => item.collectError && item.inventoryStatus === "sold"), diffReproducible: true };
+  const successfulPages = pages.filter((page) => page.kind === "success").length;
+  const endConditionTrusted = pages.at(-1)?.endReason === "no-next" || pages.at(-1)?.kind === "normal-end-empty";
+  const complete = Boolean(first?.kind === "success" && successfulPages >= 1 && !blocked && !abnormalEmpty && currentProducts.length > 0 && endConditionTrusted && duplicateIds === 0 && duplicateUrls === 0 && (!expectedPages || successfulPages >= expectedPages));
+  return { complete, homepageSuccess: first?.kind === "success", expectedPages, successfulPages, failedPages: pages.filter((page) => !["success", "normal-end-empty"].includes(page.kind)).length, abnormalEmptyPages: abnormalEmpty, blockedPages: blocked, endConditionTrusted, uniqueIdStable: duplicateIds === 0, duplicateIds, duplicateUrls, duplicateRate: currentProducts.length ? Number(((duplicateIds + duplicateUrls) / currentProducts.length).toFixed(6)) : 1, unknown, blocked, detailFailures, detailFailureRate: detailTotal ? Number((detailFailures / detailTotal).toFixed(6)) : 0, noFailureMappedToSold: !currentProducts.some((item) => item.collectError && item.inventoryStatus === "sold"), diffReproducible: true };
 }
 function makeManifest({ runId, root, paths, startedAt, list, details, diff }) {
   const files = [path.join(paths.raw, "list.json"), path.join(paths.raw, "details.json"), path.join(paths.raw, "checkpoint.json"), path.join(paths.audits, "page-audit.json"), path.join(paths.audits, "detail-audit.json"), path.join(paths.review, "diff-preview.json")].filter(fs.existsSync);
   const hashes = Object.fromEntries(files.map((file) => [path.relative(root, file).replaceAll("\\", "/"), sha256(fs.readFileSync(file))]));
-  return { schemaVersion: 1, source: SOURCE, runId, mode: "preview-only", startedAt, completedAt: iso(), entryUrl: START_URL, expectedPages: list.expectedPages, successfulPages: diff.integrityGate.successfulPages, failedPages: diff.integrityGate.failedPages, emptyPages: list.pages.filter((page) => page.kind.includes("empty")).length, blockedPages: diff.integrityGate.blockedPages, uniqueProducts: list.products.length, available: list.products.filter((item) => item.inventoryStatus === "available").length, sold: list.products.filter((item) => item.inventoryStatus === "sold").length, unavailable: list.products.filter((item) => item.inventoryStatus === "unavailable").length, unknown: diff.integrityGate.unknown, blocked: diff.integrityGate.blocked, duplicateIds: diff.integrityGate.duplicateIds, duplicateUrls: diff.integrityGate.duplicateUrls, detailSuccess: Object.values(details).filter(isCompleteDetail).length, detailFailed: diff.integrityGate.detailFailures, detailReused: Object.values(details).filter((detail) => detail?.reused).length, pending: list.products.filter((item) => !isCompleteDetail(details[item.sourceProductId])).length, filesSha256: hashes, scriptCommitSha: gitSha(root), allowApply: false, productionWritten: false, publicWritten: false };
+  return { schemaVersion: 1, source: SOURCE, runId, mode: "preview-only", startedAt, completedAt: iso(), entryUrl: list.entryUrl || START_URL, expectedPages: list.expectedPages, successfulPages: diff.integrityGate.successfulPages, failedPages: diff.integrityGate.failedPages, emptyPages: list.pages.filter((page) => page.kind.includes("empty")).length, blockedPages: diff.integrityGate.blockedPages, uniqueProducts: list.products.length, available: list.products.filter((item) => item.inventoryStatus === "available").length, sold: list.products.filter((item) => item.inventoryStatus === "sold").length, unavailable: list.products.filter((item) => item.inventoryStatus === "unavailable").length, unknown: diff.integrityGate.unknown, blocked: diff.integrityGate.blocked, duplicateIds: diff.integrityGate.duplicateIds, duplicateUrls: diff.integrityGate.duplicateUrls, detailSuccess: Object.values(details).filter(isCompleteDetail).length, detailFailed: diff.integrityGate.detailFailures, detailReused: Object.values(details).filter((detail) => detail?.reused).length, pending: list.products.filter((item) => !isCompleteDetail(details[item.sourceProductId])).length, integrityGate: diff.integrityGate, failureStage: list.failureStage || null, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerificationRequested: Boolean(list.manualVerification?.requested), manualVerificationCompleted: Boolean(list.manualVerification?.completed), manualVerificationTimeoutSeconds: list.manualVerification?.timeoutSeconds ?? null, manualVerificationWaitedSeconds: list.manualVerification?.waitedSeconds ?? 0, blockerType: list.manualVerification?.blockerType || null, blockerDetectedAt: list.manualVerification?.detectedAt || null, verificationCompletedAt: list.manualVerification?.completedAt || null, screenshotPath: list.manualVerification?.screenshotPath || null, blockedHtmlPath: list.manualVerification?.blockedHtmlPath || null, filesSha256: hashes, scriptCommitSha: gitSha(root), allowApply: false, productionWritten: false, publicWritten: false };
 }
 
-async function collectLiveList() {
+async function launchDanishContext(options) {
   const { chromium } = await import("playwright");
-  const browser = await chromium.launch({ headless: false }); const page = await browser.newPage();
-  const pages = [], output = [], seen = new Set(); let currentUrl = START_URL, pageIndex = 1, expectedPages = null;
+  await fs.promises.mkdir(options.profileDir, { recursive: true });
+  return chromium.launchPersistentContext(options.profileDir, {
+    channel: options.browserChannel ?? (options.headed ? "chrome" : undefined),
+    headless: !options.headed,
+    viewport: { width: 1440, height: 1000 },
+  });
+}
+async function readPageState(page) {
+  const [html, title, cardCount] = await Promise.all([
+    page.content(), page.title(), page.locator("#list-container-inner .list-item").count().catch(() => 0),
+  ]);
+  return { html, title: text(title), url: page.url(), cardCount, inspection: inspectHtml(html) };
+}
+async function saveBlockDiagnostics(page, options, pageIndex, state) {
+  await fs.promises.mkdir(options.auditDir, { recursive: true });
+  const stem = `blocked-page-${String(pageIndex).padStart(3, "0")}-${Date.now()}`;
+  const htmlPath = path.join(options.auditDir, `${stem}.html`);
+  const screenshotPath = path.join(options.auditDir, `${stem}.png`);
+  await fs.promises.writeFile(htmlPath, state.html, "utf8");
+  await page.screenshot({ path: screenshotPath, fullPage: true, timeout: 5000 }).catch(() => {});
+  return { screenshotPath: path.relative(options.root, screenshotPath).replaceAll("\\", "/"), blockedHtmlPath: path.relative(options.root, htmlPath).replaceAll("\\", "/") };
+}
+async function waitForManualVerification(page, options, pageIndex, initialState) {
+  const startedAt = iso(); const started = Date.now(); const timeoutMs = options.manualVerificationSeconds * 1000;
+  console.log("[WAIT] Danish manual verification required");
+  console.log("browser remains open");
+  console.log(`timeout: ${options.manualVerificationSeconds} seconds`);
+  console.log("please complete verification in the browser");
+  let state = initialState;
+  while (Date.now() - started <= timeoutMs) {
+    state = await readPageState(page);
+    if (state.inspection.kind === "ok" && state.cardCount > 0) {
+      const waitedSeconds = Number(((Date.now() - started) / 1000).toFixed(1));
+      console.log("[PASS] Danish manual verification completed");
+      return { passed: true, state, event: { pageIndex, url: state.url, blockerType: initialState.inspection.code, detectedAt: startedAt, completedAt: iso(), waitedSeconds } };
+    }
+    await page.waitForTimeout(1000);
+  }
+  const diagnostics = await saveBlockDiagnostics(page, options, pageIndex, state);
+  return { passed: false, state, event: { pageIndex, url: state.url, blockerType: initialState.inspection.code, detectedAt: startedAt, waitedSeconds: Number(((Date.now() - started) / 1000).toFixed(1)), ...diagnostics } };
+}
+async function liveItems(page, currentUrl, pageIndex) {
+  const live = await page.locator("#list-container-inner .list-item").evaluateAll((cards) => cards.map((card) => {
+    const a = [...card.querySelectorAll("a[href]")].find((node) => /\/d\/-zh\/.*-i\d+\.html/i.test(node.href)); const img = card.querySelector("img"); const raw = (card.innerText || card.textContent || "").replace(/\s+/g, " ").trim();
+    return a ? { href: a.href, sourceUrl: a.href, title: (img?.alt || a.title || a.textContent || raw).replace(/\s+/g, " ").trim(), name: (img?.alt || a.title || a.textContent || raw).replace(/\s+/g, " ").trim(), imageUrl: img?.currentSrc || img?.src || "", rawStatusText: raw, priceRaw: (raw.match(/(?:USD|EUR|DKK|\$|€|kr\.?)[\s\d.,-]+/i) || [""])[0], rawText: raw } : null;
+  }).filter(Boolean));
+  return live.map((item) => ({ ...item, sourceProductId: sourceId(item), id: `danish-${sourceId(item)}`, ...price(item.priceRaw), inventoryStatus: status(item.rawStatusText), listPageUrl: currentUrl, listPageIndex: pageIndex })).filter((item) => item.sourceProductId);
+}
+export async function collectLiveList(options) {
+  const browser = { mode: options.headed ? "headed" : "headless", channel: options.browserChannel ?? (options.headed ? "chrome" : "playwright-default"), profilePath: path.relative(options.root, options.profileDir).replaceAll("\\", "/") };
+  const pages = [], output = [], seen = new Set(), verificationEvents = [];
+  let context; const ownsContext = !options.context;
+  try { context = options.context || await launchDanishContext(options); }
+  catch (error) { return { entryUrl: options.startUrl, products: output, pages, expectedPages: null, browser, manualVerification: { requested: false, completed: false, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: 0 }, failureStage: "browser-launch", exitCode: 1, failureMessage: text(error?.message || error) }; }
+  const page = context.pages()[0] || await context.newPage(); let currentUrl = options.startUrl, pageIndex = 1, expectedPages = null;
   try {
     while (currentUrl && pageIndex <= 500) {
-      await page.goto(currentUrl, { waitUntil: "domcontentloaded", timeout: 60000 }); await page.waitForTimeout(1500);
-      const html = await page.content(); const parsed = parseListHtml(html, currentUrl, pageIndex); expectedPages = Math.max(expectedPages || 0, parsed.expectedPages || 0) || null;
-      let kind = parsed.inspection.kind === "ok" ? "success" : parsed.inspection.kind;
-      if (kind === "ok") kind = "success";
-      if (parsed.inspection.kind !== "ok") { pages.push({ pageIndex, url: currentUrl, kind, reason: parsed.inspection.code, itemCount: 0 }); break; }
-      // Use DOM extraction when the old source's list item nesting defeats the fixture parser.
-      const live = await page.locator("#list-container-inner .list-item").evaluateAll((cards) => cards.map((card) => {
-        const a = [...card.querySelectorAll("a[href]")].find((node) => /\/d\/-zh\/.*-i\d+\.html/i.test(node.href)); const img = card.querySelector("img"); const raw = (card.innerText || card.textContent || "").replace(/\s+/g, " ").trim();
-        return a ? { href: a.href, sourceUrl: a.href, title: (img?.alt || a.title || a.textContent || raw).replace(/\s+/g, " ").trim(), name: (img?.alt || a.title || a.textContent || raw).replace(/\s+/g, " ").trim(), imageUrl: img?.currentSrc || img?.src || "", rawStatusText: raw, priceRaw: (raw.match(/(?:USD|EUR|DKK|\$|€|kr\.?)[\s\d.,-]+/i) || [""])[0], rawText: raw } : null; }).filter(Boolean));
-      const items = live.map((item) => ({ ...item, sourceProductId: sourceId(item), id: `danish-${sourceId(item)}`, ...price(item.priceRaw), inventoryStatus: status(item.rawStatusText), listPageUrl: currentUrl, listPageIndex: pageIndex })).filter((item) => item.sourceProductId);
-      if (!items.length) { const hasNext = Boolean(parsed.nextUrl); const emptyKind = pageIndex === 1 || hasNext ? "empty-failure" : "normal-end-empty"; pages.push({ pageIndex, url: currentUrl, kind: emptyKind, reason: "no-list-items", itemCount: 0, endReason: hasNext ? "unexpected-empty" : "no-next" }); break; }
+      await page.goto(currentUrl, { waitUntil: "domcontentloaded", timeout: 60000 }); await page.waitForTimeout(800);
+      let state = await readPageState(page);
+      if (state.inspection.kind === "blocked") {
+        const verification = await waitForManualVerification(page, options, pageIndex, state); verificationEvents.push(verification.event);
+        if (!verification.passed) { pages.push({ pageIndex, url: state.url, kind: "blocked", reason: state.inspection.code, itemCount: 0, manualVerification: verification.event }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: true, completed: false, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verification.event.waitedSeconds, ...verification.event, events: verificationEvents }, failureStage: "manual-verification-timeout", exitCode: 3, failureMessage: "manual verification timed out" }; }
+        state = verification.state;
+      }
+      if (state.inspection.kind === "structure-change") { pages.push({ pageIndex, url: state.url, kind: "structure-change", reason: state.inspection.code, itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "page-structure-unrecognized", exitCode: 5, failureMessage: state.inspection.code }; }
+      const parsed = parseListHtml(state.html, state.url, pageIndex); expectedPages = Math.max(expectedPages || 0, parsed.expectedPages || 0) || null;
+      const items = await liveItems(page, state.url, pageIndex);
+      if (!items.length) { const hasNext = Boolean(parsed.nextUrl); pages.push({ pageIndex, url: state.url, kind: pageIndex === 1 || hasNext ? "empty-failure" : "normal-end-empty", reason: "no-list-items", itemCount: 0, endReason: hasNext ? "unexpected-empty" : "no-next" }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "empty-list", exitCode: 4, failureMessage: "list page has no products" }; }
       for (const item of items) if (!seen.has(item.sourceProductId)) { seen.add(item.sourceProductId); output.push(item); }
-      const next = parsed.nextUrl; pages.push({ pageIndex, url: currentUrl, kind: "success", itemCount: items.length, uniqueCount: output.length, endReason: next ? "next" : "no-next" });
+      const next = parsed.nextUrl; pages.push({ pageIndex, url: state.url, kind: "success", itemCount: items.length, uniqueCount: output.length, endReason: next ? "next" : "no-next", manualVerification: verificationEvents.at(-1) || null });
       currentUrl = next; pageIndex += 1;
     }
-  } finally { await browser.close(); }
-  return { products: output, pages, expectedPages };
+  } catch (error) { pages.push({ pageIndex, url: page.url(), kind: "collector-error", reason: text(error?.message || error), itemCount: 0 }); return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents }, failureStage: "list-collector-error", exitCode: 2, failureMessage: text(error?.message || error) }; }
+  finally { if (ownsContext) await context.close(); }
+  return { entryUrl: options.startUrl, products: output, pages, expectedPages, browser, manualVerification: { requested: verificationEvents.length > 0, completed: verificationEvents.length > 0, timeoutSeconds: options.manualVerificationSeconds, waitedSeconds: verificationEvents.reduce((sum, event) => sum + event.waitedSeconds, 0), events: verificationEvents } };
 }
-async function collectLiveDetails(items, existing, maxItems, onUpdate) {
-  const { chromium } = await import("playwright"); const browser = await chromium.launch({ headless: false }); const page = await browser.newPage(); const updated = { ...existing }; let processed = 0;
+async function collectLiveDetails(items, existing, maxItems, onUpdate, browserOptions) {
+  const context = await launchDanishContext(browserOptions); const page = context.pages()[0] || await context.newPage(); const updated = { ...existing }; let processed = 0;
   try { for (const item of items) { if (processed >= maxItems) break; if (isFalcon(item)) continue; if (isCompleteDetail(updated[item.sourceProductId])) { updated[item.sourceProductId] = { ...updated[item.sourceProductId], reused: true }; continue; }
     try { await page.goto(item.sourceUrl, { waitUntil: "domcontentloaded", timeout: 60000 }); await page.waitForTimeout(800); const html = await page.content(); const inspection = inspectHtml(html); if (inspection.kind !== "ok") throw new Error(`detail-${inspection.code}`); const title = text(await page.title()); const images = unique(await page.locator("img").evaluateAll((nodes) => nodes.map((node) => node.currentSrc || node.src).filter((url) => /danishpipeshop\.com\/img\//i.test(url)))); updated[item.sourceProductId] = { sourceProductId: item.sourceProductId, sourceUrl: item.sourceUrl, title, images, galleryImages: images, completedAt: iso(), reused: false }; } catch (error) { updated[item.sourceProductId] = { sourceProductId: item.sourceProductId, sourceUrl: item.sourceUrl, error: text(error?.message || error), attemptedAt: iso() }; } processed += 1; if (onUpdate) await onUpdate(updated);
-  }} finally { await browser.close(); } return updated;
+  }} finally { await context.close(); } return updated;
 }
 function markdownReport(manifest, diff) { return [`# Danish full refresh preview: ${manifest.runId}`, "", `完整性门：${diff.integrityGate.complete ? "通过" : "不通过"}`, `预计变更数：${diff.expectedChangeCount}`, `预计变更比例：${diff.expectedChangeRatio}`, "", "## 分类数量", "", ...Object.entries(diff.counts).map(([key, value]) => `- ${key}: ${value}`), ""].join("\n"); }
 function csvReport(diff) { return ["product_id,brand,product_name,old_status,new_status,old_price,new_price,url,reason", ...Object.entries(diff.samples).flatMap(([, values]) => values).map((row) => [row.productId, row.brand, row.productName, row.oldStatus, row.newStatus, row.oldPrice, row.newPrice, row.url, row.reason].map(csv).join(","))].join("\n"); }
 
 export async function runPreview(options) {
   const root = path.resolve(options.automationWorktree || process.cwd()), outputRoot = path.resolve(options.outputRoot || root), runId = options.runId; assertRunId(runId);
+  const manualVerificationSeconds = Number(options.manualVerificationSeconds ?? 20);
+  if (!Number.isInteger(manualVerificationSeconds) || manualVerificationSeconds < 1 || manualVerificationSeconds > 600) throw new Error("ManualVerificationSeconds must be an integer from 1 to 600.");
   const paths = runPaths(outputRoot, runId), startedAt = iso(); const checkpointPath = path.join(paths.raw, "checkpoint.json");
   if (!options.collectedList && fs.existsSync(path.join(paths.raw, "list.json")) && !options.resume) throw new Error(`RunId already exists; use -Resume or select a new RunId: ${runId}`);
-  let list = options.collectedList || (fs.existsSync(path.join(paths.raw, "list.json")) && options.resume ? read(path.join(paths.raw, "list.json")) : await collectLiveList());
+  let list = options.collectedList || (fs.existsSync(path.join(paths.raw, "list.json")) && options.resume ? read(path.join(paths.raw, "list.json")) : await collectLiveList({ root, startUrl: options.entryUrl || START_URL, headed: Boolean(options.headed), browserChannel: options.browserChannel, context: options.context, manualVerificationSeconds, profileDir: path.join(root, "data", "runtime", "danish-browser-profile"), auditDir: paths.audits }));
+  if (options.collectedList) list = { ...list, entryUrl: list.entryUrl || "fixture", browser: { mode: "fixture", channel: null }, manualVerification: { requested: false, completed: false, timeoutSeconds: manualVerificationSeconds, waitedSeconds: 0 } };
   list.products = list.products.map((item) => ({ ...item, inventoryStatus: item.inventoryStatus || status(item.rawStatusText) }));
-  await writeAtomic(path.join(paths.raw, "list.json"), list, 25 * 1024 * 1024); await writeAtomic(path.join(paths.audits, "page-audit.json"), { source: SOURCE, runId, pages: list.pages, expectedPages: list.expectedPages });
+  await writeAtomic(path.join(paths.raw, "list.json"), list, 25 * 1024 * 1024); await writeAtomic(path.join(paths.audits, "page-audit.json"), { source: SOURCE, runId, pages: list.pages, expectedPages: list.expectedPages, browserMode: list.browser?.mode || "fixture", browserChannel: list.browser?.channel || null, manualVerification: list.manualVerification || null, failureStage: list.failureStage || null });
   let details = options.detailState || (fs.existsSync(path.join(paths.raw, "details.json")) ? read(path.join(paths.raw, "details.json")) : {});
   if (!options.listOnly && !options.detailState) details = await collectLiveDetails(list.products, details, options.maxDetailItems ?? 30, async (partial) => {
     await writeAtomic(path.join(paths.raw, "details.json"), partial, 25 * 1024 * 1024);
     await writeAtomic(checkpointPath, { runId, updatedAt: iso(), detailState: partial, pending: list.products.filter((item) => !isCompleteDetail(partial[item.sourceProductId]) && !isFalcon(item)).map((item) => item.sourceProductId) }, 25 * 1024 * 1024);
-  });
+  }, { root, headed: Boolean(options.headed), manualVerificationSeconds, profileDir: path.join(root, "data", "runtime", "danish-browser-profile"), auditDir: paths.audits });
   await writeAtomic(path.join(paths.raw, "details.json"), details, 25 * 1024 * 1024); await writeAtomic(checkpointPath, { runId, updatedAt: iso(), detailState: details, pending: list.products.filter((item) => !isCompleteDetail(details[item.sourceProductId]) && !isFalcon(item)).map((item) => item.sourceProductId) }, 25 * 1024 * 1024);
   const integrity = evaluateIntegrity({ pages: list.pages, currentProducts: list.products, expectedPages: list.expectedPages, detailState: details }); const baseline = options.baseline || getBaseline(root); const diff = buildDiffPreview(list.products.map((item) => ({ ...item, detail: details[item.sourceProductId] })), baseline.production, baseline.publicCatalog, integrity);
   await writeAtomic(path.join(paths.audits, "detail-audit.json"), { source: SOURCE, runId, attempted: Object.keys(details).length, successful: Object.values(details).filter(isCompleteDetail).length, failed: Object.values(details).filter((detail) => detail?.error).length }); await writeAtomic(path.join(paths.review, "diff-preview.json"), diff); const manifest = makeManifest({ runId, root, paths, startedAt, list, details, diff }); await writeAtomic(path.join(paths.raw, "manifest.json"), manifest); await writeAtomic(path.join(paths.review, "diff-preview.md"), markdownReport(manifest, diff)); await writeAtomic(path.join(paths.review, "diff-candidates.csv"), csvReport(diff));
+  if (list.failureStage) throw new PreviewFailure(list.failureMessage || list.failureStage, list.exitCode || 2, list.failureStage);
+  if (!integrity.complete) {
+    const empty = integrity.successfulPages === 0 || list.products.length === 0;
+    throw new PreviewFailure(empty ? "List integrity failed: no successful pages or unique products." : "List integrity gate failed.", empty ? 4 : 2, empty ? "empty-list" : "integrity-gate-failed");
+  }
   return { paths, manifest, diff };
 }
 export function readRunReport(root, runId) { const paths = runPaths(path.resolve(root), runId); return { manifest: read(path.join(paths.raw, "manifest.json")), diff: read(path.join(paths.review, "diff-preview.json")), paths }; }
@@ -221,7 +287,7 @@ function fixtureList(filePath) {
   const content = fs.readFileSync(filePath, "utf8");
   if (path.extname(filePath).toLowerCase() === ".html") {
     const parsed = parseListHtml(content, `file://${filePath.replaceAll("\\", "/")}`, 1);
-    return { products: parsed.products, pages: [{ pageIndex: 1, url: filePath, kind: parsed.products.length ? "success" : "empty-failure", itemCount: parsed.products.length, endReason: "no-next", fixture: true }], expectedPages: parsed.expectedPages || 1 };
+    return { products: parsed.products, pages: [{ pageIndex: 1, url: filePath, kind: parsed.products.length ? "success" : "empty-failure", itemCount: parsed.products.length, endReason: "no-next", fixture: true }], expectedPages: 1 };
   }
   const parsed = JSON.parse(content);
   return { products: products(parsed), pages: parsed.pages || [{ pageIndex: 1, url: filePath, kind: "success", itemCount: products(parsed).length, endReason: "no-next", fixture: true }], expectedPages: parsed.expectedPages || 1 };
@@ -231,5 +297,5 @@ function isDirectExecution() {
   return Boolean(process.argv[1]) && path.resolve(process.argv[1]).toLowerCase() === path.resolve(fileURLToPath(import.meta.url)).toLowerCase();
 }
 if (isDirectExecution()) {
-  try { const cli = args(process.argv.slice(2)); const fixturePath = cli["fixture-list"] ? path.resolve(cli["fixture-list"]) : ""; if (cli.report) { console.log(json(readRunReport(cli["automation-worktree"], cli["run-id"]))); } else { console.log(`[NODE] Danish full refresh mode=${fixturePath ? "fixture" : "live"} listOnly=${Boolean(cli["list-only"])} resume=${Boolean(cli.resume)}`); const result = await runPreview({ automationWorktree: cli["automation-worktree"], runId: cli["run-id"], listOnly: Boolean(cli["list-only"]), resume: Boolean(cli.resume), maxDetailItems: Number(cli["max-detail-items"] || 30), collectedList: fixturePath ? fixtureList(fixturePath) : undefined, detailState: fixturePath ? {} : undefined }); console.log(json({ runId: result.manifest.runId, integrityGate: result.diff.integrityGate.complete, pending: result.manifest.pending, allowApply: false, productionWritten: false, publicWritten: false })); } } catch (error) { console.error(error?.stack || error); process.exitCode = 1; }
+  try { const cli = args(process.argv.slice(2)); const fixturePath = cli["fixture-list"] ? path.resolve(cli["fixture-list"]) : ""; if (cli.report) { console.log(json(readRunReport(cli["automation-worktree"], cli["run-id"]))); } else { console.log(`[NODE] Danish full refresh mode=${fixturePath ? "fixture" : "live"} listOnly=${Boolean(cli["list-only"])} resume=${Boolean(cli.resume)} headed=${Boolean(cli.headed)}`); const result = await runPreview({ automationWorktree: cli["automation-worktree"], runId: cli["run-id"], listOnly: Boolean(cli["list-only"]), resume: Boolean(cli.resume), headed: Boolean(cli.headed), manualVerificationSeconds: Number(cli["manual-verification-seconds"] || 20), maxDetailItems: Number(cli["max-detail-items"] || 30), collectedList: fixturePath ? fixtureList(fixturePath) : undefined, detailState: fixturePath ? {} : undefined }); console.log(json({ runId: result.manifest.runId, integrityGate: result.diff.integrityGate.complete, pending: result.manifest.pending, allowApply: false, productionWritten: false, publicWritten: false })); } } catch (error) { console.error(error?.stack || error); process.exitCode = error?.exitCode || 1; }
 }

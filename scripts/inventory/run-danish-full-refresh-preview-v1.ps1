@@ -8,6 +8,8 @@ param(
   [int]$MaxDetailItems = 30,
   [switch]$SkipExistingCompleteDetails,
   [switch]$ReportOnly,
+  [switch]$Headed,
+  [ValidateRange(1, 600)][int]$ManualVerificationSeconds = 20,
   # Test-only local input: this avoids all network calls and is never required for real collection.
   [string]$FixtureListPath
 )
@@ -26,6 +28,8 @@ Write-Host "RunId: $RunId"
 Write-Host "worktree: $root"
 Write-Host "Node executable: $nodeExecutable"
 Write-Host "core script path: $scriptPath"
+Write-Host "headed: $Headed"
+Write-Host "manual verification timeout: $ManualVerificationSeconds seconds"
 
 if (-not (Test-Path -LiteralPath $root -PathType Container)) { throw "AutomationWorktree does not exist: $root" }
 if (-not $nodeExecutable -or -not (Test-Path -LiteralPath $nodeExecutable -PathType Leaf)) { throw 'Node executable was not found.' }
@@ -61,6 +65,8 @@ if ($ReportOnly) {
 $nodeArgs = @($scriptPath, '--automation-worktree', $root, '--run-id', $RunId, '--max-detail-items', [string]$effectiveMaxDetailItems)
 if ($ListOnly) { $nodeArgs += '--list-only' }
 if ($Resume) { $nodeArgs += '--resume' }
+if ($Headed) { $nodeArgs += '--headed' }
+if ($ManualVerificationSeconds) { $nodeArgs += @('--manual-verification-seconds', [string]$ManualVerificationSeconds) }
 if ($SkipExistingCompleteDetails) { $nodeArgs += '--skip-existing-complete-details' }
 if ($FixtureListPath) { $nodeArgs += @('--fixture-list', [IO.Path]::GetFullPath($FixtureListPath)) }
 
@@ -80,6 +86,11 @@ foreach ($requiredPath in @($listPath, $manifestPath, $pageAuditPath)) {
   if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) { [Console]::Error.WriteLine("Node exited 0 but required output was not generated: $requiredPath"); exit 1 }
 }
 $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+$integrityComplete = [bool]$manifest.integrityGate.complete
+if (-not $integrityComplete -or $manifest.successfulPages -lt 1 -or $manifest.uniqueProducts -lt 1 -or -not $manifest.integrityGate.homepageSuccess -or -not $manifest.integrityGate.endConditionTrusted) {
+  [Console]::Error.WriteLine("List integrity gate failed after Node exited 0. failureStage=$($manifest.failureStage); pages=$($manifest.successfulPages); unique=$($manifest.uniqueProducts)")
+  exit 2
+}
 $duration = [math]::Round(((Get-Date) - $startedAt).TotalSeconds, 2)
 Write-Host "[PASS] Danish $mode" -ForegroundColor Green
 Write-Host "list path: $listPath"

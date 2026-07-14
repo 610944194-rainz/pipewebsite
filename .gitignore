@@ -43,6 +43,7 @@ next-env.d.ts
 # Browser profile / crawler runtime cache
 .browser/
 /.cache/
+data/runtime/danish-browser-profile/
 data/inventory/state/*.lock
 data/inventory/.session/
 data/inventory/*.tmp-*

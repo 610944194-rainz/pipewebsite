@@ -8,6 +8,7 @@ const sourceRoot = process.cwd();
 const psEntry = path.join(sourceRoot, "scripts", "inventory", "run-danish-full-refresh-preview-v1.ps1");
 const coreSource = path.join(sourceRoot, "scripts", "inventory", "danish-full-refresh-preview-v1.mjs");
 const fixture = path.join(sourceRoot, "scripts", "inventory", "fixtures", "danish-full-refresh", "page-1.html");
+const emptyFixture = path.join(sourceRoot, "scripts", "inventory", "fixtures", "danish-full-refresh", "empty.html");
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "danish-entry-v1-"));
 
 function copy(file, destination) {
@@ -28,15 +29,19 @@ function run(root, runId, extra = []) {
 
 const successRoot = path.join(tempRoot, "success");
 const successCore = prepareWorkingTree(successRoot);
-const listOnly = run(successRoot, "entry-fixture-001", ["-ListOnly", "-FixtureListPath", fixture]);
+const listOnly = run(successRoot, "entry-fixture-001", ["-ListOnly", "-Headed", "-ManualVerificationSeconds", "21", "-FixtureListPath", fixture]);
 assert.equal(listOnly.status, 0, `${listOnly.stdout}\n${listOnly.stderr}`);
 assert.match(listOnly.stdout, /\[START\] Danish full refresh/);
 assert.match(listOnly.stdout, /mode: ListOnly/);
-assert.match(listOnly.stdout, /\[NODE\] Danish full refresh mode=fixture listOnly=true resume=false/);
+assert.match(listOnly.stdout, /headed: True/);
+assert.match(listOnly.stdout, /manual verification timeout: 21 seconds/);
+assert.match(listOnly.stdout, /\[NODE\] Danish full refresh mode=fixture listOnly=true resume=false headed=true/);
 assert.match(listOnly.stdout, /\[PASS\] Danish ListOnly/);
 for (const relative of ["data/raw/danish-full-refresh/entry-fixture-001/list.json", "data/raw/danish-full-refresh/entry-fixture-001/manifest.json", "data/audits/danish-full-refresh/entry-fixture-001/page-audit.json"]) assert.equal(fs.existsSync(path.join(successRoot, relative)), true, relative);
 const manifest = JSON.parse(fs.readFileSync(path.join(successRoot, "data", "raw", "danish-full-refresh", "entry-fixture-001", "manifest.json"), "utf8"));
 assert.equal(manifest.uniqueProducts, 2); // A/B/F: Node was launched, ListOnly reached the core, live network was not used.
+const strictEmpty = run(successRoot, "entry-empty-001", ["-ListOnly", "-FixtureListPath", emptyFixture]);
+assert.equal(strictEmpty.status, 4, `${strictEmpty.stdout}\n${strictEmpty.stderr}`); assert.doesNotMatch(strictEmpty.stdout, /\[PASS\] Danish ListOnly/); // list page/product count zero never prints PASS
 
 fs.writeFileSync(successCore, "process.stderr.write('core must not run in ReportOnly\\n'); process.exit(93);\n", "utf8");
 const reportOnly = run(successRoot, "entry-fixture-001", ["-ReportOnly"]);
