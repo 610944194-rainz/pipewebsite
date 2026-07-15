@@ -1,6 +1,7 @@
 param(
   [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run",
-  [string]$BuildExecutable = "C:\Program Files\nodejs\npm.cmd"
+  [string]$BuildExecutable = "C:\Program Files\nodejs\npm.cmd",
+  [ValidateRange(900, 14400)][int]$DailyTimeoutSeconds = 3600
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,6 +18,7 @@ try {
   & $wrapper `
     -AutomationWorktree $AutomationWorktree `
     -BuildExecutable $BuildExecutable `
+    -DailyTimeoutSeconds $DailyTimeoutSeconds `
     -ForceRunOnce
   $exitCode = $LASTEXITCODE
 } catch {

@@ -111,6 +111,7 @@ try {
   assert.match(publishScript, /Send-AutoPublishNotificationSafely/);
   assert.match(publishScript, /function Sync-AutomationRuntimeWithOriginMain/);
   assert.match(publishScript, /Invoke-GitChecked -Arguments @\("fetch", "origin"\)/);
+  assert.match(publishScript, /Get-Command git -CommandType Application -ErrorAction Stop \| Select-Object -First 1/);
   assert.match(publishScript, /"automation\/smokingpipes-production-run"/);
   assert.match(publishScript, /"merge", "--ff-only", "origin\/main"/);
   assert.match(publishScript, /"merge-base", "--is-ancestor", "HEAD", "origin\/main"/);
@@ -120,7 +121,9 @@ try {
     assert.match(publishScript, new RegExp(field));
   }
   assert.match(publishScript, /git command failed: \$command; exitCode=/);
-  assert.match(publishScript, /if \(-not \$ResumeAfterProductionWrite\) \{\s*\$dailyArguments/s);
+  assert.match(publishScript, /if \(-not \$ResumeAfterProductionWrite\) \{[\s\S]*?\$dailyArguments/s);
+  assert.match(publishScript, /DailyTimeoutSeconds/);
+  assert.match(publishScript, /Resolve-DailyTimeoutSeconds/);
   assert.match(publishScript, /"add", "--"/);
   assert.match(publishScript, /"reset"/);
   assert.match(publishScript, /origin\/main changed during run/);

@@ -1,6 +1,7 @@
 param(
   [ValidateSet("Validate", "Backup", "Update", "Enable", "Disable", "Restore")]
   [string]$Mode = "Validate",
+  [ValidateRange(900, 14400)][int]$DailyTimeoutSeconds = 3600,
   [string]$BackupPath = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run\data\review\scheduled-task-backups\YandouBuy-Smokingpipes-Daily-Update.xml"
 )
 
@@ -38,6 +39,7 @@ switch ($Mode) {
       multipleInstances = "IgnoreNew"
       restartCount = 2
       restartIntervalMinutes = 15
+      dailyTimeoutSeconds = $DailyTimeoutSeconds
       executionTimeLimit = "PT4H"
     }
   }
@@ -49,7 +51,7 @@ switch ($Mode) {
   }
   "Update" {
     Assert-ScheduledTaskPaths
-    $argument = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$Launcher`""
+    $argument = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$Launcher`" -DailyTimeoutSeconds $DailyTimeoutSeconds"
     $action = New-ScheduledTaskAction -Execute $PowerShellExecutable -Argument $argument -WorkingDirectory $AutomationWorktree
     try {
       $triggers = New-ScheduledTaskTrigger `

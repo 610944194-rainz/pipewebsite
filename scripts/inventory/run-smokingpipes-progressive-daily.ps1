@@ -24,6 +24,8 @@ $ApplyPreviewPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive
 $ApplyGateReportPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-apply-gate-report.json"
 $DailyTaskStatePath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-state.json"
 $DailyTaskLockPath = Join-Path $ProjectRoot "data\inventory\smokingpipes-daily-task-lock.json"
+$DailyTaskLockHelperPath = "scripts/inventory/smokingpipes-daily-task-lock-v1.mjs"
+$DailyTaskLockArchivePath = Join-Path $ProjectRoot "data\audits\smokingpipes-daily-fix\lock-archives"
 $GlobalInventoryLockPath = Join-Path $ProjectRoot "data\inventory\state\smokingpipes.lock"
 $GlobalInventoryLockRelativePath = "data/inventory/state/smokingpipes.lock"
 $InventoryLockHelperPath = "scripts/inventory/smokingpipes-inventory-lock-v1.mjs"
@@ -879,54 +881,54 @@ function Set-CachedListResumeFromCache {
     Convert-CurrentListCacheToCachedResumeState -Cache $Cache -Completed $Completed
 }
 
-function Test-DailyTaskLockIsStale {
-  param([object]$Lock)
-
-  if (-not $Lock -or -not $Lock.startedAt) {
-    return $true
-  }
-
-  try {
-    $startedAt = [datetime]$Lock.startedAt
-    return $startedAt -lt (Get-Date).AddHours(-1 * $LockStaleHours)
-  } catch {
-    return $true
-  }
-}
-
 function Acquire-DailyTaskLock {
-  if (Test-Path $DailyTaskLockPath) {
-    $existingLock = $null
-
-    try {
-      $existingLock = Get-Content -Path $DailyTaskLockPath -Encoding UTF8 | ConvertFrom-Json
-    } catch {
-      $existingLock = $null
-    }
-
-    if (-not (Test-DailyTaskLockIsStale -Lock $existingLock)) {
-      Write-DailyLog "DAILY TASK SKIPPED: another daily task is already running"
-      return $false
-    }
-
-    Write-DailyLog "stale daily task lock removed"
-    Remove-Item -LiteralPath $DailyTaskLockPath -Force
+  $ownerToken = [guid]::NewGuid().ToString("N")
+  $currentProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$PID" -ErrorAction Stop
+  $parentPid = [int]$currentProcess.ParentProcessId
+  $command = "run-smokingpipes-progressive-daily.ps1"
+  $output = & node $DailyTaskLockHelperPath acquire "--path=$DailyTaskLockPath" "--root=$ProjectRoot" "--pid=$PID" "--parent-pid=$parentPid" "--command=$command" "--owner-token=$ownerToken" 2>&1
+  if ($LASTEXITCODE -ne 0) { throw "daily task lock acquire helper failed: $output" }
+  $result = ($output | Out-String | ConvertFrom-Json)
+  if ($result.acquired -ne $true) {
+    Write-DailyLog "DAILY TASK SKIPPED: another daily task is already running; reason=$($result.inspection.reason)"
+    return $false
   }
-
-  $lock = [ordered]@{
-    source = "smokingpipes"
-    pid = $PID
-    startedAt = (Get-Date).ToString("o")
-    staleAfterHours = $LockStaleHours
-  }
-  $lock | ConvertTo-Json -Depth 4 | Set-Content -Path $DailyTaskLockPath -Encoding UTF8
+  $script:DailyTaskLockOwnerToken = $ownerToken
+  Start-DailyTaskLockHeartbeat
+  Write-DailyLog "daily task lock acquired: runId=$($result.lock.runId) pid=$PID"
   return $true
 }
 
-function Release-DailyTaskLock {
-  if (Test-Path $DailyTaskLockPath) {
-    Remove-Item -LiteralPath $DailyTaskLockPath -Force
+function Start-DailyTaskLockHeartbeat {
+  if (-not $script:DailyTaskLockOwnerToken) { throw "daily task lock owner token is missing" }
+  $nodePath = (Get-Command node.exe -CommandType Application -ErrorAction Stop).Source
+  $argumentLine = ('"{0}" heartbeat-loop "--path={1}" "--owner-token={2}" "--pid={3}" --interval-seconds=30' -f $DailyTaskLockHelperPath, $DailyTaskLockPath, $script:DailyTaskLockOwnerToken, $PID)
+  $startInfo = [Diagnostics.ProcessStartInfo]::new()
+  $startInfo.FileName = $nodePath
+  $startInfo.Arguments = $argumentLine
+  $startInfo.WorkingDirectory = $ProjectRoot
+  $startInfo.UseShellExecute = $false
+  $startInfo.CreateNoWindow = $true
+  $script:DailyTaskLockHeartbeatProcess = [Diagnostics.Process]::Start($startInfo)
+  if (-not $script:DailyTaskLockHeartbeatProcess) { throw "daily task lock heartbeat process did not start" }
+}
+
+function Stop-DailyTaskLockHeartbeat {
+  if ($script:DailyTaskLockHeartbeatProcess -and -not $script:DailyTaskLockHeartbeatProcess.HasExited) {
+    Stop-Process -Id $script:DailyTaskLockHeartbeatProcess.Id -Force -ErrorAction SilentlyContinue
+    $script:DailyTaskLockHeartbeatProcess.WaitForExit(5000) | Out-Null
   }
+  $script:DailyTaskLockHeartbeatProcess = $null
+}
+
+function Release-DailyTaskLock {
+  Stop-DailyTaskLockHeartbeat
+  if (-not $script:DailyTaskLockOwnerToken) { return }
+  $output = & node $DailyTaskLockHelperPath release "--path=$DailyTaskLockPath" "--owner-token=$($script:DailyTaskLockOwnerToken)" "--pid=$PID" 2>&1
+  if ($LASTEXITCODE -ne 0) { Write-DailyLog "daily task lock release helper failed: $output"; return }
+  $result = ($output | Out-String | ConvertFrom-Json)
+  Write-DailyLog "daily task lock release: released=$($result.released) reason=$($result.reason)"
+  $script:DailyTaskLockOwnerToken = $null
 }
 
 function Send-MobileReport {
@@ -1091,6 +1093,8 @@ $script:DetailQueueSpikeState = if (
   $null
 }
 $lockAcquired = $false
+$script:DailyTaskLockOwnerToken = $null
+$script:DailyTaskLockHeartbeatProcess = $null
 
 Import-InventoryEnv
 Resolve-ManualRecoveryOptions

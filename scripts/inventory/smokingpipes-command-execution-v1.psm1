@@ -12,7 +12,7 @@ function Invoke-SmokingpipesCommand {
     [Parameter(Mandatory = $true)][string]$FilePath,
     [string[]]$Arguments = @(),
     [Parameter(Mandatory = $true)][string]$WorkingDirectory,
-    [ValidateRange(1, 7200)][int]$TimeoutSeconds = 600,
+    [ValidateRange(1, 14400)][int]$TimeoutSeconds = 3600,
     [ValidateRange(1024, 32768)][int]$TailCharacters = 32768
   )
   if (-not [IO.Path]::IsPathRooted($FilePath) -or -not (Test-Path -LiteralPath $FilePath -PathType Leaf)) {

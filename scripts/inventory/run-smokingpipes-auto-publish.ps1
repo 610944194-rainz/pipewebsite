@@ -5,6 +5,7 @@ param(
   [switch]$ForceRunOnce,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
+  [switch]$AllowDirtyWorktreeForManualVerification,
   [switch]$ResumeAfterProductionWrite,
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
   [string]$ProgressiveDetailMax = "30",
@@ -12,6 +13,8 @@ param(
   [string]$MaxAutoApply = "1000",
   [ValidateRange(1, 100000)]
   [int]$ExpectedAppliedCount = 895,
+  [ValidateRange(0, 14400)]
+  [int]$DailyTimeoutSeconds = 0,
   [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-automation",
   [string]$NodeExecutable = "node",
   [string]$BuildExecutable = "npm.cmd",
@@ -20,6 +23,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $CommandExecutionModulePath = Join-Path $PSScriptRoot "smokingpipes-command-execution-v1.psm1"
+$DailyTaskLockHelperPath = Join-Path $PSScriptRoot "smokingpipes-daily-task-lock-v1.mjs"
 Import-Module -Name $CommandExecutionModulePath -Force
 $EffectiveBuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
@@ -67,7 +71,7 @@ function Invoke-GitCommand {
     [string[]]$Arguments,
     [int[]]$AllowedExitCodes = @(0)
   )
-  $git = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+  $git = (Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
   $effectiveArguments = @("-c", "http.sslBackend=openssl", "-C", $ProjectRoot) + $Arguments
   $command = Format-GitCommand -GitPath $git -Arguments $effectiveArguments
   try {
@@ -102,15 +106,22 @@ function Invoke-GitChecked {
   return (Invoke-GitCommand -Arguments $Arguments).StdoutTail.Trim()
 }
 
+function Resolve-DailyTimeoutSeconds {
+  param([int]$RequestedSeconds)
+  $candidate = if ($RequestedSeconds -gt 0) { $RequestedSeconds } elseif ($env:SMOKINGPIPES_DAILY_TIMEOUT_SECONDS) { [int]$env:SMOKINGPIPES_DAILY_TIMEOUT_SECONDS } else { 3600 }
+  if ($candidate -lt 900 -or $candidate -gt 14400) { throw "SMOKINGPIPES_DAILY_TIMEOUT_SECONDS must be an integer from 900 to 14400" }
+  return $candidate
+}
+
 function Invoke-CheckedCommand {
-  param([string]$FilePath, [string[]]$Arguments, [string]$Stage)
-  $timeout = if ($Stage -match "build|inventory-runner") { 1200 } else { 600 }
+  param([string]$FilePath, [string[]]$Arguments, [string]$Stage, [int]$TimeoutSeconds = 0)
+  $timeout = if ($TimeoutSeconds -gt 0) { $TimeoutSeconds } elseif ($Stage -match "build|inventory-runner") { 1200 } else { 600 }
   return (Invoke-SmokingpipesCommand -Stage $Stage -FilePath $FilePath -Arguments $Arguments -WorkingDirectory $ProjectRoot -TimeoutSeconds $timeout)
 }
 
 function Resolve-LocalExecutable {
   param([string]$Name, [string]$Stage)
-  $command = Get-Command $Name -CommandType Application -ErrorAction Stop
+  $command = Get-Command $Name -CommandType Application -ErrorAction Stop | Select-Object -First 1
   if (-not $command.Source) {
     throw "$Stage executable is missing: $Name"
   }
@@ -139,7 +150,7 @@ function Resolve-BuildExecutable {
   }
 
   try {
-    $command = Get-Command -Name $Requested -CommandType Application -ErrorAction Stop
+    $command = Get-Command -Name $Requested -CommandType Application -ErrorAction Stop | Select-Object -First 1
     $resolved = if ($command.Source) { $command.Source } else { $command.Path }
     if ($resolved -and (Test-Path -LiteralPath $resolved -PathType Leaf)) {
       return [pscustomobject]@{
@@ -440,8 +451,14 @@ function Sync-AutomationRuntimeWithOriginMain {
   $report.headBeforeSync = $headBefore
   $report.originMainSha = $originMain
 
-  if ($dirtyFiles.Count -gt 0) {
+  if ($dirtyFiles.Count -gt 0 -and -not $AllowDirtyWorktreeForManualVerification) {
     Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "automation worktree is dirty before sync"
+  }
+  if ($dirtyFiles.Count -gt 0 -and $AllowDirtyWorktreeForManualVerification -and -not $NoPush) {
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "dirty manual verification requires -NoPush"
+  }
+  if ($dirtyFiles.Count -gt 0 -and $AllowDirtyWorktreeForManualVerification) {
+    Write-Host "[INFO] dirty worktree accepted for manual verification with -NoPush; automatic scheduler never sets this flag"
   }
   if ($branch -ne "automation/smokingpipes-production-run") {
     Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "scheduled sync requires branch automation/smokingpipes-production-run; actual=$branch"
@@ -515,7 +532,31 @@ try {
     Stop-AutoPublish -Status "preflight-blocked" -Stage "preflight" -Reason "post-apply recovery requires automation/* tracking origin/main"
   }
   foreach ($lockPath in $LockPaths) {
-    if (Test-Path -LiteralPath (Join-Path $ProjectRoot $lockPath)) {
+    $absoluteLockPath = Join-Path $ProjectRoot $lockPath
+    if (-not (Test-Path -LiteralPath $absoluteLockPath)) { continue }
+    if ($lockPath -eq "data\inventory\smokingpipes-daily-task-lock.json") {
+      $archiveRoot = Join-Path $ProjectRoot "data\audits\smokingpipes-daily-fix\lock-archives"
+      $recoveryOutput = & node $DailyTaskLockHelperPath recover "--path=$absoluteLockPath" "--root=$ProjectRoot" "--archive-dir=$archiveRoot" 2>&1
+      if ($LASTEXITCODE -ne 0) { Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "daily task lock inspection failed: $recoveryOutput" }
+      $recovery = ($recoveryOutput | Out-String | ConvertFrom-Json)
+      if ($recovery.recovered -eq $true) { Write-Host "[INFO] stale daily task lock archived: $($recovery.archivePath)" }
+    } else {
+      $inventoryLockHelperPath = Join-Path $PSScriptRoot "smokingpipes-inventory-lock-v1.mjs"
+      $inspectionOutput = & node $inventoryLockHelperPath 2>&1
+      if ($LASTEXITCODE -ne 0) { Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "inventory lock inspection failed: $inspectionOutput" }
+      $inspection = ($inspectionOutput | Out-String | ConvertFrom-Json)
+      $matchingLock = @($inspection.locks | Where-Object { $_.path.Replace('/','\') -eq $lockPath }) | Select-Object -First 1
+      if ($matchingLock -and $matchingLock.stale -eq $true) {
+        $archiveRoot = Join-Path $ProjectRoot "data\audits\smokingpipes-daily-fix\lock-archives"
+        New-Item -ItemType Directory -Force -Path $archiveRoot | Out-Null
+        $archivePath = Join-Path $archiveRoot ((Split-Path $absoluteLockPath -Leaf) + "." + (Get-Date -Format "yyyyMMdd-HHmmss") + "." + $matchingLock.reason + ".json")
+        Copy-Item -LiteralPath $absoluteLockPath -Destination $archivePath -Force
+        $clearOutput = & node $inventoryLockHelperPath --clear-stale 2>&1
+        if ($LASTEXITCODE -ne 0) { Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "inventory stale lock cleanup failed: $clearOutput" }
+        Write-Host "[INFO] stale inventory lock archived: $archivePath"
+      }
+    }
+    if (Test-Path -LiteralPath $absoluteLockPath) {
       Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "active inventory lock: $lockPath"
     }
   }
@@ -557,6 +598,7 @@ try {
   }
 
   if (-not $ResumeAfterProductionWrite) {
+  $effectiveDailyTimeoutSeconds = Resolve-DailyTimeoutSeconds -RequestedSeconds $DailyTimeoutSeconds
   $dailyArguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $DailyScriptPath)
   if ($NoProductionWrite) { $dailyArguments += "-NoProductionWrite" }
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
@@ -565,7 +607,7 @@ try {
   $dailyArguments += @("-ProgressiveDetailMax", $ProgressiveDetailMax)
   $dailyArguments += @("-MaxAutoApply", $MaxAutoApply)
   try {
-    Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" | Out-Null
+    Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" -TimeoutSeconds $effectiveDailyTimeoutSeconds | Out-Null
   } catch {
     Stop-AutoPublish -Status "daily-failed" -Stage "daily" -Reason $_.Exception.Message
   }
