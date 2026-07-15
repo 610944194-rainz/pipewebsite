@@ -26,6 +26,7 @@ export type PipeProduct = {
   canonicalBrandSlug?: string;
   brandCountry?: string;
   brandCountryEn?: string;
+  country?: string;
   shape?: string;
   shapeZh?: string;
   shapeGroup?: string;

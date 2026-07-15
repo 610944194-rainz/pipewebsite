@@ -1,0 +1,1550 @@
+{
+  "runId": "danish-v18-list-20260715-02",
+  "generatedAt": "2026-07-15T13:42:02.813Z",
+  "currentProductCount": 2117,
+  "productionCount": 2372,
+  "specsTextNonEmpty": 2104,
+  "coverage": {
+    "shape": 2318,
+    "weightGrams": 2367,
+    "lengthMm": 2366,
+    "heightMm": 2357,
+    "chamberDiameterMm": 2361,
+    "chamberDepthMm": 2361,
+    "bowlDiameterMm": 2361,
+    "finish": 2125,
+    "material": 2129,
+    "stemMaterial": 2368,
+    "filterSpec": 1381
+  },
+  "currentCoverage": {
+    "shape": 2063,
+    "weightGrams": 2112,
+    "lengthMm": 2111,
+    "heightMm": 2102,
+    "chamberDiameterMm": 2106,
+    "chamberDepthMm": 2106,
+    "bowlDiameterMm": 2106,
+    "finish": 1870,
+    "material": 1874,
+    "stemMaterial": 2113,
+    "filterSpec": 1381
+  },
+  "newProductCoverage": {
+    "total": 261,
+    "fields": {
+      "shape": 207,
+      "weightGrams": 258,
+      "lengthMm": 258,
+      "heightMm": 256,
+      "chamberDiameterMm": 256,
+      "chamberDepthMm": 256,
+      "bowlDiameterMm": 256,
+      "finish": 14,
+      "material": 18,
+      "stemMaterial": 257,
+      "filterSpec": 206
+    }
+  },
+  "parseFailuresWithRawSpecs": {
+    "shape": {
+      "count": 54,
+      "samples": [
+        {
+          "id": 27196,
+          "name": "Stanwell, Sterling Silver 29, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 48 mm",
+            "E: 长度: 151 mm",
+            "F: Button width: 16,7 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 37 gr"
+          ]
+        },
+        {
+          "id": 35888,
+          "name": "Winsløw Crown 300, Pickaxe, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 30 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 16,2 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 46 gr"
+          ]
+        },
+        {
+          "id": 36886,
+          "name": "Peder Jeppesen, Ida Gr. 3, Pear Sitter",
+          "specsText": [
+            "A: 斗钵壁直径: 52 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 135 mm",
+            "F: Button width: 18,6 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 74 gr"
+          ]
+        },
+        {
+          "id": 36890,
+          "name": "Estate Erik Nording, 2002 Golf Pipe, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 148 mm",
+            "F: Button width: 15,4 mm",
+            "G: Bit thickness: 4,1 mm",
+            "重量: 66 gr"
+          ]
+        },
+        {
+          "id": 36891,
+          "name": "Estate Erik Nording, 2002 Golf Pipe, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 43 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 142 mm",
+            "F: Button width: 15,7 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 59 gr"
+          ]
+        },
+        {
+          "id": 36924,
+          "name": "Neerup, Classic 2, Canted Pear",
+          "specsText": [
+            "A: 斗钵壁直径: 48 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 43 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 142 mm",
+            "F: Button width: 17,7 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 65 gr"
+          ]
+        },
+        {
+          "id": 36929,
+          "name": "Neerup, Classic 2, Bent Pear",
+          "specsText": [
+            "A: 斗钵壁直径: 46 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 43 mm",
+            "D: 高度: 54 mm",
+            "E: 长度: 139 mm",
+            "F: Button width: 17,7 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 62 gr"
+          ]
+        },
+        {
+          "id": 36932,
+          "name": "Neerup, Classic 2, Purple Acorn",
+          "specsText": [
+            "A: 斗钵壁直径: 46 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 41 mm",
+            "D: 高度: 57 mm",
+            "E: 长度: 140 mm",
+            "F: Button width: 17,7 mm",
+            "G: Bit thickness: 4,0 mm",
+            "重量: 72 gr"
+          ]
+        },
+        {
+          "id": 36933,
+          "name": "Neerup, Classic 2, Bent Acorn",
+          "specsText": [
+            "A: 斗钵壁直径: 47 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 42 mm",
+            "D: 高度: 56 mm",
+            "E: 长度: 158 mm",
+            "F: Button width: 18,5 mm",
+            "G: Bit thickness: 4,1 mm",
+            "重量: 78 gr"
+          ]
+        },
+        {
+          "id": 36947,
+          "name": "Estate Pipes Box 264, 7 Georg Jensen Pipes",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 37049,
+          "name": "Winsløw Crown 200, Barrel, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 42 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 54 mm",
+            "E: 长度: 156 mm",
+            "F: Button width: 17,9 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 69 gr"
+          ]
+        },
+        {
+          "id": 37052,
+          "name": "Winsløw Crown 200, Chubby Hybrid, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 50 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 29 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 139 mm",
+            "F: Button width: 17,5 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 89 gr"
+          ]
+        },
+        {
+          "id": 37053,
+          "name": "Winsløw Crown 200, Sitter Hybrid, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 42 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 64 mm",
+            "E: 长度: 155 mm",
+            "F: Button width: 18 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 101 gr"
+          ]
+        },
+        {
+          "id": 37054,
+          "name": "Winsløw Crown 200, Sitter Hybrid, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 46 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 42 mm",
+            "D: 高度: 62 mm",
+            "E: 长度: 145 mm",
+            "F: Button width: 17,8 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 83 gr"
+          ]
+        },
+        {
+          "id": 37055,
+          "name": "Winsløw Crown 200, Panelled Sitter, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 21 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 137 mm",
+            "F: Button width: 16,8 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 71 gr"
+          ]
+        },
+        {
+          "id": 37056,
+          "name": "Winsløw Crown 200, Twisted Shank Hybrid, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 52 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 56 mm",
+            "E: 长度: 158 mm",
+            "F: Button width: 16,3 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 95 gr"
+          ]
+        },
+        {
+          "id": 37058,
+          "name": "Winsløw Crown 300, Hybrid Sitter, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 58 mm",
+            "E: 长度: 145 mm",
+            "F: Button width: 16,7 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 85 gr"
+          ]
+        },
+        {
+          "id": 37059,
+          "name": "Winsløw Crown 300, Stubby Hybrid Sitter, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 46 mm",
+            "E: 长度: 116 mm",
+            "F: Button width: 17,6 mm",
+            "G: Bit thickness: 4,1 mm",
+            "重量: 53 gr"
+          ]
+        },
+        {
+          "id": 37060,
+          "name": "Winsløw Crown 300, Hybrid Sitter",
+          "specsText": [
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 31 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 150 mm",
+            "F: Button width: 18,2 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 86 gr"
+          ]
+        },
+        {
+          "id": 37064,
+          "name": "Winsløw Crown 300, Panelled Squat Hybrid Sitter",
+          "specsText": [
+            "A: 斗钵壁直径: 30 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 24 mm",
+            "D: 高度: 39 mm",
+            "E: 长度: 136 mm",
+            "F: Button width: 18,3 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 65 gr"
+          ]
+        }
+      ]
+    },
+    "weightGrams": {
+      "count": 0,
+      "samples": []
+    },
+    "lengthMm": {
+      "count": 1,
+      "samples": [
+        {
+          "id": 232,
+          "name": "BPK Churchwarden's, Seven Day Set, Assorted",
+          "specsText": [
+            "重量: 35 gr"
+          ]
+        }
+      ]
+    },
+    "heightMm": {
+      "count": 10,
+      "samples": [
+        {
+          "id": 232,
+          "name": "BPK Churchwarden's, Seven Day Set, Assorted",
+          "specsText": [
+            "重量: 35 gr"
+          ]
+        },
+        {
+          "id": 6484,
+          "name": "Vauen, Zeppelin, Sand",
+          "specsText": [
+            "A: 斗钵壁直径: 28 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 35 mm",
+            "E: 长度: 145 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 9457,
+          "name": "Eltang Basic, Stem",
+          "specsText": [
+            "E: 长度: 37 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 10597,
+          "name": "Vauen, Zeppelin, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 27 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 35 mm",
+            "E: 长度: 144 mm",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 26988,
+          "name": "Vauen, Zeppelin, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 27 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 35 mm",
+            "E: 长度: 144 mm",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 32419,
+          "name": "Vauen, Zeppelin, 125 Years, Black & White",
+          "specsText": [
+            "A: 斗钵壁直径: 27 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 33 mm",
+            "E: 长度: 142 mm",
+            "F: Button width: 15,4 mm",
+            "G: Bit thickness: 4,9 mm",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 35238,
+          "name": "Nording Compass, Extra Stem",
+          "specsText": [
+            "E: 长度: 41 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35239,
+          "name": "Nording Keystone/Shorty, Extra Stem",
+          "specsText": [
+            "E: 长度: 56 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 3 gr"
+          ]
+        },
+        {
+          "id": 36947,
+          "name": "Estate Pipes Box 264, 7 Georg Jensen Pipes",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 37144,
+          "name": "Estate Pipes Box 265, 5 Stanwell Pipes - New stems!",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        }
+      ]
+    },
+    "chamberDiameterMm": {
+      "count": 6,
+      "samples": [
+        {
+          "id": 232,
+          "name": "BPK Churchwarden's, Seven Day Set, Assorted",
+          "specsText": [
+            "重量: 35 gr"
+          ]
+        },
+        {
+          "id": 9457,
+          "name": "Eltang Basic, Stem",
+          "specsText": [
+            "E: 长度: 37 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35238,
+          "name": "Nording Compass, Extra Stem",
+          "specsText": [
+            "E: 长度: 41 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35239,
+          "name": "Nording Keystone/Shorty, Extra Stem",
+          "specsText": [
+            "E: 长度: 56 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 3 gr"
+          ]
+        },
+        {
+          "id": 36947,
+          "name": "Estate Pipes Box 264, 7 Georg Jensen Pipes",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 37144,
+          "name": "Estate Pipes Box 265, 5 Stanwell Pipes - New stems!",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        }
+      ]
+    },
+    "chamberDepthMm": {
+      "count": 6,
+      "samples": [
+        {
+          "id": 232,
+          "name": "BPK Churchwarden's, Seven Day Set, Assorted",
+          "specsText": [
+            "重量: 35 gr"
+          ]
+        },
+        {
+          "id": 9457,
+          "name": "Eltang Basic, Stem",
+          "specsText": [
+            "E: 长度: 37 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35238,
+          "name": "Nording Compass, Extra Stem",
+          "specsText": [
+            "E: 长度: 41 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35239,
+          "name": "Nording Keystone/Shorty, Extra Stem",
+          "specsText": [
+            "E: 长度: 56 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 3 gr"
+          ]
+        },
+        {
+          "id": 36947,
+          "name": "Estate Pipes Box 264, 7 Georg Jensen Pipes",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 37144,
+          "name": "Estate Pipes Box 265, 5 Stanwell Pipes - New stems!",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        }
+      ]
+    },
+    "bowlDiameterMm": {
+      "count": 6,
+      "samples": [
+        {
+          "id": 232,
+          "name": "BPK Churchwarden's, Seven Day Set, Assorted",
+          "specsText": [
+            "重量: 35 gr"
+          ]
+        },
+        {
+          "id": 9457,
+          "name": "Eltang Basic, Stem",
+          "specsText": [
+            "E: 长度: 37 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35238,
+          "name": "Nording Compass, Extra Stem",
+          "specsText": [
+            "E: 长度: 41 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 2 gr"
+          ]
+        },
+        {
+          "id": 35239,
+          "name": "Nording Keystone/Shorty, Extra Stem",
+          "specsText": [
+            "E: 长度: 56 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 3 gr"
+          ]
+        },
+        {
+          "id": 36947,
+          "name": "Estate Pipes Box 264, 7 Georg Jensen Pipes",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        },
+        {
+          "id": 37144,
+          "name": "Estate Pipes Box 265, 5 Stanwell Pipes - New stems!",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "重量: 40 gr"
+          ]
+        }
+      ]
+    },
+    "finish": {
+      "count": 244,
+      "samples": [
+        {
+          "id": 7864,
+          "name": "Savinelli, Oceano 320, Author, Burgundy",
+          "specsText": [
+            "A: 斗钵壁直径: 49 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 32 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 138 mm",
+            "F: Button width: 16,9 mm",
+            "G: Bit thickness: 5,3 mm",
+            "重量: 69 gr"
+          ]
+        },
+        {
+          "id": 31179,
+          "name": "Winsløw Crown 300, Canted Egg, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 26 mm",
+            "D: 高度: 44 mm",
+            "E: 长度: 136 mm",
+            "F: Button width: 17,7 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 51 gr"
+          ]
+        },
+        {
+          "id": 33870,
+          "name": "Estate Barling, Garnet Grain, Billard, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 157 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 3,7 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 34528,
+          "name": "Winsløw Crown 300, Slight Bent Billard",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 49 mm",
+            "E: 长度: 127 mm",
+            "F: Button width: 14,6 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 52 gr"
+          ]
+        },
+        {
+          "id": 34529,
+          "name": "Winsløw Crown 200, Pointy Dublin",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 45 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 45 gr"
+          ]
+        },
+        {
+          "id": 34530,
+          "name": "Winsløw Crown 200, Sacky Billard",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 27 mm",
+            "D: 高度: 38 mm",
+            "E: 长度: 120 mm",
+            "F: Button width: 15,3 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 44 gr"
+          ]
+        },
+        {
+          "id": 35882,
+          "name": "Winsløw Crown Viking, Sacky Billard, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 36 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 127 mm",
+            "F: Button width: 14,2 mm",
+            "G: Bit thickness: 4,7 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 35887,
+          "name": "Winsløw Crown 300, Slight Bent Dublin, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 28 mm",
+            "D: 高度: 36 mm",
+            "E: 长度: 114 mm",
+            "F: Button width: 17,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 34 gr"
+          ]
+        },
+        {
+          "id": 35888,
+          "name": "Winsløw Crown 300, Pickaxe, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 30 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 16,2 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 46 gr"
+          ]
+        },
+        {
+          "id": 35892,
+          "name": "Winsløw Crown 200, Pointy Billard, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 29 mm",
+            "D: 高度: 43 mm",
+            "E: 长度: 120 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 53 gr"
+          ]
+        },
+        {
+          "id": 36866,
+          "name": "Estate Stanwell, Gilt-Edged, Pot, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 15,2 mm",
+            "G: Bit thickness: 3,7 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 36875,
+          "name": "Estate Poul Winslow, Flashy Poker, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 60 mm",
+            "E: 长度: 158 mm",
+            "F: Button width: 17,9 mm",
+            "G: Bit thickness: 4,0 mm",
+            "重量: 68 gr"
+          ]
+        },
+        {
+          "id": 36878,
+          "name": "Estate Søren Refbjerg, Freehand Sitter, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 52 mm",
+            "E: 长度: 146 mm",
+            "F: Button width: 16,4 mm",
+            "G: Bit thickness: 3,8 mm",
+            "重量: 64 gr"
+          ]
+        },
+        {
+          "id": 36880,
+          "name": "Estate Jesper, Freehand, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 41 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 137 mm",
+            "F: Button width: 13,4 mm",
+            "G: Bit thickness: 3,5 mm",
+            "重量: 47 gr"
+          ]
+        },
+        {
+          "id": 36882,
+          "name": "Estate Celius, Rhodesian Style, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 32 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 43 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 155 mm",
+            "F: Button width: 17,3 mm",
+            "G: Bit thickness: 3,8 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 36886,
+          "name": "Peder Jeppesen, Ida Gr. 3, Pear Sitter",
+          "specsText": [
+            "A: 斗钵壁直径: 52 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 135 mm",
+            "F: Button width: 18,6 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 74 gr"
+          ]
+        },
+        {
+          "id": 36890,
+          "name": "Estate Erik Nording, 2002 Golf Pipe, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 148 mm",
+            "F: Button width: 15,4 mm",
+            "G: Bit thickness: 4,1 mm",
+            "重量: 66 gr"
+          ]
+        },
+        {
+          "id": 36891,
+          "name": "Estate Erik Nording, 2002 Golf Pipe, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 43 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 142 mm",
+            "F: Button width: 15,7 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 59 gr"
+          ]
+        },
+        {
+          "id": 36905,
+          "name": "Estate Nording, Full Bent Edgy Brandy, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 43 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 115 mm",
+            "F: Button width: 18,2 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 69 gr"
+          ]
+        },
+        {
+          "id": 36907,
+          "name": "Estate Thurmann, Rhodesian, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 45 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 43 mm",
+            "E: 长度: 144 mm",
+            "F: Button width: 18,5 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 57 gr"
+          ]
+        }
+      ]
+    },
+    "material": {
+      "count": 240,
+      "samples": [
+        {
+          "id": 7864,
+          "name": "Savinelli, Oceano 320, Author, Burgundy",
+          "specsText": [
+            "A: 斗钵壁直径: 49 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 32 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 138 mm",
+            "F: Button width: 16,9 mm",
+            "G: Bit thickness: 5,3 mm",
+            "重量: 69 gr"
+          ]
+        },
+        {
+          "id": 27196,
+          "name": "Stanwell, Sterling Silver 29, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 48 mm",
+            "E: 长度: 151 mm",
+            "F: Button width: 16,7 mm",
+            "G: Bit thickness: 4,2 mm",
+            "重量: 37 gr"
+          ]
+        },
+        {
+          "id": 29652,
+          "name": "Savinelli, Tre 105, Billard, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 32 mm",
+            "B: 斗钵室内径: 16 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 41 mm",
+            "E: 长度: 147 mm",
+            "F: Button width: 14,5 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 25 gr"
+          ]
+        },
+        {
+          "id": 31179,
+          "name": "Winsløw Crown 300, Canted Egg, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 26 mm",
+            "D: 高度: 44 mm",
+            "E: 长度: 136 mm",
+            "F: Button width: 17,7 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 51 gr"
+          ]
+        },
+        {
+          "id": 33746,
+          "name": "Savinelli, Whisky 320 KS, Author, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 49 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 41 mm",
+            "E: 长度: 136 mm",
+            "F: Button width: 17,1 mm",
+            "G: Bit thickness: 5,4 mm",
+            "重量: 75 gr"
+          ]
+        },
+        {
+          "id": 33870,
+          "name": "Estate Barling, Garnet Grain, Billard, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 157 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 3,7 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 34528,
+          "name": "Winsløw Crown 300, Slight Bent Billard",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 49 mm",
+            "E: 长度: 127 mm",
+            "F: Button width: 14,6 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 52 gr"
+          ]
+        },
+        {
+          "id": 34529,
+          "name": "Winsløw Crown 200, Pointy Dublin",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 45 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 15,6 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 45 gr"
+          ]
+        },
+        {
+          "id": 34530,
+          "name": "Winsløw Crown 200, Sacky Billard",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 27 mm",
+            "D: 高度: 38 mm",
+            "E: 长度: 120 mm",
+            "F: Button width: 15,3 mm",
+            "G: Bit thickness: 4,5 mm",
+            "重量: 44 gr"
+          ]
+        },
+        {
+          "id": 35882,
+          "name": "Winsløw Crown Viking, Sacky Billard, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 36 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 127 mm",
+            "F: Button width: 14,2 mm",
+            "G: Bit thickness: 4,7 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 35887,
+          "name": "Winsløw Crown 300, Slight Bent Dublin, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 28 mm",
+            "D: 高度: 36 mm",
+            "E: 长度: 114 mm",
+            "F: Button width: 17,6 mm",
+            "G: Bit thickness: 4,4 mm",
+            "重量: 34 gr"
+          ]
+        },
+        {
+          "id": 35888,
+          "name": "Winsløw Crown 300, Pickaxe, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 30 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 16,2 mm",
+            "G: Bit thickness: 4,6 mm",
+            "重量: 46 gr"
+          ]
+        },
+        {
+          "id": 35892,
+          "name": "Winsløw Crown 200, Pointy Billard, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 40 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 29 mm",
+            "D: 高度: 43 mm",
+            "E: 长度: 120 mm",
+            "F: Button width: 15,8 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 53 gr"
+          ]
+        },
+        {
+          "id": 36866,
+          "name": "Estate Stanwell, Gilt-Edged, Pot, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 131 mm",
+            "F: Button width: 15,2 mm",
+            "G: Bit thickness: 3,7 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 36875,
+          "name": "Estate Poul Winslow, Flashy Poker, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 34 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 60 mm",
+            "E: 长度: 158 mm",
+            "F: Button width: 17,9 mm",
+            "G: Bit thickness: 4,0 mm",
+            "重量: 68 gr"
+          ]
+        },
+        {
+          "id": 36878,
+          "name": "Estate Søren Refbjerg, Freehand Sitter, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 22 mm",
+            "C: 斗钵室深: 48 mm",
+            "D: 高度: 52 mm",
+            "E: 长度: 146 mm",
+            "F: Button width: 16,4 mm",
+            "G: Bit thickness: 3,8 mm",
+            "重量: 64 gr"
+          ]
+        },
+        {
+          "id": 36880,
+          "name": "Estate Jesper, Freehand, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 41 mm",
+            "B: 斗钵室内径: 21 mm",
+            "C: 斗钵室深: 40 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 137 mm",
+            "F: Button width: 13,4 mm",
+            "G: Bit thickness: 3,5 mm",
+            "重量: 47 gr"
+          ]
+        },
+        {
+          "id": 36882,
+          "name": "Estate Celius, Rhodesian Style, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 32 mm",
+            "B: 斗钵室内径: 17 mm",
+            "C: 斗钵室深: 43 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 155 mm",
+            "F: Button width: 17,3 mm",
+            "G: Bit thickness: 3,8 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 36886,
+          "name": "Peder Jeppesen, Ida Gr. 3, Pear Sitter",
+          "specsText": [
+            "A: 斗钵壁直径: 52 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 39 mm",
+            "D: 高度: 50 mm",
+            "E: 长度: 135 mm",
+            "F: Button width: 18,6 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 74 gr"
+          ]
+        },
+        {
+          "id": 36890,
+          "name": "Estate Erik Nording, 2002 Golf Pipe, Presmoked",
+          "specsText": [
+            "About Estate pipes and rating The Danish Pipe Shop rating system explained ...",
+            "Estate pipes The Danish Pipe Shop and the story of Estate pipes",
+            "A: 斗钵壁直径: 44 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 148 mm",
+            "F: Button width: 15,4 mm",
+            "G: Bit thickness: 4,1 mm",
+            "重量: 66 gr"
+          ]
+        }
+      ]
+    },
+    "stemMaterial": {
+      "count": 1,
+      "samples": [
+        {
+          "id": 37211,
+          "name": "Tao, The Tao Bulldog",
+          "specsText": [
+            "A: 斗钵壁直径: 49 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 36 mm",
+            "D: 高度: 49 mm",
+            "E: 长度: 117 mm",
+            "F: Button width: 22,5 mm",
+            "G: Bit thickness: 6,0 mm",
+            "重量: 85 gr"
+          ]
+        }
+      ]
+    },
+    "filterSpec": {
+      "count": 723,
+      "samples": [
+        {
+          "id": 210,
+          "name": "BPK, Mini Churchwarden Pipe, Rhodesian, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 32 mm",
+            "B: 斗钵室内径: 16 mm",
+            "C: 斗钵室深: 20 mm",
+            "D: 高度: 29 mm",
+            "E: 长度: 182 mm",
+            "F: Button width: 12,9 mm",
+            "G: Bit thickness: 5,1 mm",
+            "重量: 20 gr"
+          ]
+        },
+        {
+          "id": 385,
+          "name": "Molina, Churchwarden, Rustic",
+          "specsText": [
+            "A: 斗钵壁直径: 45 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 43 mm",
+            "E: 长度: 230 mm",
+            "重量: 61 gr"
+          ]
+        },
+        {
+          "id": 587,
+          "name": "Dollar Kapten Pipe, Smooth, Bent",
+          "specsText": [
+            "A: 斗钵壁直径: 32 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 25 mm",
+            "D: 高度: 48 mm",
+            "E: 长度: 143 mm",
+            "重量: 28 gr"
+          ]
+        },
+        {
+          "id": 1165,
+          "name": "Savinelli, Churchwarden 601, 6mm Rusticated, Black",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 46 mm",
+            "E: 长度: 250 mm",
+            "重量: 53 gr"
+          ]
+        },
+        {
+          "id": 1180,
+          "name": "Savinelli, Roma 626, Bent Apple",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 43 mm",
+            "E: 长度: 136 mm",
+            "重量: 46 gr"
+          ]
+        },
+        {
+          "id": 1181,
+          "name": "Savinelli, Roma 320KS, Chubby Apple",
+          "specsText": [
+            "A: 斗钵壁直径: 50 mm",
+            "B: 斗钵室内径: 24 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 39 mm",
+            "E: 长度: 130 mm",
+            "重量: 64 gr"
+          ]
+        },
+        {
+          "id": 1182,
+          "name": "Savinelli, Roma 504, Bulldog",
+          "specsText": [
+            "A: 斗钵壁直径: 39 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 45 mm",
+            "E: 长度: 134 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 1183,
+          "name": "Savinelli, Roma 802, Canadian, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 36 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 38 mm",
+            "D: 高度: 45 mm",
+            "E: 长度: 165 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 1486,
+          "name": "Eriksen Keystone filter pipe, black/rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 37 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 55 mm",
+            "E: 长度: 155 mm",
+            "重量: 44 gr"
+          ]
+        },
+        {
+          "id": 1489,
+          "name": "Eriksen Keystone filter pipe, orange/rustic",
+          "specsText": [
+            "A: 斗钵壁直径: 36 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 30 mm",
+            "D: 高度: 56 mm",
+            "E: 长度: 154 mm",
+            "重量: 43 gr"
+          ]
+        },
+        {
+          "id": 1647,
+          "name": "Savinelli, Gingers Favourite 104, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 35 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 46 mm",
+            "E: 长度: 200 mm",
+            "重量: 41 gr"
+          ]
+        },
+        {
+          "id": 1648,
+          "name": "Savinelli, Gingers Favourite 104, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 35 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 46 mm",
+            "E: 长度: 200 mm",
+            "F: Button width: 16,4 mm",
+            "G: Bit thickness: 4,3 mm",
+            "重量: 44 gr"
+          ]
+        },
+        {
+          "id": 1649,
+          "name": "Savinelli, Gingers Favourite 626, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 44 mm",
+            "E: 长度: 200 mm",
+            "重量: 49 gr"
+          ]
+        },
+        {
+          "id": 1650,
+          "name": "Savinelli, Gingers Favourite 626, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 37 mm",
+            "D: 高度: 44 mm",
+            "E: 长度: 200 mm",
+            "重量: 42 gr"
+          ]
+        },
+        {
+          "id": 1658,
+          "name": "Savinelli, Marte 106, Billard, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 35 mm",
+            "B: 斗钵室内径: 19 mm",
+            "C: 斗钵室深: 35 mm",
+            "D: 高度: 44 mm",
+            "E: 长度: 135 mm",
+            "F: Button width: 17,2 mm",
+            "G: Bit thickness: 5,1 mm",
+            "重量: 39 gr"
+          ]
+        },
+        {
+          "id": 1659,
+          "name": "Savinelli, Marte 311 KS, New Poker, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 51 mm",
+            "E: 长度: 125 mm",
+            "重量: 53 gr"
+          ]
+        },
+        {
+          "id": 1660,
+          "name": "Savinelli, Marte 311, New Poker, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 20 mm",
+            "C: 斗钵室深: 33 mm",
+            "D: 高度: 51 mm",
+            "E: 长度: 125 mm",
+            "重量: 46 gr"
+          ]
+        },
+        {
+          "id": 1691,
+          "name": "Savinelli, Trevi 320 KS, Chubby Apple, Smooth",
+          "specsText": [
+            "A: 斗钵壁直径: 49 mm",
+            "B: 斗钵室内径: 25 mm",
+            "C: 斗钵室深: 34 mm",
+            "D: 高度: 42 mm",
+            "E: 长度: 133 mm",
+            "重量: 81 gr"
+          ]
+        },
+        {
+          "id": 1692,
+          "name": "Savinelli, Trevi 320 KS, Chubby Apple, Rusticated",
+          "specsText": [
+            "A: 斗钵壁直径: 50 mm",
+            "B: 斗钵室内径: 25 mm",
+            "C: 斗钵室深: 31 mm",
+            "D: 高度: 40 mm",
+            "E: 长度: 133 mm",
+            "重量: 88 gr"
+          ]
+        },
+        {
+          "id": 2484,
+          "name": "Rattray's, Goblin 99, Bent Apple, Light, 9 mm.",
+          "specsText": [
+            "A: 斗钵壁直径: 38 mm",
+            "B: 斗钵室内径: 18 mm",
+            "C: 斗钵室深: 27 mm",
+            "D: 高度: 38 mm",
+            "E: 长度: 100 mm",
+            "重量: 37 gr"
+          ]
+        }
+      ]
+    }
+  },
+  "oldDataBackfill": {
+    "baselineCount": 2165,
+    "fieldDistribution": {
+      "shape": 431,
+      "weightGrams": 8,
+      "lengthMm": 8,
+      "heightMm": 8,
+      "chamberDiameterMm": 8,
+      "chamberDepthMm": 8,
+      "bowlDiameterMm": 8,
+      "finish": 1419,
+      "material": 1582,
+      "stemMaterial": 168,
+      "filterSpec": 0
+    }
+  },
+  "acceptanceSamples": {
+    "dunhill": [
+      29950,
+      29960,
+      29961
+    ],
+    "peterson": [
+      3096,
+      12728,
+      17583
+    ],
+    "newProducts": [
+      7864,
+      27196,
+      29652,
+      31179,
+      33746,
+      33870,
+      34528,
+      34529,
+      34530,
+      35882
+    ],
+    "estate": [
+      33485,
+      33543,
+      33563,
+      33676,
+      33698
+    ]
+  }
+}

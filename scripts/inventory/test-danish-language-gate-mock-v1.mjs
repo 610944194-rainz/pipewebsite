@@ -57,7 +57,7 @@ assert.equal(persisted.products.length, 1); assert.equal(persisted.languageSelec
 const middle = await collectLiveList(options("/middle"));
 assert.equal(middle.products.length, 2); assert.equal(middle.languageSelection.completed, true); // I
 const failed = await collectLiveList(options("/manual-fail", 2));
-assert.equal(failed.failureStage, "language-selection-failed"); assert.equal(failed.exitCode, 3); assert.equal(failed.languageSelection.fallbackToManual, true); // F
+assert.equal(failed.failureStage, "age-language-gate-not-dismissed"); assert.equal(failed.exitCode, 3); assert.equal(failed.languageSelection.fallbackToManual, true); // F
 
 await context.close(); await new Promise((resolve) => server.close(resolve));
 console.log("Danish language gate mock E2E tests passed");

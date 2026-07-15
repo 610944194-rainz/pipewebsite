@@ -1,0 +1,181 @@
+# Danish V18 structured specs validation
+
+- RunId: danish-v18-list-20260715-02
+- Danish current products: 2117
+- Danish Production: 2372
+- Nonempty specsText: 2104
+
+## Field coverage
+
+- shape: 2318/2372
+- weightGrams: 2367/2372
+- lengthMm: 2366/2372
+- heightMm: 2357/2372
+- chamberDiameterMm: 2361/2372
+- chamberDepthMm: 2361/2372
+- bowlDiameterMm: 2361/2372
+- finish: 2125/2372
+- material: 2129/2372
+- stemMaterial: 2368/2372
+- filterSpec: 1381/2372
+
+## New-product coverage
+
+- total: 261
+- shape: 207/261
+- weightGrams: 258/261
+- lengthMm: 258/261
+- heightMm: 256/261
+- chamberDiameterMm: 256/261
+- chamberDepthMm: 256/261
+- bowlDiameterMm: 256/261
+- finish: 14/261
+- material: 18/261
+- stemMaterial: 257/261
+- filterSpec: 206/261
+
+## Old-data backfill
+
+- baseline: 2165
+- shape: 431
+- weightGrams: 8
+- lengthMm: 8
+- heightMm: 8
+- chamberDiameterMm: 8
+- chamberDepthMm: 8
+- bowlDiameterMm: 8
+- finish: 1419
+- material: 1582
+- stemMaterial: 168
+- filterSpec: 0
+
+## Raw specs present but not parsed
+
+- shape: 54
+  - 27196: Stanwell, Sterling Silver 29, Smooth
+  - 35888: Winsløw Crown 300, Pickaxe, 9 mm.
+  - 36886: Peder Jeppesen, Ida Gr. 3, Pear Sitter
+  - 36890: Estate Erik Nording, 2002 Golf Pipe, Presmoked
+  - 36891: Estate Erik Nording, 2002 Golf Pipe, Presmoked
+  - 36924: Neerup, Classic 2, Canted Pear
+  - 36929: Neerup, Classic 2, Bent Pear
+  - 36932: Neerup, Classic 2, Purple Acorn
+  - 36933: Neerup, Classic 2, Bent Acorn
+  - 36947: Estate Pipes Box 264, 7 Georg Jensen Pipes
+  - 37049: Winsløw Crown 200, Barrel, 9 mm.
+  - 37052: Winsløw Crown 200, Chubby Hybrid, 9 mm.
+  - 37053: Winsløw Crown 200, Sitter Hybrid, 9 mm.
+  - 37054: Winsløw Crown 200, Sitter Hybrid, 9 mm.
+  - 37055: Winsløw Crown 200, Panelled Sitter, 9 mm.
+  - 37056: Winsløw Crown 200, Twisted Shank Hybrid, 9 mm.
+  - 37058: Winsløw Crown 300, Hybrid Sitter, 9 mm.
+  - 37059: Winsløw Crown 300, Stubby Hybrid Sitter, 9 mm.
+  - 37060: Winsløw Crown 300, Hybrid Sitter
+  - 37064: Winsløw Crown 300, Panelled Squat Hybrid Sitter
+- weightGrams: 0
+- lengthMm: 1
+  - 232: BPK Churchwarden's, Seven Day Set, Assorted
+- heightMm: 10
+  - 232: BPK Churchwarden's, Seven Day Set, Assorted
+  - 6484: Vauen, Zeppelin, Sand
+  - 9457: Eltang Basic, Stem
+  - 10597: Vauen, Zeppelin, Smooth
+  - 26988: Vauen, Zeppelin, Rusticated
+  - 32419: Vauen, Zeppelin, 125 Years, Black & White
+  - 35238: Nording Compass, Extra Stem
+  - 35239: Nording Keystone/Shorty, Extra Stem
+  - 36947: Estate Pipes Box 264, 7 Georg Jensen Pipes
+  - 37144: Estate Pipes Box 265, 5 Stanwell Pipes - New stems!
+- chamberDiameterMm: 6
+  - 232: BPK Churchwarden's, Seven Day Set, Assorted
+  - 9457: Eltang Basic, Stem
+  - 35238: Nording Compass, Extra Stem
+  - 35239: Nording Keystone/Shorty, Extra Stem
+  - 36947: Estate Pipes Box 264, 7 Georg Jensen Pipes
+  - 37144: Estate Pipes Box 265, 5 Stanwell Pipes - New stems!
+- chamberDepthMm: 6
+  - 232: BPK Churchwarden's, Seven Day Set, Assorted
+  - 9457: Eltang Basic, Stem
+  - 35238: Nording Compass, Extra Stem
+  - 35239: Nording Keystone/Shorty, Extra Stem
+  - 36947: Estate Pipes Box 264, 7 Georg Jensen Pipes
+  - 37144: Estate Pipes Box 265, 5 Stanwell Pipes - New stems!
+- bowlDiameterMm: 6
+  - 232: BPK Churchwarden's, Seven Day Set, Assorted
+  - 9457: Eltang Basic, Stem
+  - 35238: Nording Compass, Extra Stem
+  - 35239: Nording Keystone/Shorty, Extra Stem
+  - 36947: Estate Pipes Box 264, 7 Georg Jensen Pipes
+  - 37144: Estate Pipes Box 265, 5 Stanwell Pipes - New stems!
+- finish: 244
+  - 7864: Savinelli, Oceano 320, Author, Burgundy
+  - 31179: Winsløw Crown 300, Canted Egg, 9 mm.
+  - 33870: Estate Barling, Garnet Grain, Billard, Presmoked
+  - 34528: Winsløw Crown 300, Slight Bent Billard
+  - 34529: Winsløw Crown 200, Pointy Dublin
+  - 34530: Winsløw Crown 200, Sacky Billard
+  - 35882: Winsløw Crown Viking, Sacky Billard, 9 mm.
+  - 35887: Winsløw Crown 300, Slight Bent Dublin, 9 mm.
+  - 35888: Winsløw Crown 300, Pickaxe, 9 mm.
+  - 35892: Winsløw Crown 200, Pointy Billard, 9 mm.
+  - 36866: Estate Stanwell, Gilt-Edged, Pot, Presmoked
+  - 36875: Estate Poul Winslow, Flashy Poker, Presmoked
+  - 36878: Estate Søren Refbjerg, Freehand Sitter, Presmoked
+  - 36880: Estate Jesper, Freehand, Presmoked
+  - 36882: Estate Celius, Rhodesian Style, Presmoked
+  - 36886: Peder Jeppesen, Ida Gr. 3, Pear Sitter
+  - 36890: Estate Erik Nording, 2002 Golf Pipe, Presmoked
+  - 36891: Estate Erik Nording, 2002 Golf Pipe, Presmoked
+  - 36905: Estate Nording, Full Bent Edgy Brandy, Presmoked
+  - 36907: Estate Thurmann, Rhodesian, Presmoked
+- material: 240
+  - 7864: Savinelli, Oceano 320, Author, Burgundy
+  - 27196: Stanwell, Sterling Silver 29, Smooth
+  - 29652: Savinelli, Tre 105, Billard, Smooth
+  - 31179: Winsløw Crown 300, Canted Egg, 9 mm.
+  - 33746: Savinelli, Whisky 320 KS, Author, Smooth
+  - 33870: Estate Barling, Garnet Grain, Billard, Presmoked
+  - 34528: Winsløw Crown 300, Slight Bent Billard
+  - 34529: Winsløw Crown 200, Pointy Dublin
+  - 34530: Winsløw Crown 200, Sacky Billard
+  - 35882: Winsløw Crown Viking, Sacky Billard, 9 mm.
+  - 35887: Winsløw Crown 300, Slight Bent Dublin, 9 mm.
+  - 35888: Winsløw Crown 300, Pickaxe, 9 mm.
+  - 35892: Winsløw Crown 200, Pointy Billard, 9 mm.
+  - 36866: Estate Stanwell, Gilt-Edged, Pot, Presmoked
+  - 36875: Estate Poul Winslow, Flashy Poker, Presmoked
+  - 36878: Estate Søren Refbjerg, Freehand Sitter, Presmoked
+  - 36880: Estate Jesper, Freehand, Presmoked
+  - 36882: Estate Celius, Rhodesian Style, Presmoked
+  - 36886: Peder Jeppesen, Ida Gr. 3, Pear Sitter
+  - 36890: Estate Erik Nording, 2002 Golf Pipe, Presmoked
+- stemMaterial: 1
+  - 37211: Tao, The Tao Bulldog
+- filterSpec: 723
+  - 210: BPK, Mini Churchwarden Pipe, Rhodesian, Smooth
+  - 385: Molina, Churchwarden, Rustic
+  - 587: Dollar Kapten Pipe, Smooth, Bent
+  - 1165: Savinelli, Churchwarden 601, 6mm Rusticated, Black
+  - 1180: Savinelli, Roma 626, Bent Apple
+  - 1181: Savinelli, Roma 320KS, Chubby Apple
+  - 1182: Savinelli, Roma 504, Bulldog
+  - 1183: Savinelli, Roma 802, Canadian, Rusticated
+  - 1486: Eriksen Keystone filter pipe, black/rusticated
+  - 1489: Eriksen Keystone filter pipe, orange/rustic
+  - 1647: Savinelli, Gingers Favourite 104, Rusticated
+  - 1648: Savinelli, Gingers Favourite 104, Smooth
+  - 1649: Savinelli, Gingers Favourite 626, Rusticated
+  - 1650: Savinelli, Gingers Favourite 626, Smooth
+  - 1658: Savinelli, Marte 106, Billard, Smooth
+  - 1659: Savinelli, Marte 311 KS, New Poker, Rusticated
+  - 1660: Savinelli, Marte 311, New Poker, Smooth
+  - 1691: Savinelli, Trevi 320 KS, Chubby Apple, Smooth
+  - 1692: Savinelli, Trevi 320 KS, Chubby Apple, Rusticated
+  - 2484: Rattray's, Goblin 99, Bent Apple, Light, 9 mm.
+
+## Acceptance sample IDs
+
+- dunhill: 29950, 29960, 29961
+- peterson: 3096, 12728, 17583
+- newProducts: 7864, 27196, 29652, 31179, 33746, 33870, 34528, 34529, 34530, 35882
+- estate: 33485, 33543, 33563, 33676, 33698

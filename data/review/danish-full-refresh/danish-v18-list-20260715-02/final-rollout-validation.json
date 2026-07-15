@@ -1,0 +1,73 @@
+{
+  "runId": "danish-v18-list-20260715-02",
+  "generatedAt": "2026-07-15T14:10:41.146Z",
+  "status": "passed",
+  "raw": {
+    "listCount": 2172,
+    "detailCount": 2172,
+    "successCount": 2172,
+    "failCount": 0
+  },
+  "production": {
+    "count": 2372,
+    "statusCounts": {
+      "可购买": 1762,
+      "已售": 610
+    },
+    "missingImages": 0,
+    "missingProductCodes": 3,
+    "sha256": "57a80944a7715d26293d3a4935a90c495b561451d11d502222c085ae67a3e127"
+  },
+  "staging": {
+    "total": 9269,
+    "danish": 2372,
+    "smokingpipes": 6897,
+    "danishStatusCounts": {
+      "available": 1762,
+      "sold": 610
+    },
+    "sha256": "4b71639c9e52b271db07950f02dea62aff8754982c5c47a2286e23ccb92d51b1"
+  },
+  "public": {
+    "total": 8780,
+    "danish": 2365,
+    "smokingpipes": 6415,
+    "expectedDanishEligible": 2365,
+    "previousSmokingpipes": null,
+    "detailShardCount": 64,
+    "manifestSha256": "e02804059f38f57325f224426d38ca75545834cad1d4a6a77c8dd245fddf13b6",
+    "catalogSha256": "ac7dcd3e7180dd2a24769fc262bb80f4e884da97c2ebfd10759ee529f2f52c6e"
+  },
+  "exclusions": {
+    "falconExcluded": 54,
+    "bpk32447Excluded": true,
+    "retainedHistoricalAsSold": 255
+  },
+  "duplicates": {
+    "productionIds": 0,
+    "stagingDanishIds": 0,
+    "publicDanishIds": 0
+  },
+  "checks": {
+    "rawCounts": true,
+    "production": true,
+    "candidateSha": true,
+    "staging": true,
+    "publicFiles": true,
+    "publicIntegrity": true,
+    "publicDanish": true,
+    "smokingpipesPreserved": true,
+    "offlineTests": true,
+    "npmBuild": true,
+    "diffCheck": true
+  },
+  "tests": {
+    "offline": true,
+    "npmBuild": true,
+    "gitDiffCheck": true
+  },
+  "productionWritten": true,
+  "publicWritten": true,
+  "allowApply": true,
+  "rollbackBackupDirectory": "C:\\Users\\NING MEI\\Desktop\\pipewebsite-backups\\danish-v18-structured-specs-20260715-1320"
+}
