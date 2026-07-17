@@ -275,6 +275,50 @@ function buildCanonicalBrandIndex(items) {
   return index;
 }
 
+function brandUrlKey(value) {
+  return normalizeText(value)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "")
+    .toLowerCase();
+}
+
+function buildBrandUrlPathIndex(items) {
+  const index = new Map();
+
+  for (const item of items || []) {
+    const values = [
+      item.canonicalBrand,
+      item.canonicalBrandSlug,
+      ...(Array.isArray(item.aliases) ? item.aliases : []),
+    ];
+
+    for (const value of values) {
+      const key = brandUrlKey(value);
+      if (!key) continue;
+      if (!index.has(key)) index.set(key, item);
+      else if (index.get(key) !== item) index.set(key, null);
+    }
+  }
+
+  return index;
+}
+
+function getSmokingpipesUrlBrand(index, sourceUrl) {
+  const pathname = sourcePathname(sourceUrl);
+  const match = pathname.match(/^\/pipes\/(?:new|estate)\/([^/]+)\//i);
+  if (!match) return null;
+
+  let segment = match[1];
+  try {
+    segment = decodeURIComponent(segment);
+  } catch {
+    // Keep the encoded segment; an invalid escape must not fail conversion.
+  }
+  const key = brandUrlKey(segment.replace(/[-_]+/g, " "));
+  return key ? index.get(key) || null : null;
+}
+
 function sourcePathname(value) {
   const text = normalizeText(value);
 
@@ -492,9 +536,17 @@ function normalizeInventory(detail, listItem) {
   };
 }
 
-function normalizeBrand(detail, indexes) {
-  const rawBrand = normalizeText(detail.brand);
-  const sourceUrl = normalizeText(detail.sourceUrl || detail.href);
+function normalizeBrand(detail, listItem, indexes) {
+  const detailBrand = normalizeText(detail.brand);
+  const listBrand = normalizeText(listItem?.brand);
+  const sourceUrl = normalizeText(
+    detail.sourceUrl || detail.href || listItem?.sourceUrl || listItem?.href
+  );
+  const urlBrand =
+    !detailBrand && !listBrand
+      ? getSmokingpipesUrlBrand(indexes.brandUrlPath, sourceUrl)
+      : null;
+  const rawBrand = detailBrand || listBrand || urlBrand?.canonicalBrand || "";
   const scopedMapping = getSourceScopedBrandMapping(indexes.sourceScopedBrand, {
     source: "smokingpipes",
     rawBrand,
@@ -502,7 +554,7 @@ function normalizeBrand(detail, indexes) {
   });
   const taxonomyItem = scopedMapping
     ? getTaxonomyItem(indexes.brandCanonical, scopedMapping.approvedCanonicalBrand)
-    : getTaxonomyItem(indexes.brand, rawBrand);
+    : urlBrand || getTaxonomyItem(indexes.brand, rawBrand);
   const canonicalBrand = taxonomyItem?.canonicalBrand || rawBrand;
   const canonicalBrandSlug = taxonomyItem?.canonicalBrandSlug || slugify(canonicalBrand);
   const brandReviewStatus = taxonomyItem?.reviewStatus || "needs-review";
@@ -865,7 +917,7 @@ function normalizeModel(detail, brand, shape) {
 function convertProduct(detail, listItem, indexes) {
   const sourceProductId = productIdOf(detail);
   const productOverride = getProductOverride(indexes.productOverrides, "smokingpipes", sourceProductId);
-  const brand = normalizeBrand(detail, indexes);
+  const brand = normalizeBrand(detail, listItem, indexes);
   const shape = normalizeShape(detail, indexes);
   const finish = normalizeFinish(detail, indexes);
   const bowlMaterial = normalizeBowlMaterial(detail, indexes);
@@ -1045,6 +1097,7 @@ export function convertSmokingpipesCandidateDetails(
     brandCanonical: buildCanonicalBrandIndex(
       brandTaxonomy.brands || []
     ),
+    brandUrlPath: buildBrandUrlPathIndex(brandTaxonomy.brands || []),
     sourceScopedBrand: buildSourceScopedBrandIndex(
       sourceScopedBrandMappings
     ),
@@ -2693,6 +2746,7 @@ function main() {
   const indexes = {
     brand: buildAliasIndex(brandTaxonomy.brands || [], "aliases", "canonicalBrandSlug"),
     brandCanonical: buildCanonicalBrandIndex(brandTaxonomy.brands || []),
+    brandUrlPath: buildBrandUrlPathIndex(brandTaxonomy.brands || []),
     sourceScopedBrand: buildSourceScopedBrandIndex(sourceScopedBrandMappings),
     productOverrides: buildProductOverrideIndex(productPublicationOverrides),
     shape: buildAliasIndex(shapeTaxonomy.shapes || [], "aliases", "canonicalShapeSlug"),
