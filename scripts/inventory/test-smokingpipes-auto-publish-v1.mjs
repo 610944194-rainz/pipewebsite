@@ -117,7 +117,13 @@ try {
   assert.match(publishScript, /"merge-base", "--is-ancestor", "HEAD", "origin\/main"/);
   assert.match(publishScript, /local branch is ahead of origin\/main/);
   assert.match(publishScript, /local branch diverged from origin\/main/);
-  for (const field of ["syncAttempted", "syncPerformed", "headBeforeSync", "headAfterSync", "originMainSha", "gitCommand", "gitExitCode", "gitStdoutTail", "gitStderrTail", "schedulerUser", "workingDirectory"]) {
+  assert.match(publishScript, /function Get-AutomationWorktreeDirtyClassification/);
+  assert.match(publishScript, /data\/audits\/smokingpipes-daily-fix\//);
+  assert.match(publishScript, /--untracked-files=all/);
+  assert.match(publishScript, /"ls-files", "--others", "--ignored", "--exclude-standard", "--"/);
+  assert.match(publishScript, /-PorcelainText \(\$worktreeStatusEntries -join/);
+  assert.match(publishScript, /automation worktree has blocked changes before sync/);
+  for (const field of ["syncAttempted", "syncPerformed", "headBeforeSync", "headAfterSync", "originMainSha", "gitCommand", "gitExitCode", "gitStdoutTail", "gitStderrTail", "worktreeStatusTotalCount", "worktreeIgnoredRuntimeAuditCount", "worktreeIgnoredRuntimeAuditPaths", "worktreeBlockedCount", "worktreeBlockedPaths", "worktreeBlockedTrackedPaths", "worktreeBlockedUntrackedPaths", "worktreeBlockedLockPaths", "schedulerUser", "workingDirectory"]) {
     assert.match(publishScript, new RegExp(field));
   }
   assert.match(publishScript, /git command failed: \$command; exitCode=/);
@@ -247,6 +253,38 @@ try {
   const notificationFailed = runPowerShell(notificationHarness(path.join(os.tmpdir(), "missing-notification-helper.mjs")));
   assert.equal(notificationFailed.status, 0, notificationFailed.stderr);
   assert.equal(JSON.parse(notificationFailed.stdout).notificationStatus, "failed");
+
+  const dirtyClassificationSource = publishScript.match(
+    /function ConvertTo-CanonicalGitPath\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Format-GitCommand/
+  )?.[0].replace(/\r?\n\r?\nfunction Format-GitCommand$/, "");
+  assert.ok(dirtyClassificationSource, "dirty-worktree classification functions must be present");
+  const classifyDirty = (porcelainText) => runPowerShell([
+    "$LockPaths = @('data\\inventory\\smokingpipes-daily-task-lock.json', 'data\\inventory\\state\\smokingpipes.lock', 'data\\inventory\\state\\smokingpipes-progressive-daily.lock')",
+    "$AllowedRuntimeAuditPrefixes = @('data/audits/smokingpipes-daily-fix/')",
+    dirtyClassificationSource,
+    `$classification = Get-AutomationWorktreeDirtyClassification -PorcelainText @'\n${porcelainText}\n'@`,
+    "$classification | ConvertTo-Json -Depth 4 -Compress",
+  ].join("\n"));
+  const approvedAudit = classifyDirty("?? data/audits/smokingpipes-daily-fix/lock-archives/proof.json");
+  assert.equal(approvedAudit.status, 0, approvedAudit.stderr);
+  const approvedAuditValue = JSON.parse(approvedAudit.stdout);
+  assert.equal(approvedAuditValue.TotalCount, 1);
+  assert.equal(approvedAuditValue.IgnoredAuditCount, 1);
+  assert.equal(approvedAuditValue.BlockedCount, 0);
+  const blockedDirty = classifyDirty([
+    " M scripts/inventory/run-smokingpipes-auto-publish.ps1",
+    "?? unexpected-local-file.txt",
+    "?? data/inventory/smokingpipes-daily-task-lock.json",
+    "?? data/audits/smokingpipes-daily-fix-copy/proof.json",
+  ].join("\n"));
+  assert.equal(blockedDirty.status, 0, blockedDirty.stderr);
+  const blockedDirtyValue = JSON.parse(blockedDirty.stdout);
+  assert.equal(blockedDirtyValue.TotalCount, 4);
+  assert.equal(blockedDirtyValue.IgnoredAuditCount, 0);
+  assert.equal(blockedDirtyValue.BlockedCount, 4);
+  assert.deepEqual(blockedDirtyValue.BlockedTrackedPaths, ["scripts/inventory/run-smokingpipes-auto-publish.ps1"]);
+  assert.deepEqual(blockedDirtyValue.BlockedUntrackedPaths, ["unexpected-local-file.txt", "data/audits/smokingpipes-daily-fix-copy/proof.json"]);
+  assert.deepEqual(blockedDirtyValue.BlockedLockPaths, ["data/inventory/smokingpipes-daily-task-lock.json"]);
 
   git(fixtureRoot, ["init", "--initial-branch=main"]);
   git(fixtureRoot, ["config", "user.email", "test@example.invalid"]);

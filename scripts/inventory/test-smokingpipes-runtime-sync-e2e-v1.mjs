@@ -7,6 +7,7 @@ import path from "node:path";
 const root = process.cwd();
 const powershell = `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`;
 const npm = "C:\\Program Files\\nodejs\\npm.cmd";
+const fixtureTempRoot = process.env.SMOKINGPIPES_SYNC_E2E_TMPDIR || os.tmpdir();
 const scenarios = [];
 
 function run(file, args, options = {}) {
@@ -25,15 +26,17 @@ function git(cwd, args, options = {}) { return run("git", args, { ...options, cw
 function write(target, text) { fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, text, "utf8"); }
 
 function makeFixture(name) {
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), `smokingpipes-runtime-sync-${name}-`));
+  fs.mkdirSync(fixtureTempRoot, { recursive: true });
+  const temp = fs.mkdtempSync(path.join(fixtureTempRoot, `smokingpipes-runtime-sync-${name}-`));
   const fixture = path.join(temp, "worktree");
   const bare = path.join(temp, "origin.git");
   run("git", ["init", "--bare", bare]);
-  run("git", ["clone", "--no-local", root, fixture]);
+  run("git", ["clone", "--no-local", "--branch", "main", root, fixture]);
   git(fixture, ["config", "user.email", "sync-e2e@example.invalid"]);
   git(fixture, ["config", "user.name", "Smokingpipes Sync E2E"]);
   git(fixture, ["switch", "-c", "automation/smokingpipes-production-run", "origin/main"]);
   for (const file of [
+    ".gitignore",
     "scripts/inventory/run-smokingpipes-auto-publish.ps1",
     "scripts/inventory/smokingpipes-command-execution-v1.psm1",
     "scripts/inventory/smokingpipes-command-runner-v1.mjs",
@@ -52,7 +55,7 @@ New-Item -ItemType Directory -Force -Path (Join-Path $root "data\inventory") | O
 [IO.File]::WriteAllText((Join-Path $root "data\inventory\smokingpipes-daily-task-state.json"), (($state | ConvertTo-Json -Compress) + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
 `);
   write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "process.exit(0);\n");
-  git(fixture, ["add", "--", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs"]);
+  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs"]);
   git(fixture, ["commit", "-m", "test: configure runtime sync fixture"]);
   git(fixture, ["remote", "set-url", "origin", bare]);
   git(fixture, ["push", "origin", "HEAD:main"]);
@@ -109,10 +112,13 @@ function summary(name, scenario, started, extra = {}) {
 {
   const scenario = makeFixture("fast-forward"); const started = Date.now();
   try {
+    write(path.join(scenario.fixture, "data", "audits", "smokingpipes-daily-fix", "lock-archives", "fixture-proof.json"), "fixture audit\n");
     const initial = invoke(scenario);
     assert.equal(initial.status, 0, initial.stderr || initial.stdout); // A
     let value = report(scenario);
     assert.equal(value.syncAttempted, true); assert.equal(value.syncPerformed, false);
+    assert.equal(value.worktreeStatusTotalCount, 1); assert.equal(value.worktreeIgnoredRuntimeAuditCount, 1); assert.equal(value.worktreeBlockedCount, 0);
+    assert.deepEqual(value.worktreeIgnoredRuntimeAuditPaths, ["data/audits/smokingpipes-daily-fix/lock-archives/fixture-proof.json"]);
     const equalHead = git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim();
 
     advanceRemote(scenario, 1); // B
@@ -142,7 +148,7 @@ function summary(name, scenario, started, extra = {}) {
   try {
     advanceRemote(scenario, 1); write(path.join(scenario.fixture, "README.md"), "dirty\n");
     const outcome = invoke(scenario); assert.notEqual(outcome.status, 0);
-    const value = report(scenario); assert.equal(value.failureStage, "sync"); assert.match(value.failureReason, /dirty/);
+    const value = report(scenario); assert.equal(value.failureStage, "sync"); assert.match(value.failureReason, /blocked changes before sync/); assert.deepEqual(value.worktreeBlockedTrackedPaths, ["README.md"]);
     summary("D", scenario, started);
   } finally { cleanup(scenario); }
 }

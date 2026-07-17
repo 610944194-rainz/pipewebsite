@@ -44,11 +44,71 @@ $LockPaths = @(
   "data\inventory\state\smokingpipes.lock",
   "data\inventory\state\smokingpipes-progressive-daily.lock"
 )
+$AllowedRuntimeAuditPrefixes = @(
+  "data/audits/smokingpipes-daily-fix/"
+)
 $ProductionExactPaths = @(
   "data/products/smokingpipes-products.json",
   "data/products/unified-products-staging.json"
 )
 $LargeApplyWarningThreshold = 300
+
+function ConvertTo-CanonicalGitPath {
+  param([string]$PathToNormalize)
+  return $PathToNormalize.Trim().Replace("\", "/")
+}
+
+function Test-AllowedAutomationRuntimeAuditPath {
+  param([string]$PathToCheck)
+  $canonicalPath = ConvertTo-CanonicalGitPath -PathToNormalize $PathToCheck
+  return @($AllowedRuntimeAuditPrefixes | Where-Object { $canonicalPath.StartsWith($_, [StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
+}
+
+function Test-ActiveAutomationRuntimeLockPath {
+  param([string]$PathToCheck)
+  $canonicalPath = ConvertTo-CanonicalGitPath -PathToNormalize $PathToCheck
+  return @($LockPaths | ForEach-Object { ConvertTo-CanonicalGitPath -PathToNormalize $_ } | Where-Object { $canonicalPath -eq $_ }).Count -gt 0
+}
+
+function Get-AutomationWorktreeDirtyClassification {
+  param([string]$PorcelainText)
+  $entries = @($PorcelainText -split "`r?`n" | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+  $ignoredAuditPaths = @()
+  $blockedTrackedPaths = @()
+  $blockedUntrackedPaths = @()
+  $blockedLockPaths = @()
+
+  foreach ($entry in $entries) {
+    if ($entry.Length -lt 4) {
+      $blockedUntrackedPaths += $entry
+      continue
+    }
+
+    $status = $entry.Substring(0, 2)
+    $path = ConvertTo-CanonicalGitPath -PathToNormalize $entry.Substring(3)
+    if ($status -ne "??") {
+      $blockedTrackedPaths += $path
+    } elseif (Test-AllowedAutomationRuntimeAuditPath -PathToCheck $path) {
+      $ignoredAuditPaths += $path
+    } elseif (Test-ActiveAutomationRuntimeLockPath -PathToCheck $path) {
+      $blockedLockPaths += $path
+    } else {
+      $blockedUntrackedPaths += $path
+    }
+  }
+
+  $blockedPaths = @($blockedTrackedPaths + $blockedUntrackedPaths + $blockedLockPaths)
+  return [pscustomobject]@{
+    TotalCount = $entries.Count
+    IgnoredAuditCount = $ignoredAuditPaths.Count
+    IgnoredAuditPaths = $ignoredAuditPaths
+    BlockedCount = $blockedPaths.Count
+    BlockedPaths = $blockedPaths
+    BlockedTrackedPaths = $blockedTrackedPaths
+    BlockedUntrackedPaths = $blockedUntrackedPaths
+    BlockedLockPaths = $blockedLockPaths
+  }
+}
 
 function Format-GitCommand {
   param([string]$GitPath, [string[]]$Arguments)
@@ -331,6 +391,14 @@ $report = [ordered]@{
   gitExitCode = $null
   gitStdoutTail = $null
   gitStderrTail = $null
+  worktreeStatusTotalCount = 0
+  worktreeIgnoredRuntimeAuditCount = 0
+  worktreeIgnoredRuntimeAuditPaths = @()
+  worktreeBlockedCount = 0
+  worktreeBlockedPaths = @()
+  worktreeBlockedTrackedPaths = @()
+  worktreeBlockedUntrackedPaths = @()
+  worktreeBlockedLockPaths = @()
   schedulerUser = [Security.Principal.WindowsIdentity]::GetCurrent().Name
   workingDirectory = $ProjectRoot
   notificationStatus = "not-attempted"
@@ -390,6 +458,14 @@ function Write-AutoPublishReport {
     "- gitExitCode: $($report.gitExitCode)",
     "- gitStdoutTail: $($report.gitStdoutTail)",
     "- gitStderrTail: $($report.gitStderrTail)",
+    "- worktreeStatusTotalCount: $($report.worktreeStatusTotalCount)",
+    "- worktreeIgnoredRuntimeAuditCount: $($report.worktreeIgnoredRuntimeAuditCount)",
+    "- worktreeIgnoredRuntimeAuditPaths: $($report.worktreeIgnoredRuntimeAuditPaths -join ', ')",
+    "- worktreeBlockedCount: $($report.worktreeBlockedCount)",
+    "- worktreeBlockedPaths: $($report.worktreeBlockedPaths -join ', ')",
+    "- worktreeBlockedTrackedPaths: $($report.worktreeBlockedTrackedPaths -join ', ')",
+    "- worktreeBlockedUntrackedPaths: $($report.worktreeBlockedUntrackedPaths -join ', ')",
+    "- worktreeBlockedLockPaths: $($report.worktreeBlockedLockPaths -join ', ')",
     "- schedulerUser: $($report.schedulerUser)",
     "- workingDirectory: $($report.workingDirectory)",
     "- notificationStatus: $($report.notificationStatus)",
@@ -447,18 +523,40 @@ function Sync-AutomationRuntimeWithOriginMain {
   $originMain = Invoke-GitChecked -Arguments @("rev-parse", "origin/main")
   $branch = Invoke-GitChecked -Arguments @("branch", "--show-current")
   $upstream = Invoke-GitChecked -Arguments @("rev-parse", "--abbrev-ref", "@{u}")
-  $dirtyFiles = @(Invoke-GitChecked -Arguments @("status", "--porcelain")) | Where-Object { $_ }
+  $worktreeStatusResult = Invoke-GitCommand -Arguments @("status", "--porcelain", "--untracked-files=all")
+  $statusGitDiagnostics = [pscustomobject]@{
+    Command = $report.gitCommand
+    ExitCode = $report.gitExitCode
+    StdoutTail = $report.gitStdoutTail
+    StderrTail = $report.gitStderrTail
+  }
+  $ignoredAuditArguments = @("ls-files", "--others", "--ignored", "--exclude-standard", "--") + $AllowedRuntimeAuditPrefixes
+  $ignoredAuditPathsResult = Invoke-GitCommand -Arguments $ignoredAuditArguments
+  $ignoredAuditEntries = @(([string]$ignoredAuditPathsResult.StdoutTail -split "`r?`n" | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }) | ForEach-Object { "?? $_" })
+  $worktreeStatusEntries = @(([string]$worktreeStatusResult.StdoutTail) + $ignoredAuditEntries)
+  $dirtyClassification = Get-AutomationWorktreeDirtyClassification -PorcelainText ($worktreeStatusEntries -join "`n")
+  $report.gitCommand = $statusGitDiagnostics.Command
+  $report.gitExitCode = $statusGitDiagnostics.ExitCode
+  $report.gitStdoutTail = $statusGitDiagnostics.StdoutTail
+  $report.gitStderrTail = $statusGitDiagnostics.StderrTail
   $report.headBeforeSync = $headBefore
   $report.originMainSha = $originMain
+  $report.worktreeStatusTotalCount = $dirtyClassification.TotalCount
+  $report.worktreeIgnoredRuntimeAuditCount = $dirtyClassification.IgnoredAuditCount
+  $report.worktreeIgnoredRuntimeAuditPaths = @($dirtyClassification.IgnoredAuditPaths)
+  $report.worktreeBlockedCount = $dirtyClassification.BlockedCount
+  $report.worktreeBlockedPaths = @($dirtyClassification.BlockedPaths)
+  $report.worktreeBlockedTrackedPaths = @($dirtyClassification.BlockedTrackedPaths)
+  $report.worktreeBlockedUntrackedPaths = @($dirtyClassification.BlockedUntrackedPaths)
+  $report.worktreeBlockedLockPaths = @($dirtyClassification.BlockedLockPaths)
 
-  if ($dirtyFiles.Count -gt 0 -and -not $AllowDirtyWorktreeForManualVerification) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "automation worktree is dirty before sync"
+  if ($dirtyClassification.BlockedCount -gt 0) {
+    $blockedPaths = $dirtyClassification.BlockedPaths -join ", "
+    $manualOverrideNote = if ($AllowDirtyWorktreeForManualVerification) { "; -AllowDirtyWorktreeForManualVerification cannot bypass blocked changes" } else { "" }
+    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "automation worktree has blocked changes before sync: $blockedPaths$manualOverrideNote"
   }
-  if ($dirtyFiles.Count -gt 0 -and $AllowDirtyWorktreeForManualVerification -and -not $NoPush) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "dirty manual verification requires -NoPush"
-  }
-  if ($dirtyFiles.Count -gt 0 -and $AllowDirtyWorktreeForManualVerification) {
-    Write-Host "[INFO] dirty worktree accepted for manual verification with -NoPush; automatic scheduler never sets this flag"
+  if ($dirtyClassification.IgnoredAuditCount -gt 0) {
+    Write-Host "[INFO] ignoring $($dirtyClassification.IgnoredAuditCount) approved local runtime audit path(s) before sync"
   }
   if ($branch -ne "automation/smokingpipes-production-run") {
     Stop-AutoPublish -Status "preflight-blocked" -Stage "sync" -Reason "scheduled sync requires branch automation/smokingpipes-production-run; actual=$branch"
