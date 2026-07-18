@@ -1,7 +1,9 @@
 param(
   [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run",
   [string]$BuildExecutable = "C:\Program Files\nodejs\npm.cmd",
-  [ValidateRange(900, 14400)][int]$DailyTimeoutSeconds = 3600
+  [ValidateRange(900, 14400)][int]$DailyTimeoutSeconds = 3600,
+  [ValidatePattern('^[1-9]\d*$')][string]$MaxAutoApply = "1000",
+  [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')][string]$LegacyDuplicateSnapshotSha256 = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,6 +21,8 @@ try {
     -AutomationWorktree $AutomationWorktree `
     -BuildExecutable $BuildExecutable `
     -DailyTimeoutSeconds $DailyTimeoutSeconds `
+    -MaxAutoApply $MaxAutoApply `
+    -LegacyDuplicateSnapshotSha256 $LegacyDuplicateSnapshotSha256 `
     -ForceRunOnce
   $exitCode = $LASTEXITCODE
 } catch {

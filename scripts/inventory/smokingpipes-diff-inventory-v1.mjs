@@ -1,3 +1,6 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import process from "node:process";
 import {
   PATHS,
@@ -5,6 +8,7 @@ import {
   duplicateValues,
   isDirectExecution,
   normalizeText,
+  parseCliOptions,
   readJson,
   relativePath,
   sortIds,
@@ -17,6 +21,22 @@ const SAFETY_THRESHOLDS = {
   maximumNewVsExistingRatio: 0.25,
   maximumSuspiciousRatio: 0.05,
 };
+
+export const LEGACY_DUPLICATE_SNAPSHOT_CONTRACT = Object.freeze({
+  snapshotSha256:
+    "CDC102110E0C6E682B28541558F7F3DD6EBED9E5475B35331F9726A4907FCD5D",
+  pagesScanned: 111,
+  expectedPages: 111,
+  productsExtracted: 5327,
+  uniqueProducts: 4993,
+  duplicateCount: 334,
+});
+const DEFAULT_MAX_AUTO_APPLY = 1000;
+
+function normalizeSha256(value) {
+  const normalized = String(value || "").trim().toUpperCase();
+  return /^[A-F0-9]{64}$/.test(normalized) ? normalized : "";
+}
 
 function productId(item) {
   const direct = normalizeText(item?.sourceProductId);
@@ -129,7 +149,127 @@ function normalizeDuplicateStats(summary = {}) {
       };
 }
 
-export function buildInventoryDiff(currentPayload, existingPayload) {
+export function evaluateLegacyDuplicateSnapshotOverride({
+  currentPayload,
+  snapshotSha256,
+  authorizedSnapshotSha256,
+} = {}) {
+  const summary = currentPayload?.summary || {};
+  const products = arrayFromPayload(currentPayload, ["products"]);
+  const duplicateIds = Array.isArray(summary.duplicateSourceProductIds)
+    ? [...new Set(summary.duplicateSourceProductIds.map(String).filter(Boolean))]
+    : [];
+  const actualSha256 = normalizeSha256(snapshotSha256);
+  const requestedSha256 = normalizeSha256(authorizedSnapshotSha256);
+  const productIds = products.map(productId).filter(Boolean);
+  const uniqueProductIds = new Set(productIds);
+  const failedPages = Array.isArray(summary.failedPages)
+    ? summary.failedPages
+    : ["invalid-failed-pages-metadata"];
+  const summaryNumbersMatch =
+    Number(summary.pagesScanned) === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.pagesScanned &&
+    Number(summary.expectedPages) === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.expectedPages &&
+    Number(summary.productsExtracted) === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.productsExtracted &&
+    Number(summary.uniqueProducts) === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.uniqueProducts &&
+    Number(summary.productsExtracted) - Number(summary.uniqueProducts) ===
+      LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.duplicateCount &&
+    duplicateIds.length === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.duplicateCount;
+  const dedupedProductsAreUnique =
+    products.length === LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.uniqueProducts &&
+    productIds.length === products.length &&
+    uniqueProductIds.size === products.length;
+  const metadataIsLegacyOnly =
+    !summary.duplicateStats &&
+    !Array.isArray(summary.suspiciousDuplicateSourceProductIds);
+  const contractMatches =
+    summaryNumbersMatch &&
+    summary.fullExpectedRangeScanned === true &&
+    failedPages.length === 0 &&
+    dedupedProductsAreUnique &&
+    metadataIsLegacyOnly;
+
+  let reason = null;
+  if (!requestedSha256) {
+    reason = "explicit legacy duplicate snapshot SHA-256 authorization is required";
+  } else if (
+    requestedSha256 !== LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.snapshotSha256
+  ) {
+    reason = "authorized legacy duplicate snapshot SHA-256 is not the single approved legacy snapshot";
+  } else if (!actualSha256 || requestedSha256 !== actualSha256) {
+    reason = "authorized legacy duplicate snapshot SHA-256 does not match the current List snapshot";
+  } else if (!contractMatches) {
+    reason = "current List snapshot does not match the exact one-time legacy duplicate contract";
+  }
+
+  return {
+    authorized: false,
+    eligible: reason === null,
+    snapshotSha256: actualSha256 || null,
+    requestedSnapshotSha256: requestedSha256 || null,
+    duplicateCount: duplicateIds.length,
+    reason,
+    contract: {
+      pagesScanned: Number(summary.pagesScanned || 0),
+      expectedPages: Number(summary.expectedPages || 0),
+      failedPages: failedPages.length,
+      productsExtracted: Number(summary.productsExtracted || 0),
+      uniqueProducts: Number(summary.uniqueProducts || 0),
+      duplicateCount: duplicateIds.length,
+      dedupedSourceProductIdsUnique: dedupedProductsAreUnique,
+      duplicateClassificationAvailable: Boolean(summary.duplicateStats),
+    },
+  };
+}
+
+function snapshotSha256ForPath(snapshotPath) {
+  return crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(snapshotPath))
+    .digest("hex")
+    .toUpperCase();
+}
+
+export async function updateLegacyDuplicateOverrideAudit({
+  root = process.cwd(),
+  diff,
+  snapshotPath = PATHS.currentList,
+  defaultMaxAutoApply = DEFAULT_MAX_AUTO_APPLY,
+  runScopedMaxAutoApply = DEFAULT_MAX_AUTO_APPLY,
+  wouldApplyCount = null,
+  finalGateDecision,
+} = {}) {
+  if (!diff?.legacyDuplicateOverride) return;
+  const auditPath = path.join(
+    root,
+    "data",
+    "audits",
+    "smokingpipes-daily-fix",
+    "legacy-duplicate-snapshot-override-latest.json"
+  );
+  const payload = {
+    version: "smokingpipes-legacy-duplicate-snapshot-override-audit-v1",
+    generatedAt: new Date().toISOString(),
+    snapshotPath: path.relative(root, snapshotPath).replace(/\\/g, "/"),
+    snapshotSha256: diff.legacyDuplicateOverride.snapshotSha256,
+    legacyDuplicateCount: diff.legacyDuplicateOverride.duplicateCount,
+    overrideAuthorized: diff.legacyDuplicateOverride.authorized === true,
+    overrideReason: diff.legacyDuplicateOverride.reason,
+    defaultMaxAutoApply,
+    runScopedMaxAutoApply,
+    wouldApplyCount,
+    finalGateDecision,
+  };
+  await fs.promises.mkdir(path.dirname(auditPath), { recursive: true });
+  const temporaryPath = `${auditPath}.${process.pid}.${Date.now()}.tmp`;
+  await fs.promises.writeFile(
+    temporaryPath,
+    `${JSON.stringify(payload, null, 2)}\n`,
+    "utf8"
+  );
+  await fs.promises.rename(temporaryPath, auditPath);
+}
+
+export function buildInventoryDiff(currentPayload, existingPayload, options = {}) {
   const currentProducts = arrayFromPayload(currentPayload, ["products"]);
   const existingProducts = arrayFromPayload(existingPayload, ["products"]);
   const currentById = new Map(
@@ -175,8 +315,68 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     [...existingSoldIds].filter((id) => currentIds.has(id))
   );
   const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
+  const legacyDuplicateOverride =
+    duplicateStats.classificationAvailable === false &&
+    duplicateStats.totalDuplicateIds > 0
+      ? evaluateLegacyDuplicateSnapshotOverride({
+          currentPayload,
+          snapshotSha256: options.snapshotSha256,
+          authorizedSnapshotSha256: options.legacyDuplicateSnapshotSha256,
+        })
+      : null;
   const suspiciousRecords = currentSuspiciousRecords(currentProducts);
-  for (const duplicateId of duplicateStats.suspiciousDuplicateIds) {
+  const baseSuspiciousRecords = [...suspiciousRecords];
+  const failedPages = currentPayload?.summary?.failedPages || [];
+  const pagesScanned = Number(currentPayload?.summary?.pagesScanned || 0);
+  const effectiveScannedPages = Number(
+    currentPayload?.summary?.effectiveScannedPages || pagesScanned
+  );
+  const pagesRequested = Number(currentPayload?.summary?.pagesRequested || 0);
+  const expectedPages = Number(
+    currentPayload?.summary?.expectedPages ||
+      currentPayload?.summary?.detectedTotalPages ||
+      currentPayload?.config?.expectedPages ||
+      0
+  );
+  const fullExpectedRangeScanned =
+    currentPayload?.summary?.fullExpectedRangeScanned === true &&
+    expectedPages > 0 &&
+    failedPages.length === 0 &&
+    effectiveScannedPages >= expectedPages;
+  const currentVsHistoricalRatio = ratio(
+    currentIds.size,
+    existingAvailableIds.size
+  );
+  const disappearedRatio = ratio(
+    disappearedIds.length,
+    existingAvailableIds.size
+  );
+  const newRatio = ratio(newIds.length, existingIds.size);
+  const captchaDetected =
+    currentPayload?.summary?.captchaDetected === true ||
+    (currentPayload?.summary?.captchaPages || []).length > 0;
+  const otherSafetyFatal =
+    captchaDetected ||
+    !fullExpectedRangeScanned ||
+    !soldByAbsenceAllowed ||
+    currentVsHistoricalRatio <
+      SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio ||
+    disappearedRatio >
+      SAFETY_THRESHOLDS.maximumDisappearedVsHistoricalAvailableRatio ||
+    newRatio > SAFETY_THRESHOLDS.maximumNewVsExistingRatio ||
+    baseSuspiciousRecords.length > 0;
+  if (legacyDuplicateOverride?.eligible && !otherSafetyFatal) {
+    legacyDuplicateOverride.authorized = true;
+    legacyDuplicateOverride.reason =
+      "explicit one-time authorization for legacy snapshot without duplicate event metadata";
+  } else if (legacyDuplicateOverride?.eligible) {
+    legacyDuplicateOverride.reason =
+      "legacy duplicate authorization cannot apply while other safety gates are failing";
+  }
+  const duplicateIdsForSafety = legacyDuplicateOverride?.authorized
+    ? []
+    : duplicateStats.suspiciousDuplicateIds;
+  for (const duplicateId of duplicateIdsForSafety) {
     suspiciousRecords.push({
       sourceProductId: normalizeText(duplicateId),
       sourceUrl: "",
@@ -192,33 +392,10 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     )
   );
 
-  const pagesScanned = Number(currentPayload?.summary?.pagesScanned || 0);
-  const effectiveScannedPages = Number(
-    currentPayload?.summary?.effectiveScannedPages || pagesScanned
-  );
-  const pagesRequested = Number(currentPayload?.summary?.pagesRequested || 0);
-  const expectedPages = Number(
-    currentPayload?.summary?.expectedPages ||
-      currentPayload?.summary?.detectedTotalPages ||
-      currentPayload?.config?.expectedPages ||
-      0
-  );
   const tailCacheUsed = currentPayload?.summary?.tailCacheUsed === true;
   const skippedOutOfStockTailPages =
     currentPayload?.summary?.skippedOutOfStockTailPages || [];
-  const currentVsHistoricalRatio = ratio(
-    currentIds.size,
-    existingAvailableIds.size
-  );
-  const disappearedRatio = ratio(
-    disappearedIds.length,
-    existingAvailableIds.size
-  );
-  const newRatio = ratio(newIds.length, existingIds.size);
   const suspiciousRatio = ratio(suspiciousRecords.length, currentProducts.length);
-  const captchaDetected =
-    currentPayload?.summary?.captchaDetected === true ||
-    (currentPayload?.summary?.captchaPages || []).length > 0;
   const fatalWarnings = [];
   const warnings = [];
 
@@ -240,6 +417,11 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   if (duplicateStats.safeDuplicateCount > 0) {
     warnings.push(
       `${duplicateStats.safeDuplicateCount} duplicate sourceProductId records were classified as safe pagination overlap.`
+    );
+  }
+  if (legacyDuplicateOverride?.authorized) {
+    warnings.push(
+      `${legacyDuplicateOverride.duplicateCount} legacy duplicate sourceProductId metadata entries were allowed only by exact snapshot SHA-256 authorization.`
     );
   }
   if (
@@ -289,12 +471,6 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     );
   }
 
-  const failedPages = currentPayload?.summary?.failedPages || [];
-  const fullExpectedRangeScanned =
-    currentPayload?.summary?.fullExpectedRangeScanned === true &&
-    expectedPages > 0 &&
-    failedPages.length === 0 &&
-    effectiveScannedPages >= expectedPages;
   const allowApply =
     fatalWarnings.length === 0 &&
     fullExpectedRangeScanned &&
@@ -383,6 +559,7 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     suspiciousIds,
     suspiciousRecords,
     duplicateStats,
+    legacyDuplicateOverride,
     fatalWarnings,
     warnings,
     allowApply,
@@ -390,13 +567,34 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   };
 }
 
-export async function diffSmokingpipesInventory() {
-  const currentPayload = readJson(PATHS.currentList);
-  const existingPayload = readJson(PATHS.existingProducts);
-  const diff = buildInventoryDiff(currentPayload, existingPayload);
+export async function diffSmokingpipesInventory(options = {}) {
+  const currentListPath = options.currentListPath
+    ? path.resolve(options.currentListPath)
+    : PATHS.currentList;
+  const existingProductsPath = options.existingProductsPath
+    ? path.resolve(options.existingProductsPath)
+    : PATHS.existingProducts;
+  const diffPath = options.diffPath ? path.resolve(options.diffPath) : PATHS.diff;
+  const currentPayload = readJson(currentListPath);
+  const existingPayload = readJson(existingProductsPath);
+  const diff = buildInventoryDiff(currentPayload, existingPayload, {
+    legacyDuplicateSnapshotSha256:
+      options.legacyDuplicateSnapshotSha256,
+    snapshotSha256: snapshotSha256ForPath(currentListPath),
+  });
 
-  await writeJsonAtomic(PATHS.diff, diff);
-  console.log(`Inventory diff dry-run written: ${relativePath(PATHS.diff)}`);
+  await writeJsonAtomic(diffPath, diff);
+  await updateLegacyDuplicateOverrideAudit({
+    root: process.cwd(),
+    snapshotPath: currentListPath,
+    diff,
+    runScopedMaxAutoApply:
+      Number(options.maxAutoApply) > 0
+        ? Number(options.maxAutoApply)
+        : DEFAULT_MAX_AUTO_APPLY,
+    finalGateDecision: diff.allowApply ? "diff-allowed" : "diff-blocked",
+  });
+  console.log(`Inventory diff dry-run written: ${relativePath(diffPath)}`);
   console.log(
     JSON.stringify(
       {
@@ -413,7 +611,15 @@ export async function diffSmokingpipesInventory() {
 }
 
 if (isDirectExecution(import.meta.url)) {
-  await diffSmokingpipesInventory().catch((error) => {
+  const cli = parseCliOptions();
+  await diffSmokingpipesInventory({
+    currentListPath: cli["current-list"],
+    existingProductsPath: cli["existing-products"],
+    diffPath: cli.diff,
+    legacyDuplicateSnapshotSha256:
+      cli["legacy-duplicate-snapshot-sha256"],
+    maxAutoApply: cli["max-auto-apply"],
+  }).catch((error) => {
     console.error(error);
     process.exitCode = 1;
   });

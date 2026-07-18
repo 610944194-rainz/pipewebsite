@@ -295,6 +295,19 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     1000,
     "max-auto-apply"
   );
+  const legacyDuplicateSnapshotSha256 = args.has(
+    "legacy-duplicate-snapshot-sha256"
+  )
+    ? String(args.get("legacy-duplicate-snapshot-sha256") || "").trim()
+    : "";
+  if (
+    legacyDuplicateSnapshotSha256 &&
+    !/^[a-f0-9]{64}$/i.test(legacyDuplicateSnapshotSha256)
+  ) {
+    throw new Error(
+      "legacy-duplicate-snapshot-sha256 must be an exact 64-character SHA-256 value."
+    );
+  }
   const browserChannel = args.has("browser-channel")
     ? String(args.get("browser-channel") || "").toLowerCase()
     : null;
@@ -448,6 +461,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
       5
     ),
     maxAutoApply,
+    legacyDuplicateSnapshotSha256,
     catchUpRepeatMaxCycles: positiveInteger(
       args.get("catch-up-repeat-max-cycles"),
       1
