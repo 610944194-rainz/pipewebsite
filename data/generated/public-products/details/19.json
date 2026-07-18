@@ -5390,9 +5390,9 @@
       "siteDisplayAmount": 621.5865044,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5544,9 +5544,9 @@
       "siteDisplayAmount": 435.191,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5840,9 +5840,9 @@
       "siteDisplayAmount": 702.760064,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6903,9 +6903,9 @@
       "siteDisplayAmount": 1089.75029,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7385,9 +7385,9 @@
       "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -14057,9 +14057,9 @@
       "siteDisplayAmount": 1636.5600337500002,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -15963,6 +15963,160 @@
       "msrpRawText": "$217.50"
     },
     {
+      "id": "smokingpipes-720742",
+      "source": "smokingpipes",
+      "sourceProductId": "720742",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Petite Apple Tobacco Pipe",
+      "displayNameEn": "Smooth Petite Apple Tobacco Pipe",
+      "rawTitle": "Smooth Petite Apple Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3265.9540.jpg",
+      "sourcePriceAmount": 45,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 640.3820000000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 13.6,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth petite apple tobacco pipe",
+        "price": 640.3820000000001,
+        "sourceProductId": "720742"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3265.9540.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.03,
+        "heightMm": 22.26,
+        "weightGrams": 13.6,
+        "chamberDepthMm": 18.91,
+        "chamberDiameterMm": 14.66,
+        "outsideDiameterMm": 27.48
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-petite-tobacco-pipe__shape-apple",
+        "confidence": "medium"
+      },
+      "series": "Petite Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-3265",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 22.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 13.6,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 18.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 14.66,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 27.48,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720742",
+      "sourceOriginalText": "Smooth Petite Apple Tobacco Pipe",
+      "priceRawText": "$45.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-720862",
       "source": "smokingpipes",
       "sourceProductId": "720862",
@@ -16286,6 +16440,160 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/vauen/moreinfo.cfm?product_id=721070",
       "sourceOriginalText": "Brass (2309) (9mm) Tobacco Pipe",
       "priceRawText": "$270.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-721081",
+      "source": "smokingpipes",
+      "sourceProductId": "721081",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Apple Tobacco Pipe",
+      "displayNameEn": "Smooth Apple Tobacco Pipe",
+      "rawTitle": "Smooth Apple Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3495.9046.jpg",
+      "sourcePriceAmount": 55,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 722.4584,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 20.87,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth apple tobacco pipe",
+        "price": 722.4584,
+        "sourceProductId": "721081"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3495.9046.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 138.94,
+        "heightMm": 28.96,
+        "weightGrams": 20.87,
+        "chamberDepthMm": 24.64,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 30.73
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-tobacco-pipe__shape-apple",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-3495",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 138.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 20.87,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 24.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.73,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=721081",
+      "sourceOriginalText": "Smooth Apple Tobacco Pipe",
+      "priceRawText": "$55.00",
       "msrpRawText": null
     },
     {
@@ -22350,6 +22658,169 @@
       "sourceOriginalText": "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$168.00",
       "msrpRawText": "$210.00"
+    },
+    {
+      "id": "smokingpipes-735184",
+      "source": "smokingpipes",
+      "sourceProductId": "735184",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146466.1285.jpg",
+      "sourcePriceAmount": 236,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 295,
+      "siteDisplayAmount": 2295.6232661999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot sandblasted (317) p-lip tobacco pipe",
+        "price": 2295.6232661999993,
+        "sourceProductId": "735184"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146466.1285.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146466_1.6903.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146466_2.1950.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146466_3.2502.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.65,
+        "heightMm": 40.39,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 26.67,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 34.04
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-317__series-system-spigot-sandblasted-p-lip-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Spigot Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146466",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 26.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.04,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735184",
+      "sourceOriginalText": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "priceRawText": "$236.00",
+      "msrpRawText": "$295.00"
     }
   ]
 }

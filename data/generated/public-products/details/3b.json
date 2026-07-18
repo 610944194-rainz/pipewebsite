@@ -4207,9 +4207,9 @@
       "siteDisplayAmount": 451.60627999999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5003,9 +5003,9 @@
       "siteDisplayAmount": 584.9804300000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8617,9 +8617,9 @@
       "siteDisplayAmount": 1379.0695999999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -9254,10 +9254,10 @@
       "displayNameEn": "Ranger (4353) (9mm) Tobacco Pipe",
       "rawTitle": "Ranger (4353) (9mm) Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-457-10532.5987.jpg",
-      "sourcePriceAmount": 231,
+      "sourcePriceAmount": 196.35,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2359.807011,
+      "siteDisplayAmount": 2032.7530760999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9287,7 +9287,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "ranger (4353) (9mm) tobacco pipe",
-        "price": 2359.807011,
+        "price": 2032.7530760999994,
         "sourceProductId": "676765"
       },
       "displayNameZh": null,
@@ -9395,7 +9395,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/vauen/moreinfo.cfm?product_id=676765",
       "sourceOriginalText": "Ranger (4353) (9mm) Tobacco Pipe",
-      "priceRawText": "$231.00",
+      "priceRawText": "$196.35",
       "msrpRawText": null
     },
     {
@@ -10045,9 +10045,9 @@
       "siteDisplayAmount": 763.4966,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -18473,6 +18473,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-727811",
+      "source": "smokingpipes",
+      "sourceProductId": "727811",
+      "brandName": "Bill Shalosky",
+      "brandSlug": "bill-shalosky",
+      "brandCountry": null,
+      "displayName": "Sandblasted Volcano (847) (2026) Tobacco Pipe",
+      "displayNameEn": "Sandblasted Volcano (847) (2026) Tobacco Pipe",
+      "rawTitle": "Sandblasted Volcano (847) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-720-0345.4564.jpg",
+      "sourcePriceAmount": 550,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 5693.2716,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 68.04,
+      "shape": "Volcano",
+      "shapeZh": "火山斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "bill shalosky",
+        "name": "sandblasted volcano (847) (2026) tobacco pipe",
+        "price": 5693.2716,
+        "sourceProductId": "727811"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-720-0345.4564.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-720-0345_1.1544.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-720-0345_2.3739.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-720-0345_3.7726.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.95,
+        "heightMm": 43.69,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 35.05,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 50.04
+      },
+      "model": {
+        "canonicalModelKey": "bill-shalosky__model-847__series-sandblasted-tobacco-pipe__shape-volcano",
+        "confidence": "high"
+      },
+      "series": "Sandblasted Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-720-0345",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Bill Shalosky",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Volcano",
+          "labelZh": "火山斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 50.04,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Bill-Shalosky/moreinfo.cfm?product_id=727811",
+      "sourceOriginalText": "Sandblasted Volcano (847) (2026) Tobacco Pipe",
+      "priceRawText": "$550.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-728080",
       "source": "smokingpipes",
       "sourceProductId": "728080",
@@ -22098,6 +22255,167 @@
       "msrpRawText": "$195.00"
     },
     {
+      "id": "smokingpipes-733490",
+      "source": "smokingpipes",
+      "sourceProductId": "733490",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Dolomiti Smooth (611 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Dolomiti Smooth (611 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Dolomiti Smooth (611 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111488.4867.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 48.19,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "dolomiti smooth (611 ks) (6mm) tobacco pipe",
+        "price": 1614.1429169999997,
+        "sourceProductId": "733490"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111488.4867.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111488_1.5657.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.95,
+        "heightMm": 50.55,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 42.16,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 37.34
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-dolomiti-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Dolomiti Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111488",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.55,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733490",
+      "sourceOriginalText": "Dolomiti Smooth (611 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
+    },
+    {
       "id": "smokingpipes-733960",
       "source": "smokingpipes",
       "sourceProductId": "733960",
@@ -22565,6 +22883,327 @@
       "sourceOriginalText": "Carved Pirate with Hat & Eyepatch (A. Cevik) (with Case) Tobacco Pipe",
       "priceRawText": "$243.00",
       "msrpRawText": "$270.00"
+    },
+    {
+      "id": "smokingpipes-734506",
+      "source": "smokingpipes",
+      "sourceProductId": "734506",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Foresta Rusticated Brown (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Foresta Rusticated Brown (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Foresta Rusticated Brown (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111877.1511.jpg",
+      "sourcePriceAmount": 200,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1972.8167849999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 68.04,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "foresta rusticated brown (320 ks) (6mm) tobacco pipe",
+        "price": 1972.8167849999998,
+        "sourceProductId": "734506"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111877.1511.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.95,
+        "heightMm": 42.93,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 31.75,
+        "chamberDiameterMm": 23.11,
+        "outsideDiameterMm": 49.78
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-foresta-brown-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Foresta Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111877",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.78,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734506",
+      "sourceOriginalText": "Foresta Rusticated Brown (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$200.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-735154",
+      "source": "smokingpipes",
+      "sourceProductId": "735154",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp Sandblasted (606) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp Sandblasted (606) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp Sandblasted (606) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146436.8625.jpg",
+      "sourcePriceAmount": 162.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1636.5600337500002,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 48.19,
+      "shape": "Pot",
+      "shapeZh": "罐式斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp sandblasted (606) fishtail tobacco pipe",
+        "price": 1636.5600337500002,
+        "sourceProductId": "735154"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146436.8625.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146436_1.6045.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 152.65,
+        "heightMm": 39.88,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 29.97,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 37.85
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-606__series-irish-harp-sandblasted-fishtail-tobacco__shape-pot",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146436",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Pot",
+          "labelZh": "罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 152.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735154",
+      "sourceOriginalText": "Irish Harp Sandblasted (606) Fishtail Tobacco Pipe",
+      "priceRawText": "$162.50",
+      "msrpRawText": null
     }
   ]
 }

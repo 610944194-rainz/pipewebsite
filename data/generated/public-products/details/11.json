@@ -9510,10 +9510,10 @@
       "displayNameEn": "Striato Sandblasted (B6) Tobacco Pipe",
       "rawTitle": "Striato Sandblasted (B6) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1008-0265.8570.jpg",
-      "sourcePriceAmount": 75,
+      "sourcePriceAmount": 60,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 886.6111999999999,
+      "siteDisplayAmount": 763.4966,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -9543,7 +9543,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "striato sandblasted (b6) tobacco pipe",
-        "price": 886.6111999999999,
+        "price": 763.4966,
         "sourceProductId": "685608"
       },
       "displayNameZh": null,
@@ -9651,7 +9651,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/molina/moreinfo.cfm?product_id=685608",
       "sourceOriginalText": "Striato Sandblasted (B6) Tobacco Pipe",
-      "priceRawText": "$75.00",
+      "priceRawText": "$60.00",
       "msrpRawText": null
     },
     {
@@ -11577,9 +11577,9 @@
       "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -20760,6 +20760,163 @@
       "sourceOriginalText": "Miele Smooth (614) (6mm) Tobacco Pipe",
       "priceRawText": "$228.00",
       "msrpRawText": "$285.00"
+    },
+    {
+      "id": "smokingpipes-734721",
+      "source": "smokingpipes",
+      "sourceProductId": "734721",
+      "brandName": "Cavicchi",
+      "brandSlug": "cavicchi",
+      "brandCountry": null,
+      "displayName": "Brown Smooth Bent Billiard Sitter Tobacco Pipe",
+      "displayNameEn": "Brown Smooth Bent Billiard Sitter Tobacco Pipe",
+      "rawTitle": "Brown Smooth Bent Billiard Sitter Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4160.7215.jpg",
+      "sourcePriceAmount": 450,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 500,
+      "siteDisplayAmount": 4749.393,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 47.63,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "cavicchi",
+        "name": "brown smooth bent billiard sitter tobacco pipe",
+        "price": 4749.393,
+        "sourceProductId": "734721"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4160.7215.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4160_1.9441.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4160_2.2245.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4160_3.3369.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.16,
+        "heightMm": 60.96,
+        "weightGrams": 47.63,
+        "chamberDepthMm": 45.47,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 37.34
+      },
+      "model": {
+        "canonicalModelKey": "cavicchi__series-brown-sitter-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Brown Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-400-4160",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Cavicchi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 60.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 47.63,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/cavicchi/moreinfo.cfm?product_id=734721",
+      "sourceOriginalText": "Brown Smooth Bent Billiard Sitter Tobacco Pipe",
+      "priceRawText": "$450.00",
+      "msrpRawText": "$500.00"
     }
   ]
 }

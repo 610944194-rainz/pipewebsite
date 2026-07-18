@@ -7251,10 +7251,10 @@
       "displayNameEn": "Shorty Brown (MO5) (9mm) Tobacco Pipe",
       "rawTitle": "Shorty Brown (MO5) (9mm) Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/011-998-0032.1989.jpg",
-      "sourcePriceAmount": 72.5,
+      "sourcePriceAmount": 58,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 866.0921,
+      "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7284,7 +7284,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "shorty brown (mo5) (9mm) tobacco pipe",
-        "price": 866.0921,
+        "price": 747.0813199999999,
         "sourceProductId": "653722"
       },
       "displayNameZh": null,
@@ -7392,7 +7392,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/molina/moreinfo.cfm?product_id=653722",
       "sourceOriginalText": "Shorty Brown (MO5) (9mm) Tobacco Pipe",
-      "priceRawText": "$72.50",
+      "priceRawText": "$58.00",
       "msrpRawText": null
     },
     {
@@ -8484,166 +8484,6 @@
       "sourceOriginalText": "Heritage (56) (Rock Maple Inserts) Tobacco Pipe",
       "priceRawText": "$127.20",
       "msrpRawText": "$159.00"
-    },
-    {
-      "id": "smokingpipes-676097",
-      "source": "smokingpipes",
-      "sourceProductId": "676097",
-      "brandName": "Chacom",
-      "brandSlug": "chacom",
-      "brandCountry": "France",
-      "displayName": "Nougat (275) Tobacco Pipe",
-      "displayNameEn": "Nougat (275) Tobacco Pipe",
-      "rawTitle": "Nougat (275) Tobacco Pipe",
-      "mainImage": "https://assets.smokingpipes.com/images/products/002-512-11502.2436.jpg",
-      "sourcePriceAmount": 110.93,
-      "sourcePriceCurrency": "USD",
-      "msrpAmount": 130.5,
-      "siteDisplayAmount": 1181.5117052,
-      "siteDisplayCurrency": "CNY",
-      "siteDisplayReady": true,
-      "inventoryStatus": "sold",
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "inventoryConfidence": "high",
-      "conditionType": "new",
-      "conditionLabel": "new",
-      "galleryCount": 1,
-      "weightGrams": 27,
-      "shape": "Billiard",
-      "shapeZh": "撞球斗",
-      "finish": "Smooth",
-      "finishZh": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialZh": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialZh": "亚克力",
-      "filter": "none",
-      "filterEligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      },
-      "sortKeys": {
-        "brand": "chacom",
-        "name": "nougat (275) tobacco pipe",
-        "price": 1181.5117052,
-        "sourceProductId": "676097"
-      },
-      "displayNameZh": null,
-      "gallery": [
-        "https://assets.smokingpipes.com/images/products/002-512-11502.2436.jpg"
-      ],
-      "measurements": {
-        "lengthMm": 160.38,
-        "heightMm": 40.04,
-        "weightGrams": 27,
-        "chamberDepthMm": 34.95,
-        "chamberDiameterMm": 17.97,
-        "outsideDiameterMm": 30.34
-      },
-      "model": {
-        "canonicalModelKey": "chacom__model-275__series-nougat-tobacco-pipe__shape-billiard",
-        "confidence": "high"
-      },
-      "series": "Nougat Tobacco Pipe",
-      "year": null,
-      "productCode": "002-512-12086",
-      "filterSizeMm": null,
-      "weightRange": "light",
-      "description": null,
-      "normalizedSpecs": [
-        {
-          "key": "brand",
-          "value": "Chacom",
-          "labelZh": null,
-          "unit": null
-        },
-        {
-          "key": "country",
-          "value": "France",
-          "labelZh": null,
-          "unit": null
-        },
-        {
-          "key": "condition",
-          "value": "new",
-          "labelZh": null,
-          "unit": null
-        },
-        {
-          "key": "shape",
-          "value": "Billiard",
-          "labelZh": "撞球斗",
-          "unit": null
-        },
-        {
-          "key": "finish",
-          "value": "Smooth",
-          "labelZh": "光面",
-          "unit": null
-        },
-        {
-          "key": "bowlMaterial",
-          "value": "Briar",
-          "labelZh": "石楠木",
-          "unit": null
-        },
-        {
-          "key": "stemMaterial",
-          "value": "Acrylic",
-          "labelZh": "亚克力",
-          "unit": null
-        },
-        {
-          "key": "filter",
-          "value": "none",
-          "labelZh": null,
-          "unit": null
-        },
-        {
-          "key": "lengthMm",
-          "value": 160.38,
-          "labelZh": null,
-          "unit": "mm"
-        },
-        {
-          "key": "heightMm",
-          "value": 40.04,
-          "labelZh": null,
-          "unit": "mm"
-        },
-        {
-          "key": "weightGrams",
-          "value": 27,
-          "labelZh": null,
-          "unit": "g"
-        },
-        {
-          "key": "chamberDepthMm",
-          "value": 34.95,
-          "labelZh": null,
-          "unit": "mm"
-        },
-        {
-          "key": "chamberDiameterMm",
-          "value": 17.97,
-          "labelZh": null,
-          "unit": "mm"
-        },
-        {
-          "key": "outsideDiameterMm",
-          "value": 30.34,
-          "labelZh": null,
-          "unit": "mm"
-        }
-      ],
-      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Chacom/moreinfo.cfm?product_id=676097",
-      "sourceOriginalText": "Nougat (275) Tobacco Pipe",
-      "priceRawText": "$110.93",
-      "msrpRawText": "$130.50"
     },
     {
       "id": "smokingpipes-676152",
@@ -12336,9 +12176,9 @@
       "siteDisplayAmount": 1727.4083489999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -14728,9 +14568,9 @@
       "siteDisplayAmount": 1206.7091599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -15500,6 +15340,160 @@
       "sourceOriginalText": "Lunaria Smooth Bordeaux (642) (6mm) Tobacco Pipe",
       "priceRawText": "$200.00",
       "msrpRawText": "$250.00"
+    },
+    {
+      "id": "smokingpipes-720923",
+      "source": "smokingpipes",
+      "sourceProductId": "720923",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Billiard Tobacco Pipe",
+      "displayNameEn": "Smooth Billiard Tobacco Pipe",
+      "rawTitle": "Smooth Billiard Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3434.9343.jpg",
+      "sourcePriceAmount": 55,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 722.4584,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 41.9,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth billiard tobacco pipe",
+        "price": 722.4584,
+        "sourceProductId": "720923"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3434.9343.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 149.42,
+        "heightMm": 46.7,
+        "weightGrams": 41.9,
+        "chamberDepthMm": 41.98,
+        "chamberDiameterMm": 19.03,
+        "outsideDiameterMm": 34.2
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-3434",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 149.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 41.9,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.98,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.2,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720923",
+      "sourceOriginalText": "Smooth Billiard Tobacco Pipe",
+      "priceRawText": "$55.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-721067",
@@ -20115,6 +20109,161 @@
       "msrpRawText": "$225.00"
     },
     {
+      "id": "smokingpipes-729487",
+      "source": "smokingpipes",
+      "sourceProductId": "729487",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Alligator Elegance Blue (313E) Tobacco Pipe",
+      "displayNameEn": "Alligator Elegance Blue (313E) Tobacco Pipe",
+      "rawTitle": "Alligator Elegance Blue (313E) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-110927.6302.jpg",
+      "sourcePriceAmount": 135.38,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 169.23,
+      "siteDisplayAmount": 1382.1885031999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "alligator elegance blue (313e) tobacco pipe",
+        "price": 1382.1885031999998,
+        "sourceProductId": "729487"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-110927.6302.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-110927_1.8187.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.03,
+        "heightMm": 32.26,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 24.13,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 35.31
+      },
+      "model": {
+        "canonicalModelKey": "model-313e__series-alligator-elegance-blue-tobacco-pipe__shape-bent-pot",
+        "confidence": "high"
+      },
+      "series": "Alligator Elegance Blue Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-110927",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 32.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 24.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=729487",
+      "sourceOriginalText": "Alligator Elegance Blue (313E) Tobacco Pipe",
+      "priceRawText": "$135.38",
+      "msrpRawText": "$169.23"
+    },
+    {
       "id": "smokingpipes-729492",
       "source": "smokingpipes",
       "sourceProductId": "729492",
@@ -22167,6 +22316,169 @@
       "msrpRawText": "$325.00"
     },
     {
+      "id": "smokingpipes-733475",
+      "source": "smokingpipes",
+      "sourceProductId": "733475",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111473.9713.jpg",
+      "sourcePriceAmount": 236,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 295,
+      "siteDisplayAmount": 2295.6232661999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 70.87,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "whisky smooth (320 ks) (6mm) tobacco pipe",
+        "price": 2295.6232661999993,
+        "sourceProductId": "733475"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111473.9713.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111473_1.5709.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111473_2.1759.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111473_3.5881.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.87,
+        "heightMm": 42.16,
+        "weightGrams": 70.87,
+        "chamberDepthMm": 33.53,
+        "chamberDiameterMm": 23.11,
+        "outsideDiameterMm": 48.51
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-whisky-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Whisky Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111473",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.87,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.87,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.51,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733475",
+      "sourceOriginalText": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$236.00",
+      "msrpRawText": "$295.00"
+    },
+    {
       "id": "smokingpipes-734187",
       "source": "smokingpipes",
       "sourceProductId": "734187",
@@ -22320,6 +22632,329 @@
       "sourceOriginalText": "Jekyll & Hyde (106) Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-735126",
+      "source": "smokingpipes",
+      "sourceProductId": "735126",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Newgrange Spigot (6) Fishtail Tobacco Pipe",
+      "displayNameEn": "Newgrange Spigot (6) Fishtail Tobacco Pipe",
+      "rawTitle": "Newgrange Spigot (6) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146408.5640.jpg",
+      "sourcePriceAmount": 300,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2869.501455,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "newgrange spigot (6) fishtail tobacco pipe",
+        "price": 2869.501455,
+        "sourceProductId": "735126"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146408.5640.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146408_1.7560.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146408_2.9727.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146408_3.8419.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 155.19,
+        "heightMm": 47.24,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 38.86,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 35.31
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-6__series-newgrange-spigot-fishtail-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Newgrange Spigot Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146408",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 155.19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.24,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735126",
+      "sourceOriginalText": "Newgrange Spigot (6) Fishtail Tobacco Pipe",
+      "priceRawText": "$300.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-735282",
+      "source": "smokingpipes",
+      "sourceProductId": "735282",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "displayNameEn": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "rawTitle": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111967.4176.jpg",
+      "sourcePriceAmount": 138,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172.5,
+      "siteDisplayAmount": 1347.0598039999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 59.53,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "unica rusticated dark brown (u31) (6mm) tobacco pipe",
+        "price": 1347.0598039999998,
+        "sourceProductId": "735282"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111967.4176.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 152.15,
+        "heightMm": 49.02,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 39.12,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 42.42
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-u31__series-unica-dark-brown-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Unica Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111967",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 152.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735282",
+      "sourceOriginalText": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "priceRawText": "$138.00",
+      "msrpRawText": "$172.50"
     }
   ]
 }

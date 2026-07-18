@@ -40,12 +40,12 @@
       "brandName": "AKB",
       "brandSlug": "akb",
       "country": null,
-      "productCount": 216,
+      "productCount": 217,
       "sourceCounts": {
-        "smokingpipes": 216
+        "smokingpipes": 217
       },
       "inventoryStatusCounts": {
-        "available": 194,
+        "available": 195,
         "sold": 22
       },
       "productIds": [
@@ -245,6 +245,7 @@
         "smokingpipes-730778",
         "smokingpipes-730780",
         "smokingpipes-730784",
+        "smokingpipes-730941",
         "smokingpipes-730943",
         "smokingpipes-730961",
         "smokingpipes-731556",
@@ -271,12 +272,12 @@
       "brandName": "Alan",
       "brandSlug": "alan",
       "country": null,
-      "productCount": 7,
+      "productCount": 9,
       "sourceCounts": {
-        "smokingpipes": 7
+        "smokingpipes": 9
       },
       "inventoryStatusCounts": {
-        "available": 7
+        "available": 9
       },
       "productIds": [
         "smokingpipes-678735",
@@ -285,7 +286,9 @@
         "smokingpipes-722449",
         "smokingpipes-722452",
         "smokingpipes-727273",
-        "smokingpipes-727275"
+        "smokingpipes-727274",
+        "smokingpipes-727275",
+        "smokingpipes-731569"
       ]
     },
     {
@@ -354,13 +357,13 @@
       "brandName": "Ashton",
       "brandSlug": "ashton",
       "country": "United Kingdom",
-      "productCount": 68,
+      "productCount": 69,
       "sourceCounts": {
         "danish": 2,
-        "smokingpipes": 66
+        "smokingpipes": 67
       },
       "inventoryStatusCounts": {
-        "available": 62,
+        "available": 63,
         "sold": 6
       },
       "productIds": [
@@ -374,6 +377,7 @@
         "smokingpipes-717297",
         "smokingpipes-717334",
         "smokingpipes-717335",
+        "smokingpipes-717338",
         "smokingpipes-717339",
         "smokingpipes-717340",
         "smokingpipes-717364",
@@ -438,12 +442,12 @@
       "brandName": "Askwith",
       "brandSlug": "askwith",
       "country": null,
-      "productCount": 6,
+      "productCount": 7,
       "sourceCounts": {
-        "smokingpipes": 6
+        "smokingpipes": 7
       },
       "inventoryStatusCounts": {
-        "available": 5,
+        "available": 6,
         "sold": 1
       },
       "productIds": [
@@ -452,7 +456,8 @@
         "smokingpipes-701555",
         "smokingpipes-719069",
         "smokingpipes-719074",
-        "smokingpipes-730795"
+        "smokingpipes-730795",
+        "smokingpipes-730797"
       ]
     },
     {
@@ -989,12 +994,12 @@
       "brandName": "Bill Shalosky",
       "brandSlug": "bill-shalosky",
       "country": null,
-      "productCount": 10,
+      "productCount": 11,
       "sourceCounts": {
-        "smokingpipes": 10
+        "smokingpipes": 11
       },
       "inventoryStatusCounts": {
-        "available": 9,
+        "available": 10,
         "sold": 1
       },
       "productIds": [
@@ -1007,7 +1012,8 @@
         "smokingpipes-701177",
         "smokingpipes-701180",
         "smokingpipes-721639",
-        "smokingpipes-721640"
+        "smokingpipes-721640",
+        "smokingpipes-727811"
       ]
     },
     {
@@ -1217,8 +1223,8 @@
         "smokingpipes": 102
       },
       "inventoryStatusCounts": {
-        "available": 95,
-        "sold": 7
+        "available": 100,
+        "sold": 2
       },
       "productIds": [
         "smokingpipes-675840",
@@ -1344,27 +1350,63 @@
       "brandName": "Brulor",
       "brandSlug": "brulor",
       "country": null,
-      "productCount": 1,
+      "productCount": 36,
       "sourceCounts": {
-        "smokingpipes": 1
+        "smokingpipes": 36
       },
       "inventoryStatusCounts": {
+        "available": 35,
         "sold": 1
       },
       "productIds": [
-        "smokingpipes-720809"
+        "smokingpipes-720103",
+        "smokingpipes-720104",
+        "smokingpipes-720105",
+        "smokingpipes-720106",
+        "smokingpipes-720107",
+        "smokingpipes-720110",
+        "smokingpipes-720283",
+        "smokingpipes-720284",
+        "smokingpipes-720285",
+        "smokingpipes-720286",
+        "smokingpipes-720287",
+        "smokingpipes-720299",
+        "smokingpipes-720301",
+        "smokingpipes-720303",
+        "smokingpipes-720532",
+        "smokingpipes-720735",
+        "smokingpipes-720737",
+        "smokingpipes-720738",
+        "smokingpipes-720739",
+        "smokingpipes-720740",
+        "smokingpipes-720741",
+        "smokingpipes-720742",
+        "smokingpipes-720809",
+        "smokingpipes-720916",
+        "smokingpipes-720918",
+        "smokingpipes-720919",
+        "smokingpipes-720920",
+        "smokingpipes-720921",
+        "smokingpipes-720922",
+        "smokingpipes-720923",
+        "smokingpipes-720924",
+        "smokingpipes-721041",
+        "smokingpipes-721043",
+        "smokingpipes-721079",
+        "smokingpipes-721080",
+        "smokingpipes-721081"
       ]
     },
     {
       "brandName": "Bruno Nuttens",
       "brandSlug": "bruno-nuttens",
       "country": null,
-      "productCount": 24,
+      "productCount": 25,
       "sourceCounts": {
-        "smokingpipes": 24
+        "smokingpipes": 25
       },
       "inventoryStatusCounts": {
-        "available": 21,
+        "available": 22,
         "sold": 3
       },
       "productIds": [
@@ -1386,6 +1428,7 @@
         "smokingpipes-728002",
         "smokingpipes-728058",
         "smokingpipes-728060",
+        "smokingpipes-728064",
         "smokingpipes-728066",
         "smokingpipes-728082",
         "smokingpipes-728123",
@@ -1582,12 +1625,12 @@
       "brandName": "Cavicchi",
       "brandSlug": "cavicchi",
       "country": null,
-      "productCount": 139,
+      "productCount": 148,
       "sourceCounts": {
-        "smokingpipes": 139
+        "smokingpipes": 148
       },
       "inventoryStatusCounts": {
-        "available": 139
+        "available": 148
       },
       "productIds": [
         "smokingpipes-554662",
@@ -1728,7 +1771,16 @@
         "smokingpipes-720624",
         "smokingpipes-720625",
         "smokingpipes-720629",
-        "smokingpipes-720631"
+        "smokingpipes-720631",
+        "smokingpipes-734662",
+        "smokingpipes-734672",
+        "smokingpipes-734705",
+        "smokingpipes-734721",
+        "smokingpipes-734763",
+        "smokingpipes-734831",
+        "smokingpipes-735074",
+        "smokingpipes-735078",
+        "smokingpipes-735081"
       ]
     },
     {
@@ -1750,14 +1802,14 @@
       "brandName": "Chacom",
       "brandSlug": "chacom",
       "country": "France",
-      "productCount": 192,
+      "productCount": 191,
       "sourceCounts": {
         "danish": 155,
-        "smokingpipes": 37
+        "smokingpipes": 36
       },
       "inventoryStatusCounts": {
-        "available": 162,
-        "sold": 30
+        "available": 174,
+        "sold": 17
       },
       "productIds": [
         "danish-569",
@@ -1939,7 +1991,6 @@
         "smokingpipes-676080",
         "smokingpipes-676081",
         "smokingpipes-676095",
-        "smokingpipes-676097",
         "smokingpipes-676123",
         "smokingpipes-676125",
         "smokingpipes-676126",
@@ -2165,12 +2216,12 @@
       "brandName": "Duca",
       "brandSlug": "duca",
       "country": null,
-      "productCount": 12,
+      "productCount": 14,
       "sourceCounts": {
-        "smokingpipes": 12
+        "smokingpipes": 14
       },
       "inventoryStatusCounts": {
-        "available": 12
+        "available": 14
       },
       "productIds": [
         "smokingpipes-598143",
@@ -2179,25 +2230,27 @@
         "smokingpipes-636837",
         "smokingpipes-685823",
         "smokingpipes-716911",
+        "smokingpipes-716913",
         "smokingpipes-722473",
         "smokingpipes-722474",
         "smokingpipes-722475",
         "smokingpipes-722477",
         "smokingpipes-722478",
-        "smokingpipes-722481"
+        "smokingpipes-722481",
+        "smokingpipes-722482"
       ]
     },
     {
       "brandName": "Dunhill",
       "brandSlug": "dunhill",
       "country": "United Kingdom",
-      "productCount": 205,
+      "productCount": 214,
       "sourceCounts": {
         "danish": 110,
-        "smokingpipes": 95
+        "smokingpipes": 104
       },
       "inventoryStatusCounts": {
-        "available": 185,
+        "available": 194,
         "sold": 20
       },
       "productIds": [
@@ -2395,17 +2448,26 @@
         "smokingpipes-728946",
         "smokingpipes-728995",
         "smokingpipes-729005",
+        "smokingpipes-729008",
+        "smokingpipes-729013",
         "smokingpipes-729016",
         "smokingpipes-729019",
         "smokingpipes-729046",
         "smokingpipes-729047",
+        "smokingpipes-729050",
         "smokingpipes-729056",
         "smokingpipes-729059",
         "smokingpipes-729450",
         "smokingpipes-729452",
         "smokingpipes-729454",
         "smokingpipes-729456",
-        "smokingpipes-729459"
+        "smokingpipes-729459",
+        "smokingpipes-732126",
+        "smokingpipes-732168",
+        "smokingpipes-732325",
+        "smokingpipes-732442",
+        "smokingpipes-732447",
+        "smokingpipes-732468"
       ]
     },
     {
@@ -2840,12 +2902,12 @@
       "brandName": "GH Zhang",
       "brandSlug": "gh-zhang",
       "country": null,
-      "productCount": 113,
+      "productCount": 114,
       "sourceCounts": {
-        "smokingpipes": 113
+        "smokingpipes": 114
       },
       "inventoryStatusCounts": {
-        "available": 112,
+        "available": 113,
         "sold": 1
       },
       "productIds": [
@@ -2940,6 +3002,7 @@
         "smokingpipes-724687",
         "smokingpipes-724690",
         "smokingpipes-724691",
+        "smokingpipes-724694",
         "smokingpipes-724696",
         "smokingpipes-726538",
         "smokingpipes-726541",
@@ -4001,8 +4064,8 @@
         "smokingpipes": 20
       },
       "inventoryStatusCounts": {
-        "available": 26,
-        "sold": 14
+        "available": 31,
+        "sold": 9
       },
       "productIds": [
         "danish-119",
@@ -4057,8 +4120,8 @@
         "smokingpipes": 108
       },
       "inventoryStatusCounts": {
-        "available": 61,
-        "sold": 52
+        "available": 111,
+        "sold": 2
       },
       "productIds": [
         "danish-385",
@@ -4907,8 +4970,8 @@
         "smokingpipes": 64
       },
       "inventoryStatusCounts": {
-        "available": 40,
-        "sold": 24
+        "available": 52,
+        "sold": 12
       },
       "productIds": [
         "smokingpipes-336117",
@@ -5060,14 +5123,14 @@
       "brandName": "Peterson",
       "brandSlug": "peterson",
       "country": "Ireland",
-      "productCount": 1241,
+      "productCount": 1305,
       "sourceCounts": {
         "danish": 141,
-        "smokingpipes": 1100
+        "smokingpipes": 1164
       },
       "inventoryStatusCounts": {
-        "available": 1040,
-        "sold": 201
+        "available": 1145,
+        "sold": 160
       },
       "productIds": [
         "danish-3096",
@@ -5279,6 +5342,7 @@
         "smokingpipes-673840",
         "smokingpipes-673843",
         "smokingpipes-673995",
+        "smokingpipes-673998",
         "smokingpipes-674004",
         "smokingpipes-674007",
         "smokingpipes-674033",
@@ -5516,6 +5580,7 @@
         "smokingpipes-713730",
         "smokingpipes-713780",
         "smokingpipes-713814",
+        "smokingpipes-714431",
         "smokingpipes-715800",
         "smokingpipes-715801",
         "smokingpipes-715802",
@@ -6048,6 +6113,7 @@
         "smokingpipes-728113",
         "smokingpipes-728116",
         "smokingpipes-728117",
+        "smokingpipes-728121",
         "smokingpipes-728153",
         "smokingpipes-728154",
         "smokingpipes-728167",
@@ -6091,6 +6157,9 @@
         "smokingpipes-728568",
         "smokingpipes-728569",
         "smokingpipes-728570",
+        "smokingpipes-728571",
+        "smokingpipes-728572",
+        "smokingpipes-728573",
         "smokingpipes-728581",
         "smokingpipes-728585",
         "smokingpipes-728588",
@@ -6117,6 +6186,7 @@
         "smokingpipes-728757",
         "smokingpipes-728762",
         "smokingpipes-728763",
+        "smokingpipes-728770",
         "smokingpipes-728776",
         "smokingpipes-728777",
         "smokingpipes-728778",
@@ -6156,6 +6226,7 @@
         "smokingpipes-728918",
         "smokingpipes-728924",
         "smokingpipes-728934",
+        "smokingpipes-728935",
         "smokingpipes-728936",
         "smokingpipes-728939",
         "smokingpipes-729497",
@@ -6167,6 +6238,7 @@
         "smokingpipes-729517",
         "smokingpipes-729521",
         "smokingpipes-729524",
+        "smokingpipes-729527",
         "smokingpipes-729534",
         "smokingpipes-729543",
         "smokingpipes-729548",
@@ -6178,6 +6250,8 @@
         "smokingpipes-729571",
         "smokingpipes-729574",
         "smokingpipes-729575",
+        "smokingpipes-729577",
+        "smokingpipes-729578",
         "smokingpipes-729581",
         "smokingpipes-729583",
         "smokingpipes-729584",
@@ -6186,6 +6260,7 @@
         "smokingpipes-729596",
         "smokingpipes-729805",
         "smokingpipes-729818",
+        "smokingpipes-729845",
         "smokingpipes-729846",
         "smokingpipes-729850",
         "smokingpipes-729851",
@@ -6241,6 +6316,8 @@
         "smokingpipes-730008",
         "smokingpipes-730009",
         "smokingpipes-730010",
+        "smokingpipes-730017",
+        "smokingpipes-730018",
         "smokingpipes-730129",
         "smokingpipes-730135",
         "smokingpipes-730136",
@@ -6250,6 +6327,7 @@
         "smokingpipes-730144",
         "smokingpipes-730147",
         "smokingpipes-730148",
+        "smokingpipes-730149",
         "smokingpipes-730152",
         "smokingpipes-730155",
         "smokingpipes-730157",
@@ -6259,23 +6337,28 @@
         "smokingpipes-730165",
         "smokingpipes-730166",
         "smokingpipes-730167",
+        "smokingpipes-730175",
         "smokingpipes-730358",
         "smokingpipes-730363",
         "smokingpipes-730369",
         "smokingpipes-730380",
         "smokingpipes-730385",
         "smokingpipes-730386",
+        "smokingpipes-730402",
         "smokingpipes-730411",
         "smokingpipes-730429",
+        "smokingpipes-730440",
         "smokingpipes-730449",
         "smokingpipes-730450",
         "smokingpipes-730457",
+        "smokingpipes-730516",
         "smokingpipes-730679",
         "smokingpipes-730683",
         "smokingpipes-730688",
         "smokingpipes-730691",
         "smokingpipes-730692",
         "smokingpipes-730700",
+        "smokingpipes-730704",
         "smokingpipes-730742",
         "smokingpipes-731276",
         "smokingpipes-731277",
@@ -6310,7 +6393,51 @@
         "smokingpipes-731374",
         "smokingpipes-731530",
         "smokingpipes-731542",
-        "smokingpipes-731544"
+        "smokingpipes-731544",
+        "smokingpipes-732411",
+        "smokingpipes-732654",
+        "smokingpipes-732655",
+        "smokingpipes-732671",
+        "smokingpipes-732924",
+        "smokingpipes-732980",
+        "smokingpipes-732997",
+        "smokingpipes-733120",
+        "smokingpipes-733123",
+        "smokingpipes-733133",
+        "smokingpipes-733152",
+        "smokingpipes-734236",
+        "smokingpipes-734245",
+        "smokingpipes-734547",
+        "smokingpipes-734548",
+        "smokingpipes-734578",
+        "smokingpipes-734583",
+        "smokingpipes-734584",
+        "smokingpipes-734590",
+        "smokingpipes-734591",
+        "smokingpipes-734611",
+        "smokingpipes-735099",
+        "smokingpipes-735101",
+        "smokingpipes-735110",
+        "smokingpipes-735126",
+        "smokingpipes-735129",
+        "smokingpipes-735136",
+        "smokingpipes-735141",
+        "smokingpipes-735142",
+        "smokingpipes-735154",
+        "smokingpipes-735158",
+        "smokingpipes-735172",
+        "smokingpipes-735173",
+        "smokingpipes-735174",
+        "smokingpipes-735184",
+        "smokingpipes-735185",
+        "smokingpipes-735190",
+        "smokingpipes-735196",
+        "smokingpipes-735199",
+        "smokingpipes-735202",
+        "smokingpipes-735217",
+        "smokingpipes-735218",
+        "smokingpipes-735219",
+        "smokingpipes-735221"
       ]
     },
     {
@@ -6456,8 +6583,8 @@
         "smokingpipes": 261
       },
       "inventoryStatusCounts": {
-        "available": 347,
-        "sold": 13
+        "available": 358,
+        "sold": 2
       },
       "productIds": [
         "danish-2484",
@@ -6884,8 +7011,8 @@
         "smokingpipes": 57
       },
       "inventoryStatusCounts": {
-        "available": 55,
-        "sold": 4
+        "available": 57,
+        "sold": 2
       },
       "productIds": [
         "danish-36069",
@@ -6958,8 +7085,8 @@
         "smokingpipes": 83
       },
       "inventoryStatusCounts": {
-        "available": 78,
-        "sold": 5
+        "available": 81,
+        "sold": 2
       },
       "productIds": [
         "smokingpipes-676969",
@@ -7182,14 +7309,14 @@
       "brandName": "Savinelli",
       "brandSlug": "savinelli",
       "country": "Italy",
-      "productCount": 1067,
+      "productCount": 1123,
       "sourceCounts": {
         "danish": 222,
-        "smokingpipes": 845
+        "smokingpipes": 901
       },
       "inventoryStatusCounts": {
-        "available": 847,
-        "sold": 220
+        "available": 925,
+        "sold": 198
       },
       "productIds": [
         "danish-1164",
@@ -7665,6 +7792,7 @@
         "smokingpipes-703696",
         "smokingpipes-704425",
         "smokingpipes-704431",
+        "smokingpipes-705370",
         "smokingpipes-705375",
         "smokingpipes-705376",
         "smokingpipes-706048",
@@ -8258,7 +8386,62 @@
         "smokingpipes-730652",
         "smokingpipes-730654",
         "smokingpipes-730655",
-        "smokingpipes-730656"
+        "smokingpipes-730656",
+        "smokingpipes-731501",
+        "smokingpipes-731513",
+        "smokingpipes-732272",
+        "smokingpipes-733066",
+        "smokingpipes-733307",
+        "smokingpipes-733308",
+        "smokingpipes-733309",
+        "smokingpipes-733421",
+        "smokingpipes-733422",
+        "smokingpipes-733423",
+        "smokingpipes-733435",
+        "smokingpipes-733457",
+        "smokingpipes-733458",
+        "smokingpipes-733475",
+        "smokingpipes-733490",
+        "smokingpipes-733494",
+        "smokingpipes-733943",
+        "smokingpipes-733944",
+        "smokingpipes-733945",
+        "smokingpipes-733962",
+        "smokingpipes-733963",
+        "smokingpipes-733968",
+        "smokingpipes-733990",
+        "smokingpipes-733991",
+        "smokingpipes-733992",
+        "smokingpipes-734008",
+        "smokingpipes-734009",
+        "smokingpipes-734045",
+        "smokingpipes-734057",
+        "smokingpipes-734059",
+        "smokingpipes-734077",
+        "smokingpipes-734078",
+        "smokingpipes-734079",
+        "smokingpipes-734107",
+        "smokingpipes-734177",
+        "smokingpipes-734506",
+        "smokingpipes-734507",
+        "smokingpipes-734512",
+        "smokingpipes-734513",
+        "smokingpipes-734518",
+        "smokingpipes-735225",
+        "smokingpipes-735227",
+        "smokingpipes-735228",
+        "smokingpipes-735229",
+        "smokingpipes-735231",
+        "smokingpipes-735232",
+        "smokingpipes-735233",
+        "smokingpipes-735234",
+        "smokingpipes-735235",
+        "smokingpipes-735248",
+        "smokingpipes-735249",
+        "smokingpipes-735256",
+        "smokingpipes-735265",
+        "smokingpipes-735273",
+        "smokingpipes-735282"
       ]
     },
     {
@@ -8661,8 +8844,8 @@
         "smokingpipes": 25
       },
       "inventoryStatusCounts": {
-        "available": 22,
-        "sold": 3
+        "available": 24,
+        "sold": 1
       },
       "productIds": [
         "smokingpipes-641934",
@@ -8888,13 +9071,13 @@
       "brandName": "Unknown",
       "brandSlug": null,
       "country": null,
-      "productCount": 1120,
+      "productCount": 1150,
       "sourceCounts": {
-        "smokingpipes": 1120
+        "smokingpipes": 1150
       },
       "inventoryStatusCounts": {
-        "available": 1113,
-        "sold": 7
+        "available": 1149,
+        "sold": 1
       },
       "productIds": [
         "smokingpipes-109742",
@@ -9313,9 +9496,12 @@
         "smokingpipes-725537",
         "smokingpipes-725549",
         "smokingpipes-725550",
+        "smokingpipes-725551",
         "smokingpipes-725575",
         "smokingpipes-725792",
         "smokingpipes-726703",
+        "smokingpipes-726704",
+        "smokingpipes-726705",
         "smokingpipes-726974",
         "smokingpipes-727017",
         "smokingpipes-727057",
@@ -9359,10 +9545,13 @@
         "smokingpipes-728309",
         "smokingpipes-728327",
         "smokingpipes-728348",
+        "smokingpipes-728370",
         "smokingpipes-728375",
         "smokingpipes-728388",
+        "smokingpipes-728390",
         "smokingpipes-728549",
         "smokingpipes-728550",
+        "smokingpipes-728567",
         "smokingpipes-728594",
         "smokingpipes-728598",
         "smokingpipes-728621",
@@ -9391,6 +9580,7 @@
         "smokingpipes-729215",
         "smokingpipes-729244",
         "smokingpipes-729486",
+        "smokingpipes-729487",
         "smokingpipes-729490",
         "smokingpipes-729518",
         "smokingpipes-729538",
@@ -9521,6 +9711,8 @@
         "smokingpipes-730701",
         "smokingpipes-730709",
         "smokingpipes-730710",
+        "smokingpipes-730711",
+        "smokingpipes-730712",
         "smokingpipes-730718",
         "smokingpipes-730723",
         "smokingpipes-730726",
@@ -9697,6 +9889,7 @@
         "smokingpipes-731285",
         "smokingpipes-731292",
         "smokingpipes-731296",
+        "smokingpipes-731301",
         "smokingpipes-731305",
         "smokingpipes-731315",
         "smokingpipes-731324",
@@ -9820,6 +10013,7 @@
         "smokingpipes-732651",
         "smokingpipes-732656",
         "smokingpipes-732657",
+        "smokingpipes-732658",
         "smokingpipes-732663",
         "smokingpipes-732664",
         "smokingpipes-732672",
@@ -9835,6 +10029,8 @@
         "smokingpipes-732844",
         "smokingpipes-732846",
         "smokingpipes-732848",
+        "smokingpipes-732850",
+        "smokingpipes-732851",
         "smokingpipes-732854",
         "smokingpipes-732857",
         "smokingpipes-732860",
@@ -9860,6 +10056,7 @@
         "smokingpipes-732968",
         "smokingpipes-732969",
         "smokingpipes-732973",
+        "smokingpipes-732983",
         "smokingpipes-732988",
         "smokingpipes-732991",
         "smokingpipes-732992",
@@ -9883,6 +10080,7 @@
         "smokingpipes-733104",
         "smokingpipes-733109",
         "smokingpipes-733115",
+        "smokingpipes-733116",
         "smokingpipes-733117",
         "smokingpipes-733119",
         "smokingpipes-733121",
@@ -9930,6 +10128,8 @@
         "smokingpipes-733617",
         "smokingpipes-733619",
         "smokingpipes-733624",
+        "smokingpipes-733628",
+        "smokingpipes-733631",
         "smokingpipes-733634",
         "smokingpipes-733644",
         "smokingpipes-733738",
@@ -9940,6 +10140,9 @@
         "smokingpipes-733948",
         "smokingpipes-733949",
         "smokingpipes-733952",
+        "smokingpipes-733953",
+        "smokingpipes-733954",
+        "smokingpipes-733955",
         "smokingpipes-733956",
         "smokingpipes-733960",
         "smokingpipes-733961",
@@ -9967,6 +10170,8 @@
         "smokingpipes-734094",
         "smokingpipes-734096",
         "smokingpipes-734162",
+        "smokingpipes-734164",
+        "smokingpipes-734165",
         "smokingpipes-734168",
         "smokingpipes-734169",
         "smokingpipes-734170",
@@ -10005,18 +10210,26 @@
         "smokingpipes-734463",
         "smokingpipes-734484",
         "smokingpipes-734485",
+        "smokingpipes-734488",
         "smokingpipes-734497",
         "smokingpipes-734498",
         "smokingpipes-734499",
         "smokingpipes-734528",
         "smokingpipes-734529",
+        "smokingpipes-734550",
+        "smokingpipes-734551",
         "smokingpipes-734560",
         "smokingpipes-734563",
         "smokingpipes-734564",
         "smokingpipes-734581",
         "smokingpipes-734601",
         "smokingpipes-734635",
-        "smokingpipes-734646"
+        "smokingpipes-734646",
+        "smokingpipes-735133",
+        "smokingpipes-735134",
+        "smokingpipes-735237",
+        "smokingpipes-735241",
+        "smokingpipes-735242"
       ]
     },
     {
@@ -10116,8 +10329,8 @@
         "smokingpipes": 253
       },
       "inventoryStatusCounts": {
-        "available": 338,
-        "sold": 52
+        "available": 354,
+        "sold": 36
       },
       "productIds": [
         "danish-201",
@@ -10694,12 +10907,12 @@
       "brandName": "Werner Mummert",
       "brandSlug": "werner-mummert",
       "country": null,
-      "productCount": 7,
+      "productCount": 10,
       "sourceCounts": {
-        "smokingpipes": 7
+        "smokingpipes": 10
       },
       "inventoryStatusCounts": {
-        "available": 7
+        "available": 10
       },
       "productIds": [
         "smokingpipes-605963",
@@ -10708,7 +10921,10 @@
         "smokingpipes-637625",
         "smokingpipes-669376",
         "smokingpipes-692116",
-        "smokingpipes-692118"
+        "smokingpipes-692118",
+        "smokingpipes-731459",
+        "smokingpipes-731480",
+        "smokingpipes-731482"
       ]
     },
     {
@@ -10720,8 +10936,7 @@
         "smokingpipes": 48
       },
       "inventoryStatusCounts": {
-        "available": 46,
-        "sold": 2
+        "available": 48
       },
       "productIds": [
         "smokingpipes-676908",
@@ -10842,13 +11057,13 @@
       "brandName": "Winsløw",
       "brandSlug": "winslow",
       "country": "Denmark",
-      "productCount": 69,
+      "productCount": 78,
       "sourceCounts": {
         "danish": 10,
-        "smokingpipes": 59
+        "smokingpipes": 68
       },
       "inventoryStatusCounts": {
-        "available": 64,
+        "available": 73,
         "sold": 5
       },
       "productIds": [
@@ -10920,7 +11135,16 @@
         "smokingpipes-717448",
         "smokingpipes-717452",
         "smokingpipes-717526",
-        "smokingpipes-717617"
+        "smokingpipes-717617",
+        "smokingpipes-732313",
+        "smokingpipes-732457",
+        "smokingpipes-732464",
+        "smokingpipes-732492",
+        "smokingpipes-733004",
+        "smokingpipes-733014",
+        "smokingpipes-733033",
+        "smokingpipes-733645",
+        "smokingpipes-733651"
       ]
     },
     {

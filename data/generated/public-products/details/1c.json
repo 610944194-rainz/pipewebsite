@@ -4085,10 +4085,10 @@
       "displayNameEn": "Offering (Black) Tobacco Pipe",
       "rawTitle": "Offering (Black) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-557-0027.6248.jpg",
-      "sourcePriceAmount": 18,
+      "sourcePriceAmount": 15,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 418.77572,
+      "siteDisplayAmount": 394.15279999999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -4118,7 +4118,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "offering (black) tobacco pipe",
-        "price": 418.77572,
+        "price": 394.15279999999996,
         "sourceProductId": "344789"
       },
       "displayNameZh": null,
@@ -4219,7 +4219,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/clay-pipes/moreinfo.cfm?product_id=344789",
       "sourceOriginalText": "Offering (Black) Tobacco Pipe",
-      "priceRawText": "$18.00",
+      "priceRawText": "$15.00",
       "msrpRawText": null
     },
     {
@@ -4553,9 +4553,9 @@
       "siteDisplayAmount": 1089.75029,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -4881,9 +4881,9 @@
       "siteDisplayAmount": 743.798264,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12035,6 +12035,160 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=720712",
       "sourceOriginalText": "Collection Bent Apple (KK) (2025) Tobacco Pipe",
       "priceRawText": "$806.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-720916",
+      "source": "smokingpipes",
+      "sourceProductId": "720916",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Billiard Tobacco Pipe",
+      "displayNameEn": "Smooth Billiard Tobacco Pipe",
+      "rawTitle": "Smooth Billiard Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3427.7292.jpg",
+      "sourcePriceAmount": 55,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 722.4584,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 38.44,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth billiard tobacco pipe",
+        "price": 722.4584,
+        "sourceProductId": "720916"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3427.7292.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.89,
+        "heightMm": 47.16,
+        "weightGrams": 38.44,
+        "chamberDepthMm": 39.5,
+        "chamberDiameterMm": 19.17,
+        "outsideDiameterMm": 35.01
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-3427",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38.44,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.01,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720916",
+      "sourceOriginalText": "Smooth Billiard Tobacco Pipe",
+      "priceRawText": "$55.00",
       "msrpRawText": null
     },
     {
@@ -20256,6 +20410,167 @@
       "sourceOriginalText": "Dracula Smooth (264) Fishtail Tobacco Pipe",
       "priceRawText": "$215.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-733066",
+      "source": "smokingpipes",
+      "sourceProductId": "733066",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Camouflage Smooth Dark Brown (642) (6mm) Tobacco Pipe",
+      "displayNameEn": "Camouflage Smooth Dark Brown (642) (6mm) Tobacco Pipe",
+      "rawTitle": "Camouflage Smooth Dark Brown (642) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111267.3293.jpg",
+      "sourcePriceAmount": 148.49,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 185.61,
+      "siteDisplayAmount": 1428.85304042,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.03,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "camouflage smooth dark brown (642) (6mm) tobacco pipe",
+        "price": 1428.85304042,
+        "sourceProductId": "733066"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111267.3293.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111267_1.4064.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.52,
+        "heightMm": 39.88,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 30.99,
+        "chamberDiameterMm": 16.51,
+        "outsideDiameterMm": 40.13
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-642__series-camouflage-dark-brown-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Camouflage Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111267",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733066",
+      "sourceOriginalText": "Camouflage Smooth Dark Brown (642) (6mm) Tobacco Pipe",
+      "priceRawText": "$148.49",
+      "msrpRawText": "$185.61"
     },
     {
       "id": "smokingpipes-733304",

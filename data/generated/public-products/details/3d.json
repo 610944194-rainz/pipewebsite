@@ -6560,9 +6560,9 @@
       "siteDisplayAmount": 812.74244,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12105,6 +12105,160 @@
       "msrpRawText": "$182.50"
     },
     {
+      "id": "smokingpipes-720924",
+      "source": "smokingpipes",
+      "sourceProductId": "720924",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Billiard Tobacco Pipe",
+      "displayNameEn": "Smooth Billiard Tobacco Pipe",
+      "rawTitle": "Smooth Billiard Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3435.3193.jpg",
+      "sourcePriceAmount": 55,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 722.4584,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 41.64,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth billiard tobacco pipe",
+        "price": 722.4584,
+        "sourceProductId": "720924"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-3435.3193.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 148.34,
+        "heightMm": 46.48,
+        "weightGrams": 41.64,
+        "chamberDepthMm": 41.99,
+        "chamberDiameterMm": 19.07,
+        "outsideDiameterMm": 34.13
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-3435",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 148.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 41.64,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720924",
+      "sourceOriginalText": "Smooth Billiard Tobacco Pipe",
+      "priceRawText": "$55.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-721071",
       "source": "smokingpipes",
       "sourceProductId": "721071",
@@ -16242,6 +16396,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-732126",
+      "source": "smokingpipes",
+      "sourceProductId": "732126",
+      "brandName": "Dunhill",
+      "brandSlug": "dunhill",
+      "brandCountry": "United Kingdom",
+      "displayName": "Ruby Bark (4102F) (2026) (9mm) Tobacco Pipe",
+      "displayNameEn": "Ruby Bark (4102F) (2026) (9mm) Tobacco Pipe",
+      "rawTitle": "Ruby Bark (4102F) (2026) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8704.8468.jpg",
+      "sourcePriceAmount": 715,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 6238.361491499999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 52.16,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "dunhill",
+        "name": "ruby bark (4102f) (2026) (9mm) tobacco pipe",
+        "price": 6238.361491499999,
+        "sourceProductId": "732126"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8704.8468.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8704_1.8846.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8704_2.4930.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8704_3.1807.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 48.51,
+        "weightGrams": 52.16,
+        "chamberDepthMm": 39.12,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 36.32
+      },
+      "model": {
+        "canonicalModelKey": "dunhill__model-4102f__series-ruby-bark-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Ruby Bark Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-015-8704",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Dunhill",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 52.16,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/dunhill/moreinfo.cfm?product_id=732126",
+      "sourceOriginalText": "Ruby Bark (4102F) (2026) (9mm) Tobacco Pipe",
+      "priceRawText": "$715.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-732369",
       "source": "smokingpipes",
       "sourceProductId": "732369",
@@ -17021,6 +17338,332 @@
       "sourceOriginalText": "Miele Smooth (673 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$228.00",
       "msrpRawText": "$285.00"
+    },
+    {
+      "id": "smokingpipes-734513",
+      "source": "smokingpipes",
+      "sourceProductId": "734513",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111884.4989.jpg",
+      "sourcePriceAmount": 236,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 295,
+      "siteDisplayAmount": 2295.6232661999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 70.87,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "whisky smooth (320 ks) (6mm) tobacco pipe",
+        "price": 2295.6232661999993,
+        "sourceProductId": "734513"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111884.4989.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111884_1.4888.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111884_2.8473.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111884_3.2797.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 135.89,
+        "heightMm": 42.16,
+        "weightGrams": 70.87,
+        "chamberDepthMm": 33.27,
+        "chamberDiameterMm": 23.11,
+        "outsideDiameterMm": 48.77
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-whisky-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Whisky Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111884",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 135.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.87,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.77,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734513",
+      "sourceOriginalText": "Whisky Smooth (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$236.00",
+      "msrpRawText": "$295.00"
+    },
+    {
+      "id": "smokingpipes-735185",
+      "source": "smokingpipes",
+      "sourceProductId": "735185",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146467.9719.jpg",
+      "sourcePriceAmount": 236,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 295,
+      "siteDisplayAmount": 2295.6232661999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 42.52,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot sandblasted (317) p-lip tobacco pipe",
+        "price": 2295.6232661999993,
+        "sourceProductId": "735185"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146467.9719.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146467_1.7318.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146467_2.1565.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146467_3.1079.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 135.89,
+        "heightMm": 40.39,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 26.42,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 34.04
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-317__series-system-spigot-sandblasted-p-lip-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Spigot Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146467",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 135.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 26.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.04,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735185",
+      "sourceOriginalText": "System Spigot Sandblasted (317) P-Lip Tobacco Pipe",
+      "priceRawText": "$236.00",
+      "msrpRawText": "$295.00"
     }
   ]
 }

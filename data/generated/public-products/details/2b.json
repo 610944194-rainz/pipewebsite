@@ -7656,9 +7656,9 @@
       "siteDisplayAmount": 829.1577199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7810,10 +7810,10 @@
       "displayNameEn": "Striato Sandblasted (190) Tobacco Pipe",
       "rawTitle": "Striato Sandblasted (190) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1008-0260.4989.jpg",
-      "sourcePriceAmount": 67.5,
+      "sourcePriceAmount": 60,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 825.0538999999999,
+      "siteDisplayAmount": 763.4966,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7843,7 +7843,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "striato sandblasted (190) tobacco pipe",
-        "price": 825.0538999999999,
+        "price": 763.4966,
         "sourceProductId": "685603"
       },
       "displayNameZh": null,
@@ -7950,7 +7950,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/molina/moreinfo.cfm?product_id=685603",
       "sourceOriginalText": "Striato Sandblasted (190) Tobacco Pipe",
-      "priceRawText": "$67.50",
+      "priceRawText": "$60.00",
       "msrpRawText": null
     },
     {
@@ -9557,9 +9557,9 @@
       "siteDisplayAmount": 2032.7530760999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11000,9 +11000,9 @@
       "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11456,6 +11456,163 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=716063",
       "sourceOriginalText": "Tyrone (103) Fishtail Tobacco Pipe",
       "priceRawText": "$170.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-716913",
+      "source": "smokingpipes",
+      "sourceProductId": "716913",
+      "brandName": "Duca",
+      "brandSlug": "duca",
+      "brandCountry": null,
+      "displayName": "Sandblasted Acorn Sitter (B) Tobacco Pipe",
+      "displayNameEn": "Sandblasted Acorn Sitter (B) Tobacco Pipe",
+      "rawTitle": "Sandblasted Acorn Sitter (B) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0750.2735.jpg",
+      "sourcePriceAmount": 750,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7581.028799999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 54.43,
+      "shape": "Acorn/Pear",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "duca",
+        "name": "sandblasted acorn sitter (b) tobacco pipe",
+        "price": 7581.028799999999,
+        "sourceProductId": "716913"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0750.2735.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0750_1.9324.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0750_2.8530.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0750_3.5021.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 159.26,
+        "heightMm": 48.01,
+        "weightGrams": 54.43,
+        "chamberDepthMm": 45.21,
+        "chamberDiameterMm": 18.29,
+        "outsideDiameterMm": 48.01
+      },
+      "model": {
+        "canonicalModelKey": "duca__series-sandblasted-sitter-tobacco-pipe__shape-acorn-pear",
+        "confidence": "medium"
+      },
+      "series": "Sandblasted Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-427-0750",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Duca",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Acorn/Pear",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 159.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 54.43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/duca/moreinfo.cfm?product_id=716913",
+      "sourceOriginalText": "Sandblasted Acorn Sitter (B) Tobacco Pipe",
+      "priceRawText": "$750.00",
       "msrpRawText": null
     },
     {
@@ -18150,6 +18307,161 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-732983",
+      "source": "smokingpipes",
+      "sourceProductId": "732983",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "displayNameEn": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "rawTitle": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146111.6847.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1991.6943569999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "160th anniversary dark smooth (pat. ob) p-lip tobacco pipe",
+        "price": 1991.6943569999999,
+        "sourceProductId": "732983"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146111.6847.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146111_1.5000.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.65,
+        "heightMm": 44.96,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 29.97,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 37.85
+      },
+      "model": {
+        "canonicalModelKey": "series-160th-anniversary-dark-p-lip-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "160th Anniversary Dark P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146111",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732983",
+      "sourceOriginalText": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
+    },
+    {
       "id": "smokingpipes-733949",
       "source": "smokingpipes",
       "sourceProductId": "733949",
@@ -18306,6 +18618,323 @@
       "sourceOriginalText": "Miele Smooth (626) (6mm) Tobacco Pipe",
       "priceRawText": "$228.00",
       "msrpRawText": "$285.00"
+    },
+    {
+      "id": "smokingpipes-734551",
+      "source": "smokingpipes",
+      "sourceProductId": "734551",
+      "brandName": "Unknown",
+      "brandSlug": null,
+      "brandCountry": null,
+      "displayName": "Aran Smooth Nickel Mounted (264) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (264) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (264) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146305.1860.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1469.3536399999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 34.02,
+      "shape": "Canadian",
+      "shapeZh": "加拿大斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "unknown",
+        "name": "aran smooth nickel mounted (264) fishtail tobacco pipe",
+        "price": 1469.3536399999998,
+        "sourceProductId": "734551"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146305.1860.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146305_1.4390.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 157.23,
+        "heightMm": 45.21,
+        "weightGrams": 34.02,
+        "chamberDepthMm": 40.39,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 34.29
+      },
+      "model": {
+        "canonicalModelKey": "model-264__series-aran-nickel-mounted-fishtail-tobacco__shape-canadian",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146305",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Canadian",
+          "labelZh": "加拿大斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 157.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 34.02,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=734551",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (264) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-735228",
+      "source": "smokingpipes",
+      "sourceProductId": "735228",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Minuto Smooth (609) (6mm) Tobacco Pipe",
+      "displayNameEn": "Minuto Smooth (609) (6mm) Tobacco Pipe",
+      "rawTitle": "Minuto Smooth (609) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111913.2660.jpg",
+      "sourcePriceAmount": 118,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 147.5,
+      "siteDisplayAmount": 1191.1146439999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 3,
+      "weightGrams": 25.51,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "minuto smooth (609) (6mm) tobacco pipe",
+        "price": 1191.1146439999998,
+        "sourceProductId": "735228"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111913.2660.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111913_1.4432.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-89250_1.7506.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 114.3,
+        "heightMm": 36.07,
+        "weightGrams": 25.51,
+        "chamberDepthMm": 28.96,
+        "chamberDiameterMm": 16.51,
+        "outsideDiameterMm": 30.48
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-609__series-minuto-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Minuto Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111913",
+      "filterSizeMm": 6,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 114.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 25.51,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.48,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735228",
+      "sourceOriginalText": "Minuto Smooth (609) (6mm) Tobacco Pipe",
+      "priceRawText": "$118.00",
+      "msrpRawText": "$147.50"
     }
   ]
 }

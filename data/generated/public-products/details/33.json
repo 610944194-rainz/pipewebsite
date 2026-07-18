@@ -10885,9 +10885,9 @@
       "siteDisplayAmount": 3050.8205340599993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11209,9 +11209,9 @@
       "siteDisplayAmount": 1275.6533359999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -21676,6 +21676,169 @@
       "sourceOriginalText": "Smooth Volcano (Ali) (With Case) Tobacco Pipe",
       "priceRawText": "$243.00",
       "msrpRawText": "$270.00"
+    },
+    {
+      "id": "smokingpipes-732442",
+      "source": "smokingpipes",
+      "sourceProductId": "732442",
+      "brandName": "Dunhill",
+      "brandSlug": "dunhill",
+      "brandCountry": "United Kingdom",
+      "displayName": "Shell Briar with Silver (4102) (2026) Tobacco Pipe",
+      "displayNameEn": "Shell Briar with Silver (4102) (2026) Tobacco Pipe",
+      "rawTitle": "Shell Briar with Silver (4102) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8747.1739.jpg",
+      "sourcePriceAmount": 865,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7441.8067065,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 49.9,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "dunhill",
+        "name": "shell briar with silver (4102) (2026) tobacco pipe",
+        "price": 7441.8067065,
+        "sourceProductId": "732442"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8747.1739.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8747_1.4377.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8747_2.1114.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8747_33.9960.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.03,
+        "heightMm": 47.75,
+        "weightGrams": 49.9,
+        "chamberDepthMm": 39.37,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 36.07
+      },
+      "model": {
+        "canonicalModelKey": "dunhill__model-4102__series-shell-briar-with-silver-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Shell Briar With Silver Tobacco",
+      "year": 2026,
+      "productCode": "002-015-8747",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Dunhill",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 49.9,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/dunhill/moreinfo.cfm?product_id=732442",
+      "sourceOriginalText": "Shell Briar with Silver (4102) (2026) Tobacco Pipe",
+      "priceRawText": "$865.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-732680",

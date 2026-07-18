@@ -4495,9 +4495,9 @@
       "siteDisplayAmount": 369.52988,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6513,10 +6513,10 @@
       "displayNameEn": "Starter Kit Sandblasted Brown Billiard (9mm) Tobacco Pipe",
       "rawTitle": "Starter Kit Sandblasted Brown Billiard (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1008-0002.8614.jpg",
-      "sourcePriceAmount": 72.5,
+      "sourcePriceAmount": 48,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 866.0921,
+      "siteDisplayAmount": 665.00492,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -6546,7 +6546,7 @@
       "sortKeys": {
         "brand": "unknown",
         "name": "starter kit sandblasted brown billiard (9mm) tobacco pipe",
-        "price": 866.0921,
+        "price": 665.00492,
         "sourceProductId": "653694"
       },
       "displayNameZh": null,
@@ -6653,7 +6653,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/molina/moreinfo.cfm?product_id=653694",
       "sourceOriginalText": "Starter Kit Sandblasted Brown Billiard (9mm) Tobacco Pipe",
-      "priceRawText": "$72.50",
+      "priceRawText": "$48.00",
       "msrpRawText": null
     },
     {
@@ -12227,9 +12227,9 @@
       "siteDisplayAmount": 1294.0384496,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12387,9 +12387,9 @@
       "siteDisplayAmount": 1269.0872239999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -15427,9 +15427,9 @@
       "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -16673,6 +16673,160 @@
       "sourceOriginalText": "Brindle Paneled Poker (ELX) (2026) Tobacco Pipe",
       "priceRawText": "$652.50",
       "msrpRawText": "$725.00"
+    },
+    {
+      "id": "smokingpipes-720103",
+      "source": "smokingpipes",
+      "sourceProductId": "720103",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Billiard with Horn Tobacco Pipe",
+      "displayNameEn": "Smooth Billiard with Horn Tobacco Pipe",
+      "rawTitle": "Smooth Billiard with Horn Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-2903.5773.jpg",
+      "sourcePriceAmount": 65,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 804.5347999999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 28.64,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Horn",
+      "stemMaterialZh": "天然角质",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth billiard with horn tobacco pipe",
+        "price": 804.5347999999999,
+        "sourceProductId": "720103"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-2903.5773.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 125.99,
+        "heightMm": 44.02,
+        "weightGrams": 28.64,
+        "chamberDepthMm": 37.37,
+        "chamberDiameterMm": 19.12,
+        "outsideDiameterMm": 33.8
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-with-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "With Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-2903",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Horn",
+          "labelZh": "天然角质",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 125.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.64,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.8,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720103",
+      "sourceOriginalText": "Smooth Billiard with Horn Tobacco Pipe",
+      "priceRawText": "$65.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-720477",
@@ -19058,6 +19212,163 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/GH-Zhang/moreinfo.cfm?product_id=726577",
       "sourceOriginalText": "Sandblasted Bent Apple (Boris Starkov) (01) Tobacco Pipe",
       "priceRawText": "$420.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-727274",
+      "source": "smokingpipes",
+      "sourceProductId": "727274",
+      "brandName": "Alan",
+      "brandSlug": "alan",
+      "brandCountry": null,
+      "displayName": "Partially Sandblasted Fugu (2380) (2026) Tobacco Pipe",
+      "displayNameEn": "Partially Sandblasted Fugu (2380) (2026) Tobacco Pipe",
+      "rawTitle": "Partially Sandblasted Fugu (2380) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-376-0471.7685.jpg",
+      "sourcePriceAmount": 1600,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 15603.9969,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 51.71,
+      "shape": "Blowfish",
+      "shapeZh": "河豚斗",
+      "finish": "Partial Sandblast",
+      "finishZh": "局部喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "alan",
+        "name": "partially sandblasted fugu (2380) (2026) tobacco pipe",
+        "price": 15603.9969,
+        "sourceProductId": "727274"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-376-0471.7685.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-376-0471_1.9488.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-376-0471_2.2760.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-376-0471_3.1658.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 121.41,
+        "heightMm": 46.99,
+        "weightGrams": 51.71,
+        "chamberDepthMm": 34.29,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 46.74
+      },
+      "model": {
+        "canonicalModelKey": "alan__model-2380__series-partially-sandblasted-fugu-tobacco-pipe__shape-blowfish",
+        "confidence": "high"
+      },
+      "series": "Partially Sandblasted Fugu Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-376-0471",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Alan",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Blowfish",
+          "labelZh": "河豚斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Sandblast",
+          "labelZh": "局部喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 121.41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.71,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.74,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/alan/moreinfo.cfm?product_id=727274",
+      "sourceOriginalText": "Partially Sandblasted Fugu (2380) (2026) Tobacco Pipe",
+      "priceRawText": "$1,600.00",
       "msrpRawText": null
     },
     {
@@ -22858,6 +23169,169 @@
       "sourceOriginalText": "Nelson Guinea Grain (1820) (9mm) (with Case) Tobacco Pipe",
       "priceRawText": "$336.00",
       "msrpRawText": "$420.00"
+    },
+    {
+      "id": "smokingpipes-732464",
+      "source": "smokingpipes",
+      "sourceProductId": "732464",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Paneled Bent Billiard Sitter (Collector) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Paneled Bent Billiard Sitter (Collector) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Paneled Bent Billiard Sitter (Collector) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3757.5856.jpg",
+      "sourcePriceAmount": 304,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3048.8383889999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 99.79,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth paneled bent billiard sitter (collector) tobacco pipe",
+        "price": 3048.8383889999996,
+        "sourceProductId": "732464"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3757.5856.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3757_1.3200.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3757_2.2213.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3757_3.9042.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 165.86,
+        "heightMm": 64.01,
+        "weightGrams": 99.79,
+        "chamberDepthMm": 44.7,
+        "chamberDiameterMm": 22.1,
+        "outsideDiameterMm": 44.7
+      },
+      "model": {
+        "canonicalModelKey": "winslow__series-crown-paneled-sitter-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Crown Paneled Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3757",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 165.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 64.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 99.79,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732464",
+      "sourceOriginalText": "Crown Smooth Paneled Bent Billiard Sitter (Collector) Tobacco Pipe",
+      "priceRawText": "$304.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-733488",
