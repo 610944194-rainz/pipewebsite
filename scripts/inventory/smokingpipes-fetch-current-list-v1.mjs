@@ -46,6 +46,13 @@ const FAILURE_SNAPSHOT_DIR = path.join(
   "review",
   "smokingpipes-failure-snapshots"
 );
+const DUPLICATE_AUDIT_PATH = path.join(
+  ROOT,
+  "data",
+  "audits",
+  "smokingpipes-daily-fix",
+  "list-duplicate-audit-latest.json"
+);
 const OUT_OF_STOCK_TAIL_CACHE_PATH = path.join(
   ROOT,
   "data",
@@ -765,21 +772,104 @@ function normalizeListProduct(item, scrapedAt) {
   };
 }
 
-function dedupeCurrentProducts(products) {
+function duplicateAuditRecord(product) {
+  return {
+    page: Number(product.listPage) || null,
+    listPosition: Number(product.listPosition) || null,
+    url: normalizeText(product.sourceUrl),
+    title: normalizeText(product.title || product.rawTitle),
+    price: normalizeText(product.price),
+  };
+}
+
+function duplicateConflictReasons(first, duplicate) {
+  const reasons = [];
+  if (!normalizeText(first.sourceProductId)) {
+    reasons.push("missing-source-product-id");
+  }
+  if (normalizeText(first.sourceUrl) !== normalizeText(duplicate.sourceUrl)) {
+    reasons.push("source-url-mismatch");
+  }
+  if (
+    normalizeText(first.title || first.rawTitle) !==
+    normalizeText(duplicate.title || duplicate.rawTitle)
+  ) {
+    reasons.push("title-mismatch");
+  }
+  if (normalizeText(first.price) !== normalizeText(duplicate.price)) {
+    reasons.push("price-mismatch");
+  }
+  return reasons;
+}
+
+export function classifySmokingpipesListDuplicates(products = []) {
   const byId = new Map();
-  const duplicateIds = [];
+  const duplicateEvents = [];
+  const duplicateStatusById = new Map();
 
   for (const product of products) {
     const key = product.sourceProductId || product.sourceUrl;
     if (!key) continue;
-    if (byId.has(key)) duplicateIds.push(product.sourceProductId || key);
-    else byId.set(key, product);
+    const first = byId.get(key);
+    if (!first) {
+      byId.set(key, product);
+      continue;
+    }
+
+    const sourceProductId = normalizeText(first.sourceProductId || key);
+    const conflictReasons = duplicateConflictReasons(first, product);
+    const classification = conflictReasons.length
+      ? "suspicious-duplicate"
+      : "safe-duplicate";
+    duplicateEvents.push({
+      sourceProductId,
+      classification,
+      conflictReasons,
+      firstSeen: duplicateAuditRecord(first),
+      duplicateSeen: duplicateAuditRecord(product),
+    });
+
+    const previousStatus = duplicateStatusById.get(sourceProductId);
+    duplicateStatusById.set(
+      sourceProductId,
+      previousStatus === "suspicious-duplicate" ||
+        classification === "suspicious-duplicate"
+        ? "suspicious-duplicate"
+        : "safe-duplicate"
+    );
+  }
+
+  const safeDuplicateIds = [];
+  const suspiciousDuplicateIds = [];
+  for (const [sourceProductId, classification] of duplicateStatusById) {
+    if (classification === "safe-duplicate") safeDuplicateIds.push(sourceProductId);
+    else suspiciousDuplicateIds.push(sourceProductId);
   }
 
   return {
     products: [...byId.values()],
-    duplicateIds: [...new Set(duplicateIds)],
+    duplicateIds: [...duplicateStatusById.keys()],
+    safeDuplicateIds,
+    suspiciousDuplicateIds,
+    duplicateEvents,
+    duplicateStats: {
+      totalDuplicateIds: duplicateStatusById.size,
+      safeDuplicateCount: safeDuplicateIds.length,
+      suspiciousDuplicateCount: suspiciousDuplicateIds.length,
+    },
   };
+}
+
+async function writeDuplicateAudit({ deduped, startedAt, completedAt }) {
+  await writeJsonAtomic(DUPLICATE_AUDIT_PATH, {
+    version: "smokingpipes-list-duplicate-audit-v1",
+    generatedAt: completedAt,
+    source: "smokingpipes",
+    startedAt,
+    completedAt,
+    duplicateStats: deduped.duplicateStats,
+    duplicateEvents: deduped.duplicateEvents,
+  });
 }
 
 function readCheckpoint(maxPages, expectedPages, displayNum) {
@@ -1454,7 +1544,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     }
   }
 
-  const deduped = dedupeCurrentProducts(collected);
+  const deduped = classifySmokingpipesListDuplicates(collected);
   const completedAt = new Date().toISOString();
   const effectiveScannedPages =
     pages.length + skippedOutOfStockTailPages.length;
@@ -1515,6 +1605,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       productsExtracted: collected.length,
       uniqueProducts: deduped.products.length,
       duplicateSourceProductIds: deduped.duplicateIds,
+      suspiciousDuplicateSourceProductIds: deduped.suspiciousDuplicateIds,
+      duplicateStats: deduped.duplicateStats,
+      duplicateAuditPath: relativePath(DUPLICATE_AUDIT_PATH),
       outOfStockProducts: pages.reduce(
         (total, item) => total + Number(item.outOfStockCount || 0),
         0
@@ -1539,6 +1632,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     },
   };
 
+  if (options.writeDuplicateAudit !== false) {
+    await writeDuplicateAudit({ deduped, startedAt, completedAt });
+  }
   if (options.writeCurrentList !== false) {
     await writeJsonAtomic(PATHS.currentList, payload);
   }
@@ -1547,6 +1643,9 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
   }
   if (options.writeCurrentList !== false) {
     console.log(`Current list dry-run written: ${relativePath(PATHS.currentList)}`);
+  }
+  if (options.writeDuplicateAudit !== false) {
+    console.log(`List duplicate audit written: ${relativePath(DUPLICATE_AUDIT_PATH)}`);
   }
   console.log(JSON.stringify(payload.summary, null, 2));
   return payload;

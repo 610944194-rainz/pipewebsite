@@ -56,6 +56,49 @@ function sorted(values) {
   );
 }
 
+function resolveDuplicateStats(summary = {}) {
+  const duplicateIds = Array.isArray(summary?.duplicateSourceProductIds)
+    ? [...new Set(summary.duplicateSourceProductIds.map(String).filter(Boolean))]
+    : [];
+  const suspiciousDuplicateIds = Array.isArray(
+    summary?.suspiciousDuplicateSourceProductIds
+  )
+    ? [...new Set(summary.suspiciousDuplicateSourceProductIds.map(String).filter(Boolean))]
+    : null;
+  const raw = summary?.duplicateStats;
+  const totalDuplicateIds = Number(raw?.totalDuplicateIds);
+  const safeDuplicateCount = Number(raw?.safeDuplicateCount);
+  const suspiciousDuplicateCount = Number(raw?.suspiciousDuplicateCount);
+  const validClassification =
+    raw &&
+    Number.isInteger(totalDuplicateIds) &&
+    Number.isInteger(safeDuplicateCount) &&
+    Number.isInteger(suspiciousDuplicateCount) &&
+    totalDuplicateIds === duplicateIds.length &&
+    safeDuplicateCount >= 0 &&
+    suspiciousDuplicateCount >= 0 &&
+    safeDuplicateCount + suspiciousDuplicateCount === totalDuplicateIds &&
+    Array.isArray(suspiciousDuplicateIds) &&
+    suspiciousDuplicateIds.length === suspiciousDuplicateCount &&
+    suspiciousDuplicateIds.every((id) => duplicateIds.includes(id));
+
+  return validClassification
+    ? {
+        totalDuplicateIds,
+        safeDuplicateCount,
+        suspiciousDuplicateCount,
+        suspiciousDuplicateIds,
+        classificationAvailable: true,
+      }
+    : {
+        totalDuplicateIds: duplicateIds.length,
+        safeDuplicateCount: 0,
+        suspiciousDuplicateCount: duplicateIds.length,
+        suspiciousDuplicateIds: duplicateIds,
+        classificationAvailable: false,
+      };
+}
+
 export function buildSmokingpipesDailyDiff({
   productionProducts,
   currentPayload,
@@ -76,6 +119,7 @@ export function buildSmokingpipesDailyDiff({
   );
   const ignored = new Set((ignoredIds || []).map(String));
   const summary = currentPayload?.summary || {};
+  const duplicateStats = resolveDuplicateStats(summary);
   const pagesCompleted = Number(
     summary.pagesCompleted ?? summary.pagesScanned ?? 0
   );
@@ -148,6 +192,17 @@ export function buildSmokingpipesDailyDiff({
       "captcha/currentListVerificationDetected: Daily update current-list scan recorded strong verification."
     );
   }
+  if (duplicateStats.suspiciousDuplicateCount > 0) {
+    fatalWarnings.push(
+      `${duplicateStats.suspiciousDuplicateCount} duplicate sourceProductId records have conflicting list fields.`
+    );
+  }
+  const warnings = [];
+  if (duplicateStats.safeDuplicateCount > 0) {
+    warnings.push(
+      `${duplicateStats.safeDuplicateCount} duplicate sourceProductId records were classified as safe pagination overlap.`
+    );
+  }
 
   const allowCandidateGeneration = fatalWarnings.length === 0;
   return {
@@ -172,6 +227,9 @@ export function buildSmokingpipesDailyDiff({
       newlySoldOut: newlySoldOutIds.length,
       disappeared: disappearedIds.length,
       missingPriceButNotSold: missingPriceButNotSoldIds.length,
+      duplicateIds: duplicateStats.totalDuplicateIds,
+      safeDuplicates: duplicateStats.safeDuplicateCount,
+      suspiciousDuplicates: duplicateStats.suspiciousDuplicateCount,
     },
     dailyNewIds: sorted(dailyNewIds),
     newIds: sorted(dailyNewIds),
@@ -180,7 +238,8 @@ export function buildSmokingpipesDailyDiff({
     disappearedIds: sorted(disappearedIds),
     missingPriceButNotSoldIds: sorted(missingPriceButNotSoldIds),
     fatalWarnings,
-    warnings: [],
+    warnings,
+    duplicateStats,
     allowApply: allowCandidateGeneration,
     allowCandidateGeneration,
   };

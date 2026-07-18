@@ -72,6 +72,63 @@ function ratio(numerator, denominator) {
   return numerator / denominator;
 }
 
+function normalizeDuplicateStats(summary = {}) {
+  const duplicateIds = Array.isArray(summary?.duplicateSourceProductIds)
+    ? [...new Set(summary.duplicateSourceProductIds.map(String).filter(Boolean))]
+    : [];
+  const suspiciousDuplicateIds = Array.isArray(
+    summary?.suspiciousDuplicateSourceProductIds
+  )
+    ? [
+        ...new Set(
+          summary.suspiciousDuplicateSourceProductIds.map(String).filter(Boolean)
+        ),
+      ]
+    : null;
+  const raw = summary?.duplicateStats;
+  if (!raw || typeof raw !== "object") {
+    return {
+      totalDuplicateIds: duplicateIds.length,
+      safeDuplicateCount: 0,
+      suspiciousDuplicateCount: duplicateIds.length,
+      suspiciousDuplicateIds: duplicateIds,
+      classificationAvailable: false,
+    };
+  }
+
+  const totalDuplicateIds = Number(raw.totalDuplicateIds);
+  const safeDuplicateCount = Number(raw.safeDuplicateCount);
+  const suspiciousDuplicateCount = Number(raw.suspiciousDuplicateCount);
+  const countsAreConsistent =
+    Number.isInteger(totalDuplicateIds) &&
+    Number.isInteger(safeDuplicateCount) &&
+    Number.isInteger(suspiciousDuplicateCount) &&
+    totalDuplicateIds >= 0 &&
+    safeDuplicateCount >= 0 &&
+    suspiciousDuplicateCount >= 0 &&
+    totalDuplicateIds === duplicateIds.length &&
+    safeDuplicateCount + suspiciousDuplicateCount === totalDuplicateIds &&
+    Array.isArray(suspiciousDuplicateIds) &&
+    suspiciousDuplicateIds.length === suspiciousDuplicateCount &&
+    suspiciousDuplicateIds.every((id) => duplicateIds.includes(id));
+
+  return countsAreConsistent
+    ? {
+        totalDuplicateIds,
+        safeDuplicateCount,
+        suspiciousDuplicateCount,
+        suspiciousDuplicateIds,
+        classificationAvailable: true,
+      }
+    : {
+        totalDuplicateIds: duplicateIds.length,
+        safeDuplicateCount: 0,
+        suspiciousDuplicateCount: duplicateIds.length,
+        suspiciousDuplicateIds: duplicateIds,
+        classificationAvailable: false,
+      };
+}
+
 export function buildInventoryDiff(currentPayload, existingPayload) {
   const currentProducts = arrayFromPayload(currentPayload, ["products"]);
   const existingProducts = arrayFromPayload(existingPayload, ["products"]);
@@ -117,9 +174,9 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   const reappearedIds = sortIds(
     [...existingSoldIds].filter((id) => currentIds.has(id))
   );
+  const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
   const suspiciousRecords = currentSuspiciousRecords(currentProducts);
-  for (const duplicateId of currentPayload?.summary
-    ?.duplicateSourceProductIds || []) {
+  for (const duplicateId of duplicateStats.suspiciousDuplicateIds) {
     suspiciousRecords.push({
       sourceProductId: normalizeText(duplicateId),
       sourceUrl: "",
@@ -178,6 +235,11 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
   if (!soldByAbsenceAllowed) {
     warnings.push(
       "sold-by-absence/disappeared apply disabled because out-of-stock tail pages were skipped."
+    );
+  }
+  if (duplicateStats.safeDuplicateCount > 0) {
+    warnings.push(
+      `${duplicateStats.safeDuplicateCount} duplicate sourceProductId records were classified as safe pagination overlap.`
     );
   }
   if (
@@ -302,6 +364,9 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
       suspicious: suspiciousRecords.length,
       suspiciousIds: suspiciousIds.length,
       suspiciousRecords: suspiciousRecords.length,
+      duplicateIds: duplicateStats.totalDuplicateIds,
+      safeDuplicates: duplicateStats.safeDuplicateCount,
+      suspiciousDuplicates: duplicateStats.suspiciousDuplicateCount,
     },
     ratios: {
       newVsExisting: newRatio,
@@ -317,6 +382,7 @@ export function buildInventoryDiff(currentPayload, existingPayload) {
     reappearedIds,
     suspiciousIds,
     suspiciousRecords,
+    duplicateStats,
     fatalWarnings,
     warnings,
     allowApply,

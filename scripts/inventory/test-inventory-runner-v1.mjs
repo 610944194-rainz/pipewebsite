@@ -32,6 +32,7 @@ import {
   buildSmokingpipesFailureSnapshotMetadata,
   buildSmokingpipesAdaptiveScanPlan,
   buildSmokingpipesOutOfStockTailCache,
+  classifySmokingpipesListDuplicates,
   classifySmokingpipesFailureSnapshotText,
   detectSmokingpipesTotalPagesFromHtml,
   evaluateSmokingpipesOutOfStockTail,
@@ -168,6 +169,184 @@ const defaultInventoryState = runnerCore.initialInventoryState();
 assert.equal(defaultInventoryState.checkpointFailed, false);
 assert.equal(defaultInventoryState.checkpointTargetPath, null);
 assert.equal(defaultInventoryState.checkpointTempPath, null);
+
+const duplicateFixtureProduct = {
+  source: "smokingpipes",
+  sourceProductId: "501",
+  sourceUrl: "https://example.invalid/moreinfo.cfm?product_id=501",
+  title: "Duplicate fixture pipe",
+  rawTitle: "Duplicate fixture pipe",
+  price: "$10.00",
+  listPage: 20,
+  listPosition: 1,
+};
+const safeDuplicateClassification = classifySmokingpipesListDuplicates([
+  duplicateFixtureProduct,
+  { ...duplicateFixtureProduct, listPage: 21, listPosition: 3 },
+]);
+assert.deepEqual(safeDuplicateClassification.duplicateStats, {
+  totalDuplicateIds: 1,
+  safeDuplicateCount: 1,
+  suspiciousDuplicateCount: 0,
+});
+assert.equal(
+  safeDuplicateClassification.duplicateEvents[0].classification,
+  "safe-duplicate"
+);
+assert.deepEqual(safeDuplicateClassification.duplicateEvents[0].firstSeen, {
+  page: 20,
+  listPosition: 1,
+  url: duplicateFixtureProduct.sourceUrl,
+  title: duplicateFixtureProduct.title,
+  price: duplicateFixtureProduct.price,
+});
+assert.equal(
+  safeDuplicateClassification.duplicateEvents[0].duplicateSeen.page,
+  21
+);
+
+function duplicateClassificationDiff(classification) {
+  return buildInventoryDiff(
+    {
+      products: classification.products,
+      summary: {
+        pagesScanned: 1,
+        effectiveScannedPages: 1,
+        expectedPages: 1,
+        fullExpectedRangeScanned: true,
+        duplicateSourceProductIds: classification.duplicateIds,
+        suspiciousDuplicateSourceProductIds:
+          classification.suspiciousDuplicateIds,
+        duplicateStats: classification.duplicateStats,
+      },
+    },
+    {
+      products: [
+        {
+          ...duplicateFixtureProduct,
+          inventoryStatus: "available",
+        },
+      ],
+    }
+  );
+}
+
+const safeDuplicateDiff = duplicateClassificationDiff(
+  safeDuplicateClassification
+);
+assert.equal(safeDuplicateDiff.counts.suspicious, 0);
+assert.equal(safeDuplicateDiff.duplicateStats.safeDuplicateCount, 1);
+assert.equal(safeDuplicateDiff.allowApply, true);
+assert.match(safeDuplicateDiff.warnings.join("\n"), /safe pagination overlap/);
+
+function duplicateClassificationDailyDiff(classification) {
+  return buildSmokingpipesDailyDiff({
+    productionProducts: [
+      {
+        ...duplicateFixtureProduct,
+        inventoryStatus: "available",
+      },
+    ],
+    currentPayload: {
+      products: classification.products,
+      summary: {
+        pagesScanned: 1,
+        effectiveScannedPages: 1,
+        expectedPages: 1,
+        fullExpectedRangeScanned: true,
+        duplicateSourceProductIds: classification.duplicateIds,
+        suspiciousDuplicateSourceProductIds:
+          classification.suspiciousDuplicateIds,
+        duplicateStats: classification.duplicateStats,
+      },
+    },
+  });
+}
+
+const safeDuplicateDailyDiff = duplicateClassificationDailyDiff(
+  safeDuplicateClassification
+);
+assert.equal(safeDuplicateDailyDiff.allowCandidateGeneration, true);
+assert.equal(safeDuplicateDailyDiff.duplicateStats.safeDuplicateCount, 1);
+assert.match(
+  safeDuplicateDailyDiff.warnings.join("\n"),
+  /safe pagination overlap/
+);
+
+const suspiciousDuplicateClassification = classifySmokingpipesListDuplicates([
+  duplicateFixtureProduct,
+  { ...duplicateFixtureProduct, listPage: 21, price: "$11.00" },
+]);
+assert.deepEqual(suspiciousDuplicateClassification.duplicateStats, {
+  totalDuplicateIds: 1,
+  safeDuplicateCount: 0,
+  suspiciousDuplicateCount: 1,
+});
+assert.deepEqual(
+  suspiciousDuplicateClassification.duplicateEvents[0].conflictReasons,
+  ["price-mismatch"]
+);
+const suspiciousDuplicateDiff = duplicateClassificationDiff(
+  suspiciousDuplicateClassification
+);
+assert.equal(suspiciousDuplicateDiff.counts.suspicious, 1);
+assert.equal(suspiciousDuplicateDiff.allowApply, false);
+assert.ok(
+  suspiciousDuplicateDiff.applyBlockedReasons.includes(
+    "suspicious records require manual review"
+  )
+);
+const suspiciousDuplicateDailyDiff = duplicateClassificationDailyDiff(
+  suspiciousDuplicateClassification
+);
+assert.equal(suspiciousDuplicateDailyDiff.allowCandidateGeneration, false);
+assert.equal(suspiciousDuplicateDailyDiff.duplicateStats.suspiciousDuplicateCount, 1);
+assert.match(
+  suspiciousDuplicateDailyDiff.fatalWarnings.join("\n"),
+  /conflicting list fields/
+);
+
+const unclassifiedLegacyDuplicateDiff = buildInventoryDiff(
+  {
+    products: [duplicateFixtureProduct],
+    summary: {
+      pagesScanned: 1,
+      effectiveScannedPages: 1,
+      expectedPages: 1,
+      fullExpectedRangeScanned: true,
+      duplicateSourceProductIds: [duplicateFixtureProduct.sourceProductId],
+    },
+  },
+  {
+    products: [
+      { ...duplicateFixtureProduct, inventoryStatus: "available" },
+    ],
+  }
+);
+assert.equal(unclassifiedLegacyDuplicateDiff.allowApply, false);
+assert.equal(
+  unclassifiedLegacyDuplicateDiff.duplicateStats.classificationAvailable,
+  false
+);
+assert.equal(
+  unclassifiedLegacyDuplicateDiff.duplicateStats.suspiciousDuplicateCount,
+  1
+);
+
+const noDuplicateClassification = classifySmokingpipesListDuplicates([
+  duplicateFixtureProduct,
+]);
+assert.deepEqual(noDuplicateClassification.duplicateStats, {
+  totalDuplicateIds: 0,
+  safeDuplicateCount: 0,
+  suspiciousDuplicateCount: 0,
+});
+assert.equal(duplicateClassificationDiff(noDuplicateClassification).allowApply, true);
+assert.equal(
+  duplicateClassificationDailyDiff(noDuplicateClassification)
+    .allowCandidateGeneration,
+  true
+);
 
 const pendingOverLimitGuard =
   evaluateSmokingpipesDetailQueueSpikeGuard({
