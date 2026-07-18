@@ -25,14 +25,14 @@ const collectionCards = [
 
 export default function HomeEditorialSections({ weeklyProducts, todayProducts, brands }: HomeEditorialSectionsProps) {
   return (
-    <div className="mx-auto max-w-[1200px] space-y-12 px-4 py-10 sm:space-y-14 sm:px-6 sm:py-12 lg:space-y-16 lg:px-10">
+    <div className="mx-auto max-w-[1200px] px-4 pb-10 pt-9 sm:px-6 sm:pb-12 sm:pt-11 lg:px-10 lg:pb-14 lg:pt-12">
       <section id="weekly-featured" className="scroll-mt-20">
         <SectionHeader title="本周精选" href="/featured" />
         <div className="mt-4"><HomeProductRail products={weeklyProducts} variant="weekly" /></div>
       </section>
 
-      <section>
-        <SectionHeader title="国内斗师计划" href="/domestic-makers" />
+      <section className="mt-10 lg:mt-14">
+        <SectionHeader title="国内斗师精选" href="/domestic-makers" />
         <Link
           href="/domestic-makers"
           className="group relative mt-4 block aspect-[3/2] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[16/7] lg:max-h-[430px]"
@@ -53,7 +53,7 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
         </Link>
       </section>
 
-      <section>
+      <section className="mt-11 lg:mt-16">
         <SectionHeader title="品牌精选" href="/brands" />
         <div className="home-rail -mx-4 mt-4 flex snap-x gap-3 overflow-x-auto border-y border-[var(--border)] px-4 py-5 sm:mx-0 sm:grid sm:grid-cols-5 sm:overflow-visible sm:px-0 lg:py-7">
           {brands.map((brand) => (
@@ -62,43 +62,43 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
               href={`/brands/${brand.slug}`}
               className="flex min-h-[82px] basis-[38%] shrink-0 snap-start flex-col items-center justify-center px-3 text-center transition-colors hover:text-[var(--coffee)] sm:basis-auto motion-reduce:transition-none"
             >
-              <span className="text-[16px] font-medium tracking-[0.02em] text-[var(--text-primary)] sm:text-[18px]">{brand.logoText || brand.name}</span>
-              <span className="mt-2 text-[10px] tracking-[0.12em] text-[var(--text-secondary)]">{brand.nameZh || brand.country || "品牌档案"}</span>
+              <span className="text-[14px] font-medium tracking-[0.02em] text-[var(--text-primary)]">{brand.logoText || brand.name}</span>
+              <span className="mt-2 text-[11px] font-normal tracking-[0.08em] text-[var(--text-secondary)]">{brand.nameZh || brand.country || "品牌档案"}</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section>
+      <section className="mt-10 lg:mt-14">
         <SectionHeader title="海外库存速览" href="/products" />
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
           {collectionCards.map((item) => (
-            <Link key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)]">
+            <Link key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[8px] bg-[var(--coffee-dark)]">
               <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-[#f7f2eb]">
-                <h3 className="text-[16px] font-medium leading-[1.4]">{item.title}</h3>
-                <p className="mt-1 text-[12px] font-normal leading-[1.6] text-[#f7f2eb]/78">{item.desc}</p>
+              <div className="absolute inset-x-0 bottom-0 p-4 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
+                <h3 className="text-[15px] font-medium leading-[1.35]">{item.title}</h3>
+                <p className="mt-1 text-[11px] font-normal leading-[1.45] text-[rgba(244,238,231,0.78)]">{item.desc}</p>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section>
+      <section className="mt-10 lg:mt-14">
         <SectionHeader title="今日更新" href="/products" />
         <div className="mt-4"><HomeProductRail products={todayProducts} variant="today" /></div>
       </section>
 
-      <section>
+      <section className="mt-11 lg:mt-16">
         <SectionHeader title="烟斗指南" href="/service" />
         <Link href="/service" className="group relative mt-4 block aspect-[2/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[3/1]">
           <img src="/pics/guide-beginner.jpg" alt="烟斗入门指南" className="absolute inset-0 h-full w-full origin-left scale-[2.8] object-cover object-left transition-transform duration-500 sm:scale-[3] motion-reduce:transition-none" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,8,5,0.78)_0%,rgba(13,8,5,0.40)_52%,rgba(13,8,5,0.02)_80%)]" />
-          <div className="absolute inset-y-0 left-0 flex max-w-[320px] flex-col justify-center p-5 text-[#f7f2eb] sm:p-8">
-            <h3 className="text-[20px] font-medium leading-[1.4] sm:text-[22px]">了解烟斗，从这里开始</h3>
-            <p className="mt-2 text-[13px] font-normal leading-[1.6] text-[#f7f2eb]/76">选购指南 · 保养知识 · 术语百科</p>
-            <span className="mt-3 inline-flex w-fit items-center border-b border-[var(--brass)] pb-1 text-[13px] font-normal text-[#ead3ae]">探索指南<ArrowIcon className="ml-2 h-3.5 w-3.5" /></span>
+          <div className="absolute inset-y-0 left-0 flex max-w-[320px] flex-col justify-center p-5 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)] sm:p-7">
+            <h3 className="text-[18px] font-medium leading-[1.4]">了解烟斗，从这里开始</h3>
+            <p className="mt-2 text-[12px] font-normal leading-[1.6] text-[rgba(244,238,231,0.78)]">选购指南 · 保养知识 · 术语百科</p>
+            <span className="mt-3 inline-flex w-fit items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal text-[#e4c18d]">探索指南<ArrowIcon className="ml-2 h-3 w-3" /></span>
           </div>
         </Link>
       </section>
@@ -109,9 +109,9 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
 function SectionHeader({ title, href }: { title: string; href: string }) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <h2 className="text-[18px] font-medium leading-[1.4] tracking-[0.02em] text-[var(--text-primary)] sm:text-[20px]">{title}</h2>
-      <Link href={href} className="inline-flex items-center text-[13px] font-normal leading-[1.4] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
-        查看全部<ArrowIcon className="ml-1.5 h-3.5 w-3.5" />
+      <h2 className="text-[17px] font-medium leading-[1.4] tracking-[0.01em] text-[var(--text-primary)] sm:text-[19px]">{title}</h2>
+      <Link href={href} className="inline-flex items-center text-[12px] font-normal leading-[1.4] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+        查看全部<ArrowIcon className="ml-1.5 h-3 w-3" />
       </Link>
     </div>
   );

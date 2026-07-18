@@ -64,8 +64,8 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
           id={productAnchorId(product.id)}
           href={productHref(product.id)}
           onNavigate={() => saveReturnPosition(product.id)}
-          className={`group min-w-0 shrink-0 snap-start overflow-hidden rounded-[6px] border border-[#e8dfd4] bg-[var(--surface)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none ${
-            compact ? "basis-[44%] sm:basis-[23%] lg:basis-[19%]" : "basis-[44%] sm:basis-auto"
+          className={`group min-w-0 shrink-0 snap-start overflow-hidden rounded-[4px] border border-[#e9e1d7] bg-[var(--surface)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none ${
+            compact ? "basis-[40%] sm:basis-[22%] lg:basis-[19%]" : "basis-[42%] sm:basis-auto"
           }`}
         >
           <article className="flex h-full flex-col">
@@ -75,22 +75,22 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
               brandName={product.brand}
               loading={index < 3 ? "eager" : "lazy"}
               fetchPriority={index === 0 ? "high" : "auto"}
-              className={compact ? "h-[104px] sm:h-[126px]" : "h-[132px] sm:h-[154px]"}
+              className={compact ? "h-[96px] sm:h-[118px]" : "h-[124px] sm:h-[146px]"}
               imageClassName={compact ? "p-2" : "p-3"}
             />
 
-            <div className={`flex flex-1 flex-col ${compact ? "p-2.5" : "p-3"}`}>
+            <div className="flex flex-1 flex-col p-3">
               {compact && product.status ? (
-                <div className="mb-2 flex items-center justify-between gap-2 text-[10px]">
+                <div className="mb-1.5 flex items-center justify-between gap-2 text-[9.5px] font-normal leading-[1.4]">
                   <span className="font-normal text-[var(--coffee)]">{product.status}</span>
                   {product.updatedAt ? <time className="text-[var(--text-secondary)]">{product.updatedAt}</time> : null}
                 </div>
               ) : null}
-              <p className="line-clamp-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--brass)]">{product.brand}</p>
-              <h3 className="mt-1 min-h-[38px] line-clamp-2 text-[13px] font-normal leading-[1.45] text-[var(--text-primary)]">
+              <p className="line-clamp-1 text-[9.5px] font-normal uppercase tracking-[0.1em] text-[var(--brass)]">{product.brand}</p>
+              <h3 className="mt-1 min-h-[36px] line-clamp-2 text-[12.5px] font-normal leading-[1.45] text-[var(--text-primary)]">
                 {product.name}
               </h3>
-              <p className="mt-auto pt-3 text-[13px] font-medium text-[var(--text-primary)]">
+              <p className="mt-auto pt-2.5 text-[12.5px] font-medium leading-[1.4] text-[var(--text-primary)]">
                 {product.price}
               </p>
             </div>

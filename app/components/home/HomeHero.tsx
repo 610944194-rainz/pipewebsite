@@ -37,7 +37,7 @@ export default function HomeHero() {
   }, []);
 
   return (
-    <section aria-label="首页推荐" className="relative h-[312px] overflow-hidden bg-[var(--coffee-dark)] sm:h-[390px] lg:h-[470px]">
+    <section aria-label="首页推荐" className="relative h-[clamp(250px,68vw,280px)] overflow-hidden bg-[var(--coffee-dark)] lg:h-[400px]">
       {slides.map((slide, index) => (
         <div
           key={slide.href}
@@ -55,21 +55,21 @@ export default function HomeHero() {
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,8,5,0.72)_0%,rgba(12,8,5,0.35)_48%,rgba(12,8,5,0.02)_78%)]" />
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/30 to-transparent" />
 
-          <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-12 sm:px-8 sm:pb-16 lg:px-12">
-            <div className="max-w-[390px] text-white">
+          <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-10 sm:px-8 sm:pb-12 lg:px-12 lg:pb-14">
+            <div className="max-w-[390px] text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
               {index === 0 ? (
-                <h1 className="text-[24px] font-medium leading-[1.35] tracking-[0.01em] sm:text-[28px] lg:text-[32px]">
+                <h1 className="text-[22px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[24px] lg:text-[28px]">
                   {slide.title}
                 </h1>
               ) : (
-                <h2 className="text-[24px] font-medium leading-[1.35] tracking-[0.01em] sm:text-[28px] lg:text-[32px]">
+                <h2 className="text-[22px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[24px] lg:text-[28px]">
                   {slide.title}
                 </h2>
               )}
-              <p className="mt-3 text-[13px] font-normal leading-[1.6] text-[#f7f2eb]/84 sm:text-[14px]">{slide.description}</p>
+              <p className="mt-3 text-[12px] font-normal leading-[1.65] text-[rgba(244,238,231,0.78)] sm:text-[13px]">{slide.description}</p>
               <Link
                 href={slide.href}
-                className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[13px] font-normal text-[#ead3ae] transition-colors hover:text-[#f7f2eb] motion-reduce:transition-none"
+                className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal leading-[1.4] text-[#e4c18d] transition-colors hover:text-[#f4eee7] motion-reduce:transition-none"
               >
                 {slide.cta}
                 <ArrowIcon className="ml-2 h-3.5 w-3.5" />
@@ -79,7 +79,7 @@ export default function HomeHero() {
         </div>
       ))}
 
-      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero 轮播">
+      <div className="absolute bottom-3.5 left-1/2 z-20 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero 轮播">
         {slides.map((slide, index) => (
           <button
             key={slide.href}

@@ -58,8 +58,8 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
-        <div className="relative mx-auto grid h-[62px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
+      <header className={`sticky top-0 z-40 border-b border-[rgba(222,212,200,0.66)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
+        <div className="relative mx-auto grid h-[61px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
           <button
             ref={menuButtonRef}
             type="button"
@@ -67,7 +67,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             aria-controls="site-mobile-menu"
             aria-expanded={open}
             onClick={() => setOpenPath(pathname)}
-            className="inline-flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] lg:hidden motion-reduce:transition-none"
+            className="inline-flex h-11 w-11 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] lg:hidden motion-reduce:transition-none"
           >
             <MenuIcon className="h-[22px] w-[22px]" />
           </button>
@@ -76,7 +76,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             <img
               src="/pics/yandoubuy-logo-header.png"
               alt="烟斗派 YandouBuy"
-              className="block h-auto w-[172px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
+              className="block h-auto w-[164px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
             />
           </Link>
 
@@ -107,15 +107,15 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
       {open ? (
         <div id="site-mobile-menu" className="fixed inset-0 z-50 lg:hidden">
           <button type="button" aria-label="关闭菜单" onClick={closeMenu} className="absolute inset-0 bg-[rgba(36,22,15,0.42)] backdrop-blur-[1px]" />
-          <aside role="dialog" aria-modal="true" aria-label="网站导航" className="relative flex h-full w-[min(86vw,352px)] flex-col overflow-y-auto border-r border-[var(--border)] bg-[var(--surface)] px-5 pb-6 pt-4">
-            <div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
-              <img src="/pics/yandoubuy-logo-header.png" alt="烟斗派 YandouBuy" className="h-auto w-[190px] max-w-[76%] object-contain object-left mix-blend-multiply" />
-              <button ref={closeButtonRef} type="button" aria-label="关闭菜单" onClick={closeMenu} className="inline-flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+          <aside role="dialog" aria-modal="true" aria-label="网站导航" className="relative flex h-full w-[min(86vw,350px)] flex-col overflow-y-auto border-r border-[rgba(222,212,200,0.72)] bg-[var(--surface)] px-5 pb-6">
+            <div className="flex h-[86px] shrink-0 items-center justify-between border-b border-[rgba(222,212,200,0.72)]">
+              <img src="/pics/yandoubuy-logo-header.png" alt="烟斗派 YandouBuy" className="h-auto w-[170px] max-w-[76%] object-contain object-left mix-blend-multiply" />
+              <button ref={closeButtonRef} type="button" aria-label="关闭菜单" onClick={closeMenu} className="inline-flex h-8 w-8 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
                 <CloseIcon className="h-5 w-5" />
               </button>
             </div>
 
-            <nav aria-label="移动端主导航" className="mt-4 border-y border-[var(--border)]">
+            <nav aria-label="移动端主导航" className="mt-2">
               {navigation.map((item) => {
                 const active = isActivePath(pathname, item.href);
                 return (
@@ -124,23 +124,23 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                     href={item.href}
                     onClick={() => setOpenPath(null)}
                     aria-current={active ? "page" : undefined}
-                    className="flex min-h-[62px] items-center justify-between border-b border-[var(--border)] py-3 last:border-b-0"
+                    className="flex h-16 items-center justify-between border-b border-[rgba(222,212,200,0.58)]"
                   >
                     <span>
-                      <span className="block text-[15px] font-normal text-[var(--text-primary)]">{item.title}</span>
-                      <span className="mt-1 block text-[10px] tracking-[0.12em] text-[var(--text-secondary)]">{item.label}</span>
+                      <span className="block text-[17px] font-normal leading-[1.35] text-[var(--text-primary)]">{item.title}</span>
+                      <span className="mt-1 block text-[10px] font-normal leading-[1.4] tracking-[0.12em] text-[var(--text-secondary)]">{item.label}</span>
                     </span>
-                    <span aria-hidden="true" className={`h-5 w-px ${active ? "bg-[var(--brass)]" : "bg-transparent"}`} />
+                    <span aria-hidden="true" className={`h-6 w-px ${active ? "bg-[var(--brass)]" : "bg-transparent"}`} />
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="mt-auto border-t border-[var(--border)] pt-5">
-              <Link href="/request" onClick={() => setOpenPath(null)} className="flex h-11 items-center justify-center rounded-[8px] bg-[var(--coffee-dark)] text-[13px] font-medium text-white transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
+            <div className="mt-8 border-t border-[rgba(222,212,200,0.72)] pt-5">
+              <Link href="/request" onClick={() => setOpenPath(null)} className="flex h-[46px] items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] text-[14px] font-medium text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
                 提交找斗需求
               </Link>
-              <Link href="/cooperate" onClick={() => setOpenPath(null)} className="mt-3 flex h-10 items-center justify-center rounded-[8px] border border-[var(--border)] text-[12px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none">
+              <Link href="/cooperate" onClick={() => setOpenPath(null)} className="mt-2.5 flex h-[42px] items-center justify-center text-[13px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
                 合作入驻
               </Link>
             </div>
