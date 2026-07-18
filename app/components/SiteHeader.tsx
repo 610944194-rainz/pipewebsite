@@ -59,7 +59,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
   return (
     <>
       <header className={`sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
-        <div className="mx-auto grid h-[62px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
+        <div className="relative mx-auto grid h-[62px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
           <button
             ref={menuButtonRef}
             type="button"
@@ -72,15 +72,13 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             <MenuIcon className="h-[22px] w-[22px]" />
           </button>
 
-          <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="flex min-w-0 items-center justify-center lg:justify-start">
+          <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="absolute left-[50vw] flex min-w-0 -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0 lg:justify-start">
             <img
               src="/pics/yandoubuy-logo-header.png"
               alt="烟斗派 YandouBuy"
               className="block h-auto w-[172px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
             />
           </Link>
-
-          <span aria-hidden="true" className="block lg:hidden" />
 
           <nav aria-label="主导航" className="ml-auto hidden items-center gap-1 lg:flex">
             {navigation.map((item) => {

@@ -10,20 +10,10 @@ export type HomeFeaturedBrand = {
   country?: string;
 };
 
-export type HomeFeaturedMaker = {
-  slug: string;
-  name: string;
-  city: string;
-  type: string;
-  intro: string;
-  coverUrl: string;
-};
-
 type HomeEditorialSectionsProps = {
   weeklyProducts: HomeRailProduct[];
   todayProducts: HomeRailProduct[];
   brands: HomeFeaturedBrand[];
-  maker?: HomeFeaturedMaker;
 };
 
 const collectionCards = [
@@ -33,7 +23,7 @@ const collectionCards = [
   { title: "丹麦手工", desc: "简约自然，手工匠心", href: buildProductsHref({ country: "Denmark" }), image: "/pics/collection-danish.jpg" },
 ];
 
-export default function HomeEditorialSections({ weeklyProducts, todayProducts, brands, maker }: HomeEditorialSectionsProps) {
+export default function HomeEditorialSections({ weeklyProducts, todayProducts, brands }: HomeEditorialSectionsProps) {
   return (
     <div className="mx-auto max-w-[1200px] space-y-12 px-4 py-10 sm:space-y-14 sm:px-6 sm:py-12 lg:space-y-16 lg:px-10">
       <section id="weekly-featured" className="scroll-mt-20">
@@ -42,26 +32,22 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
       </section>
 
       <section>
-        <SectionHeader title="国内斗师精选" href="/domestic-makers" />
+        <SectionHeader title="国内斗师计划" href="/domestic-makers" />
         <Link
-          href={maker ? `/domestic-makers/${maker.slug}` : "/domestic-makers"}
+          href="/domestic-makers"
           className="group relative mt-4 block aspect-[3/2] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[16/7] lg:max-h-[430px]"
         >
           <img
-            src={maker?.coverUrl || "/pics/guide-care.jpg"}
-            alt={maker ? `${maker.name}工作场景` : "国内斗师合作档案"}
-            className={`absolute inset-0 h-full w-full origin-left object-cover object-left transition-transform duration-500 motion-reduce:transition-none ${
-              maker ? "group-hover:scale-[1.015]" : "scale-[3.15] sm:scale-[2.8]"
-            }`}
+            src="/pics/home-hero-01-inventory.jpg"
+            alt="烟斗制作工具与木质工作台"
+            className="absolute inset-0 h-full w-full origin-right scale-[1.5] object-cover object-[88%_76%] transition-transform duration-500 group-hover:scale-[1.53] sm:scale-[1.35] sm:group-hover:scale-[1.38] motion-reduce:transition-none"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,10,6,0.78)_0%,rgba(16,10,6,0.46)_45%,rgba(16,10,6,0.04)_76%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,10,6,0.86)_0%,rgba(16,10,6,0.50)_48%,rgba(16,10,6,0.06)_78%)]" />
           <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7 lg:p-9">
-            <h3 className="text-[20px] font-semibold sm:text-[24px]">{maker?.name || "合作档案整理中"}</h3>
-            <p className="mt-2 max-w-md text-[12px] leading-5 text-white/78 sm:text-[14px]">
-              {maker ? `${maker.type} · ${maker.city} · ${maker.intro}` : "等待真实斗师图片与授权资料，不以展示样例代替真实人物。"}
-            </p>
+            <h3 className="text-[20px] font-semibold sm:text-[24px]">首批创作者档案正在整理</h3>
+            <p className="mt-2 max-w-md text-[12px] leading-5 text-white/78 sm:text-[14px]">发现本土手作力量</p>
             <span className="mt-4 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] text-[#ead3ae]">
-              {maker ? "查看作品" : "查看国内斗师"}<ArrowIcon className="ml-2 h-3.5 w-3.5" />
+              查看国内斗师目录<ArrowIcon className="ml-2 h-3.5 w-3.5" />
             </span>
           </div>
         </Link>

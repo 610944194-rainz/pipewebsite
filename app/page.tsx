@@ -1,4 +1,3 @@
-import { domesticMakers, getDomesticMakerTypeLabel } from "@/data/domestic-makers";
 import { pipeProducts, type PipeProduct } from "@/data/pipes";
 import { getPublicBrandProfiles } from "@/lib/public-products/brands";
 import { getHomepageFeaturedProducts } from "@/lib/public-products/server";
@@ -12,7 +11,6 @@ import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import HomeEditorialSections, {
   type HomeFeaturedBrand,
-  type HomeFeaturedMaker,
 } from "./components/home/HomeEditorialSections";
 import HomeHero from "./components/home/HomeHero";
 import type { HomeRailProduct } from "./components/home/HomeProductRail";
@@ -48,10 +46,28 @@ function formatUpdatedAt(value: string) {
   return match ? `${match[2]}-${match[3]} ${match[4]}:${match[5]}` : value.trim();
 }
 
-function todayProduct(product: PipeProduct): HomeRailProduct {
+function displayableProductImage(product: PipeProduct) {
+  const candidates = [product.imageUrl, ...(product.galleryImages || [])];
+
+  return candidates.find((value) => {
+    const source = String(value || "").trim();
+    if (!source || /(?:placeholder|no[-_ ]?image|spacer|blank)/i.test(source)) {
+      return false;
+    }
+
+    try {
+      const url = new URL(source);
+      return /^(https?):$/.test(url.protocol) && /\.(?:avif|jpe?g|png|webp)$/i.test(url.pathname);
+    } catch {
+      return source.startsWith("/") && /\.(?:avif|jpe?g|png|webp)(?:[?#]|$)/i.test(source);
+    }
+  });
+}
+
+function todayProduct(product: PipeProduct, image: string): HomeRailProduct {
   return {
     id: String(product.id),
-    image: product.imageUrl || product.galleryImages?.[0] || "",
+    image,
     brand: product.brand || "品牌待确认",
     name: product.nameZh || product.name,
     price: getRmbReferencePrice(product),
@@ -63,9 +79,13 @@ function todayProduct(product: PipeProduct): HomeRailProduct {
 function getTodayProducts() {
   return [...pipeProducts]
     .filter((product) => !/已售|sold|out/i.test(product.status))
-    .sort((left, right) => updatedTimestamp(right.updatedAt) - updatedTimestamp(left.updatedAt))
-    .slice(0, 8)
-    .map(todayProduct);
+    .flatMap((product) => {
+      const image = displayableProductImage(product);
+      return image ? [{ product, image }] : [];
+    })
+    .sort((left, right) => updatedTimestamp(right.product.updatedAt) - updatedTimestamp(left.product.updatedAt))
+    .slice(0, 6)
+    .map(({ product, image }) => todayProduct(product, image));
 }
 
 function getFeaturedBrands(): HomeFeaturedBrand[] {
@@ -87,27 +107,10 @@ function getFeaturedBrands(): HomeFeaturedBrand[] {
   });
 }
 
-function getFeaturedMaker(): HomeFeaturedMaker | undefined {
-  const maker = domesticMakers.find(
-    (candidate) => candidate.coverUrl.trim() && candidate.status !== "展示样例"
-  );
-  if (!maker) return undefined;
-
-  return {
-    slug: maker.slug,
-    name: maker.displayName,
-    city: maker.city,
-    type: getDomesticMakerTypeLabel(maker.type),
-    intro: maker.intro,
-    coverUrl: maker.coverUrl,
-  };
-}
-
 export default function HomePage() {
   const weeklyProducts = getHomepageFeaturedProducts().map(weeklyProduct);
   const todayProducts = getTodayProducts();
   const brands = getFeaturedBrands();
-  const maker = getFeaturedMaker();
 
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
@@ -119,7 +122,6 @@ export default function HomePage() {
         weeklyProducts={weeklyProducts}
         todayProducts={todayProducts}
         brands={brands}
-        maker={maker}
       />
       <SiteFooter />
     </main>

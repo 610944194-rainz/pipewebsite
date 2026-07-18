@@ -53,7 +53,11 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
   const compact = variant === "today";
 
   return (
-    <div className="home-rail -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:gap-5">
+    <div
+      className={`home-rail -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 lg:gap-5 ${
+        compact ? "flex-nowrap" : "sm:grid sm:grid-cols-4 sm:overflow-visible"
+      }`}
+    >
       {products.map((product, index) => (
         <Link
           key={product.id}
@@ -61,7 +65,7 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
           href={productHref(product.id)}
           onNavigate={() => saveReturnPosition(product.id)}
           className={`group min-w-0 shrink-0 snap-start overflow-hidden rounded-[8px] border border-[var(--border)] bg-[var(--surface)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none ${
-            compact ? "basis-[39%] sm:basis-auto" : "basis-[44%] sm:basis-auto"
+            compact ? "basis-[44%] sm:basis-[23%] lg:basis-[19%]" : "basis-[44%] sm:basis-auto"
           }`}
         >
           <article className="flex h-full flex-col">
