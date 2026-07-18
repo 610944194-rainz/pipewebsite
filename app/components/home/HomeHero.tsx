@@ -58,18 +58,18 @@ export default function HomeHero() {
           <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-12 sm:px-8 sm:pb-16 lg:px-12">
             <div className="max-w-[390px] text-white">
               {index === 0 ? (
-                <h1 className="text-[27px] font-semibold leading-[1.25] tracking-[0.01em] sm:text-[34px] lg:text-[40px]">
+                <h1 className="text-[24px] font-medium leading-[1.35] tracking-[0.01em] sm:text-[28px] lg:text-[32px]">
                   {slide.title}
                 </h1>
               ) : (
-                <h2 className="text-[27px] font-semibold leading-[1.25] tracking-[0.01em] sm:text-[34px] lg:text-[40px]">
+                <h2 className="text-[24px] font-medium leading-[1.35] tracking-[0.01em] sm:text-[28px] lg:text-[32px]">
                   {slide.title}
                 </h2>
               )}
-              <p className="mt-3 text-[14px] font-normal leading-6 text-white/84 sm:text-[15px]">{slide.description}</p>
+              <p className="mt-3 text-[13px] font-normal leading-[1.6] text-[#f7f2eb]/84 sm:text-[14px]">{slide.description}</p>
               <Link
                 href={slide.href}
-                className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[13px] font-medium text-[#ead3ae] transition-colors hover:text-white motion-reduce:transition-none"
+                className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[13px] font-normal text-[#ead3ae] transition-colors hover:text-[#f7f2eb] motion-reduce:transition-none"
               >
                 {slide.cta}
                 <ArrowIcon className="ml-2 h-3.5 w-3.5" />

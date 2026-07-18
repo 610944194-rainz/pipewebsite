@@ -3,15 +3,15 @@ export default function SiteFooter() {
     <footer className="border-t border-[#E5D7C5] bg-[#FAF7F0] px-4 pb-8 pt-6 text-[#75695F] sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-5 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:p-7">
         <div>
-          <p className="text-[22px] font-black leading-none tracking-tight text-[#2B211C]">
+          <p className="text-[22px] font-medium leading-[1.2] tracking-[0.01em] text-[#302620]">
             PipeSearch
           </p>
-          <p className="mt-1 text-[13px] font-semibold tracking-[0.18em] text-[#9A6530]">
+          <p className="mt-1 text-[13px] font-normal tracking-[0.02em] text-[#9A6530]">
             烟斗器具库存信息
           </p>
         </div>
 
-        <div className="mt-5 space-y-4 text-[13px] leading-6 text-[#75695F] lg:mt-0">
+        <div className="mt-5 space-y-4 text-[13px] font-normal leading-[1.75] text-[#75695F] lg:mt-0">
           <p>
             本站仅展示烟斗器具公开库存信息，不销售烟草制品、电子烟、烟油或尼古丁产品。页面价格与库存为采集时参考信息，实际购买需人工确认。
           </p>

@@ -43,10 +43,10 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
             className="absolute inset-0 h-full w-full origin-right scale-[1.5] object-cover object-[88%_76%] transition-transform duration-500 group-hover:scale-[1.53] sm:scale-[1.35] sm:group-hover:scale-[1.38] motion-reduce:transition-none"
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,10,6,0.86)_0%,rgba(16,10,6,0.50)_48%,rgba(16,10,6,0.06)_78%)]" />
-          <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7 lg:p-9">
-            <h3 className="text-[20px] font-semibold sm:text-[24px]">首批创作者档案正在整理</h3>
-            <p className="mt-2 max-w-md text-[12px] leading-5 text-white/78 sm:text-[14px]">发现本土手作力量</p>
-            <span className="mt-4 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] text-[#ead3ae]">
+          <div className="absolute inset-x-0 bottom-0 max-w-[340px] p-5 text-[#f7f2eb] sm:p-7 lg:p-9">
+            <h3 className="text-[20px] font-medium leading-[1.4] sm:text-[22px]">首批创作者档案正在整理</h3>
+            <p className="mt-2 max-w-[280px] text-[13px] font-normal leading-[1.6] text-[#f7f2eb]/78">发现本土手作力量</p>
+            <span className="mt-4 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[13px] font-normal text-[#ead3ae]">
               查看国内斗师目录<ArrowIcon className="ml-2 h-3.5 w-3.5" />
             </span>
           </div>
@@ -62,7 +62,7 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
               href={`/brands/${brand.slug}`}
               className="flex min-h-[82px] basis-[38%] shrink-0 snap-start flex-col items-center justify-center px-3 text-center transition-colors hover:text-[var(--coffee)] sm:basis-auto motion-reduce:transition-none"
             >
-              <span className="text-[16px] font-semibold tracking-[0.02em] text-[var(--text-primary)] sm:text-[18px]">{brand.logoText || brand.name}</span>
+              <span className="text-[16px] font-medium tracking-[0.02em] text-[var(--text-primary)] sm:text-[18px]">{brand.logoText || brand.name}</span>
               <span className="mt-2 text-[10px] tracking-[0.12em] text-[var(--text-secondary)]">{brand.nameZh || brand.country || "品牌档案"}</span>
             </Link>
           ))}
@@ -76,9 +76,9 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
             <Link key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)]">
               <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
-                <h3 className="text-[15px] font-semibold sm:text-[16px]">{item.title}</h3>
-                <p className="mt-1 text-[11px] leading-4 text-white/78">{item.desc}</p>
+              <div className="absolute inset-x-0 bottom-0 p-5 text-[#f7f2eb]">
+                <h3 className="text-[16px] font-medium leading-[1.4]">{item.title}</h3>
+                <p className="mt-1 text-[12px] font-normal leading-[1.6] text-[#f7f2eb]/78">{item.desc}</p>
               </div>
             </Link>
           ))}
@@ -95,10 +95,10 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
         <Link href="/service" className="group relative mt-4 block aspect-[2/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[3/1]">
           <img src="/pics/guide-beginner.jpg" alt="烟斗入门指南" className="absolute inset-0 h-full w-full origin-left scale-[2.8] object-cover object-left transition-transform duration-500 sm:scale-[3] motion-reduce:transition-none" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,8,5,0.78)_0%,rgba(13,8,5,0.40)_52%,rgba(13,8,5,0.02)_80%)]" />
-          <div className="absolute inset-y-0 left-0 flex max-w-[72%] flex-col justify-center p-5 text-white sm:p-8">
-            <h3 className="text-[20px] font-semibold sm:text-[24px]">了解烟斗，从这里开始</h3>
-            <p className="mt-2 text-[11px] leading-5 text-white/76 sm:text-[13px]">选购指南 · 保养知识 · 术语百科</p>
-            <span className="mt-3 inline-flex w-fit items-center border-b border-[var(--brass)] pb-1 text-[12px] text-[#ead3ae]">探索指南<ArrowIcon className="ml-2 h-3.5 w-3.5" /></span>
+          <div className="absolute inset-y-0 left-0 flex max-w-[320px] flex-col justify-center p-5 text-[#f7f2eb] sm:p-8">
+            <h3 className="text-[20px] font-medium leading-[1.4] sm:text-[22px]">了解烟斗，从这里开始</h3>
+            <p className="mt-2 text-[13px] font-normal leading-[1.6] text-[#f7f2eb]/76">选购指南 · 保养知识 · 术语百科</p>
+            <span className="mt-3 inline-flex w-fit items-center border-b border-[var(--brass)] pb-1 text-[13px] font-normal text-[#ead3ae]">探索指南<ArrowIcon className="ml-2 h-3.5 w-3.5" /></span>
           </div>
         </Link>
       </section>
@@ -108,9 +108,9 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
 
 function SectionHeader({ title, href }: { title: string; href: string }) {
   return (
-    <div className="flex items-end justify-between gap-4">
-      <h2 className="text-[20px] font-semibold leading-none text-[var(--text-primary)] sm:text-[22px]">{title}</h2>
-      <Link href={href} className="inline-flex items-center text-[12px] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+    <div className="flex items-center justify-between gap-4">
+      <h2 className="text-[18px] font-medium leading-[1.4] tracking-[0.02em] text-[var(--text-primary)] sm:text-[20px]">{title}</h2>
+      <Link href={href} className="inline-flex items-center text-[13px] font-normal leading-[1.4] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
         查看全部<ArrowIcon className="ml-1.5 h-3.5 w-3.5" />
       </Link>
     </div>

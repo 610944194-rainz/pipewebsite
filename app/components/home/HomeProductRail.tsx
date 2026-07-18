@@ -64,7 +64,7 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
           id={productAnchorId(product.id)}
           href={productHref(product.id)}
           onNavigate={() => saveReturnPosition(product.id)}
-          className={`group min-w-0 shrink-0 snap-start overflow-hidden rounded-[8px] border border-[var(--border)] bg-[var(--surface)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none ${
+          className={`group min-w-0 shrink-0 snap-start overflow-hidden rounded-[6px] border border-[#e8dfd4] bg-[var(--surface)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none ${
             compact ? "basis-[44%] sm:basis-[23%] lg:basis-[19%]" : "basis-[44%] sm:basis-auto"
           }`}
         >
@@ -82,15 +82,15 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
             <div className={`flex flex-1 flex-col ${compact ? "p-2.5" : "p-3"}`}>
               {compact && product.status ? (
                 <div className="mb-2 flex items-center justify-between gap-2 text-[10px]">
-                  <span className="font-medium text-[var(--coffee)]">{product.status}</span>
+                  <span className="font-normal text-[var(--coffee)]">{product.status}</span>
                   {product.updatedAt ? <time className="text-[var(--text-secondary)]">{product.updatedAt}</time> : null}
                 </div>
               ) : null}
-              <p className="line-clamp-1 text-[10px] font-medium uppercase tracking-[0.13em] text-[var(--brass)]">{product.brand}</p>
-              <h3 className={`mt-1 line-clamp-2 font-medium leading-[1.4] text-[var(--text-primary)] ${compact ? "min-h-[36px] text-[12px]" : "min-h-[40px] text-[14px]"}`}>
+              <p className="line-clamp-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--brass)]">{product.brand}</p>
+              <h3 className="mt-1 min-h-[38px] line-clamp-2 text-[13px] font-normal leading-[1.45] text-[var(--text-primary)]">
                 {product.name}
               </h3>
-              <p className={`mt-auto pt-3 font-medium text-[var(--text-primary)] ${compact ? "text-[12px]" : "text-[13px]"}`}>
+              <p className="mt-auto pt-3 text-[13px] font-medium text-[var(--text-primary)]">
                 {product.price}
               </p>
             </div>

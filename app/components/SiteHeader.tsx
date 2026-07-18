@@ -88,7 +88,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative px-3 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${
+                  className={`relative px-3 py-2 text-[13px] font-normal transition-colors motion-reduce:transition-none ${
                     active ? "text-[var(--coffee-dark)]" : "text-[var(--text-secondary)] hover:text-[var(--coffee)]"
                   }`}
                 >
@@ -97,7 +97,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                 </Link>
               );
             })}
-            <Link href="/request" className="ml-3 border border-[var(--coffee-dark)] px-4 py-2 text-[12px] font-medium text-[var(--coffee-dark)] transition-colors hover:bg-[var(--coffee-dark)] hover:text-white motion-reduce:transition-none">
+            <Link href="/request" className="ml-3 border border-[var(--coffee-dark)] px-4 py-2 text-[13px] font-medium text-[var(--coffee-dark)] transition-colors hover:bg-[var(--coffee-dark)] hover:text-white motion-reduce:transition-none">
               提交找斗需求
             </Link>
           </nav>
@@ -127,7 +127,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                     className="flex min-h-[62px] items-center justify-between border-b border-[var(--border)] py-3 last:border-b-0"
                   >
                     <span>
-                      <span className="block text-[15px] font-medium text-[var(--text-primary)]">{item.title}</span>
+                      <span className="block text-[15px] font-normal text-[var(--text-primary)]">{item.title}</span>
                       <span className="mt-1 block text-[10px] tracking-[0.12em] text-[var(--text-secondary)]">{item.label}</span>
                     </span>
                     <span aria-hidden="true" className={`h-5 w-px ${active ? "bg-[var(--brass)]" : "bg-transparent"}`} />
