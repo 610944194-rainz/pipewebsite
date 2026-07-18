@@ -74,8 +74,13 @@ try {
   assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
   assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
   assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(publishScript, /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/);
   assert.match(publishScript, /largeApplyWarningThreshold/);
   assert.match(publishScript, /-MaxAutoApply/);
+  assert.match(publishScript, /-LegacyDuplicateSnapshotSha256/);
+  assert.match(scheduledLauncher, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(scheduledLauncher, /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/);
+  assert.match(scheduledLauncher, /-LegacyDuplicateSnapshotSha256 \$LegacyDuplicateSnapshotSha256/);
   assert.match(publishScript, /auto publish must run from the dedicated automation worktree/);
   assert.match(publishScript, /\$ProjectRoot\s*=\s*\(Resolve-Path \(Join-Path \$PSScriptRoot "\.\.\\\.\."\)\)\.Path/);
   assert.match(publishScript, /Push-Location -LiteralPath \$ProjectRoot/);

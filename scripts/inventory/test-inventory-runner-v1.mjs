@@ -49,7 +49,10 @@ import {
 import {
   evaluateSmokingpipesDailyRecoveryPreflight,
 } from "./smokingpipes-daily-recovery-preflight-v1.mjs";
-import { buildInventoryDiff } from "./smokingpipes-diff-inventory-v1.mjs";
+import {
+  buildInventoryDiff,
+  LEGACY_DUPLICATE_SNAPSHOT_CONTRACT,
+} from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
 import { processSmokingpipesDetailsQueue } from "./smokingpipes-details-queue-v1.mjs";
 import * as applyDryRunModule from "./smokingpipes-apply-dry-run-v1.mjs";
@@ -140,6 +143,7 @@ import {
 import {
   buildSafeSubsetProductionProducts,
   evaluateProgressiveProductionApplyGate,
+  legacyDuplicateOverrideGateBlockReason,
   runSmokingpipesProgressiveMode,
 } from "./smokingpipes-progressive-runner-v1.mjs";
 import {
@@ -331,6 +335,135 @@ assert.equal(
 assert.equal(
   unclassifiedLegacyDuplicateDiff.duplicateStats.suspiciousDuplicateCount,
   1
+);
+
+const legacySnapshotSha256 =
+  LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.snapshotSha256;
+const legacySnapshotProducts = Array.from(
+  { length: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.uniqueProducts },
+  (_, index) => {
+    const sourceProductId = String(index + 1);
+    return {
+      sourceProductId,
+      sourceUrl: `https://example.invalid/moreinfo.cfm?product_id=${sourceProductId}`,
+      title: `Legacy fixture pipe ${sourceProductId}`,
+      price: "$10.00",
+    };
+  }
+);
+const legacySnapshotPayload = {
+  products: legacySnapshotProducts,
+  summary: {
+    pagesScanned: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.pagesScanned,
+    effectiveScannedPages: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.expectedPages,
+    expectedPages: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.expectedPages,
+    fullExpectedRangeScanned: true,
+    failedPages: [],
+    productsExtracted: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.productsExtracted,
+    uniqueProducts: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.uniqueProducts,
+    duplicateSourceProductIds: Array.from(
+      { length: LEGACY_DUPLICATE_SNAPSHOT_CONTRACT.duplicateCount },
+      (_, index) => String(index + 1)
+    ),
+  },
+};
+const legacySnapshotExisting = {
+  products: legacySnapshotProducts.map((product) => ({
+    ...product,
+    inventoryStatus: "available",
+  })),
+};
+const legacyWithoutAuthorization = buildInventoryDiff(
+  legacySnapshotPayload,
+  legacySnapshotExisting,
+  { snapshotSha256: legacySnapshotSha256 }
+);
+assert.equal(legacyWithoutAuthorization.allowApply, false);
+assert.equal(legacyWithoutAuthorization.legacyDuplicateOverride.authorized, false);
+assert.match(
+  legacyWithoutAuthorization.legacyDuplicateOverride.reason,
+  /authorization is required/i
+);
+const legacyWrongAuthorization = buildInventoryDiff(
+  legacySnapshotPayload,
+  legacySnapshotExisting,
+  {
+    snapshotSha256: legacySnapshotSha256,
+    legacyDuplicateSnapshotSha256: "B".repeat(64),
+  }
+);
+assert.equal(legacyWrongAuthorization.allowApply, false);
+assert.match(
+  legacyWrongAuthorization.legacyDuplicateOverride.reason,
+  /single approved legacy snapshot/i
+);
+const legacyMismatchedStatistics = buildInventoryDiff(
+  {
+    ...legacySnapshotPayload,
+    summary: {
+      ...legacySnapshotPayload.summary,
+      productsExtracted: 5326,
+    },
+  },
+  legacySnapshotExisting,
+  {
+    snapshotSha256: legacySnapshotSha256,
+    legacyDuplicateSnapshotSha256: legacySnapshotSha256,
+  }
+);
+assert.equal(legacyMismatchedStatistics.allowApply, false);
+assert.match(
+  legacyMismatchedStatistics.legacyDuplicateOverride.reason,
+  /exact one-time legacy duplicate contract/i
+);
+const authorizedLegacySnapshot = buildInventoryDiff(
+  legacySnapshotPayload,
+  legacySnapshotExisting,
+  {
+    snapshotSha256: legacySnapshotSha256,
+    legacyDuplicateSnapshotSha256: legacySnapshotSha256,
+  }
+);
+assert.equal(authorizedLegacySnapshot.allowApply, true);
+assert.equal(authorizedLegacySnapshot.counts.suspicious, 0);
+assert.equal(authorizedLegacySnapshot.counts.safeDuplicates, 0);
+assert.equal(
+  authorizedLegacySnapshot.legacyDuplicateOverride.authorized,
+  true
+);
+assert.equal(
+  legacyDuplicateOverrideGateBlockReason({
+    diff: authorizedLegacySnapshot,
+    legacyDuplicateSnapshotSha256: legacySnapshotSha256,
+  }),
+  null
+);
+assert.match(
+  legacyDuplicateOverrideGateBlockReason({
+    diff: authorizedLegacySnapshot,
+    legacyDuplicateSnapshotSha256: "",
+  }),
+  /authorization is required/i
+);
+const legacyWithOtherFatal = buildInventoryDiff(
+  {
+    ...legacySnapshotPayload,
+    summary: {
+      ...legacySnapshotPayload.summary,
+      captchaDetected: true,
+    },
+  },
+  legacySnapshotExisting,
+  {
+    snapshotSha256: legacySnapshotSha256,
+    legacyDuplicateSnapshotSha256: legacySnapshotSha256,
+  }
+);
+assert.equal(legacyWithOtherFatal.allowApply, false);
+assert.equal(legacyWithOtherFatal.legacyDuplicateOverride.authorized, false);
+assert.match(
+  legacyWithOtherFatal.legacyDuplicateOverride.reason,
+  /other safety gates/i
 );
 
 const noDuplicateClassification = classifySmokingpipesListDuplicates([
@@ -8138,6 +8271,29 @@ for (const [wouldApplyCount, warning, blocked] of [
   assert.equal(largeApplyGate.largeApplyBlocked, blocked);
   assert.equal(largeApplyGate.status, blocked ? "apply-blocked" : "apply-ready");
 }
+for (const [wouldApplyCount, blocked] of [
+  [1131, false],
+  [1201, true],
+]) {
+  const runScopedGate = evaluateProgressiveProductionApplyGate({
+    state: { dailyRunId: "daily-update-20260708" },
+    audit: {
+      ...safeGapAudit,
+      candidateCount: wouldApplyCount,
+      wouldApplyCount,
+    },
+    preview: {
+      ...safeGapPreview,
+      candidateCount: wouldApplyCount,
+      wouldApplyCount,
+    },
+    candidateProducts: safeGapCandidateProducts,
+    publicPayloads: completePublicPayloads,
+    maxAutoApply: 1200,
+  });
+  assert.equal(runScopedGate.largeApplyBlocked, blocked);
+  assert.equal(runScopedGate.status, blocked ? "apply-blocked" : "apply-ready");
+}
 
 for (const [countName, countValue] of [
   ["pendingLeak", 1],
@@ -9326,6 +9482,16 @@ assert.equal(
   3
 );
 assert.equal(parseRunnerOptions([]).maxAutoApply, 1000);
+assert.equal(
+  parseRunnerOptions([
+    `--legacy-duplicate-snapshot-sha256=${legacySnapshotSha256}`,
+  ]).legacyDuplicateSnapshotSha256,
+  legacySnapshotSha256
+);
+assert.throws(
+  () => parseRunnerOptions(["--legacy-duplicate-snapshot-sha256=not-a-sha"]),
+  /64-character SHA-256/i
+);
 for (const value of ["0", "100.5", "Infinity", "unlimited"]) {
   assert.throws(
     () => parseRunnerOptions([`--max-auto-apply=${value}`]),
@@ -11870,6 +12036,19 @@ assert.match(dailyTaskScript, /\[switch\]\$ResumeFromCachedList/);
 assert.match(dailyTaskScript, /\[switch\]\$LockCurrentListSnapshotUntilComplete/);
 assert.match(dailyTaskScript, /\[switch\]\$SafeBootstrap/);
 assert.match(dailyTaskScript, /\[switch\]\$NoProductionWrite/);
+assert.match(
+  dailyTaskScript,
+  /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/
+);
+assert.match(
+  dailyTaskScript,
+  /--legacy-duplicate-snapshot-sha256=\$\(\$LegacyDuplicateSnapshotSha256\.Trim\(\)\)/
+);
+assert.match(dailyTaskScript, /StepName "current-list-diff"/);
+assert.ok(
+  dailyTaskScript.indexOf('StepName "current-list-diff"') <
+    dailyTaskScript.indexOf('StepName "progressive-ingest-list"')
+);
 assert.match(
   dailyTaskScript,
   /\$ProjectRoot\s*=\s*\(Resolve-Path \(Join-Path \$PSScriptRoot "\.\.\\\.\."\)\)\.Path/

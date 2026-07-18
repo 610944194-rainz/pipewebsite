@@ -62,6 +62,9 @@ import {
 import {
   randomDelayMs,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
+import {
+  updateLegacyDuplicateOverrideAudit,
+} from "./smokingpipes-diff-inventory-v1.mjs";
 
 export const LARGE_APPLY_WARNING_THRESHOLD = 300;
 export const DEFAULT_MAX_AUTO_APPLY = 1000;
@@ -76,6 +79,25 @@ function text(value) {
 
 function sourceProductId(item) {
   return text(item?.sourceProductId);
+}
+
+export function legacyDuplicateOverrideGateBlockReason({
+  diff,
+  legacyDuplicateSnapshotSha256,
+} = {}) {
+  const requestedSha256 = text(legacyDuplicateSnapshotSha256).toUpperCase();
+  const override = diff?.legacyDuplicateOverride;
+  if (!override) return null;
+  if (!requestedSha256) {
+    return "legacy duplicate snapshot authorization is required for this diff";
+  }
+  if (
+    override.authorized !== true ||
+    text(override.snapshotSha256).toUpperCase() !== requestedSha256
+  ) {
+    return "legacy duplicate snapshot authorization does not match the diff evidence";
+  }
+  return null;
 }
 
 function progressiveMarkdown(report) {
@@ -1321,6 +1343,7 @@ async function prepareProgressiveApplyGate({
   });
   await writeJsonAtomic(paths.progressiveApplyPreview, preview);
   const publicNext = readProgressivePublicNext(paths);
+  const diff = readJsonIfExists(paths.diff, null);
   const gate = evaluateProgressiveProductionApplyGate({
     state: nextState,
     audit: artifacts.audit,
@@ -1337,6 +1360,14 @@ async function prepareProgressiveApplyGate({
           : progressiveMaxAutoApplyFromEnv(),
   });
   gate.blockers.push(...publicNext.blockers);
+  const legacyOverrideBlockReason = legacyDuplicateOverrideGateBlockReason({
+    diff,
+    legacyDuplicateSnapshotSha256:
+      options.legacyDuplicateSnapshotSha256,
+  });
+  if (legacyOverrideBlockReason) {
+    gate.blockers.push(legacyOverrideBlockReason);
+  }
   gate.blockers = [...new Set(gate.blockers)];
   gate.blockedReason = gate.blockers.join("; ") || null;
   gate.applyReady = gate.blockers.length === 0;
@@ -1369,6 +1400,14 @@ async function prepareProgressiveApplyGate({
     pushPerformed: false,
   };
   await writeJsonAtomic(paths.progressiveApplyGateReport, report);
+  await updateLegacyDuplicateOverrideAudit({
+    root,
+    diff,
+    snapshotPath: paths.currentList,
+    runScopedMaxAutoApply: gate.maxAutoApply,
+    wouldApplyCount: gate.wouldApplyCount,
+    finalGateDecision: gate.status,
+  });
   return {
     state: nextState,
     artifacts,
@@ -1610,6 +1649,7 @@ function offlinePrepareInputBlockReasons({
   stateErrors,
   currentList,
   diff,
+  options,
 }) {
   const blockReasons = [...stateErrors];
   const currentSummary = currentList?.summary || {};
@@ -1673,6 +1713,14 @@ function offlinePrepareInputBlockReasons({
       blockReasons.push(
         `inventory diff fatal warnings: ${diff.fatalWarnings.join("; ")}`
       );
+    }
+    const legacyOverrideBlockReason = legacyDuplicateOverrideGateBlockReason({
+      diff,
+      legacyDuplicateSnapshotSha256:
+        options?.legacyDuplicateSnapshotSha256,
+    });
+    if (legacyOverrideBlockReason) {
+      blockReasons.push(legacyOverrideBlockReason);
     }
   }
 
@@ -1764,6 +1812,7 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     stateErrors: inputBlockReasons.concat(stateErrors),
     currentList,
     diff,
+    options,
   });
   const auditBlockers = [...inputGateReasons];
   if (pendingReadyCandidates.length) {
@@ -1957,6 +2006,14 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     paths.progressiveApplyGateReport,
     gateReport
   );
+  await updateLegacyDuplicateOverrideAudit({
+    root,
+    diff,
+    snapshotPath: paths.currentList,
+    runScopedMaxAutoApply: maxAutoApply,
+    wouldApplyCount: readyCandidates.length,
+    finalGateDecision: gateReport.status,
+  });
   return {
     ...gateReport,
     audit,

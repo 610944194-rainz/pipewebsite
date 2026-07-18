@@ -11,7 +11,9 @@
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
   [string]$ProgressiveDetailMax = "30",
   [ValidatePattern('^[1-9]\d*$')]
-  [string]$MaxAutoApply = "1000"
+  [string]$MaxAutoApply = "1000",
+  [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
+  [string]$LegacyDuplicateSnapshotSha256 = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -48,6 +50,10 @@ $ResumeFromCachedListEffective = $false
 $LockCurrentListSnapshotUntilCompleteEffective = $false
 $NoProductionWriteEffective = $false
 $LargeApplyWarningThreshold = 300
+$LegacyDuplicateSnapshotCliArgs = @()
+if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
+  $LegacyDuplicateSnapshotCliArgs += "--legacy-duplicate-snapshot-sha256=$($LegacyDuplicateSnapshotSha256.Trim())"
+}
 $LastInventoryNodeResult = $null
 $LastInventoryNodeOutput = @()
 $DetailPhaseStatus = $null
@@ -1382,7 +1388,14 @@ try {
     exit 0
   }
 
-  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments @(
+  Invoke-InventoryNode -StepName "current-list-diff" -Arguments (@(
+    "scripts/inventory/smokingpipes-diff-inventory-v1.mjs",
+    "--current-list=$CurrentListPath",
+    "--diff=$DiffPath",
+    "--max-auto-apply=$MaxAutoApply"
+  ) + $LegacyDuplicateSnapshotCliArgs)
+
+  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments (@(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-ingest-list",
@@ -1391,7 +1404,7 @@ try {
     "--no-commit",
     "--no-deploy",
     "--verbose"
-  )
+  ) + $LegacyDuplicateSnapshotCliArgs)
 
   $detailQueueGuardExit = Invoke-InventoryNode -StepName "detail-queue-spike-guard" -Arguments @(
     "scripts/inventory/smokingpipes-detail-queue-spike-v1.mjs",
@@ -1584,7 +1597,7 @@ try {
 
   Clear-StaleProgressiveApplyReports -Reason "before prepare-apply"
 
-  $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments @(
+  $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments (@(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-prepare-apply",
@@ -1592,7 +1605,7 @@ try {
     "--no-commit",
     "--no-deploy",
     "--verbose"
-  ) -ContinueOnFailure
+  ) + $LegacyDuplicateSnapshotCliArgs) -ContinueOnFailure
 
   $prepareResult = $script:LastInventoryNodeResult
   $prepareStatus = if ($prepareResult -and $prepareResult.status) {
@@ -1647,7 +1660,7 @@ try {
       exit 0
     }
 
-    $applyExit = Invoke-InventoryNode -StepName "progressive-partial-apply" -Arguments @(
+    $applyExit = Invoke-InventoryNode -StepName "progressive-partial-apply" -Arguments (@(
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=progressive-partial-apply",
@@ -1656,7 +1669,7 @@ try {
       "--no-commit",
       "--no-deploy",
       "--verbose"
-    ) -ContinueOnFailure
+    ) + $LegacyDuplicateSnapshotCliArgs) -ContinueOnFailure
     $applyResult = $script:LastInventoryNodeResult
     $applyStatus = if ($applyResult -and $applyResult.status) {
       [string]$applyResult.status

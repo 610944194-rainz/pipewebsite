@@ -11,6 +11,8 @@ param(
   [string]$ProgressiveDetailMax = "30",
   [ValidatePattern('^[1-9]\d*$')]
   [string]$MaxAutoApply = "1000",
+  [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
+  [string]$LegacyDuplicateSnapshotSha256 = "",
   [ValidateRange(1, 100000)]
   [int]$ExpectedAppliedCount = 895,
   [ValidateRange(0, 14400)]
@@ -704,6 +706,9 @@ try {
   if ($AllowStaleCurrentListCache) { $dailyArguments += "-AllowStaleCurrentListCache" }
   $dailyArguments += @("-ProgressiveDetailMax", $ProgressiveDetailMax)
   $dailyArguments += @("-MaxAutoApply", $MaxAutoApply)
+  if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
+    $dailyArguments += @("-LegacyDuplicateSnapshotSha256", $LegacyDuplicateSnapshotSha256.Trim())
+  }
   try {
     Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" -TimeoutSeconds $effectiveDailyTimeoutSeconds | Out-Null
   } catch {

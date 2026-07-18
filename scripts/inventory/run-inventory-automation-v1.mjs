@@ -115,6 +115,7 @@ Options:
   --detail-probe-max=5                  Maximum trusted newIds tested by detail-probe
   --progressive-detail-max=5            Maximum progressive pending details per chunk
   --max-auto-apply=1000                 Positive hard ceiling for automatic production apply
+  --legacy-duplicate-snapshot-sha256=SHA One-time exact legacy List snapshot authorization
   --current-list=PATH                   Progressive ingest current-list input
   --diff=PATH                           Progressive ingest inventory diff input
   --write-production                    Explicitly write progressive partial apply outputs to production
