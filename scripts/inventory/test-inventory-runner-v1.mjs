@@ -12038,6 +12038,10 @@ assert.match(dailyTaskScript, /\[switch\]\$SafeBootstrap/);
 assert.match(dailyTaskScript, /\[switch\]\$NoProductionWrite/);
 assert.match(
   dailyTaskScript,
+  /\[string\]\$ProgressiveDetailMax\s*=\s*"50"/
+);
+assert.match(
+  dailyTaskScript,
   /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/
 );
 assert.match(

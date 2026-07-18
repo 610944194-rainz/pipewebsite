@@ -74,6 +74,11 @@ try {
   assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
   assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
   assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(publishScript, /\[string\]\$ProgressiveDetailMax\s*=\s*"50"/);
+  assert.match(
+    publishScript,
+    /\$dailyArguments \+= @\("-ProgressiveDetailMax", \$ProgressiveDetailMax\)/
+  );
   assert.match(publishScript, /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/);
   assert.match(publishScript, /largeApplyWarningThreshold/);
   assert.match(publishScript, /-MaxAutoApply/);
