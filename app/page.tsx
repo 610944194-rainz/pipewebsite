@@ -1,4 +1,8 @@
 import { pipeProducts, type PipeProduct } from "@/data/pipes";
+import {
+  domesticMakers,
+  getDomesticMakerTypeLabel,
+} from "@/data/domestic-makers";
 import { getPublicBrandProfiles } from "@/lib/public-products/brands";
 import { getHomepageFeaturedProducts } from "@/lib/public-products/server";
 import {
@@ -11,6 +15,7 @@ import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import HomeEditorialSections, {
   type HomeFeaturedBrand,
+  type HomeFeaturedMaker,
 } from "./components/home/HomeEditorialSections";
 import HomeHero from "./components/home/HomeHero";
 import type { HomeRailProduct } from "./components/home/HomeProductRail";
@@ -23,6 +28,50 @@ const featuredBrandSlugs = [
   "dunhill",
   "chacom",
 ];
+
+const featuredBrandAssets: Record<
+  string,
+  { logoSrc: string; logoWidth: string }
+> = {
+  peterson: {
+    logoSrc: "/brands/featured/peterson-logo-1600x800.png",
+    logoWidth: "94px",
+  },
+  savinelli: {
+    logoSrc: "/brands/featured/savinelli-logo-1600x800.png",
+    logoWidth: "94px",
+  },
+  stanwell: {
+    logoSrc: "/brands/featured/stanwell-logo-1600x800.png",
+    logoWidth: "96px",
+  },
+  dunhill: {
+    logoSrc: "/brands/featured/dunhill-logo-1600x800.png",
+    logoWidth: "82px",
+  },
+  chacom: {
+    logoSrc: "/brands/featured/chacom-logo-1600x800.png",
+    logoWidth: "84px",
+  },
+};
+
+const featuredMakerAssets: Record<
+  string,
+  { image: string; objectPosition: string }
+> = {
+  "qingyan-studio": {
+    image: "/domestic-makers/demo/fictional-pipe-maker-01.png",
+    objectPosition: "50% 38%",
+  },
+  "nanshan-handmade": {
+    image: "/domestic-makers/demo/fictional-pipe-maker-02.png",
+    objectPosition: "50% 38%",
+  },
+  "haishang-pipe-room": {
+    image: "/domestic-makers/demo/fictional-pipe-maker-03.png",
+    objectPosition: "50% 35%",
+  },
+};
 
 function weeklyProduct(product: PublicCatalogProduct): HomeRailProduct {
   return {
@@ -95,14 +144,31 @@ function getFeaturedBrands(): HomeFeaturedBrand[] {
 
   return featuredBrandSlugs.flatMap((slug) => {
     const brand = profilesBySlug.get(slug);
-    if (!brand) return [];
+    const asset = featuredBrandAssets[slug];
+    if (!brand || !asset) return [];
 
     return [{
       slug: brand.slug,
       name: brand.name,
       nameZh: brand.nameZh,
-      logoText: brand.logoText,
       country: brand.countryZh || brand.country,
+      ...asset,
+    }];
+  });
+}
+
+function getFeaturedMakers(): HomeFeaturedMaker[] {
+  return domesticMakers.flatMap((maker) => {
+    const asset = featuredMakerAssets[maker.slug];
+    if (!asset) return [];
+
+    return [{
+      slug: maker.slug,
+      displayName: maker.displayName,
+      city: maker.city,
+      typeLabel: getDomesticMakerTypeLabel(maker.type),
+      intro: maker.intro.replace(/^展示样例。/, ""),
+      ...asset,
     }];
   });
 }
@@ -111,6 +177,7 @@ export default function HomePage() {
   const weeklyProducts = getHomepageFeaturedProducts().map(weeklyProduct);
   const todayProducts = getTodayProducts();
   const brands = getFeaturedBrands();
+  const makers = getFeaturedMakers();
 
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
@@ -122,6 +189,7 @@ export default function HomePage() {
         weeklyProducts={weeklyProducts}
         todayProducts={todayProducts}
         brands={brands}
+        makers={makers}
       />
       <SiteFooter />
     </main>

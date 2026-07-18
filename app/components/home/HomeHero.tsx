@@ -37,7 +37,7 @@ export default function HomeHero() {
   }, []);
 
   return (
-    <section aria-label="首页推荐" className="relative h-[clamp(250px,68vw,280px)] overflow-hidden bg-[var(--coffee-dark)] lg:h-[400px]">
+    <section aria-label="首页推荐" className="relative h-[clamp(220px,60vw,244px)] overflow-hidden bg-[var(--coffee-dark)] lg:h-[340px]">
       {slides.map((slide, index) => (
         <div
           key={slide.href}
@@ -55,14 +55,14 @@ export default function HomeHero() {
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,8,5,0.72)_0%,rgba(12,8,5,0.35)_48%,rgba(12,8,5,0.02)_78%)]" />
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/30 to-transparent" />
 
-          <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-10 sm:px-8 sm:pb-12 lg:px-12 lg:pb-14">
+          <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-8 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">
             <div className="max-w-[390px] text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
               {index === 0 ? (
-                <h1 className="text-[22px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[24px] lg:text-[28px]">
+                <h1 className="text-[20px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[22px] lg:text-[26px]">
                   {slide.title}
                 </h1>
               ) : (
-                <h2 className="text-[22px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[24px] lg:text-[28px]">
+                <h2 className="text-[20px] font-medium leading-[1.4] tracking-[0.01em] sm:text-[22px] lg:text-[26px]">
                   {slide.title}
                 </h2>
               )}
@@ -79,7 +79,7 @@ export default function HomeHero() {
         </div>
       ))}
 
-      <div className="absolute bottom-3.5 left-1/2 z-20 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero 轮播">
+      <div className="absolute bottom-2.5 left-1/2 z-20 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero 轮播">
         {slides.map((slide, index) => (
           <button
             key={slide.href}
