@@ -1,148 +1,149 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-type IconProps = {
-  className?: string;
-};
+type IconProps = { className?: string };
+type SiteHeaderProps = { className?: string };
 
-type SiteHeaderProps = {
-  className?: string;
-};
+const navigation = [
+  { title: "首页", label: "Home", href: "/" },
+  { title: "海外库存", label: "Overseas Inventory", href: "/products" },
+  { title: "国内斗师", label: "Domestic Makers", href: "/domestic-makers" },
+  { title: "品牌档案", label: "Brands", href: "/brands" },
+  { title: "选品服务", label: "Service", href: "/service" },
+] as const;
 
-function SiteHeader({ className = "" }: SiteHeaderProps) {
-  const [open, setOpen] = useState(false);
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  if (href === "/domestic-makers") {
+    return pathname.startsWith("/domestic-makers") || pathname.startsWith("/domestic-products");
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-  const navItems = [
-    { title: "海外库存", desc: "Overseas Inventory", href: "/products" },
-    { title: "品牌库", desc: "Brands", href: "/brands" },
-    { title: "人工找斗", desc: "Find a Pipe", href: "/request" },
-    { title: "代购流程", desc: "How It Works", href: "/service" },
-  ];
+export default function SiteHeader({ className = "" }: SiteHeaderProps) {
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const pathname = usePathname();
+  const open = openPath === pathname;
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenPath(null);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  const closeMenu = () => {
+    setOpenPath(null);
+    window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-40 border-b border-[#E7DDD0] bg-[#FBF7EF]/96 backdrop-blur-md ${className}`}
-      >
-        <div className="mx-auto grid h-[72px] max-w-6xl grid-cols-[48px_minmax(0,1fr)_48px] items-center px-4 sm:px-6 lg:px-8">
+      <header className={`sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
+        <div className="mx-auto grid h-[62px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
           <button
+            ref={menuButtonRef}
             type="button"
             aria-label="打开菜单"
-            onClick={() => setOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[#063B32] transition hover:bg-[#F4EDE2]"
+            aria-controls="site-mobile-menu"
+            aria-expanded={open}
+            onClick={() => setOpenPath(pathname)}
+            className="inline-flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] lg:hidden motion-reduce:transition-none"
           >
-            <MenuIcon className="h-[24px] w-[24px]" />
+            <MenuIcon className="h-[22px] w-[22px]" />
           </button>
 
-          <Link
-            href="/"
-            aria-label="烟斗派 YandouBuy 首页"
-            className="flex min-w-0 items-center justify-center"
-          >
+          <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="flex min-w-0 items-center justify-center lg:justify-start">
             <img
               src="/pics/yandoubuy-logo-header.png"
               alt="烟斗派 YandouBuy"
-              className="block h-auto w-[222px] max-w-full object-contain object-center"
+              className="block h-auto w-[172px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
             />
           </Link>
 
-          <div className="flex h-10 items-center justify-end text-[#063B32]">
-            <Link
-              href="/request"
-              aria-label="提交找斗需求"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#F4EDE2]"
-            >
-              <ChatIcon className="h-[25px] w-[25px]" />
+          <span aria-hidden="true" className="block lg:hidden" />
+
+          <nav aria-label="主导航" className="ml-auto hidden items-center gap-1 lg:flex">
+            {navigation.map((item) => {
+              const active = isActivePath(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative px-3 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${
+                    active ? "text-[var(--coffee-dark)]" : "text-[var(--text-secondary)] hover:text-[var(--coffee)]"
+                  }`}
+                >
+                  {item.title}
+                  <span aria-hidden="true" className={`absolute inset-x-3 bottom-0 h-px bg-[var(--brass)] transition-transform motion-reduce:transition-none ${active ? "scale-x-100" : "scale-x-0"}`} />
+                </Link>
+              );
+            })}
+            <Link href="/request" className="ml-3 border border-[var(--coffee-dark)] px-4 py-2 text-[12px] font-medium text-[var(--coffee-dark)] transition-colors hover:bg-[var(--coffee-dark)] hover:text-white motion-reduce:transition-none">
+              提交找斗需求
             </Link>
-          </div>
+          </nav>
         </div>
       </header>
 
       {open ? (
-        <div className="fixed inset-0 z-50">
-          <button
-            type="button"
-            aria-label="关闭菜单"
-            onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-[#061D18]/42 backdrop-blur-[2px]"
-          />
-
-          <aside className="relative h-full w-[80%] max-w-[318px] overflow-y-auto border-r border-[#E7DDD0] bg-[#FBF7EF] px-5 py-4 shadow-2xl">
-            <div className="flex items-center justify-between">
-              <img
-                src="/pics/yandoubuy-logo-header.png"
-                alt="烟斗派 YandouBuy"
-                className="h-auto w-[210px] max-w-[78%] object-contain object-left"
-              />
-
-              <button
-                type="button"
-                aria-label="关闭菜单"
-                onClick={() => setOpen(false)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#063B32] hover:bg-[#F4EDE2]"
-              >
-                <CloseIcon className="h-[21px] w-[21px]" />
+        <div id="site-mobile-menu" className="fixed inset-0 z-50 lg:hidden">
+          <button type="button" aria-label="关闭菜单" onClick={closeMenu} className="absolute inset-0 bg-[rgba(36,22,15,0.42)] backdrop-blur-[1px]" />
+          <aside role="dialog" aria-modal="true" aria-label="网站导航" className="relative flex h-full w-[min(86vw,352px)] flex-col overflow-y-auto border-r border-[var(--border)] bg-[var(--surface)] px-5 pb-6 pt-4">
+            <div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
+              <img src="/pics/yandoubuy-logo-header.png" alt="烟斗派 YandouBuy" className="h-auto w-[190px] max-w-[76%] object-contain object-left mix-blend-multiply" />
+              <button ref={closeButtonRef} type="button" aria-label="关闭菜单" onClick={closeMenu} className="inline-flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+                <CloseIcon className="h-5 w-5" />
               </button>
             </div>
 
-            <Link
-              href="/products"
-              onClick={() => setOpen(false)}
-              className="mt-6 flex h-11 items-center gap-3 rounded-full border border-[#D8CFC2] bg-white/75 px-4 text-[13px] text-[#746A5F]"
-            >
-              <SearchIcon className="h-5 w-5 text-[#8A8176]" />
-              <span>搜索品牌、斗型、型号</span>
-            </Link>
-
-            <nav className="mt-6 divide-y divide-[#E7DDD0]">
-              {navItems.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between py-3.5"
-                >
-                  <span>
-                    <span className="block text-[16px] font-semibold tracking-[0.03em] text-[#1F1A16]">
-                      {item.title}
+            <nav aria-label="移动端主导航" className="mt-4 border-y border-[var(--border)]">
+              {navigation.map((item) => {
+                const active = isActivePath(pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpenPath(null)}
+                    aria-current={active ? "page" : undefined}
+                    className="flex min-h-[62px] items-center justify-between border-b border-[var(--border)] py-3 last:border-b-0"
+                  >
+                    <span>
+                      <span className="block text-[15px] font-medium text-[var(--text-primary)]">{item.title}</span>
+                      <span className="mt-1 block text-[10px] tracking-[0.12em] text-[var(--text-secondary)]">{item.label}</span>
                     </span>
-                    <span className="mt-1 block text-[12px] tracking-[0.08em] text-[#A97838]">
-                      {item.desc}
-                    </span>
-                  </span>
-
-                  <ArrowRightIcon className="h-4 w-4 text-[#746A5F]" />
-                </Link>
-              ))}
+                    <span aria-hidden="true" className={`h-5 w-px ${active ? "bg-[var(--brass)]" : "bg-transparent"}`} />
+                  </Link>
+                );
+              })}
             </nav>
 
-            <div className="mt-7 rounded-2xl border border-[#E7DDD0] bg-[#F7F3EA] p-4">
-              <p className="text-[14px] font-semibold text-[#1F1A16]">
-                烟斗派 YandouBuy
-              </p>
-
-              <p className="mt-2 text-[12px] leading-6 text-[#746A5F]">
-                海外烟斗库存与人工选品咨询平台。价格、状态、运费、关税及入手成本以人工确认为准。
-              </p>
-            </div>
-
-            <div className="mt-5 grid gap-3">
-              <Link
-                href="/products"
-                onClick={() => setOpen(false)}
-                className="flex h-11 items-center justify-center rounded-md bg-[#063B32] text-[14px] font-medium tracking-[0.08em] text-[#E7C48A]"
-              >
-                查看海外库存
-              </Link>
-
-              <Link
-                href="/request"
-                onClick={() => setOpen(false)}
-                className="flex h-11 items-center justify-center rounded-md border border-[#B8863B] bg-white text-[14px] font-medium tracking-[0.08em] text-[#8A5D26]"
-              >
+            <div className="mt-auto border-t border-[var(--border)] pt-5">
+              <Link href="/request" onClick={() => setOpenPath(null)} className="flex h-11 items-center justify-center rounded-[8px] bg-[var(--coffee-dark)] text-[13px] font-medium text-white transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
                 提交找斗需求
+              </Link>
+              <Link href="/cooperate" onClick={() => setOpenPath(null)} className="mt-3 flex h-10 items-center justify-center rounded-[8px] border border-[var(--border)] text-[12px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--brass)] motion-reduce:transition-none">
+                合作入驻
               </Link>
             </div>
           </aside>
@@ -152,78 +153,12 @@ function SiteHeader({ className = "" }: SiteHeaderProps) {
   );
 }
 
-function CloseIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 6l12 12M18 6 6 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function MenuIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M4 7h16M4 12h16M4 17h16"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+  return <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>;
 }
 
-function SearchIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="6.8" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="m16.2 16.2 4 4"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ChatIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6.2 17.2 5 20l3.1-1.2c1.1.6 2.4.9 3.9.9 4.4 0 7.8-3 7.8-6.8S16.4 6.1 12 6.1s-7.8 3-7.8 6.8c0 1.6.7 3.1 2 4.3Z"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8.5 12.2h7M8.5 14.8h4.8"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowRightIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 12h14M13 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+function CloseIcon({ className = "" }: IconProps) {
+  return <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>;
 }
 
 export { SiteHeader };
-export default SiteHeader;

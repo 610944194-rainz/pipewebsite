@@ -1,29 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page-background: #f6f1e9;
+  --surface: #fbf8f2;
+  --text-primary: #241a14;
+  --text-secondary: #74665c;
+  --coffee-dark: #24160f;
+  --coffee: #563822;
+  --brass: #a8783e;
+  --border: #ded4c8;
+  --background: var(--page-background);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--page-background);
 }
 
 body {
+  min-width: 320px;
+  overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-variant-numeric: lining-nums;
 }
+
+button,
+a,
+input,
+select,
+textarea {
+  font: inherit;
+  outline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+}
+
+.home-rail {
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.home-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Product image white surface fallback */
 .pipe-image-surface {
   background: #ffffff !important;
@@ -33,7 +70,7 @@ body {
   background: #ffffff !important;
 }
 
-/* 兜底：让所有直接包着 Danish 图片的容器变成白底 */
+/* Keep remote Danish product photos grounded on white. */
 div:has(> img[src*="danishpipeshop.com/img/"]),
 article:has(> img[src*="danishpipeshop.com/img/"]) {
   background: #ffffff !important;

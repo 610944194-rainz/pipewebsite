@@ -1,6 +1,6 @@
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-[#E5D7C5] bg-[#FAF7F0] px-4 pb-24 pt-6 text-[#75695F] sm:px-6 sm:pb-8 lg:px-10">
+    <footer className="border-t border-[#E5D7C5] bg-[#FAF7F0] px-4 pb-8 pt-6 text-[#75695F] sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-5 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:p-7">
         <div>
           <p className="text-[22px] font-black leading-none tracking-tight text-[#2B211C]">
