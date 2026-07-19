@@ -61,13 +61,13 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
                 style={{ objectPosition: maker.objectPosition }}
               />
-              <div className="absolute inset-x-0 bottom-0 h-[66%] bg-gradient-to-t from-black/90 via-black/48 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
-                <p className="text-[10px] font-normal leading-[1.4] tracking-[0.08em] text-[rgba(244,238,231,0.68)]">展示样例</p>
-                <h3 className="mt-1 text-[16px] font-medium leading-[1.35]">{maker.displayName}</h3>
-                <p className="mt-1 text-[11px] font-normal leading-[1.45] text-[rgba(244,238,231,0.78)]">{maker.city} / {maker.typeLabel}</p>
-                <p className="mt-1 line-clamp-1 text-[11.5px] font-normal leading-[1.5] text-[rgba(244,238,231,0.78)]">{maker.intro}</p>
-                <span className="mt-1.5 inline-flex items-center text-[11.5px] font-normal text-[#e4c18d]">查看作品<ArrowIcon className="ml-1.5 h-3 w-3" /></span>
+              <div className="absolute inset-x-0 bottom-0 h-[56%] bg-gradient-to-t from-black/90 via-black/48 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 px-[18px] pb-[17px] text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
+                <p className="text-[9px] font-normal leading-[1.3] tracking-[0.08em] text-[rgba(244,238,231,0.62)] sm:text-[10px] sm:leading-[1.3]">展示样例</p>
+                <h3 className="mt-[6px] text-[15px] font-medium leading-[1.32] tracking-normal sm:text-[16px] sm:leading-[1.32]">{maker.displayName}</h3>
+                <p className="mt-[5px] text-[10.5px] font-normal leading-[1.4] text-[rgba(244,238,231,0.76)] sm:text-[11px]">{maker.city} / {maker.typeLabel}</p>
+                <p className="mt-[7px] line-clamp-1 text-[11px] font-normal leading-[1.45] text-[rgba(244,238,231,0.72)] sm:text-[11.5px]">{maker.intro}</p>
+                <span className="mt-[11px] inline-flex items-center text-[11px] font-normal leading-[1.4] text-[#e4c18d] sm:text-[11.5px]">查看作品<ArrowIcon className="ml-1.5 h-2.5 w-2.5 sm:h-3 sm:w-3" /></span>
               </div>
             </Link>
           ))}
