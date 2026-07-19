@@ -226,7 +226,7 @@ function productSpecRows(product: PublicDetailProduct) {
 function displayBadges(product: PublicDetailProduct) {
   const candidates = [
     inventoryLabel(product.inventoryStatus),
-    product.conditionLabel,
+    conditionDisplayLabel(product.conditionType, product.conditionLabel),
     product.galleryCount > 1 ? `${product.galleryCount} 图` : "",
   ];
   const seen = new Set<string>();
@@ -280,32 +280,33 @@ export default async function ProductDetailPage({
   ).trim();
   const backLabel = productBackLabel(rawReturnTo);
   const detailSummary =
-    "页面价格、库存状态、图片和参数为采集时参考信息。实际入手前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
+    "页面价格与库存为采集时参考信息，实际购买需人工确认。";
+  const statusSummary = displayBadges(product).join(" · ");
+  const coreSpecs = specs.slice(0, 6);
 
   return (
     <main
-      className="min-h-screen bg-[#FBF7EF] text-[#1F1A16]"
+      className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]"
       style={{
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif',
+          '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif',
         fontVariantNumeric: "lining-nums",
       }}
     >
-      <TopNotice />
       <SiteHeader />
 
-      <div className="mx-auto max-w-6xl px-4 pb-10 pt-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-4 pb-12 pt-[18px] sm:px-6 lg:px-8 lg:pt-7">
         <ProductBackButton
           productId={product.id}
           fallbackHref="/products"
-          className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
+          className="mb-[14px] inline-flex items-center gap-1.5 text-[12px] font-normal leading-[1.4] text-[var(--coffee-dark)] transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
         >
-          <ArrowLeftIcon className="h-4 w-4" />
+          <ArrowLeftIcon className="h-3.5 w-3.5" />
           {backLabel}
         </ProductBackButton>
 
-        <section className="grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
-          <div className="overflow-hidden rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,1.16fr)_minmax(360px,0.84fr)] lg:items-start lg:gap-12">
+          <div className="lg:sticky lg:top-[88px] lg:self-start">
             <ProductGallery
               productId={product.id}
               name={title}
@@ -315,116 +316,90 @@ export default async function ProductDetailPage({
             />
           </div>
 
-          <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <div className="mb-4 flex flex-wrap gap-2">
-              {displayBadges(product).map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
+          <div>
+            {statusSummary ? (
+              <p className="text-[10px] font-normal leading-[1.4] text-[var(--brass)]">
+                {statusSummary}
+              </p>
+            ) : null}
 
-            <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
+            <p className="mt-4 text-[10px] font-normal uppercase tracking-[0.14em] text-[var(--brass)]">
               {product.brandName || "海外烟斗"}
             </p>
 
-            <h1 className="mt-2 break-words text-[24px] font-bold leading-[1.22] tracking-tight text-[#1F1A16] sm:text-4xl">
+            <h1 className="mt-2 break-words text-[21px] font-medium leading-[1.38] tracking-normal text-[var(--text-primary)] sm:text-[22px] lg:text-[30px]">
               {title}
             </h1>
 
             {subtitle ? (
-              <p className="mt-3 text-[15px] font-medium leading-7 text-[#746A5F]">
+              <p className="mt-3 line-clamp-2 text-[12px] font-normal leading-[1.6] text-[var(--text-secondary)] lg:text-[13px]">
                 {subtitle}
               </p>
             ) : null}
 
-            <p className="mt-4 text-[14px] leading-7 text-[#746A5F] sm:text-[15px]">
+            <p className="mt-4 text-[11.5px] font-normal leading-[1.7] text-[var(--text-secondary)] lg:text-[12px]">
               {detailSummary}
             </p>
-          </section>
-        </section>
 
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
-            价格与库存参考
-          </h2>
+            <section className="mt-6 border-y border-[var(--border)] py-5">
+              <div className="grid grid-cols-2 gap-x-6">
+                <InfoItem label="参考价格" value={formatSitePrice(product)} strong />
+                <InfoItem
+                  label="库存状态"
+                  value={inventoryLabel(product.inventoryStatus)}
+                  strong
+                />
+              </div>
+              <Link
+                href={`/request?product=${encodeURIComponent(product.id)}`}
+                className="mt-5 flex h-[46px] items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] px-5 text-[14px] font-medium text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+              >
+                <ChatIcon className="mr-2 h-4 w-4" />
+                咨询这只斗
+              </Link>
+              <p className="mt-3 text-left text-[11px] font-normal leading-[1.6] text-[var(--text-secondary)]">
+                人工为您确认库存、最终价格、国际运费与预计税费。
+              </p>
+            </section>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <InfoItem label="参考价格" value={formatSitePrice(product)} strong />
-            <InfoItem
-              label="库存状态"
-              value={inventoryLabel(product.inventoryStatus)}
-              strong
-            />
+            {specs.length > 0 ? (
+              <section className="mt-8 lg:hidden">
+                <SpecList specs={specs} />
+              </section>
+            ) : null}
+
+            {coreSpecs.length > 0 ? (
+              <section className="mt-8 hidden lg:block">
+                <SpecList specs={coreSpecs} compact />
+              </section>
+            ) : null}
           </div>
         </section>
 
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <Link
-            href={`/request?product=${encodeURIComponent(product.id)}`}
-            className="flex h-12 items-center justify-center rounded-full bg-[#063B32] px-5 text-[15px] font-semibold tracking-[0.06em] text-[#E7C48A] transition hover:bg-[#0A4A3E]"
-          >
-            <ChatIcon className="mr-2 h-5 w-5" />
-            咨询这只斗
-          </Link>
-          <p className="mt-3 text-center text-[12px] leading-5 text-[#746A5F]">
-            人工为您确认库存、最终价格、国际运费与预计税费。
-          </p>
-        </section>
-
         {specs.length > 0 ? (
-          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
-              产品参数
-            </h2>
-
-            <div className="grid gap-x-6 sm:grid-cols-2">
-              {specs.map((spec, index) => (
-                <div
-                  key={`${spec.label}-${index}`}
-                  className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] py-2.5 text-[13px]"
-                >
-                  <span className="text-[#746A5F]">{spec.label}</span>
-                  <span className="text-right font-semibold text-[#1F1A16]">
-                    {spec.value}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <section className="mt-8 hidden border-t border-[var(--border)] pt-5 lg:block">
+            <SpecList specs={specs} title="完整产品参数" desktop />
           </section>
         ) : null}
 
         {brand && brandSlug ? (
-          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-[20px] font-bold text-[#1F1A16]">
-                品牌信息
-              </h2>
-              {knownText(brand.country) ? (
-                <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]">
-                  {countryLabel(brand.country)}
-                </span>
-              ) : null}
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#1F1A16]">
-                {brand.name}
-              </span>
-            </div>
+          <section className="mt-8 border-y border-[var(--border)] py-6 lg:mt-10 lg:py-8">
+            <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
+              Brand Profile
+            </p>
+            <h2 className="mt-2 text-[17px] font-medium leading-[1.4] text-[var(--text-primary)]">
+              {brand.name}{brand.nameZh ? `｜${brand.nameZh}` : ""}
+            </h2>
 
             {brandSummary.zh || brandSummary.en ? (
-              <div className="mt-3 space-y-2">
+              <div className="mt-3 max-w-2xl space-y-2">
                 {brandSummary.zh ? (
-                  <p className="text-[13px] leading-7 text-[#746A5F]">
+                  <p className="text-[12px] font-normal leading-[1.75] text-[var(--text-secondary)]">
                     {brandSummary.zh}
                   </p>
                 ) : null}
                 {brandSummary.en ? (
-                  <p className="text-[12px] leading-6 text-[#9A8F84]">
+                  <p className="hidden text-[11px] font-normal leading-6 text-[var(--text-secondary)]/80 lg:block">
                     {brandSummary.en}
                   </p>
                 ) : null}
@@ -433,21 +408,22 @@ export default async function ProductDetailPage({
 
             <Link
               href={`/brands/${brandSlug}`}
-              className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"
+              className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-[var(--coffee)] underline decoration-[var(--brass)] underline-offset-4 transition-colors hover:text-[var(--brass)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
             >
               查看品牌介绍
+              <span aria-hidden="true">→</span>
             </Link>
           </section>
         ) : null}
 
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.26em] text-[#A97838]">
+        <section className="mt-8 pb-1 lg:mt-10">
+          <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
             Service Boundary
           </p>
-          <h2 className="text-[20px] font-bold text-[#1F1A16]">
+          <h2 className="mt-2 text-[16px] font-medium leading-[1.4] text-[var(--text-primary)]">
             服务边界说明
           </h2>
-          <p className="mt-3 text-[13px] leading-7 text-[#746A5F]">
+          <p className="mt-3 max-w-3xl text-[11.5px] font-normal leading-[1.8] text-[var(--text-secondary)] lg:text-[12px]">
             本页展示的是海外公开页面采集时的烟斗器具库存信息与参考价格，不提供站内支付。实际入手前需人工确认库存状态、最终价格、国际运费、预计税费与代购服务费用。已售商品可作为品牌、斗型和价格区间参考。
           </p>
         </section>
@@ -455,16 +431,6 @@ export default async function ProductDetailPage({
 
       <SiteFooter />
     </main>
-  );
-}
-
-function TopNotice() {
-  return (
-    <div className="bg-[#063B32] px-4 py-2 text-center text-[12px] tracking-[0.12em] text-[#E7C48A] sm:text-[13px]">
-      <span className="mx-2 text-[#B8863B]">•</span>
-      精选海外烟斗库存 · 人工选品咨询
-      <span className="mx-2 text-[#B8863B]">•</span>
-    </div>
   );
 }
 
@@ -484,12 +450,57 @@ function InfoItem({
         className={[
           "mt-1 leading-tight",
           strong
-            ? "text-[16px] font-bold text-[#1F1A16]"
-            : "text-[14px] font-semibold text-[#1F1A16]",
+            ? "text-[18px] font-medium text-[var(--text-primary)]"
+            : "text-[14px] font-medium text-[var(--text-primary)]",
         ].join(" ")}
       >
         {value}
       </p>
+    </div>
+  );
+}
+
+function SpecList({
+  specs,
+  title = "产品参数",
+  compact = false,
+  desktop = false,
+}: {
+  specs: SpecRow[];
+  title?: string;
+  compact?: boolean;
+  desktop?: boolean;
+}) {
+  return (
+    <div>
+      <h2 className="text-[18px] font-medium leading-[1.4] text-[var(--text-primary)] lg:text-[20px]">
+        {title}
+      </h2>
+      <div
+        className={[
+          "mt-4",
+          desktop ? "grid gap-x-12 md:grid-cols-2" : "",
+        ].join(" ")}
+      >
+        {specs.map((spec, index) => (
+          <div
+            key={`${spec.label}-${index}`}
+            className="flex min-h-[44px] items-center justify-between gap-5 border-b border-[var(--border)] py-[10px]"
+          >
+            <span className="text-[11.5px] font-normal text-[var(--text-secondary)]">
+              {spec.label}
+            </span>
+            <span className="text-right text-[12px] font-medium text-[var(--text-primary)]">
+              {spec.value}
+            </span>
+          </div>
+        ))}
+      </div>
+      {compact ? (
+        <p className="mt-3 text-[11px] font-normal leading-[1.6] text-[var(--text-secondary)]">
+          完整参数请继续向下查看。
+        </p>
+      ) : null}
     </div>
   );
 }

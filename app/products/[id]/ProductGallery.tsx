@@ -237,8 +237,8 @@ export default function ProductGallery(props: ProductGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <section id="gallery" className="bg-[#FFFDF8] p-3 sm:p-4">
-        <div className="flex aspect-[1.16/1] items-center justify-center rounded-[22px] border border-[#E5D7C5] bg-white text-[12px] font-medium tracking-[0.3em] text-[#9A6530]">
+      <section id="gallery" className="bg-white">
+        <div className="flex h-[320px] items-center justify-center rounded-[6px] border border-[#eee7df] bg-white text-[10px] font-normal tracking-[0.16em] text-[var(--brass)] sm:h-[380px] lg:h-[520px]">
           PIPE IMAGE
         </div>
       </section>
@@ -261,10 +261,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
 
   return (
     <>
-      <section id="gallery" className="bg-[#FFFDF8] p-3 sm:p-4">
-        <div className="relative overflow-hidden rounded-[24px] border border-[#E5D7C5] bg-white">
+      <section id="gallery" className="bg-white">
+        <div className="relative overflow-hidden rounded-[6px] border border-[#eee7df] bg-white">
           <div
-            className="relative aspect-[1.16/1] bg-white p-3 sm:aspect-[4/3] sm:p-4"
+            className="relative h-[320px] bg-white px-3 py-4 sm:h-[380px] sm:p-5 lg:h-[520px] lg:p-6"
             onTouchStart={(event) => {
               touchStartXRef.current = event.touches[0]?.clientX ?? 0;
             }}
@@ -289,7 +289,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
               eager
             />
 
-            <span className="absolute left-3 top-3 rounded-full bg-white/88 px-3 py-1 text-[12px] font-semibold text-[#1F1A16] shadow-[0_5px_16px_rgba(31,26,22,0.08)]">
+            <span className="absolute left-3 top-3 rounded-[3px] bg-white/72 px-2 py-1 text-[10px] font-normal leading-none text-[var(--text-primary)]">
               {currentIndex + 1} / {images.length}
             </span>
 
@@ -297,9 +297,9 @@ export default function ProductGallery(props: ProductGalleryProps) {
               type="button"
               onClick={() => setIsZoomOpen(true)}
               aria-label="查看大图"
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/72 text-[#063B32] shadow-[0_4px_12px_rgba(31,26,22,0.08)] backdrop-blur-sm transition hover:bg-white/92"
+              className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-[4px] bg-white/72 text-[var(--coffee-dark)] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)] [font-family:inherit]"
             >
-              <ExpandIcon className="h-4 w-4" />
+              <ExpandIcon className="h-[19px] w-[19px]" />
             </button>
 
             {images.length > 1 ? (
@@ -308,7 +308,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
                   type="button"
                   onClick={goPrevious}
                   aria-label="上一张图片"
-                  className="absolute left-3 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/68 text-[#063B32]/80 shadow-[0_4px_12px_rgba(31,26,22,0.06)] backdrop-blur-sm transition hover:bg-white/88 hover:text-[#063B32] sm:flex"
+                  className="absolute left-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-[4px] bg-white/72 text-[var(--coffee-dark)] transition hover:bg-white sm:flex"
                 >
                   <ChevronLeftIcon className="h-4 w-4" />
                 </button>
@@ -317,7 +317,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
                   type="button"
                   onClick={goNext}
                   aria-label="下一张图片"
-                  className="absolute right-3 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/68 text-[#063B32]/80 shadow-[0_4px_12px_rgba(31,26,22,0.06)] backdrop-blur-sm transition hover:bg-white/88 hover:text-[#063B32] sm:flex"
+                  className="absolute right-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-[4px] bg-white/72 text-[var(--coffee-dark)] transition hover:bg-white sm:flex"
                 >
                   <ChevronRightIcon className="h-4 w-4" />
                 </button>
@@ -326,8 +326,8 @@ export default function ProductGallery(props: ProductGalleryProps) {
           </div>
 
           {images.length > 1 ? (
-            <div className="border-t border-[#F0E6D8] bg-[#FFFDF8] px-3 py-3">
-              <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="border-t border-[#eee7df] bg-white px-0 py-[10px] sm:py-3">
+              <div className="flex gap-2 overflow-x-auto px-0">
                 {images.map((image, index) => {
                   const isActive = index === currentIndex;
 
@@ -338,10 +338,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
                       onClick={() => setCurrentIndex(index)}
                       aria-label={`查看 ${name} 第 ${index + 1} 张图片`}
                       className={[
-                        "flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[14px] border bg-white p-1 transition sm:h-20 sm:w-20",
+                        "flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1 transition sm:h-[72px] sm:w-[72px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]",
                         isActive
-                          ? "border-[#A97838] shadow-[0_0_0_2px_rgba(169,120,56,0.16)]"
-                          : "border-[#E5D7C5]",
+                          ? "border-[var(--brass)]"
+                          : "border-[#eee7df]",
                       ].join(" ")}
                     >
                       <ResilientImage
@@ -359,10 +359,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
       </section>
 
       {isZoomOpen ? (
-        <div className="fixed inset-0 z-[80] bg-[#061D18]/88 px-4 py-6 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[80] bg-[#1b120d]/90 px-4 py-6">
           <div className="mx-auto flex h-full max-w-5xl flex-col">
             <div className="mb-3 flex items-center justify-between text-white">
-              <span className="rounded-full bg-white/12 px-3 py-1 text-[13px] font-semibold">
+              <span className="rounded-[3px] bg-white/12 px-2 py-1 text-[11px] font-normal">
                 {currentIndex + 1} / {images.length}
               </span>
 
@@ -370,13 +370,13 @@ export default function ProductGallery(props: ProductGalleryProps) {
                 type="button"
                 onClick={() => setIsZoomOpen(false)}
                 aria-label="关闭大图"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/12 text-white transition hover:bg-white/20"
+                className="flex h-10 w-10 items-center justify-center rounded-[4px] bg-white/12 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]"
               >
                 <CloseIcon className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="relative flex min-h-0 flex-1 items-center justify-center rounded-[22px] bg-white">
+            <div className="relative flex min-h-0 flex-1 items-center justify-center rounded-[6px] bg-white">
               <ResilientImage
                 key={`${currentImage}-zoom`}
                 src={currentImage}
@@ -391,7 +391,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
                     type="button"
                     onClick={goPrevious}
                     aria-label="上一张图片"
-                    className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/78 text-[#063B32] shadow-md backdrop-blur-sm"
+                    className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[4px] bg-white/78 text-[var(--coffee-dark)]"
                   >
                     <ChevronLeftIcon className="h-5 w-5" />
                   </button>
@@ -400,7 +400,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
                     type="button"
                     onClick={goNext}
                     aria-label="下一张图片"
-                    className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/78 text-[#063B32] shadow-md backdrop-blur-sm"
+                    className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[4px] bg-white/78 text-[var(--coffee-dark)]"
                   >
                     <ChevronRightIcon className="h-5 w-5" />
                   </button>
@@ -419,9 +419,9 @@ export default function ProductGallery(props: ProductGalleryProps) {
                       type="button"
                       onClick={() => setCurrentIndex(index)}
                       className={[
-                        "flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[12px] border bg-white p-1",
+                        "flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1",
                         isActive
-                          ? "border-[#E7C48A] shadow-[0_0_0_2px_rgba(231,196,138,0.22)]"
+                          ? "border-[var(--brass)]"
                           : "border-white/20 opacity-72",
                       ].join(" ")}
                     >
