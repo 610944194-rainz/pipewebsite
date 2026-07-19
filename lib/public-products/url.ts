@@ -10,8 +10,6 @@ export const PRODUCT_SORT_OPTIONS: Array<{
   { value: "priceDesc", label: "价格从高到低" },
   { value: "newest", label: "最新上架" },
   { value: "galleryFirst", label: "多图优先" },
-  { value: "brand", label: "品牌名称" },
-  { value: "name", label: "商品名称" },
 ];
 
 export function buildProductsHref(

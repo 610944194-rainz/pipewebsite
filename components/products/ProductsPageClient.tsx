@@ -490,7 +490,7 @@ export default function ProductsPageClient({
             <p className="text-[12px] font-normal text-[var(--text-secondary)]">
               共 <span className="text-[13px] font-medium text-[var(--brass)]">{result.filteredCount.toLocaleString()}</span> 件
             </p>
-            <p className="text-[12px] font-normal text-[var(--text-secondary)]">每页 {result.pageSize} 件</p>
+            <p className="hidden text-[12px] font-normal text-[var(--text-secondary)] sm:block">每页 {result.pageSize} 件</p>
           </div>
 
           {result.products.length > 0 ? (
