@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
+import { displayBrandCopy } from "@/lib/branding";
 import SiteHeader from "../../components/SiteHeader";
 import {
   domesticMakers,
@@ -170,7 +171,7 @@ export default async function DomesticMakerDetailPage({ params }: PageProps) {
                 {maker.displayName}
               </h1>
               <p className="mt-3 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
-                {maker.intro}
+                {displayBrandCopy(maker.intro)}
               </p>
 
               <div className="mt-4 flex flex-wrap gap-1.5">
@@ -195,10 +196,10 @@ export default async function DomesticMakerDetailPage({ params }: PageProps) {
                 介绍与合作说明
               </h2>
               <p className="mt-3 text-[14px] leading-7 text-[#75695F]">
-                {maker.longIntro}
+                {displayBrandCopy(maker.longIntro)}
               </p>
               <p className="mt-4 rounded-[18px] border border-[#E5D7C5] bg-[#FAF7F0] p-4 text-[13px] leading-6 text-[#75695F]">
-                {maker.contactNote}
+                {displayBrandCopy(maker.contactNote)}
               </p>
             </article>
 

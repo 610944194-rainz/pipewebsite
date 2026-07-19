@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 import { parseBrandSummary } from "../utils/display";
 import { isNameOnlyBrand } from "@/data/brands";
 import {
@@ -328,8 +329,8 @@ export default async function BrandsPage({ searchParams }: PageProps) {
           )}
         </section>
 
-        <BrandPageInfoFooter />
       </section>
+      <SiteFooter />
     </main>
   );
 }
@@ -665,34 +666,6 @@ function TopNotice() {
       精选海外烟斗库存 · 人工选品咨询
       <span className="mx-2 text-[#B8863B]">·</span>
     </div>
-  );
-}
-
-function BrandPageInfoFooter() {
-  return (
-    <footer className="mt-8 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-      <div className="flex items-center gap-3">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#B8863B]/70 bg-[#FBF7EF]">
-          <img
-            src="/pics/yandoubuy-icon.png"
-            alt="烟斗派"
-            className="h-9 w-9 object-contain"
-          />
-        </span>
-        <div>
-          <p className="text-[18px] font-semibold text-[#1F1A16]">
-            烟斗派 YandouBuy
-          </p>
-          <p className="mt-1 text-[12px] uppercase tracking-[0.16em] text-[#A97838]">
-            Curated Pipes &amp; Sourcing
-          </p>
-        </div>
-      </div>
-
-      <p className="mt-4 text-[13px] leading-7 text-[#746A5F]">
-        品牌数量和关联库存来自公开商品索引；品牌介绍、中文名和延展资料沿用人工整理的品牌内容。
-      </p>
-    </footer>
   );
 }
 

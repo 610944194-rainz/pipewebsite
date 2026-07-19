@@ -58,8 +58,8 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 border-b border-[rgba(222,212,200,0.66)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
-        <div className="relative mx-auto grid h-[61px] max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
+      <header className={`sticky top-0 z-40 border-b border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
+        <div className="relative mx-auto grid h-14 max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
           <button
             ref={menuButtonRef}
             type="button"
@@ -69,14 +69,14 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             onClick={() => setOpenPath(pathname)}
             className="inline-flex h-11 w-11 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] lg:hidden motion-reduce:transition-none"
           >
-            <MenuIcon className="h-[22px] w-[22px]" />
+            <MenuIcon className="h-[21px] w-[21px]" />
           </button>
 
           <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="absolute left-[50vw] flex min-w-0 -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0 lg:justify-start">
             <img
               src="/pics/yandoubuy-logo-header.png"
               alt="烟斗派 YandouBuy"
-              className="block h-auto w-[164px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
+              className="block h-auto w-[150px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
             />
           </Link>
 
@@ -108,9 +108,9 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
         <div id="site-mobile-menu" className="fixed inset-0 z-50 lg:hidden">
           <button type="button" aria-label="关闭菜单" onClick={closeMenu} className="absolute inset-0 bg-[rgba(36,22,15,0.42)] backdrop-blur-[1px]" />
           <aside role="dialog" aria-modal="true" aria-label="网站导航" className="relative flex h-full w-[min(86vw,350px)] flex-col overflow-y-auto border-r border-[rgba(222,212,200,0.72)] bg-[var(--surface)] px-5 pb-6">
-            <div className="flex h-[86px] shrink-0 items-center justify-between border-b border-[rgba(222,212,200,0.72)]">
-              <img src="/pics/yandoubuy-logo-header.png" alt="烟斗派 YandouBuy" className="h-auto w-[170px] max-w-[76%] object-contain object-left mix-blend-multiply" />
-              <button ref={closeButtonRef} type="button" aria-label="关闭菜单" onClick={closeMenu} className="inline-flex h-8 w-8 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+            <div className="flex h-[76px] shrink-0 items-center justify-between border-b border-[rgba(222,212,200,0.58)]">
+              <img src="/pics/yandoubuy-logo-header.png" alt="烟斗派 YandouBuy" className="h-auto w-[158px] max-w-[76%] object-contain object-left mix-blend-multiply" />
+              <button ref={closeButtonRef} type="button" aria-label="关闭菜单" onClick={closeMenu} className="inline-flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
                 <CloseIcon className="h-5 w-5" />
               </button>
             </div>

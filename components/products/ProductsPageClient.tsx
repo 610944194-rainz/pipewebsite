@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "@/app/components/SiteHeader";
+import SiteFooter from "@/app/components/SiteFooter";
 import {
   buildProductsHref,
   PRODUCT_SORT_OPTIONS,
@@ -501,8 +502,9 @@ export default function ProductsPageClient({
           )}
         </section>
 
-        <ProductPageInfoFooter />
       </section>
+
+      <SiteFooter />
 
       {activeSheet ? (
         <FilterSheet
@@ -845,25 +847,6 @@ function PageTitleCard() {
         </div>
       </div>
     </header>
-  );
-}
-
-function ProductPageInfoFooter() {
-  return (
-    <footer className="mt-8 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-      <div className="flex items-center gap-3">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#B8863B]/70 bg-[#FBF7EF]">
-          <img src="/pics/yandoubuy-icon.png" alt="烟斗派" className="h-9 w-9 object-contain" />
-        </span>
-        <div>
-          <p className="text-[18px] font-semibold text-[#1F1A16]">烟斗派 YandouBuy</p>
-          <p className="mt-1 text-[12px] uppercase tracking-[0.16em] text-[#A97838]">Curated Pipes &amp; Sourcing</p>
-        </div>
-      </div>
-      <p className="mt-4 text-[13px] leading-7 text-[#746A5F]">
-        本站仅展示海外公开烟斗器具库存信息与人工选品咨询，不提供站内支付。价格、状态、运费、关税及最终入手成本以人工确认为准。
-      </p>
-    </footer>
   );
 }
 

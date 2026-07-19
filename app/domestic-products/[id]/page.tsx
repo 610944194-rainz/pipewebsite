@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
+import { displayBrandCopy } from "@/lib/branding";
 import SiteHeader from "../../components/SiteHeader";
 import {
   domesticProducts,
@@ -231,11 +232,11 @@ export default async function DomesticProductDetailPage({ params }: PageProps) {
               </p>
               <h2 className="text-[22px] font-bold text-[#2B211C]">作品说明</h2>
               <p className="mt-3 text-[14px] leading-7 text-[#75695F]">
-                {product.detail}
+                {displayBrandCopy(product.detail)}
               </p>
 
               <div className="mt-5 rounded-[18px] border border-[#E5D7C5] bg-[#FAF7F0] p-4 text-[13px] leading-6 text-[#75695F]">
-                国内斗师 / 工作室作品的库存、价格、交付周期、售后方式由合作方最终确认。PipeSearch 当前提供展示、资料整理与咨询线索承接，不接入在线支付，不自动成交。
+                国内斗师 / 工作室作品的库存、价格、交付周期、售后方式由合作方最终确认。烟斗派当前提供展示、资料整理与咨询线索承接，不接入在线支付，不自动成交。
               </div>
             </article>
           </section>

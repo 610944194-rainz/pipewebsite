@@ -37,7 +37,7 @@ const displayFormats = [
 ];
 
 const boundaries = [
-  "PipeSearch 只展示烟斗器具相关公开库存与合作资料。",
+  "烟斗派只展示烟斗器具相关公开库存与合作资料。",
   "不展示烟草制品、电子烟、烟油或尼古丁产品。",
   "不接入在线支付，不自动成交。",
   "购买前需人工确认库存、最终价格、国际运费、预计税费和服务费用。",
@@ -129,7 +129,7 @@ export default function CooperatePage() {
               </h1>
 
               <p className="mt-4 max-w-2xl text-[15px] leading-7 text-[#75695F] sm:text-[16px]">
-                PipeSearch 正在整理海外公开库存、品牌资料与国内斗师 / 工作室作品展示，帮助玩家更高效地浏览、比较与发起咨询。
+                烟斗派正在整理海外公开库存、品牌资料与国内斗师 / 工作室作品展示，帮助玩家更高效地浏览、比较与发起咨询。
               </p>
 
               <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap">
@@ -176,7 +176,7 @@ export default function CooperatePage() {
             <SectionHeader
               eyebrow="WHAT WE OFFER"
               title="平台能提供什么"
-              desc="PipeSearch 更像一个可持续更新的信息展台，先把作品、库存和资料展示清楚，再承接人工咨询。"
+              desc="烟斗派更像一个可持续更新的信息展台，先把作品、库存和资料展示清楚，再承接人工咨询。"
             />
             <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
               {platformOffers.map((item) => (
@@ -227,7 +227,7 @@ export default function CooperatePage() {
             <SectionHeader
               eyebrow="BOUNDARY"
               title="合作边界"
-              desc="边界清楚，合作才稳定。PipeSearch 当前只做信息展示、资料整理和人工咨询入口。"
+              desc="边界清楚，合作才稳定。烟斗派当前只做信息展示、资料整理和人工咨询入口。"
             />
             <div className="grid gap-3 md:grid-cols-2">
               {boundaries.map((item) => (
@@ -293,7 +293,7 @@ export default function CooperatePage() {
               <SectionHeader
                 eyebrow="CONTACT"
                 title="欢迎在展会或线上联系"
-                desc="如果你是斗商、斗师、工作室或有稳定回流渠道，欢迎与 PipeSearch 沟通入驻展示方式。"
+                desc="如果你是斗商、斗师、工作室或有稳定回流渠道，欢迎与烟斗派沟通入驻展示方式。"
               />
               <div className="grid gap-3">
                 <div className="rounded-[18px] border border-[#E5D7C5] bg-[#FAF7F0] p-4">

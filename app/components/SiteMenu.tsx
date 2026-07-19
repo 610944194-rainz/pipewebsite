@@ -10,7 +10,7 @@ const menuGroups = [
       {
         href: "/",
         label: "首页",
-        desc: "回到 PipeSearch 平台首页",
+        desc: "回到烟斗派平台首页",
       },
       {
         href: "/products",
@@ -110,7 +110,7 @@ export default function SiteMenu() {
             <div className="flex items-start justify-between gap-4 border-b border-[#E5D7C5] bg-[#FFFDF8] p-5">
               <div>
                 <p className="text-[22px] font-black leading-none tracking-tight text-[#2B211C]">
-                  PipeSearch
+                  烟斗派 YandouBuy
                 </p>
                 <p className="mt-1 text-[12px] font-semibold tracking-[0.18em] text-[#9A6530]">
                   烟斗器具信息平台

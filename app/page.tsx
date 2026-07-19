@@ -90,11 +90,6 @@ function updatedTimestamp(value: string) {
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
-function formatUpdatedAt(value: string) {
-  const match = value.trim().match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
-  return match ? `${match[2]}-${match[3]} ${match[4]}:${match[5]}` : value.trim();
-}
-
 function displayableProductImage(product: PipeProduct) {
   const candidates = [product.imageUrl, ...(product.galleryImages || [])];
 
@@ -121,7 +116,6 @@ function todayProduct(product: PipeProduct, image: string): HomeRailProduct {
     name: product.nameZh || product.name,
     price: getRmbReferencePrice(product),
     status: product.status,
-    updatedAt: formatUpdatedAt(product.updatedAt),
   };
 }
 

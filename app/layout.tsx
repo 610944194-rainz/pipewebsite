@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PipeSearch｜烟斗器具库存、品牌资料与合作展示平台",
+  title: "烟斗派 YandouBuy｜烟斗器具库存、品牌资料与人工选品",
   description:
     "整理烟斗器具公开库存、品牌资料与合作展示信息，提供图片、价格、参数与人工确认咨询参考。",
 };
