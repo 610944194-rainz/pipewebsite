@@ -33,6 +33,22 @@ export function buildProductsHref(
   if (nextState.stemMaterial) params.set("stemMaterial", nextState.stemMaterial);
   if (nextState.filter) params.set("filter", nextState.filter);
 
+  if (
+    typeof nextState.minPrice === "number" &&
+    Number.isFinite(nextState.minPrice) &&
+    nextState.minPrice >= 0
+  ) {
+    params.set("minPrice", String(nextState.minPrice));
+  }
+
+  if (
+    typeof nextState.maxPrice === "number" &&
+    Number.isFinite(nextState.maxPrice) &&
+    nextState.maxPrice >= 0
+  ) {
+    params.set("maxPrice", String(nextState.maxPrice));
+  }
+
   if (nextState.galleryOnly) {
     params.set("status", "gallery");
   } else {

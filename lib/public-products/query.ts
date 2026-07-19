@@ -155,6 +155,14 @@ function parsePage(value: string | undefined) {
   return Number.isFinite(page) && page > 0 ? page : 1;
 }
 
+function parsePriceBound(value: string | undefined) {
+  const normalized = cleanParam(value);
+  if (!/^\d+$/.test(normalized)) return null;
+
+  const parsed = Number(normalized);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
 function parseSort(value: string | undefined): ProductSortMode {
   const aliases: Record<string, ProductSortMode> = {
     "price-asc": "priceAsc",
@@ -392,6 +400,12 @@ export function parseProductQueryState(
   const filters = getProductUiFilterOptions();
   const rawStatus = cleanParam(firstParam(searchParams.status));
   const rawInventory = cleanParam(firstParam(searchParams.inventory));
+  const parsedMinPrice = parsePriceBound(firstParam(searchParams.minPrice));
+  const parsedMaxPrice = parsePriceBound(firstParam(searchParams.maxPrice));
+  const hasInvalidPriceRange =
+    parsedMinPrice !== null &&
+    parsedMaxPrice !== null &&
+    parsedMinPrice > parsedMaxPrice;
   const galleryOnly = rawStatus === "gallery";
 
   return {
@@ -436,6 +450,8 @@ export function parseProductQueryState(
       cleanParam(firstParam(searchParams.filter)),
       makeAllowedSet(filters.filter)
     ),
+    minPrice: hasInvalidPriceRange ? null : parsedMinPrice,
+    maxPrice: hasInvalidPriceRange ? null : parsedMaxPrice,
     inventory: galleryOnly
       ? "all"
       : parseInventoryQuery(rawInventory || rawStatus),
@@ -515,6 +531,16 @@ function productMatchesState(
     return false;
   }
   if (state.filter && product.filter !== state.filter) return false;
+  if (state.minPrice !== null || state.maxPrice !== null) {
+    if (!validPublicReferencePrice(product)) return false;
+    const price = product.siteDisplayAmount as number;
+    if (state.minPrice !== null && price < state.minPrice) {
+      return false;
+    }
+    if (state.maxPrice !== null && price > state.maxPrice) {
+      return false;
+    }
+  }
   if (state.inventory !== "all" && product.inventoryStatus !== state.inventory) {
     return false;
   }

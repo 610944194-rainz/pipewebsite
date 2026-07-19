@@ -32,25 +32,16 @@ type IconProps = {
   className?: string;
 };
 
-function inventoryClass(status: PublicCatalogProduct["inventoryStatus"]) {
-  return status === "sold"
-    ? "bg-[#C47712] text-white"
-    : "bg-[#063B32] text-white";
-}
-
 function InventoryProductImageOverlays({ product }: { product: PublicCatalogProduct }) {
   return (
     <>
-      <span
-        className={[
-          "absolute left-2 top-2 rounded-[3px] px-1.5 py-1 text-[9px] font-medium leading-none",
-          inventoryClass(product.inventoryStatus),
-        ].join(" ")}
-      >
-        {inventoryLabel(product.inventoryStatus)}
-      </span>
-      {product.galleryCount > 1 ? (
-        <span className="absolute bottom-2 right-2 rounded-[4px] border border-[#e4d9cc] bg-white/88 px-1.5 py-0.5 text-[10px] font-normal leading-[1.3] text-[#74665c]">
+      {product.inventoryStatus === "sold" ? (
+        <span className="absolute left-2 top-2 text-[9px] font-normal leading-none text-[#81746A]">
+          {inventoryLabel(product.inventoryStatus)}
+        </span>
+      ) : null}
+      {product.galleryCount >= 3 ? (
+        <span className="absolute bottom-2 right-2 rounded-[3px] border border-[rgba(225,215,203,0.8)] bg-white/86 px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[#74665c]">
           {product.galleryCount} 图
         </span>
       ) : null}
@@ -72,51 +63,47 @@ function InventoryProductCard({
   return (
     <article
       id={productAnchorId(product.id)}
-      className="h-full scroll-mt-4 overflow-hidden rounded-[5px] border border-[#e8dfd4] bg-white"
+      className="scroll-mt-4"
     >
       <Link
         href={productHref(product, returnTo)}
         onNavigate={() => saveReturnPosition(product.id, returnTo)}
         aria-label={`查看 ${name} 详情`}
-        className="group block h-full bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[var(--brass)]"
+        className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]"
       >
-        <div className="flex h-full flex-col">
+        <div>
           <ProductCardImage
             imageUrl={product.mainImage}
             alt={name}
             brandName={product.brandName}
             loading={imageLoading || (imagePriority ? "eager" : "lazy")}
             fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
-            className="h-[148px] bg-white sm:h-[164px]"
+            className="h-[148px] rounded-[4px] border border-[#ebe3d9] bg-white sm:h-[158px]"
             imageClassName="p-3 sm:p-4"
           >
             <InventoryProductImageOverlays product={product} />
           </ProductCardImage>
 
-          <div className="flex flex-1 flex-col bg-white p-2.5">
+          <div className="px-0.5 pt-2.5">
             <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[var(--brass)]">
               {product.brandName || sourceLabel(product.source)}
             </p>
-            <h3 className="mt-1 line-clamp-2 min-h-[37px] text-[13px] font-medium leading-[1.42] text-[var(--text-primary)]">
+            <h3 className="mt-1.5 line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-primary)] sm:text-[12.5px]">
               {name}
             </h3>
             {subtitle ? (
-              <p className="mt-1 line-clamp-1 min-h-[16px] text-[10.5px] font-normal leading-[1.45] text-[var(--text-secondary)]">
+              <p className="mt-1 hidden line-clamp-1 text-[10px] font-normal leading-[1.4] text-[var(--text-secondary)] sm:block sm:text-[10.5px]">
                 {subtitle}
               </p>
-            ) : (
-              <span className="mt-1 block min-h-[16px]" aria-hidden="true" />
-            )}
-            <p className="mt-2 text-[13px] font-medium leading-[1.4] text-[var(--text-primary)]">
+            ) : null}
+            <p className="mt-2.5 text-[12px] font-medium leading-[1.4] text-[var(--text-primary)] sm:text-[12.5px]">
               {formatSitePrice(product)}
             </p>
             {tags.length > 0 ? (
-              <p className="mt-2 line-clamp-1 text-[10px] font-normal leading-[1.4] text-[var(--text-secondary)]">
+              <p className="mt-2.5 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[#81746A] sm:text-[10px]">
                 {tags.join(" · ")}
               </p>
-            ) : (
-              <span className="mt-2 block min-h-[14px]" aria-hidden="true" />
-            )}
+            ) : null}
           </div>
         </div>
       </Link>
@@ -145,6 +132,12 @@ function metaTags(product: PublicCatalogProduct) {
     .map((value) => String(value || "").trim())
     .filter((value) => value && value.toLowerCase() !== "unknown")
     .slice(0, 3);
+}
+
+function inventoryClass(status: PublicCatalogProduct["inventoryStatus"]) {
+  return status === "sold"
+    ? "bg-[#C47712] text-white"
+    : "bg-[#063B32] text-white";
 }
 
 function saveReturnPosition(
