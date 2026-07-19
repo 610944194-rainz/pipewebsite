@@ -25,6 +25,7 @@ type ProductBackButtonProps = {
   productId: string;
   fallbackHref?: string;
   className?: string;
+  ariaLabel?: string;
   children?: ReactNode;
 };
 
@@ -148,6 +149,7 @@ export function ProductBackButton({
   productId,
   fallbackHref = "/products",
   className = "",
+  ariaLabel,
   children,
 }: ProductBackButtonProps) {
   const router = useRouter();
@@ -195,7 +197,12 @@ export function ProductBackButton({
   }
 
   return (
-    <button type="button" onClick={handleBack} className={className}>
+    <button
+      type="button"
+      onClick={handleBack}
+      className={className}
+      aria-label={ariaLabel}
+    >
       {children}
     </button>
   );
@@ -238,7 +245,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
   if (images.length === 0) {
     return (
       <section id="gallery" className="bg-white">
-        <div className="flex h-[320px] items-center justify-center rounded-[6px] border border-[#eee7df] bg-white text-[10px] font-normal tracking-[0.16em] text-[var(--brass)] sm:h-[380px] lg:h-[520px]">
+        <div className="flex h-[clamp(300px,78vw,315px)] items-center justify-center rounded-[6px] border border-[#eee7df] bg-white text-[10px] font-normal tracking-[0.16em] text-[var(--brass)] sm:h-[380px] lg:h-[480px]">
           PIPE IMAGE
         </div>
       </section>
@@ -264,7 +271,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
       <section id="gallery" className="bg-white">
         <div className="relative overflow-hidden rounded-[6px] border border-[#eee7df] bg-white">
           <div
-            className="relative h-[320px] bg-white px-3 py-4 sm:h-[380px] sm:p-5 lg:h-[520px] lg:p-6"
+            className="relative h-[clamp(300px,78vw,315px)] bg-white px-3 py-4 sm:h-[380px] sm:p-5 lg:h-[480px] lg:p-6"
             onTouchStart={(event) => {
               touchStartXRef.current = event.touches[0]?.clientX ?? 0;
             }}
@@ -338,7 +345,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
                       onClick={() => setCurrentIndex(index)}
                       aria-label={`查看 ${name} 第 ${index + 1} 张图片`}
                       className={[
-                        "flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1 transition sm:h-[72px] sm:w-[72px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]",
+                        "flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1 transition sm:h-[72px] sm:w-[72px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]",
                         isActive
                           ? "border-[var(--brass)]"
                           : "border-[#eee7df]",
