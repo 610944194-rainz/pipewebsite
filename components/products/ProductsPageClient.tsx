@@ -84,6 +84,8 @@ const SECONDARY_FILTERS: Array<{ kind: FilterKind; label: string }> = [
   { kind: "filter", label: "滤芯" },
 ];
 
+const ALL_FILTERS = [...PRIMARY_FILTERS, ...SECONDARY_FILTERS];
+
 const PAGE_SCROLL_KEY = "yandoubuy:products-page-scroll";
 
 function optionPrimaryText(kind: FilterKind, option: PublicFilterOption) {
@@ -183,6 +185,25 @@ function hasActiveFilter(state: ProductQueryState) {
       state.galleryOnly ||
       state.sort !== "default"
   );
+}
+
+function activeFilterCount(state: ProductQueryState) {
+  return [
+    state.q,
+    state.source,
+    state.brand,
+    state.country,
+    state.shape,
+    state.condition,
+    state.weight,
+    state.finish,
+    state.bowlMaterial,
+    state.stemMaterial,
+    state.filter,
+    state.inventory !== "all" ? "inventory" : "",
+    state.galleryOnly ? "gallery" : "",
+    state.sort !== "default" ? "sort" : "",
+  ].filter(Boolean).length;
 }
 
 export default function ProductsPageClient({
@@ -343,153 +364,82 @@ export default function ProductsPageClient({
     activeSheet === "country" ||
     activeSheet === "shape" ||
     sheetOptions.length > 18;
-  const secondaryActive = SECONDARY_FILTERS.some(({ kind }) =>
-    Boolean(currentValue(kind))
-  );
-
   return (
     <main
-      className="min-h-screen bg-[#FBF7EF] text-[#1F1A16]"
+      className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]"
       style={{
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif',
+          '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif',
         fontVariantNumeric: "lining-nums",
       }}
     >
-      <TopNotice />
       <SiteHeader />
 
-      <section className="mx-auto max-w-7xl px-4 pb-10 pt-5 sm:px-6 lg:px-10">
-        <PageTitleCard />
+      <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-7 sm:px-6 lg:px-10 lg:pt-10">
+        <PageTitle />
 
-        <section className="mt-5 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)] sm:p-5">
-          <div className="grid gap-4 lg:grid-cols-[160px_1fr] lg:items-center">
-            <div className="rounded-2xl border border-[#E7DDD0] bg-[#FBF7EF] p-4">
-              <p className="text-[12px] text-[#746A5F]">
-                {active ? "符合条件" : "总商品数"}
-              </p>
-              <p
-                className="mt-1 text-[34px] font-semibold leading-none text-[#A97838]"
-                style={{ fontFamily: '"Georgia", "Times New Roman", serif' }}
-              >
-                {active ? result.filteredCount : result.totalCount}
-              </p>
-            </div>
+        <section className="mt-6">
+          <form onSubmit={handleSearchSubmit} className="relative flex h-12 items-center rounded-[6px] border border-[#e4d9cc] bg-white">
+            <SearchIcon className="ml-4 h-[18px] w-[18px] shrink-0 text-[var(--text-secondary)]" />
+            <input
+              type="search"
+              enterKeyHint="search"
+              value={inputSearchText}
+              onChange={(event) => setInputSearchText(event.target.value)}
+              placeholder="搜索品牌、斗型、型号或名称"
+              className="min-w-0 flex-1 bg-transparent px-3 pr-14 text-[13px] font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--text-secondary)]"
+            />
+            <button type="submit" className="absolute right-0 h-full px-4 text-[12px] font-normal text-[var(--coffee)] transition-colors hover:text-[var(--coffee-dark)]">
+              搜索
+            </button>
+          </form>
 
-            <form onSubmit={handleSearchSubmit} className="flex gap-2">
-              <div className="flex h-12 min-w-0 flex-1 items-center gap-3 rounded-full border border-[#D8CFC2] bg-white px-4 text-[#746A5F]">
-                <SearchIcon className="h-5 w-5 shrink-0 text-[#8A8176]" />
-                <input
-                  type="search"
-                  enterKeyHint="search"
-                  value={inputSearchText}
-                  onChange={(event) => setInputSearchText(event.target.value)}
-                  placeholder="搜索品牌、斗型、名称、编号..."
-                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#1F1A16] outline-none placeholder:text-[#8A8176]"
-                />
-              </div>
+          <div className="-mx-4 mt-4 flex h-10 gap-6 overflow-x-auto border-y border-[rgba(222,212,200,0.72)] px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {STATUS_ITEMS.map((item) => (
               <button
-                type="submit"
-                className="h-12 shrink-0 rounded-full bg-[#063B32] px-5 text-[14px] font-semibold text-[#E7C48A] shadow-sm transition hover:bg-[#0A4A3E]"
-              >
-                搜索
-              </button>
-            </form>
-          </div>
-
-          <div className="mt-4">
-            <div className="-mx-2 flex gap-2 overflow-x-auto px-2 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {STATUS_ITEMS.map((item) => (
-                <button
-                  key={item.value}
-                  type="button"
-                  onClick={() => setStatus(item.value)}
-                  className={[
-                    "shrink-0 rounded-full border px-4 py-2 text-[13px] font-semibold transition",
-                    currentStatus === item.value
-                      ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                      : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="-mx-2 mt-3 flex gap-2 overflow-x-auto px-2 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {PRIMARY_FILTERS.map((item) => {
-                const label = selectedLabel(item.kind);
-                const isActive = Boolean(currentValue(item.kind));
-
-                return (
-                  <button
-                    key={item.kind}
-                    type="button"
-                    onClick={() => openSheet(item.kind)}
-                    className={[
-                      "flex h-9 shrink-0 items-center gap-1 rounded-full border px-4 text-[13px] font-semibold transition",
-                      isActive
-                        ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                        : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
-                    ].join(" ")}
-                  >
-                    {label ? `${item.label} · ${label}` : item.label}
-                    <ChevronDownIcon className="h-3.5 w-3.5" />
-                  </button>
-                );
-              })}
-
-              <button
+                key={item.value}
                 type="button"
-                onClick={() => openSheet("more")}
+                onClick={() => setStatus(item.value)}
                 className={[
-                  "flex h-9 shrink-0 items-center gap-1 rounded-full border px-4 text-[13px] font-semibold transition",
-                  secondaryActive
-                    ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                    : "border-[#E7DDD0] bg-white text-[#746A5F] hover:border-[#A97838] hover:text-[#8A5D26]",
+                  "relative h-full shrink-0 text-[13px] font-normal transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--brass)] after:transition-transform",
+                  currentStatus === item.value
+                    ? "font-medium text-[var(--text-primary)] after:scale-x-100"
+                    : "text-[var(--text-secondary)] after:scale-x-0 hover:text-[var(--coffee)]",
                 ].join(" ")}
               >
-                更多筛选
-                <ChevronDownIcon className="h-3.5 w-3.5" />
+                {item.label}
               </button>
-            </div>
+            ))}
+          </div>
 
-            <div className="mt-3 flex min-h-10 items-center justify-between gap-2">
+          <div className="flex h-[42px] items-center justify-between border-b border-[rgba(222,212,200,0.72)]">
+            <button type="button" onClick={() => openSheet("more")} className="inline-flex items-center gap-1 text-[13px] font-normal text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)]">
+              {active ? `筛选 ${activeFilterCount(result.state)}` : "筛选"}
+              <ChevronDownIcon className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
+            </button>
+            <div className="flex items-center gap-4">
               {active ? (
-                <button
-                  type="button"
-                  onClick={clearFilters}
-                  className="text-[13px] font-medium text-[#8A5D26] hover:text-[#063B32]"
-                >
-                  清空筛选
-                </button>
-              ) : (
-                <span />
-              )}
-
-              <button
-                type="button"
-                onClick={() => openSheet("sort")}
-                className="flex h-10 items-center gap-1 rounded-full border border-[#E7DDD0] bg-white px-4 text-[13px] font-semibold text-[#1F1A16] transition hover:border-[#A97838] hover:text-[#8A5D26]"
-              >
+                <button type="button" onClick={clearFilters} className="text-[11px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)]">清空</button>
+              ) : null}
+              <button type="button" onClick={() => openSheet("sort")} className="inline-flex items-center gap-1 text-[13px] font-normal text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)]">
                 排序 · {selectedLabel("sort") || "推荐"}
-                <ChevronDownIcon className="h-4 w-4 text-[#8A8176]" />
+                <ChevronDownIcon className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
               </button>
             </div>
           </div>
         </section>
 
-        <section ref={productListRef} id="product-list" className="mt-6 scroll-mt-4">
+        <section ref={productListRef} id="product-list" className="mt-5 scroll-mt-4">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <p className="text-[13px] text-[#746A5F]">
-              共 <span className="font-semibold text-[#A97838]">{result.filteredCount}</span> 件商品
+            <p className="text-[12px] font-normal text-[var(--text-secondary)]">
+              共 <span className="text-[13px] font-medium text-[var(--brass)]">{result.filteredCount.toLocaleString()}</span> 件
             </p>
-            <p className="text-[12px] text-[#746A5F]">每页 {result.pageSize} 件</p>
+            <p className="text-[12px] font-normal text-[var(--text-secondary)]">每页 {result.pageSize} 件</p>
           </div>
 
           {result.products.length > 0 ? (
             <>
-              <ProductGrid products={result.products} returnTo={returnTo} />
+              <ProductGrid products={result.products} returnTo={returnTo} variant="inventory" />
               <Pagination
                 currentPage={result.currentPage}
                 totalPages={result.totalPages}
@@ -519,6 +469,7 @@ export default function ProductsPageClient({
           openSheet={openSheet}
           closeSheet={closeSheet}
           clearSheet={clearSheet}
+          clearFilters={clearFilters}
           applySheet={applySheet}
         />
       ) : null}
@@ -538,6 +489,7 @@ function FilterSheet({
   openSheet,
   closeSheet,
   clearSheet,
+  clearFilters,
   applySheet,
 }: {
   activeSheet: SheetKind;
@@ -551,6 +503,7 @@ function FilterSheet({
   openSheet: (kind: SheetKind) => void;
   closeSheet: () => void;
   clearSheet: () => void;
+  clearFilters: () => void;
   applySheet: () => void;
 }) {
   const title = activeSheet === "more" ? "更多筛选" : `选择${FILTER_LABELS[activeSheet]}`;
@@ -569,16 +522,16 @@ function FilterSheet({
         onClick={closeSheet}
       />
 
-      <div className="relative z-10 flex max-h-[82vh] w-full max-w-xl flex-col overflow-hidden rounded-[28px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_22px_60px_rgba(31,26,22,0.18)]">
-        <div className="flex items-center justify-between gap-3 border-b border-[#EFE3D4] px-5 py-4">
+      <div className="relative z-10 flex max-h-[82vh] w-full max-w-xl flex-col overflow-hidden rounded-t-[10px] border border-[#E7DDD0] bg-[var(--surface)] shadow-[0_22px_60px_rgba(31,26,22,0.18)] sm:rounded-[10px]">
+        <div className="flex items-center justify-between gap-3 border-b border-[rgba(222,212,200,0.72)] px-5 py-4">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[#A97838]">Filter</p>
-            <h3 className="mt-1 text-[18px] font-bold text-[#1F1A16]">{title}</h3>
+            <p className="text-[10px] font-normal uppercase tracking-[0.18em] text-[var(--brass)]">Filter</p>
+            <h3 className="mt-1 text-[17px] font-medium text-[var(--text-primary)]">{title}</h3>
           </div>
           <button
             type="button"
             onClick={closeSheet}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E7DDD0] bg-white text-[18px] font-semibold text-[#746A5F]"
+            className="flex h-10 w-10 items-center justify-center text-[18px] font-normal text-[var(--text-secondary)]"
             aria-label="关闭"
           >
             ×
@@ -586,27 +539,30 @@ function FilterSheet({
         </div>
 
         {activeSheet === "more" ? (
-          <div className="grid gap-3 overflow-y-auto px-5 py-5 sm:grid-cols-2">
-            {SECONDARY_FILTERS.map((item) => {
+          <div className="overflow-y-auto px-5 py-3">
+            {ALL_FILTERS.map((item) => {
               const value = selectedLabel(item.kind);
               return (
                 <button
                   key={item.kind}
                   type="button"
                   onClick={() => openSheet(item.kind)}
-                  className="flex min-h-14 items-center justify-between gap-3 rounded-2xl border border-[#E7DDD0] bg-white px-4 py-3 text-left transition hover:border-[#A97838]"
+                  className="flex min-h-14 w-full items-center justify-between gap-3 border-b border-[rgba(222,212,200,0.58)] py-3 text-left transition-colors hover:text-[var(--coffee)]"
                 >
-                  <span className="text-[13px] font-semibold text-[#1F1A16]">{item.label}</span>
-                  <span className="line-clamp-1 text-[12px] text-[#8A5D26]">{value || "全部"}</span>
+                  <span className="text-[13px] font-normal text-[var(--text-primary)]">{item.label}</span>
+                  <span className="line-clamp-1 text-[12px] font-normal text-[var(--text-secondary)]">{value || "全部"}</span>
                 </button>
               );
             })}
+            <button type="button" onClick={clearFilters} className="mt-4 text-[12px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)]">
+              清空筛选
+            </button>
           </div>
         ) : (
           <>
             {sheetNeedsSearch ? (
               <div className="border-b border-[#EFE3D4] px-5 py-3">
-                <div className="flex h-10 items-center gap-2 rounded-full border border-[#E7DDD0] bg-white px-4">
+                <div className="flex h-10 items-center gap-2 rounded-[5px] border border-[#e4d9cc] bg-white px-3">
                   <SearchIcon className="h-4 w-4 text-[#8A8176]" />
                   <input
                     type="search"
@@ -624,8 +580,8 @@ function FilterSheet({
                 <div
                   className={
                     activeSheet !== "sort"
-                      ? "grid grid-cols-2 gap-2"
-                      : "flex flex-wrap gap-2"
+                            ? "grid grid-cols-2 gap-2"
+                            : "flex flex-wrap gap-2"
                   }
                 >
                   {filteredSheetOptions.map((option) => {
@@ -641,11 +597,11 @@ function FilterSheet({
                         onClick={() => setDraftValue(option.value)}
                         className={[
                           cardLayout
-                            ? "min-w-0 rounded-2xl border px-3 py-2.5 text-left transition"
-                            : "rounded-full border px-4 py-2 text-[13px] font-semibold transition",
+                            ? "min-w-0 rounded-[5px] border px-3 py-2.5 text-left transition"
+                            : "rounded-[5px] border px-3 py-2 text-[13px] font-normal transition",
                           selected
-                            ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                            : "border-[#E7DDD0] bg-white text-[#1F1A16] hover:border-[#A97838] hover:text-[#8A5D26]",
+                            ? "border-[var(--coffee-dark)] bg-[var(--coffee-dark)] text-[#f4eee7]"
+                            : "border-[#e4d9cc] bg-white text-[var(--text-primary)] hover:border-[var(--brass)] hover:text-[var(--coffee)]",
                         ].join(" ")}
                       >
                         {cardLayout ? (
@@ -695,14 +651,14 @@ function FilterSheet({
               <button
                 type="button"
                 onClick={clearSheet}
-                className="h-11 rounded-full border border-[#D8CFC2] bg-white text-[14px] font-semibold text-[#746A5F]"
+                className="h-11 rounded-[4px] border border-[#d8cfc2] bg-white text-[14px] font-normal text-[var(--text-secondary)]"
               >
                 清除
               </button>
               <button
                 type="button"
                 onClick={applySheet}
-                className="h-11 rounded-full bg-[#063B32] text-[14px] font-semibold text-[#E7C48A]"
+                className="h-11 rounded-[4px] bg-[var(--coffee-dark)] text-[14px] font-medium text-[#f4eee7]"
               >
                 确认
               </button>
@@ -729,11 +685,11 @@ function Pagination({
 
   return (
     <nav
-      className="mt-7 rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)]"
+      className="mt-8 border-t border-[rgba(222,212,200,0.72)] pt-5"
       aria-label="商品分页"
     >
-      <p className="mb-3 text-center text-[12px] text-[#746A5F]">
-        第 <span className="font-semibold text-[#A97838]">{currentPage}</span> / {totalPages} 页
+      <p className="mb-3 text-center text-[12px] font-normal text-[var(--text-secondary)]">
+        第 <span className="font-medium text-[var(--brass)]">{currentPage}</span> / {totalPages} 页
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
         <PageButton
@@ -747,7 +703,7 @@ function Pagination({
           item === "ellipsis" ? (
             <span
               key={`ellipsis-${index}`}
-              className="flex h-9 w-7 items-center justify-center text-[12px] font-semibold text-[#746A5F]"
+              className="flex h-9 w-7 items-center justify-center text-[12px] font-normal text-[var(--text-secondary)]"
             >
               …
             </span>
@@ -757,10 +713,10 @@ function Pagination({
               type="button"
               onClick={() => goToPage(item)}
               className={[
-                "h-9 min-w-9 rounded-full border px-3 text-[12px] font-semibold transition",
+                "h-9 min-w-9 rounded-[4px] border px-3 text-[12px] font-normal transition",
                 item === currentPage
-                  ? "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                  : "border-[#D8CFC2] bg-white text-[#1F1A16] hover:border-[#063B32] hover:text-[#063B32]",
+                  ? "border-[var(--coffee-dark)] bg-[var(--coffee-dark)] text-[#f4eee7]"
+                  : "border-[#d8cfc2] bg-white text-[var(--text-primary)] hover:border-[var(--brass)] hover:text-[var(--coffee)]",
               ].join(" ")}
             >
               {item}
@@ -794,10 +750,10 @@ function PageButton({
       onClick={onClick}
       disabled={disabled}
       className={[
-        "h-9 rounded-full border px-3 text-[12px] font-semibold transition",
+        "h-9 rounded-[4px] border px-3 text-[12px] font-normal transition",
         disabled
-          ? "cursor-not-allowed border-[#E7DDD0] bg-[#F7F3EA] text-[#B8AA9D]"
-          : "border-[#D8CFC2] bg-white text-[#1F1A16] hover:border-[#063B32] hover:text-[#063B32]",
+          ? "cursor-not-allowed border-[#e4d9cc] bg-[#f6f1e9] text-[#a99b8f]"
+          : "border-[#d8cfc2] bg-white text-[var(--text-primary)] hover:border-[var(--brass)] hover:text-[var(--coffee)]",
       ].join(" ")}
     >
       {children}
@@ -807,15 +763,15 @@ function PageButton({
 
 function EmptyState({ clearFilters }: { clearFilters: () => void }) {
   return (
-    <div className="rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] p-8 text-center shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-      <p className="text-[20px] font-semibold text-[#1F1A16]">暂无匹配结果</p>
-      <p className="mt-2 text-[13px] leading-6 text-[#746A5F]">
+    <div className="border-y border-[rgba(222,212,200,0.72)] py-8 text-center">
+      <p className="text-[18px] font-medium text-[var(--text-primary)]">暂无匹配结果</p>
+      <p className="mt-2 text-[13px] leading-6 text-[var(--text-secondary)]">
         可以尝试减少关键词，或清空筛选查看完整库存。
       </p>
       <button
         type="button"
         onClick={clearFilters}
-        className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-[#063B32] px-5 text-[13px] font-semibold text-[#E7C48A]"
+        className="mt-5 inline-flex h-10 items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] px-5 text-[13px] font-medium text-[#f4eee7]"
       >
         清空筛选
       </button>
@@ -823,29 +779,12 @@ function EmptyState({ clearFilters }: { clearFilters: () => void }) {
   );
 }
 
-function TopNotice() {
+function PageTitle() {
   return (
-    <div className="bg-[#063B32] px-4 py-2 text-center text-[12px] tracking-[0.12em] text-[#E7C48A] sm:text-[13px]">
-      <span className="mx-2 text-[#B8863B]">•</span>
-      精选海外烟斗库存 · 人工选品咨询
-      <span className="mx-2 text-[#B8863B]">•</span>
-    </div>
-  );
-}
-
-function PageTitleCard() {
-  return (
-    <header className="overflow-hidden rounded-3xl border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-      <div className="relative min-h-[142px] px-5 py-5 sm:min-h-[180px] sm:px-8 sm:py-8">
-        <div className="absolute inset-y-0 right-0 hidden w-[44%] bg-[url('/pics/home-hero-01-inventory.jpg')] bg-cover bg-center opacity-80 sm:block" />
-        <div className="absolute inset-y-0 right-0 hidden w-[52%] bg-gradient-to-r from-[#FFFDF8] via-[#FFFDF8]/86 to-transparent sm:block" />
-        <div className="relative z-10">
-          <p className="text-[11px] uppercase tracking-[0.34em] text-[#A97838]">Overseas Inventory</p>
-          <h1 className="mt-3 font-serif text-[30px] font-semibold leading-tight tracking-[0.06em] text-[#063B32] sm:text-[46px]">
-            海外烟斗库存精选
-          </h1>
-        </div>
-      </div>
+    <header>
+      <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">Overseas Inventory</p>
+      <h1 className="mt-2 text-[23px] font-medium leading-[1.35] text-[var(--text-primary)] sm:text-[24px]">海外烟斗库存</h1>
+      <p className="mt-2 text-[12px] font-normal leading-[1.65] text-[var(--text-secondary)]">收录海外公开库存，价格与状态持续更新。</p>
     </header>
   );
 }
