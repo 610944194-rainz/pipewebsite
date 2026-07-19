@@ -940,9 +940,9 @@ function PageTitle() {
   return (
     <header className="relative h-[160px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[168px]">
       <img
-        src="/pics/home-hero-01-inventory.jpg"
+        src="/pics/overseas-head.png"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[60%_58%]"
+        className="absolute inset-0 h-full w-full object-cover object-[63%_58%]"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#1b110c]/82 via-[#1b110c]/46 to-transparent" />
       <div className="relative flex h-full max-w-[280px] flex-col justify-end px-5 pb-[18px] sm:px-7 sm:pb-6">

@@ -26,10 +26,10 @@ export { buildProductsHref, PRODUCT_SORT_OPTIONS } from "./url";
 export const PRODUCT_PAGE_SIZE = 20;
 
 const WEIGHT_LABELS: Record<ProductWeightRange, string> = {
-  light: "杞婚噺 鈮?5g",
-  medium: "涓瓑 36鈥?5g",
-  heavy: "鍋忛噸 56鈥?5g",
-  "extra-heavy": "閲嶅瀷 >75g",
+  light: "轻量 ≤35g",
+  medium: "中等 36–55g",
+  heavy: "偏重 56–75g",
+  "extra-heavy": "重型 >75g",
 };
 
 const BRAND_CANONICAL_FILTER_MAP: Record<

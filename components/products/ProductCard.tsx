@@ -78,7 +78,7 @@ function InventoryProductCard({
             brandName={product.brandName}
             loading={imageLoading || (imagePriority ? "eager" : "lazy")}
             fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
-            className="h-[148px] rounded-[4px] border border-[#ebe3d9] bg-white sm:h-[158px]"
+            className="h-[148px] rounded-[4px] border border-[#eee7df] bg-white sm:h-[158px]"
             imageClassName="p-3 sm:p-4"
           >
             <InventoryProductImageOverlays product={product} />
@@ -88,7 +88,7 @@ function InventoryProductCard({
             <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[var(--brass)]">
               {product.brandName || sourceLabel(product.source)}
             </p>
-            <h3 className="mt-1.5 line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-primary)] sm:text-[12.5px]">
+            <h3 className="mt-[5px] line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-primary)] sm:text-[12.5px]">
               {name}
             </h3>
             {subtitle ? (
@@ -96,11 +96,11 @@ function InventoryProductCard({
                 {subtitle}
               </p>
             ) : null}
-            <p className="mt-2.5 text-[12px] font-medium leading-[1.4] text-[var(--text-primary)] sm:text-[12.5px]">
+            <p className="mt-2 text-[12px] font-medium leading-[1.4] text-[var(--text-primary)] sm:text-[12.5px]">
               {formatSitePrice(product)}
             </p>
             {tags.length > 0 ? (
-              <p className="mt-2.5 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[#81746A] sm:text-[10px]">
+              <p className="mt-2 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[#81746A] sm:text-[10px]">
                 {tags.join(" · ")}
               </p>
             ) : null}
