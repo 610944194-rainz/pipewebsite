@@ -9,16 +9,18 @@ const slides = [
     description: "人工选品 · 信息清晰 · 持续更新",
     cta: "查看海外库存",
     href: "/products",
-    image: "/pics/home-hero-01-inventory.jpg",
-    position: "object-center",
+    image: "/home/hero/home-hero-day.png",
+    position: "object-[62%_center] lg:object-[58%_center]",
+    overlay: "bg-[linear-gradient(90deg,rgba(12,8,5,0.76)_0%,rgba(12,8,5,0.40)_34%,rgba(12,8,5,0.08)_55%,transparent_68%)]",
   },
   {
     title: "没有找到合适的烟斗？",
     description: "告诉我们你的偏好与预算",
     cta: "提交找斗需求",
     href: "/request",
-    image: "/pics/collection-american.jpg",
-    position: "object-center",
+    image: "/home/hero/home-hero-night.png",
+    position: "object-[60%_center] lg:object-[56%_center]",
+    overlay: "bg-[linear-gradient(90deg,rgba(12,8,5,0.64)_0%,rgba(12,8,5,0.30)_34%,rgba(12,8,5,0.04)_54%,transparent_66%)]",
   },
 ] as const;
 
@@ -52,7 +54,7 @@ export default function HomeHero() {
             className={`absolute inset-0 h-full w-full object-cover ${slide.position}`}
             draggable={false}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,8,5,0.72)_0%,rgba(12,8,5,0.35)_48%,rgba(12,8,5,0.02)_78%)]" />
+          <div className={`absolute inset-0 ${slide.overlay}`} />
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/30 to-transparent" />
 
           <div className="relative mx-auto flex h-full max-w-[1200px] items-end px-5 pb-8 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">

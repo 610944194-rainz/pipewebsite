@@ -79,9 +79,6 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
             />
 
             <div className="flex flex-1 flex-col p-2.5">
-              {compact && product.status ? (
-                <p className="mb-1 text-[9.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">{product.status}</p>
-              ) : null}
               <p className={`line-clamp-1 font-normal uppercase text-[var(--brass)] ${compact ? "text-[11px] tracking-[0.06em]" : "text-[9px] tracking-[0.1em]"}`}>{product.brand}</p>
               <h3 className={`mt-1 line-clamp-2 font-normal leading-[1.45] text-[var(--text-primary)] ${compact ? "min-h-[32px] text-[11.5px]" : "min-h-[35px] text-[12px]"}`}>
                 {product.name}

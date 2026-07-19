@@ -8,7 +8,10 @@ export type HomeFeaturedBrand = {
   nameZh?: string;
   country?: string;
   logoSrc: string;
-  logoWidth: string;
+  logoMaxWidth: string;
+  logoMaxHeight: string;
+  logoScale: number;
+  logoObjectPosition: string;
 };
 
 export type HomeFeaturedMaker = {
@@ -58,13 +61,13 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
                 style={{ objectPosition: maker.objectPosition }}
               />
-              <div className="absolute inset-x-0 bottom-0 h-[82%] bg-gradient-to-t from-black/90 via-black/46 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)] sm:p-5">
+              <div className="absolute inset-x-0 bottom-0 h-[66%] bg-gradient-to-t from-black/90 via-black/48 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
                 <p className="text-[10px] font-normal leading-[1.4] tracking-[0.08em] text-[rgba(244,238,231,0.68)]">展示样例</p>
-                <h3 className="mt-1 text-[18px] font-medium leading-[1.4]">{maker.displayName}</h3>
+                <h3 className="mt-1 text-[16px] font-medium leading-[1.35]">{maker.displayName}</h3>
                 <p className="mt-1 text-[11px] font-normal leading-[1.45] text-[rgba(244,238,231,0.78)]">{maker.city} / {maker.typeLabel}</p>
-                <p className="mt-1.5 line-clamp-1 text-[12px] font-normal leading-[1.5] text-[rgba(244,238,231,0.78)]">{maker.intro}</p>
-                <span className="mt-2 inline-flex items-center text-[12px] font-normal text-[#e4c18d]">查看作品<ArrowIcon className="ml-1.5 h-3 w-3" /></span>
+                <p className="mt-1 line-clamp-1 text-[11.5px] font-normal leading-[1.5] text-[rgba(244,238,231,0.78)]">{maker.intro}</p>
+                <span className="mt-1.5 inline-flex items-center text-[11.5px] font-normal text-[#e4c18d]">查看作品<ArrowIcon className="ml-1.5 h-3 w-3" /></span>
               </div>
             </Link>
           ))}
@@ -78,17 +81,22 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
             <Link
               key={brand.slug}
               href={`/brands/${brand.slug}`}
-              className="flex h-[82px] w-[118px] shrink-0 snap-start flex-col items-center justify-center text-center sm:w-auto"
+              className="flex h-[78px] w-[118px] shrink-0 snap-start flex-col items-center justify-center text-center sm:w-auto"
             >
-              <span className="flex h-[54px] w-full items-center justify-center">
+              <span className="flex h-[50px] w-full items-center justify-center">
                 <img
                   src={brand.logoSrc}
                   alt={`${brand.name} Logo`}
-                  className="max-h-[48px] object-contain"
-                  style={{ width: brand.logoWidth }}
+                  className="h-auto w-auto object-contain"
+                  style={{
+                    maxWidth: brand.logoMaxWidth,
+                    maxHeight: brand.logoMaxHeight,
+                    objectPosition: brand.logoObjectPosition,
+                    transform: `scale(${brand.logoScale})`,
+                  }}
                 />
               </span>
-              <span className="mt-1 text-[11px] font-normal leading-[1.4] text-[var(--text-secondary)]">{brand.nameZh || brand.country || brand.name}</span>
+              <span className="mt-1.5 text-[11px] font-normal leading-[1.4] text-[var(--text-secondary)]">{brand.nameZh || brand.country || brand.name}</span>
             </Link>
           ))}
         </div>

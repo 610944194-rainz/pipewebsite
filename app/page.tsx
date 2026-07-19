@@ -31,27 +31,48 @@ const featuredBrandSlugs = [
 
 const featuredBrandAssets: Record<
   string,
-  { logoSrc: string; logoWidth: string }
+  {
+    logoSrc: string;
+    logoMaxWidth: string;
+    logoMaxHeight: string;
+    logoScale: number;
+    logoObjectPosition: string;
+  }
 > = {
   peterson: {
     logoSrc: "/brands/featured/peterson-logo-1600x800.png",
-    logoWidth: "94px",
+    logoMaxWidth: "98px",
+    logoMaxHeight: "42px",
+    logoScale: 1.08,
+    logoObjectPosition: "center",
   },
   savinelli: {
     logoSrc: "/brands/featured/savinelli-logo-1600x800.png",
-    logoWidth: "94px",
+    logoMaxWidth: "94px",
+    logoMaxHeight: "42px",
+    logoScale: 1,
+    logoObjectPosition: "center",
   },
   stanwell: {
     logoSrc: "/brands/featured/stanwell-logo-1600x800.png",
-    logoWidth: "96px",
+    logoMaxWidth: "92px",
+    logoMaxHeight: "38px",
+    logoScale: 0.88,
+    logoObjectPosition: "center",
   },
   dunhill: {
     logoSrc: "/brands/featured/dunhill-logo-1600x800.png",
-    logoWidth: "82px",
+    logoMaxWidth: "82px",
+    logoMaxHeight: "38px",
+    logoScale: 1,
+    logoObjectPosition: "center",
   },
   chacom: {
     logoSrc: "/brands/featured/chacom-logo-1600x800.png",
-    logoWidth: "84px",
+    logoMaxWidth: "82px",
+    logoMaxHeight: "40px",
+    logoScale: 0.95,
+    logoObjectPosition: "center",
   },
 };
 
@@ -61,15 +82,15 @@ const featuredMakerAssets: Record<
 > = {
   "qingyan-studio": {
     image: "/domestic-makers/demo/fictional-pipe-maker-01.png",
-    objectPosition: "50% 38%",
+    objectPosition: "52% 32%",
   },
   "nanshan-handmade": {
     image: "/domestic-makers/demo/fictional-pipe-maker-02.png",
-    objectPosition: "50% 38%",
+    objectPosition: "48% 29%",
   },
   "haishang-pipe-room": {
     image: "/domestic-makers/demo/fictional-pipe-maker-03.png",
-    objectPosition: "50% 35%",
+    objectPosition: "54% 31%",
   },
 };
 
