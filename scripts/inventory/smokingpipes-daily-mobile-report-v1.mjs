@@ -1251,6 +1251,18 @@ function failureTypeLabelV2(value) {
 }
 
 export function buildPushDeerDailyMessage(report) {
+  if (report?.status === "no-production-change") {
+    return {
+      title: "烟斗派库存日更｜Smokingpipes",
+      body: [
+        "状态：今日检查完成，无库存变化",
+        "Production：未写入",
+        "提交：无",
+        "推送：无",
+        "阻断：无",
+      ].join("\n"),
+    };
+  }
   const lockActive = report.status === "lock-active";
   const blockedText =
     lockActive
@@ -1554,10 +1566,57 @@ ${warnings}
 }
 
 function parseArgs(argv) {
+  const values = new Map(
+    argv
+      .filter((value) => value.startsWith("--"))
+      .map((value) => {
+        const [key, ...parts] = value.slice(2).split("=");
+        return [key, parts.join("=") || true];
+      })
+  );
   return {
-    send: argv.includes("--send"),
-    dryRunNotify: argv.includes("--dry-run-notify"),
+    send: values.has("send"),
+    dryRunNotify: values.has("dry-run-notify"),
+    runId: String(values.get("run-id") || "").trim(),
+    invocationStartedAt: String(values.get("invocation-started-at") || "").trim(),
+    taskStatePath: String(values.get("task-state") || "").trim(),
   };
+}
+
+function validTimestamp(value) {
+  const timestamp = Date.parse(String(value || ""));
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+export function validateDailyMobileNotificationInvocation({
+  report,
+  taskState,
+  runId,
+  invocationStartedAt,
+} = {}) {
+  const expectedRunId = String(runId || "").trim();
+  const expectedStart = validTimestamp(invocationStartedAt);
+  const reportStart = validTimestamp(report?.startedAt);
+  const reportCompleted = validTimestamp(report?.completedAt);
+  if (!expectedRunId || String(report?.runId || "") !== expectedRunId || String(taskState?.runId || "") !== expectedRunId) {
+    return { allowed: false, reason: "stale-report-blocked: runId mismatch" };
+  }
+  if (!expectedStart || !reportStart || !reportCompleted || reportStart < expectedStart || reportCompleted < reportStart) {
+    return { allowed: false, reason: "stale-report-blocked: invocation timestamp mismatch" };
+  }
+  if (String(taskState?.lastNotificationRunId || "") === expectedRunId) {
+    return { allowed: false, reason: "notification-already-sent-for-run" };
+  }
+  return { allowed: true, reason: "current-invocation" };
+}
+
+function markDailyMobileNotificationSent(taskStatePath, taskState, runId) {
+  if (!taskStatePath || !taskState || !runId) return;
+  fs.writeFileSync(
+    taskStatePath,
+    `${JSON.stringify({ ...taskState, lastNotificationRunId: runId }, null, 2)}\n`,
+    "utf8"
+  );
 }
 
 function loadInventoryEnv(filePath = DEFAULT_ENV_PATH) {
@@ -1598,13 +1657,17 @@ export async function runSmokingpipesDailyMobileReport({
   const missingInputs = [];
   const state = readJsonIfExists(statePath);
   const audit = readJsonIfExists(auditPath);
-  const taskState = readJsonIfExists(taskStatePath);
+  const effectiveTaskStatePath = options.taskStatePath || taskStatePath;
+  const taskState = readJsonIfExists(effectiveTaskStatePath);
   const taskLogText = readTextIfExists(taskLogPath);
 
   if (!state) missingInputs.push(statePath);
   if (!audit) missingInputs.push(auditPath);
 
-  const initialReport = buildSmokingpipesDailyMobileReport({
+  const invocationStartedAt = options.invocationStartedAt || taskState?.invocationStartedAt || now;
+  const runId = options.runId || taskState?.runId || "";
+  const initialReport = {
+    ...buildSmokingpipesDailyMobileReport({
     runAt: now,
     taskLogText,
     taskState,
@@ -1620,10 +1683,30 @@ export async function runSmokingpipesDailyMobileReport({
       warnings: [],
       productionWritten: false,
     },
-  });
+    }),
+    runId,
+    startedAt: invocationStartedAt,
+    completedAt: now,
+  };
+  if (taskState?.status === "no-production-change") {
+    initialReport.status = "no-production-change";
+    initialReport.candidateCount = 0;
+    initialReport.wouldApplyCount = 0;
+    initialReport.appliedCount = 0;
+    initialReport.productionWritten = false;
+    initialReport.commitPerformed = false;
+    initialReport.pushPerformed = false;
+    initialReport.deployStatus = "not-requested";
+    initialReport.blockers = [];
+  }
   const message = buildPushDeerDailyMessage(initialReport);
-  const notification =
-    shouldSendDailyMobileNotification(initialReport, options)
+  const invocationValidation = validateDailyMobileNotificationInvocation({
+    report: initialReport,
+    taskState,
+    runId,
+    invocationStartedAt,
+  });
+  const notification = shouldSendDailyMobileNotification(initialReport, options) && invocationValidation.allowed
       ? await sendPushDeerNotification({
           title: message.title,
           body: message.body,
@@ -1632,8 +1715,13 @@ export async function runSmokingpipesDailyMobileReport({
       : {
           notificationSent: false,
           notificationSkipped: true,
-          notificationReason: "not requested",
+          notificationReason: shouldSendDailyMobileNotification(initialReport, options)
+            ? invocationValidation.reason
+            : "not requested",
         };
+  if (notification.notificationSent) {
+    markDailyMobileNotificationSent(effectiveTaskStatePath, taskState, runId);
+  }
   const report = {
     ...initialReport,
     notificationSent: Boolean(notification.notificationSent),

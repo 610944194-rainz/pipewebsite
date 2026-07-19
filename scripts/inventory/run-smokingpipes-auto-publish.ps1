@@ -3,6 +3,7 @@ param(
   [switch]$NoProductionWrite,
   [switch]$NoPush,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [switch]$AllowDirtyWorktreeForManualVerification,
@@ -25,8 +26,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 $CommandExecutionModulePath = Join-Path $PSScriptRoot "smokingpipes-command-execution-v1.psm1"
+$SameDayGuardModulePath = Join-Path $PSScriptRoot "smokingpipes-daily-invocation-guard-v1.psm1"
 $DailyTaskLockHelperPath = Join-Path $PSScriptRoot "smokingpipes-daily-task-lock-v1.mjs"
 Import-Module -Name $CommandExecutionModulePath -Force
+Import-Module -Name $SameDayGuardModulePath -Force
 $EffectiveBuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.json"
@@ -54,6 +57,14 @@ $ProductionExactPaths = @(
   "data/products/unified-products-staging.json"
 )
 $LargeApplyWarningThreshold = 300
+
+$sameDayDecision = Test-SmokingpipesSameDaySuccess `
+  -State (Read-SmokingpipesDailyTaskState -Path $DailyTaskStatePath) `
+  -ForceSameDayRerun:$ForceSameDayRerun
+if ($sameDayDecision.ShouldSkip) {
+  Write-Output "same-day-success-already-completed"
+  exit 0
+}
 
 function ConvertTo-CanonicalGitPath {
   param([string]$PathToNormalize)
@@ -481,6 +492,52 @@ function Write-AutoPublishReport {
   [IO.File]::WriteAllText($ReportMarkdownPath, "`uFEFF$markdown`n", [Text.UTF8Encoding]::new($true))
 }
 
+function Set-DailyTaskSuccessfulCompletion {
+  param([string]$Status)
+
+  if ($Status -notin @("success", "no-production-change", "validated-no-push")) {
+    return
+  }
+  if (-not (Test-Path -LiteralPath $DailyTaskStatePath -PathType Leaf)) {
+    throw "daily task state is missing: $DailyTaskStatePath"
+  }
+
+  $state = Get-Content -LiteralPath $DailyTaskStatePath -Raw -Encoding utf8 | ConvertFrom-Json
+  $now = Get-Date
+  $updates = [ordered]@{
+    dateKey = $now.ToString("yyyy-MM-dd")
+    status = $Status
+    runId = $report.runId
+    invocationStartedAt = $report.startedAt
+    completedAt = $report.completedAt
+    lastSuccessAt = $now.ToString("o")
+    lastSuccessfulLocalDate = $now.ToString("yyyy-MM-dd")
+    lastSuccessfulCompletedAt = $report.completedAt
+    lastSuccessfulRunId = $report.runId
+    lastSuccessfulStatus = $Status
+    productionWritten = $report.productionWritten -eq $true
+    appliedCount = [int]$report.appliedCount
+    candidateCount = [int]$report.candidateCount
+    wouldApplyCount = [int]$report.wouldApplyCount
+    retryAllowed = $false
+    nextRetryRecommendedAt = $null
+  }
+  foreach ($name in $updates.Keys) {
+    $state | Add-Member -NotePropertyName $name -NotePropertyValue $updates[$name] -Force
+  }
+
+  $temporaryPath = "$DailyTaskStatePath.$($report.runId).tmp"
+  try {
+    $json = $state | ConvertTo-Json -Depth 8
+    [IO.File]::WriteAllText($temporaryPath, "$json`n", [Text.UTF8Encoding]::new($false))
+    Move-Item -LiteralPath $temporaryPath -Destination $DailyTaskStatePath -Force
+  } finally {
+    if (Test-Path -LiteralPath $temporaryPath) {
+      Remove-Item -LiteralPath $temporaryPath -Force -ErrorAction SilentlyContinue
+    }
+  }
+}
+
 function Send-AutoPublishNotification {
   if ([string]::IsNullOrWhiteSpace($NotificationScriptPath)) {
     $report.notificationStatus = "skipped-not-configured"
@@ -489,8 +546,20 @@ function Send-AutoPublishNotification {
   if (-not (Test-Path -LiteralPath $NotificationScriptPath -PathType Leaf)) {
     throw "notification helper is missing: $NotificationScriptPath"
   }
-  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($NotificationScriptPath, "--report=$ReportJsonPath") -Stage "notification-helper" | Out-Null
-  $report.notificationStatus = "sent"
+  $notificationResult = Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @(
+    $NotificationScriptPath,
+    "--report=$ReportJsonPath",
+    "--expected-run-id=$($report.runId)",
+    "--invocation-started-at=$($report.startedAt)",
+    "--task-state=$DailyTaskStatePath"
+  ) -Stage "notification-helper"
+  $notificationPayload = [string]$notificationResult.StdoutTail | ConvertFrom-Json
+  if ($notificationPayload.notificationSent -eq $true) {
+    $report.notificationStatus = "sent"
+  } else {
+    $notificationReason = [string]$notificationPayload.notificationReason
+    $report.notificationStatus = if ([string]::IsNullOrWhiteSpace($notificationReason)) { "skipped" } else { $notificationReason }
+  }
 }
 
 function Send-AutoPublishNotificationSafely {
@@ -505,6 +574,7 @@ function Send-AutoPublishNotificationSafely {
 function Complete-AutoPublish {
   param([string]$Status, [string]$FailureStage = $null, [string]$FailureReason = $null)
   Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
+  Set-DailyTaskSuccessfulCompletion -Status $Status
   Send-AutoPublishNotificationSafely
   Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
 }
@@ -593,6 +663,8 @@ function Sync-AutomationRuntimeWithOriginMain {
   $report.failureStage = $null
   return [pscustomobject]@{ Head = $headAfter; OriginMain = $originAfter; Branch = $branch; Upstream = $upstream }
 }
+
+$dailyReportedNoProductionChange = $false
 
  $locationPushed = $false
 try {
@@ -702,10 +774,13 @@ try {
   $dailyArguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $DailyScriptPath)
   if ($NoProductionWrite) { $dailyArguments += "-NoProductionWrite" }
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
+  if ($ForceSameDayRerun) { $dailyArguments += "-ForceSameDayRerun" }
   if ($SkipCurrentList) { $dailyArguments += "-SkipCurrentList" }
   if ($AllowStaleCurrentListCache) { $dailyArguments += "-AllowStaleCurrentListCache" }
   $dailyArguments += @("-ProgressiveDetailMax", $ProgressiveDetailMax)
   $dailyArguments += @("-MaxAutoApply", $MaxAutoApply)
+  $dailyArguments += @("-RunId", $report.runId)
+  $dailyArguments += @("-InvocationStartedAt", $report.startedAt)
   if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
     $dailyArguments += @("-LegacyDuplicateSnapshotSha256", $LegacyDuplicateSnapshotSha256.Trim())
   }
@@ -727,11 +802,7 @@ try {
     Complete-AutoPublish -Status "detail-progress"
     exit 0
   }
-  if (-not $report.productionWritten) {
-    $report.deploymentStatus = "not-requested"
-    Complete-AutoPublish -Status "no-production-change"
-    exit 0
-  }
+  $dailyReportedNoProductionChange = -not $report.productionWritten
   }
 
   if ($ResumeAfterProductionWrite) {
@@ -765,7 +836,18 @@ try {
     $changed = @(& git -C $ProjectRoot diff --name-only -- @ProductionExactPaths "data/generated/public-products") | Where-Object { $_ }
   }
   $report.changedProductionFiles = @($changed)
+  if ($dailyReportedNoProductionChange -and $changed.Count -gt 0) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "diff-guard" -Reason "daily reported no production write but tracked production changes exist"
+  }
   if ($changed.Count -eq 0) {
+    if ($dailyReportedNoProductionChange) {
+      # A no-change completion is a fresh invocation, never a projection of a
+      # prior production run's counters.
+      $report.productionWritten = $false
+      $report.candidateCount = 0
+      $report.wouldApplyCount = 0
+      $report.appliedCount = 0
+    }
     $report.deploymentStatus = "not-requested"
     Complete-AutoPublish -Status "no-production-change"
     exit 0

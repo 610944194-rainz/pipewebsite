@@ -38,29 +38,40 @@ function makeFixture(name) {
   for (const file of [
     ".gitignore",
     "scripts/inventory/run-smokingpipes-auto-publish.ps1",
+    "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1",
     "scripts/inventory/smokingpipes-command-execution-v1.psm1",
     "scripts/inventory/smokingpipes-command-runner-v1.mjs",
   ]) fs.copyFileSync(path.join(root, file), path.join(fixture, file));
   write(path.join(fixture, "scripts", "inventory", "run-smokingpipes-progressive-daily.ps1"), String.raw`param(
   [switch]$NoProductionWrite,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [int]$ProgressiveDetailMax,
-  [int]$MaxAutoApply
+  [int]$MaxAutoApply,
+  [string]$RunId,
+  [string]$InvocationStartedAt
 )
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $state = [ordered]@{ status="completed"; productionWritten=$false; candidateCount=0; wouldApplyCount=0; appliedCount=0; progressiveDetailMax=30; maxAutoApply=1000 }
 New-Item -ItemType Directory -Force -Path (Join-Path $root "data\inventory") | Out-Null
 [IO.File]::WriteAllText((Join-Path $root "data\inventory\smokingpipes-daily-task-state.json"), (($state | ConvertTo-Json -Compress) + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
 `);
-  write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "process.exit(0);\n");
-  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs"]);
+  for (const file of [
+    "scripts/validate-public-product-indexes-v1.mjs",
+    "scripts/test-public-products-inventory-default-v1.mjs",
+    "scripts/inventory/test-inventory-runner-v1.mjs",
+  ]) write(path.join(fixture, file), "process.exit(0);\n");
+  const build = path.join(fixture, "build.cmd");
+  write(build, "@echo off\r\nexit /b 0\r\n");
+  write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "console.log(JSON.stringify({ notificationSent: false, notificationSkipped: true, notificationReason: 'fixture' }));\n");
+  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs", "scripts/validate-public-product-indexes-v1.mjs", "scripts/test-public-products-inventory-default-v1.mjs", "scripts/inventory/test-inventory-runner-v1.mjs", "build.cmd"]);
   git(fixture, ["commit", "-m", "test: configure runtime sync fixture"]);
   git(fixture, ["remote", "set-url", "origin", bare]);
   git(fixture, ["push", "origin", "HEAD:main"]);
   git(fixture, ["branch", "--set-upstream-to=origin/main"]);
-  return { temp, fixture, bare, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
+  return { temp, fixture, bare, build, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
 }
 
 function advanceRemote(scenario, count = 1) {
@@ -85,7 +96,7 @@ function localCommit(scenario, name) {
 function invoke(scenario, { preflight = true } = {}) {
   const wrapper = path.join(scenario.fixture, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1");
   const args = ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", wrapper,
-    "-AutomationWorktree", scenario.fixture, "-BuildExecutable", npm, "-NotificationScriptPath", scenario.notify];
+    "-AutomationWorktree", scenario.fixture, "-BuildExecutable", scenario.build, "-NotificationScriptPath", scenario.notify];
   if (preflight) args.push("-PreflightOnly"); else args.push("-ForceRunOnce");
   return run(powershell, args, { cwd: scenario.fixture, allowFailure: true });
 }
@@ -137,6 +148,16 @@ function summary(name, scenario, started, extra = {}) {
     value = report(scenario);
     assert.equal(value.status, "no-production-change");
     assert.equal(value.commitPerformed, false); assert.equal(value.pushPerformed, false);
+    assert.equal(value.appliedCount, 0); assert.equal(value.productionWritten, false);
+    assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeNoChange);
+    const completedTaskState = JSON.parse(fs.readFileSync(path.join(scenario.fixture, "data", "inventory", "smokingpipes-daily-task-state.json"), "utf8"));
+    assert.equal(completedTaskState.lastSuccessfulStatus, "no-production-change");
+    assert.equal(completedTaskState.lastSuccessfulRunId, value.runId);
+    const reportBeforeSameDayNoop = fs.readFileSync(path.join(scenario.fixture, "data", "review", "smokingpipes-auto-publish-latest.json"), "utf8");
+    const sameDayNoop = invoke(scenario, { preflight: false });
+    assert.equal(sameDayNoop.status, 0, sameDayNoop.stderr || sameDayNoop.stdout);
+    assert.match(sameDayNoop.stdout, /same-day-success-already-completed/);
+    assert.equal(fs.readFileSync(path.join(scenario.fixture, "data", "review", "smokingpipes-auto-publish-latest.json"), "utf8"), reportBeforeSameDayNoop);
     assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeNoChange);
     summary("A-B-C-J-K-L", scenario, started, { initialHead: equalHead });
   } finally { cleanup(scenario); }

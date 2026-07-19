@@ -1,6 +1,7 @@
 ﻿param(
   [switch]$PreflightOnly,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [switch]$AllowDuplicateDedupe,
@@ -13,12 +14,16 @@
   [ValidatePattern('^[1-9]\d*$')]
   [string]$MaxAutoApply = "1000",
   [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
-  [string]$LegacyDuplicateSnapshotSha256 = ""
+  [string]$LegacyDuplicateSnapshotSha256 = "",
+  [string]$RunId = "",
+  [string]$InvocationStartedAt = ""
 )
 
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$SameDayGuardModulePath = Join-Path $PSScriptRoot "smokingpipes-daily-invocation-guard-v1.psm1"
+Import-Module -Name $SameDayGuardModulePath -Force
 $LogPath = Join-Path $ProjectRoot "data\review\smokingpipes-daily-task-latest.log"
 $EnvPath = Join-Path $ProjectRoot ".env.inventory.local"
 $AuditPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-audit-report.json"
@@ -50,6 +55,8 @@ $ResumeFromCachedListEffective = $false
 $LockCurrentListSnapshotUntilCompleteEffective = $false
 $NoProductionWriteEffective = $false
 $LargeApplyWarningThreshold = 300
+$InvocationRunId = if ([string]::IsNullOrWhiteSpace($RunId)) { "smokingpipes-daily-" + [guid]::NewGuid().ToString("N") } else { $RunId.Trim() }
+$InvocationStartedAtValue = if ([string]::IsNullOrWhiteSpace($InvocationStartedAt)) { (Get-Date).ToString("o") } else { $InvocationStartedAt.Trim() }
 $LegacyDuplicateSnapshotCliArgs = @()
 if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
   $LegacyDuplicateSnapshotCliArgs += "--legacy-duplicate-snapshot-sha256=$($LegacyDuplicateSnapshotSha256.Trim())"
@@ -334,6 +341,7 @@ function Write-DailyTaskState {
   )
 
   $now = Get-Date
+  $existingState = Read-DailyTaskState
   $currentListForState = if ($CurrentList) { $CurrentList } else { $script:CurrentListState }
   $inventoryLocksForState = if ($InventoryLocks) { $InventoryLocks } else { $script:InventoryLocksState }
   $progressiveLockForState = if ($ProgressiveLock) { $ProgressiveLock } else { $script:ProgressiveLockState }
@@ -345,12 +353,20 @@ function Write-DailyTaskState {
     noProductionWrite = [bool]$script:NoProductionWriteEffective
     dateKey = Get-TodayDateKey
     status = $Status
+    runId = $InvocationRunId
+    invocationStartedAt = $InvocationStartedAtValue
+    completedAt = $now.ToString("o")
     attempts = $Attempts
     lastAttemptAt = $now.ToString("o")
     lastSuccessAt = $null
     lastFailureAt = $null
     lastFailureReason = $FailureReason
     lastFailureType = $FailureType
+    lastSuccessfulLocalDate = if ($existingState) { [string]$existingState.lastSuccessfulLocalDate } else { $null }
+    lastSuccessfulCompletedAt = if ($existingState) { [string]$existingState.lastSuccessfulCompletedAt } else { $null }
+    lastSuccessfulRunId = if ($existingState) { [string]$existingState.lastSuccessfulRunId } else { $null }
+    lastSuccessfulStatus = if ($existingState) { [string]$existingState.lastSuccessfulStatus } else { $null }
+    lastNotificationRunId = if ($existingState) { [string]$existingState.lastNotificationRunId } else { $null }
     productionWritten = $ProductionWritten
     appliedCount = $AppliedCount
     candidateCount = $CandidateCount
@@ -940,7 +956,10 @@ function Release-DailyTaskLock {
 function Send-MobileReport {
   Invoke-InventoryNode -StepName "mobile-report" -Arguments @(
     "scripts/inventory/smokingpipes-daily-mobile-report-v1.mjs",
-    "--send"
+    "--send",
+    "--run-id=$InvocationRunId",
+    "--invocation-started-at=$InvocationStartedAtValue",
+    "--task-state=$DailyTaskStatePath"
   ) -ContinueOnFailure | Out-Null
 }
 
@@ -1113,20 +1132,12 @@ if ($script:PreflightOnlyEffective) {
   exit $preflightExit
 }
 
-if (
-  $dailyTaskState -and
-  $dailyTaskState.dateKey -eq (Get-TodayDateKey) -and
-  ($dailyTaskState.status -eq "success" -or $dailyTaskState.status -eq "skipped-success") -and
-  $dailyTaskState.productionWritten -eq $true
-) {
+ $sameDayDecision = Test-SmokingpipesSameDaySuccess `
+  -State $dailyTaskState `
+  -ForceSameDayRerun:$ForceSameDayRerun
+if ($sameDayDecision.ShouldSkip) {
   Write-DailyLog "DAILY TASK SKIPPED: today already completed successfully"
-  Write-DailyTaskState `
-    -Status "skipped-success" `
-    -Attempts ([int]($dailyTaskState.attempts)) `
-    -ProductionWritten $true `
-    -AppliedCount ([int]($dailyTaskState.appliedCount)) `
-    -CandidateCount ([int]($dailyTaskState.candidateCount)) `
-    -RetryAllowed $false
+  Write-Output "same-day-success-already-completed"
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
   exit 0
 }
@@ -1765,8 +1776,7 @@ try {
     -RetryAllowed $false `
     -DetailPhaseStatus $script:DetailPhaseStatus `
     -CachedListResume $script:CachedListResumeState
-  Send-MobileReport
-  Write-DailyLog "DAILY TASK COMPLETE"
+  Write-DailyLog "DAILY TASK APPLY COMPLETE; final notification waits for auto-publish validation/build/push completion"
 } catch {
   $failureReason = $_.Exception.Message
   $failureType = Get-FailureType -Message $failureReason
