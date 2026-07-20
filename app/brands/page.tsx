@@ -182,6 +182,7 @@ export default async function BrandsPage({ searchParams }: PageProps) {
   const currentPage = Math.min(Math.max(Number.isFinite(requestedPage) ? requestedPage : 1, 1), totalPages);
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const pageBrands = filteredBrands.slice(startIndex, startIndex + PAGE_SIZE);
+  const showFilteredResultCount = Boolean(query || activeLetter);
 
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
@@ -224,14 +225,15 @@ export default async function BrandsPage({ searchParams }: PageProps) {
           <BrandAlphabetIndex activeLetter={activeLetter} query={query} letters={ALPHABET} />
         </div>
 
-        <div className="mt-6 flex items-center justify-between text-[12px] font-normal text-[var(--text-secondary)]">
-          <p>共 <span className="font-medium text-[var(--brass)]">{filteredBrands.length}</span> 个品牌</p>
-          <p className="hidden sm:block">每页 {PAGE_SIZE} 个</p>
-        </div>
+        {showFilteredResultCount ? (
+          <div className="mt-5 text-[12px] font-normal text-[var(--text-secondary)]">
+            <p>当前 <span className="font-medium text-[var(--brass)]">{filteredBrands.length}</span> 个品牌</p>
+          </div>
+        ) : null}
 
         {pageBrands.length > 0 ? (
           <>
-            <div className="mt-3 md:grid md:grid-cols-2 md:gap-x-10">
+            <div className={`${showFilteredResultCount ? "mt-3" : "mt-4"} md:grid md:grid-cols-2 md:gap-x-10`}>
               {pageBrands.map((brand) => <BrandDirectoryItem key={brand.slug} brand={brand} />)}
             </div>
             {totalPages > 1 ? (
@@ -265,13 +267,13 @@ function BrandDirectoryItem({ brand }: { brand: PublicBrandProfile }) {
       <Link
         href={`/brands/${brand.slug}`}
         aria-label={`查看 ${displayName} 品牌档案`}
-        className="grid min-h-[142px] grid-cols-[80px_minmax(0,1fr)_52px] items-center gap-x-3 py-4 transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--brass)] md:min-h-[154px] md:grid-cols-[86px_minmax(0,1fr)_58px] md:py-5"
+        className="grid min-h-[120px] grid-cols-[84px_minmax(0,1fr)_52px] items-center gap-x-3.5 py-[18px] transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--brass)] md:min-h-[132px] md:grid-cols-[84px_minmax(0,1fr)_58px] md:py-[18px]"
       >
-        <div className="flex h-[80px] w-[80px] items-center justify-center overflow-hidden rounded-[5px] border border-[rgba(132,111,91,0.16)] bg-white md:h-[86px] md:w-[86px]">
+        <div className={`flex h-[84px] w-[84px] items-center justify-center overflow-hidden rounded-[5px] border md:h-[84px] md:w-[84px] ${logoUrl ? "border-[rgba(132,111,91,0.16)] bg-white" : "border-[rgba(132,111,91,0.1)] bg-[#faf7f1]"}`}>
           {logoUrl ? (
             <img src={logoUrl} alt={`${displayName} Logo`} className="h-full w-full object-contain p-2.5" loading="lazy" />
           ) : (
-            <span className="px-2 text-center text-[16px] font-medium tracking-[0.08em] text-[var(--coffee)] md:text-[17px]">
+            <span className="px-2 text-center text-[23px] font-medium tracking-[0.04em] text-[var(--coffee-dark)]">
               {brandShortName(displayName)}
             </span>
           )}
@@ -280,13 +282,13 @@ function BrandDirectoryItem({ brand }: { brand: PublicBrandProfile }) {
         <div className="min-w-0 self-center">
           <h2 className="truncate text-[16px] font-medium leading-[1.35] text-[var(--text-primary)]">{displayName}</h2>
           {chineseName ? <p className="mt-1 text-[12px] font-medium leading-[1.35] text-[var(--brass)]">{chineseName}</p> : null}
-          {summary.zh ? <p className="mt-2 line-clamp-2 text-[11.5px] font-normal leading-[1.65] text-[var(--text-secondary)]">{summary.zh}</p> : null}
+          {summary.zh ? <p className="mt-1.5 line-clamp-2 text-[11.5px] font-normal leading-[1.6] text-[var(--text-secondary)]">{summary.zh}</p> : null}
         </div>
 
         <div className="flex h-full flex-col items-end justify-center text-right">
           <p className="text-[10.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">{brandCountry(brand)}</p>
-          <p className="mt-2 text-[12px] font-medium leading-[1.4] text-[var(--coffee-dark)]">{brand.productCount} 件</p>
-          <ArrowRightIcon className="mt-3 h-4 w-4 text-[var(--coffee)]" />
+          <p className="mt-1.5 text-[13px] font-medium leading-[1.4] text-[var(--coffee-dark)]">{brand.productCount} 件</p>
+          <ArrowRightIcon className="mt-2.5 h-4 w-4 text-[var(--coffee)]" />
         </div>
       </Link>
     </article>
