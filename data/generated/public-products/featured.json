@@ -1,34 +1,34 @@
 {
   "version": "featured-products-v1",
-  "generatedAt": "2026-07-20T00:00:00.000Z",
-  "seedDate": "2026-07-20",
+  "generatedAt": "2026-07-21T00:00:00.000Z",
+  "seedDate": "2026-07-21",
   "homepage": [
-    "smokingpipes-732350",
-    "smokingpipes-723849",
-    "smokingpipes-685222",
-    "smokingpipes-722464"
+    "danish-32767",
+    "smokingpipes-728908",
+    "smokingpipes-718207",
+    "smokingpipes-732416"
   ],
   "featured": [
-    "smokingpipes-732350",
-    "smokingpipes-723849",
-    "smokingpipes-685222",
-    "smokingpipes-722464",
-    "smokingpipes-728571",
-    "smokingpipes-729174",
-    "smokingpipes-728572",
-    "smokingpipes-734078",
-    "smokingpipes-725724",
-    "smokingpipes-692199",
-    "smokingpipes-685223",
-    "smokingpipes-708774",
-    "smokingpipes-708769",
-    "smokingpipes-679108",
-    "smokingpipes-676848",
-    "smokingpipes-679109",
-    "smokingpipes-722465",
-    "smokingpipes-713976",
-    "smokingpipes-692197",
-    "smokingpipes-681425"
+    "danish-32767",
+    "smokingpipes-728908",
+    "smokingpipes-718207",
+    "smokingpipes-732416",
+    "smokingpipes-729013",
+    "smokingpipes-707456",
+    "smokingpipes-722328",
+    "smokingpipes-714648",
+    "smokingpipes-718894",
+    "smokingpipes-718897",
+    "smokingpipes-725381",
+    "smokingpipes-725380",
+    "smokingpipes-728995",
+    "smokingpipes-730556",
+    "smokingpipes-730557",
+    "smokingpipes-721074",
+    "smokingpipes-721073",
+    "smokingpipes-717436",
+    "smokingpipes-721072",
+    "smokingpipes-676254"
   ],
   "rules": {
     "homepageSize": 4,
@@ -36,7 +36,5 @@
     "maxPerBrand": 3,
     "homepageMaxPerBrand": 1
   },
-  "warnings": [
-    "Homepage image accessibility check excluded 1 unreachable candidates from the top 120."
-  ]
+  "warnings": []
 }
