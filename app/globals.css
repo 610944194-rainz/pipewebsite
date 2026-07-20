@@ -61,6 +61,15 @@ body {
   display: none;
 }
 
+.brands-letter-index {
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.brands-letter-index::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
