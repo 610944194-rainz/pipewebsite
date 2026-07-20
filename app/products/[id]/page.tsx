@@ -445,12 +445,18 @@ export default async function ProductDetailPage({
         ) : null}
 
         {brand && brandSlug ? (
-          <section className="mt-8 rounded-[6px] bg-[#f3ece3] p-5 lg:mt-10 lg:grid lg:grid-cols-[minmax(150px,0.28fr)_minmax(0,1fr)] lg:items-center lg:gap-8">
+          <section
+            className={`mt-8 rounded-[6px] bg-[#f3ece3] p-5 lg:mt-10 ${
+              brandLogo
+                ? "lg:grid lg:grid-cols-[minmax(150px,0.28fr)_minmax(0,1fr)] lg:items-center lg:gap-8"
+                : ""
+            }`}
+          >
             <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
               Brand Profile
             </p>
-            <div className="mt-4 lg:col-start-1 lg:row-start-2 lg:mt-0">
-              {brandLogo ? (
+            {brandLogo ? (
+              <div className="mt-4 lg:col-start-1 lg:row-start-2 lg:mt-0">
                 <div className="flex h-12 items-center">
                   <img
                     src={brandLogo.src}
@@ -463,13 +469,13 @@ export default async function ProductDetailPage({
                     }}
                   />
                 </div>
-              ) : (
-                <p className="text-[18px] font-medium tracking-[0.04em] text-[var(--coffee-dark)]">
-                  {brand.name}
-                </p>
-              )}
-            </div>
-            <div className="mt-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
+              </div>
+            ) : null}
+            <div
+              className={`mt-4 ${
+                brandLogo ? "lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0" : ""
+              }`}
+            >
               <h2 className="text-[17px] font-medium leading-[1.4] text-[var(--text-primary)]">
                 {brand.nameZh ? `${brand.nameZh} ${brand.name}` : brand.name}
               </h2>
@@ -494,14 +500,6 @@ export default async function ProductDetailPage({
           </section>
         ) : null}
 
-        <section className="mt-7 border-t border-[var(--border)] pt-4 pb-1 lg:mt-8">
-          <h2 className="text-[12px] font-medium leading-[1.4] tracking-[0.04em] text-[var(--text-primary)]">
-            购买说明
-          </h2>
-          <p className="mt-2 max-w-3xl text-[11px] font-normal leading-[1.7] text-[var(--text-secondary)]">
-            本页价格与库存为采集时参考信息，实际购买前需人工确认库存、最终价格、国际运费、预计税费及代购服务费用。
-          </p>
-        </section>
       </div>
 
       <SiteFooter />
