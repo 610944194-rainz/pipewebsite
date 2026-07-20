@@ -42,6 +42,71 @@ import {
   shouldTreatSmokingpipesEmptyListPageAsEndOfList,
   shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
+
+const inventoryCommonModulePath = pathToFileURL(
+  path.join(process.cwd(), "scripts", "inventory", "inventory-common-v1.mjs")
+).href;
+const inventoryCommonSource = fs.readFileSync(
+  path.join(process.cwd(), "scripts", "inventory", "inventory-common-v1.mjs"),
+  "utf8"
+);
+const smokingpipesListCollectorSource = fs.readFileSync(
+  path.join(process.cwd(), "scripts", "inventory", "smokingpipes-fetch-current-list-v1.mjs"),
+  "utf8"
+);
+assert.match(
+  smokingpipesListCollectorSource,
+  /data",\s*"audits",\s*"smokingpipes-daily-fix",\s*"list-duplicate-audit-latest\.json"/
+);
+assert.match(inventoryCommonSource, /DRY_RUN_AUDIT_WRITE_ALLOWLIST/);
+
+const dryRunWriteGuardRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-dry-run-write-guard-")
+);
+try {
+  const writeGuardHarness = `
+    import assert from "node:assert/strict";
+    import fs from "node:fs";
+    import path from "node:path";
+    import { writeJsonAtomic, writeTextAtomic } from ${JSON.stringify(inventoryCommonModulePath)};
+    const allowedJsonPaths = [
+      "data/inventory/smokingpipes-current-list-dry-run.json",
+      "data/inventory/smokingpipes-inventory-diff-dry-run.json",
+      "data/inventory/recent-new-dry-run.json",
+      "data/audits/smokingpipes-daily-fix/list-duplicate-audit-latest.json",
+    ];
+    for (const relativePath of allowedJsonPaths) {
+      await writeJsonAtomic(path.join(process.cwd(), relativePath), { relativePath });
+    }
+    await writeTextAtomic(
+      path.join(process.cwd(), "data/review/smokingpipes-inventory-update-report-v1.md"),
+      "fixed report\\n"
+    );
+    for (const relativePath of [
+      "data/audits/smokingpipes-daily-fix/unapproved.json",
+      "data/audits/smokingpipes-daily-fix-copy/list-duplicate-audit-latest.json",
+      "data/audits/other-audit.json",
+      "data/review/unapproved-report.md",
+    ]) {
+      await assert.rejects(
+        () => writeJsonAtomic(path.join(process.cwd(), relativePath), { relativePath }),
+        /Refusing to write outside dry-run inventory\\/report paths/
+      );
+    }
+    process.stdout.write(JSON.stringify({ status: "PASS", allowedJsonPaths }));
+  `;
+  const writeGuardResult = spawnSync(
+    process.execPath,
+    ["--input-type=module", "--eval", writeGuardHarness],
+    { cwd: dryRunWriteGuardRoot, encoding: "utf8" }
+  );
+  assert.equal(writeGuardResult.status, 0, writeGuardResult.stderr || writeGuardResult.stdout);
+  const writeGuardSummary = JSON.parse(writeGuardResult.stdout);
+  assert.equal(writeGuardSummary.status, "PASS");
+  assert.equal(writeGuardSummary.allowedJsonPaths.length, 4);
+} finally {
+  fs.rmSync(dryRunWriteGuardRoot, { recursive: true, force: true });
+}
 import {
   auditSmokingpipesDuplicateIds,
   evaluateSmokingpipesCurrentListCache,
