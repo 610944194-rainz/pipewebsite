@@ -217,6 +217,7 @@ import {
 } from "./smokingpipes-retry-failed-details-v1.mjs";
 import {
   buildSmokingpipesDetailPendingSpikeDiagnosis,
+  DETAIL_PENDING_SPIKE_THRESHOLD,
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
 import {
@@ -552,7 +553,11 @@ const pendingOverLimitGuard =
     previousDetailPendingCount: 0,
     pendingExistingWithConvertedCount: 0,
   });
+assert.equal(DETAIL_PENDING_SPIKE_THRESHOLD, 500);
 assert.equal(pendingOverLimitGuard.blocked, true);
+assert.equal(pendingOverLimitGuard.failureType, "detail-queue-spike");
+assert.equal(pendingOverLimitGuard.retryAllowed, false);
+assert.equal(pendingOverLimitGuard.detailPendingSpikeThreshold, 500);
 assert.match(
   pendingOverLimitGuard.blockReasons.join("\n"),
   /detailPendingCount 501 exceeds 500/
@@ -560,11 +565,19 @@ assert.match(
 
 assert.equal(
   evaluateSmokingpipesDetailQueueSpikeGuard({
-    detailPendingCount: 301,
+    detailPendingCount: 317,
     previousDetailPendingCount: 0,
     pendingExistingWithConvertedCount: 0,
   }).blocked,
-  true
+  false
+);
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 500,
+    previousDetailPendingCount: 0,
+    pendingExistingWithConvertedCount: 0,
+  }).blocked,
+  false
 );
 assert.equal(
   evaluateSmokingpipesDetailQueueSpikeGuard({
