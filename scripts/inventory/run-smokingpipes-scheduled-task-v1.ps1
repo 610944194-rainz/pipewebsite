@@ -12,38 +12,46 @@ $wrapper = Join-Path $AutomationWorktree "scripts\inventory\run-smokingpipes-aut
 $sameDayGuardModule = Join-Path $AutomationWorktree "scripts\inventory\smokingpipes-daily-invocation-guard-v1.psm1"
 $dailyTaskStatePath = Join-Path $AutomationWorktree "data\inventory\smokingpipes-daily-task-state.json"
 $logRoot = Join-Path $AutomationWorktree "data\review\smokingpipes-scheduled-logs"
-if (-not (Test-Path -LiteralPath $wrapper -PathType Leaf)) { throw "Smokingpipes auto-publish wrapper is missing: $wrapper" }
-if (-not (Test-Path -LiteralPath $BuildExecutable -PathType Leaf)) { throw "Build executable is missing: $BuildExecutable" }
-if (-not (Test-Path -LiteralPath $sameDayGuardModule -PathType Leaf)) { throw "Smokingpipes same-day guard module is missing: $sameDayGuardModule" }
-
-Import-Module -Name $sameDayGuardModule -Force
-$sameDayDecision = Test-SmokingpipesSameDaySuccess `
-  -State (Read-SmokingpipesDailyTaskState -Path $dailyTaskStatePath) `
-  -ForceSameDayRerun:$ForceSameDayRerun
-if ($sameDayDecision.ShouldSkip) {
-  Write-Output "same-day-success-already-completed"
-  exit 0
-}
-
-New-Item -ItemType Directory -Force -Path $logRoot | Out-Null
-$logPath = Join-Path $logRoot ("smokingpipes-daily-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".log")
 
 $exitCode = 1
-Start-Transcript -LiteralPath $logPath -Force | Out-Null
+$transcriptStarted = $false
 try {
-  & $wrapper `
-    -AutomationWorktree $AutomationWorktree `
-    -BuildExecutable $BuildExecutable `
-    -DailyTimeoutSeconds $DailyTimeoutSeconds `
-    -MaxAutoApply $MaxAutoApply `
-    -LegacyDuplicateSnapshotSha256 $LegacyDuplicateSnapshotSha256 `
-    -ForceRunOnce `
+  New-Item -ItemType Directory -Force -Path $logRoot | Out-Null
+  $logPath = Join-Path $logRoot ("smokingpipes-daily-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".log")
+  Start-Transcript -LiteralPath $logPath -Force | Out-Null
+  $transcriptStarted = $true
+  Write-Output "[INFO] scheduled launcher started pid=$PID"
+
+  if (-not (Test-Path -LiteralPath $wrapper -PathType Leaf)) { throw "Smokingpipes auto-publish wrapper is missing: $wrapper" }
+  if (-not (Test-Path -LiteralPath $BuildExecutable -PathType Leaf)) { throw "Build executable is missing: $BuildExecutable" }
+  if (-not (Test-Path -LiteralPath $sameDayGuardModule -PathType Leaf)) { throw "Smokingpipes same-day guard module is missing: $sameDayGuardModule" }
+
+  Write-Output "[INFO] same-day guard start"
+  Import-Module -Name $sameDayGuardModule -Force
+  $sameDayDecision = Test-SmokingpipesSameDaySuccess `
+    -State (Read-SmokingpipesDailyTaskState -Path $dailyTaskStatePath) `
     -ForceSameDayRerun:$ForceSameDayRerun
-  $exitCode = $LASTEXITCODE
+  Write-Output "[INFO] same-day guard result shouldSkip=$($sameDayDecision.ShouldSkip) reason=$($sameDayDecision.Reason)"
+  if ($sameDayDecision.ShouldSkip) {
+    Write-Output "same-day-success-already-completed"
+    $exitCode = 0
+  } else {
+    & $wrapper `
+      -AutomationWorktree $AutomationWorktree `
+      -BuildExecutable $BuildExecutable `
+      -DailyTimeoutSeconds $DailyTimeoutSeconds `
+      -MaxAutoApply $MaxAutoApply `
+      -LegacyDuplicateSnapshotSha256 $LegacyDuplicateSnapshotSha256 `
+      -ForceRunOnce `
+      -ForceSameDayRerun:$ForceSameDayRerun
+    $exitCode = $LASTEXITCODE
+  }
 } catch {
-  Write-Error $_.Exception.Message
+  Write-Error ("[ERROR] scheduled launcher failed type={0} message={1}" -f $_.Exception.GetType().FullName, $_.Exception.Message)
   $exitCode = 1
 } finally {
-  Stop-Transcript -ErrorAction SilentlyContinue | Out-Null
+  if ($transcriptStarted) {
+    Stop-Transcript -ErrorAction SilentlyContinue | Out-Null
+  }
 }
 exit $exitCode

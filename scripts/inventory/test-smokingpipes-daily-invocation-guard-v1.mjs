@@ -32,11 +32,17 @@ const installer = fs.readFileSync(
   path.join(inventoryRoot, "install-smokingpipes-daily-task-v1.ps1"),
   "utf8"
 );
+const localDateKey = spawnSync(
+  "powershell.exe",
+  ["-NoProfile", "-Command", "Get-Date -Format yyyy-MM-dd"],
+  { encoding: "utf8" }
+).stdout.trim();
+assert.match(localDateKey, /^\d{4}-\d{2}-\d{2}$/);
 
-function evaluateGuard(state, { forceSameDayRerun = false, dateKey = "2026-07-19" } = {}) {
+function evaluateGuardFromStateFile({ stateText, forceSameDayRerun = false, dateKey = "2026-07-19" } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-same-day-guard-"));
   const statePath = path.join(root, "state.json");
-  fs.writeFileSync(statePath, `${JSON.stringify(state)}\n`);
+  if (stateText !== undefined) fs.writeFileSync(statePath, stateText);
   const escapedModule = guardModule.replaceAll("'", "''");
   const escapedState = statePath.replaceAll("'", "''");
   const command = [
@@ -53,6 +59,53 @@ function evaluateGuard(state, { forceSameDayRerun = false, dateKey = "2026-07-19
     });
     assert.equal(result.status, 0, result.stderr);
     return JSON.parse(result.stdout);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+}
+
+function evaluateGuard(state, options = {}) {
+  return evaluateGuardFromStateFile({ ...options, stateText: `${JSON.stringify(state)}\n` });
+}
+
+function runScheduledLauncherFixture({ guardSource, stateText, expectedExitCode }) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-scheduled-launcher-"));
+  const fixtureInventory = path.join(root, "scripts", "inventory");
+  const logsRoot = path.join(root, "data", "review", "smokingpipes-scheduled-logs");
+  const statePath = path.join(root, "data", "inventory", "smokingpipes-daily-task-state.json");
+  const wrapperMarker = path.join(root, "wrapper-invoked.txt");
+  try {
+    fs.mkdirSync(fixtureInventory, { recursive: true });
+    fs.mkdirSync(path.dirname(statePath), { recursive: true });
+    fs.writeFileSync(path.join(fixtureInventory, "run-smokingpipes-scheduled-task-v1.ps1"), scheduledLauncher);
+    fs.writeFileSync(path.join(fixtureInventory, "smokingpipes-daily-invocation-guard-v1.psm1"), guardSource);
+    fs.writeFileSync(statePath, stateText);
+    fs.writeFileSync(
+      path.join(fixtureInventory, "run-smokingpipes-auto-publish.ps1"),
+      `param([Parameter(ValueFromRemainingArguments = $true)][object[]]$Remaining)\nSet-Content -LiteralPath '${wrapperMarker.replaceAll("'", "''")}' -Value 'called'\n`
+    );
+    const powershell = path.join(process.env.WINDIR ?? "C:\\Windows", "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+    const result = spawnSync(
+      "powershell.exe",
+      [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", path.join(fixtureInventory, "run-smokingpipes-scheduled-task-v1.ps1"),
+        "-AutomationWorktree", root,
+        "-BuildExecutable", powershell,
+      ],
+      { encoding: "utf8" }
+    );
+    assert.equal(result.status, expectedExitCode, result.stderr || result.stdout);
+    const logs = fs.existsSync(logsRoot)
+      ? fs.readdirSync(logsRoot).filter((name) => name.endsWith(".log"))
+      : [];
+    assert.equal(logs.length, 1, "launcher must create exactly one early transcript log");
+    return {
+      result,
+      wrapperInvoked: fs.existsSync(wrapperMarker),
+      logText: fs.readFileSync(path.join(logsRoot, logs[0]), "utf8"),
+    };
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
   }
@@ -90,6 +143,27 @@ assert.equal(
   true,
   "legacy skip marker must prevent one final old-schema repeat"
 );
+assert.equal(
+  evaluateGuard({ dateKey: "2026-07-19", status: "skipped-success", productionWritten: true }, { dateKey: "2026-07-20" }).ShouldSkip,
+  false,
+  "yesterday legacy success must allow a new local day"
+);
+assert.equal(
+  evaluateGuard({ dateKey: "2026-07-19", status: "failed" }).ShouldSkip,
+  false,
+  "legacy failure must remain retryable"
+);
+assert.equal(evaluateGuard({}).ShouldSkip, false, "an empty legacy state must be retryable");
+assert.equal(
+  evaluateGuardFromStateFile({ dateKey: "2026-07-19" }).ShouldSkip,
+  false,
+  "a missing state file must be retryable"
+);
+assert.equal(
+  evaluateGuardFromStateFile({ stateText: "{broken-json", dateKey: "2026-07-19" }).ShouldSkip,
+  false,
+  "a malformed state file must never be inferred as success"
+);
 
 assert.match(scheduledLauncher, /Test-SmokingpipesSameDaySuccess/);
 assert.match(scheduledLauncher, /same-day-success-already-completed/);
@@ -97,8 +171,12 @@ assert.match(scheduledLauncher, /\[switch\]\$ForceSameDayRerun/);
 assert.match(scheduledLauncher, /-ForceRunOnce/);
 assert.match(scheduledLauncher, /-ForceSameDayRerun:\$ForceSameDayRerun/);
 assert.ok(
-  scheduledLauncher.indexOf("Test-SmokingpipesSameDaySuccess") < scheduledLauncher.indexOf("Start-Transcript"),
-  "scheduled guard must run before logs and wrapper execution"
+  scheduledLauncher.indexOf("Start-Transcript") < scheduledLauncher.indexOf("Test-SmokingpipesSameDaySuccess"),
+  "scheduled launcher must create an early transcript before the same-day guard"
+);
+assert.ok(
+  scheduledLauncher.indexOf("Test-SmokingpipesSameDaySuccess") < scheduledLauncher.indexOf("& $wrapper"),
+  "scheduled guard must still run before wrapper execution"
 );
 assert.match(autoPublish, /Test-SmokingpipesSameDaySuccess/);
 assert.ok(
@@ -110,6 +188,30 @@ assert.match(progressiveDaily, /"--run-id=\$InvocationRunId"/);
 assert.match(progressiveDaily, /final notification waits for auto-publish validation\/build\/push completion/);
 assert.match(autoPublish, /Set-DailyTaskSuccessfulCompletion/);
 assert.match(autoPublish, /daily reported no production write but tracked production changes exist/);
+
+const noOpLauncher = runScheduledLauncherFixture({
+  guardSource: fs.readFileSync(guardModule, "utf8"),
+  stateText: JSON.stringify({ dateKey: localDateKey, status: "skipped-success", productionWritten: true }),
+  expectedExitCode: 0,
+});
+assert.equal(noOpLauncher.wrapperInvoked, false, "same-day no-op must not call Daily wrapper");
+assert.match(noOpLauncher.result.stdout, /same-day-success-already-completed/);
+assert.match(noOpLauncher.logText, /same-day guard start/);
+assert.match(noOpLauncher.logText, /same-day guard result shouldSkip=True/);
+
+const failedGuardLauncher = runScheduledLauncherFixture({
+  guardSource: [
+    "Set-StrictMode -Version Latest",
+    "function Read-SmokingpipesDailyTaskState { param([string]$Path) return @{} }",
+    "function Test-SmokingpipesSameDaySuccess { param([object]$State, [switch]$ForceSameDayRerun) throw 'fixture guard failure' }",
+    "Export-ModuleMember -Function Read-SmokingpipesDailyTaskState, Test-SmokingpipesSameDaySuccess",
+  ].join("\n"),
+  stateText: "{}\n",
+  expectedExitCode: 1,
+});
+assert.equal(failedGuardLauncher.wrapperInvoked, false, "guard failure must not call Daily wrapper");
+assert.match(failedGuardLauncher.logText, /same-day guard start/);
+assert.match(failedGuardLauncher.logText, /fixture guard failure/);
 
 for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30"]) {
   assert.match(installer, new RegExp(time));
