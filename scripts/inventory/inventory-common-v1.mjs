@@ -6,6 +6,16 @@ export const ROOT = process.cwd();
 export const INVENTORY_DIR = path.join(ROOT, "data", "inventory");
 export const REVIEW_DIR = path.join(ROOT, "data", "review");
 
+const DRY_RUN_AUDIT_WRITE_ALLOWLIST = new Set([
+  path.resolve(
+    ROOT,
+    "data",
+    "audits",
+    "smokingpipes-daily-fix",
+    "list-duplicate-audit-latest.json"
+  ),
+]);
+
 export const PATHS = {
   currentList: path.join(
     INVENTORY_DIR,
@@ -78,6 +88,7 @@ function assertDryRunWritePath(filePath) {
 
   if (
     resolved !== reportPath &&
+    !DRY_RUN_AUDIT_WRITE_ALLOWLIST.has(resolved) &&
     !resolved.startsWith(`${inventoryRoot}${path.sep}`)
   ) {
     throw new Error(
