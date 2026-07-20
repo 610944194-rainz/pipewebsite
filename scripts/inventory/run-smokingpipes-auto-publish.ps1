@@ -732,22 +732,6 @@ try {
       Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "active inventory lock: $lockPath"
     }
   }
-  $processSnapshot = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue)
-  $processById = @{}
-  foreach ($process in $processSnapshot) { $processById[[int]$process.ProcessId] = $process }
-  $ancestorProcessIds = [Collections.Generic.HashSet[int]]::new()
-  $ancestorCursor = [int]$PID
-  while ($processById.ContainsKey($ancestorCursor)) {
-    $parentId = [int]$processById[$ancestorCursor].ParentProcessId
-    if ($parentId -le 0 -or -not $ancestorProcessIds.Add($parentId)) { break }
-    $ancestorCursor = $parentId
-  }
-  $otherInventoryProcess = $processSnapshot | Where-Object {
-    $_.ProcessId -ne $PID -and -not $ancestorProcessIds.Contains([int]$_.ProcessId) -and $_.CommandLine -match "smokingpipes.*(?:inventory|progressive|daily)" -and $_.CommandLine -notmatch "run-smokingpipes-auto-publish"
-  } | Select-Object -First 1
-  if ($otherInventoryProcess) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "process" -Reason "another Smokingpipes inventory process is running"
-  }
   $recoveryReadiness = $null
   if ($ResumeAfterProductionWrite) {
     $report.failureStage = "recovery-state-validation"
