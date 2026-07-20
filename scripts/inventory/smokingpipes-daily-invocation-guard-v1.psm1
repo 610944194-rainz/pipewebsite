@@ -12,6 +12,25 @@ function Get-SmokingpipesLocalDateKey {
   return $Now.ToString("yyyy-MM-dd")
 }
 
+function Get-OptionalSmokingpipesStateValue {
+  param(
+    [object]$State,
+    [Parameter(Mandatory = $true)][string]$Name,
+    [object]$DefaultValue = $null
+  )
+
+  if ($null -eq $State) {
+    return $DefaultValue
+  }
+
+  $property = $State.PSObject.Properties[$Name]
+  if ($null -eq $property -or $null -eq $property.Value) {
+    return $DefaultValue
+  }
+
+  return $property.Value
+}
+
 function Read-SmokingpipesDailyTaskState {
   param([Parameter(Mandatory = $true)][string]$Path)
 
@@ -39,12 +58,13 @@ function Test-SmokingpipesSameDaySuccess {
     return [pscustomobject]@{ ShouldSkip = $false; Reason = "not-completed" }
   }
 
-  $lastSuccessfulDate = [string]$State.lastSuccessfulLocalDate
-  $lastSuccessfulStatus = [string]$State.lastSuccessfulStatus
+  $lastSuccessfulDate = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "lastSuccessfulLocalDate" -DefaultValue "")
+  $lastSuccessfulStatus = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "lastSuccessfulStatus" -DefaultValue "")
+  $lastSuccessfulRunId = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "lastSuccessfulRunId" -DefaultValue "")
   $hasExplicitSuccess =
     $lastSuccessfulDate -eq $LocalDateKey -and
     $script:SuccessfulDailyStatuses -contains $lastSuccessfulStatus -and
-    -not [string]::IsNullOrWhiteSpace([string]$State.lastSuccessfulRunId)
+    -not [string]::IsNullOrWhiteSpace($lastSuccessfulRunId)
 
   if ($hasExplicitSuccess) {
     return [pscustomobject]@{ ShouldSkip = $true; Reason = "explicit-same-day-success" }
@@ -53,10 +73,13 @@ function Test-SmokingpipesSameDaySuccess {
   # Compatibility for the already-persisted legacy skip marker.  Do not infer
   # success from a bare legacy "success" state because it may predate final
   # validator/build/publish completion.
+  $legacyDateKey = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "dateKey" -DefaultValue "")
+  $legacyStatus = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "status" -DefaultValue "")
+  $legacyProductionWritten = Get-OptionalSmokingpipesStateValue -State $State -Name "productionWritten" -DefaultValue $false
   $isLegacySkip =
-    [string]$State.dateKey -eq $LocalDateKey -and
-    [string]$State.status -eq "skipped-success" -and
-    $State.productionWritten -eq $true
+    $legacyDateKey -eq $LocalDateKey -and
+    $legacyStatus -eq "skipped-success" -and
+    $legacyProductionWritten -eq $true
   if ($isLegacySkip) {
     return [pscustomobject]@{ ShouldSkip = $true; Reason = "legacy-skipped-success" }
   }
@@ -64,4 +87,4 @@ function Test-SmokingpipesSameDaySuccess {
   return [pscustomobject]@{ ShouldSkip = $false; Reason = "not-completed" }
 }
 
-Export-ModuleMember -Function Get-SmokingpipesLocalDateKey, Read-SmokingpipesDailyTaskState, Test-SmokingpipesSameDaySuccess
+Export-ModuleMember -Function Get-SmokingpipesLocalDateKey, Get-OptionalSmokingpipesStateValue, Read-SmokingpipesDailyTaskState, Test-SmokingpipesSameDaySuccess
