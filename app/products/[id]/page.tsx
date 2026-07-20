@@ -41,6 +41,7 @@ type SpecRow = {
 
 type ProductSpecGroups = {
   basic: SpecRow[];
+  materials: SpecRow[];
   dimensions: SpecRow[];
 };
 
@@ -161,11 +162,22 @@ function normalizedSpecValue(spec: PublicDetailSpec) {
 
 function basicSpecRows(product: PublicDetailProduct): SpecRow[] {
   const rows: Array<{ label: string; value: unknown }> = [
+    { label: "品牌", value: product.brandName },
+    { label: "国家 / 地区", value: countryLabel(product.brandCountry) },
     { label: "斗型", value: shapeDisplayLabel(product.shape, product.shapeZh) },
     {
-      label: "新旧",
+      label: "状态",
       value: conditionDisplayLabel(product.conditionType, product.conditionLabel),
     },
+  ];
+
+  return rows
+    .map((row) => ({ label: row.label, value: knownText(row.value) }))
+    .filter((row) => row.value);
+}
+
+function materialSpecRows(product: PublicDetailProduct): SpecRow[] {
+  const rows: Array<{ label: string; value: unknown }> = [
     { label: "表面工艺", value: product.finishZh || product.finish },
     { label: "斗钵材质", value: product.bowlMaterialZh || product.bowlMaterial },
     { label: "斗嘴材质", value: product.stemMaterialZh || product.stemMaterial },
@@ -268,10 +280,14 @@ function additionalSpecRows(
 
 function productSpecGroups(product: PublicDetailProduct): ProductSpecGroups {
   const basic = basicSpecRows(product);
+  const materials = materialSpecRows(product);
+  const dimensions = dimensionSpecRows(product);
+  const existing = [...basic, ...materials, ...dimensions];
 
   return {
-    basic: [...basic, ...additionalSpecRows(product, basic)],
-    dimensions: dimensionSpecRows(product),
+    basic: [...basic, ...additionalSpecRows(product, existing)],
+    materials,
+    dimensions,
   };
 }
 
@@ -319,7 +335,9 @@ export default async function ProductDetailPage({
   const brandSlug = product.brandSlug || brand?.slug || "";
   const specGroups = productSpecGroups(product);
   const hasSpecs =
-    specGroups.basic.length > 0 || specGroups.dimensions.length > 0;
+    specGroups.basic.length > 0 ||
+    specGroups.materials.length > 0 ||
+    specGroups.dimensions.length > 0;
   const brandLogo = resolveBrandLogo(brand, brandSlug);
   const mainImage = product.mainImage || product.gallery[0] || "";
   const rawReturnTo = String(
@@ -495,18 +513,25 @@ function ProductArchive({ groups }: { groups: ProductSpecGroups }) {
       <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
         Specifications
       </p>
-      <h2 className="mt-[6px] text-[18px] font-medium leading-[1.4] text-[var(--text-primary)] lg:text-[20px]">
+      <h2 className="mt-[5px] text-[18px] font-medium leading-[1.35] text-[var(--text-primary)] lg:text-[20px]">
         产品档案
       </h2>
 
       {groups.basic.length > 0 ? (
         <ProductSpecGroup title="基本信息" specs={groups.basic} />
       ) : null}
+      {groups.materials.length > 0 ? (
+        <ProductSpecGroup
+          title="材质与工艺"
+          specs={groups.materials}
+          className="mt-[14px]"
+        />
+      ) : null}
       {groups.dimensions.length > 0 ? (
         <ProductSpecGroup
           title="尺寸数据"
           specs={groups.dimensions}
-          className="mt-5"
+          className="mt-[14px]"
         />
       ) : null}
     </div>
@@ -516,7 +541,7 @@ function ProductArchive({ groups }: { groups: ProductSpecGroups }) {
 function ProductSpecGroup({
   title,
   specs,
-  className = "mt-5",
+  className = "mt-4",
 }: {
   title: string;
   specs: SpecRow[];
@@ -524,19 +549,19 @@ function ProductSpecGroup({
 }) {
   return (
     <section className={className}>
-      <h3 className="text-[12px] font-medium leading-[1.4] tracking-[0.04em] text-[var(--text-primary)]">
+      <h3 className="text-[11.5px] font-medium leading-[1.4] tracking-[0.04em] text-[var(--text-primary)]">
         {title}
       </h3>
-      <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-0 lg:grid-cols-3 lg:gap-x-6">
+      <div className="mt-[7px] grid grid-cols-2 gap-x-4 gap-y-0 lg:grid-cols-3 lg:gap-x-6">
         {specs.map((spec, index) => (
           <div
             key={`${spec.label}-${index}`}
-            className="min-w-0 border-t border-[#e9e1d7] pb-2.5 pt-2"
+            className="min-w-0 border-t border-[#e9e1d7] pb-2 pt-[7px]"
           >
-            <p className="truncate text-[10.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">
+            <p className="text-[9.5px] font-normal leading-[1.35] text-[var(--text-secondary)]">
               {spec.label}
             </p>
-            <p className="mt-1 truncate text-[12.5px] font-medium leading-[1.4] text-[var(--text-primary)]">
+            <p className="mt-[3px] line-clamp-2 break-words text-[11.5px] font-medium leading-[1.4] text-[var(--text-primary)]">
               {spec.value}
             </p>
           </div>
