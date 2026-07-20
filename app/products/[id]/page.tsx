@@ -117,12 +117,14 @@ function knownText(value: unknown) {
 
 function formatMillimeter(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value)
-    ? `${value} mm`
+    ? `${value.toFixed(1)} mm`
     : "";
 }
 
 function formatWeight(value: number | null | undefined) {
-  return typeof value === "number" && Number.isFinite(value) ? `${value} g` : "";
+  return typeof value === "number" && Number.isFinite(value)
+    ? `${value.toFixed(1)} g`
+    : "";
 }
 
 function normalizeLabel(value: string) {
@@ -361,9 +363,9 @@ export default async function ProductDetailPage({
           productId={product.id}
           fallbackHref="/products"
           ariaLabel={backLabel}
-          className="mb-[14px] inline-flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#e9e1d7] bg-transparent text-[var(--coffee-dark)] transition-colors hover:bg-[#f1e9df] active:bg-[#e9ded1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+          className="mb-[14px] inline-flex h-8 w-8 items-center justify-center bg-transparent text-[var(--coffee-dark)] transition-colors hover:text-[var(--brass)] active:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
         >
-          <ArrowLeftIcon className="h-5 w-5" />
+          <ArrowLeftIcon className="h-4 w-4" />
           <span className="sr-only">{backLabel}</span>
         </ProductBackButton>
 
