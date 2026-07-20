@@ -95,8 +95,8 @@ try {
   assert.match(publishScript, /Invoke-CheckedCommand -FilePath \$NodeExecutablePath/);
   assert.match(publishScript, /Complete-AutoPublish/);
   assert.match(publishScript, /smokingpipes-command-execution-v1\.psm1/);
-  assert.match(publishScript, /ancestorProcessIds/);
-  assert.match(publishScript, /-not \$ancestorProcessIds\.Contains/);
+  assert.doesNotMatch(publishScript, /Get-CimInstance\s+Win32_Process/);
+  assert.doesNotMatch(publishScript, /another Smokingpipes inventory process is running/);
   assert.match(publishScript, /Invoke-SmokingpipesCommand -Stage "git"/);
   assert.doesNotMatch(publishScript, /& node "scripts\/inventory\/smokingpipes-auto-publish-notify-v1\.mjs"/);
   assert.match(publishScript, /scripts[\\/]validate-public-product-indexes-v1\.mjs/);
