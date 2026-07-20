@@ -244,7 +244,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <section id="gallery" className="bg-white">
+      <section id="gallery" className="min-w-0 max-w-full w-full bg-white">
         <div className="flex h-[clamp(300px,78vw,315px)] items-center justify-center rounded-[6px] border border-[#eee7df] bg-white text-[10px] font-normal tracking-[0.16em] text-[var(--brass)] sm:h-[380px] lg:h-[480px]">
           PIPE IMAGE
         </div>
@@ -268,10 +268,10 @@ export default function ProductGallery(props: ProductGalleryProps) {
 
   return (
     <>
-      <section id="gallery" className="bg-white">
-        <div className="relative overflow-hidden rounded-[6px] border border-[#eee7df] bg-white">
+      <section id="gallery" className="min-w-0 max-w-full w-full bg-white">
+        <div className="relative min-w-0 max-w-full overflow-hidden rounded-[6px] border border-[#eee7df] bg-white">
           <div
-            className="relative h-[clamp(300px,78vw,315px)] bg-white px-3 py-4 sm:h-[380px] sm:p-5 lg:h-[480px] lg:p-6"
+            className="relative h-[clamp(300px,78vw,315px)] min-w-0 max-w-full w-full overflow-hidden bg-white px-3 py-4 sm:h-[380px] sm:p-5 lg:h-[480px] lg:p-6"
             onTouchStart={(event) => {
               touchStartXRef.current = event.touches[0]?.clientX ?? 0;
             }}
@@ -292,7 +292,7 @@ export default function ProductGallery(props: ProductGalleryProps) {
               key={currentImage}
               src={currentImage}
               alt={name}
-              className="h-full w-full object-contain"
+              className="block h-full max-h-full min-w-0 max-w-full w-full object-contain object-center"
               eager
             />
 
@@ -334,31 +334,33 @@ export default function ProductGallery(props: ProductGalleryProps) {
 
           {images.length > 1 ? (
             <div className="border-t border-[#eee7df] bg-white px-0 py-[10px] sm:py-3">
-              <div className="flex gap-2 overflow-x-auto px-0">
-                {images.map((image, index) => {
-                  const isActive = index === currentIndex;
+              <div className="min-w-0 max-w-full w-full overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex min-w-full w-max gap-2">
+                  {images.map((image, index) => {
+                    const isActive = index === currentIndex;
 
-                  return (
-                    <button
-                      key={`${image}-${index}`}
-                      type="button"
-                      onClick={() => setCurrentIndex(index)}
-                      aria-label={`查看 ${name} 第 ${index + 1} 张图片`}
-                      className={[
-                        "flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1 transition sm:h-[72px] sm:w-[72px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]",
-                        isActive
-                          ? "border-[var(--brass)]"
-                          : "border-[#eee7df]",
-                      ].join(" ")}
-                    >
-                      <ResilientImage
-                        src={image}
-                        alt={`${name} 图片 ${index + 1}`}
-                        className="h-full w-full object-contain"
-                      />
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={`${image}-${index}`}
+                        type="button"
+                        onClick={() => setCurrentIndex(index)}
+                        aria-label={`查看 ${name} 第 ${index + 1} 张图片`}
+                        className={[
+                          "flex h-[60px] w-[60px] shrink-0 basis-[60px] items-center justify-center overflow-hidden rounded-[4px] border bg-white p-1 transition min-[430px]:h-[64px] min-[430px]:w-[64px] min-[430px]:basis-[64px] sm:h-[72px] sm:w-[72px] sm:basis-[72px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]",
+                          isActive
+                            ? "border-[var(--brass)]"
+                            : "border-[#eee7df]",
+                        ].join(" ")}
+                      >
+                        <ResilientImage
+                          src={image}
+                          alt={`${name} 图片 ${index + 1}`}
+                          className="block h-full max-h-full max-w-full w-full object-contain object-center"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ) : null}

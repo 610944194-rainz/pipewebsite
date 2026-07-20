@@ -349,8 +349,8 @@ export default async function ProductDetailPage({
           <span className="sr-only">{backLabel}</span>
         </ProductBackButton>
 
-        <section className="grid gap-5 lg:grid-cols-[minmax(0,1.16fr)_minmax(360px,0.84fr)] lg:items-start lg:gap-12">
-          <div className="lg:sticky lg:top-[88px] lg:self-start">
+        <section className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.16fr)_minmax(360px,0.84fr)] lg:items-start lg:gap-12">
+          <div className="min-w-0 lg:sticky lg:top-[88px] lg:self-start">
             <ProductGallery
               productId={product.id}
               name={title}
@@ -495,7 +495,7 @@ function ProductArchive({ groups }: { groups: ProductSpecGroups }) {
       <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
         Specifications
       </p>
-      <h2 className="mt-2 text-[18px] font-medium leading-[1.4] text-[var(--text-primary)] lg:text-[20px]">
+      <h2 className="mt-[6px] text-[18px] font-medium leading-[1.4] text-[var(--text-primary)] lg:text-[20px]">
         产品档案
       </h2>
 
@@ -506,7 +506,7 @@ function ProductArchive({ groups }: { groups: ProductSpecGroups }) {
         <ProductSpecGroup
           title="尺寸数据"
           specs={groups.dimensions}
-          className="mt-7"
+          className="mt-5"
         />
       ) : null}
     </div>
@@ -527,11 +527,11 @@ function ProductSpecGroup({
       <h3 className="text-[12px] font-medium leading-[1.4] tracking-[0.04em] text-[var(--text-primary)]">
         {title}
       </h3>
-      <div className="mt-3 grid grid-cols-2 gap-x-5 lg:grid-cols-3 lg:gap-x-6">
+      <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-0 lg:grid-cols-3 lg:gap-x-6">
         {specs.map((spec, index) => (
           <div
             key={`${spec.label}-${index}`}
-            className="min-w-0 border-t border-[#e9e1d7] pb-3 pt-2.5"
+            className="min-w-0 border-t border-[#e9e1d7] pb-2.5 pt-2"
           >
             <p className="truncate text-[10.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">
               {spec.label}
