@@ -122,12 +122,12 @@ function DossierProductCard({
   const tags = metaTags(product);
 
   return (
-    <article id={productAnchorId(product.id)} className="scroll-mt-4">
+    <article id={productAnchorId(product.id)} className="h-full scroll-mt-4">
       <Link
         href={productHref(product, returnTo)}
         onNavigate={() => saveReturnPosition(product.id, returnTo)}
         aria-label={`查看 ${name} 详情`}
-        className="group block overflow-hidden rounded-[5px] border border-[rgba(211,179,133,0.2)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
+        className="group flex h-full flex-col overflow-hidden rounded-[5px] border border-[rgba(210,169,105,0.2)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
       >
         <ProductCardImage
           imageUrl={product.mainImage}
@@ -141,21 +141,19 @@ function DossierProductCard({
           <InventoryProductImageOverlays product={product} />
         </ProductCardImage>
 
-        <div className="px-2.5 pb-3 pt-2.5">
+        <div className="flex h-[142px] flex-col px-2.5 pb-3 pt-2.5 sm:h-[146px]">
           <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[#d7a758]">
             {product.brandName || sourceLabel(product.source)}
           </p>
-          <h3 className="mt-[5px] line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[#f4eee7] sm:text-[12.5px]">
+          <h3 className="mt-[5px] h-[2.9em] line-clamp-2 text-[13px] font-normal leading-[1.43] text-[#f4eee7]">
             {name}
           </h3>
-          <p className="mt-2 text-[12px] font-medium leading-[1.4] text-[#f4eee7] sm:text-[12.5px]">
+          <p className="mt-2 shrink-0 text-[12.5px] font-medium leading-[1.4] text-[#f4eee7]">
             {formatSitePrice(product)}
           </p>
-          {tags.length > 0 ? (
-            <p className="mt-2 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[rgba(244,238,231,0.62)] sm:text-[10px]">
-              {tags.join(" · ")}
-            </p>
-          ) : null}
+          <p className="mt-2 h-[1.45em] shrink-0 line-clamp-1 text-[10.5px] font-normal leading-[1.45] text-[rgba(244,238,231,0.62)]">
+            {tags.join(" · ")}
+          </p>
         </div>
       </Link>
     </article>
