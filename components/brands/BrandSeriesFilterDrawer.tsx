@@ -112,43 +112,43 @@ export default function BrandSeriesFilterDrawer({
             onClick={closeDrawer}
           />
 
-          <div className={dossier ? "relative z-10 flex max-h-[82dvh] w-full max-w-xl flex-col overflow-hidden rounded-[6px] border border-[rgba(213,166,81,0.14)] bg-[#352114]" : "relative z-10 flex max-h-[82vh] w-full max-w-xl flex-col overflow-hidden rounded-[28px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_22px_60px_rgba(31,26,22,0.18)]"}>
-            <div className={dossier ? "flex h-[82px] shrink-0 items-center justify-between gap-3 border-b border-[rgba(213,166,81,0.1)] px-4" : "flex items-center justify-between gap-3 border-b border-[#EFE3D4] px-5 py-4"}>
+            <div className={dossier ? "relative z-10 flex max-h-[82dvh] w-full max-w-xl flex-col overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.12)] bg-[#352114]" : "relative z-10 flex max-h-[82vh] w-full max-w-xl flex-col overflow-hidden rounded-[28px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_22px_60px_rgba(31,26,22,0.18)]"}>
+              <div className={dossier ? "flex h-[76px] shrink-0 items-center justify-between gap-3 border-b border-[rgba(213,166,81,0.08)] px-5" : "flex items-center justify-between gap-3 border-b border-[#EFE3D4] px-5 py-4"}>
               <div>
                 <p className={dossier ? "text-[10px] uppercase tracking-[0.2em] text-[#d7a758]" : "text-[11px] uppercase tracking-[0.24em] text-[#A97838]"}>
                   Filter
                 </p>
-                <h2 className={dossier ? "mt-0.5 text-[16px] font-medium text-[#f4eee7]" : "mt-1 text-[18px] font-bold text-[#1F1A16]"}>
+                <h2 className={dossier ? "mt-0.5 text-[18px] font-medium text-[#f4eee7]" : "mt-1 text-[18px] font-bold text-[#1F1A16]"}>
                   选择系列
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={closeDrawer}
-                className={dossier ? "flex h-9 w-9 items-center justify-center text-[18px] font-normal text-[#e4c18d]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#E7DDD0] bg-white text-[18px] font-semibold text-[#746A5F]"}
+                className={dossier ? "flex h-11 w-11 items-center justify-center text-[16px] font-normal text-[#e4c18d]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#E7DDD0] bg-white text-[18px] font-semibold text-[#746A5F]"}
                 aria-label="关闭"
               >
                 ×
               </button>
             </div>
 
-            <div className={dossier ? "border-b border-[rgba(213,166,81,0.1)] px-4 py-3.5" : "border-b border-[#EFE3D4] px-5 py-3"}>
-              <label className={dossier ? "flex h-11 items-center gap-2 rounded-[4px] border border-[rgba(213,166,81,0.14)] bg-[#2a180e] px-3" : "flex h-11 items-center gap-2 rounded-full border border-[#E7DDD0] bg-white px-4"}>
-                <SearchIcon className={dossier ? "h-4 w-4 shrink-0 text-[#d7a758]" : "h-4 w-4 shrink-0 text-[#8A8176]"} />
+            <div className={dossier ? "border-b border-[rgba(213,166,81,0.08)] px-4 py-3" : "border-b border-[#EFE3D4] px-5 py-3"}>
+              <label className={dossier ? "flex h-[42px] items-center gap-2 rounded-[4px] border border-[rgba(213,166,81,0.12)] bg-[#2a180e] px-3" : "flex h-11 items-center gap-2 rounded-full border border-[#E7DDD0] bg-white px-4"}>
+                <SearchIcon className={dossier ? "h-[18px] w-[18px] shrink-0 text-[#d7a758]" : "h-4 w-4 shrink-0 text-[#8A8176]"} />
                 <input
                   type="search"
                   value={searchText}
                   onChange={(event) => setSearchText(event.target.value)}
                   placeholder="搜索系列"
                   autoFocus
-                  className={dossier ? "min-w-0 flex-1 bg-transparent text-[13px] text-[#f4eee7] outline-none placeholder:text-[rgba(244,238,231,0.45)]" : "min-w-0 flex-1 bg-transparent text-[13px] text-[#1F1A16] outline-none placeholder:text-[#8A8176]"}
+                  className={dossier ? "min-w-0 flex-1 bg-transparent text-[12.5px] text-[#f4eee7] outline-none placeholder:text-[rgba(244,238,231,0.45)]" : "min-w-0 flex-1 bg-transparent text-[13px] text-[#1F1A16] outline-none placeholder:text-[#8A8176]"}
                 />
               </label>
             </div>
 
             <div className={dossier ? "min-h-0 flex-1 overflow-y-auto px-4 py-3" : "min-h-0 flex-1 overflow-y-auto px-5 py-4"}>
               {filteredOptions.length > 0 ? (
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-2">
                   {filteredOptions.map((option) => {
                     const selected = draftSeries === option.series;
 
@@ -158,15 +158,15 @@ export default function BrandSeriesFilterDrawer({
                         type="button"
                         onClick={() => setDraftSeries(option.series)}
                         className={[
-                          dossier ? "h-[54px] min-w-0 rounded-[4px] border px-3 py-2 text-left transition" : "min-w-0 rounded-2xl border px-3 py-3 text-left transition",
+                          dossier ? "h-[52px] min-w-0 rounded-[4px] border px-3 py-2.5 text-left transition" : "min-w-0 rounded-2xl border px-3 py-3 text-left transition",
                           selected
-                            ? dossier ? "border-[rgba(213,166,81,0.22)] bg-[#3e2a1e] text-[#f4eee7] shadow-[inset_0_-1px_0_#d7a758]" : "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
-                            : dossier ? "border-[rgba(213,166,81,0.14)] bg-[#2a180e] text-[#f4eee7] hover:border-[rgba(213,166,81,0.22)]" : "border-[#E7DDD0] bg-white text-[#1F1A16] hover:border-[#A97838] hover:text-[#8A5D26]",
+                            ? dossier ? "border-[rgba(213,166,81,0.18)] bg-[#3e2a1e] text-[#f4eee7] shadow-[inset_0_-1px_0_#d7a758]" : "border-[#063B32] bg-[#063B32] text-[#E7C48A]"
+                            : dossier ? "border-[rgba(213,166,81,0.12)] bg-[#2a180e] text-[#f4eee7] hover:border-[rgba(213,166,81,0.18)]" : "border-[#E7DDD0] bg-white text-[#1F1A16] hover:border-[#A97838] hover:text-[#8A5D26]",
                         ].join(" ")}
                       >
                         <span className="flex min-w-0 items-start justify-between gap-2">
                           <span className="min-w-0">
-                            <span className="block line-clamp-2 text-[13px] font-medium leading-[1.35]">
+                            <span className="block line-clamp-2 text-[12.5px] font-medium leading-[1.35]">
                               {option.seriesZh || option.series}
                             </span>
                             {option.seriesZh ? (
@@ -184,7 +184,7 @@ export default function BrandSeriesFilterDrawer({
                           </span>
                           <span
                             className={[
-                              dossier ? "shrink-0 text-[11.5px] font-medium" : "shrink-0 text-[10px] font-semibold",
+                              dossier ? "shrink-0 text-[11px] font-medium" : "shrink-0 text-[10px] font-semibold",
                               selected
                                 ? dossier ? "text-[#e4c18d]" : "text-[#E7C48A]/80"
                                 : dossier ? "text-[#d7a758]" : "text-[#A97838]",
@@ -204,11 +204,11 @@ export default function BrandSeriesFilterDrawer({
               )}
             </div>
 
-            <div className={dossier ? "grid h-[74px] shrink-0 grid-cols-2 gap-3 border-t border-[rgba(213,166,81,0.1)] px-4 py-3" : "grid grid-cols-2 gap-3 border-t border-[#EFE3D4] px-5 py-4"}>
+            <div className={dossier ? "grid h-[72px] shrink-0 grid-cols-2 gap-2.5 border-t border-[rgba(213,166,81,0.08)] px-4 py-3" : "grid grid-cols-2 gap-3 border-t border-[#EFE3D4] px-5 py-4"}>
               <button
                 type="button"
                 onClick={() => navigate("")}
-                className={dossier ? "flex h-11 items-center justify-center rounded-[4px] border border-[rgba(213,166,81,0.14)] bg-transparent text-[13px] font-normal text-[#e4c18d] transition hover:border-[rgba(213,166,81,0.22)]" : "flex h-11 items-center justify-center rounded-full border border-[#CFAE7B] bg-white text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"}
+                className={dossier ? "flex h-11 items-center justify-center rounded-[4px] border border-[rgba(213,166,81,0.12)] bg-transparent text-[13px] font-normal text-[#e4c18d] transition hover:border-[rgba(213,166,81,0.18)]" : "flex h-11 items-center justify-center rounded-full border border-[#CFAE7B] bg-white text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"}
               >
                 清除
               </button>
