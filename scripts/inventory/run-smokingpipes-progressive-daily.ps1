@@ -12,7 +12,7 @@
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
   [string]$ProgressiveDetailMax = "50",
   [ValidatePattern('^[1-9]\d*$')]
-  [string]$MaxAutoApply = "1000",
+  [string]$MaxAutoApply = "2000",
   [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
   [string]$LegacyDuplicateSnapshotSha256 = "",
   [string]$RunId = "",
