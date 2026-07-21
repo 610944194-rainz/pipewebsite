@@ -190,7 +190,7 @@ export default async function BrandsPage({ searchParams }: PageProps) {
 
       <section className="relative isolate h-[220px] overflow-hidden md:h-[320px]">
         <img
-          src="/pics/overseas-head.png"
+          src="/pics/brands-head.png"
           alt="暖棕色烟斗与海外港口氛围"
           className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-[60%_center]"
         />
