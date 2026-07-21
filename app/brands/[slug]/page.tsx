@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
 import { parseBrandSummary } from "../../utils/display";
 import {
@@ -18,22 +17,27 @@ import {
   getPublicBrandSeriesOptions,
   getPublicProductsByIds,
 } from "@/lib/public-products/server";
+import type { PublicCatalogProduct } from "@/lib/public-products/types";
 
 type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-  searchParams?: Promise<{
-    page?: string;
-    series?: string;
-  }>;
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ page?: string; series?: string }>;
 };
 
-type IconProps = {
-  className?: string;
+type BrandFact = {
+  label: string;
+  value: string;
 };
 
 const RELATED_STOCK_PAGE_SIZE = 12;
+
+const CURATED_LOGO_ASSETS: Record<string, string> = {
+  peterson: "/brands/featured/peterson-logo-1600x800.png",
+  savinelli: "/brands/featured/savinelli-logo-1600x800.png",
+  stanwell: "/brands/featured/stanwell-logo-1600x800.png",
+  dunhill: "/brands/featured/dunhill-logo-1600x800.png",
+  chacom: "/brands/featured/chacom-logo-1600x800.png",
+};
 
 function buildBrandDetailHref({
   slug,
@@ -47,7 +51,6 @@ function buildBrandDetailHref({
   anchor?: string;
 }) {
   const params = new URLSearchParams();
-
   if (series?.trim()) params.set("series", series.trim());
   if (page && page > 1) params.set("page", String(page));
 
@@ -56,9 +59,8 @@ function buildBrandDetailHref({
   return anchor ? `${href}#${anchor}` : href;
 }
 
-function placeholderText(value?: string) {
+function isPlaceholder(value?: string | null) {
   const text = String(value || "").trim();
-
   if (!text) return true;
 
   return [
@@ -67,89 +69,23 @@ function placeholderText(value?: string) {
     "模板资料",
     "资料来源待补充",
     "品牌资料后续补充",
-    "当前收录来自公开库存页",
-    "适合希望按品牌查看当前公开库存",
-    "以当前库存页和人工确认为准",
+    "以实际库存和人工确认为准",
   ].some((pattern) => text.includes(pattern));
 }
 
-function meaningfulText(value?: string) {
+function meaningfulText(value?: string | null) {
   const text = String(value || "").trim();
-  return placeholderText(text) ? "" : text;
+  return isPlaceholder(text) ? "" : text;
 }
 
-function chineseText(value?: string) {
+function chineseText(value?: string | null) {
   return meaningfulText(value)
     .split(/[｜|]\s*(?:EN|English)[:：]/i)[0]
     .trim();
 }
 
-function meaningfulList(items?: string[]) {
-  return (items || [])
-    .map((item) => String(item || "").trim())
-    .filter((item) => item && !placeholderText(item));
-}
-
-function brandLogoUrl(brand: PublicBrandProfile) {
-  const record = brand as Record<string, unknown>;
-  const candidates = [
-    record.logoUrl,
-    record.logo,
-    record.imageUrl,
-    record.logoImage,
-  ];
-  const logo = candidates.find(
-    (item) => typeof item === "string" && item.trim()
-  );
-
-  return typeof logo === "string" ? logo : "";
-}
-
-
-function brandLogoText(brand: PublicBrandProfile) {
-  const record = brand as Record<string, unknown>;
-  const candidates = [record.logoText, record.wordmarkText, record.name, brand.name];
-  const value = candidates.find(
-    (item) => typeof item === "string" && item.trim()
-  );
-
-  return typeof value === "string" ? value.trim() : brand.name;
-}
-
-function formatBrandDisplayName(value: string) {
-  const raw = String(value || "").trim().replace(/\s+/g, " ");
-  const overrides: Record<string, string> = {
-    "akb": "AKB",
-    "bbb": "BBB",
-    "gh zhang": "GH Zhang",
-    "ser jacopo": "Ser Jacopo",
-    "s bang": "S. Bang",
-    "s. bang": "S. Bang",
-    "old german clay": "Old German Clay",
-    "white elephant": "White Elephant",
-    "mastro geppetto": "Mastro Geppetto",
-    "butz choquin": "Butz-Choquin",
-    "butz-choquin": "Butz-Choquin",
-    "charatan's": "Charatan's",
-    "comoy's": "Comoy's",
-    "nording": "Nørding",
-    "nørding": "Nørding",
-  };
-  const key = raw.toLowerCase().replace(/[()]/g, " ").replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
-  if (overrides[key]) return overrides[key];
-
-  return raw
-    .split(" ")
-    .map((word, index) => {
-      const lower = word.toLowerCase();
-      if (index > 0 && ["by", "for", "and", "of", "the"].includes(lower)) return lower;
-      return lower.replace(/(^|[-'’])([a-zøæå])/g, (_match, prefix, letter) => `${prefix}${letter.toUpperCase()}`);
-    })
-    .join(" ");
-}
-
 function brandDisplayName(brand: PublicBrandProfile) {
-  return formatBrandDisplayName(brand.name);
+  return String(brand.name || "").trim() || "品牌";
 }
 
 function brandChineseName(brand: PublicBrandProfile) {
@@ -163,153 +99,150 @@ function brandChineseName(brand: PublicBrandProfile) {
   const value = candidates.find(
     (item) => typeof item === "string" && item.trim()
   );
-
-  return typeof value === "string" ? value.replace(/南娜·伊瓦松/g, "娜娜·伊瓦松") : "";
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function brandCountry(brand: PublicBrandProfile) {
-  return meaningfulText(brand.country) || brand.publicCountry || "";
+  return meaningfulText(brand.country) || meaningfulText(brand.publicCountry);
 }
 
-function brandShortName(name: string) {
-  const normalized = name
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s]/gi, " ")
-    .trim();
-  const words = normalized.split(/\s+/).filter(Boolean);
-
-  if (words.length >= 2) {
-    return `${words[0][0]}${words[1][0]}`.toUpperCase();
-  }
-
-  if (words[0]) return words[0].slice(0, 2).toUpperCase();
-
-  return "BR";
+function brandLogoUrl(brand: PublicBrandProfile) {
+  const record = brand as Record<string, unknown>;
+  const candidates = [
+    record.logoUrl,
+    record.logo,
+    record.logoImage,
+    CURATED_LOGO_ASSETS[brand.slug],
+  ];
+  const value = candidates.find(
+    (item) => typeof item === "string" && item.trim()
+  );
+  return typeof value === "string" ? value : "";
 }
 
-function summaryParts(brand: PublicBrandProfile) {
-  return parseBrandSummary(meaningfulText(brand.summary));
+function brandSummary(brand: PublicBrandProfile) {
+  if (isNameOnlyBrand(brand)) return "";
+  return parseBrandSummary(meaningfulText(brand.summary)).zh;
 }
 
-function BrandLogoBlock({ brand }: { brand: PublicBrandProfile }) {
-  const logoUrl = brandLogoUrl(brand);
-  const displayName = brandDisplayName(brand);
-  const shortName = brandShortName(displayName);
+function brandIntroduction(brand: PublicBrandProfile, summary: string) {
+  const detailed = chineseText(brand.detailIntro) || chineseText(brand.story);
+  if (detailed && detailed !== summary) return detailed;
+  return "";
+}
+
+function brandFacts(brand: PublicBrandProfile): BrandFact[] {
+  return [
+    { label: "国家 / 地区", value: brandCountry(brand) },
+    { label: "创立年份", value: meaningfulText(brand.founded) },
+    { label: "公开库存", value: `${brand.productCount} 件` },
+  ].filter((fact) => fact.value);
+}
+
+function brandHeroImage(
+  brand: PublicBrandProfile,
+  products: PublicCatalogProduct[]
+) {
+  const record = brand as Record<string, unknown>;
+  const coverCandidates = [
+    record.coverImage,
+    record.coverUrl,
+    record.heroImage,
+    record.heroUrl,
+  ];
+  const cover = coverCandidates.find(
+    (item) => typeof item === "string" && item.trim()
+  );
+  if (typeof cover === "string") return cover;
 
   return (
-    <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E7DDD0] bg-white shadow-[0_8px_20px_rgba(31,26,22,0.04)]">
-      {logoUrl ? (
-        <img
-          src={logoUrl}
-          alt={`${displayName} logo`}
-          className="h-full w-full object-contain p-3"
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#FFFDF8] to-[#F1E7D8]">
-          <span
-            className="text-[30px] font-semibold tracking-[0.04em] text-[#063B32]"
-            style={{ fontFamily: '"Georgia", "Times New Roman", serif' }}
-          >
-            {shortName}
-          </span>
-        </div>
-      )}
-    </div>
+    products.find(
+      (product) => product.inventoryStatus === "available" && product.mainImage
+    )?.mainImage || products.find((product) => product.mainImage)?.mainImage || ""
   );
 }
 
-function BrandHero({ brand }: { brand: PublicBrandProfile }) {
+function BrandDetailTopBar() {
+  return (
+    <header className="border-b border-[rgba(205,165,105,0.16)] bg-[#2a180e] text-[#f4eee7]">
+      <div className="mx-auto grid h-14 max-w-[1240px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-3 sm:px-6 lg:px-10">
+        <Link
+          href="/brands"
+          aria-label="返回品牌目录"
+          className="flex h-11 w-11 items-center justify-center text-[#e4c18d] transition-colors hover:text-[#f4eee7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#d7a758]"
+        >
+          <ArrowLeftIcon className="h-[18px] w-[18px]" />
+        </Link>
+        <p className="text-center text-[15px] font-medium tracking-[0.04em]">品牌详情</p>
+        <span aria-hidden="true" />
+      </div>
+    </header>
+  );
+}
+
+function BrandHero({
+  brand,
+  heroImage,
+  summary,
+}: {
+  brand: PublicBrandProfile;
+  heroImage: string;
+  summary: string;
+}) {
   const displayName = brandDisplayName(brand);
   const chineseName = brandChineseName(brand);
   const country = brandCountry(brand);
-  const summary = isNameOnlyBrand(brand) ? { zh: "", en: "" } : summaryParts(brand);
+  const founded = meaningfulText(brand.founded);
+  const logoUrl = brandLogoUrl(brand);
+  const meta = [country, founded].filter(Boolean).join(" · ");
 
   return (
-    <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-      <div className="flex gap-4">
-        <BrandLogoBlock brand={brand} />
-
-        <div className="min-w-0 flex-1">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <p className="text-[11px] uppercase tracking-[0.26em] text-[#A97838]">
-              Brand Profile
-            </p>
-            {country ? (
-              <span className="rounded-full bg-[#F7F3EA] px-2.5 py-1 text-[11px] font-semibold text-[#A97838]">
-                {country}
-              </span>
-            ) : null}
-          </div>
-
-          <h1 className="text-[28px] font-bold leading-tight text-[#063B32] sm:text-[42px]">
-            {displayName}
-          </h1>
-
-          {chineseName ? (
-            <p className="mt-1 text-[15px] font-semibold text-[#8A5D26]">
-              {chineseName}
-            </p>
-          ) : null}
-
-          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#F7F3EA] px-3 py-1 text-[#063B32]">
-            <InventoryIcon className="h-4 w-4" />
-            <span className="text-[13px] font-semibold">
-              当前公开库存 {brand.productCount} 件
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {summary.zh || summary.en ? (
-        <div className="mt-5 space-y-2">
-          {summary.zh ? (
-            <p className="text-[13px] leading-7 text-[#746A5F]">
-              {summary.zh}
-            </p>
-          ) : null}
-          {summary.en ? (
-            <p className="text-[12px] leading-6 text-[#9A8F84]">
-              {summary.en}
-            </p>
-          ) : null}
-        </div>
+    <section className="relative isolate h-[390px] overflow-hidden border-b border-[rgba(205,165,105,0.2)] bg-[#382317] sm:h-[430px] md:h-[540px]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(124,78,40,0.52),transparent_34%),linear-gradient(116deg,#24140c_0%,#382317_48%,#2b180e_100%)]" />
+      {heroImage ? (
+        <img
+          src={heroImage}
+          alt={`${displayName} 真实在售商品图`}
+          className="absolute inset-y-0 right-0 h-full w-[68%] object-contain object-right mix-blend-multiply opacity-80 [mask-image:radial-gradient(ellipse_at_64%_50%,black_24%,transparent_75%)] md:w-[62%]"
+        />
       ) : null}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#24140c] via-[rgba(36,20,12,0.78)] to-transparent" />
+
+      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-end px-4 pb-8 sm:px-6 md:pb-12 lg:px-10">
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt={`${displayName} logo`}
+            className="mb-4 h-12 max-w-[190px] object-contain object-left brightness-0 invert md:h-16 md:max-w-[270px]"
+          />
+        ) : (
+          <p className="mb-4 max-w-[260px] text-[26px] font-medium leading-[1.1] tracking-[0.02em] text-[#f4eee7] md:text-[38px]">
+            {displayName}
+          </p>
+        )}
+        <h1 className="max-w-[300px] text-[25px] font-medium leading-[1.3] text-[#f4eee7] md:max-w-[440px] md:text-[38px]">
+          {displayName}{chineseName ? ` ${chineseName}` : ""}
+        </h1>
+        {meta ? <p className="mt-2 text-[12px] font-normal tracking-[0.08em] text-[#e4c18d] md:text-[13px]">{meta}</p> : null}
+        {summary ? <p className="mt-4 max-w-[310px] line-clamp-3 text-[12px] font-normal leading-[1.7] text-[rgba(244,238,231,0.8)] md:max-w-[440px] md:text-[13px]">{summary}</p> : null}
+      </div>
     </section>
   );
 }
 
-function BrandFacts({ brand }: { brand: PublicBrandProfile }) {
-  const facts = [
-    {
-      label: "国家 / 地区",
-      value: brandCountry(brand),
-    },
-    {
-      label: "创建时间",
-      value: meaningfulText(brand.founded),
-    },
-    {
-      label: "价格区间",
-      value: meaningfulText(brand.priceRange),
-    },
-  ].filter((item) => item.value);
-
+function BrandDataBand({ facts }: { facts: BrandFact[] }) {
   if (facts.length === 0) return null;
 
   return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      <h2 className="mb-4 text-[19px] font-bold text-[#1F1A16]">品牌资料</h2>
-      <div className="divide-y divide-[#F0E6D8]">
-        {facts.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center justify-between gap-4 py-3 text-[13px]"
-          >
-            <span className="text-[#746A5F]">{item.label}</span>
-            <span className="text-right font-semibold text-[#1F1A16]">
-              {item.value}
-            </span>
+    <section className="border-y border-[rgba(205,165,105,0.18)] bg-[#3a2518]">
+      <div
+        className="mx-auto grid max-w-[1240px] divide-x divide-[rgba(205,165,105,0.18)] px-4 sm:px-6 lg:px-10"
+        style={{ gridTemplateColumns: `repeat(${facts.length}, minmax(0, 1fr))` }}
+      >
+        {facts.map((fact) => (
+          <div key={fact.label} className="min-w-0 px-3 py-5 text-center first:pl-0 last:pr-0 sm:py-6">
+            <p className="text-[10px] font-normal tracking-[0.08em] text-[rgba(244,238,231,0.56)]">{fact.label}</p>
+            <p className="mt-2 text-[14px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[16px]">{fact.value}</p>
           </div>
         ))}
       </div>
@@ -317,71 +250,18 @@ function BrandFacts({ brand }: { brand: PublicBrandProfile }) {
   );
 }
 
-function BrandStory({ brand }: { brand: PublicBrandProfile }) {
-  const story = chineseText(brand.story);
-
-  if (!story) return null;
+function BrandIntroduction({ text }: { text: string }) {
+  if (!text) return null;
 
   return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      <h2 className="mb-3 text-[19px] font-bold text-[#1F1A16]">品牌简介</h2>
-      <p className="text-[13px] leading-7 text-[#746A5F]">{story}</p>
-    </section>
-  );
-}
-
-function TextListSection({
-  title,
-  items,
-}: {
-  title: string;
-  items: string[];
-}) {
-  if (items.length === 0) return null;
-
-  return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      <h2 className="mb-3 text-[19px] font-bold text-[#1F1A16]">{title}</h2>
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <span
-            key={item}
-            className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-medium leading-5 text-[#746A5F]"
-          >
-            {item}
-          </span>
-        ))}
+    <section className="border-y border-[rgba(205,165,105,0.16)] bg-[#322015] px-4 py-7 sm:px-6 sm:py-8 lg:px-10">
+      <div className="mx-auto max-w-[1180px]">
+        <h2 className="text-[18px] font-medium leading-[1.35] text-[#f4eee7]">品牌简介</h2>
+        <p className="mt-3 max-w-[780px] text-[12px] font-normal leading-[1.8] text-[rgba(244,238,231,0.72)] sm:text-[13px]">{text}</p>
       </div>
     </section>
   );
 }
-
-function SuitableForSection({ brand }: { brand: PublicBrandProfile }) {
-  const suitableFor = chineseText(brand.suitableFor);
-
-  if (!suitableFor) return null;
-
-  return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      <h2 className="mb-3 text-[19px] font-bold text-[#1F1A16]">适合人群</h2>
-      <p className="text-[13px] leading-7 text-[#746A5F]">{suitableFor}</p>
-    </section>
-  );
-}
-
-
-function BrandReviewNotice({ brand }: { brand: PublicBrandProfile }) {
-  const record = brand as Record<string, unknown>;
-  const status = String(record.reviewStatus || record.profileStatus || "");
-  if (!status || status === "可入库" || status === "confirmed") return null;
-
-  return (
-    <section className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 text-[13px] leading-7 text-[#746A5F] shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-      品牌资料仍在整理中，部分信息以公开资料与商品数据为基础，后续将持续校正。
-    </section>
-  );
-}
-
 
 function RelatedStock({
   brand,
@@ -393,221 +273,102 @@ function RelatedStock({
   requestedSeries: string;
 }) {
   const products = getPublicProductsByIds(brand.productIds);
-  const seriesOptions =
-    brand.productCount > 100 ? getPublicBrandSeriesOptions(brand.slug) : [];
-  const activeSeries =
-    seriesOptions.find((option) => option.series === requestedSeries) || null;
-  const activeProductIds = activeSeries
-    ? new Set(activeSeries.productIds)
-    : null;
-  const filteredProducts = activeProductIds
-    ? products.filter((product) => activeProductIds.has(product.id))
-    : products;
-  const showSeriesFilter =
-    brand.productCount > 100 && seriesOptions.length > 0;
-  const seriesFilterOptions = seriesOptions.map((option) => ({
-    series: option.series,
-    seriesZh: option.seriesZh,
-    count: option.count,
-  }));
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filteredProducts.length / RELATED_STOCK_PAGE_SIZE)
-  );
+  const seriesOptions = brand.productCount > 100 ? getPublicBrandSeriesOptions(brand.slug) : [];
+  const activeSeries = seriesOptions.find((option) => option.series === requestedSeries) || null;
+  const activeProductIds = activeSeries ? new Set(activeSeries.productIds) : null;
+  const filteredProducts = activeProductIds ? products.filter((product) => activeProductIds.has(product.id)) : products;
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / RELATED_STOCK_PAGE_SIZE));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
-  const start = (currentPage - 1) * RELATED_STOCK_PAGE_SIZE;
-  const pageProducts = filteredProducts.slice(
-    start,
-    start + RELATED_STOCK_PAGE_SIZE
-  );
-  const returnTo = buildBrandDetailHref({
-    slug: brand.slug,
-    page: currentPage,
-    series: activeSeries?.series,
-  });
+  const pageProducts = filteredProducts.slice((currentPage - 1) * RELATED_STOCK_PAGE_SIZE, currentPage * RELATED_STOCK_PAGE_SIZE);
+  const returnTo = buildBrandDetailHref({ slug: brand.slug, page: currentPage, series: activeSeries?.series });
+  const showSeriesFilter = brand.productCount > 100 && seriesOptions.length > 0;
 
   return (
-    <section id="brand-stock" className="mt-7 scroll-mt-4">
-      {showSeriesFilter ? (
-        <div className="mb-4 flex items-center justify-between gap-3">
+    <section id="brand-stock" className="mx-auto max-w-[1240px] px-4 py-10 scroll-mt-4 sm:px-6 lg:px-10 lg:py-14">
+      <div className="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-[20px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[22px]">在库作品 <span className="ml-1.5 text-[14px] font-normal text-[#d7a758]">{filteredProducts.length} 件</span></h2>
+        </div>
+        {showSeriesFilter ? (
           <BrandSeriesFilterDrawer
             brandSlug={brand.slug}
-            options={seriesFilterOptions}
+            options={seriesOptions.map((option) => ({ series: option.series, seriesZh: option.seriesZh, count: option.count }))}
             selectedSeries={activeSeries?.series || ""}
+            variant="dossier"
           />
-          {activeSeries ? (
-            <p className="shrink-0 text-[12px] text-[#746A5F]">
-              {activeSeries.count} 件
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-
-      <div className="mb-4 flex items-end justify-between gap-4">
-        <div>
-          <p className="mb-1.5 text-[11px] uppercase tracking-[0.3em] text-[#A97838]">
-            Related Stock
-          </p>
-          <h2 className="text-[23px] font-bold text-[#1F1A16]">
-            当前相关库存
-            <span className="ml-2 text-[15px] font-semibold text-[#A97838]">
-              {filteredProducts.length} 件
-            </span>
-          </h2>
-        </div>
-
-        {totalPages > 1 ? (
-          <p className="shrink-0 text-[12px] text-[#746A5F]">
-            第 {currentPage} / {totalPages} 页
-          </p>
         ) : null}
       </div>
 
       {pageProducts.length > 0 ? (
         <>
-          <ProductGrid
-            products={pageProducts}
-            returnTo={returnTo}
-            variant="compact"
-          />
+          <ProductGrid products={pageProducts} returnTo={returnTo} variant="dossier" />
           <ProductPagination
             currentPage={currentPage}
             totalPages={totalPages}
-            hrefForPage={(nextPage) =>
-              buildBrandDetailHref({
-                slug: brand.slug,
-                page: nextPage,
-                series: activeSeries?.series,
-                anchor: "brand-stock",
-              })
-            }
-            label="品牌相关库存分页"
+            hrefForPage={(nextPage) => buildBrandDetailHref({ slug: brand.slug, page: nextPage, series: activeSeries?.series, anchor: "brand-stock" })}
+            label="品牌在库作品分页"
+            variant="dossier"
           />
         </>
       ) : (
-        <div className="rounded-[24px] border border-[#E7DDD0] bg-[#FFFDF8] p-8 text-center text-[13px] leading-6 text-[#746A5F] shadow-[0_8px_22px_rgba(31,26,22,0.04)]">
-          当前暂无关联库存。
+        <div className="border-y border-[rgba(205,165,105,0.18)] py-10 text-center text-[13px] leading-7 text-[rgba(244,238,231,0.64)]">
+          当前暂无公开库存，欢迎提交找斗需求，由人工协助继续寻找。
         </div>
       )}
     </section>
   );
 }
 
-export default async function BrandDetailPage({
-  params,
-  searchParams,
-}: PageProps) {
+function BrandRequestCta({ brand }: { brand: PublicBrandProfile }) {
+  const displayName = brandDisplayName(brand);
+  return (
+    <section className="mx-auto max-w-[1240px] px-4 pb-10 sm:px-6 lg:px-10 lg:pb-14">
+      <div className="flex min-h-[144px] flex-col justify-center border border-[rgba(205,165,105,0.3)] bg-[linear-gradient(112deg,#412919,#2b180e)] px-5 py-6 sm:min-h-[150px] sm:px-8">
+        <h2 className="text-[18px] font-medium leading-[1.35] text-[#f4eee7]">没有找到合适的 {displayName}？</h2>
+        <p className="mt-2 max-w-[420px] text-[12px] font-normal leading-[1.7] text-[rgba(244,238,231,0.7)]">提交斗型、系列与预算，由人工协助寻找接近的作品。</p>
+        <Link href="/request" className="mt-4 w-fit text-[12px] font-normal text-[#e4c18d] underline decoration-[rgba(228,193,141,0.58)] underline-offset-4 transition-colors hover:text-[#f4eee7]">提交找斗需求 →</Link>
+      </div>
+    </section>
+  );
+}
+
+export default async function BrandDetailPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : {};
-  const requestedPage = Number.parseInt(
-    String(resolvedSearchParams.page || "1"),
-    10
-  );
+  const requestedPage = Number.parseInt(String(resolvedSearchParams.page || "1"), 10);
   const requestedSeries = String(resolvedSearchParams.series || "").trim();
   const brand = getPublicBrandProfileBySlug(slug);
 
   if (!brand) {
     const canonicalSlug = getCanonicalBrandSlugForInput(slug);
-    const canonicalBrand = canonicalSlug
-      ? getPublicBrandProfileBySlug(canonicalSlug)
-      : null;
-
-    if (canonicalBrand && canonicalBrand.slug !== slug) {
-      redirect(`/brands/${canonicalBrand.slug}`);
-    }
-
+    const canonicalBrand = canonicalSlug ? getPublicBrandProfileBySlug(canonicalSlug) : null;
+    if (canonicalBrand && canonicalBrand.slug !== slug) redirect(`/brands/${canonicalBrand.slug}`);
     notFound();
   }
 
-  const features = meaningfulList(brand.features);
-  const styles = meaningfulList(brand.representativeStyles);
-  const nameOnly = isNameOnlyBrand(brand);
+  const heroProducts = getPublicProductsByIds(brand.productIds.slice(0, 24));
+  const summary = brandSummary(brand);
+  const introduction = brandIntroduction(brand, summary);
 
   return (
-    <main
-      className="min-h-screen bg-[#FBF7EF] text-[#1F1A16]"
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif',
-        fontVariantNumeric: "lining-nums",
-      }}
-    >
-      <TopNotice />
-      <SiteHeader />
-
-      <section className="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:px-6 lg:px-10">
-        <Link
-          href="/brands"
-          className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
-        >
-          <ArrowLeftIcon className="h-4 w-4" />
-          返回品牌库
-        </Link>
-
-        <BrandHero brand={brand} />
-
-        {!nameOnly ? (
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <BrandFacts brand={brand} />
-            <BrandStory brand={brand} />
-            <TextListSection title="品牌特点" items={features} />
-            <TextListSection title="代表风格" items={styles} />
-            <SuitableForSection brand={brand} />
-            <BrandReviewNotice brand={brand} />
-          </div>
-        ) : null}
-
-        <RelatedStock
-          brand={brand}
-          page={Number.isFinite(requestedPage) ? requestedPage : 1}
-          requestedSeries={requestedSeries}
-        />
-
-      </section>
-      <SiteFooter />
-    </main>
-  );
-}
-
-function TopNotice() {
-  return (
-    <div className="bg-[#063B32] px-4 py-2 text-center text-[12px] tracking-[0.12em] text-[#E7C48A] sm:text-[13px]">
-      <span className="mx-2 text-[#B8863B]">·</span>
-      精选海外烟斗库存 · 人工选品咨询
-      <span className="mx-2 text-[#B8863B]">·</span>
+    <div className="min-h-screen bg-[#2a180e] text-[#f4eee7] [&_a]:font-inherit [&_button]:font-inherit [&_input]:font-inherit [&_select]:font-inherit" style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif', fontVariantNumeric: "lining-nums" }}>
+      <BrandDetailTopBar />
+      <main>
+        <BrandHero brand={brand} heroImage={brandHeroImage(brand, heroProducts)} summary={summary} />
+        <BrandDataBand facts={brandFacts(brand)} />
+        <BrandIntroduction text={introduction} />
+        <RelatedStock brand={brand} page={Number.isFinite(requestedPage) ? requestedPage : 1} requestedSeries={requestedSeries} />
+        <BrandRequestCta brand={brand} />
+      </main>
+      <SiteFooter variant="dark" />
     </div>
   );
 }
 
-function InventoryIcon({ className = "" }: IconProps) {
+function ArrowLeftIcon({ className = "" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5.5 8.5h13l-1.2 10.2c-.1.8-.8 1.3-1.6 1.3H8.3c-.8 0-1.5-.6-1.6-1.3L5.5 8.5Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8.7 8.5c.4-2.7 1.5-4 3.3-4s2.9 1.3 3.3 4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowLeftIcon({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M19 12H5M11 6l-6 6 6 6"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

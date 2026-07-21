@@ -22,7 +22,7 @@ import ProductCardImage from "./ProductCardImage";
 type ProductCardProps = {
   product: PublicCatalogProduct;
   returnTo?: string;
-  variant?: "catalog" | "compact" | "inventory";
+  variant?: "catalog" | "compact" | "inventory" | "dossier";
   imagePriority?: boolean;
   imageLoading?: "eager" | "lazy";
   imageFetchPriority?: "high" | "auto" | "low";
@@ -105,6 +105,57 @@ function InventoryProductCard({
               </p>
             ) : null}
           </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+function DossierProductCard({
+  product,
+  returnTo,
+  imagePriority,
+  imageLoading,
+  imageFetchPriority,
+}: Omit<ProductCardProps, "variant">) {
+  const name = displayProductName(product);
+  const tags = metaTags(product);
+
+  return (
+    <article id={productAnchorId(product.id)} className="scroll-mt-4">
+      <Link
+        href={productHref(product, returnTo)}
+        onNavigate={() => saveReturnPosition(product.id, returnTo)}
+        aria-label={`查看 ${name} 详情`}
+        className="group block overflow-hidden rounded-[5px] border border-[rgba(211,179,133,0.2)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
+      >
+        <ProductCardImage
+          imageUrl={product.mainImage}
+          alt={name}
+          brandName={product.brandName}
+          loading={imageLoading || (imagePriority ? "eager" : "lazy")}
+          fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
+          className="h-[148px] bg-white sm:h-[158px]"
+          imageClassName="p-3 sm:p-4"
+        >
+          <InventoryProductImageOverlays product={product} />
+        </ProductCardImage>
+
+        <div className="px-2.5 pb-3 pt-2.5">
+          <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[#d7a758]">
+            {product.brandName || sourceLabel(product.source)}
+          </p>
+          <h3 className="mt-[5px] line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[#f4eee7] sm:text-[12.5px]">
+            {name}
+          </h3>
+          <p className="mt-2 text-[12px] font-medium leading-[1.4] text-[#f4eee7] sm:text-[12.5px]">
+            {formatSitePrice(product)}
+          </p>
+          {tags.length > 0 ? (
+            <p className="mt-2 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[rgba(244,238,231,0.62)] sm:text-[10px]">
+              {tags.join(" · ")}
+            </p>
+          ) : null}
         </div>
       </Link>
     </article>
@@ -217,6 +268,18 @@ export default function ProductCard({
   if (variant === "inventory") {
     return (
       <InventoryProductCard
+        product={product}
+        returnTo={returnTo}
+        imagePriority={imagePriority}
+        imageLoading={imageLoading}
+        imageFetchPriority={imageFetchPriority}
+      />
+    );
+  }
+
+  if (variant === "dossier") {
+    return (
+      <DossierProductCard
         product={product}
         returnTo={returnTo}
         imagePriority={imagePriority}

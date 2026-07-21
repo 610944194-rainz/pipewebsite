@@ -42,6 +42,7 @@ type ProductPaginationProps = {
   totalPages: number;
   hrefForPage: (page: number) => string;
   label: string;
+  variant?: "default" | "dossier";
 };
 
 export default function ProductPagination({
@@ -49,8 +50,27 @@ export default function ProductPagination({
   totalPages,
   hrefForPage,
   label,
+  variant = "default",
 }: ProductPaginationProps) {
   if (totalPages <= 1) return null;
+
+  if (variant === "dossier") {
+    return (
+      <nav className="mt-8 grid grid-cols-3 items-center border-y border-[rgba(205,165,105,0.2)] py-4 text-[13px] font-normal" aria-label={label}>
+        {currentPage === 1 ? (
+          <span className="text-[rgba(244,238,231,0.35)]">← 上一页</span>
+        ) : (
+          <Link href={hrefForPage(currentPage - 1)} className="text-[#e4c18d] transition-colors hover:text-[#f4eee7]">← 上一页</Link>
+        )}
+        <span className="text-center text-[#f4eee7]">第 {currentPage} / {totalPages} 页</span>
+        {currentPage === totalPages ? (
+          <span className="text-right text-[rgba(244,238,231,0.35)]">下一页 →</span>
+        ) : (
+          <Link href={hrefForPage(currentPage + 1)} className="text-right text-[#e4c18d] transition-colors hover:text-[#f4eee7]">下一页 →</Link>
+        )}
+      </nav>
+    );
+  }
 
   const items = getPaginationItems(currentPage, totalPages);
 
