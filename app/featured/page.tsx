@@ -20,7 +20,7 @@ export default function FeaturedPage() {
       <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-10 lg:pb-14">
         <header className="relative h-[194px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[210px] lg:h-[300px]">
           <img
-            src="/pics/overseas-head.png"
+            src="/pics/weekly-featured-head.png"
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-[66%_58%]"
           />
