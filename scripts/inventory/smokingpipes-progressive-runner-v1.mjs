@@ -700,6 +700,16 @@ export function evaluateProgressiveProductionApplyGate({
   const failedCandidates = (state?.candidates || []).filter(
     (candidate) => candidate.detailStatus === "failed"
   );
+  const wouldApplyIds = new Set(
+    (preview?.wouldApplyProductIds || []).map(String)
+  );
+  const publicCatalogIds = new Set(
+    (Array.isArray(publicPayloads?.catalog)
+      ? publicPayloads.catalog
+      : publicPayloads?.catalog?.products || [])
+      .map((item) => sourceProductId(item))
+      .filter(Boolean)
+  );
   const stateDailyRunId = text(state?.dailyRunId);
   const stateManualReconcileBlocked =
     stateIsManualReconcile(state);
@@ -707,9 +717,6 @@ export function evaluateProgressiveProductionApplyGate({
     blockers.push(
       `progressive state dailyRunId ${stateDailyRunId} comes from manual-reconcile and cannot be used by automatic daily apply`
     );
-  }
-  if (failedCandidates.length) {
-    blockers.push(`failed candidates=${failedCandidates.length}`);
   }
   const auditStatus = audit?.verdict || audit?.status;
   if (auditStatus !== "PASS") {
@@ -775,6 +782,40 @@ export function evaluateProgressiveProductionApplyGate({
     applyGap?.safeToApplyWouldApplySubset === true &&
     unknownGapCount === 0 &&
     readyUnexpectedlyExcludedCount === 0;
+  const failedIsolatedCandidates = [];
+  for (const candidate of failedCandidates) {
+    const id = sourceProductId(candidate);
+    const requiresProductionMutation = (candidate.changeTypes || []).some(
+      (changeType) =>
+        [
+          "price-change",
+          "explicit-out-of-stock",
+          "confirmed-disappeared",
+          "reappeared",
+        ].includes(changeType)
+    );
+    const safelyIsolated =
+      ["not-public", "review-only"].includes(candidate.publicStatus) &&
+      !wouldApplyIds.has(id) &&
+      !publicCatalogIds.has(id) &&
+      !requiresProductionMutation &&
+      (safeGap || gapCount === 0) &&
+      unknownGapCount === 0 &&
+      readyUnexpectedlyExcludedCount === 0;
+    if (safelyIsolated) {
+      failedIsolatedCandidates.push(candidate);
+      continue;
+    }
+    if (candidate.publicStatus === "ready" || wouldApplyIds.has(id)) {
+      blockers.push(`failed candidate requires apply=${id}`);
+    } else if (publicCatalogIds.has(id)) {
+      blockers.push(`failed candidate leaked into public catalog=${id}`);
+    } else if (requiresProductionMutation) {
+      blockers.push(`failed candidate requires production mutation=${id}`);
+    } else {
+      blockers.push(`failed candidate is not safely isolated=${id}`);
+    }
+  }
   if (candidateCount !== wouldApplyCount) {
     if (!safeGap) {
       blockers.push(
@@ -834,6 +875,7 @@ export function evaluateProgressiveProductionApplyGate({
     wouldApplyCount,
     safeSubsetApply: safeGap && blockers.length === 0,
     isolatedCandidateCount: gapCount,
+    failedIsolatedCount: failedIsolatedCandidates.length,
     applyGap,
     maxAutoApply,
     largeApplyWarningThreshold,
@@ -900,6 +942,86 @@ export function buildSafeSubsetProductionProducts({
     }
   }
   return merged;
+}
+
+function sourceUsdPrice(product) {
+  const price = product?.price?.current || product?.price?.listPrice || {};
+  const amount = Number(price.amount ?? product?.sourcePriceAmount);
+  const currency = text(price.currency || product?.sourcePriceCurrency || "USD");
+  return currency === "USD" && Number.isFinite(amount) ? amount : null;
+}
+
+export function buildSmokingpipesChangeSummary({
+  productionBefore = [],
+  productionAfter = [],
+  state,
+  actualAppliedCount = 0,
+  isolatedCandidateCount = 0,
+  failedIsolatedCount = 0,
+} = {}) {
+  const beforeById = new Map(
+    productionBefore.map((item) => [sourceProductId(item), item])
+  );
+  const afterById = new Map(
+    productionAfter.map((item) => [sourceProductId(item), item])
+  );
+  const candidatesById = new Map(
+    (state?.candidates || []).map((item) => [sourceProductId(item), item])
+  );
+  const summary = {
+    newlyPublishedCount: 0,
+    sourcePriceIncreaseCount: 0,
+    sourcePriceDecreaseCount: 0,
+    explicitOutOfStockCount: 0,
+    confirmedDisappearedCount: 0,
+    reappearedCount: 0,
+    disappearedPendingConfirmationCount: Object.values(
+      state?.globalReconcile?.disappearanceTracking?.items || {}
+    ).filter((item) => item?.disappearanceStatus === "pending-confirmation")
+      .length,
+    isolatedCandidateCount: Number(isolatedCandidateCount || 0),
+    failedIsolatedCount: Number(failedIsolatedCount || 0),
+    otherAppliedCount: 0,
+    actualAppliedCount: Number(actualAppliedCount || 0),
+  };
+  for (const [id, after] of afterById) {
+    const before = beforeById.get(id);
+    if (before && JSON.stringify(before) === JSON.stringify(after)) continue;
+    const candidate = candidatesById.get(id);
+    const changeTypes = candidate?.changeTypes || [];
+    if (!before) summary.newlyPublishedCount += 1;
+    else if (changeTypes.includes("confirmed-disappeared")) summary.confirmedDisappearedCount += 1;
+    else if (changeTypes.includes("explicit-out-of-stock")) summary.explicitOutOfStockCount += 1;
+    else if (changeTypes.includes("reappeared")) summary.reappearedCount += 1;
+    else {
+      const beforePrice = sourceUsdPrice(before);
+      const afterPrice = sourceUsdPrice(after);
+      if (beforePrice !== null && afterPrice !== null && afterPrice > beforePrice) {
+        summary.sourcePriceIncreaseCount += 1;
+      } else if (beforePrice !== null && afterPrice !== null && afterPrice < beforePrice) {
+        summary.sourcePriceDecreaseCount += 1;
+      } else {
+        summary.otherAppliedCount += 1;
+      }
+    }
+  }
+  const classified =
+    summary.newlyPublishedCount +
+    summary.sourcePriceIncreaseCount +
+    summary.sourcePriceDecreaseCount +
+    summary.explicitOutOfStockCount +
+    summary.confirmedDisappearedCount +
+    summary.reappearedCount +
+    summary.otherAppliedCount;
+  summary.consistency = {
+    valid: classified === summary.actualAppliedCount,
+    classifiedAppliedCount: classified,
+    reason:
+      classified === summary.actualAppliedCount
+        ? null
+        : `change summary classified ${classified} does not match actualAppliedCount ${summary.actualAppliedCount}`,
+  };
+  return summary;
 }
 
 
@@ -1460,6 +1582,10 @@ export function validateManualLargeApplyEvidence({
   const isolatedLeakIds = [
     ...reviewOnlyCandidates,
     ...notPublicCandidates,
+    ...failedCandidates.filter(
+      (candidate) =>
+        ["not-public", "review-only"].includes(candidate.publicStatus)
+    ),
     ...excludedCandidates,
   ]
     .map(sourceProductId)
@@ -1480,8 +1606,25 @@ export function validateManualLargeApplyEvidence({
   if (pendingCandidates.length) {
     blockers.push(`pending candidates=${pendingCandidates.length}`);
   }
-  if (failedCandidates.length) {
-    blockers.push(`failed candidates=${failedCandidates.length}`);
+  for (const candidate of failedCandidates) {
+    const requiresProductionMutation = (candidate.changeTypes || []).some(
+      (changeType) =>
+        [
+          "price-change",
+          "explicit-out-of-stock",
+          "confirmed-disappeared",
+          "reappeared",
+        ].includes(changeType)
+    );
+    const safelyIsolated =
+      ["not-public", "review-only"].includes(candidate.publicStatus) &&
+      !requiresProductionMutation &&
+      !previewWouldApplyIdSet.has(sourceProductId(candidate));
+    if (!safelyIsolated) {
+      blockers.push(
+        `failed candidate is not safely isolated=${sourceProductId(candidate)}`
+      );
+    }
   }
   if (audit?.verdict !== "PASS") {
     blockers.push(`audit verdict=${audit?.verdict || "missing"}`);
@@ -1777,6 +1920,19 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
       candidate.detailStatus === "failed" &&
       candidate.publicStatus === "not-public"
   );
+  const failedIsolatedCandidates = candidates.filter(
+    (candidate) =>
+      candidate.detailStatus === "failed" &&
+      ["not-public", "review-only"].includes(candidate.publicStatus) &&
+      !(candidate.changeTypes || []).some((changeType) =>
+        [
+          "price-change",
+          "explicit-out-of-stock",
+          "confirmed-disappeared",
+          "reappeared",
+        ].includes(changeType)
+      )
+  );
   const excludedBrandCandidates = candidates.filter(
     isExcludedBrandCandidate
   );
@@ -1893,6 +2049,7 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     reviewOnlyCount: reviewOnlyCandidates.length,
     notPublicCount: notPublicCandidates.length,
     failedNotPublicCount: failedNotPublicCandidates.length,
+    failedIsolatedCount: failedIsolatedCandidates.length,
     excludedBrandCount,
     counts: {
       deletedProducts: 0,
@@ -1939,6 +2096,8 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     notPublicIds: notPublicCandidates.map(sourceProductId),
     failedNotPublicIds:
       failedNotPublicCandidates.map(sourceProductId),
+    failedIsolatedIds:
+      failedIsolatedCandidates.map(sourceProductId),
     excludedBrandIds:
       excludedBrandCandidates.map(sourceProductId),
     falconPlannedHide: {
@@ -1999,6 +2158,7 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     reviewOnlyCount: reviewOnlyCandidates.length,
     notPublicCount: notPublicCandidates.length,
     failedNotPublicCount: failedNotPublicCandidates.length,
+    failedIsolatedCount: failedIsolatedCandidates.length,
     excludedBrandCount,
     candidateCount: candidates.length,
     wouldApplyCount: readyCandidates.length,
@@ -2160,6 +2320,7 @@ export async function runSmokingpipesProgressiveMode({
         runId,
         currentListPath,
         diffPath,
+        currentListFresh: options.currentListFresh === true,
       });
       await writeProgressiveDailyState(
         paths.progressiveState,
@@ -2833,6 +2994,17 @@ export async function runSmokingpipesProgressiveMode({
         publicPayloads: publicNext.payloads,
         preview: freshPreview,
       });
+      const changeSummary = buildSmokingpipesChangeSummary({
+        productionBefore: productionProducts,
+        productionAfter: productionSafeSubset,
+        state,
+        actualAppliedCount: gate.wouldApplyCount,
+        isolatedCandidateCount: gate.isolatedCandidateCount,
+        failedIsolatedCount: gate.failedIsolatedCount,
+      });
+      if (!changeSummary.consistency.valid) {
+        postApplyValidation.blockers.push(changeSummary.consistency.reason);
+      }
       if (postApplyValidation.blockers.length) {
         const blocked = {
           version:
@@ -2849,6 +3021,7 @@ export async function runSmokingpipesProgressiveMode({
           applyGap: gate.applyGap,
           isolatedCandidateCount:
             gate.isolatedCandidateCount,
+          failedIsolatedCount: gate.failedIsolatedCount,
           maxAutoApply: gate.maxAutoApply,
           largeApplyWarningThreshold:
             gate.largeApplyWarningThreshold,
@@ -2899,6 +3072,8 @@ export async function runSmokingpipesProgressiveMode({
         safeSubsetApply: gate.safeSubsetApply,
         isolatedCandidateCount:
           gate.isolatedCandidateCount,
+        failedIsolatedCount: gate.failedIsolatedCount,
+        changeSummary,
         applyGap: gate.applyGap,
         maxAutoApply: gate.maxAutoApply,
         largeApplyWarningThreshold:
@@ -2918,6 +3093,18 @@ export async function runSmokingpipesProgressiveMode({
         commitPerformed: false,
         pushPerformed: false,
       };
+      await writeJsonAtomic(paths.progressiveAuditJson, {
+        ...audit,
+        isolatedCandidateCount: gate.isolatedCandidateCount,
+        failedIsolatedCount: gate.failedIsolatedCount,
+        changeSummary,
+      });
+      await writeJsonAtomic(paths.progressiveApplyGateReport, {
+        ...gate,
+        isolatedCandidateCount: gate.isolatedCandidateCount,
+        failedIsolatedCount: gate.failedIsolatedCount,
+        changeSummary,
+      });
       await writeJsonAtomic(
         paths.progressiveApplyPreview,
         completed

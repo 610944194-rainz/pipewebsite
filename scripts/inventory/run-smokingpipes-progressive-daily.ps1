@@ -337,7 +337,8 @@ function Write-DailyTaskState {
     [object]$DetailPendingCount = $null,
     [object]$DetailPending = $null,
     [object]$DetailCompletedThisRun = $null,
-    [object]$DetailQueueSpike = $null
+    [object]$DetailQueueSpike = $null,
+    [object]$ChangeSummary = $null
   )
 
   $now = Get-Date
@@ -372,6 +373,7 @@ function Write-DailyTaskState {
     candidateCount = $CandidateCount
     wouldApplyCount = $WouldApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
+    changeSummary = if ($null -ne $ChangeSummary) { $ChangeSummary } elseif ($existingState -and $existingState.changeSummary) { $existingState.changeSummary } else { $null }
     progressiveDetailMax = [int]$ProgressiveDetailMax
     maxAutoApply = [int]$MaxAutoApply
     largeApplyWarningThreshold = $LargeApplyWarningThreshold
@@ -1142,15 +1144,16 @@ if ($sameDayDecision.ShouldSkip) {
   exit 0
 }
 
-if (
-  $dailyTaskState -and
-  $dailyTaskState.dateKey -eq (Get-TodayDateKey) -and
-  $dailyTaskState.status -eq "terminal-failed" -and
-  $dailyTaskState.retryAllowed -eq $false
-) {
-  Write-DailyLog "DAILY TASK SKIPPED: terminal failure already recorded today"
+ $sameDayFailureDecision = Test-SmokingpipesSameDayFailureRetryPolicy `
+  -State $dailyTaskState
+if ($sameDayFailureDecision.ShouldSkip) {
+  Write-DailyLog "DAILY TASK SKIPPED: $($sameDayFailureDecision.Reason)"
+  Write-Output "same-day-hard-terminal"
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
   exit 0
+}
+if ($sameDayFailureDecision.RequiresPreflight) {
+  Write-DailyLog "same-day failure retry allowed: $($sameDayFailureDecision.Reason); recovery preflight required"
 }
 
 if (
@@ -1406,7 +1409,7 @@ try {
     "--max-auto-apply=$MaxAutoApply"
   ) + $LegacyDuplicateSnapshotCliArgs)
 
-  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments (@(
+  $progressiveIngestArgs = @(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-ingest-list",
@@ -1415,7 +1418,11 @@ try {
     "--no-commit",
     "--no-deploy",
     "--verbose"
-  ) + $LegacyDuplicateSnapshotCliArgs)
+  )
+  if ($script:CurrentListState.reused -ne $true -and $script:CurrentListState.skippedFetch -ne $true) {
+    $progressiveIngestArgs += "--current-list-fresh"
+  }
+  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments ($progressiveIngestArgs + $LegacyDuplicateSnapshotCliArgs)
 
   $detailQueueGuardExit = Invoke-InventoryNode -StepName "detail-queue-spike-guard" -Arguments @(
     "scripts/inventory/smokingpipes-detail-queue-spike-v1.mjs",
@@ -1641,8 +1648,9 @@ try {
   $prepareIsolatedCandidateCount = if ($prepareResult -and $prepareResult.isolatedCandidateCount) {
     [int]$prepareResult.isolatedCandidateCount
   } else {
-    0
+      0
   }
+  $applyChangeSummary = $null
 
   if ($prepareApplyReady) {
     Write-DailyLog "progressive prepare apply gate ready candidateCount=$prepareCandidateCount wouldApplyCount=$prepareWouldApplyCount isolatedCandidateCount=$prepareIsolatedCandidateCount"
@@ -1701,6 +1709,11 @@ try {
     } else {
       0
     }
+    $applyChangeSummary = if ($applyResult -and $applyResult.changeSummary) {
+      $applyResult.changeSummary
+    } else {
+      $null
+    }
     if (
       $applyExit -ne 0 -or
       -not $applyProductionWritten -or
@@ -1731,7 +1744,8 @@ try {
         -RetryAllowed $retryAllowed `
         -NextRetryRecommendedAt $(if ($retryAllowed) { Get-NextRetryAt } else { $null }) `
         -DetailPhaseStatus $script:DetailPhaseStatus `
-        -CachedListResume $script:CachedListResumeState
+        -CachedListResume $script:CachedListResumeState `
+        -ChangeSummary $applyChangeSummary
       Send-MobileReport
       Write-DailyLog "production write was not confirmed; cached-list resume remains locked"
       exit $(if ($retryAllowed) { 1 } else { 0 })
@@ -1756,7 +1770,8 @@ try {
       -FailureType "audit" `
       -RetryAllowed $false `
       -DetailPhaseStatus $script:DetailPhaseStatus `
-      -CachedListResume $script:CachedListResumeState
+      -CachedListResume $script:CachedListResumeState `
+      -ChangeSummary $applyChangeSummary
     Send-MobileReport
     Write-DailyLog "DAILY TASK TERMINAL FAILED"
     exit 0

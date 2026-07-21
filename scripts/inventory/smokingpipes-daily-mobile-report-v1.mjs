@@ -421,6 +421,25 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
   return "noop";
 }
 
+function normalizeSmokingpipesChangeSummary(value, appliedCount = 0, isolatedCandidateCount = 0) {
+  const input = value && typeof value === "object" ? value : {};
+  const number = (name, fallback = 0) => Number(input[name] ?? fallback) || 0;
+  return {
+    newlyPublishedCount: number("newlyPublishedCount"),
+    sourcePriceIncreaseCount: number("sourcePriceIncreaseCount"),
+    sourcePriceDecreaseCount: number("sourcePriceDecreaseCount"),
+    explicitOutOfStockCount: number("explicitOutOfStockCount"),
+    confirmedDisappearedCount: number("confirmedDisappearedCount"),
+    reappearedCount: number("reappearedCount"),
+    disappearedPendingConfirmationCount: number("disappearedPendingConfirmationCount"),
+    isolatedCandidateCount: number("isolatedCandidateCount", isolatedCandidateCount),
+    failedIsolatedCount: number("failedIsolatedCount"),
+    otherAppliedCount: number("otherAppliedCount"),
+    actualAppliedCount: number("actualAppliedCount", appliedCount),
+    consistency: input.consistency || { valid: true, classifiedAppliedCount: number("actualAppliedCount", appliedCount), reason: null },
+  };
+}
+
 export function buildSmokingpipesDailyMobileReport({
   state,
   audit,
@@ -595,7 +614,12 @@ export function buildSmokingpipesDailyMobileReport({
     audit?.applyGap?.safeToApplyWouldApplySubset !== true;
   const appliedCount = Number.isFinite(taskState?.appliedCount)
     ? Number(taskState.appliedCount)
-    : getAppliedCount({ audit, wouldApplyCount });
+      : getAppliedCount({ audit, wouldApplyCount });
+  const changeSummary = normalizeSmokingpipesChangeSummary(
+    taskState?.changeSummary,
+    appliedCount,
+    isolatedCandidateCount
+  );
   const detailComplete = countBy(
     candidates,
     (item) => item?.detailStatus === "complete"
@@ -711,6 +735,7 @@ export function buildSmokingpipesDailyMobileReport({
     wouldApplyCount,
     isolatedCandidateCount,
     appliedCount,
+    changeSummary,
     productionWritten: Boolean(audit?.productionWritten || taskState?.productionWritten),
     taskStatus: normalizeTaskStatus(taskState) || null,
     inventoryLocks,
@@ -1250,13 +1275,35 @@ function failureTypeLabelV2(value) {
   return type || "无";
 }
 
+function smokingpipesChangeSummaryLines(report) {
+  const summary = normalizeSmokingpipesChangeSummary(
+    report?.changeSummary,
+    Number(report?.appliedCount || 0),
+    Number(report?.isolatedCandidateCount || 0)
+  );
+  return [
+    `\u65b0\u589e\u4e0a\u67b6\uff1a${summary.newlyPublishedCount}`,
+    `\u539f\u7ad9\u6da8\u4ef7\uff1a${summary.sourcePriceIncreaseCount}`,
+    `\u539f\u7ad9\u964d\u4ef7\uff1a${summary.sourcePriceDecreaseCount}`,
+    `\u660e\u786e\u4e0b\u67b6\uff1a${summary.explicitOutOfStockCount}`,
+    `\u8fde\u7eed\u6d88\u5931\u786e\u8ba4\u4e0b\u67b6\uff1a${summary.confirmedDisappearedCount}`,
+    `\u91cd\u65b0\u4e0a\u67b6\uff1a${summary.reappearedCount}`,
+    `\u5217\u8868\u6d88\u5931\u5f85\u786e\u8ba4\uff1a${summary.disappearedPendingConfirmationCount}`,
+    `\u9694\u79bb\u5019\u9009\uff1a${summary.isolatedCandidateCount}`,
+    `\u5931\u8d25\u9694\u79bb\uff1a${summary.failedIsolatedCount}`,
+    `\u5b9e\u9645\u5e94\u7528\uff1a${summary.actualAppliedCount}`,
+  ];
+}
+
 export function buildPushDeerDailyMessage(report) {
+  const changeLines = smokingpipesChangeSummaryLines(report);
   if (report?.status === "no-production-change") {
     return {
       title: "烟斗派库存日更｜Smokingpipes",
       body: [
         "状态：今日检查完成，无库存变化",
         "Production：未写入",
+        ...changeLines,
         "提交：无",
         "推送：无",
         "阻断：无",
@@ -1414,6 +1461,7 @@ export function buildPushDeerDailyMessage(report) {
       `源站访问：${sourceAccessText}`,
       `候选更新：${report.candidateCount}`,
       `正式应用：${report.appliedCount || 0}`,
+      ...changeLines,
       ...(report.status === "detail-progress"
         ? [
             `本轮详情完成：${Number(report.detailCompletedThisRun || 0)}`,
@@ -1480,6 +1528,7 @@ function buildMarkdownReportLegacy(report) {
 - 候选更新：${report.candidateCount}
 - 正式应用：${report.appliedCount || 0}
 - 隔离候选：${report.isolatedCandidateCount || 0}
+- 变化摘要：${JSON.stringify(normalizeSmokingpipesChangeSummary(report.changeSummary, report.appliedCount, report.isolatedCandidateCount))}
 - 已写入 production：${report.productionWritten ? "是" : "否"}
 - 新增可公开：${report.newProductReady}
 - 人工复核：${report.newProductReviewOnly}
@@ -1532,6 +1581,7 @@ function buildMarkdownReportV2(report) {
 - 候选更新：${report.candidateCount}
 - 正式应用：${report.appliedCount || 0}
 - 隔离候选：${report.isolatedCandidateCount || 0}
+- 变化摘要：${JSON.stringify(normalizeSmokingpipesChangeSummary(report.changeSummary, report.appliedCount, report.isolatedCandidateCount))}
 - 已写入 production：${report.productionWritten ? "是" : "否"}
 - 新增可公开：${report.newProductReady}
 - 人工复核：${report.newProductReviewOnly}
@@ -1693,6 +1743,7 @@ export async function runSmokingpipesDailyMobileReport({
     initialReport.candidateCount = 0;
     initialReport.wouldApplyCount = 0;
     initialReport.appliedCount = 0;
+    initialReport.changeSummary = normalizeSmokingpipesChangeSummary({}, 0, 0);
     initialReport.productionWritten = false;
     initialReport.commitPerformed = false;
     initialReport.pushPerformed = false;
