@@ -172,7 +172,7 @@ function brandHeroImage(
 function BrandDetailTopBar() {
   return (
     <header className="border-b border-[rgba(205,165,105,0.16)] bg-[#2a180e] text-[#f4eee7]">
-      <div className="mx-auto grid h-14 max-w-[1240px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-3 sm:px-6 lg:px-10">
+      <div className="mx-auto grid h-11 max-w-[1240px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-3 sm:px-6 lg:px-10">
         <Link
           href="/brands"
           aria-label="返回品牌目录"
@@ -180,7 +180,12 @@ function BrandDetailTopBar() {
         >
           <ArrowLeftIcon className="h-[18px] w-[18px]" />
         </Link>
-        <p className="text-center text-[17px] font-medium tracking-[0.02em]">品牌详情</p>
+        <p
+          className="text-center text-[13px] font-normal tracking-[0.02em]"
+          style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif' }}
+        >
+          品牌详情
+        </p>
         <span aria-hidden="true" />
       </div>
     </header>
@@ -205,7 +210,7 @@ function BrandHero({
   const editorialHero = Boolean(EDITORIAL_HERO_ASSETS[brand.slug]);
 
   return (
-    <section className="relative isolate h-[418px] overflow-hidden bg-[#382317] sm:h-[430px] md:h-[500px]">
+    <section className="relative isolate h-[400px] overflow-hidden bg-[#382317] sm:h-[420px] md:h-[500px]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(124,78,40,0.42),transparent_38%),linear-gradient(116deg,#24140c_0%,#382317_52%,#2b180e_100%)]" />
       {heroImage ? (
         <img
@@ -220,7 +225,7 @@ function BrandHero({
       <div className="absolute inset-y-0 left-0 w-[66%] bg-gradient-to-r from-[rgba(29,12,5,0.78)] via-[rgba(29,12,5,0.62)] to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[rgba(29,12,5,0.68)] to-transparent" />
 
-      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-center px-4 pb-3 -translate-y-5 sm:px-6 sm:-translate-y-6 md:-translate-y-7 md:px-10 lg:px-10">
+      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-end px-4 pb-9 -translate-y-6 sm:px-6 sm:pb-10 md:translate-y-0 md:px-10 md:pb-12 lg:px-10">
         {logoUrl ? (
           <img
             src={logoUrl}
@@ -344,9 +349,9 @@ function BrandRequestCta({
       <div className="relative isolate flex h-[140px] overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.16)] bg-[linear-gradient(90deg,#412817_0%,#342014_62%,#2a180e_100%)] px-5 py-5 sm:h-[144px] sm:px-8">
         {heroImage ? <img src={heroImage} alt="" aria-hidden="true" className="absolute inset-y-0 right-0 z-0 h-full w-[44%] object-cover object-[70%_60%] opacity-45 [mask-image:linear-gradient(to_right,transparent,black_35%)]" /> : null}
         <div className="absolute inset-y-0 right-0 z-[1] w-[58%] bg-[linear-gradient(90deg,#342014_0%,transparent_78%)]" />
-        <div className="relative z-10 flex w-[65%] min-w-0 flex-col justify-center">
+        <div className="relative z-10 flex w-[72%] min-w-0 flex-col justify-center">
           <h2 className="text-[17px] font-medium leading-[1.35] text-[#f4eee7]">没有找到合适的 {displayName}？</h2>
-          <p className="mt-2 line-clamp-2 text-[12px] font-normal leading-[1.55] text-[rgba(244,238,231,0.72)]">提交斗型、系列与预算，<br />由人工协助寻找接近的作品。</p>
+          <p className="mt-2 text-[12px] font-normal leading-[1.55] text-[rgba(244,238,231,0.72)]">提交斗型、系列与预算，<br />由人工协助寻找接近的作品。</p>
           <Link href="/request" className="mt-3 w-fit text-[13px] font-medium text-[#e4c18d] underline decoration-[rgba(228,193,141,0.72)] decoration-[1px] underline-offset-4 transition-colors hover:text-[#f4eee7]">提交找斗需求 →</Link>
         </div>
       </div>
