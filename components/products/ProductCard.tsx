@@ -127,7 +127,7 @@ function DossierProductCard({
         href={productHref(product, returnTo)}
         onNavigate={() => saveReturnPosition(product.id, returnTo)}
         aria-label={`查看 ${name} 详情`}
-        className="group flex h-full flex-col overflow-hidden rounded-[5px] border border-[rgba(210,169,105,0.2)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
+        className="group flex h-full flex-col overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
       >
         <ProductCardImage
           imageUrl={product.mainImage}
@@ -135,23 +135,23 @@ function DossierProductCard({
           brandName={product.brandName}
           loading={imageLoading || (imagePriority ? "eager" : "lazy")}
           fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
-          className="h-[148px] bg-white sm:h-[158px]"
+          className="aspect-square h-auto shrink-0 bg-white"
           imageClassName="p-3 sm:p-4"
         >
           <InventoryProductImageOverlays product={product} />
         </ProductCardImage>
 
-        <div className="flex h-[142px] flex-col px-2.5 pb-3 pt-2.5 sm:h-[146px]">
-          <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[#d7a758]">
+        <div className="flex min-h-[142px] flex-1 flex-col px-2.5 pb-3 pt-2.5">
+          <p className="line-clamp-1 text-[10px] font-medium uppercase leading-[1.3] tracking-[0.11em] text-[#d7a758]">
             {product.brandName || sourceLabel(product.source)}
           </p>
-          <h3 className="mt-[5px] h-[2.9em] line-clamp-2 text-[13px] font-normal leading-[1.43] text-[#f4eee7]">
+          <h3 className="mt-[5px] max-h-[2.8em] min-h-[2.8em] line-clamp-2 text-[13px] font-normal leading-[1.4] text-[#f4eee7]">
             {name}
           </h3>
-          <p className="mt-2 shrink-0 text-[12.5px] font-medium leading-[1.4] text-[#f4eee7]">
+          <p className="mt-2 shrink-0 truncate text-[13.5px] font-medium leading-[1.4] text-[#f4eee7]">
             {formatSitePrice(product)}
           </p>
-          <p className="mt-2 h-[1.45em] shrink-0 line-clamp-1 text-[10.5px] font-normal leading-[1.45] text-[rgba(244,238,231,0.62)]">
+          <p className="mt-2 h-[1.4em] shrink-0 truncate text-[10.5px] font-normal leading-[1.4] text-[rgba(244,238,231,0.62)]">
             {tags.join(" · ")}
           </p>
         </div>

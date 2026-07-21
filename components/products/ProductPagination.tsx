@@ -56,7 +56,7 @@ export default function ProductPagination({
 
   if (variant === "dossier") {
     return (
-      <nav className="mt-5 grid grid-cols-3 items-center border-y border-[rgba(210,169,105,0.14)] py-3.5 text-[13px] font-normal" aria-label={label}>
+      <nav className="mt-4 grid grid-cols-3 items-center border-y border-[rgba(213,166,81,0.1)] py-3 text-[13px] font-normal" aria-label={label}>
         {currentPage === 1 ? (
           <span className="text-[rgba(244,238,231,0.35)]">← 上一页</span>
         ) : (

@@ -180,7 +180,7 @@ function BrandDetailTopBar() {
         >
           <ArrowLeftIcon className="h-[18px] w-[18px]" />
         </Link>
-        <p className="text-center text-[15px] font-medium tracking-[0.04em]">品牌详情</p>
+        <p className="text-center text-[17px] font-medium tracking-[0.02em]">品牌详情</p>
         <span aria-hidden="true" />
       </div>
     </header>
@@ -205,7 +205,7 @@ function BrandHero({
   const editorialHero = Boolean(EDITORIAL_HERO_ASSETS[brand.slug]);
 
   return (
-    <section className="relative isolate h-[442px] overflow-hidden border-b border-[rgba(210,169,105,0.2)] bg-[#382317] sm:h-[458px] md:h-[520px]">
+    <section className="relative isolate h-[418px] overflow-hidden bg-[#382317] sm:h-[430px] md:h-[500px]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_42%,rgba(124,78,40,0.42),transparent_38%),linear-gradient(116deg,#24140c_0%,#382317_52%,#2b180e_100%)]" />
       {heroImage ? (
         <img
@@ -216,10 +216,11 @@ function BrandHero({
             : "absolute inset-y-0 right-0 h-full w-full object-cover object-[68%_58%] mix-blend-multiply"}
         />
       ) : null}
-      <div className="absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-[#24140c] via-[rgba(36,20,12,0.98)] to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[rgba(36,20,12,0.82)] to-transparent" />
+      <div className="absolute inset-0 bg-[rgba(29,12,5,0.46)]" />
+      <div className="absolute inset-y-0 left-0 w-[66%] bg-gradient-to-r from-[rgba(29,12,5,0.78)] via-[rgba(29,12,5,0.62)] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[rgba(29,12,5,0.68)] to-transparent" />
 
-      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-center px-4 pb-3 sm:px-6 md:-translate-y-4 md:px-10 lg:px-10">
+      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-center px-4 pb-3 -translate-y-5 sm:px-6 sm:-translate-y-6 md:-translate-y-7 md:px-10 lg:px-10">
         {logoUrl ? (
           <img
             src={logoUrl}
@@ -235,7 +236,7 @@ function BrandHero({
           {displayName}{chineseName ? ` ${chineseName}` : ""}
         </h1>
         {meta ? <p className="mt-2 text-[11px] font-normal tracking-[0.08em] text-[#e4c18d] md:text-[12px]">{meta}</p> : null}
-        {summary ? <p className="mt-3 max-w-[310px] line-clamp-3 text-[13px] font-normal leading-[1.63] text-[rgba(244,238,231,0.82)] md:max-w-[440px]">{summary}</p> : null}
+        {summary ? <p className="mt-3 max-w-[310px] line-clamp-3 text-[13px] font-normal leading-[1.55] text-[rgba(244,238,231,0.82)] md:max-w-[440px]">{summary}</p> : null}
       </div>
     </section>
   );
@@ -245,15 +246,15 @@ function BrandDataBand({ facts }: { facts: BrandFact[] }) {
   if (facts.length === 0) return null;
 
   return (
-    <section className="border-y border-[rgba(210,169,105,0.18)] bg-[#3a2518]">
+    <section className="h-[88px] border-y border-[rgba(213,166,81,0.14)] bg-[#3a2518]">
       <div
-        className="mx-auto grid max-w-[1240px] divide-x divide-[rgba(210,169,105,0.14)] px-4 sm:px-6 lg:px-10"
+        className="mx-auto grid h-full max-w-[1240px] divide-x divide-[rgba(213,166,81,0.1)] px-4 sm:px-6 lg:px-10"
         style={{ gridTemplateColumns: `repeat(${facts.length}, minmax(0, 1fr))` }}
       >
         {facts.map((fact) => (
-          <div key={fact.label} className="min-w-0 px-3 py-4 text-center first:pl-0 last:pr-0 sm:py-5">
-            <p className="text-[9.5px] font-normal tracking-[0.07em] text-[rgba(244,238,231,0.54)]">{fact.label}</p>
-            <p className="mt-1.5 text-[13px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[15px]">{fact.value}</p>
+          <div key={fact.label} className="flex min-w-0 flex-col justify-center px-3 py-4 text-center first:pl-0 last:pr-0">
+            <p className="text-[10.5px] font-normal tracking-[0.05em] text-[rgba(244,238,231,0.54)]">{fact.label}</p>
+            <p className="mt-1.5 text-[14px] font-medium leading-[1.35] text-[#f4eee7]">{fact.value}</p>
           </div>
         ))}
       </div>
@@ -265,10 +266,10 @@ function BrandIntroduction({ text }: { text: string }) {
   if (!text) return null;
 
   return (
-    <section className="border-y border-[rgba(210,169,105,0.14)] bg-[#322015] px-4 py-6 sm:px-6 sm:py-7 lg:px-10">
+    <section className="border-y border-[rgba(213,166,81,0.1)] bg-[#322015] px-4 py-6 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-[1180px]">
         <h2 className="text-[17px] font-medium leading-[1.35] text-[#f4eee7]">品牌简介</h2>
-        <p className="mt-2.5 max-w-[780px] text-[13px] font-normal leading-[1.68] text-[rgba(244,238,231,0.72)]">{text}</p>
+        <p className="mt-3.5 max-w-[780px] text-[13px] font-normal leading-[1.65] text-[rgba(244,238,231,0.72)]">{text}</p>
       </div>
     </section>
   );
@@ -295,10 +296,10 @@ function RelatedStock({
   const showSeriesFilter = brand.productCount > 100 && seriesOptions.length > 0;
 
   return (
-    <section id="brand-stock" className="mx-auto max-w-[1240px] px-4 py-8 scroll-mt-4 sm:px-6 lg:px-10 lg:py-11">
+    <section id="brand-stock" className="mx-auto max-w-[1240px] px-4 py-7 scroll-mt-4 sm:px-6 lg:px-10 lg:py-9">
       <div className="mb-4 flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-[19px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[21px]">在库作品 <span className="ml-1.5 text-[13px] font-normal text-[#d7a758]">{filteredProducts.length} 件</span></h2>
+          <h2 className="flex items-baseline text-[19px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[21px]">在库作品 <span className="ml-1.5 text-[13px] font-normal text-[#d7a758]">{filteredProducts.length} 件</span></h2>
         </div>
         {showSeriesFilter ? (
           <BrandSeriesFilterDrawer
@@ -340,12 +341,13 @@ function BrandRequestCta({
   const displayName = brandDisplayName(brand);
   return (
     <section className="mx-auto max-w-[1240px] px-4 pb-8 sm:px-6 lg:px-10 lg:pb-10">
-      <div className="relative isolate flex min-h-[136px] overflow-hidden rounded-[5px] bg-[linear-gradient(112deg,#432a1a,#2a180e)] px-5 py-5 sm:min-h-[146px] sm:px-8">
-        {heroImage ? <img src={heroImage} alt="" aria-hidden="true" className="absolute inset-y-0 right-0 z-0 h-full w-[45%] object-cover object-[70%_60%] opacity-35 [mask-image:linear-gradient(to_right,transparent,black_38%)]" /> : null}
-        <div className="relative z-10 flex flex-col justify-center">
-          <h2 className="text-[18px] font-medium leading-[1.35] text-[#f4eee7]">没有找到合适的 {displayName}？</h2>
-          <p className="mt-2 max-w-[420px] text-[12px] font-normal leading-[1.62] text-[rgba(244,238,231,0.72)]">提交斗型、系列与预算，<br />由人工协助寻找接近的作品。</p>
-          <Link href="/request" className="mt-3 w-fit text-[12px] font-normal text-[#e4c18d] underline decoration-[rgba(228,193,141,0.58)] underline-offset-4 transition-colors hover:text-[#f4eee7]">提交找斗需求 →</Link>
+      <div className="relative isolate flex h-[140px] overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.16)] bg-[linear-gradient(90deg,#412817_0%,#342014_62%,#2a180e_100%)] px-5 py-5 sm:h-[144px] sm:px-8">
+        {heroImage ? <img src={heroImage} alt="" aria-hidden="true" className="absolute inset-y-0 right-0 z-0 h-full w-[44%] object-cover object-[70%_60%] opacity-45 [mask-image:linear-gradient(to_right,transparent,black_35%)]" /> : null}
+        <div className="absolute inset-y-0 right-0 z-[1] w-[58%] bg-[linear-gradient(90deg,#342014_0%,transparent_78%)]" />
+        <div className="relative z-10 flex w-[65%] min-w-0 flex-col justify-center">
+          <h2 className="text-[17px] font-medium leading-[1.35] text-[#f4eee7]">没有找到合适的 {displayName}？</h2>
+          <p className="mt-2 line-clamp-2 text-[12px] font-normal leading-[1.55] text-[rgba(244,238,231,0.72)]">提交斗型、系列与预算，<br />由人工协助寻找接近的作品。</p>
+          <Link href="/request" className="mt-3 w-fit text-[13px] font-medium text-[#e4c18d] underline decoration-[rgba(228,193,141,0.72)] decoration-[1px] underline-offset-4 transition-colors hover:text-[#f4eee7]">提交找斗需求 →</Link>
         </div>
       </div>
     </section>
