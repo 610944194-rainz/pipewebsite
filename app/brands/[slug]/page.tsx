@@ -350,8 +350,8 @@ function BrandRequestCta({
       <div className="relative isolate flex h-[136px] overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[linear-gradient(90deg,#412817_0%,#342014_62%,#2a180e_100%)] px-5 py-[18px] sm:h-[140px] sm:px-8">
         {heroImage ? <img src={heroImage} alt="" aria-hidden="true" className="absolute inset-y-0 right-0 z-0 h-full w-[38%] object-cover object-[70%_60%] opacity-45 [mask-image:linear-gradient(to_right,transparent,black_35%)]" /> : null}
         <div className="absolute inset-y-0 right-0 z-[1] w-[56%] bg-[linear-gradient(90deg,#342014_0%,transparent_78%)]" />
-        <div className="relative z-10 flex w-[65%] min-w-0 flex-col justify-center">
-          <h2 className="text-[16px] font-medium leading-[1.35] text-[#f4eee7]">没有找到合适的{requestBrandName}？</h2>
+        <div className="relative z-10 flex w-[72%] min-w-0 flex-col justify-center">
+          <h2 className="whitespace-nowrap text-[16px] font-medium leading-[1.35] text-[#f4eee7]">没找到合适的{requestBrandName}烟斗？</h2>
           <p className="mt-2 text-[11.5px] font-normal leading-[1.5] text-[rgba(244,238,231,0.72)]">提交斗型、系列与预算，<br />由人工协助寻找接近的作品。</p>
           <Link href="/request" className="mt-3 w-fit text-[13px] font-medium text-[#e4c18d] underline decoration-[rgba(228,193,141,0.72)] decoration-[1px] underline-offset-4 transition-colors hover:text-[#f4eee7]">提交找斗需求 →</Link>
         </div>
