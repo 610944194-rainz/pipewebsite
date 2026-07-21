@@ -67,7 +67,7 @@ import {
 } from "./smokingpipes-diff-inventory-v1.mjs";
 
 export const LARGE_APPLY_WARNING_THRESHOLD = 300;
-export const DEFAULT_MAX_AUTO_APPLY = 1000;
+export const DEFAULT_MAX_AUTO_APPLY = 2000;
 
 function items(payload) {
   return Array.isArray(payload) ? payload : payload?.products || [];
@@ -1800,13 +1800,6 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
       candidate.publicStatus === "ready" &&
       isExcludedBrandCandidate(candidate)
   );
-  const readyCandidateIds = new Set(
-    readyCandidates.map(sourceProductId)
-  );
-  const isolatedCandidates = candidates.filter(
-    (candidate) =>
-      !readyCandidateIds.has(sourceProductId(candidate))
-  );
   const inputGateReasons = offlinePrepareInputBlockReasons({
     state,
     stateErrors: inputBlockReasons.concat(stateErrors),
@@ -1814,6 +1807,19 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     diff,
     options,
   });
+  const productionProducts = loadProduction(
+    paths,
+    options.mock
+  );
+  const applyGap = diagnoseProgressiveApplyGap({
+    state,
+    productionProducts,
+    candidateIds: candidates.map(sourceProductId),
+    wouldApplyProductIds: readyCandidates.map(sourceProductId),
+  });
+  const safeSubsetApply =
+    applyGap.gapCount > 0 &&
+    applyGap.safeToApplyWouldApplySubset === true;
   const auditBlockers = [...inputGateReasons];
   if (pendingReadyCandidates.length) {
     auditBlockers.push(
@@ -1835,9 +1841,26 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
       `excluded-brand candidates leaked into ready=${excludedReadyCandidates.length}`
     );
   }
+  if (applyGap.unknownGapCount > 0) {
+    auditBlockers.push(
+      `unknown gap candidates=${applyGap.unknownGapCount}`
+    );
+  }
+  if (applyGap.readyUnexpectedlyExcludedCount > 0) {
+    auditBlockers.push(
+      `ready candidate unexpectedly excluded=${applyGap.readyUnexpectedlyExcludedCount}`
+    );
+  }
+  if (
+    candidates.length !== readyCandidates.length &&
+    !safeSubsetApply
+  ) {
+    auditBlockers.push(
+      "apply gap is not approved for safe subset apply"
+    );
+  }
   const uniqueAuditBlockers = [...new Set(auditBlockers)];
   const readyIds = readyCandidates.map(sourceProductId);
-  const isolatedIds = isolatedCandidates.map(sourceProductId);
   const excludedBrandCount = excludedBrandCandidates.length;
   const reportedExcludedBrandCount = Number(
     brandExclusionReport?.excludedBrandCount || 0
@@ -1864,7 +1887,8 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     productionWritten: false,
     candidateCount: candidates.length,
     wouldApplyCount: readyCandidates.length,
-    isolatedCandidateCount: isolatedCandidates.length,
+    isolatedCandidateCount: applyGap.gapCount,
+    applyGap,
     readyCount: readyCandidates.length,
     reviewOnlyCount: reviewOnlyCandidates.length,
     notPublicCount: notPublicCandidates.length,
@@ -1904,9 +1928,13 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
         : "preview-blocked",
     candidateCount: candidates.length,
     wouldApplyCount: readyCandidates.length,
-    isolatedCandidateCount: isolatedCandidates.length,
+    isolatedCandidateCount: applyGap.gapCount,
     wouldApplyProductIds: readyIds,
-    isolatedCandidateIds: isolatedIds,
+    isolatedCandidateIds: applyGap.gapCandidates.map(
+      (candidate) => candidate.sourceProductId
+    ),
+    applyGap,
+    safeSubsetApply,
     reviewOnlyIds: reviewOnlyCandidates.map(sourceProductId),
     notPublicIds: notPublicCandidates.map(sourceProductId),
     failedNotPublicIds:
@@ -1974,7 +2002,9 @@ export async function prepareSmokingpipesOfflineProgressiveApply({
     excludedBrandCount,
     candidateCount: candidates.length,
     wouldApplyCount: readyCandidates.length,
-    isolatedCandidateCount: isolatedCandidates.length,
+    isolatedCandidateCount: applyGap.gapCount,
+    applyGap,
+    safeSubsetApply,
     maxAutoApply,
     largeApplyWarningThreshold: LARGE_APPLY_WARNING_THRESHOLD,
     largeApplyWarning,

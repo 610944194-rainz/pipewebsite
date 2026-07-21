@@ -60,6 +60,14 @@ try {
     path.join(projectRoot, "scripts", "inventory", "run-smokingpipes-scheduled-task-v1.ps1"),
     "utf8"
   );
+  const progressiveDailyScript = fs.readFileSync(
+    path.join(projectRoot, "scripts", "inventory", "run-smokingpipes-progressive-daily.ps1"),
+    "utf8"
+  );
+  const inventoryRunnerScript = fs.readFileSync(
+    path.join(projectRoot, "scripts", "inventory", "run-inventory-automation-v1.mjs"),
+    "utf8"
+  );
   const scheduledTaskInstaller = fs.readFileSync(
     path.join(projectRoot, "scripts", "inventory", "install-smokingpipes-daily-task-v1.ps1"),
     "utf8"
@@ -73,7 +81,7 @@ try {
   assert.match(publishScript, /\[switch\]\$ResumeAfterProductionWrite/);
   assert.match(publishScript, /\[string\]\$NodeExecutable\s*=\s*"node"/);
   assert.match(publishScript, /\[string\]\$NotificationScriptPath\s*=\s*""/);
-  assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(publishScript, /\[string\]\$MaxAutoApply\s*=\s*"2000"/);
   assert.match(publishScript, /\[string\]\$ProgressiveDetailMax\s*=\s*"50"/);
   assert.match(
     publishScript,
@@ -83,7 +91,9 @@ try {
   assert.match(publishScript, /largeApplyWarningThreshold/);
   assert.match(publishScript, /-MaxAutoApply/);
   assert.match(publishScript, /-LegacyDuplicateSnapshotSha256/);
-  assert.match(scheduledLauncher, /\[string\]\$MaxAutoApply\s*=\s*"1000"/);
+  assert.match(scheduledLauncher, /\[string\]\$MaxAutoApply\s*=\s*"2000"/);
+  assert.match(progressiveDailyScript, /\[string\]\$MaxAutoApply\s*=\s*"2000"/);
+  assert.match(inventoryRunnerScript, /--max-auto-apply=2000/);
   assert.match(scheduledLauncher, /\[string\]\$LegacyDuplicateSnapshotSha256\s*=\s*""/);
   assert.match(scheduledLauncher, /-LegacyDuplicateSnapshotSha256 \$LegacyDuplicateSnapshotSha256/);
   assert.match(publishScript, /auto publish must run from the dedicated automation worktree/);
@@ -377,14 +387,15 @@ try {
     remoteMainUnchanged: true,
   };
   assert.equal(evaluateAutoPublishGate(base).allowed, true);
-  assert.equal(DEFAULT_MAX_AUTO_APPLY, 1000);
+  assert.equal(DEFAULT_MAX_AUTO_APPLY, 2000);
   assert.equal(LARGE_APPLY_WARNING_THRESHOLD, 300);
   for (const [count, warning, allowed] of [
     [300, false, true],
     [301, true, true],
     [895, true, true],
-    [1000, true, true],
-    [1001, true, false],
+    [1469, true, true],
+    [2000, true, true],
+    [2001, true, false],
   ]) {
     const result = evaluateAutoPublishGate({
       ...base,

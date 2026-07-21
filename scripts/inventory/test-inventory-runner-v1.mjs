@@ -116,6 +116,7 @@ import {
 } from "./smokingpipes-daily-recovery-preflight-v1.mjs";
 import {
   buildInventoryDiff,
+  DEFAULT_MAX_AUTO_APPLY as DIFF_DEFAULT_MAX_AUTO_APPLY,
   LEGACY_DUPLICATE_SNAPSHOT_CONTRACT,
 } from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
@@ -8228,7 +8229,7 @@ const safeGapState = {
       sourceProductId: "3",
       changeTypes: ["price-change"],
       detailStatus: "complete",
-      publicStatus: "ready",
+      publicStatus: "not-public",
     },
   ],
 };
@@ -8274,7 +8275,7 @@ const safeGapDiagnosis = diagnoseProgressiveApplyGap({
 assert.equal(safeGapDiagnosis.candidateCount, 3);
 assert.equal(safeGapDiagnosis.wouldApplyCount, 2);
 assert.equal(safeGapDiagnosis.gapCount, 1);
-assert.equal(safeGapDiagnosis.gapClassifications.noOpAlreadyCurrent, 1);
+assert.equal(safeGapDiagnosis.gapClassifications.notPublic, 1);
 assert.equal(safeGapDiagnosis.unknownGapCount, 0);
 assert.equal(safeGapDiagnosis.readyUnexpectedlyExcludedCount, 0);
 assert.equal(safeGapDiagnosis.safeToApplyWouldApplySubset, true);
@@ -8326,8 +8327,9 @@ for (const [wouldApplyCount, warning, blocked] of [
   [300, false, false],
   [301, true, false],
   [895, true, false],
-  [1000, true, false],
-  [1001, true, true],
+  [1469, true, false],
+  [2000, true, false],
+  [2001, true, true],
 ]) {
   const largeApplyGate = evaluateProgressiveProductionApplyGate({
     state: { dailyRunId: "daily-update-20260708" },
@@ -8343,7 +8345,7 @@ for (const [wouldApplyCount, warning, blocked] of [
     },
     candidateProducts: safeGapCandidateProducts,
     publicPayloads: completePublicPayloads,
-    maxAutoApply: 1000,
+    maxAutoApply: 2000,
   });
   assert.equal(largeApplyGate.largeApplyWarning, warning);
   assert.equal(largeApplyGate.largeApplyBlocked, blocked);
@@ -8513,6 +8515,12 @@ const safeSubsetMerged = buildSafeSubsetProductionProducts({
       ...safeGapCandidateProducts[2],
       unsafeGapMutation: true,
     },
+    {
+      id: "smokingpipes-4",
+      source: "smokingpipes",
+      sourceProductId: "4",
+      inventoryStatus: "available",
+    },
   ],
   wouldApplyProductIds: ["1", "2"],
 });
@@ -8528,6 +8536,10 @@ assert.equal(
   safeSubsetMerged.find((item) => item.sourceProductId === "3")
     .unsafeGapMutation,
   undefined
+);
+assert.equal(
+  safeSubsetMerged.some((item) => item.sourceProductId === "4"),
+  false
 );
 
 const progressiveApplyRoot = fs.mkdtempSync(
@@ -8885,7 +8897,7 @@ assert.equal(progressivePrepareApplyReady.applyReady, true);
 assert.equal(progressivePrepareApplyReady.candidateCount, 4);
 assert.equal(progressivePrepareApplyReady.wouldApplyCount, 2);
 assert.equal(progressivePrepareApplyReady.isolatedCandidateCount, 2);
-assert.equal(progressivePrepareApplyReady.maxAutoApply, 1000);
+assert.equal(progressivePrepareApplyReady.maxAutoApply, 2000);
 assert.equal(progressivePrepareApplyReady.largeApplyWarningThreshold, 300);
 assert.equal(progressivePrepareApplyReady.largeApplyWarning, false);
 assert.equal(progressivePrepareApplyReady.largeApplyBlocked, false);
@@ -9433,7 +9445,7 @@ offlinePrepareState.currentListPath =
 offlinePrepareState.diffPath =
   "data/inventory/smokingpipes-inventory-diff-dry-run.json";
 offlinePrepareState.candidates = [
-  ...Array.from({ length: 1389 }, (_, index) =>
+  ...Array.from({ length: 1469 }, (_, index) =>
     makeOfflinePrepareCandidate({
       sourceProductId: `ready-${index + 1}`,
       detailStatus: "complete",
@@ -9447,7 +9459,7 @@ offlinePrepareState.candidates = [
       publicStatus: "review-only",
     })
   ),
-  ...Array.from({ length: 149 }, (_, index) =>
+  ...Array.from({ length: 136 }, (_, index) =>
     makeOfflinePrepareCandidate({
       sourceProductId: `failed-${index + 1}`,
       detailStatus: "failed",
@@ -9518,14 +9530,37 @@ const offlinePrepareResult =
 assert.equal(offlinePrepareResult.networkAccessed, false);
 assert.equal(offlinePrepareResult.browserStarted, false);
 assert.equal(offlinePrepareResult.productionWritten, false);
-assert.equal(offlinePrepareResult.readyCount, 1389);
+assert.equal(offlinePrepareResult.readyCount, 1469);
 assert.equal(offlinePrepareResult.reviewOnlyCount, 4);
-assert.equal(offlinePrepareResult.notPublicCount, 235);
-assert.equal(offlinePrepareResult.failedNotPublicCount, 149);
+assert.equal(offlinePrepareResult.notPublicCount, 222);
+assert.equal(offlinePrepareResult.failedNotPublicCount, 136);
 assert.equal(offlinePrepareResult.excludedBrandCount, 86);
-assert.equal(offlinePrepareResult.candidateCount, 1628);
-assert.equal(offlinePrepareResult.wouldApplyCount, 1389);
-assert.equal(offlinePrepareResult.isolatedCandidateCount, 239);
+assert.equal(offlinePrepareResult.candidateCount, 1695);
+assert.equal(offlinePrepareResult.wouldApplyCount, 1469);
+assert.equal(offlinePrepareResult.isolatedCandidateCount, 226);
+assert.equal(offlinePrepareResult.maxAutoApply, 2000);
+assert.equal(offlinePrepareResult.largeApplyWarningThreshold, 300);
+assert.equal(offlinePrepareResult.largeApplyWarning, true);
+assert.equal(offlinePrepareResult.largeApplyBlocked, false);
+assert.equal(offlinePrepareResult.applyReady, true);
+assert.equal(offlinePrepareResult.safeSubsetApply, true);
+assert.equal(
+  offlinePrepareResult.audit.applyGap.safeToApplyWouldApplySubset,
+  true
+);
+assert.equal(offlinePrepareResult.audit.applyGap.unknownGapCount, 0);
+assert.equal(
+  offlinePrepareResult.audit.applyGap.readyUnexpectedlyExcludedCount,
+  0
+);
+assert.equal(offlinePrepareResult.preview.safeSubsetApply, true);
+assert.equal(offlinePrepareResult.preview.applyGap.gapCount, 226);
+assert.equal(
+  offlinePrepareResult.preview.isolatedCandidateIds.some((id) =>
+    offlinePrepareResult.preview.wouldApplyProductIds.includes(id)
+  ),
+  false
+);
 assert.equal(
   fs.existsSync(offlinePreparePaths.progressiveApplyGateReport),
   true
@@ -9559,7 +9594,8 @@ assert.equal(
   ]).progressiveDetailMax,
   3
 );
-assert.equal(parseRunnerOptions([]).maxAutoApply, 1000);
+assert.equal(parseRunnerOptions([]).maxAutoApply, 2000);
+assert.equal(DIFF_DEFAULT_MAX_AUTO_APPLY, 2000);
 assert.equal(
   parseRunnerOptions([
     `--legacy-duplicate-snapshot-sha256=${legacySnapshotSha256}`,
@@ -9576,7 +9612,7 @@ for (const value of ["0", "100.5", "Infinity", "unlimited"]) {
     /positive (?:safe )?integer/i
   );
 }
-for (const value of ["1", "30", "100", "200", "1000"]) {
+for (const value of ["1", "30", "100", "200", "1000", "2000"]) {
   assert.equal(
     parseRunnerOptions([`--max-auto-apply=${value}`]).maxAutoApply,
     Number(value)

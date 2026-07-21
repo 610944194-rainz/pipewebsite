@@ -292,7 +292,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   );
   const maxAutoApply = positiveSafeInteger(
     args.get("max-auto-apply"),
-    1000,
+    2000,
     "max-auto-apply"
   );
   const legacyDuplicateSnapshotSha256 = args.has(
