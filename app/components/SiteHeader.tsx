@@ -59,7 +59,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
   return (
     <>
       <header className={`sticky top-0 z-40 border-b border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
-        <div className="relative mx-auto grid h-14 max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-[70px] lg:px-10">
+        <div className="relative mx-auto grid h-11 max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-11 lg:px-10">
           <button
             ref={menuButtonRef}
             type="button"
