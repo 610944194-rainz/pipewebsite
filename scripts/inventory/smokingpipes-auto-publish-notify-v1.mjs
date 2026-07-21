@@ -19,6 +19,25 @@ function text(value) {
   return String(value || "").trim();
 }
 
+function changeSummaryLines(report = {}) {
+  const input = report.changeSummary && typeof report.changeSummary === "object"
+    ? report.changeSummary
+    : {};
+  const number = (name, fallback = 0) => Number(input[name] ?? fallback) || 0;
+  return [
+    `新增上架：${number("newlyPublishedCount")}`,
+    `原站涨价：${number("sourcePriceIncreaseCount")}`,
+    `原站降价：${number("sourcePriceDecreaseCount")}`,
+    `明确下架：${number("explicitOutOfStockCount")}`,
+    `连续消失确认下架：${number("confirmedDisappearedCount")}`,
+    `重新上架：${number("reappearedCount")}`,
+    `列表消失待确认：${number("disappearedPendingConfirmationCount")}`,
+    `隔离候选：${number("isolatedCandidateCount", report.isolatedCandidateCount)}`,
+    `失败隔离：${number("failedIsolatedCount")}`,
+    `实际应用：${number("actualAppliedCount", report.appliedCount)}`,
+  ];
+}
+
 function readJsonIfExists(filePath) {
   if (!filePath || !fs.existsSync(filePath)) return null;
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -60,12 +79,14 @@ function markNotificationSent(taskStatePath, taskState, runId) {
 export function buildAutoPublishNotification(report = {}) {
   const status = text(report.status) || "unknown";
   const title = "烟斗派库存发布｜Smokingpipes";
+  const summaryLines = changeSummaryLines(report);
   if (status === "no-production-change") {
     return {
       title: "烟斗派库存日更｜Smokingpipes",
       body: [
         "状态：今日检查完成，无库存变化",
         "Production：未写入",
+        ...summaryLines,
         "提交：无",
         "推送：无",
         "阻断：无",
@@ -76,7 +97,7 @@ export function buildAutoPublishNotification(report = {}) {
     `状态：${status}`,
     `候选：${Number(report.candidateCount || 0)}`,
     `拟应用：${Number(report.wouldApplyCount || 0)}`,
-    `实际应用：${Number(report.appliedCount || 0)}`,
+    ...summaryLines,
     `production 写入：${report.productionWritten === true ? "是" : "否"}`,
     `提交：${report.commitPerformed === true ? "是" : "否"}`,
     `推送：${report.pushPerformed === true ? "是" : "否"}`,

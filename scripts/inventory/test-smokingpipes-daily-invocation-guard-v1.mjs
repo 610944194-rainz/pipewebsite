@@ -68,6 +68,25 @@ function evaluateGuard(state, options = {}) {
   return evaluateGuardFromStateFile({ ...options, stateText: `${JSON.stringify(state)}\n` });
 }
 
+function evaluateFailurePolicy(state, { dateKey = "2026-07-19", stateText = null } = {}) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-failure-policy-"));
+  const statePath = path.join(root, "state.json");
+  try {
+    fs.writeFileSync(statePath, stateText ?? `${JSON.stringify(state)}\n`);
+    const command = [
+      `Import-Module -Name '${guardModule.replaceAll("'", "''")}' -Force`,
+      `$state=Read-SmokingpipesDailyTaskState -Path '${statePath.replaceAll("'", "''")}'`,
+      `$decision=Test-SmokingpipesSameDayFailureRetryPolicy -State $state -LocalDateKey '${dateKey}'`,
+      "$decision | ConvertTo-Json -Compress",
+    ].join("\n");
+    const result = spawnSync("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", command], { encoding: "utf8" });
+    assert.equal(result.status, 0, result.stderr);
+    return JSON.parse(result.stdout);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+}
+
 function runScheduledLauncherFixture({ guardSource, stateText, expectedExitCode }) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-scheduled-launcher-"));
   const fixtureInventory = path.join(root, "scripts", "inventory");
@@ -164,6 +183,25 @@ assert.equal(
   false,
   "a malformed state file must never be inferred as success"
 );
+for (const failureType of ["detail-queue-spike", "audit", "lock", "network", "browser", "verification", "preflight"]) {
+  const retry = evaluateFailurePolicy({ dateKey: "2026-07-19", status: "terminal-failed", retryAllowed: false, productionWritten: false, lastFailureType: failureType });
+  assert.equal(retry.ShouldSkip, false, `${failureType} must be eligible for preflight retry before production write`);
+  assert.equal(retry.RequiresPreflight, true);
+}
+for (const state of [
+  { dateKey: "2026-07-19", status: "terminal-failed", productionWritten: true, lastFailureType: "audit" },
+  { dateKey: "2026-07-19", status: "terminal-failed", productionWritten: false, lastFailureType: "audit", lastFailureReason: "public index validator failed" },
+  { dateKey: "2026-07-19", status: "terminal-failed", productionWritten: false, commitPerformed: true, lastFailureType: "unknown" },
+]) {
+  const terminal = evaluateFailurePolicy(state);
+  assert.equal(terminal.ShouldSkip, true);
+  assert.equal(terminal.HardTerminal, true);
+}
+assert.equal(
+  evaluateFailurePolicy({}, { stateText: "{broken-json" }).HardTerminal,
+  true,
+  "corrupt state evidence must stop same-day automatic retry"
+);
 
 assert.match(scheduledLauncher, /Test-SmokingpipesSameDaySuccess/);
 assert.match(scheduledLauncher, /same-day-success-already-completed/);
@@ -179,6 +217,7 @@ assert.ok(
   "scheduled guard must still run before wrapper execution"
 );
 assert.match(autoPublish, /Test-SmokingpipesSameDaySuccess/);
+assert.match(progressiveDaily, /Test-SmokingpipesSameDayFailureRetryPolicy/);
 assert.ok(
   autoPublish.indexOf("Test-SmokingpipesSameDaySuccess") < autoPublish.indexOf("Sync-AutomationRuntimeWithOriginMain"),
   "auto-publish guard must run before runtime sync"
@@ -289,6 +328,26 @@ assert.doesNotMatch(noChangeAutoMessage.body, /631/);
 const noChangeMobileMessage = buildPushDeerDailyMessage({ status: "no-production-change" });
 assert.match(noChangeMobileMessage.body, /Production：未写入/);
 assert.doesNotMatch(noChangeMobileMessage.body, /631/);
+const changeSummaryMessage = buildPushDeerDailyMessage({
+  status: "success",
+  appliedCount: 13,
+  changeSummary: {
+    newlyPublishedCount: 3,
+    sourcePriceIncreaseCount: 2,
+    sourcePriceDecreaseCount: 1,
+    explicitOutOfStockCount: 4,
+    confirmedDisappearedCount: 2,
+    reappearedCount: 1,
+    disappearedPendingConfirmationCount: 5,
+    isolatedCandidateCount: 6,
+    failedIsolatedCount: 2,
+    otherAppliedCount: 0,
+    actualAppliedCount: 13,
+  },
+});
+for (const line of ["新增上架：3", "原站涨价：2", "原站降价：1", "明确下架：4", "连续消失确认下架：2", "重新上架：1", "列表消失待确认：5", "隔离候选：6", "失败隔离：2", "实际应用：13"]) {
+  assert.match(changeSummaryMessage.body, new RegExp(line));
+}
 
 const reportFixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-no-change-report-"));
 try {

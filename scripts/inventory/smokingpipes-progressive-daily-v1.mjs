@@ -251,6 +251,140 @@ function addUnique(values, additions) {
   return [...new Set([...(values || []), ...additions])];
 }
 
+function trustedSnapshotId(currentPayload, summary) {
+  return text(
+    currentPayload?.snapshotId ||
+      currentPayload?.generatedAt ||
+      summary?.snapshotId ||
+      summary?.generatedAt ||
+      summary?.completedAt
+  );
+}
+
+function normalizeDisappearanceTracking(globalReconcile = {}) {
+  const tracking = globalReconcile.disappearanceTracking;
+  if (
+    tracking &&
+    tracking.version === 1 &&
+    tracking.items &&
+    typeof tracking.items === "object" &&
+    !Array.isArray(tracking.items)
+  ) {
+    return structuredClone(tracking);
+  }
+  return {
+    version: 1,
+    initializedAt: null,
+    lastTrustedSnapshotId: null,
+    items: {},
+  };
+}
+
+function makeConfirmedDisappearedCandidate({ production, runId, now }) {
+  const id = productId(production);
+  return {
+    sourceProductId: id,
+    sourceUrl: text(production.sourceUrl || production.url),
+    listTitle: text(production.title || production.name),
+    listPrice: "",
+    listPrimaryImage: text(production.mainImageUrl || production.imageUrl),
+    listPage: null,
+    rawListStatus: "",
+    listMissingPrice: false,
+    listExplicitOutOfStock: false,
+    listOutOfStockTail: false,
+    listNotPublicReason: null,
+    inventoryStatus: "sold",
+    discoveredAt: now,
+    firstSeenRunId: runId,
+    lastSeenRunId: runId,
+    lastSeenAt: now,
+    changeTypes: ["confirmed-disappeared"],
+    detailStatus: "complete",
+    publicStatus: "ready",
+    detailAttempts: 0,
+    retryCount: 0,
+    lastAttemptAt: null,
+    lastSuccessfulDetailRunId: null,
+    lastAppliedAt: null,
+    appliedInCommit: null,
+    lastError: null,
+    reason: "confirmed after two trusted complete list scans",
+    reviewReason: null,
+    priority: 50,
+    blockedCount: 0,
+    lastBlockedAt: null,
+    lastBlockedReason: null,
+    nextEligibleAt: null,
+    detail: null,
+    convertedProduct: null,
+    productionProductId: production?.id || null,
+    lastBuiltAt: null,
+    excludedBrand: null,
+    exclusionReason: null,
+    exclusionEvidence: null,
+    excludedAt: null,
+  };
+}
+
+function updateDisappearanceTracking({
+  previousGlobalReconcile,
+  productionById,
+  currentIds,
+  currentPayload,
+  summary,
+  globalAllowed,
+  diffAllowApply,
+  currentListFresh = true,
+  runId,
+  now,
+}) {
+  const tracking = normalizeDisappearanceTracking(previousGlobalReconcile);
+  const snapshotId = trustedSnapshotId(currentPayload, summary);
+  const trustedFreshSnapshot =
+    globalAllowed &&
+    diffAllowApply === true &&
+    currentListFresh === true &&
+    Boolean(snapshotId) &&
+    snapshotId !== tracking.lastTrustedSnapshotId &&
+    currentPayload?.manualRecovery !== true &&
+    summary?.manualRecovery !== true &&
+    summary?.cachedListResume !== true &&
+    summary?.reused !== true;
+  const confirmedIds = [];
+  if (!trustedFreshSnapshot) {
+    return { tracking, confirmedIds, trustedFreshSnapshot: false };
+  }
+  const missingAvailableIds = [...productionById.entries()]
+    .filter(([id, product]) => !currentIds.has(id) && !isSold(product))
+    .map(([id]) => id);
+  for (const id of Object.keys(tracking.items)) {
+    if (currentIds.has(id)) delete tracking.items[id];
+  }
+  for (const id of missingAvailableIds) {
+    const previous = tracking.items[id];
+    const consecutiveTrustedMissingScans = Number(
+      previous?.consecutiveTrustedMissingScans || 0
+    ) + 1;
+    tracking.items[id] = {
+      disappearanceStatus:
+        consecutiveTrustedMissingScans >= 2
+          ? "confirmed-disappeared"
+          : "pending-confirmation",
+      consecutiveTrustedMissingScans,
+      firstMissingAt: previous?.firstMissingAt || now,
+      lastMissingAt: now,
+      firstMissingRunId: previous?.firstMissingRunId || runId,
+      lastMissingRunId: runId,
+      lastMissingSnapshotId: snapshotId,
+    };
+    if (consecutiveTrustedMissingScans === 2) confirmedIds.push(id);
+  }
+  tracking.initializedAt ||= now;
+  tracking.lastTrustedSnapshotId = snapshotId;
+  return { tracking, confirmedIds, trustedFreshSnapshot: true };
+}
+
 function stateSummary(state, now = new Date().toISOString()) {
   const candidates = state?.candidates || [];
   const changeCount = (changeType) =>
@@ -287,9 +421,15 @@ function stateSummary(state, now = new Date().toISOString()) {
       "explicit-out-of-stock"
     ),
     reappearedCandidates: changeCount("reappeared"),
+    confirmedDisappearedCandidates: changeCount("confirmed-disappeared"),
     disappearedCandidatesRecorded:
       state?.globalReconcile?.disappearedIds?.length || 0,
     disappearedCandidatesApplyAllowed: false,
+    confirmedDisappearedCandidatesApplyAllowed: true,
+    disappearedPendingConfirmationCount: Object.values(
+      state?.globalReconcile?.disappearanceTracking?.items || {}
+    ).filter((item) => item?.disappearanceStatus === "pending-confirmation")
+      .length,
     pending: statusCount("pending"),
     deferred: statusCount("deferred"),
     complete: statusCount("complete"),
@@ -399,6 +539,7 @@ export function ingestProgressiveListSnapshot({
   now = new Date().toISOString(),
   currentListPath = null,
   diffPath = null,
+  currentListFresh = true,
 }) {
   const validation = validateProgressiveDailyState(state);
   if (!validation.valid) {
@@ -612,6 +753,36 @@ export function ingestProgressiveListSnapshot({
     fullExpectedRangeScanned &&
     !captchaDetected &&
     !verificationDetected;
+  const disappearanceUpdate = updateDisappearanceTracking({
+    previousGlobalReconcile: next.globalReconcile,
+    productionById,
+    currentIds,
+    currentPayload,
+    summary,
+    globalAllowed,
+    diffAllowApply: diffPayload?.allowApply,
+    currentListFresh,
+    runId,
+    now,
+  });
+  for (const id of disappearanceUpdate.confirmedIds) {
+    const existing = candidatesById.get(id);
+    if (existing) {
+      existing.changeTypes = addUnique(existing.changeTypes, [
+        "confirmed-disappeared",
+      ]);
+      existing.detailStatus = "complete";
+      existing.publicStatus = "ready";
+    } else {
+      const candidate = makeConfirmedDisappearedCandidate({
+        production: productionById.get(id),
+        runId,
+        now,
+      });
+      next.candidates.push(candidate);
+      candidatesById.set(id, candidate);
+    }
+  }
   next.listSnapshotStatus =
     captchaDetected || verificationDetected
     ? "blocked"
@@ -652,6 +823,8 @@ export function ingestProgressiveListSnapshot({
               !isSold(productionById.get(id))
           )
       : [],
+    confirmedDisappearedCandidatesApplyAllowed: true,
+    disappearanceTracking: disappearanceUpdate.tracking,
   };
   next.dailyRunId = runId;
   next.updatedAt = now;

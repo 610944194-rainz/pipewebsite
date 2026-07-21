@@ -313,6 +313,8 @@ function Copy-DailyStateToReport {
   $report.candidateCount = Get-DailyNumber -State $State -Name "candidateCount"
   $report.wouldApplyCount = Get-DailyNumber -State $State -Name "wouldApplyCount"
   $report.appliedCount = Get-DailyNumber -State $State -Name "appliedCount"
+  $report.isolatedCandidateCount = Get-DailyNumber -State $State -Name "isolatedCandidateCount"
+  if ($null -ne $State.changeSummary) { $report.changeSummary = $State.changeSummary }
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
   $dailyMaxAutoApply = Get-DailyNumber -State $State -Name "maxAutoApply"
   if ($dailyMaxAutoApply -gt 0) { $report.maxAutoApply = $dailyMaxAutoApply }
@@ -383,6 +385,14 @@ $report = [ordered]@{
   candidateCount = 0
   wouldApplyCount = 0
   appliedCount = 0
+  isolatedCandidateCount = 0
+  changeSummary = [ordered]@{
+    newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
+    explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
+    disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
+    otherAppliedCount = 0; actualAppliedCount = 0
+    consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
+  }
   progressiveDetailMax = [int]$ProgressiveDetailMax
   maxAutoApply = [int]$MaxAutoApply
   largeApplyWarningThreshold = $LargeApplyWarningThreshold
@@ -450,6 +460,8 @@ function Write-AutoPublishReport {
     "- candidateCount: $($report.candidateCount)",
     "- wouldApplyCount: $($report.wouldApplyCount)",
     "- appliedCount: $($report.appliedCount)",
+    "- isolatedCandidateCount: $($report.isolatedCandidateCount)",
+    "- changeSummary: $($report.changeSummary | ConvertTo-Json -Compress -Depth 4)",
     "- progressiveDetailMax: $($report.progressiveDetailMax)",
     "- maxAutoApply: $($report.maxAutoApply)",
     "- largeApplyWarningThreshold: $($report.largeApplyWarningThreshold)",
@@ -831,6 +843,14 @@ try {
       $report.candidateCount = 0
       $report.wouldApplyCount = 0
       $report.appliedCount = 0
+      $report.isolatedCandidateCount = 0
+      $report.changeSummary = [ordered]@{
+        newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
+        explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
+        disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
+        otherAppliedCount = 0; actualAppliedCount = 0
+        consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
+      }
     }
     $report.deploymentStatus = "not-requested"
     Complete-AutoPublish -Status "no-production-change"

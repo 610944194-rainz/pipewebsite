@@ -89,6 +89,26 @@ function updateExplicitInventory(product, candidate) {
       ],
     };
   }
+  if (
+    candidate.changeTypes.includes("confirmed-disappeared") &&
+    !candidate.changeTypes.includes("reappeared")
+  ) {
+    next.inventoryStatus = "sold";
+    next.inventoryConfidence = "medium";
+    next.includedInActiveListRange = false;
+    next.rawListStatus = "";
+    next.inventoryEvidence = {
+      ...(next.inventoryEvidence || {}),
+      includedInActiveListRange: false,
+      rawListStatus: "",
+      reasons: [
+        ...new Set([
+          ...(next.inventoryEvidence?.reasons || []),
+          "Product was absent from two consecutive trusted complete list scans.",
+        ]),
+      ],
+    };
+  }
   return next;
 }
 
@@ -170,7 +190,8 @@ export function buildProgressivePartialProducts({
       (candidate.changeTypes.includes(
         "explicit-out-of-stock"
       ) ||
-        candidate.changeTypes.includes("reappeared"))
+        candidate.changeTypes.includes("reappeared") ||
+        candidate.changeTypes.includes("confirmed-disappeared"))
     ) {
       updated = updateExplicitInventory(
         updated,
