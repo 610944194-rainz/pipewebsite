@@ -56,9 +56,9 @@ export default async function DomesticMakersPage({ searchParams }: PageProps) {
         <header className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] lg:h-[310px] lg:aspect-auto">
           <Image src="/pics/weekly-featured-head.png" alt="" fill sizes="(max-width: 1023px) 100vw, 1200px" className="object-cover object-[65%_center]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.88)] via-[rgba(36,22,15,0.56)] to-[rgba(36,22,15,0.08)]" />
-          <div className="relative flex h-full max-w-[62%] flex-col justify-end px-5 pb-5 sm:max-w-[58%] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
+          <div className="relative flex h-full max-w-[74%] flex-col justify-end px-5 pb-5 sm:max-w-[62%] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
             <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">PIPE MAKERS &amp; STUDIOS</p>
-            <h1 className="mt-2 text-[24px] font-medium leading-[1.35] text-[#f4eee7] lg:text-[30px]">斗师 / 工作室</h1>
+            <h1 className="mt-2 whitespace-nowrap text-[22px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[24px] lg:text-[30px]">斗师 / 工作室</h1>
             <p className="mt-2 text-[11.5px] font-normal leading-[1.55] text-[rgba(244,238,231,0.82)] lg:max-w-[420px] lg:text-[12px]">
               记录国内斗师与工作室及其公开作品，了解他们的创作方向与在库作品。
             </p>
