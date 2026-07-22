@@ -54,12 +54,6 @@ export default function MakerStudioDirectoryFilters({
     navigate({ region: region || undefined, kind: kind || undefined });
   }
 
-  function clearFilters() {
-    setRegion("");
-    setKind("");
-    navigate({ region: undefined, kind: undefined });
-  }
-
   return (
     <section aria-label="目录搜索与筛选" className="mt-4">
       <div className="flex gap-2">
@@ -70,14 +64,14 @@ export default function MakerStudioDirectoryFilters({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="搜索斗师、工作室或城市"
-            className="h-11 w-full rounded-[5px] border border-[rgba(91,62,43,0.12)] bg-white py-2 pl-10 pr-3 text-[13px] font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--text-secondary)] focus-visible:border-[var(--brass)] focus-visible:ring-1 focus-visible:ring-[var(--brass)]"
+            className="h-11 w-full rounded-[5px] border border-[rgba(91,62,43,0.12)] bg-white py-2 pl-10 pr-2 text-[12px] font-normal text-[var(--text-primary)] outline-none placeholder:text-[12px] placeholder:text-[var(--text-secondary)] focus-visible:border-[var(--brass)] focus-visible:ring-1 focus-visible:ring-[var(--brass)] sm:text-[13px] sm:placeholder:text-[13px]"
           />
         </form>
         <button
           type="button"
           onClick={() => setFiltersOpen((current) => !current)}
           aria-expanded={filtersOpen}
-          className="inline-flex h-11 w-[86px] shrink-0 items-center justify-center gap-1.5 rounded-[5px] border border-[rgba(91,62,43,0.12)] bg-white text-[13px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--brass)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--brass)]"
+          className="inline-flex h-11 w-[80px] shrink-0 items-center justify-center gap-1.5 rounded-[5px] border border-[rgba(91,62,43,0.12)] bg-white text-[12.5px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--brass)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--brass)] sm:w-[86px] sm:text-[13px]"
         >
           筛选
           <ChevronIcon className={`h-3.5 w-3.5 transition-transform ${filtersOpen ? "rotate-180" : ""}`} />
@@ -85,8 +79,8 @@ export default function MakerStudioDirectoryFilters({
       </div>
 
       {filtersOpen ? (
-        <div className="mt-2 grid grid-cols-2 overflow-hidden rounded-[5px] border border-[rgba(91,62,43,0.12)] bg-white">
-          <label className="min-w-0 border-r border-[rgba(91,62,43,0.08)] px-3 py-2.5">
+        <div className="mt-2 grid grid-cols-2 overflow-hidden rounded-[5px] border border-[rgba(91,62,43,0.10)] bg-white">
+          <label className="flex h-[68px] min-w-0 flex-col justify-center border-r border-[rgba(91,62,43,0.07)] px-3 py-2">
             <span className="mb-1 block text-[10px] font-normal tracking-[0.08em] text-[var(--text-secondary)]">地区</span>
             <select
               value={region}
@@ -99,7 +93,7 @@ export default function MakerStudioDirectoryFilters({
               ))}
             </select>
           </label>
-          <label className="min-w-0 px-3 py-2.5">
+          <label className="flex h-[68px] min-w-0 flex-col justify-center px-3 py-2">
             <span className="mb-1 block text-[10px] font-normal tracking-[0.08em] text-[var(--text-secondary)]">类型</span>
             <select
               value={kind}
@@ -111,12 +105,7 @@ export default function MakerStudioDirectoryFilters({
               <option value="studio">工作室</option>
             </select>
           </label>
-          <div className="col-span-2 flex items-center justify-end gap-4 border-t border-[rgba(91,62,43,0.08)] px-3 py-2">
-            {(activeRegion || activeKind) ? (
-              <button type="button" onClick={clearFilters} className="text-[12px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)]">
-                清除
-              </button>
-            ) : null}
+          <div className="col-span-2 flex h-12 items-center justify-end border-t border-[rgba(91,62,43,0.07)] px-3">
             <button type="button" onClick={applyFilters} className="text-[12px] font-medium text-[var(--coffee)] transition-colors hover:text-[var(--brass)]">
               确认筛选
             </button>

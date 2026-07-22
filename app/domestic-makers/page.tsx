@@ -15,6 +15,18 @@ type PageProps = { searchParams?: Promise<SearchParams> };
 
 const pageSize = 12;
 
+type MakerCardVisual =
+  | { type: "image" }
+  | { type: "workbench" }
+  | { type: "monogram"; monogram: string; tone: string };
+
+const makerCardVisuals: Record<string, MakerCardVisual> = {
+  "demo-maker-lin-yan": { type: "image" },
+  "demo-studio-muchuan": { type: "workbench" },
+  "demo-maker-zhou-yu": { type: "monogram", monogram: "周屿", tone: "bg-[#f2ebe1] text-[var(--coffee)]" },
+  "demo-studio-nanan": { type: "monogram", monogram: "南岸", tone: "bg-[#e8ddd0] text-[#563822]" },
+};
+
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = searchParams ? await searchParams : {};
   const demo = firstParam(params.demo) === "1";
@@ -52,7 +64,7 @@ export default async function DomesticMakersPage({ searchParams }: PageProps) {
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]" style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif' }}>
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-10 lg:pb-14">
+      <section className={`mx-auto max-w-[1240px] px-4 pt-5 sm:px-6 sm:pt-7 lg:px-10 ${demo ? "pb-10 sm:pb-12 lg:pb-14" : "pb-6 sm:pb-8 lg:pb-10"}`}>
         <header className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] lg:h-[310px] lg:aspect-auto">
           <Image src="/pics/weekly-featured-head.png" alt="" fill sizes="(max-width: 1023px) 100vw, 1200px" className="object-cover object-[65%_center]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.88)] via-[rgba(36,22,15,0.56)] to-[rgba(36,22,15,0.08)]" />
@@ -95,7 +107,7 @@ export default async function DomesticMakersPage({ searchParams }: PageProps) {
         ) : demo ? (
           <EmptyState title="暂无匹配结果" copy="可以减少关键词，或清除地区与类型筛选后重试。" />
         ) : (
-          <EmptyState title="斗师 / 工作室资料正在整理中" copy="后续将陆续补充国内斗师、工作室与公开作品资料。" />
+          <EmptyState title="斗师 / 工作室资料正在整理中" copy="国内斗师、工作室与公开作品资料将陆续补充。" compact />
         )}
 
         {totalPages > 1 ? (
@@ -118,26 +130,14 @@ function MakerStudioDirectoryCard({ entry, demo, returnTo }: { entry: DemoMakerS
 
   return (
     <article id={makerAnchor(entry.slug)} className="min-w-0">
-      <Link href={detailHref} aria-label={`查看${entry.name}资料`} className="group grid min-h-[112px] grid-cols-[92px_minmax(0,1fr)_18px] items-center gap-3 rounded-[5px] border border-[rgba(91,62,43,0.10)] bg-white p-2.5 transition-colors hover:border-[rgba(168,120,62,0.48)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--brass)] md:min-h-[132px] md:grid-cols-[112px_minmax(0,1fr)_18px]">
-        <div className="relative h-[92px] overflow-hidden rounded-[4px] bg-[#f6f1e9] md:h-[112px]">
-          {entry.coverImage ? (
-            <Image src={entry.coverImage} alt="" fill sizes="(max-width: 767px) 92px, 112px" className="object-cover object-[68%_center]" />
-          ) : (
-            <div className="flex h-full items-center justify-center border border-[rgba(91,62,43,0.06)] px-2 text-center text-[18px] font-medium leading-[1.3] text-[var(--coffee)] md:text-[20px]">
-              {entry.name.replace(/^示例(?:斗师|工作室)\s*·\s*/, "")}
-            </div>
-          )}
-          <span className="absolute left-1.5 top-1.5 bg-[rgba(86,56,34,0.82)] px-1.5 py-0.5 text-[10px] font-normal leading-[1.35] text-[#f4eee7]">{kindLabel(entry.kind)}</span>
-        </div>
+      <Link href={detailHref} aria-label={`查看${entry.name}资料`} className="group grid min-h-[122px] grid-cols-[92px_minmax(0,1fr)_18px] items-center gap-2.5 rounded-[5px] border border-[rgba(91,62,43,0.10)] bg-white p-2.5 transition-colors hover:border-[rgba(168,120,62,0.48)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--brass)] md:min-h-[132px] md:grid-cols-[112px_minmax(0,1fr)_18px] md:gap-3">
+        <MakerStudioCardVisual entry={entry} demo={demo} />
 
         <div className="min-w-0 self-stretch py-0.5">
-          <div className="flex min-w-0 items-center gap-2">
-            <h3 className="min-w-0 truncate text-[15px] font-semibold leading-[1.35] text-[var(--text-primary)]">{entry.name}</h3>
-            {demo ? <span className="shrink-0 text-[10px] font-normal text-[var(--text-secondary)]">示例</span> : null}
-          </div>
-          <p className="mt-1 truncate text-[11.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">{entry.region}</p>
-          <p className="mt-1.5 line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-secondary)]">{entry.intro}</p>
-          <p className="mt-1.5 text-[11.5px] font-medium leading-[1.4] text-[var(--coffee)]">
+          <h3 className="truncate text-[14px] font-semibold leading-[1.35] text-[var(--text-primary)]">{makerDisplayName(entry.name)}</h3>
+          <p className="mt-0.5 truncate text-[11.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">{entry.region}</p>
+          <p className="mt-1 line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-secondary)]">{entry.intro}</p>
+          <p className="mt-1 text-[11.5px] font-medium leading-[1.4] text-[var(--coffee)]">
             {count > 0 ? `公开作品 ${count} 件` : "暂无公开作品"}
           </p>
         </div>
@@ -148,9 +148,44 @@ function MakerStudioDirectoryCard({ entry, demo, returnTo }: { entry: DemoMakerS
   );
 }
 
-function EmptyState({ title, copy }: { title: string; copy: string }) {
+function MakerStudioCardVisual({ entry, demo }: { entry: DemoMakerStudio; demo: boolean }) {
+  const visual = makerCardVisuals[entry.slug] ?? { type: "monogram" as const, monogram: makerDisplayName(entry.name), tone: "bg-[#f2ebe1] text-[var(--coffee)]" };
+
   return (
-    <section className="mt-5 border-t border-[rgba(222,212,200,0.72)] py-10 text-center sm:py-14">
+    <div className={`relative h-[92px] overflow-hidden rounded-[4px] md:h-[112px] ${visual.type === "workbench" ? "bg-[#4a3020]" : "bg-[#f6f1e9]"}`}>
+      {visual.type === "image" && entry.coverImage ? (
+        <Image src={entry.coverImage} alt="" fill sizes="(max-width: 767px) 92px, 112px" className="object-cover object-[68%_center]" />
+      ) : visual.type === "workbench" ? (
+        <WorkshopMark />
+      ) : (
+        <div className={`flex h-full items-center justify-center border border-[rgba(91,62,43,0.06)] px-2 text-center text-[21px] font-medium leading-[1.25] md:text-[23px] ${visual.type === "monogram" ? visual.tone : "bg-[#f2ebe1] text-[var(--coffee)]"}`}>
+          {visual.type === "monogram" ? visual.monogram : makerDisplayName(entry.name)}
+        </div>
+      )}
+      <div className="absolute left-1.5 top-1.5 flex flex-col items-start gap-1">
+        <span className="bg-[rgba(86,56,34,0.82)] px-1.5 py-0.5 text-[10px] font-normal leading-[1.35] text-[#f4eee7]">{kindLabel(entry.kind)}</span>
+        {demo ? <span className="bg-[rgba(244,238,231,0.88)] px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[var(--coffee)]">示例</span> : null}
+      </div>
+    </div>
+  );
+}
+
+function WorkshopMark() {
+  return (
+    <div className="relative flex h-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_75%_20%,rgba(208,161,93,0.38),transparent_36%),linear-gradient(135deg,#62402b,#281a12)] text-[#e8c58f]" aria-hidden="true">
+      <span className="absolute inset-x-3 top-4 border-t border-[rgba(232,197,143,0.38)]" />
+      <svg viewBox="0 0 48 48" fill="none" className="h-9 w-9" aria-hidden="true">
+        <path d="m14 34 20-20M18 12l18 18M12 20l5-5 16 16-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="14" cy="34" r="3" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+      <span className="absolute inset-x-3 bottom-4 border-t border-[rgba(232,197,143,0.24)]" />
+    </div>
+  );
+}
+
+function EmptyState({ title, copy, compact = false }: { title: string; copy: string; compact?: boolean }) {
+  return (
+    <section className={`mt-4 border-t border-[rgba(222,212,200,0.72)] text-center ${compact ? "py-7 sm:py-9" : "py-10 sm:py-14"}`}>
       <h3 className="text-[18px] font-medium leading-[1.4] text-[var(--text-primary)]">{title}</h3>
       <p className="mx-auto mt-3 max-w-[340px] text-[12px] font-normal leading-[1.65] text-[var(--text-secondary)]">{copy}</p>
     </section>
@@ -188,6 +223,10 @@ function makerAnchor(slug: string) {
 
 function kindLabel(kind: DemoMakerStudio["kind"]) {
   return kind === "maker" ? "斗师" : "工作室";
+}
+
+function makerDisplayName(name: string) {
+  return name.replace(/^示例(?:斗师|工作室)\s*·\s*/, "");
 }
 
 function ArrowIcon({ className = "" }: { className?: string }) {
