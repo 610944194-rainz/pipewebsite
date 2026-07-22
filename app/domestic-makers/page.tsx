@@ -107,7 +107,7 @@ export default async function DomesticMakersPage({ searchParams }: PageProps) {
         ) : demo ? (
           <EmptyState title="暂无匹配结果" copy="可以减少关键词，或清除地区与类型筛选后重试。" />
         ) : (
-          <EmptyState title="斗师 / 工作室资料正在整理中" copy="国内斗师、工作室与公开作品资料将陆续补充。" compact />
+          <EmptyState title="斗师 / 工作室资料正在整理中" copy="后续将陆续补充国内斗师、工作室与公开作品资料。" compact />
         )}
 
         {totalPages > 1 ? (
