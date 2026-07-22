@@ -1,6 +1,8 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
+import DemoMakerDossier from "../../components/domestic-makers/DemoMakerDossier";
 import { displayBrandCopy } from "@/lib/branding";
 import SiteHeader from "../../components/SiteHeader";
 import {
@@ -14,11 +16,16 @@ import {
   getDomesticProductsByMakerSlug,
   type DomesticProduct,
 } from "../../../data/domestic-products";
+import {
+  getDemoMakerOrStudioBySlug,
+  getDemoMakerProducts,
+} from "@/lib/demo/maker-studio-fixtures";
 
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const paperTextureStyle = {
@@ -32,6 +39,12 @@ export function generateStaticParams() {
   return domesticMakers.map((maker) => ({
     slug: maker.slug,
   }));
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const params = searchParams ? await searchParams : {};
+  const demo = firstParam(params.demo) === "1";
+  return demo ? { title: "斗师 / 工作室示例资料｜烟斗派 YandouBuy", robots: { index: false, follow: false } } : {};
 }
 
 function MakerPortrait({ maker }: { maker: DomesticMaker }) {
@@ -122,8 +135,17 @@ function DomesticProductCard({ product }: { product: DomesticProduct }) {
   );
 }
 
-export default async function DomesticMakerDetailPage({ params }: PageProps) {
+export default async function DomesticMakerDetailPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const demo = firstParam(resolvedSearchParams.demo) === "1";
+
+  if (demo) {
+    const demoMaker = getDemoMakerOrStudioBySlug(slug);
+    if (!demoMaker) notFound();
+    return <DemoMakerDossier maker={demoMaker} works={getDemoMakerProducts(demoMaker.slug)} />;
+  }
+
   const maker = getDomesticMakerBySlug(slug);
 
   if (!maker) {
@@ -256,4 +278,8 @@ export default async function DomesticMakerDetailPage({ params }: PageProps) {
       <SiteFooter />
     </main>
   );
+}
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] || "" : value || "";
 }
