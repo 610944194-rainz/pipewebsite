@@ -1,300 +1,234 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
+import MakerStudioDirectoryFilters from "../components/domestic-makers/MakerStudioDirectoryFilters";
 import {
-  domesticMakers,
-  getDomesticMakerTypeLabel,
-  type DomesticMaker,
-  type DomesticMakerType,
-} from "../../data/domestic-makers";
-import { getDomesticProductsByMakerSlug } from "../../data/domestic-products";
+  getDemoMakersAndStudios,
+  type DemoMakerStudio,
+} from "@/lib/demo/maker-studio-fixtures";
+import { getDemoPublicWorkCount } from "@/lib/demo/maker-studio-product-adapter";
 
-type PageProps = {
-  searchParams?: Promise<{
-    q?: string;
-    type?: string;
-  }>;
+type SearchParams = Record<string, string | string[] | undefined>;
+type PageProps = { searchParams?: Promise<SearchParams> };
+
+const pageSize = 12;
+
+type MakerCardVisual =
+  | { type: "image" }
+  | { type: "workbench" }
+  | { type: "monogram"; monogram: string; tone: string };
+
+const makerCardVisuals: Record<string, MakerCardVisual> = {
+  "demo-maker-lin-yan": { type: "image" },
+  "demo-studio-muchuan": { type: "workbench" },
+  "demo-maker-zhou-yu": { type: "monogram", monogram: "周屿", tone: "bg-[#f2ebe1] text-[var(--coffee)]" },
+  "demo-studio-nanan": { type: "monogram", monogram: "南岸", tone: "bg-[#e8ddd0] text-[#563822]" },
 };
 
-const makerTypes = [
-  { value: "all", label: "全部" },
-  { value: "maker", label: "斗师" },
-  { value: "studio", label: "工作室" },
-  { value: "shop", label: "线下店" },
-];
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const params = searchParams ? await searchParams : {};
+  const demo = firstParam(params.demo) === "1";
 
-const paperTextureStyle = {
-  backgroundColor: "#FBF7EF",
-  backgroundImage:
-    "linear-gradient(135deg, rgba(154, 101, 48, 0.08) 0 1px, transparent 1px), linear-gradient(45deg, rgba(44, 33, 28, 0.04) 0 1px, transparent 1px)",
-  backgroundSize: "22px 22px, 30px 30px",
-};
-
-function getSearchText(maker: DomesticMaker) {
-  return [
-    maker.name,
-    maker.displayName,
-    maker.city,
-    maker.intro,
-    maker.longIntro,
-    getDomesticMakerTypeLabel(maker.type),
-    ...maker.styleTags,
-    ...maker.specialties,
-  ]
-    .join(" ")
-    .toLowerCase();
-}
-
-function buildDomesticMakersHref({
-  query,
-  type,
-}: {
-  query?: string;
-  type?: string;
-}) {
-  const params = new URLSearchParams();
-
-  if (query?.trim()) {
-    params.set("q", query.trim());
-  }
-
-  if (type && type !== "all") {
-    params.set("type", type);
-  }
-
-  const queryString = params.toString();
-  return queryString ? `/domestic-makers?${queryString}` : "/domestic-makers";
-}
-
-function MakerMark({ maker }: { maker: DomesticMaker }) {
-  return (
-    <div
-      className="relative flex aspect-[4/3] min-h-[128px] items-center justify-center overflow-hidden rounded-[20px] border border-[#E5D7C5] p-4"
-      style={paperTextureStyle}
-    >
-      <div className="absolute inset-4 rounded-[18px] border border-[#E8DDCF]" />
-      <div className="absolute left-6 top-6 h-px w-20 bg-[#D8C5AE]" />
-      <div className="absolute bottom-6 right-6 h-px w-16 bg-[#E5D7C5]" />
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[#D8C5AE] bg-[#FFFDF8] text-center text-[18px] font-black leading-tight text-[#9A6530]">
-        {maker.displayName.slice(0, 2)}
-      </div>
-    </div>
-  );
-}
-
-function MakerCard({ maker }: { maker: DomesticMaker }) {
-  const productCount = getDomesticProductsByMakerSlug(maker.slug).length;
-
-  return (
-    <article className="flex h-full flex-col rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-      <MakerMark maker={maker} />
-
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-semibold text-[#9A6530]">
-          {getDomesticMakerTypeLabel(maker.type)}
-        </span>
-        <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-semibold text-[#75695F]">
-          {maker.city}
-        </span>
-        <span className="rounded-full bg-[#F6F1E8] px-2.5 py-0.5 text-[11px] font-semibold text-[#75695F]">
-          {maker.status}
-        </span>
-      </div>
-
-      <div className="mt-3 flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <h2 className="text-[20px] font-bold leading-tight text-[#2B211C]">
-            {maker.displayName}
-          </h2>
-          <p className="mt-2 text-[13px] leading-6 text-[#75695F]">
-            {maker.intro}
-          </p>
-        </div>
-
-        <div className="shrink-0 rounded-[16px] border border-[#E5D7C5] bg-[#FAF7F0] px-3 py-2 text-center">
-          <p className="text-[22px] font-bold leading-none text-[#2B211C]">
-            {productCount}
-          </p>
-          <p className="mt-1 text-[11px] font-medium text-[#75695F]">作品</p>
-        </div>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {maker.styleTags.slice(0, 4).map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-[#E5D7C5] bg-white px-2.5 py-1 text-[11px] font-medium text-[#75695F]"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <Link
-        href={`/domestic-makers/${maker.slug}`}
-        className="mt-5 flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-4 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-      >
-        进入主页
-      </Link>
-    </article>
-  );
+  return {
+    title: "斗师 / 工作室｜烟斗派 YandouBuy",
+    description: "记录国内斗师与工作室及其公开作品资料。",
+    ...(demo ? { robots: { index: false, follow: false } } : {}),
+  };
 }
 
 export default async function DomesticMakersPage({ searchParams }: PageProps) {
-  const resolvedSearchParams = await searchParams;
-  const searchQuery = String(resolvedSearchParams?.q || "").trim();
-  const activeType = String(resolvedSearchParams?.type || "all").trim();
-  const safeType = makerTypes.some((item) => item.value === activeType)
-    ? activeType
-    : "all";
-  const keyword = searchQuery.toLowerCase();
-  const filteredMakers = domesticMakers.filter((maker) => {
-    const matchesSearch = !keyword || getSearchText(maker).includes(keyword);
-    const matchesType = safeType === "all" || maker.type === safeType;
-
-    return matchesSearch && matchesType;
+  const params = searchParams ? await searchParams : {};
+  const demo = firstParam(params.demo) === "1";
+  const query = firstParam(params.q).trim();
+  const requestedRegion = firstParam(params.region).trim();
+  const requestedKind = firstParam(params.kind).trim();
+  const requestedPage = Number.parseInt(firstParam(params.page) || "1", 10);
+  const page = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+  const source = demo ? getDemoMakersAndStudios() : ([] as readonly DemoMakerStudio[]);
+  const regions = Array.from(new Set(source.map((entry) => entry.region))).sort((left, right) => left.localeCompare(right, "zh-CN"));
+  const activeRegion = regions.includes(requestedRegion) ? requestedRegion : "";
+  const activeKind = requestedKind === "maker" || requestedKind === "studio" ? requestedKind : "";
+  const keyword = query.toLocaleLowerCase("zh-CN");
+  const filtered = source.filter((entry) => {
+    const searchText = [entry.name, entry.region, entry.intro, entry.longIntro, kindLabel(entry.kind)].join(" ").toLocaleLowerCase("zh-CN");
+    return (!keyword || searchText.includes(keyword)) && (!activeRegion || entry.region === activeRegion) && (!activeKind || entry.kind === activeKind);
   });
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const visibleEntries = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const returnTo = buildDirectoryHref({ demo, query, region: activeRegion, kind: activeKind, page: safePage });
 
   return (
-    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
+    <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]" style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif' }}>
       <SiteHeader />
 
-      <section className="px-4 py-5 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <header className="rounded-[28px] border border-[#E5D7C5] bg-[#FFFDF8] p-5 shadow-[0_6px_22px_rgba(43,33,28,0.035)] sm:p-7">
-            <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
-              DOMESTIC MAKERS
+      <section className={`mx-auto max-w-[1240px] px-4 pt-5 sm:px-6 sm:pt-7 lg:px-10 ${demo ? "pb-10 sm:pb-12 lg:pb-14" : "pb-6 sm:pb-8 lg:pb-10"}`}>
+        <header className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] lg:h-[310px] lg:aspect-auto">
+          <Image src="/pics/weekly-featured-head.png" alt="" fill sizes="(max-width: 1023px) 100vw, 1200px" className="object-cover object-[65%_center]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.88)] via-[rgba(36,22,15,0.56)] to-[rgba(36,22,15,0.08)]" />
+          <div className="relative flex h-full max-w-[74%] flex-col justify-end px-5 pb-5 sm:max-w-[62%] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
+            <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">PIPE MAKERS &amp; STUDIOS</p>
+            <h1 className="mt-2 whitespace-nowrap text-[22px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[24px] lg:text-[30px]">斗师 / 工作室</h1>
+            <p className="mt-2 text-[11.5px] font-normal leading-[1.55] text-[rgba(244,238,231,0.82)] lg:max-w-[420px] lg:text-[12px]">
+              记录国内斗师与工作室及其公开作品，了解他们的创作方向与在库作品。
             </p>
-            <h1 className="text-[30px] font-bold leading-tight tracking-tight text-[#2B211C] sm:text-5xl">
-              国内斗师 / 工作室
-            </h1>
-            <p className="mt-3 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
-              收录国内斗师、工作室与线下合作渠道的烟斗器具作品，当前阶段以合作展示与人工咨询为主。
+          </div>
+        </header>
+
+        {demo ? (
+          <p className="mt-3 text-[11px] font-normal leading-[1.5] text-[var(--brass)]">示例资料 · 仅用于页面开发与功能验收</p>
+        ) : null}
+
+        <section className="mt-5 border-b border-[rgba(222,212,200,0.72)] pb-3 sm:mt-6" aria-labelledby="maker-directory-title">
+          <div className="flex items-baseline justify-between gap-3">
+            <h2 id="maker-directory-title" className="text-[20px] font-medium leading-[1.4] text-[var(--text-primary)]">斗师 / 工作室</h2>
+            <p className="shrink-0 text-[12px] font-normal text-[var(--text-secondary)]">
+              共 <span className="text-[13px] font-medium text-[var(--brass)]">{filtered.length}</span> 位斗师 / 工作室
             </p>
-          </header>
+          </div>
+        </section>
 
-          <section className="mt-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-5">
-            <form
-              action="/domestic-makers"
-              className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
-            >
-              <label className="block">
-                <span className="mb-1.5 block text-[12px] font-semibold text-[#75695F]">
-                  搜索名称 / 城市 / 风格
-                </span>
-                <input
-                  type="search"
-                  name="q"
-                  defaultValue={searchQuery}
-                  placeholder="例如 青岩、上海、Freehand"
-                  className="h-10 w-full rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] text-[#2B211C] outline-none transition placeholder:text-[#A09387] focus:border-[#A9682B]"
-                />
-                {safeType !== "all" && (
-                  <input type="hidden" name="type" value={safeType} />
-                )}
-              </label>
+        <MakerStudioDirectoryFilters
+          initialQuery={query}
+          activeRegion={activeRegion}
+          activeKind={activeKind}
+          regions={regions}
+          demo={demo}
+        />
 
-              <div className="flex items-end gap-2">
-                <button
-                  type="submit"
-                  className="h-10 rounded-full bg-[#A9682B] px-5 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-                >
-                  搜索
-                </button>
-                {(searchQuery || safeType !== "all") && (
-                  <Link
-                    href="/domestic-makers"
-                    className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-4 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-                  >
-                    清空
-                  </Link>
-                )}
-              </div>
-            </form>
+        {visibleEntries.length > 0 ? (
+          <div className="mt-4 grid gap-2.5 md:grid-cols-2 md:gap-3">
+            {visibleEntries.map((entry) => (
+              <MakerStudioDirectoryCard key={entry.slug} entry={entry} demo={demo} returnTo={returnTo} />
+            ))}
+          </div>
+        ) : demo ? (
+          <EmptyState title="暂无匹配结果" copy="可以减少关键词，或清除地区与类型筛选后重试。" />
+        ) : (
+          <EmptyState title="斗师 / 工作室资料正在整理中" copy="后续将陆续补充国内斗师、工作室与公开作品资料。" compact />
+        )}
 
-            <div className="mt-4 flex flex-wrap gap-2">
-              {makerTypes.map((item) => {
-                const isActive = safeType === item.value;
-
-                return (
-                  <Link
-                    key={item.value}
-                    href={buildDomesticMakersHref({
-                      query: searchQuery,
-                      type: item.value,
-                    })}
-                    className={[
-                      "rounded-full border px-3 py-1.5 text-[12px] font-semibold transition",
-                      isActive
-                        ? "border-[#A9682B] bg-[#A9682B] text-white"
-                        : "border-[#E5D7C5] bg-white text-[#75695F] hover:border-[#A9682B] hover:text-[#9A6530]",
-                    ].join(" ")}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            <p className="mt-4 text-[12px] leading-6 text-[#75695F]">
-              当前收录{" "}
-              <span className="font-bold text-[#9A6530]">
-                {domesticMakers.length}
-              </span>{" "}
-              个展示主体，筛选结果{" "}
-              <span className="font-bold text-[#9A6530]">
-                {filteredMakers.length}
-              </span>{" "}
-              个。
-            </p>
-          </section>
-
-          {filteredMakers.length > 0 ? (
-            <div className="mt-5 grid gap-3.5 md:grid-cols-2 xl:grid-cols-3">
-              {filteredMakers.map((maker) => (
-                <MakerCard key={maker.slug} maker={maker} />
-              ))}
-            </div>
-          ) : (
-            <div className="mt-5 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-8 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)]">
-              <p className="text-[20px] font-bold text-[#2B211C]">
-                暂无匹配结果
-              </p>
-              <p className="mt-2 text-[13px] leading-6 text-[#75695F]">
-                可以减少关键词，或切换回全部类型查看展示样例。
-              </p>
-            </div>
-          )}
-
-          <section className="mt-8 rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-5 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-8">
-            <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-              NEXT
-            </p>
-            <h2 className="text-[22px] font-bold leading-tight text-[#2B211C] sm:text-3xl">
-              希望展示作品或提交找斗需求？
-            </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-[#75695F] sm:text-[15px]">
-              国内斗师 / 工作室板块当前以资料展示和人工咨询为主，后续可扩展真实作品档案和合作主页。
-            </p>
-            <div className="mt-5 grid gap-2.5 sm:flex sm:justify-center">
-              <Link
-                href="/cooperate"
-                className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-7 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-              >
-                查看合作入驻
-              </Link>
-              <Link
-                href="/request"
-                className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-              >
-                提交找斗需求
-              </Link>
-            </div>
-          </section>
-        </div>
+        {totalPages > 1 ? (
+          <DirectoryPagination currentPage={safePage} totalPages={totalPages} hrefForPage={(targetPage) => buildDirectoryHref({ demo, query, region: activeRegion, kind: activeKind, page: targetPage })} />
+        ) : null}
       </section>
 
       <SiteFooter />
     </main>
   );
+}
+
+function MakerStudioDirectoryCard({ entry, demo, returnTo }: { entry: DemoMakerStudio; demo: boolean; returnTo: string }) {
+  const count = getDemoPublicWorkCount(entry.slug);
+  const detailParams = new URLSearchParams();
+  if (demo) detailParams.set("demo", "1");
+  detailParams.set("returnTo", returnTo);
+  detailParams.set("anchor", makerAnchor(entry.slug));
+  const detailHref = `/domestic-makers/${entry.slug}?${detailParams.toString()}`;
+
+  return (
+    <article id={makerAnchor(entry.slug)} className="min-w-0">
+      <Link href={detailHref} aria-label={`查看${entry.name}资料`} className="group grid min-h-[122px] grid-cols-[92px_minmax(0,1fr)_18px] items-center gap-2.5 rounded-[5px] border border-[rgba(91,62,43,0.10)] bg-white p-2.5 transition-colors hover:border-[rgba(168,120,62,0.48)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--brass)] md:min-h-[132px] md:grid-cols-[112px_minmax(0,1fr)_18px] md:gap-3">
+        <MakerStudioCardVisual entry={entry} demo={demo} />
+
+        <div className="min-w-0 self-stretch py-0.5">
+          <h3 className="truncate text-[14px] font-semibold leading-[1.35] text-[var(--text-primary)]">{makerDisplayName(entry.name)}</h3>
+          <p className="mt-0.5 truncate text-[11.5px] font-normal leading-[1.4] text-[var(--text-secondary)]">{entry.region}</p>
+          <p className="mt-1 line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-secondary)]">{entry.intro}</p>
+          <p className="mt-1 text-[11.5px] font-medium leading-[1.4] text-[var(--coffee)]">
+            {count > 0 ? `公开作品 ${count} 件` : "暂无公开作品"}
+          </p>
+        </div>
+
+        <ArrowIcon className="h-4 w-4 text-[var(--text-secondary)] transition-transform group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5" />
+      </Link>
+    </article>
+  );
+}
+
+function MakerStudioCardVisual({ entry, demo }: { entry: DemoMakerStudio; demo: boolean }) {
+  const visual = makerCardVisuals[entry.slug] ?? { type: "monogram" as const, monogram: makerDisplayName(entry.name), tone: "bg-[#f2ebe1] text-[var(--coffee)]" };
+
+  return (
+    <div className={`relative h-[92px] overflow-hidden rounded-[4px] md:h-[112px] ${visual.type === "workbench" ? "bg-[#4a3020]" : "bg-[#f6f1e9]"}`}>
+      {visual.type === "image" && entry.coverImage ? (
+        <Image src={entry.coverImage} alt="" fill sizes="(max-width: 767px) 92px, 112px" className="object-cover object-[68%_center]" />
+      ) : visual.type === "workbench" ? (
+        <WorkshopMark />
+      ) : (
+        <div className={`flex h-full items-center justify-center border border-[rgba(91,62,43,0.06)] px-2 text-center text-[21px] font-medium leading-[1.25] md:text-[23px] ${visual.type === "monogram" ? visual.tone : "bg-[#f2ebe1] text-[var(--coffee)]"}`}>
+          {visual.type === "monogram" ? visual.monogram : makerDisplayName(entry.name)}
+        </div>
+      )}
+      <div className="absolute left-1.5 top-1.5 flex flex-col items-start gap-1">
+        <span className="bg-[rgba(86,56,34,0.82)] px-1.5 py-0.5 text-[10px] font-normal leading-[1.35] text-[#f4eee7]">{kindLabel(entry.kind)}</span>
+        {demo ? <span className="bg-[rgba(244,238,231,0.88)] px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[var(--coffee)]">示例</span> : null}
+      </div>
+    </div>
+  );
+}
+
+function WorkshopMark() {
+  return (
+    <div className="relative flex h-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_75%_20%,rgba(208,161,93,0.38),transparent_36%),linear-gradient(135deg,#62402b,#281a12)] text-[#e8c58f]" aria-hidden="true">
+      <span className="absolute inset-x-3 top-4 border-t border-[rgba(232,197,143,0.38)]" />
+      <svg viewBox="0 0 48 48" fill="none" className="h-9 w-9" aria-hidden="true">
+        <path d="m14 34 20-20M18 12l18 18M12 20l5-5 16 16-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="14" cy="34" r="3" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+      <span className="absolute inset-x-3 bottom-4 border-t border-[rgba(232,197,143,0.24)]" />
+    </div>
+  );
+}
+
+function EmptyState({ title, copy, compact = false }: { title: string; copy: string; compact?: boolean }) {
+  return (
+    <section className={`mt-4 border-t border-[rgba(222,212,200,0.72)] text-center ${compact ? "py-7 sm:py-9" : "py-10 sm:py-14"}`}>
+      <h3 className="text-[18px] font-medium leading-[1.4] text-[var(--text-primary)]">{title}</h3>
+      <p className="mx-auto mt-3 max-w-[340px] text-[12px] font-normal leading-[1.65] text-[var(--text-secondary)]">{copy}</p>
+    </section>
+  );
+}
+
+function DirectoryPagination({ currentPage, totalPages, hrefForPage }: { currentPage: number; totalPages: number; hrefForPage: (page: number) => string }) {
+  return (
+    <nav aria-label="斗师与工作室分页" className="mt-7 flex h-11 items-center justify-between border-y border-[rgba(222,212,200,0.72)] text-[13px] font-normal">
+      {currentPage > 1 ? <Link href={hrefForPage(currentPage - 1)} className="text-[var(--text-secondary)] hover:text-[var(--coffee)]">← 上一页</Link> : <span className="text-[rgba(116,102,92,0.42)]">← 上一页</span>}
+      <span className="text-[var(--text-primary)]">第 {currentPage} / {totalPages} 页</span>
+      {currentPage < totalPages ? <Link href={hrefForPage(currentPage + 1)} className="text-[var(--text-secondary)] hover:text-[var(--coffee)]">下一页 →</Link> : <span className="text-[rgba(116,102,92,0.42)]">下一页 →</span>}
+    </nav>
+  );
+}
+
+function buildDirectoryHref({ demo, query, region, kind, page }: { demo: boolean; query?: string; region?: string; kind?: string; page?: number }) {
+  const params = new URLSearchParams();
+  if (demo) params.set("demo", "1");
+  if (query?.trim()) params.set("q", query.trim());
+  if (region) params.set("region", region);
+  if (kind) params.set("kind", kind);
+  if (page && page > 1) params.set("page", String(page));
+  const queryString = params.toString();
+  return queryString ? `/domestic-makers?${queryString}` : "/domestic-makers";
+}
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] || "" : value || "";
+}
+
+function makerAnchor(slug: string) {
+  return `maker-${slug}`;
+}
+
+function kindLabel(kind: DemoMakerStudio["kind"]) {
+  return kind === "maker" ? "斗师" : "工作室";
+}
+
+function makerDisplayName(name: string) {
+  return name.replace(/^示例(?:斗师|工作室)\s*·\s*/, "");
+}
+
+function ArrowIcon({ className = "" }: { className?: string }) {
+  return <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className}><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }

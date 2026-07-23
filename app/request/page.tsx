@@ -246,11 +246,11 @@ export default function RequestPage() {
           </pre>
         </section>
 
-        <footer className="py-6 text-[12px] leading-6 text-[#8A7B6E]">
+        <aside aria-label="服务边界说明" className="py-6 text-[12px] leading-6 text-[#8A7B6E]">
           本站仅提供海外烟斗、烟斗配件及烟具类商品的信息整理与人工代购咨询服务。
           本站不销售、不代购、不展示烟丝、香烟、雪茄、电子烟、烟油及其他烟草专卖品。
           页面库存、价格、运费及税费信息仅供参考，最终以人工确认为准。
-        </footer>
+        </aside>
       </section>
 
       <SiteFooter />

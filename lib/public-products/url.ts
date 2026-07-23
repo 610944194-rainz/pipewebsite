@@ -10,8 +10,6 @@ export const PRODUCT_SORT_OPTIONS: Array<{
   { value: "priceDesc", label: "价格从高到低" },
   { value: "newest", label: "最新上架" },
   { value: "galleryFirst", label: "多图优先" },
-  { value: "brand", label: "品牌名称" },
-  { value: "name", label: "商品名称" },
 ];
 
 export function buildProductsHref(
@@ -32,6 +30,22 @@ export function buildProductsHref(
   if (nextState.bowlMaterial) params.set("bowlMaterial", nextState.bowlMaterial);
   if (nextState.stemMaterial) params.set("stemMaterial", nextState.stemMaterial);
   if (nextState.filter) params.set("filter", nextState.filter);
+
+  if (
+    typeof nextState.minPrice === "number" &&
+    Number.isFinite(nextState.minPrice) &&
+    nextState.minPrice >= 0
+  ) {
+    params.set("minPrice", String(nextState.minPrice));
+  }
+
+  if (
+    typeof nextState.maxPrice === "number" &&
+    Number.isFinite(nextState.maxPrice) &&
+    nextState.maxPrice >= 0
+  ) {
+    params.set("maxPrice", String(nextState.maxPrice));
+  }
 
   if (nextState.galleryOnly) {
     params.set("status", "gallery");

@@ -12,7 +12,7 @@ import ProductCard from "./ProductCard";
 type ProductGridProps = {
   products: PublicCatalogProduct[];
   returnTo?: string;
-  variant?: "catalog" | "compact";
+  variant?: "catalog" | "compact" | "inventory" | "dossier";
   priorityCount?: number;
 };
 
@@ -65,8 +65,13 @@ export default function ProductGrid({
     }
   }, [returnTo]);
 
+  const gridClassName =
+    variant === "inventory" || variant === "dossier"
+      ? "grid grid-cols-2 gap-x-3.5 gap-y-[22px] sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4 xl:grid-cols-5"
+      : "grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5";
+
   return (
-    <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className={gridClassName}>
       {products.map((product, index) => (
         <ProductCard
           key={product.id}

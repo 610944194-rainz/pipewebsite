@@ -109,7 +109,7 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
           <ProductGrid
             products={products}
             returnTo={returnTo}
-            variant="catalog"
+            variant="inventory"
             priorityCount={2}
           />
         </section>

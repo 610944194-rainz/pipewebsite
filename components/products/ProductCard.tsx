@@ -22,7 +22,7 @@ import ProductCardImage from "./ProductCardImage";
 type ProductCardProps = {
   product: PublicCatalogProduct;
   returnTo?: string;
-  variant?: "catalog" | "compact";
+  variant?: "catalog" | "compact" | "inventory" | "dossier";
   imagePriority?: boolean;
   imageLoading?: "eager" | "lazy";
   imageFetchPriority?: "high" | "auto" | "low";
@@ -32,10 +32,132 @@ type IconProps = {
   className?: string;
 };
 
-function inventoryClass(status: PublicCatalogProduct["inventoryStatus"]) {
-  return status === "sold"
-    ? "bg-[#C47712] text-white"
-    : "bg-[#063B32] text-white";
+function InventoryProductImageOverlays({ product }: { product: PublicCatalogProduct }) {
+  return (
+    <>
+      {product.inventoryStatus === "sold" ? (
+        <span className="absolute left-2 top-2 text-[9px] font-normal leading-none text-[#81746A]">
+          {inventoryLabel(product.inventoryStatus)}
+        </span>
+      ) : null}
+      {product.galleryCount >= 3 ? (
+        <span className="absolute bottom-2 right-2 rounded-[3px] border border-[rgba(225,215,203,0.8)] bg-white/86 px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[#74665c]">
+          {product.galleryCount} 图
+        </span>
+      ) : null}
+    </>
+  );
+}
+
+function InventoryProductCard({
+  product,
+  returnTo,
+  imagePriority,
+  imageLoading,
+  imageFetchPriority,
+}: Omit<ProductCardProps, "variant">) {
+  const name = displayProductName(product);
+  const subtitle = displayProductEnglishName(product);
+  const tags = metaTags(product);
+
+  return (
+    <article
+      id={productAnchorId(product.id)}
+      className="scroll-mt-4"
+    >
+      <Link
+        href={productHref(product, returnTo)}
+        onNavigate={() => saveReturnPosition(product.id, returnTo)}
+        aria-label={`查看 ${name} 详情`}
+        className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]"
+      >
+        <div>
+          <ProductCardImage
+            imageUrl={product.mainImage}
+            alt={name}
+            brandName={product.brandName}
+            loading={imageLoading || (imagePriority ? "eager" : "lazy")}
+            fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
+            className="h-[148px] rounded-[4px] border border-[#eee7df] bg-white sm:h-[158px]"
+            imageClassName="p-3 sm:p-4"
+          >
+            <InventoryProductImageOverlays product={product} />
+          </ProductCardImage>
+
+          <div className="px-0.5 pt-2.5">
+            <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[var(--brass)]">
+              {product.brandName || sourceLabel(product.source)}
+            </p>
+            <h3 className="mt-[5px] line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-primary)] sm:text-[12.5px]">
+              {name}
+            </h3>
+            {subtitle ? (
+              <p className="mt-1 hidden line-clamp-1 text-[10px] font-normal leading-[1.4] text-[var(--text-secondary)] sm:block sm:text-[10.5px]">
+                {subtitle}
+              </p>
+            ) : null}
+            <p className="mt-2 text-[12px] font-medium leading-[1.4] text-[var(--text-primary)] sm:text-[12.5px]">
+              {formatSitePrice(product)}
+            </p>
+            {tags.length > 0 ? (
+              <p className="mt-2 line-clamp-1 text-[9.5px] font-normal leading-[1.4] text-[#81746A] sm:text-[10px]">
+                {tags.join(" · ")}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+function DossierProductCard({
+  product,
+  returnTo,
+  imagePriority,
+  imageLoading,
+  imageFetchPriority,
+}: Omit<ProductCardProps, "variant">) {
+  const name = displayProductName(product);
+  const tags = metaTags(product);
+
+  return (
+    <article id={productAnchorId(product.id)} className="h-full scroll-mt-4">
+      <Link
+        href={productHref(product, returnTo)}
+        onNavigate={() => saveReturnPosition(product.id, returnTo)}
+        aria-label={`查看 ${name} 详情`}
+        className="group flex h-full flex-col overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[#3a2518] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7a758]"
+      >
+        <ProductCardImage
+          imageUrl={product.mainImage}
+          alt={name}
+          brandName={product.brandName}
+          loading={imageLoading || (imagePriority ? "eager" : "lazy")}
+          fetchPriority={imageFetchPriority || (imagePriority ? "high" : "auto")}
+          className="aspect-square h-auto shrink-0 bg-white"
+          imageClassName="p-3 sm:p-4"
+        >
+          <InventoryProductImageOverlays product={product} />
+        </ProductCardImage>
+
+        <div className="flex min-h-[142px] flex-1 flex-col px-2.5 pb-3 pt-2.5">
+          <p className="line-clamp-1 text-[10px] font-medium uppercase leading-[1.3] tracking-[0.11em] text-[#d7a758]">
+            {product.brandName || sourceLabel(product.source)}
+          </p>
+          <h3 className="mt-[5px] max-h-[2.8em] min-h-[2.8em] line-clamp-2 text-[13px] font-normal leading-[1.4] text-[#f4eee7]">
+            {name}
+          </h3>
+          <p className="mt-2 shrink-0 truncate text-[13.5px] font-medium leading-[1.4] text-[#f4eee7]">
+            {formatSitePrice(product)}
+          </p>
+          <p className="mt-2 h-[1.4em] shrink-0 truncate text-[10.5px] font-normal leading-[1.4] text-[rgba(244,238,231,0.62)]">
+            {tags.join(" · ")}
+          </p>
+        </div>
+      </Link>
+    </article>
+  );
 }
 
 function productHref(product: PublicCatalogProduct, returnTo?: string) {
@@ -59,6 +181,12 @@ function metaTags(product: PublicCatalogProduct) {
     .map((value) => String(value || "").trim())
     .filter((value) => value && value.toLowerCase() !== "unknown")
     .slice(0, 3);
+}
+
+function inventoryClass(status: PublicCatalogProduct["inventoryStatus"]) {
+  return status === "sold"
+    ? "bg-[#C47712] text-white"
+    : "bg-[#063B32] text-white";
 }
 
 function saveReturnPosition(
@@ -134,6 +262,30 @@ export default function ProductCard({
   const subtitle = displayProductEnglishName(product);
   const tags = metaTags(product);
   const compact = variant === "compact";
+
+  if (variant === "inventory") {
+    return (
+      <InventoryProductCard
+        product={product}
+        returnTo={returnTo}
+        imagePriority={imagePriority}
+        imageLoading={imageLoading}
+        imageFetchPriority={imageFetchPriority}
+      />
+    );
+  }
+
+  if (variant === "dossier") {
+    return (
+      <DossierProductCard
+        product={product}
+        returnTo={returnTo}
+        imagePriority={imagePriority}
+        imageLoading={imageLoading}
+        imageFetchPriority={imageFetchPriority}
+      />
+    );
+  }
 
   return (
     <Link

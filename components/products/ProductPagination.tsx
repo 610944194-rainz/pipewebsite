@@ -42,7 +42,7 @@ type ProductPaginationProps = {
   totalPages: number;
   hrefForPage: (page: number) => string;
   label: string;
-  variant?: "default" | "editorial";
+  variant?: "default" | "dossier" | "editorial";
 };
 
 export default function ProductPagination({
@@ -53,6 +53,24 @@ export default function ProductPagination({
   variant = "default",
 }: ProductPaginationProps) {
   if (totalPages <= 1) return null;
+
+  if (variant === "dossier") {
+    return (
+      <nav className="mt-4 grid grid-cols-3 items-center border-y border-[rgba(213,166,81,0.1)] py-3 text-[13px] font-normal" aria-label={label}>
+        {currentPage === 1 ? (
+          <span className="text-[rgba(244,238,231,0.35)]">← 上一页</span>
+        ) : (
+          <Link href={hrefForPage(currentPage - 1)} className="text-[#e4c18d] transition-colors hover:text-[#f4eee7]">← 上一页</Link>
+        )}
+        <span className="text-center text-[#f4eee7]">第 {currentPage} / {totalPages} 页</span>
+        {currentPage === totalPages ? (
+          <span className="text-right text-[rgba(244,238,231,0.35)]">下一页 →</span>
+        ) : (
+          <Link href={hrefForPage(currentPage + 1)} className="text-right text-[#e4c18d] transition-colors hover:text-[#f4eee7]">下一页 →</Link>
+        )}
+      </nav>
+    );
+  }
 
   if (variant === "editorial") {
     return (

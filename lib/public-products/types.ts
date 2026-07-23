@@ -227,6 +227,8 @@ export type ProductQueryState = {
   bowlMaterial: string;
   stemMaterial: string;
   filter: string;
+  minPrice: number | null;
+  maxPrice: number | null;
   inventory: "all" | PublicInventoryStatus;
   galleryOnly: boolean;
   sort: ProductSortMode;

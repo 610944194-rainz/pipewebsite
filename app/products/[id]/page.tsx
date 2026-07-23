@@ -2,6 +2,10 @@
 import { notFound, redirect } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
+import ProductArchive, {
+  type ProductArchiveSpecGroups,
+  type ProductArchiveSpecRow,
+} from "@/app/components/products/ProductArchive";
 import { parseBrandSummary } from "../../utils/display";
 import { getBrandByName } from "@/data/brands";
 import { getProductDisplayName } from "@/lib/product-display-name";
@@ -34,9 +38,43 @@ type IconProps = {
   className?: string;
 };
 
-type SpecRow = {
-  label: string;
-  value: string;
+type SpecRow = ProductArchiveSpecRow;
+type ProductSpecGroups = ProductArchiveSpecGroups;
+
+const FEATURED_BRAND_LOGOS: Record<
+  string,
+  { src: string; maxWidth: number; maxHeight: number; scale: number }
+> = {
+  peterson: {
+    src: "/brands/featured/peterson-logo-1600x800.png",
+    maxWidth: 130,
+    maxHeight: 48,
+    scale: 1.08,
+  },
+  savinelli: {
+    src: "/brands/featured/savinelli-logo-1600x800.png",
+    maxWidth: 124,
+    maxHeight: 48,
+    scale: 1,
+  },
+  stanwell: {
+    src: "/brands/featured/stanwell-logo-1600x800.png",
+    maxWidth: 118,
+    maxHeight: 44,
+    scale: 0.88,
+  },
+  dunhill: {
+    src: "/brands/featured/dunhill-logo-1600x800.png",
+    maxWidth: 110,
+    maxHeight: 44,
+    scale: 1,
+  },
+  chacom: {
+    src: "/brands/featured/chacom-logo-1600x800.png",
+    maxWidth: 110,
+    maxHeight: 46,
+    scale: 0.95,
+  },
 };
 
 function firstParam(value: string | string[] | undefined) {
@@ -75,12 +113,14 @@ function knownText(value: unknown) {
 
 function formatMillimeter(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value)
-    ? `${value} mm`
+    ? `${value.toFixed(1)} mm`
     : "";
 }
 
 function formatWeight(value: number | null | undefined) {
-  return typeof value === "number" && Number.isFinite(value) ? `${value} g` : "";
+  return typeof value === "number" && Number.isFinite(value)
+    ? `${value.toFixed(1)} g`
+    : "";
 }
 
 function normalizeLabel(value: string) {
@@ -118,7 +158,7 @@ function normalizedSpecValue(spec: PublicDetailSpec) {
   return `${value} ${unit}`;
 }
 
-function structuredSpecRows(product: PublicDetailProduct): SpecRow[] {
+function basicSpecRows(product: PublicDetailProduct): SpecRow[] {
   const rows: Array<{ label: string; value: unknown }> = [
     { label: "品牌", value: product.brandName },
     { label: "国家 / 地区", value: countryLabel(product.brandCountry) },
@@ -127,6 +167,33 @@ function structuredSpecRows(product: PublicDetailProduct): SpecRow[] {
       label: "状态",
       value: conditionDisplayLabel(product.conditionType, product.conditionLabel),
     },
+  ];
+
+  return rows
+    .map((row) => ({ label: row.label, value: knownText(row.value) }))
+    .filter((row) => row.value);
+}
+
+function materialSpecRows(product: PublicDetailProduct): SpecRow[] {
+  const rows: Array<{ label: string; value: unknown }> = [
+    { label: "表面工艺", value: product.finishZh || product.finish },
+    { label: "斗钵材质", value: product.bowlMaterialZh || product.bowlMaterial },
+    { label: "斗嘴材质", value: product.stemMaterialZh || product.stemMaterial },
+    {
+      label: "滤芯",
+      value: product.filterSizeMm
+        ? `${product.filterSizeMm} mm`
+        : filterDisplayLabel(product.filter),
+    },
+  ];
+
+  return rows
+    .map((row) => ({ label: row.label, value: knownText(row.value) }))
+    .filter((row) => row.value);
+}
+
+function dimensionSpecRows(product: PublicDetailProduct): SpecRow[] {
+  const rows: Array<{ label: string; value: unknown }> = [
     { label: "重量", value: formatWeight(product.measurements?.weightGrams) },
     { label: "长度", value: formatMillimeter(product.measurements?.lengthMm) },
     { label: "高度", value: formatMillimeter(product.measurements?.heightMm) },
@@ -141,15 +208,6 @@ function structuredSpecRows(product: PublicDetailProduct): SpecRow[] {
     {
       label: "斗钵外径",
       value: formatMillimeter(product.measurements?.outsideDiameterMm),
-    },
-    { label: "表面工艺", value: product.finishZh || product.finish },
-    { label: "斗钵材质", value: product.bowlMaterialZh || product.bowlMaterial },
-    { label: "斗嘴材质", value: product.stemMaterialZh || product.stemMaterial },
-    {
-      label: "滤芯",
-      value: product.filterSizeMm
-        ? `${product.filterSizeMm} mm`
-        : filterDisplayLabel(product.filter),
     },
   ];
 
@@ -218,29 +276,29 @@ function additionalSpecRows(
   return rows.slice(0, 12);
 }
 
-function productSpecRows(product: PublicDetailProduct) {
-  const structured = structuredSpecRows(product);
-  return [...structured, ...additionalSpecRows(product, structured)];
+function productSpecGroups(product: PublicDetailProduct): ProductSpecGroups {
+  const basic = basicSpecRows(product);
+  const materials = materialSpecRows(product);
+  const dimensions = dimensionSpecRows(product);
+  const existing = [...basic, ...materials, ...dimensions];
+
+  return {
+    basic: [...basic, ...additionalSpecRows(product, existing)],
+    materials,
+    dimensions,
+  };
 }
 
-function displayBadges(product: PublicDetailProduct) {
-  const candidates = [
-    inventoryLabel(product.inventoryStatus),
-    product.conditionLabel,
-    product.galleryCount > 1 ? `${product.galleryCount} 图` : "",
-  ];
-  const seen = new Set<string>();
+function resolveBrandLogo(
+  brand: { logoUrl?: string } | undefined,
+  brandSlug: string
+) {
+  const logoUrl = knownText(brand?.logoUrl);
+  if (logoUrl) {
+    return { src: logoUrl, maxWidth: 130, maxHeight: 48, scale: 1 };
+  }
 
-  return candidates
-    .map(knownText)
-    .filter(Boolean)
-    .filter((badge) => {
-      const key = badge.toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    })
-    .slice(0, 3);
+  return FEATURED_BRAND_LOGOS[brandSlug] || null;
 }
 
 export default async function ProductDetailPage({
@@ -273,39 +331,42 @@ export default async function ProductDetailPage({
   const brand = product.brandName ? getBrandByName(product.brandName) : undefined;
   const brandSummary = parseBrandSummary(brand?.summary);
   const brandSlug = product.brandSlug || brand?.slug || "";
-  const specs = productSpecRows(product);
+  const specGroups = productSpecGroups(product);
+  const hasSpecs =
+    specGroups.basic.length > 0 ||
+    specGroups.materials.length > 0 ||
+    specGroups.dimensions.length > 0;
+  const brandLogo = resolveBrandLogo(brand, brandSlug);
   const mainImage = product.mainImage || product.gallery[0] || "";
   const rawReturnTo = String(
     firstParam(resolvedSearchParams.returnTo) || ""
   ).trim();
   const backLabel = productBackLabel(rawReturnTo);
-  const detailSummary =
-    "页面价格、库存状态、图片和参数为采集时参考信息。实际入手前需人工确认库存、最终价格、国际运费、预计税费和代购服务费用。";
 
   return (
     <main
-      className="min-h-screen bg-[#FBF7EF] text-[#1F1A16]"
+      className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]"
       style={{
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif',
+          '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif',
         fontVariantNumeric: "lining-nums",
       }}
     >
-      <TopNotice />
       <SiteHeader />
 
-      <div className="mx-auto max-w-6xl px-4 pb-10 pt-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-4 pb-12 pt-[18px] sm:px-6 lg:px-8 lg:pt-7">
         <ProductBackButton
           productId={product.id}
           fallbackHref="/products"
-          className="mb-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#063B32]"
+          ariaLabel={backLabel}
+          className="mb-[14px] inline-flex h-8 w-8 items-center justify-center bg-transparent text-[var(--coffee-dark)] transition-colors hover:text-[var(--brass)] active:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
         >
           <ArrowLeftIcon className="h-4 w-4" />
-          {backLabel}
+          <span className="sr-only">{backLabel}</span>
         </ProductBackButton>
 
-        <section className="grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
-          <div className="overflow-hidden rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
+        <section className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.16fr)_minmax(360px,0.84fr)] lg:items-start lg:gap-12">
+          <div className="min-w-0 lg:sticky lg:top-[88px] lg:self-start">
             <ProductGallery
               productId={product.id}
               name={title}
@@ -315,182 +376,130 @@ export default async function ProductDetailPage({
             />
           </div>
 
-          <section className="rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <div className="mb-4 flex flex-wrap gap-2">
-              {displayBadges(product).map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
+          <div>
+            {brandSlug ? (
+              <Link
+                href={`/brands/${brandSlug}`}
+                className="inline-flex flex-col text-[11px] font-medium uppercase leading-[1.3] tracking-[0.16em] text-[var(--brass)] transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+              >
+                {product.brandName || "海外烟斗"}
+                <span className="mt-2 h-px w-7 bg-[var(--brass)]" aria-hidden="true" />
+              </Link>
+            ) : (
+              <p className="text-[11px] font-medium uppercase leading-[1.3] tracking-[0.16em] text-[var(--brass)]">
+                {product.brandName || "海外烟斗"}
+              </p>
+            )}
 
-            <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#A97838]">
-              {product.brandName || "海外烟斗"}
-            </p>
-
-            <h1 className="mt-2 break-words text-[24px] font-bold leading-[1.22] tracking-tight text-[#1F1A16] sm:text-4xl">
+            <h1 className="mt-[10px] break-words text-[20px] font-medium leading-[1.4] tracking-normal text-[var(--text-primary)] lg:text-[28px]">
               {title}
             </h1>
 
             {subtitle ? (
-              <p className="mt-3 text-[15px] font-medium leading-7 text-[#746A5F]">
+              <p className="mt-3 line-clamp-2 text-[11.5px] font-normal leading-[1.55] text-[var(--text-secondary)] lg:text-[12px]">
                 {subtitle}
               </p>
             ) : null}
 
-            <p className="mt-4 text-[14px] leading-7 text-[#746A5F] sm:text-[15px]">
-              {detailSummary}
-            </p>
-          </section>
-        </section>
-
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
-            价格与库存参考
-          </h2>
-
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <InfoItem label="参考价格" value={formatSitePrice(product)} strong />
-            <InfoItem
-              label="库存状态"
-              value={inventoryLabel(product.inventoryStatus)}
-              strong
-            />
+            <section className="mt-5 border-y border-[var(--border)] py-4">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-[20px] font-medium leading-[1.3] text-[var(--text-primary)]">
+                  {formatSitePrice(product)}
+                </p>
+                {product.inventoryStatus === "sold" ? (
+                  <p className="shrink-0 text-[12px] font-normal leading-[1.4] text-[var(--text-secondary)]">
+                    已售参考
+                  </p>
+                ) : (
+                  <p className="flex shrink-0 items-center gap-2 text-[12px] font-normal leading-[1.4] text-[var(--text-secondary)]">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-[var(--brass)]"
+                      aria-hidden="true"
+                    />
+                    {inventoryLabel(product.inventoryStatus)}
+                  </p>
+                )}
+              </div>
+              <Link
+                href={`/request?product=${encodeURIComponent(product.id)}`}
+                className="mt-4 flex h-[46px] items-center justify-center rounded-[4px] bg-[#2A1710] px-5 text-[13.5px] font-medium tracking-[0.02em] text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+              >
+                <ChatIcon className="mr-2 h-[17px] w-[17px] text-[var(--brass)]" />
+                咨询这只斗
+              </Link>
+              <p className="mt-3 text-left text-[11px] font-normal leading-[1.6] text-[var(--text-secondary)]">
+                库存、最终价格、国际运费及预计税费由人工确认。
+              </p>
+            </section>
           </div>
         </section>
 
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-4 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <Link
-            href={`/request?product=${encodeURIComponent(product.id)}`}
-            className="flex h-12 items-center justify-center rounded-full bg-[#063B32] px-5 text-[15px] font-semibold tracking-[0.06em] text-[#E7C48A] transition hover:bg-[#0A4A3E]"
-          >
-            <ChatIcon className="mr-2 h-5 w-5" />
-            咨询这只斗
-          </Link>
-          <p className="mt-3 text-center text-[12px] leading-5 text-[#746A5F]">
-            人工为您确认库存、最终价格、国际运费与预计税费。
-          </p>
-        </section>
-
-        {specs.length > 0 ? (
-          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <h2 className="mb-4 text-[20px] font-bold text-[#1F1A16]">
-              产品参数
-            </h2>
-
-            <div className="grid gap-x-6 sm:grid-cols-2">
-              {specs.map((spec, index) => (
-                <div
-                  key={`${spec.label}-${index}`}
-                  className="flex items-center justify-between gap-4 border-b border-[#F0E6D8] py-2.5 text-[13px]"
-                >
-                  <span className="text-[#746A5F]">{spec.label}</span>
-                  <span className="text-right font-semibold text-[#1F1A16]">
-                    {spec.value}
-                  </span>
-                </div>
-              ))}
-            </div>
+        {hasSpecs ? (
+          <section className="mt-8 border-t border-[var(--border)] pt-[9px] lg:mt-10 lg:pt-6">
+            <ProductArchive groups={specGroups} />
           </section>
         ) : null}
 
         {brand && brandSlug ? (
-          <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-[20px] font-bold text-[#1F1A16]">
-                品牌信息
-              </h2>
-              {knownText(brand.country) ? (
-                <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#A97838]">
-                  {countryLabel(brand.country)}
-                </span>
-              ) : null}
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-[#F7F3EA] px-3 py-1 text-[12px] font-semibold text-[#1F1A16]">
-                {brand.name}
-              </span>
-            </div>
-
-            {brandSummary.zh || brandSummary.en ? (
-              <div className="mt-3 space-y-2">
-                {brandSummary.zh ? (
-                  <p className="text-[13px] leading-7 text-[#746A5F]">
-                    {brandSummary.zh}
-                  </p>
-                ) : null}
-                {brandSummary.en ? (
-                  <p className="text-[12px] leading-6 text-[#9A8F84]">
-                    {brandSummary.en}
-                  </p>
-                ) : null}
+          <section
+            className={`mt-8 rounded-[6px] bg-[#f3ece3] p-5 lg:mt-10 ${
+              brandLogo
+                ? "lg:grid lg:grid-cols-[minmax(150px,0.28fr)_minmax(0,1fr)] lg:items-center lg:gap-8"
+                : ""
+            }`}
+          >
+            <p className="text-[9.5px] font-normal uppercase tracking-[0.16em] text-[var(--brass)]">
+              Brand Profile
+            </p>
+            {brandLogo ? (
+              <div className="mt-4 lg:col-start-1 lg:row-start-2 lg:mt-0">
+                <div className="flex h-12 items-center">
+                  <img
+                    src={brandLogo.src}
+                    alt={`${brand.name} Logo`}
+                    className="max-h-[48px] w-auto object-contain object-left"
+                    style={{
+                      maxWidth: `${brandLogo.maxWidth}px`,
+                      transform: `scale(${brandLogo.scale})`,
+                      transformOrigin: "left center",
+                    }}
+                  />
+                </div>
               </div>
             ) : null}
-
-            <Link
-              href={`/brands/${brandSlug}`}
-              className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-5 text-[13px] font-semibold text-[#8A5D26] transition hover:border-[#A97838]"
+            <div
+              className={`mt-4 ${
+                brandLogo ? "lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0" : ""
+              }`}
             >
-              查看品牌介绍
-            </Link>
+              <h2 className="text-[17px] font-medium leading-[1.4] text-[var(--text-primary)]">
+                {brand.nameZh ? `${brand.nameZh} ${brand.name}` : brand.name}
+              </h2>
+              <p className="mt-1 text-[11px] font-normal leading-[1.4] text-[var(--brass)]">
+                {brand.countryZh || countryLabel(brand.country)}
+              </p>
+
+              {brandSummary.zh || brandSummary.en ? (
+                <p className="mt-3 line-clamp-3 text-[12px] font-normal leading-[1.75] text-[var(--text-secondary)]">
+                  {brandSummary.zh || brandSummary.en}
+                </p>
+              ) : null}
+
+              <Link
+                href={`/brands/${brandSlug}`}
+                className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-[var(--coffee)] underline decoration-[var(--brass)] underline-offset-4 transition-colors hover:text-[var(--brass)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+              >
+                查看品牌档案
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </section>
         ) : null}
 
-        <section className="mt-4 rounded-[26px] border border-[#E7DDD0] bg-[#FFFDF8] p-5 shadow-[0_10px_28px_rgba(31,26,22,0.045)]">
-          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.26em] text-[#A97838]">
-            Service Boundary
-          </p>
-          <h2 className="text-[20px] font-bold text-[#1F1A16]">
-            服务边界说明
-          </h2>
-          <p className="mt-3 text-[13px] leading-7 text-[#746A5F]">
-            本页展示的是海外公开页面采集时的烟斗器具库存信息与参考价格，不提供站内支付。实际入手前需人工确认库存状态、最终价格、国际运费、预计税费与代购服务费用。已售商品可作为品牌、斗型和价格区间参考。
-          </p>
-        </section>
       </div>
 
       <SiteFooter />
     </main>
-  );
-}
-
-function TopNotice() {
-  return (
-    <div className="bg-[#063B32] px-4 py-2 text-center text-[12px] tracking-[0.12em] text-[#E7C48A] sm:text-[13px]">
-      <span className="mx-2 text-[#B8863B]">•</span>
-      精选海外烟斗库存 · 人工选品咨询
-      <span className="mx-2 text-[#B8863B]">•</span>
-    </div>
-  );
-}
-
-function InfoItem({
-  label,
-  value,
-  strong = false,
-}: {
-  label: string;
-  value: string;
-  strong?: boolean;
-}) {
-  return (
-    <div>
-      <p className="text-[12px] text-[#746A5F]">{label}</p>
-      <p
-        className={[
-          "mt-1 leading-tight",
-          strong
-            ? "text-[16px] font-bold text-[#1F1A16]"
-            : "text-[14px] font-semibold text-[#1F1A16]",
-        ].join(" ")}
-      >
-        {value}
-      </p>
-    </div>
   );
 }
 
@@ -512,15 +521,15 @@ function ChatIcon({ className = "" }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M6.2 17.2 5 20l3.1-1.2c1.1.6 2.4.9 3.9.9 4.4 0 7.8-3 7.8-6.8S16.4 6.1 12 6.1s-7.8 3-7.8 6.8c0 1.6.7 3.1 2 4.3Z"
+        d="M20 11.6a7.5 7.5 0 0 1-8 7.5c-1.2 0-2.4-.3-3.4-.8L4.5 20l1.4-3.8A7.3 7.3 0 0 1 4 11.6 7.7 7.7 0 0 1 12 4a7.7 7.7 0 0 1 8 7.6Z"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.6"
         strokeLinejoin="round"
       />
       <path
-        d="M8.5 12.2h7M8.5 14.8h4.8"
+        d="M8.6 11.3h6.8M8.6 14.4h4.5"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.6"
         strokeLinecap="round"
       />
     </svg>

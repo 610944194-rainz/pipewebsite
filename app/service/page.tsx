@@ -73,7 +73,7 @@ function BoundaryCard({
 
 export default function ServicePage() {
   return (
-    <main className="min-h-screen bg-[#FAF7F0] pb-24 text-[#2B211C] sm:pb-0">
+    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
       <SiteHeader />
 
       <section className="px-4 pt-5 sm:px-6 lg:px-10">
@@ -270,24 +270,6 @@ export default function ServicePage() {
       </section>
 
       <SiteFooter />
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5D7C5] bg-[#FAF7F0]/95 px-4 py-2.5 backdrop-blur sm:hidden">
-        <div className="grid grid-cols-2 gap-3">
-          <Link
-            href="/products"
-            className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] text-[13px] font-semibold text-white"
-          >
-            查看库存
-          </Link>
-
-          <a
-            href="#contact"
-            className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white text-[13px] font-semibold text-[#2B211C]"
-          >
-            咨询说明
-          </a>
-        </div>
-      </div>
     </main>
   );
 }

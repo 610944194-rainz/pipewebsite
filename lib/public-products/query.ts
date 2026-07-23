@@ -26,10 +26,10 @@ export { buildProductsHref, PRODUCT_SORT_OPTIONS } from "./url";
 export const PRODUCT_PAGE_SIZE = 20;
 
 const WEIGHT_LABELS: Record<ProductWeightRange, string> = {
-  light: "杞婚噺 鈮?5g",
-  medium: "涓瓑 36鈥?5g",
-  heavy: "鍋忛噸 56鈥?5g",
-  "extra-heavy": "閲嶅瀷 >75g",
+  light: "轻量 ≤35g",
+  medium: "中等 36–55g",
+  heavy: "偏重 56–75g",
+  "extra-heavy": "重型 >75g",
 };
 
 const BRAND_CANONICAL_FILTER_MAP: Record<
@@ -153,6 +153,14 @@ function allowedValue(value: string, allowed: Set<string>) {
 function parsePage(value: string | undefined) {
   const page = Number.parseInt(value || "1", 10);
   return Number.isFinite(page) && page > 0 ? page : 1;
+}
+
+function parsePriceBound(value: string | undefined) {
+  const normalized = cleanParam(value);
+  if (!/^\d+$/.test(normalized)) return null;
+
+  const parsed = Number(normalized);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null;
 }
 
 function parseSort(value: string | undefined): ProductSortMode {
@@ -392,6 +400,12 @@ export function parseProductQueryState(
   const filters = getProductUiFilterOptions();
   const rawStatus = cleanParam(firstParam(searchParams.status));
   const rawInventory = cleanParam(firstParam(searchParams.inventory));
+  const parsedMinPrice = parsePriceBound(firstParam(searchParams.minPrice));
+  const parsedMaxPrice = parsePriceBound(firstParam(searchParams.maxPrice));
+  const hasInvalidPriceRange =
+    parsedMinPrice !== null &&
+    parsedMaxPrice !== null &&
+    parsedMinPrice > parsedMaxPrice;
   const galleryOnly = rawStatus === "gallery";
 
   return {
@@ -436,6 +450,8 @@ export function parseProductQueryState(
       cleanParam(firstParam(searchParams.filter)),
       makeAllowedSet(filters.filter)
     ),
+    minPrice: hasInvalidPriceRange ? null : parsedMinPrice,
+    maxPrice: hasInvalidPriceRange ? null : parsedMaxPrice,
     inventory: galleryOnly
       ? "all"
       : parseInventoryQuery(rawInventory || rawStatus),
@@ -515,6 +531,16 @@ function productMatchesState(
     return false;
   }
   if (state.filter && product.filter !== state.filter) return false;
+  if (state.minPrice !== null || state.maxPrice !== null) {
+    if (!validPublicReferencePrice(product)) return false;
+    const price = product.siteDisplayAmount as number;
+    if (state.minPrice !== null && price < state.minPrice) {
+      return false;
+    }
+    if (state.maxPrice !== null && price > state.maxPrice) {
+      return false;
+    }
+  }
   if (state.inventory !== "all" && product.inventoryStatus !== state.inventory) {
     return false;
   }
