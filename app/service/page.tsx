@@ -1,273 +1,188 @@
+import Image from "next/image";
 import Link from "next/link";
+import BackButton from "../components/BackButton";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
 
-function StepCard({
-  index,
-  title,
-  desc,
-}: {
-  index: string;
-  title: string;
-  desc: string;
-}) {
+const needs = [
+  "第一次认真选斗",
+  "想为现有收藏补充一把",
+  "已有明确方向，但不想反复筛选",
+  "需要核对尺寸、状态与价格差异",
+];
+
+const steps = [
+  { number: "01", title: "提交需求", description: "填写找斗需求，告诉我们你的偏好" },
+  { number: "02", title: "人工筛选", description: "结合库存与市场，筛出少量合适候选" },
+  { number: "03", title: "核对细节", description: "确认尺寸、状态、配件与价格等信息" },
+  { number: "04", title: "确认委托", description: "确认服务费用与周期，开始为你留意" },
+];
+
+function SectionHeading({ number, title }: { number: string; title: string }) {
   return (
-    <div className="rounded-[20px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_4px_14px_rgba(43,33,28,0.03)]">
-      <p className="mb-2 text-[12px] font-semibold text-[#9A6530]">{index}</p>
-      <h3 className="mb-1.5 text-[17px] font-bold text-[#2B211C]">{title}</h3>
-      <p className="text-[13px] leading-6 text-[#75695F]">{desc}</p>
+    <div className="flex items-baseline gap-4">
+      <span className="text-[15px] font-normal tracking-[0.08em] text-[var(--brass)]">{number}</span>
+      <h2 className="text-[17px] font-medium leading-[1.4] text-[var(--text-primary)]">{title}</h2>
     </div>
   );
 }
 
-function InfoRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function BackArrowIcon({ className = "" }: { className?: string }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-[#F0E6D8] py-3 last:border-b-0">
-      <span className="shrink-0 text-[13px] text-[#75695F]">{label}</span>
-      <span className="text-right text-[13px] font-semibold leading-6 text-[#2B211C]">
-        {value}
-      </span>
-    </div>
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
-function FaqCard({
-  question,
-  answer,
-}: {
-  question: string;
-  answer: string;
-}) {
+function SearchIcon({ className = "" }: { className?: string }) {
   return (
-    <div className="rounded-[20px] border border-[#E5D7C5] bg-white p-4 shadow-[0_4px_14px_rgba(43,33,28,0.025)]">
-      <h3 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
-        {question}
-      </h3>
-      <p className="text-[13px] leading-6 text-[#75695F]">{answer}</p>
-    </div>
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="10.7" cy="10.7" r="5.9" stroke="currentColor" strokeWidth="1.35" />
+      <path d="m15.3 15.3 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+    </svg>
   );
 }
 
-function BoundaryCard({
-  title,
-  desc,
-}: {
-  title: string;
-  desc: string;
-}) {
+function PersonIcon({ className = "" }: { className?: string }) {
   return (
-    <div className="rounded-[18px] border border-[#E5D7C5] bg-white p-4">
-      <h3 className="mb-1.5 text-[16px] font-bold text-[#2B211C]">
-        {title}
-      </h3>
-      <p className="text-[13px] leading-6 text-[#75695F]">{desc}</p>
-    </div>
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.35" />
+      <path d="M5.3 19.2c.5-3.2 2.8-5 6.7-5s6.2 1.8 6.7 5" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CalendarIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="4.2" y="5.6" width="15.6" height="14" rx="1.2" stroke="currentColor" strokeWidth="1.35" />
+      <path d="M7.5 3.8v3.6M16.5 3.8v3.6M4.2 10h15.6" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ShieldIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3.8 19.2 7v4.4c0 4.2-2.7 7.3-7.2 8.8-4.5-1.5-7.2-4.6-7.2-8.8V7L12 3.8Z" stroke="currentColor" strokeWidth="1.35" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ServiceIconFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[rgba(168,120,62,0.18)] text-[var(--brass)] sm:h-14 sm:w-14">
+      {children}
+    </span>
   );
 }
 
 export default function ServicePage() {
   return (
-    <main className="min-h-screen bg-[#FAF7F0] text-[#2B211C]">
+    <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
       <SiteHeader />
 
-      <section className="px-4 pt-5 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_6px_22px_rgba(43,33,28,0.035)] sm:p-8 lg:p-10">
-            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.34em] text-[#9A6530]">
-              HOW IT WORKS
-            </p>
-
-            <h1 className="text-[30px] font-bold leading-[1.15] tracking-tight text-[#2B211C] sm:text-5xl">
-              海外烟斗代购，
-              <br />
-              先确认，再决定。
-            </h1>
-
-            <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[#75695F] sm:text-[16px]">
-              本站整理海外烟斗网站的公开库存信息，帮助你快速浏览库存、图片、价格和参数。页面展示并不代表实时库存，实际购买前需要人工重新确认。
-            </p>
-
-            <div className="mt-5 grid gap-2.5 sm:flex sm:flex-wrap">
-              <Link
-                href="/products"
-                className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-7 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-              >
-                查看海外库存
-              </Link>
-
-              <a
-                href="#contact"
-                className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-              >
-                咨询找斗
-              </a>
-            </div>
-          </section>
+      <div className="mx-auto max-w-[960px] px-4 pb-10 sm:px-6 sm:pb-12 lg:px-10 lg:pb-14">
+        <div className="flex h-12 items-center">
+          <BackButton
+            fallbackHref="/"
+            className="inline-flex h-9 w-9 items-center justify-center text-[var(--coffee-dark)] transition-colors hover:text-[var(--brass)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brass)]"
+          >
+            <BackArrowIcon className="h-5 w-5" />
+            <span className="sr-only">返回上一页</span>
+          </BackButton>
         </div>
-      </section>
 
-      <section className="px-4 py-6 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-4">
-            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-              PROCESS
-            </p>
+        <header className="pb-6 pt-4 sm:pb-7 sm:pt-5">
+          <p className="text-[10px] font-normal tracking-[0.2em] text-[var(--brass)]">CURATED SOURCING</p>
+          <h1 className="mt-3 text-[30px] font-medium leading-[1.22] tracking-[-0.02em] text-[var(--coffee-dark)] sm:text-[32px]">选品服务</h1>
+          <span className="mt-4 block h-px w-10 bg-[var(--brass)]" />
+          <p className="mt-4 max-w-[310px] text-[13px] font-normal leading-[1.55] text-[var(--text-primary)] sm:text-[13.5px]">
+            把模糊的偏好，<br />
+            整理成几把真正值得看的烟斗。
+          </p>
+        </header>
 
-            <h2 className="text-[22px] font-bold text-[#2B211C] sm:text-3xl">
-              代购流程
-            </h2>
-          </div>
+        <section className="relative aspect-[3/2] overflow-hidden rounded-[5px] bg-[var(--coffee-dark)]" aria-label="选品服务静物图">
+          <Image
+            src="/pics/service-sourcing-head.png"
+            alt="木质桌面上的两把烟斗"
+            fill
+            priority
+            sizes="(max-width: 1023px) calc(100vw - 32px), 880px"
+            className="object-cover"
+          />
+        </section>
 
-          <div className="grid gap-3.5 md:grid-cols-4">
-            <StepCard
-              index="01"
-              title="浏览库存"
-              desc="先在商品库里查看海外公开库存，按品牌、价格、图片完整度和库存状态初步筛选。"
-            />
-
-            <StepCard
-              index="02"
-              title="提交意向"
-              desc="选中感兴趣的烟斗后，可以发送商品链接、截图或名称，用于人工确认。"
-            />
-
-            <StepCard
-              index="03"
-              title="确认成本"
-              desc="下单前重新确认库存、人民币参考价、国际运费、预计税费和服务费用。"
-            />
-
-            <StepCard
-              index="04"
-              title="决定购买"
-              desc="确认无误后再决定是否购买。已售商品也可以作为找类似款式的参考。"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 pb-6 sm:px-6 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
-            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-              COST
-            </p>
-
-            <h2 className="mb-4 text-[22px] font-bold text-[#2B211C]">
-              费用构成
-            </h2>
-
-            <div>
-              <InfoRow label="人民币参考价" value="页面展示为采集时人民币参考价信息，购买前需人工确认" />
-              <InfoRow label="国际运费" value="根据商家、目的地和包裹重量确认" />
-              <InfoRow label="预计税费" value="根据实际申报、物流和目的地规则预估" />
-              <InfoRow label="服务费" value="按商品情况、沟通成本和代购难度确认" />
-              <InfoRow label="最终价格" value="下单前单独确认，不以页面采集价为最终价" />
+        <div className="mt-6 grid gap-3 sm:mt-7 sm:gap-4">
+          <section className="border border-[rgba(131,101,73,0.16)] bg-[rgba(255,253,248,0.38)] p-4 sm:p-5">
+            <div className="flex gap-4 sm:gap-5">
+              <ServiceIconFrame><SearchIcon className="h-6 w-6" /></ServiceIconFrame>
+              <div className="min-w-0 pt-0.5">
+                <SectionHeading number="01" title="我们会做什么" />
+                <p className="mt-3 text-[12.5px] leading-[1.55] text-[var(--text-secondary)]">
+                  根据预算、斗型、尺寸、品牌与使用习惯，筛选少量候选，并说明每一把的差异与取舍。
+                </p>
+              </div>
             </div>
           </section>
 
-          <section className="rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
-            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-              BOUNDARY
-            </p>
+          <section className="border border-[rgba(131,101,73,0.16)] bg-[rgba(255,253,248,0.38)] p-4 sm:p-5">
+            <div className="flex gap-4 sm:gap-5">
+              <ServiceIconFrame><PersonIcon className="h-6 w-6" /></ServiceIconFrame>
+              <div className="min-w-0 pt-0.5">
+                <SectionHeading number="02" title="适合这些需求" />
+                <ul className="mt-3 grid gap-1.5 text-[12.5px] leading-[1.5] text-[var(--text-secondary)]">
+                  {needs.map((need) => (
+                    <li key={need} className="relative pl-3 before:absolute before:left-0 before:top-[0.6em] before:h-1 before:w-1 before:rounded-full before:bg-[var(--brass)]">{need}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
 
-            <h2 className="mb-4 text-[22px] font-bold text-[#2B211C]">
-              服务边界
-            </h2>
+          <section className="border border-[rgba(131,101,73,0.16)] bg-[rgba(255,253,248,0.38)] p-4 sm:p-5">
+            <div className="flex gap-4 sm:gap-5">
+              <ServiceIconFrame><CalendarIcon className="h-6 w-6" /></ServiceIconFrame>
+              <div className="min-w-0 flex-1 pt-0.5">
+                <SectionHeading number="03" title="服务流程" />
+                <ol className="mt-4 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4 sm:gap-x-3">
+                  {steps.map((step) => (
+                    <li key={step.number} className="relative border-t border-[rgba(168,120,62,0.45)] pt-3 sm:pt-4">
+                      <span className="absolute -top-3 left-0 flex h-6 w-6 items-center justify-center rounded-full border border-[var(--brass)] bg-[var(--page-background)] text-[10px] font-medium text-[var(--coffee-dark)] sm:-top-3.5 sm:h-7 sm:w-7">{step.number}</span>
+                      <h3 className="mt-2 text-[12px] font-medium leading-[1.4] text-[var(--text-primary)]">{step.title}</h3>
+                      <p className="mt-1.5 text-[11px] leading-[1.5] text-[var(--text-secondary)]">{step.description}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </section>
 
-            <div className="grid gap-3">
-              <BoundaryCard
-                title="页面信息不是实时承诺"
-                desc="商品库展示的是采集时信息，海外网站库存和价格可能随时变化。"
-              />
-
-              <BoundaryCard
-                title="已售商品仍有参考价值"
-                desc="已售商品可用于判断品牌、斗型、价格区间，也可以作为寻找类似款式的方向。"
-              />
-
-              <BoundaryCard
-                title="购买前一定人工确认"
-                desc="是否有货、是否可寄送、最终价格、运费和税费都需要在购买前重新确认。"
-              />
+          <section className="border border-[rgba(131,101,73,0.16)] bg-[rgba(255,253,248,0.38)] p-4 sm:p-5">
+            <div className="flex gap-4 sm:gap-5">
+              <ServiceIconFrame><ShieldIcon className="h-6 w-6" /></ServiceIconFrame>
+              <div className="min-w-0 pt-0.5">
+                <SectionHeading number="04" title="服务边界" />
+                <p className="mt-3 text-[12.5px] leading-[1.55] text-[var(--text-secondary)]">
+                  只提供烟斗器具的选品、信息整理与委托协助。报价与服务费用会在确认前一次说明清楚，不临时增加项目。
+                </p>
+              </div>
             </div>
           </section>
         </div>
-      </section>
 
-      <section className="px-4 pb-6 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-[#FFFDF8] p-4 shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-6">
-          <p className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-            FAQ
-          </p>
-
-          <h2 className="mb-4 text-[22px] font-bold text-[#2B211C] sm:text-3xl">
-            常见问题
-          </h2>
-
-          <div className="grid gap-3.5 md:grid-cols-2">
-            <FaqCard
-              question="为什么页面显示有货，还要人工确认？"
-              answer="因为海外网站库存可能变化较快，页面采集信息只能作为参考。下单前需要重新确认商品是否仍然可购买。"
-            />
-
-            <FaqCard
-              question="已售商品为什么还展示？"
-              answer="已售商品可以作为斗型、品牌和价格区间参考。如果你喜欢类似风格，可以提交找斗需求。"
-            />
-
-            <FaqCard
-              question="人民币参考价是最终价格吗？"
-              answer="不是。人民币参考价只是按采集到的海外价格进行粗略换算，最终还需要结合运费、税费和服务费确认。"
-            />
-
-            <FaqCard
-              question="可以只帮我找某个品牌吗？"
-              answer="可以。你可以提供品牌、斗型、预算、是否接受二手、是否偏好特定产地或工艺，再协助筛选。"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="px-4 pb-8 sm:px-6 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[24px] border border-[#E5D7C5] bg-white p-5 text-center shadow-[0_5px_18px_rgba(43,33,28,0.03)] sm:p-10">
-          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.3em] text-[#9A6530]">
-            CONTACT
-          </p>
-
-          <h2 className="text-[22px] font-bold leading-tight text-[#2B211C] sm:text-4xl">
-            看到感兴趣的斗，
-            <br className="sm:hidden" />
-            先发来确认。
-          </h2>
-
-          <p className="mx-auto mt-3 max-w-2xl text-[13px] leading-6 text-[#75695F] sm:text-base">
-            你可以发送商品名称、详情页链接或截图。建议同时说明预算、是否接受已售同款参考、是否接受类似品牌替代。
-          </p>
-
-          <div className="mt-5 grid gap-2.5 sm:flex sm:justify-center">
-            <Link
-              href="/products"
-              className="flex h-10 items-center justify-center rounded-full bg-[#A9682B] px-7 text-[13px] font-semibold text-white transition hover:bg-[#8F5522]"
-            >
-              去商品库挑选
-            </Link>
-
-            <Link
-              href="/"
-              className="flex h-10 items-center justify-center rounded-full border border-[#D8C5AE] bg-white px-7 text-[13px] font-semibold text-[#2B211C] transition hover:border-[#A9682B]"
-            >
-              回到首页
-            </Link>
-          </div>
-        </div>
-      </section>
+        <section className="mx-auto mt-6 max-w-[620px] text-center sm:mt-7">
+          <Link
+            href="/request?source=service"
+            className="inline-flex h-12 w-full items-center justify-center rounded-[4px] bg-[#b98242] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#a67337] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[var(--brass)] sm:w-[340px]"
+          >
+            提交找斗需求
+          </Link>
+          <p className="mt-3 text-[12px] leading-[1.45] text-[var(--text-secondary)]">即刻开始为你寻找合适的烟斗</p>
+        </section>
+      </div>
 
       <SiteFooter />
     </main>
