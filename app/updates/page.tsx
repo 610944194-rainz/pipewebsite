@@ -61,16 +61,7 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
     >
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-[18px] sm:px-6 sm:pb-12 lg:px-10 lg:pb-14 lg:pt-7">
-        <Link
-          href="/"
-          aria-label="返回首页"
-          className="mb-[14px] inline-flex h-8 w-8 items-center justify-center bg-transparent text-[var(--coffee-dark)] transition-colors hover:text-[var(--brass)] active:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
-        >
-          <ArrowLeftIcon className="h-4 w-4" />
-          <span className="sr-only">返回首页</span>
-        </Link>
-
+      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-10 lg:pb-14">
         <header className="relative h-[194px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[210px] lg:h-[300px]">
           <Image
             src="/pics/overseas-head.png"
@@ -81,6 +72,14 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
             className="object-cover object-[62%_58%]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.88)] via-[rgba(36,22,15,0.58)] to-transparent" />
+          <Link
+            href="/"
+            aria-label="返回首页"
+            className="absolute left-4 top-4 z-10 inline-flex h-8 w-8 items-center justify-center bg-transparent text-[#f4eee7] transition-colors hover:text-[var(--brass)] active:text-[rgba(244,238,231,0.78)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit] sm:left-5 sm:top-5"
+          >
+            <ArrowLeftIcon className="h-4 w-4" />
+            <span className="sr-only">返回首页</span>
+          </Link>
           <div className="relative flex h-full max-w-[294px] flex-col justify-end px-5 pb-5 sm:max-w-[360px] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
             <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">
               DAILY UPDATES
