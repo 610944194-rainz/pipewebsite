@@ -74,8 +74,8 @@ function MakerConsultationCta({ maker }: { maker: DemoMakerStudio }) {
   const params = new URLSearchParams({ demo: "1", maker: maker.slug, makerName: name, returnTo });
   return (
     <section className="mx-auto max-w-[1240px] px-4 py-7 sm:px-6 sm:py-9 lg:px-10">
-      <div className="flex min-h-[78px] items-center justify-between gap-4 rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[linear-gradient(90deg,#3c2617,#2a180e)] px-4 py-4 sm:px-5">
-        <h2 className="min-w-0 text-[15px] font-medium leading-[1.4] text-[#f4eee7]">定制/咨询{name}的烟斗作品</h2>
+      <div className="flex min-h-[72px] items-center justify-between gap-3 rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[linear-gradient(90deg,#3c2617,#2a180e)] px-4 py-3 sm:px-5">
+        <h2 className="min-w-0 whitespace-nowrap text-[13px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[14px]">定制/咨询{name}的烟斗作品</h2>
         <Link href={`/request?${params.toString()}`} className="shrink-0 rounded-[4px] bg-[#c28b49] px-3.5 py-2 text-[12px] font-medium text-[#24160f] transition-colors hover:bg-[#e4c18d] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f4eee7]">立即咨询</Link>
       </div>
     </section>
