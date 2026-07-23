@@ -24,6 +24,7 @@ type IconProps = {
 type ProductBackButtonProps = {
   productId: string;
   fallbackHref?: string;
+  returnScope?: "product" | "maker-work";
   className?: string;
   ariaLabel?: string;
   children?: ReactNode;
@@ -94,7 +95,10 @@ function ResilientImage({
   );
 }
 
-export function sanitizeProductReturnTo(value: string | null) {
+export function sanitizeProductReturnTo(
+  value: string | null,
+  scope: "product" | "maker-work" = "product"
+) {
   const rawValue = String(value || "").trim();
 
   if (!rawValue || !rawValue.startsWith("/")) return "";
@@ -116,12 +120,16 @@ export function sanitizeProductReturnTo(value: string | null) {
     const isBrandDetail = /^\/brands\/[a-z0-9][a-z0-9-]*$/i.test(
       url.pathname
     );
+    const isMakerDossier =
+      scope === "maker-work" &&
+      /^\/domestic-makers\/[a-z0-9][a-z0-9-]*$/i.test(url.pathname);
 
     if (
       !isHomepage &&
       !isFeaturedList &&
       !isProductsList &&
-      !isBrandDetail
+      !isBrandDetail &&
+      !isMakerDossier
     ) {
       return "";
     }
@@ -132,9 +140,15 @@ export function sanitizeProductReturnTo(value: string | null) {
   }
 }
 
-function sanitizeProductAnchor(value: string | null) {
+function sanitizeProductAnchor(
+  value: string | null,
+  scope: "product" | "maker-work"
+) {
   const anchor = String(value || "").trim();
-  return /^product-[a-z0-9][a-z0-9-]*$/i.test(anchor) ? anchor : "";
+  if (/^product-[a-z0-9][a-z0-9-]*$/i.test(anchor)) return anchor;
+  return scope === "maker-work" && /^work-[a-z0-9][a-z0-9-]*$/i.test(anchor)
+    ? anchor
+    : "";
 }
 
 function appendProductAnchor(returnTo: string, anchor: string) {
@@ -148,6 +162,7 @@ function appendProductAnchor(returnTo: string, anchor: string) {
 export function ProductBackButton({
   productId,
   fallbackHref = "/products",
+  returnScope = "product",
   className = "",
   ariaLabel,
   children,
@@ -163,8 +178,8 @@ export function ProductBackButton({
       typeof window !== "undefined"
         ? new URLSearchParams(window.location.search).get("anchor")
         : null;
-    const returnTo = sanitizeProductReturnTo(rawReturnTo);
-    const anchor = sanitizeProductAnchor(rawAnchor);
+    const returnTo = sanitizeProductReturnTo(rawReturnTo, returnScope);
+    const anchor = sanitizeProductAnchor(rawAnchor, returnScope);
     const navigationKey = productReturnNavigationKey(productId);
     let canUseHistoryBack = false;
 
