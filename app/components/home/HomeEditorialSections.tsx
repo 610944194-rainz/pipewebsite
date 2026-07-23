@@ -21,6 +21,7 @@ export type HomeFeaturedMaker = {
   typeLabel: string;
   intro: string;
   image: string;
+  visual: string;
   objectPosition: string;
 };
 
@@ -29,6 +30,7 @@ type HomeEditorialSectionsProps = {
   todayProducts: HomeRailProduct[];
   brands: HomeFeaturedBrand[];
   makers: HomeFeaturedMaker[];
+  makersDemo?: boolean;
 };
 
 const collectionCards = [
@@ -38,7 +40,7 @@ const collectionCards = [
   { title: "丹麦手工", desc: "简约自然，手工匠心", href: buildProductsHref({ country: "Denmark" }), image: "/pics/collection-danish.jpg" },
 ];
 
-export default function HomeEditorialSections({ weeklyProducts, todayProducts, brands, makers }: HomeEditorialSectionsProps) {
+export default function HomeEditorialSections({ weeklyProducts, todayProducts, brands, makers, makersDemo = false }: HomeEditorialSectionsProps) {
   return (
     <div className="mx-auto max-w-[1200px] px-4 pb-10 pt-7 sm:px-6 sm:pb-12 sm:pt-10 lg:px-10 lg:pb-14 lg:pt-12">
       <section id="weekly-featured" className="scroll-mt-20">
@@ -47,20 +49,20 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
       </section>
 
       <section className="mt-8 lg:mt-12">
-        <SectionHeader title="国内斗师精选" href="/domestic-makers" />
-        <div className="home-rail -mx-4 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
+        <SectionHeader title="国内斗师精选" href={makersDemo ? "/domestic-makers?demo=1" : "/domestic-makers"} />
+        {makersDemo ? <div className="home-rail -mx-4 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
           {makers.map((maker) => (
             <Link
               key={maker.slug}
-              href={`/domestic-makers/${maker.slug}`}
+              href={`/domestic-makers/${maker.slug}?demo=1`}
               className="group relative aspect-[3/2] w-[80vw] shrink-0 snap-start overflow-hidden rounded-[7px] bg-[var(--coffee-dark)] sm:h-[230px] sm:w-auto sm:aspect-auto"
             >
-              <img
+              {maker.image ? <img
                 src={maker.image}
                 alt={`展示样例：${maker.displayName}制斗场景`}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
                 style={{ objectPosition: maker.objectPosition }}
-              />
+              /> : <MakerFallbackVisual visual={maker.visual} name={maker.displayName} />}
               <div className="absolute inset-x-0 bottom-0 h-[56%] bg-gradient-to-t from-black/90 via-black/48 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 px-[18px] pb-[17px] text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
                 <p className="text-[9px] font-normal leading-[1.3] tracking-[0.08em] text-[rgba(244,238,231,0.62)] sm:text-[10px] sm:leading-[1.3]">展示样例</p>
@@ -71,7 +73,7 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
               </div>
             </Link>
           ))}
-        </div>
+        </div> : <Link href="/domestic-makers" className="mt-3 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal text-[var(--coffee)]">浏览斗师 / 工作室目录<ArrowIcon className="ml-2 h-3 w-3" /></Link>}
       </section>
 
       <section className="mt-9 lg:mt-12">
@@ -137,6 +139,15 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
       </section>
     </div>
   );
+}
+
+function MakerFallbackVisual({ visual, name }: { visual: string; name: string }) {
+  if (visual === "demo-studio-muchuan") {
+    return <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_28%,rgba(207,157,93,0.36),transparent_18%),linear-gradient(120deg,#2b170d,#593822_66%,#21130b)]" aria-hidden="true" />;
+  }
+
+  const monogram = visual === "demo-maker-zhou-yu" ? "周屿" : name.slice(0, 2);
+  return <div className="absolute inset-0 flex items-center justify-center bg-[linear-gradient(122deg,#24140c,#4b2f1d_68%,#28170d)] text-[rgba(228,193,141,0.4)]"><span className="text-[32px] font-medium">{monogram}</span></div>;
 }
 
 function SectionHeader({ title, href }: { title: string; href: string }) {

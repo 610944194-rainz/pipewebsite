@@ -6,9 +6,9 @@ import SiteHeader from "../components/SiteHeader";
 import MakerStudioDirectoryFilters from "../components/domestic-makers/MakerStudioDirectoryFilters";
 import {
   getDemoMakersAndStudios,
-  getDemoPublicWorkCount,
   type DemoMakerStudio,
 } from "@/lib/demo/maker-studio-fixtures";
+import { getDemoPublicWorkCount } from "@/lib/demo/maker-studio-product-adapter";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 type PageProps = { searchParams?: Promise<SearchParams> };

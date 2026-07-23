@@ -1,8 +1,5 @@
 import { pipeProducts, type PipeProduct } from "@/data/pipes";
-import {
-  domesticMakers,
-  getDomesticMakerTypeLabel,
-} from "@/data/domestic-makers";
+import { getDemoMakersAndStudios } from "@/lib/demo/maker-studio-fixtures";
 import { getPublicBrandProfiles } from "@/lib/public-products/brands";
 import { getHomepageFeaturedProducts } from "@/lib/public-products/server";
 import {
@@ -73,24 +70,6 @@ const featuredBrandAssets: Record<
     logoMaxHeight: "40px",
     logoScale: 0.95,
     logoObjectPosition: "center",
-  },
-};
-
-const featuredMakerAssets: Record<
-  string,
-  { image: string; objectPosition: string }
-> = {
-  "qingyan-studio": {
-    image: "/domestic-makers/demo/fictional-pipe-maker-01.png",
-    objectPosition: "52% 32%",
-  },
-  "nanshan-handmade": {
-    image: "/domestic-makers/demo/fictional-pipe-maker-02.png",
-    objectPosition: "48% 29%",
-  },
-  "haishang-pipe-room": {
-    image: "/domestic-makers/demo/fictional-pipe-maker-03.png",
-    objectPosition: "54% 31%",
   },
 };
 
@@ -173,26 +152,25 @@ function getFeaturedBrands(): HomeFeaturedBrand[] {
 }
 
 function getFeaturedMakers(): HomeFeaturedMaker[] {
-  return domesticMakers.flatMap((maker) => {
-    const asset = featuredMakerAssets[maker.slug];
-    if (!asset) return [];
-
-    return [{
-      slug: maker.slug,
-      displayName: maker.displayName,
-      city: maker.city,
-      typeLabel: getDomesticMakerTypeLabel(maker.type),
-      intro: maker.intro.replace(/^展示样例。/, ""),
-      ...asset,
-    }];
-  });
+  return getDemoMakersAndStudios().map((maker) => ({
+    slug: maker.slug,
+    displayName: maker.name.replace(/^示例(?:斗师|工作室)\s*·\s*/, ""),
+    city: maker.region,
+    typeLabel: maker.kind === "maker" ? "斗师" : "工作室",
+    intro: maker.intro,
+    image: maker.coverImage || maker.heroImage || "",
+    visual: maker.slug,
+    objectPosition: "62% center",
+  }));
 }
 
-export default function HomePage() {
+export default async function HomePage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = searchParams ? await searchParams : {};
+  const demo = (Array.isArray(params.demo) ? params.demo[0] : params.demo) === "1";
   const weeklyProducts = getHomepageFeaturedProducts().map(weeklyProduct);
   const todayProducts = getTodayProducts();
   const brands = getFeaturedBrands();
-  const makers = getFeaturedMakers();
+  const makers = demo ? getFeaturedMakers() : [];
 
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
@@ -205,6 +183,7 @@ export default function HomePage() {
         todayProducts={todayProducts}
         brands={brands}
         makers={makers}
+        makersDemo={demo}
       />
       <SiteFooter />
     </main>

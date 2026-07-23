@@ -116,23 +116,6 @@ export const demoWorkSeeds: readonly DemoWorkSeed[] = [
   { id: "demo-zhou-yu-apple-03", slug: "demo-zhou-yu-apple-03", sourceProductId: "danish-18920", makerSlug: "demo-maker-zhou-yu", nameZh: "流线型苹果斗", nameEn: "Streamlined Apple", shape: "苹果斗", bowlMaterial: "石楠木", finish: "喷砂", stemMaterial: "硬化橡胶", filterSpec: "9 mm", weightGrams: 41.7, lengthMillimeters: 144.2, bowlHeightMillimeters: 45.8, bowlWidthMillimeters: 35.1, chamberDiameterMillimeters: 18.9, chamberDepthMillimeters: 37, availability: "sold-reference", demoReferencePrice: 1820, description: "以流畅斗柄曲线为重点的已售参考作品。" },
 ];
 
-// Transitional exports keep the previously shipped demo route buildable until it
-// is switched to the read-only public-product adapter in the next UI commit.
-const legacyDemoImage = "/pics/weekly-featured-head.png";
-export const demoMakerProducts: readonly DemoMakerProduct[] = demoWorkSeeds.map((work) => ({
-  ...work,
-  images: [legacyDemoImage],
-  isDemo: true,
-  source: "ui-fixture",
-}));
-
-export function getDemoMakerProducts(makerSlug: string) {
-  return demoMakerProducts.filter((product) => product.makerSlug === makerSlug);
-}
-
-export function getDemoPublicWorkCount(makerSlug: string) {
-  return getDemoMakerProducts(makerSlug).length;
-}
 
 export function getDemoMakersAndStudios() {
   return demoMakersAndStudios;
