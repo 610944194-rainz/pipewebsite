@@ -623,11 +623,16 @@ function dailySeedTitle(product) {
   );
   const rawBrand = cleanText(product?.canonicalBrand || product?.brand || product?.rawBrand);
   const brand = cleanText(product?.canonicalBrandZh || rawBrand);
-  const model = cleanText(
-    originalName
-      .replace(/\bTobacco\s+Pipe\b/gi, "")
-      .replace(/^\s+|\s+$/g, "")
-  );
+  const rawFinish = cleanText(product?.canonicalFinish || product?.finish);
+  const modelWithoutProductType = originalName.replace(/\bTobacco\s+Pipe\b/gi, "");
+  const model = rawFinish
+    ? cleanText(
+        modelWithoutProductType.replace(
+          new RegExp(`\\b${escapeRegExp(rawFinish)}\\b`, "gi"),
+          " "
+        )
+      )
+    : cleanText(modelWithoutProductType);
   const finish = meaningfulZh(product?.finishZhName || product?.canonicalFinishZh);
   const shape = meaningfulZh(product?.shapeZhName || product?.canonicalShapeZh);
   return cleanTitle([brand, model, finish, shape].filter(Boolean).join(" "));

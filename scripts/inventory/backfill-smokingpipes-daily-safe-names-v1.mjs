@@ -102,17 +102,20 @@ async function main() {
   const publicHistoryIds = [...history.ids].filter((id) => catalogIds.has(id));
   const productsById = new Map(sourceItems(products).map((item) => [text(item.id), item]));
   const targets = publicHistoryIds.map((id) => productsById.get(id)).filter(Boolean);
-  const beforeById = new Map((safeIndex.items || []).map((item) => [text(item.id), item]));
+  const preservedItems = (safeIndex.items || []).filter(
+    (item) => !Array.isArray(item.warnings) || !item.warnings.includes("dailyGenerated")
+  );
+  const beforeById = new Map(preservedItems.map((item) => [text(item.id), item]));
   const missingBefore = targets.filter(
     (product) => !text(beforeById.get(text(product.id))?.safeDisplayNameZh)
   );
   const generated = buildSmokingpipesDailySafeDisplayNameEntries({
     products: missingBefore,
-    existingItems: safeIndex.items || [],
+    existingItems: preservedItems,
     brandFinal,
     shapeFinal,
   });
-  const nextIndex = nextSafeIndex(safeIndex, generated.created);
+  const nextIndex = nextSafeIndex({ ...safeIndex, items: preservedItems }, generated.created);
   const afterById = new Map(nextIndex.items.map((item) => [text(item.id), item]));
   const pricingContext = await loadPublicProductsPricingContext();
   const publicCandidate = buildPublicProductsFullCandidate(staging, pricingContext);
@@ -164,7 +167,7 @@ async function main() {
   await writeJson(path.join(outputRoot, "backfill-audit.json"), report);
 
   if (hasFlag("--apply-safe-index")) {
-    if (generated.review.length || recentMissingPublic.length || duplicateRecentIds.length) {
+    if (recentMissingPublic.length || duplicateRecentIds.length || recentMissingSafe.length) {
       throw new Error("Refusing to apply: offline validator has unresolved blockers.");
     }
     await writeJson(path.join(ROOT, SAFE_INDEX_PATH), nextIndex);
