@@ -1,6 +1,6 @@
-import { pipeProducts, type PipeProduct } from "@/data/pipes";
 import { getDemoMakersAndStudios } from "@/lib/demo/maker-studio-fixtures";
 import { getPublicBrandProfiles } from "@/lib/public-products/brands";
+import { getDailyProductUpdates } from "@/lib/public-products/daily-updates";
 import { getHomepageFeaturedProducts } from "@/lib/public-products/server";
 import {
   displayProductName,
@@ -16,7 +16,6 @@ import HomeEditorialSections, {
 } from "./components/home/HomeEditorialSections";
 import HomeHero from "./components/home/HomeHero";
 import type { HomeRailProduct } from "./components/home/HomeProductRail";
-import { getRmbReferencePrice } from "./utils/price";
 
 const featuredBrandSlugs = [
   "peterson",
@@ -84,51 +83,22 @@ function weeklyProduct(product: PublicCatalogProduct): HomeRailProduct {
   };
 }
 
-function updatedTimestamp(value: string) {
-  const normalized = value.trim().replace(" ", "T");
-  const timestamp = Date.parse(normalized);
-  return Number.isFinite(timestamp) ? timestamp : 0;
-}
-
-function displayableProductImage(product: PipeProduct) {
-  const candidates = [product.imageUrl, ...(product.galleryImages || [])];
-
-  return candidates.find((value) => {
-    const source = String(value || "").trim();
-    if (!source || /(?:placeholder|no[-_ ]?image|spacer|blank)/i.test(source)) {
-      return false;
-    }
-
-    try {
-      const url = new URL(source);
-      return /^(https?):$/.test(url.protocol) && /\.(?:avif|jpe?g|png|webp)$/i.test(url.pathname);
-    } catch {
-      return source.startsWith("/") && /\.(?:avif|jpe?g|png|webp)(?:[?#]|$)/i.test(source);
-    }
-  });
-}
-
-function todayProduct(product: PipeProduct, image: string): HomeRailProduct {
+function todayProduct(product: PublicCatalogProduct): HomeRailProduct {
   return {
-    id: String(product.id),
-    image,
-    brand: product.brand || "品牌待确认",
-    name: product.nameZh || product.name,
-    price: getRmbReferencePrice(product),
-    status: product.status,
+    id: product.id,
+    image: product.mainImage || "",
+    brand: product.brandName || "品牌待确认",
+    name: displayProductName(product),
+    price: formatSitePrice(product),
+    status: inventoryLabel(product.inventoryStatus),
   };
 }
 
 function getTodayProducts() {
-  return [...pipeProducts]
-    .filter((product) => !/已售|sold|out/i.test(product.status))
-    .flatMap((product) => {
-      const image = displayableProductImage(product);
-      return image ? [{ product, image }] : [];
-    })
-    .sort((left, right) => updatedTimestamp(right.product.updatedAt) - updatedTimestamp(left.product.updatedAt))
+  return (getDailyProductUpdates()?.products || [])
+    .filter((product) => product.mainImage)
     .slice(0, 6)
-    .map(({ product, image }) => todayProduct(product, image));
+    .map(todayProduct);
 }
 
 function getFeaturedBrands(): HomeFeaturedBrand[] {

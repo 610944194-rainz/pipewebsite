@@ -121,7 +121,7 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
       </section>
 
       <section className="mt-9 lg:mt-12">
-        <SectionHeader title="今日更新" href="/products" />
+        <SectionHeader title="今日更新" href="/updates" />
         <div className="mt-3"><HomeProductRail products={todayProducts} variant="today" /></div>
       </section>
 
