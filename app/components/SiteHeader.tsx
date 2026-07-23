@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type IconProps = { className?: string };
-type SiteHeaderProps = { className?: string };
+type SiteHeaderProps = { className?: string; variant?: "default" | "dark" };
 
 const navigation = [
   { title: "首页", label: "Home", href: "/" },
@@ -23,7 +23,7 @@ function isActivePath(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export default function SiteHeader({ className = "" }: SiteHeaderProps) {
+export default function SiteHeader({ className = "", variant = "default" }: SiteHeaderProps) {
   const [openPath, setOpenPath] = useState<string | null>(null);
   const pathname = usePathname();
   const open = openPath === pathname;
@@ -58,7 +58,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 border-b border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96 backdrop-blur-sm ${className}`}>
+      <header className={`sticky top-0 z-40 border-b backdrop-blur-sm ${variant === "dark" ? "border-[rgba(213,166,81,0.12)] bg-[#2a180e]/96 text-[#f4eee7]" : "border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96"} ${className}`}>
         <div className="relative mx-auto grid h-11 max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-11 lg:px-10">
           <button
             ref={menuButtonRef}
@@ -67,7 +67,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             aria-controls="site-mobile-menu"
             aria-expanded={open}
             onClick={() => setOpenPath(pathname)}
-            className="inline-flex h-11 w-11 items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--coffee)] lg:hidden motion-reduce:transition-none"
+            className={`inline-flex h-11 w-11 items-center justify-center transition-colors lg:hidden motion-reduce:transition-none ${variant === "dark" ? "text-[#f4eee7] hover:text-[#e4c18d]" : "text-[var(--text-primary)] hover:text-[var(--coffee)]"}`}
           >
             <MenuIcon className="h-[21px] w-[21px]" />
           </button>
@@ -76,7 +76,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
             <img
               src="/pics/yandoubuy-logo-header.png"
               alt="烟斗派 YandouBuy"
-              className="block h-auto w-[150px] max-w-full object-contain mix-blend-multiply lg:w-[190px]"
+              className={`block h-auto w-[150px] max-w-full object-contain lg:w-[190px] ${variant === "dark" ? "brightness-0 invert sepia contrast-75" : "mix-blend-multiply"}`}
             />
           </Link>
 
@@ -89,7 +89,9 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={`relative px-3 py-2 text-[13px] font-normal transition-colors motion-reduce:transition-none ${
-                    active ? "text-[var(--coffee-dark)]" : "text-[var(--text-secondary)] hover:text-[var(--coffee)]"
+                    active
+                      ? variant === "dark" ? "text-[#f4eee7]" : "text-[var(--coffee-dark)]"
+                      : variant === "dark" ? "text-[rgba(244,238,231,0.66)] hover:text-[#e4c18d]" : "text-[var(--text-secondary)] hover:text-[var(--coffee)]"
                   }`}
                 >
                   {item.title}
@@ -97,7 +99,7 @@ export default function SiteHeader({ className = "" }: SiteHeaderProps) {
                 </Link>
               );
             })}
-            <Link href="/request" className="ml-3 border border-[var(--coffee-dark)] px-4 py-2 text-[13px] font-medium text-[var(--coffee-dark)] transition-colors hover:bg-[var(--coffee-dark)] hover:text-white motion-reduce:transition-none">
+            <Link href="/request" className={`ml-3 border px-4 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${variant === "dark" ? "border-[rgba(213,166,81,0.36)] text-[#e4c18d] hover:bg-[#e4c18d] hover:text-[#24160f]" : "border-[var(--coffee-dark)] text-[var(--coffee-dark)] hover:bg-[var(--coffee-dark)] hover:text-white"}`}>
               提交找斗需求
             </Link>
           </nav>

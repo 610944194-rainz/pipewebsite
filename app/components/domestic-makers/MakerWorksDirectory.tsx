@@ -115,8 +115,8 @@ export function MakerWorksDirectory({ maker, works }: MakerWorksProps) {
         </div>
 
         <div className="mt-4 flex gap-5 border-b border-[rgba(213,166,81,0.1)] text-[13px] font-medium">
-          <button type="button" aria-pressed={mode === "all"} onClick={() => selectWorks("all")} className={`relative pb-2.5 focus-visible:outline-none ${mode === "all" ? "text-[#f4eee7] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[#d7a758]" : "text-[rgba(244,238,231,0.56)]"}`}>作品集</button>
-          <button type="button" aria-pressed={mode === "available"} onClick={() => selectWorks("available")} className={`relative pb-2.5 focus-visible:outline-none ${mode === "available" ? "text-[#f4eee7] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[#d7a758]" : "text-[rgba(244,238,231,0.56)]"}`}>在售作品</button>
+          <button type="button" aria-pressed={mode === "all"} onClick={() => selectWorks("all")} className={`relative pb-2.5 focus-visible:outline-none ${mode === "all" ? "text-[#e4c18d] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[#d7a758]" : "text-[rgba(244,238,231,0.56)]"}`}>作品集</button>
+          <button type="button" aria-pressed={mode === "available"} onClick={() => selectWorks("available")} className={`relative pb-2.5 focus-visible:outline-none ${mode === "available" ? "text-[#e4c18d] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[#d7a758]" : "text-[rgba(244,238,231,0.56)]"}`}>在售作品</button>
         </div>
 
         {displayedWorks.length > 0 ? (
@@ -129,7 +129,7 @@ export function MakerWorksDirectory({ maker, works }: MakerWorksProps) {
                 <article id={`work-${work.id}`} key={work.id} className="min-w-0">
                   <Link href={href} aria-label={`查看示例作品：${work.nameZh}`} className="flex h-full min-h-[256px] flex-col overflow-hidden rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[#342116] transition-colors hover:border-[rgba(213,166,81,0.28)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#e4c18d]">
                     <div className="relative aspect-square bg-white">
-                      <Image src={work.images[0]} alt="" fill sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" className="object-cover object-[68%_center]" />
+                      <Image src={work.images[0]} alt="" fill sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw" className="object-contain p-2" />
                       <span className="absolute left-2 top-2 bg-[rgba(42,24,14,0.76)] px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[#f4eee7]">示例</span>
                       {work.availability === "sold-reference" ? <span className="absolute bottom-2 left-2 bg-[rgba(244,238,231,0.88)] px-1.5 py-0.5 text-[9px] font-normal leading-[1.3] text-[#563822]">已售参考</span> : null}
                     </div>
@@ -161,8 +161,8 @@ export function MakerProfileAbout({ maker }: { maker: DemoMakerStudio }) {
   return (
     <section className="border-y border-[rgba(213,166,81,0.1)] bg-[#322015] px-4 py-6 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-[1240px]">
-        <h2 className="text-[18px] font-medium leading-[1.35] text-[#f4eee7]">关于{displayName}</h2>
-        <div className="mt-3 max-w-[760px] text-[13px] font-normal leading-[1.65] text-[rgba(244,238,231,0.72)]">
+        <h2 className="text-[20px] font-medium leading-[1.35] text-[#f4eee7]">关于{displayName}</h2>
+        <div className="mt-3 max-w-[760px] text-[13px] font-normal leading-[1.6] text-[rgba(244,238,231,0.72)]">
           {paragraphs.slice(0, expanded ? undefined : 1).map((paragraph) => <p key={paragraph} className="mb-2 last:mb-0">{paragraph}</p>)}
         </div>
         {paragraphs.length > 1 ? <button type="button" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)} className="mt-3 text-[12px] font-medium text-[#e4c18d] underline decoration-[rgba(228,193,141,0.64)] underline-offset-4 focus-visible:outline-none">{expanded ? "收起" : "查看更多"}</button> : null}
