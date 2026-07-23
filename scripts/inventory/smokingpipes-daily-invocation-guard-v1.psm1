@@ -70,6 +70,19 @@ function Test-SmokingpipesSameDaySuccess {
     return [pscustomobject]@{ ShouldSkip = $true; Reason = "explicit-same-day-success" }
   }
 
+  $currentDateKey = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "dateKey" -DefaultValue "")
+  $currentStatus = [string](Get-OptionalSmokingpipesStateValue -State $State -Name "status" -DefaultValue "")
+  $currentProductionWritten = [bool](Get-OptionalSmokingpipesStateValue -State $State -Name "productionWritten" -DefaultValue $false)
+  $currentAppliedCount = [int](Get-OptionalSmokingpipesStateValue -State $State -Name "appliedCount" -DefaultValue 0)
+  if (
+    $currentDateKey -eq $LocalDateKey -and
+    $currentStatus -in @("deployment-pending-verification", "deployment-verified") -and
+    $currentProductionWritten -and
+    $currentAppliedCount -gt 0
+  ) {
+    return [pscustomobject]@{ ShouldSkip = $true; Reason = "same-day-deployment-verification-pending" }
+  }
+
   # Compatibility for the already-persisted legacy skip marker.  Do not infer
   # success from a bare legacy "success" state because it may predate final
   # validator/build/publish completion.

@@ -13,6 +13,7 @@ import type {
   PublicFeaturedProductsFile,
   PublicFilters,
   PublicLookupFile,
+  PublicRecentNewProductsFile,
 } from "./types";
 import { withSafeDisplayName } from "../product-display-name-server";
 import {
@@ -41,6 +42,7 @@ let brandMapCache: Map<string, PublicBrandIndexEntry> | null = null;
 let brandSeriesMapCache: Map<string, PublicBrandSeriesIndexEntry> | null = null;
 let lookupCache: PublicLookupFile | null = null;
 let featuredCache: PublicFeaturedProductsFile | null | undefined;
+let recentNewCache: PublicRecentNewProductsFile | null | undefined;
 const detailShardCache = new Map<string, PublicDetailProduct[]>();
 
 function readJson<T>(filePath: string): T {
@@ -124,6 +126,22 @@ export function getPublicLookup(): PublicLookupFile {
   }
 
   return lookupCache;
+}
+
+export function getPublicRecentNewProducts(): PublicRecentNewProductsFile | null {
+  if (recentNewCache !== undefined) return recentNewCache;
+
+  const recentNewPath = dataFile("recent-new.json");
+
+  try {
+    recentNewCache = fs.existsSync(recentNewPath)
+      ? readJson<PublicRecentNewProductsFile>(recentNewPath)
+      : null;
+  } catch {
+    recentNewCache = null;
+  }
+
+  return recentNewCache;
 }
 
 export function readPublicDetailShard(shard: string): PublicDetailProduct[] {

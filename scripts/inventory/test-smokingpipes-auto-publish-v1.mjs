@@ -155,7 +155,7 @@ try {
   assert.match(publishScript, /origin\/main changed during run/);
   assert.match(
     publishScript,
-    /\$dailyState\.status -eq "detail-progress"[\s\S]*?Complete-AutoPublish -Status "detail-progress"/
+    /\$dailyState\.status -in @\("detail-progress", "detail-in-progress"\)[\s\S]*?Complete-AutoPublish -Status "detail-in-progress"/
   );
   assert.doesNotMatch(publishScript, /manual-large-apply/);
   assert.doesNotMatch(publishScript, /--force(?:-with-lease)?/);

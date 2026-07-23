@@ -609,6 +609,7 @@ export function validatePublicProductsNextCandidate({
   recentNew,
   smokingpipesProducts = [],
   publicReadyProducts = [],
+  safeDisplayNameItems = null,
 }) {
   const errors = [];
   const catalogProducts = Array.isArray(catalog?.products)
@@ -635,6 +636,13 @@ export function validatePublicProductsNextCandidate({
     errors.push("filters payload is invalid");
   }
   const catalogIds = new Set(ids);
+  const recentIds = (recentNew?.products || []).map((item) => text(item.id));
+  const duplicateRecentIds = recentIds.filter(
+    (id, index) => id && recentIds.indexOf(id) !== index
+  );
+  if (duplicateRecentIds.length) {
+    errors.push("recent-new contains duplicate canonical ids");
+  }
   if (
     (recentNew?.products || []).some(
       (item) => !catalogIds.has(text(item.id))
@@ -681,6 +689,20 @@ export function validatePublicProductsNextCandidate({
   ) {
     errors.push("recent-new does not exactly match public-ready new products");
   }
+  if (Array.isArray(safeDisplayNameItems)) {
+    const safeById = new Map(
+      safeDisplayNameItems.map((item) => [text(item.id), item])
+    );
+    const missingSafeNames = (recentNew?.products || []).filter((item) => {
+      const entry = safeById.get(text(item.id));
+      return !text(entry?.safeDisplayNameZh || entry?.displayTitle);
+    });
+    if (missingSafeNames.length) {
+      errors.push(
+        `recent-new contains ${missingSafeNames.length} products without safe Chinese display names`
+      );
+    }
+  }
   return {
     status: errors.length ? "failed" : "passed",
     errors,
@@ -688,6 +710,7 @@ export function validatePublicProductsNextCandidate({
       catalog: catalogProducts.length,
       brands: brands?.brands?.length || 0,
       recentNew: recentNew?.products?.length || 0,
+      duplicateRecentNewIds: duplicateRecentIds.length,
       nonPublicReadyCatalog: nonPublicReadyCatalogItems.length,
       nonPublicReadyRecentNew: nonPublicReadyRecentItems.length,
     },

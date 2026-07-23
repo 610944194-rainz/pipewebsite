@@ -606,6 +606,90 @@ function updateItem(item, brandRules, shapeRules) {
   return { item: nextItem, beforeTitle, afterTitle: title, stats };
 }
 
+function containsChinese(value) {
+  return /[\u4e00-\u9fff]/.test(String(value || ""));
+}
+
+function meaningfulZh(value) {
+  const normalized = cleanText(value);
+  return ["其他", "未知", "unknown", "other"].includes(normalized.toLowerCase())
+    ? ""
+    : normalized;
+}
+
+function dailySeedTitle(product) {
+  const originalName = cleanText(
+    product?.displayNameEn || product?.fullTitle || product?.rawTitle
+  );
+  const rawBrand = cleanText(product?.canonicalBrand || product?.brand || product?.rawBrand);
+  const brand = cleanText(product?.canonicalBrandZh || rawBrand);
+  const rawFinish = cleanText(product?.canonicalFinish || product?.finish);
+  const modelWithoutProductType = originalName.replace(/\bTobacco\s+Pipe\b/gi, "");
+  const model = rawFinish
+    ? cleanText(
+        modelWithoutProductType.replace(
+          new RegExp(`\\b${escapeRegExp(rawFinish)}\\b`, "gi"),
+          " "
+        )
+      )
+    : cleanText(modelWithoutProductType);
+  const finish = meaningfulZh(product?.finishZhName || product?.canonicalFinishZh);
+  const shape = meaningfulZh(product?.shapeZhName || product?.canonicalShapeZh);
+  return cleanTitle([brand, model, finish, shape].filter(Boolean).join(" "));
+}
+
+/**
+ * Builds missing Smokingpipes safe-name entries from the same final brand and
+ * shape rules used by the established candidate index. Existing entries are
+ * never rewritten here: their reviewed values remain authoritative.
+ */
+export function buildSmokingpipesDailySafeDisplayNameEntries({
+  products,
+  existingItems,
+  brandFinal,
+  shapeFinal,
+}) {
+  const existingById = new Map((existingItems || []).map((item) => [item.id, item]));
+  const brandRules = buildFinalBrandRules(brandFinal || {});
+  const shapeRules = buildFinalShapeRules(shapeFinal || {});
+  const created = [];
+  const review = [];
+
+  for (const product of products || []) {
+    if (product?.source !== "smokingpipes" || existingById.has(product?.id)) continue;
+
+    const originalName = cleanText(
+      product?.displayNameEn || product?.fullTitle || product?.rawTitle
+    );
+    const seededTitle = dailySeedTitle(product);
+    const seeded = {
+      id: cleanText(product?.id),
+      source: "smokingpipes",
+      originalName,
+      displayNameZhV2: seededTitle,
+      safeDisplayNameZh: seededTitle,
+      displayTitle: seededTitle,
+      subtitleOriginalName: originalName || null,
+      quality: containsChinese(seededTitle) ? "candidate" : "fallback-original",
+      warnings: ["dailyGenerated"],
+      brandZhSource: cleanText(product?.canonicalBrandZh)
+        ? "taxonomy-confirmed"
+        : "unconfirmed",
+      displayNameEn: originalName,
+      rawTitle: cleanText(product?.rawTitle || product?.fullTitle),
+    };
+    const finalized = updateItem(seeded, brandRules, shapeRules).item;
+
+    if (!finalized.id || !containsChinese(finalized.safeDisplayNameZh)) {
+      review.push({ id: seeded.id, reason: "safeChineseDisplayNameMissing" });
+      continue;
+    }
+    created.push(finalized);
+  }
+
+  return { created, review };
+}
+
 function countByQuality(items) {
   const counts = { ready: 0, candidate: 0, "fallback-original": 0 };
   for (const item of items) {
@@ -811,7 +895,9 @@ async function main() {
   console.log(JSON.stringify(report, null, 2));
 }
 
-main().catch((error) => {
-  console.error(JSON.stringify({ status: "failed", generatorVersion: SCRIPT_VERSION, error: error.message }, null, 2));
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(JSON.stringify({ status: "failed", generatorVersion: SCRIPT_VERSION, error: error.message }, null, 2));
+    process.exitCode = 1;
+  });
+}

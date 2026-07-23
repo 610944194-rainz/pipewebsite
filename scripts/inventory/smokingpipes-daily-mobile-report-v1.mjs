@@ -298,9 +298,19 @@ function normalizeTaskStatus(taskState) {
     "safe-bootstrap-complete",
     "safe-bootstrap-current-list-failed",
     "detail-progress",
+    "detail-in-progress",
+    "detail-complete",
+    "ready-to-apply",
+    "applied",
+    "committed",
+    "pushed",
+    "deployment-pending-verification",
+    "deployment-verified",
+    "failed",
     "running",
   ]);
 
+  if (status === "detail-progress") return "detail-in-progress";
   return knownStatuses.has(status) ? status : "";
 }
 
@@ -316,8 +326,12 @@ function deriveStatus({ state, audit, taskLogText, taskState }) {
   const taskStatus = normalizeTaskStatus(taskState);
   const detailPhaseStatus = normalizeText(taskState?.detailPhaseStatus);
 
-  if (taskStatus === "detail-progress") {
-    return "detail-progress";
+  if (taskStatus === "detail-in-progress") {
+    return "detail-in-progress";
+  }
+
+  if (["detail-complete", "ready-to-apply", "applied", "committed", "pushed", "deployment-pending-verification", "deployment-verified", "failed"].includes(taskStatus)) {
+    return taskStatus;
   }
 
   const auditStatus = getAuditStatus(audit);
@@ -451,7 +465,7 @@ export function buildSmokingpipesDailyMobileReport({
   const candidates = toArray(state?.candidates);
   const counts = getAuditCounts(audit);
   const taskStatus = normalizeTaskStatus(taskState);
-  const isDetailProgress = taskStatus === "detail-progress";
+  const isDetailProgress = taskStatus === "detail-in-progress";
   const blockers = isDetailProgress ? [] : [...toArray(audit?.blockers)];
   const warnings = toArray(audit?.warnings);
   const currentList =
@@ -688,7 +702,7 @@ export function buildSmokingpipesDailyMobileReport({
         ? verificationBlocker
           ? "人工全量对齐暂停：源站验证"
           : "人工全量对齐：详情分批处理中"
-      : status === "detail-progress"
+      : status === "detail-in-progress"
       ? "详情分批处理中"
       : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
@@ -722,7 +736,7 @@ export function buildSmokingpipesDailyMobileReport({
         ? verificationBlocker
           ? "完成验证后手动重跑 FetchDetailBatch，不要恢复 daily task。"
           : "继续手动运行 FetchDetailBatch；全部详情完成后再进入安全预览和人工审计。"
-      : status === "detail-progress"
+      : status === "detail-in-progress"
       ? "下轮继续处理剩余详情；将复用同一天完整 current-list 快照，不进入候选应用。"
       : unsafeApplyGap
       ? "检查 data/review/smokingpipes-apply-gap-diagnosis-report.md，确认隔离候选的分类。"
@@ -811,10 +825,17 @@ export function buildSmokingpipesDailyMobileReport({
 }
 
 function statusLabelV2(status) {
+  if (status === "detail-in-progress") return "\u8be6\u60c5\u5206\u6279\u5904\u7406\u4e2d";
+  if (status === "ready-to-apply") return "\u8be6\u60c5\u5df2\u5b8c\u6210\uff0c\u7b49\u5f85\u5019\u9009\u5e94\u7528";
+  if (status === "applied") return "Production \u5df2\u5b9e\u9645\u5199\u5165\uff0c\u7b49\u5f85\u63d0\u4ea4";
+  if (status === "committed") return "\u5df2\u63d0\u4ea4\uff0c\u7b49\u5f85\u63a8\u9001";
+  if (status === "pushed") return "\u5df2\u63a8\u9001\uff0c\u7b49\u5f85\u90e8\u7f72\u9a8c\u8bc1";
+  if (status === "deployment-pending-verification") return "\u5df2\u63a8\u9001\uff0c\u90e8\u7f72\u5f85\u9a8c\u8bc1";
+  if (status === "deployment-verified") return "\u90e8\u7f72\u5df2\u9a8c\u8bc1";
   if (status === "lock-active") return "库存任务正在运行，等待下一轮";
   if (status === "stale-lock-cleared") return "已清理过期任务锁，继续执行";
   if (status === "detail-complete") return "详情队列已完成，正在进入候选应用";
-  if (status === "detail-progress") return "详情分批处理中";
+  if (status === "detail-in-progress") return "详情分批处理中";
   if (status === "retryable-failed") return "更新失败，将自动重试";
   if (status === "terminal-failed") return "更新失败，已停止重试";
   if (status === "manual-review-required") return "需要人工复核，已停止自动重试";
@@ -864,7 +885,7 @@ function deriveReasonV2({
     return "详情队列已完成，正在进入候选应用。";
   }
 
-  if (status === "detail-progress") {
+  if (status === "detail-in-progress") {
     return `本轮已完成 ${Number(taskState?.detailCompletedThisRun || 0)} 条详情，剩余 ${Number(taskState?.detailPendingCount || 0)} 条；当前列表快照已保留，下一轮继续处理。`;
   }
 
@@ -937,7 +958,7 @@ function deriveNextStepV2({ status, failureType = null, cachedListResume = null 
     return "执行 candidate/audit/apply";
   }
 
-  if (status === "detail-progress") {
+  if (status === "detail-in-progress") {
     return "继续处理剩余详情；复用同一天完整 current-list 快照，待 pending 归零后才进入 apply gate。";
   }
 
@@ -1462,7 +1483,7 @@ export function buildPushDeerDailyMessage(report) {
       `候选更新：${report.candidateCount}`,
       `正式应用：${report.appliedCount || 0}`,
       ...changeLines,
-      ...(report.status === "detail-progress"
+      ...(report.status === "detail-in-progress"
         ? [
             `本轮详情完成：${Number(report.detailCompletedThisRun || 0)}`,
             `本轮详情 chunk 上限：${Number(report.progressiveDetailMax || 0) || 50}`,

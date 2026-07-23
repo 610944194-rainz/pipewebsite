@@ -202,6 +202,13 @@ export type PublicFeaturedProductsFile = {
   warnings?: string[];
 };
 
+export type PublicRecentNewProductsFile = {
+  schemaVersion: 1;
+  generatedAt: string;
+  source: PublicSource;
+  products: PublicCatalogProduct[];
+};
+
 export type ProductWeightRange =
   | "light"
   | "medium"

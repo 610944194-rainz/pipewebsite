@@ -748,6 +748,12 @@ export function getRunnerPaths(root, options = {}) {
       "generated",
       "public-products-daily-next"
     ),
+    dailySafeDisplayNamesNext: path.join(
+      base,
+      "data",
+      "i18n",
+      "product-displayname-zh-safe-candidates-daily-next.json"
+    ),
     dailyReportMarkdown: path.join(
       reviewRoot,
       "smokingpipes-daily-update-report.md"
