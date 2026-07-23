@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { convertSmokingpipesCandidateDetails } from "../convert-smokingpipes-products-v2.mjs";
+import { buildSmokingpipesDailySafeDisplayNameEntries } from "../generate-product-displayname-zh-safe-candidates.mjs";
 import { buildUnifiedProductsFromInputs } from "../build-unified-products-staging-v1.mjs";
 import {
   buildPublicProductsFullCandidate,
@@ -942,6 +943,7 @@ async function writeDailyCandidateOutputs({
   const targets = [
     paths.dailyProductsNext,
     paths.dailyPublicNextRoot,
+    paths.dailySafeDisplayNamesNext,
   ].map((item) => path.resolve(item));
   if (
     targets[0] === productionProducts ||
@@ -967,6 +969,10 @@ async function writeDailyCandidateOutputs({
   };
 
   await writeJsonAtomic(paths.dailyProductsNext, candidate.products);
+  await writeJsonAtomic(
+    paths.dailySafeDisplayNamesNext,
+    publicPayloads.safeDisplayNames
+  );
   await writeTextAtomic(
     path.join(paths.dailyPublicNextRoot, "catalog.json"),
     serialized.catalog
@@ -1465,6 +1471,62 @@ export async function runSmokingpipesDailyUpdate({
       convertedNewProducts: conversion.products,
       conversionFailures: conversion.failures,
     });
+    const safeNamePath = path.join(
+      root,
+      "data",
+      "i18n",
+      "product-displayname-zh-safe-candidates.json"
+    );
+    const existingSafeNames = readJsonIfExists(safeNamePath, { items: [] });
+    const safeNameBuild = buildSmokingpipesDailySafeDisplayNameEntries({
+      products: candidate.recentNewProducts,
+      existingItems: Array.isArray(existingSafeNames?.items)
+        ? existingSafeNames.items
+        : [],
+      brandFinal: readJsonIfExists(
+        path.join(
+          root,
+          "data",
+          "review",
+          "product-displayname-zh-brand-decisions-final-20260616.json"
+        ),
+        {}
+      ),
+      shapeFinal: readJsonIfExists(
+        path.join(
+          root,
+          "data",
+          "review",
+          "product-displayname-zh-shape-decisions-final-20260616.json"
+        ),
+        {}
+      ),
+    });
+    const blockedNameIds = new Set(safeNameBuild.review.map((item) => item.id));
+    if (blockedNameIds.size) {
+      candidate.products = candidate.products.map((product) =>
+        blockedNameIds.has(product.id)
+          ? {
+              ...product,
+              inventoryStatus: "needs-review",
+              inventoryReviewReasons: [
+                ...(product.inventoryReviewReasons || []),
+                "safeChineseDisplayNameMissing",
+              ],
+            }
+          : product
+      );
+      candidate.recentNewProducts = candidate.recentNewProducts.filter(
+        (product) => !blockedNameIds.has(product.id)
+      );
+    }
+    const safeDisplayNames = {
+      ...existingSafeNames,
+      items: [
+        ...(Array.isArray(existingSafeNames?.items) ? existingSafeNames.items : []),
+        ...safeNameBuild.created,
+      ],
+    };
     const unifiedRows = buildUnifiedProductsFromInputs({
       danishProducts,
       smokingpipesProducts: candidate.products,
@@ -1488,8 +1550,10 @@ export async function runSmokingpipesDailyUpdate({
     const validation = validatePublicProductsNextCandidate({
       ...publicBase,
       recentNew,
+      safeDisplayNames,
       smokingpipesProducts: candidate.products,
       publicReadyProducts: candidate.recentNewProducts,
+      safeDisplayNameItems: safeDisplayNames.items,
     });
     const manifest = {
       schemaVersion: 1,
