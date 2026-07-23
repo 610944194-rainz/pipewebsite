@@ -15,10 +15,6 @@ const legacyMakerSlugs = new Set([
   "haishang-pipe-room",
 ]);
 
-export function generateStaticParams() {
-  return [];
-}
-
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = searchParams ? await searchParams : {};
   return firstParam(params.demo) === "1"
