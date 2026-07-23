@@ -5595,9 +5595,9 @@
       "siteDisplayAmount": 410.56808,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -9390,6 +9390,169 @@
       "sourceOriginalText": "Saint Nicholas 2025 (904 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$126.00",
       "msrpRawText": "$180.00"
+    },
+    {
+      "id": "smokingpipes-696721",
+      "source": "smokingpipes",
+      "sourceProductId": "696721",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Rua Spigot (CP) (701) P-Lip Tobacco Pipe",
+      "displayNameEn": "Rua Spigot (CP) (701) P-Lip Tobacco Pipe",
+      "rawTitle": "Rua Spigot (CP) (701) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-134455.1075.jpg",
+      "sourcePriceAmount": 276,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 345,
+      "siteDisplayAmount": 2654.297134199999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 28.35,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "rua spigot (cp) (701) p-lip tobacco pipe",
+        "price": 2654.297134199999,
+        "sourceProductId": "696721"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-134455.1075.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-134455_1.4514.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-134455_2.1794.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-134455_3.5318.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.86,
+        "heightMm": 42.93,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 36.58,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 28.96
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-701__series-rua-spigot-p-lip-tobacco-pipe__shape-poker",
+        "confidence": "high"
+      },
+      "series": "Rua Spigot P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-134455",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=696721",
+      "sourceOriginalText": "Rua Spigot (CP) (701) P-Lip Tobacco Pipe",
+      "priceRawText": "$276.00",
+      "msrpRawText": "$345.00"
     },
     {
       "id": "smokingpipes-700129",
@@ -18450,6 +18613,166 @@
       "msrpRawText": "$495.00"
     },
     {
+      "id": "smokingpipes-730125",
+      "source": "smokingpipes",
+      "sourceProductId": "730125",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "displayNameEn": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "rawTitle": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111076.6807.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1901.0820113999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "150th anniversary achille ii rusticated (6mm) tobacco pipe",
+        "price": 1901.0820113999998,
+        "sourceProductId": "730125"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111076.6807.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.46,
+        "heightMm": 42.67,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 36.07,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 35.31
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-150th-anniversary-achille-ii-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "150th Anniversary Achille Ii Tobacco",
+      "year": null,
+      "productCode": "002-033-111076",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=730125",
+      "sourceOriginalText": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
+    },
+    {
       "id": "smokingpipes-730143",
       "source": "smokingpipes",
       "sourceProductId": "730143",
@@ -18609,6 +18932,163 @@
       "sourceOriginalText": "Aran Smooth (128) Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-730252",
+      "source": "smokingpipes",
+      "sourceProductId": "730252",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Summer Collection Rhodesian Tobacco Pipe",
+      "displayNameEn": "Summer Collection Rhodesian Tobacco Pipe",
+      "rawTitle": "Summer Collection Rhodesian Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3136.7137.jpg",
+      "sourcePriceAmount": 243,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 270,
+      "siteDisplayAmount": 2473.0724429999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 61.25,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "summer collection rhodesian tobacco pipe",
+        "price": 2473.0724429999996,
+        "sourceProductId": "730252"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3136.7137.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3136_1.9029.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3136_2.4056.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3136_3.5676.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.29,
+        "heightMm": 54.1,
+        "weightGrams": 61.25,
+        "chamberDepthMm": 46.99,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 41.91
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__series-summer-collection-tobacco-pipe__shape-rhodesian",
+        "confidence": "medium"
+      },
+      "series": "Summer Collection Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3136",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 61.25,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=730252",
+      "sourceOriginalText": "Summer Collection Rhodesian Tobacco Pipe",
+      "priceRawText": "$243.00",
+      "msrpRawText": "$270.00"
     },
     {
       "id": "smokingpipes-730445",
@@ -19737,6 +20217,169 @@
       "msrpRawText": "$170.00"
     },
     {
+      "id": "smokingpipes-732103",
+      "source": "smokingpipes",
+      "sourceProductId": "732103",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Smooth Poker (D) (9mm) Tobacco Pipe",
+      "displayNameEn": "Smooth Poker (D) (9mm) Tobacco Pipe",
+      "rawTitle": "Smooth Poker (D) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3721.8111.jpg",
+      "sourcePriceAmount": 425,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 4513.42335,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 74.84,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "smooth poker (d) (9mm) tobacco pipe",
+        "price": 4513.42335,
+        "sourceProductId": "732103"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3721.8111.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3721_1.2985.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3721_2.8555.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3721_3.1062.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 118.87,
+        "heightMm": 65.79,
+        "weightGrams": 74.84,
+        "chamberDepthMm": 40.89,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 45.72
+      },
+      "model": {
+        "canonicalModelKey": "winslow__series-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3721",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 118.87,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 65.79,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 74.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 45.72,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732103",
+      "sourceOriginalText": "Smooth Poker (D) (9mm) Tobacco Pipe",
+      "priceRawText": "$425.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-732150",
       "source": "smokingpipes",
       "sourceProductId": "732150",
@@ -19898,6 +20541,167 @@
       "sourceOriginalText": "Smooth Poker (D) (9mm) Tobacco Pipe",
       "priceRawText": "$425.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-732362",
+      "source": "smokingpipes",
+      "sourceProductId": "732362",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145748.3175.jpg",
+      "sourcePriceAmount": 172,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 215,
+      "siteDisplayAmount": 1721.7450774,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 56.7,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes sandblasted deerstalker p-lip tobacco pipe",
+        "price": 1721.7450774,
+        "sourceProductId": "732362"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145748.3175.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145748_1.8617.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 159.26,
+        "heightMm": 56.64,
+        "weightGrams": 56.7,
+        "chamberDepthMm": 43.94,
+        "chamberDiameterMm": 21.59,
+        "outsideDiameterMm": 43.69
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-sandblasted-deerstalker-p-lip__shape-rhodesian",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Sandblasted Deerstalker P Lip",
+      "year": null,
+      "productCode": "002-029-145748",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 159.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 56.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 56.7,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732362",
+      "sourceOriginalText": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
+      "priceRawText": "$172.00",
+      "msrpRawText": "$215.00"
     },
     {
       "id": "smokingpipes-732407",
@@ -21031,6 +21835,322 @@
       "sourceOriginalText": "Sherlock Holmes Terracotta Original P-Lip Tobacco Pipe",
       "priceRawText": "$320.00",
       "msrpRawText": "$400.00"
+    },
+    {
+      "id": "smokingpipes-734249",
+      "source": "smokingpipes",
+      "sourceProductId": "734249",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth (85) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth (85) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth (85) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146292.1546.jpg",
+      "sourcePriceAmount": 136,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 170,
+      "siteDisplayAmount": 1331.4652879999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth (85) fishtail tobacco pipe",
+        "price": 1331.4652879999999,
+        "sourceProductId": "734249"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146292.1546.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146292_1.3838.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 135.89,
+        "heightMm": 35.81,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 28.45,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 35.05
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-85__series-aran-fishtail-tobacco-pipe__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Aran Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146292",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 135.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 35.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=734249",
+      "sourceOriginalText": "Aran Smooth (85) Fishtail Tobacco Pipe",
+      "priceRawText": "$136.00",
+      "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-734696",
+      "source": "smokingpipes",
+      "sourceProductId": "734696",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "displayNameEn": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "rawTitle": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3174.8864.jpg",
+      "sourcePriceAmount": 144.59,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 160.65,
+      "siteDisplayAmount": 1457.7808676,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 62.93,
+      "shape": "Churchwarden",
+      "shapeZh": "长杆斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "churchwarden smooth contrast (863) tobacco pipe",
+        "price": 1457.7808676,
+        "sourceProductId": "734696"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3174.8864.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3174_1.1012.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 257.57,
+        "heightMm": 48.34,
+        "weightGrams": 62.93,
+        "chamberDepthMm": 38.38,
+        "chamberDiameterMm": 20.13,
+        "outsideDiameterMm": 35.61
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-863__series-contrast-tobacco-pipe__shape-churchwarden",
+        "confidence": "high"
+      },
+      "series": "Contrast Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3174",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Churchwarden",
+          "labelZh": "长杆斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 257.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.93,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.38,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734696",
+      "sourceOriginalText": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "priceRawText": "$144.59",
+      "msrpRawText": "$160.65"
     },
     {
       "id": "smokingpipes-735099",

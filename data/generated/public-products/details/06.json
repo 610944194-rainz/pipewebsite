@@ -7972,9 +7972,9 @@
       "siteDisplayAmount": 714.2507599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -19732,6 +19732,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-730416",
+      "source": "smokingpipes",
+      "sourceProductId": "730416",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Deluxe Classic Terracotta (606) P-Lip Tobacco Pipe",
+      "displayNameEn": "Deluxe Classic Terracotta (606) P-Lip Tobacco Pipe",
+      "rawTitle": "Deluxe Classic Terracotta (606) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145108.3300.jpg",
+      "sourcePriceAmount": 240,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 300,
+      "siteDisplayAmount": 2331.490653,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Pot",
+      "shapeZh": "罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "deluxe classic terracotta (606) p-lip tobacco pipe",
+        "price": 2331.490653,
+        "sourceProductId": "730416"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145108.3300.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145108_1.8547.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145108_2.6596.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145108_3.2627.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 154.43,
+        "heightMm": 44.2,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 33.27,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 40.64
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-606__series-deluxe-classic-terracotta-p-lip-tobacco__shape-pot",
+        "confidence": "high"
+      },
+      "series": "Deluxe Classic Terracotta P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-145108",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Pot",
+          "labelZh": "罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 154.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.64,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=730416",
+      "sourceOriginalText": "Deluxe Classic Terracotta (606) P-Lip Tobacco Pipe",
+      "priceRawText": "$240.00",
+      "msrpRawText": "$300.00"
+    },
+    {
       "id": "smokingpipes-730489",
       "source": "smokingpipes",
       "sourceProductId": "730489",
@@ -21159,6 +21322,167 @@
       "msrpRawText": "$140.00"
     },
     {
+      "id": "smokingpipes-733124",
+      "source": "smokingpipes",
+      "sourceProductId": "733124",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp Sandblasted (B10) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp Sandblasted (B10) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp Sandblasted (B10) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146158.8888.jpg",
+      "sourcePriceAmount": 156,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 195,
+      "siteDisplayAmount": 1487.4104479999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.03,
+      "shape": "Calabash",
+      "shapeZh": "葫芦斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp sandblasted (b10) fishtail tobacco pipe",
+        "price": 1487.4104479999996,
+        "sourceProductId": "733124"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146158.8888.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146158_1.4106.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.95,
+        "heightMm": 52.07,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 37.08,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 40.89
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-b10__series-irish-harp-sandblasted-fishtail-tobacco__shape-calabash",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146158",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Calabash",
+          "labelZh": "葫芦斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=733124",
+      "sourceOriginalText": "Irish Harp Sandblasted (B10) Fishtail Tobacco Pipe",
+      "priceRawText": "$156.00",
+      "msrpRawText": "$195.00"
+    },
+    {
       "id": "smokingpipes-735129",
       "source": "smokingpipes",
       "sourceProductId": "735129",
@@ -21169,10 +21493,10 @@
       "displayNameEn": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
       "rawTitle": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146411.4466.jpg",
-      "sourcePriceAmount": 295,
+      "sourcePriceAmount": 232,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 2824.6672214999994,
+      "siteDisplayAmount": 2259.7558793999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -21202,7 +21526,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "deluxe system sandblasted (xl5s) p-lip tobacco pipe",
-        "price": 2824.6672214999994,
+        "price": 2259.7558793999997,
         "sourceProductId": "735129"
       },
       "displayNameZh": null,
@@ -21318,7 +21642,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735129",
       "sourceOriginalText": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
-      "priceRawText": "$295.00",
+      "priceRawText": "$232.00",
       "msrpRawText": null
     },
     {

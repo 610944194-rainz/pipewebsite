@@ -7844,10 +7844,10 @@
       "displayNameEn": "Sahara Bent Apple (9mm) Tobacco Pipe",
       "rawTitle": "Sahara Bent Apple (9mm) Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-918-428.9818.jpg",
-      "sourcePriceAmount": 168.14,
+      "sourcePriceAmount": 148,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1766.4849230399998,
+      "siteDisplayAmount": 1485.7689199999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7877,7 +7877,7 @@
       "sortKeys": {
         "brand": "white elephant",
         "name": "sahara bent apple (9mm) tobacco pipe",
-        "price": 1766.4849230399998,
+        "price": 1485.7689199999998,
         "sourceProductId": "676941"
       },
       "displayNameZh": null,
@@ -7979,7 +7979,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/white-elephant/moreinfo.cfm?product_id=676941",
       "sourceOriginalText": "Sahara Bent Apple (9mm) Tobacco Pipe",
-      "priceRawText": "$168.14",
+      "priceRawText": "$148.00",
       "msrpRawText": null
     },
     {
@@ -8616,10 +8616,10 @@
       "siteDisplayAmount": 714.2507599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -12125,6 +12125,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-715514",
+      "source": "smokingpipes",
+      "sourceProductId": "715514",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Dracula Sandblasted (107) Fishtail Tobacco Pipe",
+      "displayNameEn": "Dracula Sandblasted (107) Fishtail Tobacco Pipe",
+      "rawTitle": "Dracula Sandblasted (107) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-141628.9597.jpg",
+      "sourcePriceAmount": 148,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 185,
+      "siteDisplayAmount": 1425.0323839999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.03,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "dracula sandblasted (107) fishtail tobacco pipe",
+        "price": 1425.0323839999999,
+        "sourceProductId": "715514"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-141628.9597.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-141628_1.5056.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.92,
+        "heightMm": 50.04,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 35.05,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 38.61
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-107__series-dracula-sandblasted-fishtail-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Dracula Sandblasted Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-141628",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=715514",
+      "sourceOriginalText": "Dracula Sandblasted (107) Fishtail Tobacco Pipe",
+      "priceRawText": "$148.00",
+      "msrpRawText": "$185.00"
+    },
+    {
       "id": "smokingpipes-715677",
       "source": "smokingpipes",
       "sourceProductId": "715677",
@@ -12624,9 +12785,9 @@
       "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -15464,6 +15625,161 @@
       "sourceOriginalText": "Sandblasted Bent Dublin with Patagonian Rosewood (839) (2026) Tobacco Pipe",
       "priceRawText": "$575.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-721712",
+      "source": "smokingpipes",
+      "sourceProductId": "721712",
+      "brandName": "Genod",
+      "brandSlug": "genod",
+      "brandCountry": null,
+      "displayName": "Smooth Natural Bent Billiard (144) Tobacco Pipe",
+      "displayNameEn": "Smooth Natural Bent Billiard (144) Tobacco Pipe",
+      "rawTitle": "Smooth Natural Bent Billiard (144) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-628-3251.2158.jpg",
+      "sourcePriceAmount": 103.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 115,
+      "siteDisplayAmount": 1120.5289399999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 30.84,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "genod",
+        "name": "smooth natural bent billiard (144) tobacco pipe",
+        "price": 1120.5289399999997,
+        "sourceProductId": "721712"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-628-3251.2158.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-628-3251_1.1070.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.6,
+        "heightMm": 41.66,
+        "weightGrams": 30.84,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 33.27
+      },
+      "model": {
+        "canonicalModelKey": "genod__model-144__series-natural-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-628-3251",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Genod",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.6,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 30.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.27,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Genod/moreinfo.cfm?product_id=721712",
+      "sourceOriginalText": "Smooth Natural Bent Billiard (144) Tobacco Pipe",
+      "priceRawText": "$103.50",
+      "msrpRawText": "$115.00"
     },
     {
       "id": "smokingpipes-722213",
@@ -22343,6 +22659,163 @@
       "sourceOriginalText": "Fragola Rusticated Natural (101) (6mm) Tobacco Pipe",
       "priceRawText": "$218.36",
       "msrpRawText": "$272.95"
+    },
+    {
+      "id": "smokingpipes-734640",
+      "source": "smokingpipes",
+      "sourceProductId": "734640",
+      "brandName": "Wandi Riyadi",
+      "brandSlug": "wandi-riyadi",
+      "brandCountry": null,
+      "displayName": "Wide Shank Bent Dublin Tobacco Pipe",
+      "displayNameEn": "Wide Shank Bent Dublin Tobacco Pipe",
+      "rawTitle": "Wide Shank Bent Dublin Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-922-0047.8953.jpg",
+      "sourcePriceAmount": 850,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 8524.9074,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 56.7,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "wandi riyadi",
+        "name": "wide shank bent dublin tobacco pipe",
+        "price": 8524.9074,
+        "sourceProductId": "734640"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-922-0047.8953.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-922-0047_1.7482.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-922-0047_2.2999.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-922-0047_3.3573.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 167.64,
+        "heightMm": 43.43,
+        "weightGrams": 56.7,
+        "chamberDepthMm": 38.35,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "wandi-riyadi__series-wide-shank-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Wide Shank Tobacco Pipe",
+      "year": null,
+      "productCode": "002-922-0047",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Wandi Riyadi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 167.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 56.7,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Wandi-Riyadi/moreinfo.cfm?product_id=734640",
+      "sourceOriginalText": "Wide Shank Bent Dublin Tobacco Pipe",
+      "priceRawText": "$850.00",
+      "msrpRawText": null
     }
   ]
 }

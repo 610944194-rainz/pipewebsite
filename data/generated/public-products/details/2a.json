@@ -6009,9 +6009,9 @@
       "siteDisplayAmount": 1089.75029,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12844,6 +12844,166 @@
       "sourceOriginalText": "Dublin Filter Rusticated (XL90) Fishtail (9mm) Tobacco Pipe",
       "priceRawText": "$155.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-702145",
+      "source": "smokingpipes",
+      "sourceProductId": "702145",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Roma (904 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Roma (904 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Roma (904 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products-hr/002-033-107014.4026.jpg",
+      "sourcePriceAmount": 131.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 164,
+      "siteDisplayAmount": 1294.0384496,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "roma (904 ks) (6mm) tobacco pipe",
+        "price": 1294.0384496,
+        "sourceProductId": "702145"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products-hr/002-033-107014.4026.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 162.05,
+        "heightMm": 49.02,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 39.62,
+        "chamberDiameterMm": 21.34,
+        "outsideDiameterMm": 38.1
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-roma-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Roma Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-90254",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 162.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=702145",
+      "sourceOriginalText": "Roma (904 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$131.20",
+      "msrpRawText": "$164.00"
     },
     {
       "id": "smokingpipes-702937",
@@ -22569,6 +22729,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-727857",
+      "source": "smokingpipes",
+      "sourceProductId": "727857",
+      "brandName": "IMP Meerschaum",
+      "brandSlug": "imp-meerschaum",
+      "brandCountry": "Turkey",
+      "displayName": "Partially Rusticated Apple Nosewarmer with Silver (with Case) Tobacco Pipe",
+      "displayNameEn": "Partially Rusticated Apple Nosewarmer with Silver (with Case) Tobacco Pipe",
+      "rawTitle": "Partially Rusticated Apple Nosewarmer with Silver (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4769.3105.jpg",
+      "sourcePriceAmount": 391.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 435,
+      "siteDisplayAmount": 3874.732163999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 33.11,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Meerschaum",
+      "bowlMaterialZh": "海泡石",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "imp meerschaum",
+        "name": "partially rusticated apple nosewarmer with silver (with case) tobacco pipe",
+        "price": 3874.732163999999,
+        "sourceProductId": "727857"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4769.3105.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4769_1.6753.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4769_2.9911.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4769_3.3526.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 114.05,
+        "heightMm": 40.64,
+        "weightGrams": 33.11,
+        "chamberDepthMm": 28.96,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 38.61
+      },
+      "model": {
+        "canonicalModelKey": "imp-meerschaum__series-partially-nosewarmer-with-silver-tobacco__shape-apple",
+        "confidence": "medium"
+      },
+      "series": "Partially Nosewarmer With Silver Tobacco",
+      "year": null,
+      "productCode": "002-316-4769",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "IMP Meerschaum",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Turkey",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Meerschaum",
+          "labelZh": "海泡石",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 114.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 33.11,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/imp-meerschaum/moreinfo.cfm?product_id=727857",
+      "sourceOriginalText": "Partially Rusticated Apple Nosewarmer with Silver (with Case) Tobacco Pipe",
+      "priceRawText": "$391.50",
+      "msrpRawText": "$435.00"
+    },
+    {
       "id": "smokingpipes-728064",
       "source": "smokingpipes",
       "sourceProductId": "728064",
@@ -25611,6 +25934,485 @@
       "sourceOriginalText": "Minerva Rusticated Brown (614) (6mm) Tobacco Pipe",
       "priceRawText": "$176.00",
       "msrpRawText": "$220.00"
+    },
+    {
+      "id": "smokingpipes-734692",
+      "source": "smokingpipes",
+      "sourceProductId": "734692",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Churchwarden Sandblasted (F5) Tobacco Pipe",
+      "displayNameEn": "Churchwarden Sandblasted (F5) Tobacco Pipe",
+      "rawTitle": "Churchwarden Sandblasted (F5) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3170.4963.jpg",
+      "sourcePriceAmount": 134.1,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 149,
+      "siteDisplayAmount": 1371.6827239999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 65.45,
+      "shape": "Churchwarden",
+      "shapeZh": "长杆斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "churchwarden sandblasted (f5) tobacco pipe",
+        "price": 1371.6827239999998,
+        "sourceProductId": "734692"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3170.4963.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3170_1.6413.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 272.27,
+        "heightMm": 43.76,
+        "weightGrams": 65.45,
+        "chamberDepthMm": 37.54,
+        "chamberDiameterMm": 20.21,
+        "outsideDiameterMm": 44.81
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-f5__series-sandblasted-tobacco-pipe__shape-churchwarden",
+        "confidence": "high"
+      },
+      "series": "Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3170",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Churchwarden",
+          "labelZh": "长杆斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 272.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.76,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.45,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.81,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734692",
+      "sourceOriginalText": "Churchwarden Sandblasted (F5) Tobacco Pipe",
+      "priceRawText": "$134.10",
+      "msrpRawText": "$149.00"
+    },
+    {
+      "id": "smokingpipes-735473",
+      "source": "smokingpipes",
+      "sourceProductId": "735473",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "House Pipe Rusticated Bent Billiard P-Lip Tobacco Pipe",
+      "displayNameEn": "House Pipe Rusticated Bent Billiard P-Lip Tobacco Pipe",
+      "rawTitle": "House Pipe Rusticated Bent Billiard P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146514.6936.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 104.89,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "house pipe rusticated bent billiard p-lip tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "735473"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146514.6936.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146514_1.4878.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 160.78,
+        "heightMm": 64.01,
+        "weightGrams": 104.89,
+        "chamberDepthMm": 56.13,
+        "chamberDiameterMm": 21.59,
+        "outsideDiameterMm": 47.24
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-house-pipe-p-lip-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "House Pipe P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146514",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 160.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 64.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 104.89,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 56.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 47.24,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735473",
+      "sourceOriginalText": "House Pipe Rusticated Bent Billiard P-Lip Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-736004",
+      "source": "smokingpipes",
+      "sourceProductId": "736004",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Sandblasted (302) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Sandblasted (302) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Sandblasted (302) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146785.8712.jpg",
+      "sourcePriceAmount": 236,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 295,
+      "siteDisplayAmount": 2295.6232661999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 65.2,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot sandblasted (302) p-lip tobacco pipe",
+        "price": 2295.6232661999993,
+        "sourceProductId": "736004"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146785.8712.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146785_1.4081.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146785_2.8302.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146785_3.9629.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.41,
+        "heightMm": 43.43,
+        "weightGrams": 65.2,
+        "chamberDepthMm": 35.56,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-302__series-system-spigot-sandblasted-p-lip-tobacco__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "System Spigot Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146785",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.2,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736004",
+      "sourceOriginalText": "System Spigot Sandblasted (302) P-Lip Tobacco Pipe",
+      "priceRawText": "$236.00",
+      "msrpRawText": "$295.00"
     }
   ]
 }
