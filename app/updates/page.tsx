@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
 import ProductGrid from "@/components/products/ProductGrid";
@@ -25,15 +26,6 @@ function updatesHref(page: number) {
   return page > 1 ? `/updates?page=${page}` : "/updates";
 }
 
-function formatUpdateDate(value: string) {
-  return new Intl.DateTimeFormat("zh-CN", {
-    timeZone: "Asia/Shanghai",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(value));
-}
-
 export default async function UpdatesPage({ searchParams }: PageProps) {
   const selection = getDailyProductUpdates();
   const resolvedSearchParams = searchParams ? await searchParams : {};
@@ -58,11 +50,6 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
   const start = (currentPage - 1) * PAGE_SIZE;
   const products = selection.products.slice(start, start + PAGE_SIZE);
   const returnTo = updatesHref(currentPage);
-  const displayedDate = formatUpdateDate(selection.generatedAt);
-  const heading = selection.isFallback
-    ? "今日暂无新内容，当前展示最近一次更新"
-    : "今日更新";
-
   return (
     <main
       className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]"
@@ -74,7 +61,16 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
     >
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-10 lg:pb-14">
+      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-[18px] sm:px-6 sm:pb-12 lg:px-10 lg:pb-14 lg:pt-7">
+        <Link
+          href="/"
+          aria-label="返回首页"
+          className="mb-[14px] inline-flex h-8 w-8 items-center justify-center bg-transparent text-[var(--coffee-dark)] transition-colors hover:text-[var(--brass)] active:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
+        >
+          <ArrowLeftIcon className="h-4 w-4" />
+          <span className="sr-only">返回首页</span>
+        </Link>
+
         <header className="relative h-[194px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[210px] lg:h-[300px]">
           <Image
             src="/pics/overseas-head.png"
@@ -106,11 +102,8 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
             id="daily-updates-title"
             className="text-[17px] font-medium leading-[1.4] text-[var(--text-primary)]"
           >
-            {heading}
+            今日更新
           </h2>
-          <p className="mt-1 text-[12px] font-normal leading-[1.5] text-[var(--text-secondary)]">
-            {displayedDate} · 共 {selection.products.length} 件
-          </p>
         </section>
 
         <section className="mt-5" aria-label="今日更新商品目录">
@@ -133,5 +126,19 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
 
       <SiteFooter />
     </main>
+  );
+}
+
+function ArrowLeftIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M19 12H5M11 6l-6 6 6 6"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
