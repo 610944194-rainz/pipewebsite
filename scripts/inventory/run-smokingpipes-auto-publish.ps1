@@ -315,6 +315,13 @@ function Copy-DailyStateToReport {
   $report.appliedCount = Get-DailyNumber -State $State -Name "appliedCount"
   $report.isolatedCandidateCount = Get-DailyNumber -State $State -Name "isolatedCandidateCount"
   if ($null -ne $State.changeSummary) { $report.changeSummary = $State.changeSummary }
+  $report.actualAppliedCount = if ($null -ne $State.changeSummary -and $null -ne $State.changeSummary.actualAppliedCount) {
+    [int]$State.changeSummary.actualAppliedCount
+  } else {
+    0
+  }
+  $report.detailPendingCount = Get-DailyNumber -State $State -Name "detailPendingCount"
+  $report.detailPhaseStatus = [string]$State.detailPhaseStatus
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
   $dailyMaxAutoApply = Get-DailyNumber -State $State -Name "maxAutoApply"
   if ($dailyMaxAutoApply -gt 0) { $report.maxAutoApply = $dailyMaxAutoApply }
@@ -385,7 +392,10 @@ $report = [ordered]@{
   candidateCount = 0
   wouldApplyCount = 0
   appliedCount = 0
+  actualAppliedCount = 0
   isolatedCandidateCount = 0
+  detailPendingCount = 0
+  detailPhaseStatus = $null
   changeSummary = [ordered]@{
     newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
     explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
@@ -460,7 +470,10 @@ function Write-AutoPublishReport {
     "- candidateCount: $($report.candidateCount)",
     "- wouldApplyCount: $($report.wouldApplyCount)",
     "- appliedCount: $($report.appliedCount)",
+    "- actualAppliedCount: $($report.actualAppliedCount)",
     "- isolatedCandidateCount: $($report.isolatedCandidateCount)",
+    "- detailPendingCount: $($report.detailPendingCount)",
+    "- detailPhaseStatus: $($report.detailPhaseStatus)",
     "- changeSummary: $($report.changeSummary | ConvertTo-Json -Compress -Depth 4)",
     "- progressiveDetailMax: $($report.progressiveDetailMax)",
     "- maxAutoApply: $($report.maxAutoApply)",
@@ -507,7 +520,7 @@ function Write-AutoPublishReport {
 function Set-DailyTaskSuccessfulCompletion {
   param([string]$Status)
 
-  if ($Status -notin @("success", "no-production-change", "validated-no-push")) {
+  if ($Status -notin @("no-production-change", "validated-no-push", "committed", "pushed", "deployment-pending-verification", "deployment-verified")) {
     return
   }
   if (-not (Test-Path -LiteralPath $DailyTaskStatePath -PathType Leaf)) {
@@ -522,17 +535,22 @@ function Set-DailyTaskSuccessfulCompletion {
     runId = $report.runId
     invocationStartedAt = $report.startedAt
     completedAt = $report.completedAt
-    lastSuccessAt = $now.ToString("o")
-    lastSuccessfulLocalDate = $now.ToString("yyyy-MM-dd")
-    lastSuccessfulCompletedAt = $report.completedAt
-    lastSuccessfulRunId = $report.runId
-    lastSuccessfulStatus = $Status
     productionWritten = $report.productionWritten -eq $true
     appliedCount = [int]$report.appliedCount
+    actualAppliedCount = [int]$report.actualAppliedCount
     candidateCount = [int]$report.candidateCount
     wouldApplyCount = [int]$report.wouldApplyCount
+    detailPendingCount = [int]$report.detailPendingCount
+    detailPhaseStatus = $report.detailPhaseStatus
     retryAllowed = $false
     nextRetryRecommendedAt = $null
+  }
+  if ($Status -eq "deployment-verified") {
+    $updates.lastSuccessAt = $now.ToString("o")
+    $updates.lastSuccessfulLocalDate = $now.ToString("yyyy-MM-dd")
+    $updates.lastSuccessfulCompletedAt = $report.completedAt
+    $updates.lastSuccessfulRunId = $report.runId
+    $updates.lastSuccessfulStatus = $Status
   }
   foreach ($name in $updates.Keys) {
     $state | Add-Member -NotePropertyName $name -NotePropertyValue $updates[$name] -Force
@@ -793,10 +811,13 @@ try {
   if ($dailyState.status -in @("manual-review-required", "safety-gate-blocked", "terminal-failed", "retryable-failed")) {
     Stop-AutoPublish -Status "safety-gate-blocked" -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
   }
-  if ($dailyState.status -eq "detail-progress") {
+  if ($dailyState.status -in @("detail-progress", "detail-in-progress")) {
     $report.deploymentStatus = "not-requested"
-    Complete-AutoPublish -Status "detail-progress"
+    Complete-AutoPublish -Status "detail-in-progress"
     exit 0
+  }
+  if ($report.productionWritten -and ($report.actualAppliedCount -le 0 -or $report.actualAppliedCount -ne $report.appliedCount)) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "daily" -Reason "productionWritten requires a matching positive actualAppliedCount"
   }
   $dailyReportedNoProductionChange = -not $report.productionWritten
   }
@@ -920,7 +941,7 @@ try {
     $report.deploymentStatus = "push-complete-deployment-pending-verification"
   }
   $report.failureStage = $null
-  Complete-AutoPublish -Status "success"
+  Complete-AutoPublish -Status "deployment-pending-verification"
 } catch {
   if (-not $report.completedAt) {
     Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message

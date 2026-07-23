@@ -1568,7 +1568,7 @@ try {
   $script:DetailPendingCount = $detailPendingRemaining
 
   if ($detailPendingRemaining -gt 0) {
-    $script:DetailPhaseStatus = "detail-progress"
+    $script:DetailPhaseStatus = "detail-in-progress"
     $script:ResumeFromCachedListEffective = $true
     $script:LockCurrentListSnapshotUntilCompleteEffective = $true
     if ($currentListCache -and $currentListCache.usable -eq $true) {
@@ -1576,7 +1576,7 @@ try {
     }
     Write-DailyLog "DETAIL progress: completed=$($script:DetailCompletedThisRun) remaining=$detailPendingRemaining; prepare/apply deferred and current-list snapshot locked"
     Write-DailyTaskState `
-      -Status "detail-progress" `
+      -Status "detail-in-progress" `
       -Attempts $attempts `
       -ProductionWritten $false `
       -AppliedCount 0 `
@@ -1598,7 +1598,7 @@ try {
 
   Write-DailyLog "CONTINUE candidate/apply transition"
   Write-DailyTaskState `
-    -Status "running" `
+    -Status "detail-complete" `
     -Attempts $attempts `
     -CandidateCount (Get-AuditCandidateCount) `
     -RetryAllowed $true `
@@ -1614,6 +1614,17 @@ try {
   }
 
   Clear-StaleProgressiveApplyReports -Reason "before prepare-apply"
+
+  Write-DailyTaskState `
+    -Status "ready-to-apply" `
+    -Attempts $attempts `
+    -CandidateCount (Get-AuditCandidateCount) `
+    -RetryAllowed $true `
+    -DetailPhaseStatus "detail-complete" `
+    -DetailPendingCount 0 `
+    -DetailPending 0 `
+    -DetailCompletedThisRun $script:DetailCompletedThisRun `
+    -CachedListResume $script:CachedListResumeState
 
   $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments (@(
     "scripts/inventory/run-inventory-automation-v1.mjs",
@@ -1781,7 +1792,7 @@ try {
     Set-CachedListResumeFromCache -Cache $currentListCache -Completed $true
   }
   Write-DailyTaskState `
-    -Status "success" `
+    -Status "applied" `
     -Attempts $attempts `
     -ProductionWritten $true `
     -AppliedCount $applyAppliedCount `
@@ -1790,7 +1801,8 @@ try {
     -IsolatedCandidateCount $applyIsolatedCandidateCount `
     -RetryAllowed $false `
     -DetailPhaseStatus $script:DetailPhaseStatus `
-    -CachedListResume $script:CachedListResumeState
+    -CachedListResume $script:CachedListResumeState `
+    -ChangeSummary $applyChangeSummary
   Write-DailyLog "DAILY TASK APPLY COMPLETE; final notification waits for auto-publish validation/build/push completion"
 } catch {
   $failureReason = $_.Exception.Message

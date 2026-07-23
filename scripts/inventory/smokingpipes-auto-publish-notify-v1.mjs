@@ -3,6 +3,7 @@ import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
 import { sendPushDeerNotification } from "./inventory-pushdeer-notifier-v1.mjs";
+import { deriveSmokingpipesDailyStatus, getActualAppliedCount } from "./smokingpipes-daily-status-v1.mjs";
 
 function parseArgs(argv = process.argv.slice(2)) {
   return new Map(
@@ -23,7 +24,9 @@ function changeSummaryLines(report = {}) {
   const input = report.changeSummary && typeof report.changeSummary === "object"
     ? report.changeSummary
     : {};
-  const number = (name, fallback = 0) => Number(input[name] ?? fallback) || 0;
+  const number = (name, fallback = 0) => name === "actualAppliedCount"
+    ? getActualAppliedCount(report)
+    : Number(input[name] ?? fallback) || 0;
   return [
     `新增上架：${number("newlyPublishedCount")}`,
     `原站涨价：${number("sourcePriceIncreaseCount")}`,
@@ -77,7 +80,7 @@ function markNotificationSent(taskStatePath, taskState, runId) {
 }
 
 export function buildAutoPublishNotification(report = {}) {
-  const status = text(report.status) || "unknown";
+  const status = deriveSmokingpipesDailyStatus(report);
   const title = "烟斗派库存发布｜Smokingpipes";
   const summaryLines = changeSummaryLines(report);
   if (status === "no-production-change") {
