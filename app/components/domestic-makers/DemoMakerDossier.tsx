@@ -52,12 +52,13 @@ function MakerHeroVisual({ maker }: { maker: DemoMakerStudio }) {
 function MakerHero({ maker }: { maker: DemoMakerStudio }) {
   const name = displayName(maker.name);
   return (
-    <section className="relative isolate h-[400px] overflow-hidden border-y border-[rgba(213,166,81,0.12)] bg-[#2e1a0f] min-[430px]:h-[430px] md:h-[520px]">
+    <section className="relative isolate overflow-hidden border-y border-[rgba(213,166,81,0.12)] bg-[#2e1a0f]">
       <MakerHeroVisual maker={maker} />
       <div className="absolute inset-0 bg-gradient-to-r from-[rgba(29,12,5,0.84)] via-[rgba(29,12,5,0.56)] to-[rgba(29,12,5,0.16)]" />
       <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[rgba(29,12,5,0.76)] to-transparent" />
-      <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-center px-4 pb-3 pt-10 sm:px-6 sm:pt-14 lg:px-10 lg:pt-20">
-        <div className="flex items-center gap-2 text-[10px] font-normal tracking-[0.1em] text-[#e4c18d]">
+      <div className="relative mx-auto max-w-[1240px] px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-7 lg:px-10 lg:pb-14 lg:pt-10">
+        <p className="text-[10px] font-normal leading-[1.4] text-[rgba(228,193,141,0.78)]">示例资料 · 仅用于页面开发与功能验收</p>
+        <div className="mt-2 flex items-center gap-2 text-[10px] font-normal tracking-[0.1em] text-[#e4c18d]">
           <span>{kindLabel(maker.kind)}</span><span className="h-px w-4 bg-[rgba(228,193,141,0.6)]" /><span>示例资料</span>
         </div>
         <h1 className="mt-3 text-[28px] font-medium leading-[1.25] text-[#f4eee7] sm:text-[32px]">{name}</h1>
@@ -87,10 +88,7 @@ export default function DemoMakerDossier({ maker, works }: DemoMakerDossierProps
     <div className="min-h-screen bg-[#2a180e] text-[#f4eee7] [&_a]:font-inherit [&_button]:font-inherit" style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif' }}>
       <SiteHeader variant="dark" />
       <main>
-        <div className="relative">
-          <MakerHero maker={maker} />
-          <p className="absolute left-4 top-3 z-10 text-[10px] font-normal leading-8 text-[rgba(228,193,141,0.78)] sm:left-6 lg:left-10">示例资料 · 仅用于页面开发与功能验收</p>
-        </div>
+        <MakerHero maker={maker} />
         <MakerWorksStats maker={maker} works={works} />
         <MakerProfileAbout maker={maker} />
         <MakerWorksDirectory maker={maker} works={works} />

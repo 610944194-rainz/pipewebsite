@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProductCardImage from "@/components/products/ProductCardImage";
 import type {
   DemoMakerProduct,
@@ -155,16 +155,48 @@ export function MakerWorksDirectory({ maker, works }: MakerWorksProps) {
 
 export function MakerProfileAbout({ maker }: { maker: DemoMakerStudio }) {
   const [expanded, setExpanded] = useState(false);
-  const paragraphs = maker.longIntro.split("\n\n").filter(Boolean);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const bioRef = useRef<HTMLParagraphElement>(null);
   const displayName = displayedName(maker.name);
+
+  useEffect(() => {
+    if (expanded) return;
+
+    const bio = bioRef.current;
+    if (!bio) return;
+
+    const measureOverflow = () => {
+      setHasOverflow(bio.scrollHeight > bio.clientHeight + 1);
+    };
+
+    measureOverflow();
+    const observer = new ResizeObserver(measureOverflow);
+    observer.observe(bio);
+    return () => observer.disconnect();
+  }, [expanded, maker.longIntro]);
+
   return (
     <section className="border-y border-[rgba(213,166,81,0.1)] bg-[#322015] px-4 py-6 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-[1240px]">
         <h2 className="text-[20px] font-medium leading-[1.35] text-[#f4eee7]">关于{displayName}</h2>
-        <div className="mt-3 max-w-[760px] text-[13px] font-normal leading-[1.6] text-[rgba(244,238,231,0.72)]">
-          {paragraphs.slice(0, expanded ? undefined : 1).map((paragraph) => <p key={paragraph} className="mb-2 last:mb-0">{paragraph}</p>)}
-        </div>
-        {paragraphs.length > 1 ? <button type="button" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)} className="mt-3 text-[12px] font-medium text-[#e4c18d] underline decoration-[rgba(228,193,141,0.64)] underline-offset-4 focus-visible:outline-none">{expanded ? "收起" : "查看更多"}</button> : null}
+        <p
+          id={`maker-bio-${maker.slug}`}
+          ref={bioRef}
+          className={`mt-3 max-w-[760px] whitespace-pre-line text-[13px] font-normal leading-[1.6] text-[rgba(244,238,231,0.72)] ${expanded ? "" : "line-clamp-6"}`}
+        >
+          {maker.longIntro.trim()}
+        </p>
+        {hasOverflow || expanded ? (
+          <button
+            type="button"
+            aria-expanded={expanded}
+            aria-controls={`maker-bio-${maker.slug}`}
+            onClick={() => setExpanded((value) => !value)}
+            className="mt-3 text-[12.5px] font-medium leading-[1.4] text-[#e4c18d] underline decoration-[rgba(228,193,141,0.64)] underline-offset-4 focus-visible:outline-none"
+          >
+            {expanded ? "收起" : "查看更多"}
+          </button>
+        ) : null}
       </div>
     </section>
   );
