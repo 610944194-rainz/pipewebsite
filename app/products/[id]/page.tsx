@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
@@ -421,14 +421,14 @@ export default async function ProductDetailPage({
                 )}
               </div>
               <Link
-                href={`/request?product=${encodeURIComponent(product.id)}`}
+                href={`/request/product?product=${encodeURIComponent(product.id)}&returnTo=${encodeURIComponent(`/products/${product.id}`)}`}
                 className="mt-4 flex h-[46px] items-center justify-center rounded-[4px] bg-[#2A1710] px-5 text-[13.5px] font-medium tracking-[0.02em] text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
               >
                 <ChatIcon className="mr-2 h-[17px] w-[17px] text-[var(--brass)]" />
                 咨询这只斗
               </Link>
               <p className="mt-3 text-left text-[11px] font-normal leading-[1.6] text-[var(--text-secondary)]">
-                库存、最终价格、国际运费及预计税费由人工确认。
+                当前展示价格已包含税费、服务费及国际邮费。
               </p>
             </section>
           </div>

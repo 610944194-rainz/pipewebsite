@@ -105,7 +105,7 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
       </section>
 
       <section className="mt-8 lg:mt-12">
-        <SectionHeader title="海外库存速览" href="/products" />
+        <SectionHeader title="各国烟斗速览" href="/products" />
         <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
           {collectionCards.map((item) => (
             <Link key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[8px] bg-[var(--coffee-dark)]">

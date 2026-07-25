@@ -9,9 +9,9 @@ type SiteHeaderProps = { className?: string; variant?: "default" | "dark" };
 
 const navigation = [
   { title: "首页", label: "Home", href: "/" },
-  { title: "海外库存", label: "Overseas Inventory", href: "/products" },
+  { title: "海外烟斗", label: "Overseas Inventory", href: "/products" },
   { title: "国内斗师", label: "Domestic Makers", href: "/domestic-makers" },
-  { title: "品牌档案", label: "Brands", href: "/brands" },
+  { title: "品牌精选", label: "Brands", href: "/brands" },
   { title: "选品服务", label: "Service", href: "/service" },
 ] as const;
 
@@ -67,16 +67,16 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
             aria-controls="site-mobile-menu"
             aria-expanded={open}
             onClick={() => setOpenPath(pathname)}
-            className={`inline-flex h-11 w-11 items-center justify-center transition-colors lg:hidden motion-reduce:transition-none ${variant === "dark" ? "text-[#f4eee7] hover:text-[#e4c18d]" : "text-[var(--text-primary)] hover:text-[var(--coffee)]"}`}
+            className={`-ml-1.5 inline-flex h-11 w-11 items-center justify-center transition-colors lg:ml-0 lg:hidden motion-reduce:transition-none ${variant === "dark" ? "text-[#f4eee7] hover:text-[#e4c18d]" : "text-[var(--text-primary)] hover:text-[var(--coffee)]"}`}
           >
             <MenuIcon className="h-[21px] w-[21px]" />
           </button>
 
           <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="absolute left-[50vw] flex min-w-0 -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0 lg:justify-start">
             <img
-              src="/pics/yandoubuy-logo-header.png"
+              src={variant === "dark" ? "/pics/yandoubuy-logo-header-warm-white.png" : "/pics/yandoubuy-logo-header.png"}
               alt="烟斗派 YandouBuy"
-              className={`block h-auto w-[150px] max-w-full object-contain lg:w-[190px] ${variant === "dark" ? "brightness-0 invert sepia contrast-75" : "mix-blend-multiply"}`}
+              className={`block h-auto w-[150px] max-w-full translate-y-[2px] object-contain lg:w-[190px] lg:translate-y-0 ${variant === "dark" ? "" : "mix-blend-multiply"}`}
             />
           </Link>
 

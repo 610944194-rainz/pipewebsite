@@ -136,11 +136,10 @@ function getFeaturedMakers(): HomeFeaturedMaker[] {
 
 export default async function HomePage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const params = searchParams ? await searchParams : {};
-  const demo = (Array.isArray(params.demo) ? params.demo[0] : params.demo) === "1";
   const weeklyProducts = getHomepageFeaturedProducts().map(weeklyProduct);
   const todayProducts = getTodayProducts();
   const brands = getFeaturedBrands();
-  const makers = demo ? getFeaturedMakers() : [];
+  const makers = getFeaturedMakers();
 
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
@@ -153,7 +152,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
         todayProducts={todayProducts}
         brands={brands}
         makers={makers}
-        makersDemo={demo}
+        makersDemo
       />
       <SiteFooter />
     </main>

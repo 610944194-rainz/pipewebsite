@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 const slides = [
   {
-    title: "精选海外烟斗库存",
+    title: "精选海外品牌烟斗",
     description: "人工选品 · 信息清晰 · 持续更新",
-    cta: "查看海外库存",
+    cta: "查看海外烟斗",
     href: "/products",
     image: "/home/hero/home-hero-day.png",
     position: "object-[62%_center] lg:object-[58%_center]",

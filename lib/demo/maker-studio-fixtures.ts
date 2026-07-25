@@ -68,6 +68,8 @@ export const demoMakersAndStudios: readonly DemoMakerStudio[] = [
     intro: "以天然材料、简洁造型和手工细节为主要方向。",
     longIntro:
       "木川工房是用于页面开发的虚拟工作室案例。作品强调石楠木纹理、简洁轮廓与克制装饰，注重材料本身的自然表现。\n\n示例作品覆盖经典斗型与少量自由式设计，方便测试工作室详情、作品筛选和产品目录等页面能力。",
+    coverImage: "/domestic-makers/demo/muchuan-hero.png",
+    heroImage: "/domestic-makers/demo/muchuan-hero.png",
     isDemo: true,
     source: "ui-fixture",
   },
@@ -81,6 +83,8 @@ export const demoMakersAndStudios: readonly DemoMakerStudio[] = [
     intro: "偏好自由式造型与流畅线条。",
     longIntro:
       "周屿是用于开发验收的虚拟斗师案例，作品方向偏向自由式造型，注重斗钵体量、斗柄曲线和整体视觉重心。\n\n示例作品用于测试自由式河豚斗、白兰地斗和反葫芦结构等内容的展示效果，不代表任何真实人物或真实制斗经历。",
+    coverImage: "/domestic-makers/demo/zhou-yu-hero.png",
+    heroImage: "/domestic-makers/demo/zhou-yu-hero.png",
     isDemo: true,
     source: "ui-fixture",
   },
@@ -94,6 +98,8 @@ export const demoMakersAndStudios: readonly DemoMakerStudio[] = [
     intro: "资料与公开作品正在整理中。",
     longIntro:
       "南岸制斗是用于测试无作品状态的虚拟工作室案例。详情页保留完整主体介绍，但作品目录展示“暂无公开作品”。\n\n该案例用于验证工作室没有公开作品时的数据带、空状态、咨询入口和页面布局。",
+    coverImage: "/domestic-makers/demo/nanan-hero.png",
+    heroImage: "/domestic-makers/demo/nanan-hero.png",
     isDemo: true,
     source: "ui-fixture",
   },

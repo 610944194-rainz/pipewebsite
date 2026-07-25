@@ -1,6 +1,8 @@
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
+import EditorialHero from "../components/page/EditorialHero";
+import PageBackBar from "../components/page/PageBackBar";
 import { isNameOnlyBrand } from "@/data/brands";
 import { getPublicBrandProfiles, type PublicBrandProfile } from "@/lib/public-products/brands";
 import { parseBrandSummary } from "../utils/display";
@@ -187,25 +189,21 @@ export default async function BrandsPage({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
       <SiteHeader />
+      <PageBackBar />
 
-      <section className="relative isolate h-[220px] overflow-hidden md:h-[320px]">
-        <img
-          src="/pics/brands-head.png"
-          alt="暖棕色烟斗与海外港口氛围"
-          className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-[60%_center]"
+      <section className="mx-auto max-w-[1240px] px-4 pt-1 sm:px-6 lg:px-10">
+        <EditorialHero
+          imageSrc="/pics/brands-head.png"
+          imageAlt="海外烟斗品牌与皮具静物"
+          eyebrow="PIPE BRANDS"
+          title="品牌精选"
+          description="收录海外烟斗品牌、独立斗师及烟斗工作室"
+          meta={`共 ${brands.length} 个品牌`}
+          imagePosition="65% 50%"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(29,15,8,0.78)] via-[rgba(29,15,8,0.42)] to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-[1200px] flex-col justify-end px-4 pb-7 sm:px-6 md:pb-10 lg:px-10">
-          <p className="text-[10px] font-normal tracking-[0.22em] text-[#e3bb7d]">PIPE BRANDS</p>
-          <h1 className="mt-2 text-[23px] font-medium leading-[1.35] text-[#f5eee6] md:text-[32px]">烟斗品牌档案</h1>
-          <p className="mt-2 max-w-[280px] text-[12px] font-normal leading-[1.65] text-[rgba(244,238,231,0.82)] md:max-w-[360px]">
-            收录海外烟斗品牌、产地与公开库存索引。
-          </p>
-          <p className="mt-4 text-[12px] font-medium text-[#e3bb7d]">共 {brands.length} 个品牌</p>
-        </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-5 sm:px-6 md:pt-7 lg:px-10 lg:pb-14">
+      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 md:pt-6 lg:px-10 lg:pb-14">
         <form action="/brands" className="flex h-11 items-center gap-3 rounded-[5px] border border-[#e3d9ce] bg-white px-3.5">
           {activeLetter ? <input type="hidden" name="letter" value={activeLetter} /> : null}
           <SearchIcon className="h-[19px] w-[19px] shrink-0 text-[var(--coffee)]" />

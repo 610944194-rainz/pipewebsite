@@ -1,5 +1,7 @@
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
+import EditorialHero from "../components/page/EditorialHero";
+import PageBackBar from "../components/page/PageBackBar";
 import ProductGrid from "@/components/products/ProductGrid";
 import { getFeaturedProducts } from "@/lib/public-products/server";
 
@@ -16,27 +18,16 @@ export default function FeaturedPage() {
       }}
     >
       <SiteHeader />
+      <PageBackBar />
 
-      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-10 lg:pb-14">
-        <header className="relative h-[194px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[210px] lg:h-[300px]">
-          <img
-            src="/pics/weekly-featured-head.png"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[66%_58%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.86)] via-[rgba(36,22,15,0.58)] to-transparent" />
-          <div className="relative flex h-full max-w-[294px] flex-col justify-end px-5 pb-5 sm:max-w-[360px] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
-            <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">
-              WEEKLY SELECTION
-            </p>
-            <h1 className="mt-2 text-[22px] font-medium leading-[1.35] text-[#f4eee7] lg:text-[28px]">
-              本周精选
-            </h1>
-            <p className="mt-2 text-[11.5px] font-normal leading-[1.6] text-[rgba(244,238,231,0.8)] lg:text-[12px]">
-              从公开库存中挑选兼具造型、工艺与价格参考价值的烟斗。
-            </p>
-          </div>
-        </header>
+      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-1 sm:px-6 sm:pb-12 lg:px-10 lg:pb-14">
+        <EditorialHero
+          imageSrc="/pics/weekly-featured-head.png"
+          eyebrow="WEEKLY SELECTION"
+          title="本周精选"
+          description="从公开库存中挑选兼具造型、工艺与价格参考价值的烟斗。"
+          imagePosition="66% 58%"
+        />
 
         <section className="mt-5 border-b border-[rgba(222,212,200,0.72)] pb-3 sm:mt-6" aria-labelledby="featured-inventory-title">
           <div className="flex items-baseline justify-between gap-3">

@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
+import EditorialHero from "@/app/components/page/EditorialHero";
+import PageBackBar from "@/app/components/page/PageBackBar";
 import {
   buildProductsHref,
   PRODUCT_SORT_OPTIONS,
@@ -430,8 +433,9 @@ export default function ProductsPageClient({
       }}
     >
       <SiteHeader />
+      <PageBackBar />
 
-      <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-5 sm:px-6 lg:px-10 lg:pt-7">
+      <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-1 sm:px-6 lg:px-10">
         <PageTitle />
 
         <section className="mt-5">
@@ -938,19 +942,13 @@ function EmptyState({ clearFilters }: { clearFilters: () => void }) {
 
 function PageTitle() {
   return (
-    <header className="relative h-[160px] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] sm:h-[168px]">
-      <img
-        src="/pics/overseas-head.png"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[63%_58%]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1b110c]/82 via-[#1b110c]/46 to-transparent" />
-      <div className="relative flex h-full max-w-[280px] flex-col justify-end px-5 pb-[18px] sm:px-7 sm:pb-6">
-        <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">OVERSEAS INVENTORY</p>
-        <h1 className="mt-2 text-[21px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[22px]">海外精选烟斗</h1>
-        <p className="mt-2 text-[11.5px] font-normal leading-[1.6] text-[#f4eee7]/78">精选海外公开库存，持续更新价格与状态。</p>
-      </div>
-    </header>
+    <EditorialHero
+      imageSrc="/pics/overseas-head.png"
+      eyebrow="OVERSEAS INVENTORY"
+      title="海外精选烟斗"
+      description="精选海外公开库存，持续更新价格与状态。"
+      imagePosition="63% 58%"
+    />
   );
 }
 

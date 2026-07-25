@@ -57,7 +57,34 @@ function MakerHero({ maker }: { maker: DemoMakerStudio }) {
       <div className="absolute inset-0 bg-gradient-to-r from-[rgba(29,12,5,0.84)] via-[rgba(29,12,5,0.56)] to-[rgba(29,12,5,0.16)]" />
       <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[rgba(29,12,5,0.76)] to-transparent" />
       <div className="relative mx-auto max-w-[1240px] px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-7 lg:px-10 lg:pb-14 lg:pt-10">
-        <p className="text-[10px] font-normal leading-[1.4] text-[rgba(228,193,141,0.78)]">示例资料 · 仅用于页面开发与功能验收</p>
+
+            <div
+              data-maker-detail-back-directory="true"
+              className="-mt-5 mb-0.5 flex h-9 items-center"
+            >
+              <a
+                href="/domestic-makers"
+                aria-label="返回国内斗师名录"
+                className="-ml-2 inline-flex h-9 w-9 items-center justify-center text-[#f4eee7] transition-colors hover:text-[#e4c18d]"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="h-[20px] w-[20px]"
+                >
+                  <path
+                    d="M15.5 5.5 9 12l6.5 6.5M9.5 12H20"
+                    stroke="currentColor"
+                    strokeWidth="1.55"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <p className="text-[10px] font-normal leading-[1.4] text-[rgba(228,193,141,0.78)]">展示案例 · 入驻资料将陆续更新</p>
         <div className="mt-2 flex items-center gap-2 text-[10px] font-normal tracking-[0.1em] text-[#e4c18d]">
           <span>{kindLabel(maker.kind)}</span><span className="h-px w-4 bg-[rgba(228,193,141,0.6)]" /><span>示例资料</span>
         </div>
@@ -77,7 +104,7 @@ function MakerConsultationCta({ maker }: { maker: DemoMakerStudio }) {
     <section className="mx-auto max-w-[1240px] px-4 py-7 sm:px-6 sm:py-9 lg:px-10">
       <div className="flex min-h-[72px] items-center justify-between gap-3 rounded-[5px] border border-[rgba(213,166,81,0.14)] bg-[linear-gradient(90deg,#3c2617,#2a180e)] px-4 py-3 sm:px-5">
         <h2 className="min-w-0 whitespace-nowrap text-[13px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[14px]">定制/咨询{name}的烟斗作品</h2>
-        <Link href={`/request?${params.toString()}`} className="shrink-0 rounded-[4px] bg-[#c28b49] px-3.5 py-2 text-[12px] font-medium text-[#24160f] transition-colors hover:bg-[#e4c18d] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f4eee7]">立即咨询</Link>
+        <Link href={`/request/maker?makerSlug=${maker.slug}`} className="shrink-0 rounded-[4px] bg-[#c28b49] px-3.5 py-2 text-[12px] font-medium text-[#24160f] transition-colors hover:bg-[#e4c18d] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f4eee7]">立即咨询</Link>
       </div>
     </section>
   );

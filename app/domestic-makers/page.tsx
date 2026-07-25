@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
+import PageBackBar from "../components/page/PageBackBar";
+import EditorialHero from "../components/page/EditorialHero";
 import MakerStudioDirectoryFilters from "../components/domestic-makers/MakerStudioDirectoryFilters";
 import {
   getDemoMakersAndStudios,
@@ -22,14 +24,14 @@ type MakerCardVisual =
 
 const makerCardVisuals: Record<string, MakerCardVisual> = {
   "demo-maker-lin-yan": { type: "image" },
-  "demo-studio-muchuan": { type: "workbench" },
-  "demo-maker-zhou-yu": { type: "monogram", monogram: "周屿", tone: "bg-[#f2ebe1] text-[var(--coffee)]" },
-  "demo-studio-nanan": { type: "monogram", monogram: "南岸", tone: "bg-[#e8ddd0] text-[#563822]" },
+  "demo-studio-muchuan": { type: "image" },
+  "demo-maker-zhou-yu": { type: "image" },
+  "demo-studio-nanan": { type: "image" },
 };
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = searchParams ? await searchParams : {};
-  const demo = firstParam(params.demo) === "1";
+  const demo = true;
 
   return {
     title: "斗师 / 工作室｜烟斗派 YandouBuy",
@@ -40,7 +42,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function DomesticMakersPage({ searchParams }: PageProps) {
   const params = searchParams ? await searchParams : {};
-  const demo = firstParam(params.demo) === "1";
+  const demo = true;
   const query = firstParam(params.q).trim();
   const requestedRegion = firstParam(params.region).trim();
   const requestedKind = firstParam(params.kind).trim();
@@ -63,29 +65,29 @@ export default async function DomesticMakersPage({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]" style={{ fontFamily: '"PingFang SC", "PingFang TC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif' }}>
       <SiteHeader />
+      <PageBackBar />
 
-      <section className={`mx-auto max-w-[1240px] px-4 pt-5 sm:px-6 sm:pt-7 lg:px-10 ${demo ? "pb-10 sm:pb-12 lg:pb-14" : "pb-6 sm:pb-8 lg:pb-10"}`}>
-        <header className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-[var(--coffee-dark)] lg:h-[310px] lg:aspect-auto">
-          <Image src="/pics/weekly-featured-head.png" alt="" fill sizes="(max-width: 1023px) 100vw, 1200px" className="object-cover object-[65%_center]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(36,22,15,0.88)] via-[rgba(36,22,15,0.56)] to-[rgba(36,22,15,0.08)]" />
-          <div className="relative flex h-full max-w-[74%] flex-col justify-end px-5 pb-5 sm:max-w-[62%] sm:px-7 sm:pb-7 lg:px-10 lg:pb-9">
-            <p className="text-[10px] font-normal uppercase leading-[1.4] tracking-[0.18em] text-[var(--brass)]">PIPE MAKERS &amp; STUDIOS</p>
-            <h1 className="mt-2 whitespace-nowrap text-[22px] font-medium leading-[1.35] text-[#f4eee7] sm:text-[24px] lg:text-[30px]">斗师 / 工作室</h1>
-            <p className="mt-2 text-[11.5px] font-normal leading-[1.55] text-[rgba(244,238,231,0.82)] lg:max-w-[420px] lg:text-[12px]">
-              记录国内斗师与工作室及其公开作品，了解他们的创作方向与在库作品。
-            </p>
-          </div>
-        </header>
+
+      <section className={`mx-auto max-w-[1240px] px-4 pt-1 sm:px-6 lg:px-10 ${demo ? "pb-10 sm:pb-12 lg:pb-14" : "pb-6 sm:pb-8 lg:pb-10"}`}>
+        <EditorialHero
+          imageSrc="/pics/weekly-featured-head.png"
+          eyebrow="PIPE MAKERS & STUDIOS"
+          title="国内斗师精选"
+          description="精选国内优秀斗师与工作室的烟斗作品，呈现各具特色的创作风格、工艺表达与代表作品。"
+          imagePosition="66% 58%"
+        />
 
         {demo ? (
-          <p className="mt-3 text-[11px] font-normal leading-[1.5] text-[var(--brass)]">示例资料 · 仅用于页面开发与功能验收</p>
+          <p className="mt-3 text-[11px] font-normal leading-[1.5] text-[var(--brass)]">展示案例 · 入驻资料将陆续更新</p>
         ) : null}
 
         <section className="mt-5 border-b border-[rgba(222,212,200,0.72)] pb-3 sm:mt-6" aria-labelledby="maker-directory-title">
           <div className="flex items-baseline justify-between gap-3">
-            <h2 id="maker-directory-title" className="text-[20px] font-medium leading-[1.4] text-[var(--text-primary)]">斗师 / 工作室</h2>
-            <p className="shrink-0 text-[12px] font-normal text-[var(--text-secondary)]">
-              共 <span className="text-[13px] font-medium text-[var(--brass)]">{filtered.length}</span> 位斗师 / 工作室
+            <h2 className="text-[16px] font-medium leading-[1.3] tracking-[-0.01em] text-[var(--text-primary)] sm:text-[18px]">
+              入驻名录
+            </h2>
+            <p className="text-[10px] font-normal leading-[1.4] text-[var(--text-secondary)]">
+              已收录 <span className="text-[13px] font-medium text-[var(--brass)]">{filtered.length}</span> 组
             </p>
           </div>
         </section>
