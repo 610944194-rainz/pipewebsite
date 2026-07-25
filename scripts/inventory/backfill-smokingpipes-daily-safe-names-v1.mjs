@@ -16,6 +16,7 @@ const HISTORICAL_BATCHES = [
   { commit: "a0cd714", label: "2026-07-10" },
   { commit: "aa6b346", label: "2026-07-13" },
   { commit: "cc15958", label: "2026-07-18" },
+  { commit: "cda3506", label: "2026-07-23" },
 ];
 const SAFE_INDEX_PATH = "data/i18n/product-displayname-zh-safe-candidates.json";
 

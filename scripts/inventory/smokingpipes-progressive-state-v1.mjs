@@ -38,6 +38,7 @@ const CHANGE_TYPES = new Set([
   "price-change",
   "explicit-out-of-stock",
   "reappeared",
+  "confirmed-disappeared",
 ]);
 
 function isIsoOrNull(value) {
@@ -141,6 +142,13 @@ export function createProgressiveDailyState({
       allowed: false,
       applyAllowed: false,
       disappearedIds: [],
+      confirmedDisappearedCandidatesApplyAllowed: true,
+      disappearanceTracking: {
+        version: 1,
+        initializedAt: null,
+        lastTrustedSnapshotId: null,
+        items: {},
+      },
     },
     candidates: [],
     summary: {
@@ -149,8 +157,11 @@ export function createProgressiveDailyState({
       priceChangeCandidates: 0,
       explicitOutOfStockCandidates: 0,
       reappearedCandidates: 0,
+      confirmedDisappearedCandidates: 0,
       disappearedCandidatesRecorded: 0,
       disappearedCandidatesApplyAllowed: false,
+      confirmedDisappearedCandidatesApplyAllowed: true,
+      disappearedPendingConfirmationCount: 0,
       pending: 0,
       deferred: 0,
       complete: 0,
@@ -234,6 +245,16 @@ export function validateProgressiveDailyState(state) {
       !Array.isArray(state.globalReconcile.disappearedIds)
     ) {
       errors.push("globalReconcile is invalid");
+    } else if (
+      state.globalReconcile.disappearanceTracking !== undefined &&
+      (
+        !state.globalReconcile.disappearanceTracking ||
+        state.globalReconcile.disappearanceTracking.version !== 1 ||
+        typeof state.globalReconcile.disappearanceTracking.items !== "object" ||
+        Array.isArray(state.globalReconcile.disappearanceTracking.items)
+      )
+    ) {
+      errors.push("globalReconcile.disappearanceTracking is invalid");
     }
     if (!state.summary || typeof state.summary !== "object") {
       errors.push("summary is invalid");

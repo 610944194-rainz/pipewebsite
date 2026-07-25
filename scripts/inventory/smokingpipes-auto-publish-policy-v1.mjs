@@ -9,7 +9,7 @@ export const POST_APPLY_RECOVERY_ALLOWED_PATHS = [
 ];
 
 export const LARGE_APPLY_WARNING_THRESHOLD = 300;
-export const DEFAULT_MAX_AUTO_APPLY = 1000;
+export const DEFAULT_MAX_AUTO_APPLY = 2000;
 
 function text(value) {
   return String(value || "").trim().replaceAll("\\", "/");

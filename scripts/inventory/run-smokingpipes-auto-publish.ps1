@@ -3,6 +3,7 @@ param(
   [switch]$NoProductionWrite,
   [switch]$NoPush,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [switch]$AllowDirtyWorktreeForManualVerification,
@@ -10,7 +11,7 @@ param(
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
   [string]$ProgressiveDetailMax = "50",
   [ValidatePattern('^[1-9]\d*$')]
-  [string]$MaxAutoApply = "1000",
+  [string]$MaxAutoApply = "2000",
   [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
   [string]$LegacyDuplicateSnapshotSha256 = "",
   [ValidateRange(1, 100000)]
@@ -25,8 +26,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 $CommandExecutionModulePath = Join-Path $PSScriptRoot "smokingpipes-command-execution-v1.psm1"
+$SameDayGuardModulePath = Join-Path $PSScriptRoot "smokingpipes-daily-invocation-guard-v1.psm1"
 $DailyTaskLockHelperPath = Join-Path $PSScriptRoot "smokingpipes-daily-task-lock-v1.mjs"
 Import-Module -Name $CommandExecutionModulePath -Force
+Import-Module -Name $SameDayGuardModulePath -Force
 $EffectiveBuildExecutable = if ([string]::IsNullOrWhiteSpace($BuildExecutable)) { "npm.cmd" } else { $BuildExecutable.Trim() }
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $ReportJsonPath = Join-Path $ProjectRoot "data\review\smokingpipes-auto-publish-latest.json"
@@ -54,6 +57,14 @@ $ProductionExactPaths = @(
   "data/products/unified-products-staging.json"
 )
 $LargeApplyWarningThreshold = 300
+
+$sameDayDecision = Test-SmokingpipesSameDaySuccess `
+  -State (Read-SmokingpipesDailyTaskState -Path $DailyTaskStatePath) `
+  -ForceSameDayRerun:$ForceSameDayRerun
+if ($sameDayDecision.ShouldSkip) {
+  Write-Output "same-day-success-already-completed"
+  exit 0
+}
 
 function ConvertTo-CanonicalGitPath {
   param([string]$PathToNormalize)
@@ -302,6 +313,15 @@ function Copy-DailyStateToReport {
   $report.candidateCount = Get-DailyNumber -State $State -Name "candidateCount"
   $report.wouldApplyCount = Get-DailyNumber -State $State -Name "wouldApplyCount"
   $report.appliedCount = Get-DailyNumber -State $State -Name "appliedCount"
+  $report.isolatedCandidateCount = Get-DailyNumber -State $State -Name "isolatedCandidateCount"
+  if ($null -ne $State.changeSummary) { $report.changeSummary = $State.changeSummary }
+  $report.actualAppliedCount = if ($null -ne $State.changeSummary -and $null -ne $State.changeSummary.actualAppliedCount) {
+    [int]$State.changeSummary.actualAppliedCount
+  } else {
+    0
+  }
+  $report.detailPendingCount = Get-DailyNumber -State $State -Name "detailPendingCount"
+  $report.detailPhaseStatus = [string]$State.detailPhaseStatus
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
   $dailyMaxAutoApply = Get-DailyNumber -State $State -Name "maxAutoApply"
   if ($dailyMaxAutoApply -gt 0) { $report.maxAutoApply = $dailyMaxAutoApply }
@@ -372,6 +392,17 @@ $report = [ordered]@{
   candidateCount = 0
   wouldApplyCount = 0
   appliedCount = 0
+  actualAppliedCount = 0
+  isolatedCandidateCount = 0
+  detailPendingCount = 0
+  detailPhaseStatus = $null
+  changeSummary = [ordered]@{
+    newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
+    explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
+    disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
+    otherAppliedCount = 0; actualAppliedCount = 0
+    consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
+  }
   progressiveDetailMax = [int]$ProgressiveDetailMax
   maxAutoApply = [int]$MaxAutoApply
   largeApplyWarningThreshold = $LargeApplyWarningThreshold
@@ -439,6 +470,11 @@ function Write-AutoPublishReport {
     "- candidateCount: $($report.candidateCount)",
     "- wouldApplyCount: $($report.wouldApplyCount)",
     "- appliedCount: $($report.appliedCount)",
+    "- actualAppliedCount: $($report.actualAppliedCount)",
+    "- isolatedCandidateCount: $($report.isolatedCandidateCount)",
+    "- detailPendingCount: $($report.detailPendingCount)",
+    "- detailPhaseStatus: $($report.detailPhaseStatus)",
+    "- changeSummary: $($report.changeSummary | ConvertTo-Json -Compress -Depth 4)",
     "- progressiveDetailMax: $($report.progressiveDetailMax)",
     "- maxAutoApply: $($report.maxAutoApply)",
     "- largeApplyWarningThreshold: $($report.largeApplyWarningThreshold)",
@@ -481,6 +517,57 @@ function Write-AutoPublishReport {
   [IO.File]::WriteAllText($ReportMarkdownPath, "`uFEFF$markdown`n", [Text.UTF8Encoding]::new($true))
 }
 
+function Set-DailyTaskSuccessfulCompletion {
+  param([string]$Status)
+
+  if ($Status -notin @("no-production-change", "validated-no-push", "committed", "pushed", "deployment-pending-verification", "deployment-verified")) {
+    return
+  }
+  if (-not (Test-Path -LiteralPath $DailyTaskStatePath -PathType Leaf)) {
+    throw "daily task state is missing: $DailyTaskStatePath"
+  }
+
+  $state = Get-Content -LiteralPath $DailyTaskStatePath -Raw -Encoding utf8 | ConvertFrom-Json
+  $now = Get-Date
+  $updates = [ordered]@{
+    dateKey = $now.ToString("yyyy-MM-dd")
+    status = $Status
+    runId = $report.runId
+    invocationStartedAt = $report.startedAt
+    completedAt = $report.completedAt
+    productionWritten = $report.productionWritten -eq $true
+    appliedCount = [int]$report.appliedCount
+    actualAppliedCount = [int]$report.actualAppliedCount
+    candidateCount = [int]$report.candidateCount
+    wouldApplyCount = [int]$report.wouldApplyCount
+    detailPendingCount = [int]$report.detailPendingCount
+    detailPhaseStatus = $report.detailPhaseStatus
+    retryAllowed = $false
+    nextRetryRecommendedAt = $null
+  }
+  if ($Status -eq "deployment-verified") {
+    $updates.lastSuccessAt = $now.ToString("o")
+    $updates.lastSuccessfulLocalDate = $now.ToString("yyyy-MM-dd")
+    $updates.lastSuccessfulCompletedAt = $report.completedAt
+    $updates.lastSuccessfulRunId = $report.runId
+    $updates.lastSuccessfulStatus = $Status
+  }
+  foreach ($name in $updates.Keys) {
+    $state | Add-Member -NotePropertyName $name -NotePropertyValue $updates[$name] -Force
+  }
+
+  $temporaryPath = "$DailyTaskStatePath.$($report.runId).tmp"
+  try {
+    $json = $state | ConvertTo-Json -Depth 8
+    [IO.File]::WriteAllText($temporaryPath, "$json`n", [Text.UTF8Encoding]::new($false))
+    Move-Item -LiteralPath $temporaryPath -Destination $DailyTaskStatePath -Force
+  } finally {
+    if (Test-Path -LiteralPath $temporaryPath) {
+      Remove-Item -LiteralPath $temporaryPath -Force -ErrorAction SilentlyContinue
+    }
+  }
+}
+
 function Send-AutoPublishNotification {
   if ([string]::IsNullOrWhiteSpace($NotificationScriptPath)) {
     $report.notificationStatus = "skipped-not-configured"
@@ -489,8 +576,20 @@ function Send-AutoPublishNotification {
   if (-not (Test-Path -LiteralPath $NotificationScriptPath -PathType Leaf)) {
     throw "notification helper is missing: $NotificationScriptPath"
   }
-  Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($NotificationScriptPath, "--report=$ReportJsonPath") -Stage "notification-helper" | Out-Null
-  $report.notificationStatus = "sent"
+  $notificationResult = Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @(
+    $NotificationScriptPath,
+    "--report=$ReportJsonPath",
+    "--expected-run-id=$($report.runId)",
+    "--invocation-started-at=$($report.startedAt)",
+    "--task-state=$DailyTaskStatePath"
+  ) -Stage "notification-helper"
+  $notificationPayload = [string]$notificationResult.StdoutTail | ConvertFrom-Json
+  if ($notificationPayload.notificationSent -eq $true) {
+    $report.notificationStatus = "sent"
+  } else {
+    $notificationReason = [string]$notificationPayload.notificationReason
+    $report.notificationStatus = if ([string]::IsNullOrWhiteSpace($notificationReason)) { "skipped" } else { $notificationReason }
+  }
 }
 
 function Send-AutoPublishNotificationSafely {
@@ -505,6 +604,7 @@ function Send-AutoPublishNotificationSafely {
 function Complete-AutoPublish {
   param([string]$Status, [string]$FailureStage = $null, [string]$FailureReason = $null)
   Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
+  Set-DailyTaskSuccessfulCompletion -Status $Status
   Send-AutoPublishNotificationSafely
   Write-AutoPublishReport -Status $Status -FailureStage $FailureStage -FailureReason $FailureReason
 }
@@ -594,6 +694,8 @@ function Sync-AutomationRuntimeWithOriginMain {
   return [pscustomobject]@{ Head = $headAfter; OriginMain = $originAfter; Branch = $branch; Upstream = $upstream }
 }
 
+$dailyReportedNoProductionChange = $false
+
  $locationPushed = $false
 try {
   Push-Location -LiteralPath $ProjectRoot
@@ -660,22 +762,6 @@ try {
       Stop-AutoPublish -Status "preflight-blocked" -Stage "lock" -Reason "active inventory lock: $lockPath"
     }
   }
-  $processSnapshot = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue)
-  $processById = @{}
-  foreach ($process in $processSnapshot) { $processById[[int]$process.ProcessId] = $process }
-  $ancestorProcessIds = [Collections.Generic.HashSet[int]]::new()
-  $ancestorCursor = [int]$PID
-  while ($processById.ContainsKey($ancestorCursor)) {
-    $parentId = [int]$processById[$ancestorCursor].ParentProcessId
-    if ($parentId -le 0 -or -not $ancestorProcessIds.Add($parentId)) { break }
-    $ancestorCursor = $parentId
-  }
-  $otherInventoryProcess = $processSnapshot | Where-Object {
-    $_.ProcessId -ne $PID -and -not $ancestorProcessIds.Contains([int]$_.ProcessId) -and $_.CommandLine -match "smokingpipes.*(?:inventory|progressive|daily)" -and $_.CommandLine -notmatch "run-smokingpipes-auto-publish"
-  } | Select-Object -First 1
-  if ($otherInventoryProcess) {
-    Stop-AutoPublish -Status "preflight-blocked" -Stage "process" -Reason "another Smokingpipes inventory process is running"
-  }
   $recoveryReadiness = $null
   if ($ResumeAfterProductionWrite) {
     $report.failureStage = "recovery-state-validation"
@@ -702,10 +788,13 @@ try {
   $dailyArguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $DailyScriptPath)
   if ($NoProductionWrite) { $dailyArguments += "-NoProductionWrite" }
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
+  if ($ForceSameDayRerun) { $dailyArguments += "-ForceSameDayRerun" }
   if ($SkipCurrentList) { $dailyArguments += "-SkipCurrentList" }
   if ($AllowStaleCurrentListCache) { $dailyArguments += "-AllowStaleCurrentListCache" }
   $dailyArguments += @("-ProgressiveDetailMax", $ProgressiveDetailMax)
   $dailyArguments += @("-MaxAutoApply", $MaxAutoApply)
+  $dailyArguments += @("-RunId", $report.runId)
+  $dailyArguments += @("-InvocationStartedAt", $report.startedAt)
   if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
     $dailyArguments += @("-LegacyDuplicateSnapshotSha256", $LegacyDuplicateSnapshotSha256.Trim())
   }
@@ -722,16 +811,15 @@ try {
   if ($dailyState.status -in @("manual-review-required", "safety-gate-blocked", "terminal-failed", "retryable-failed")) {
     Stop-AutoPublish -Status "safety-gate-blocked" -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
   }
-  if ($dailyState.status -eq "detail-progress") {
+  if ($dailyState.status -in @("detail-progress", "detail-in-progress")) {
     $report.deploymentStatus = "not-requested"
-    Complete-AutoPublish -Status "detail-progress"
+    Complete-AutoPublish -Status "detail-in-progress"
     exit 0
   }
-  if (-not $report.productionWritten) {
-    $report.deploymentStatus = "not-requested"
-    Complete-AutoPublish -Status "no-production-change"
-    exit 0
+  if ($report.productionWritten -and ($report.actualAppliedCount -le 0 -or $report.actualAppliedCount -ne $report.appliedCount)) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "daily" -Reason "productionWritten requires a matching positive actualAppliedCount"
   }
+  $dailyReportedNoProductionChange = -not $report.productionWritten
   }
 
   if ($ResumeAfterProductionWrite) {
@@ -765,7 +853,26 @@ try {
     $changed = @(& git -C $ProjectRoot diff --name-only -- @ProductionExactPaths "data/generated/public-products") | Where-Object { $_ }
   }
   $report.changedProductionFiles = @($changed)
+  if ($dailyReportedNoProductionChange -and $changed.Count -gt 0) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "diff-guard" -Reason "daily reported no production write but tracked production changes exist"
+  }
   if ($changed.Count -eq 0) {
+    if ($dailyReportedNoProductionChange) {
+      # A no-change completion is a fresh invocation, never a projection of a
+      # prior production run's counters.
+      $report.productionWritten = $false
+      $report.candidateCount = 0
+      $report.wouldApplyCount = 0
+      $report.appliedCount = 0
+      $report.isolatedCandidateCount = 0
+      $report.changeSummary = [ordered]@{
+        newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
+        explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
+        disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
+        otherAppliedCount = 0; actualAppliedCount = 0
+        consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
+      }
+    }
     $report.deploymentStatus = "not-requested"
     Complete-AutoPublish -Status "no-production-change"
     exit 0
@@ -834,7 +941,7 @@ try {
     $report.deploymentStatus = "push-complete-deployment-pending-verification"
   }
   $report.failureStage = $null
-  Complete-AutoPublish -Status "success"
+  Complete-AutoPublish -Status "deployment-pending-verification"
 } catch {
   if (-not $report.completedAt) {
     Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message

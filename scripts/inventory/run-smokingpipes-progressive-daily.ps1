@@ -1,6 +1,7 @@
 ﻿param(
   [switch]$PreflightOnly,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [switch]$AllowDuplicateDedupe,
@@ -11,14 +12,18 @@
   [ValidatePattern('^(?:[1-9]|[1-9][0-9]|1[0-9]{2}|200)$')]
   [string]$ProgressiveDetailMax = "50",
   [ValidatePattern('^[1-9]\d*$')]
-  [string]$MaxAutoApply = "1000",
+  [string]$MaxAutoApply = "2000",
   [ValidatePattern('^(?:|[A-Fa-f0-9]{64})$')]
-  [string]$LegacyDuplicateSnapshotSha256 = ""
+  [string]$LegacyDuplicateSnapshotSha256 = "",
+  [string]$RunId = "",
+  [string]$InvocationStartedAt = ""
 )
 
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$SameDayGuardModulePath = Join-Path $PSScriptRoot "smokingpipes-daily-invocation-guard-v1.psm1"
+Import-Module -Name $SameDayGuardModulePath -Force
 $LogPath = Join-Path $ProjectRoot "data\review\smokingpipes-daily-task-latest.log"
 $EnvPath = Join-Path $ProjectRoot ".env.inventory.local"
 $AuditPath = Join-Path $ProjectRoot "data\review\smokingpipes-progressive-partial-audit-report.json"
@@ -50,6 +55,8 @@ $ResumeFromCachedListEffective = $false
 $LockCurrentListSnapshotUntilCompleteEffective = $false
 $NoProductionWriteEffective = $false
 $LargeApplyWarningThreshold = 300
+$InvocationRunId = if ([string]::IsNullOrWhiteSpace($RunId)) { "smokingpipes-daily-" + [guid]::NewGuid().ToString("N") } else { $RunId.Trim() }
+$InvocationStartedAtValue = if ([string]::IsNullOrWhiteSpace($InvocationStartedAt)) { (Get-Date).ToString("o") } else { $InvocationStartedAt.Trim() }
 $LegacyDuplicateSnapshotCliArgs = @()
 if (-not [string]::IsNullOrWhiteSpace($LegacyDuplicateSnapshotSha256)) {
   $LegacyDuplicateSnapshotCliArgs += "--legacy-duplicate-snapshot-sha256=$($LegacyDuplicateSnapshotSha256.Trim())"
@@ -330,10 +337,12 @@ function Write-DailyTaskState {
     [object]$DetailPendingCount = $null,
     [object]$DetailPending = $null,
     [object]$DetailCompletedThisRun = $null,
-    [object]$DetailQueueSpike = $null
+    [object]$DetailQueueSpike = $null,
+    [object]$ChangeSummary = $null
   )
 
   $now = Get-Date
+  $existingState = Read-DailyTaskState
   $currentListForState = if ($CurrentList) { $CurrentList } else { $script:CurrentListState }
   $inventoryLocksForState = if ($InventoryLocks) { $InventoryLocks } else { $script:InventoryLocksState }
   $progressiveLockForState = if ($ProgressiveLock) { $ProgressiveLock } else { $script:ProgressiveLockState }
@@ -345,17 +354,26 @@ function Write-DailyTaskState {
     noProductionWrite = [bool]$script:NoProductionWriteEffective
     dateKey = Get-TodayDateKey
     status = $Status
+    runId = $InvocationRunId
+    invocationStartedAt = $InvocationStartedAtValue
+    completedAt = $now.ToString("o")
     attempts = $Attempts
     lastAttemptAt = $now.ToString("o")
     lastSuccessAt = $null
     lastFailureAt = $null
     lastFailureReason = $FailureReason
     lastFailureType = $FailureType
+    lastSuccessfulLocalDate = if ($existingState) { [string]$existingState.lastSuccessfulLocalDate } else { $null }
+    lastSuccessfulCompletedAt = if ($existingState) { [string]$existingState.lastSuccessfulCompletedAt } else { $null }
+    lastSuccessfulRunId = if ($existingState) { [string]$existingState.lastSuccessfulRunId } else { $null }
+    lastSuccessfulStatus = if ($existingState) { [string]$existingState.lastSuccessfulStatus } else { $null }
+    lastNotificationRunId = if ($existingState) { [string]$existingState.lastNotificationRunId } else { $null }
     productionWritten = $ProductionWritten
     appliedCount = $AppliedCount
     candidateCount = $CandidateCount
     wouldApplyCount = $WouldApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
+    changeSummary = if ($null -ne $ChangeSummary) { $ChangeSummary } elseif ($existingState -and $existingState.changeSummary) { $existingState.changeSummary } else { $null }
     progressiveDetailMax = [int]$ProgressiveDetailMax
     maxAutoApply = [int]$MaxAutoApply
     largeApplyWarningThreshold = $LargeApplyWarningThreshold
@@ -940,7 +958,10 @@ function Release-DailyTaskLock {
 function Send-MobileReport {
   Invoke-InventoryNode -StepName "mobile-report" -Arguments @(
     "scripts/inventory/smokingpipes-daily-mobile-report-v1.mjs",
-    "--send"
+    "--send",
+    "--run-id=$InvocationRunId",
+    "--invocation-started-at=$InvocationStartedAtValue",
+    "--task-state=$DailyTaskStatePath"
   ) -ContinueOnFailure | Out-Null
 }
 
@@ -1113,33 +1134,26 @@ if ($script:PreflightOnlyEffective) {
   exit $preflightExit
 }
 
-if (
-  $dailyTaskState -and
-  $dailyTaskState.dateKey -eq (Get-TodayDateKey) -and
-  ($dailyTaskState.status -eq "success" -or $dailyTaskState.status -eq "skipped-success") -and
-  $dailyTaskState.productionWritten -eq $true
-) {
+ $sameDayDecision = Test-SmokingpipesSameDaySuccess `
+  -State $dailyTaskState `
+  -ForceSameDayRerun:$ForceSameDayRerun
+if ($sameDayDecision.ShouldSkip) {
   Write-DailyLog "DAILY TASK SKIPPED: today already completed successfully"
-  Write-DailyTaskState `
-    -Status "skipped-success" `
-    -Attempts ([int]($dailyTaskState.attempts)) `
-    -ProductionWritten $true `
-    -AppliedCount ([int]($dailyTaskState.appliedCount)) `
-    -CandidateCount ([int]($dailyTaskState.candidateCount)) `
-    -RetryAllowed $false
+  Write-Output "same-day-success-already-completed"
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
   exit 0
 }
 
-if (
-  $dailyTaskState -and
-  $dailyTaskState.dateKey -eq (Get-TodayDateKey) -and
-  $dailyTaskState.status -eq "terminal-failed" -and
-  $dailyTaskState.retryAllowed -eq $false
-) {
-  Write-DailyLog "DAILY TASK SKIPPED: terminal failure already recorded today"
+ $sameDayFailureDecision = Test-SmokingpipesSameDayFailureRetryPolicy `
+  -State $dailyTaskState
+if ($sameDayFailureDecision.ShouldSkip) {
+  Write-DailyLog "DAILY TASK SKIPPED: $($sameDayFailureDecision.Reason)"
+  Write-Output "same-day-hard-terminal"
   Write-DailyLog "=== SMOKINGPIPES PROGRESSIVE DAILY EXIT $(Get-Date -Format o) ==="
   exit 0
+}
+if ($sameDayFailureDecision.RequiresPreflight) {
+  Write-DailyLog "same-day failure retry allowed: $($sameDayFailureDecision.Reason); recovery preflight required"
 }
 
 if (
@@ -1395,7 +1409,7 @@ try {
     "--max-auto-apply=$MaxAutoApply"
   ) + $LegacyDuplicateSnapshotCliArgs)
 
-  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments (@(
+  $progressiveIngestArgs = @(
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-ingest-list",
@@ -1404,7 +1418,11 @@ try {
     "--no-commit",
     "--no-deploy",
     "--verbose"
-  ) + $LegacyDuplicateSnapshotCliArgs)
+  )
+  if ($script:CurrentListState.reused -ne $true -and $script:CurrentListState.skippedFetch -ne $true) {
+    $progressiveIngestArgs += "--current-list-fresh"
+  }
+  Invoke-InventoryNode -StepName "progressive-ingest-list" -Arguments ($progressiveIngestArgs + $LegacyDuplicateSnapshotCliArgs)
 
   $detailQueueGuardExit = Invoke-InventoryNode -StepName "detail-queue-spike-guard" -Arguments @(
     "scripts/inventory/smokingpipes-detail-queue-spike-v1.mjs",
@@ -1550,7 +1568,7 @@ try {
   $script:DetailPendingCount = $detailPendingRemaining
 
   if ($detailPendingRemaining -gt 0) {
-    $script:DetailPhaseStatus = "detail-progress"
+    $script:DetailPhaseStatus = "detail-in-progress"
     $script:ResumeFromCachedListEffective = $true
     $script:LockCurrentListSnapshotUntilCompleteEffective = $true
     if ($currentListCache -and $currentListCache.usable -eq $true) {
@@ -1558,7 +1576,7 @@ try {
     }
     Write-DailyLog "DETAIL progress: completed=$($script:DetailCompletedThisRun) remaining=$detailPendingRemaining; prepare/apply deferred and current-list snapshot locked"
     Write-DailyTaskState `
-      -Status "detail-progress" `
+      -Status "detail-in-progress" `
       -Attempts $attempts `
       -ProductionWritten $false `
       -AppliedCount 0 `
@@ -1580,7 +1598,7 @@ try {
 
   Write-DailyLog "CONTINUE candidate/apply transition"
   Write-DailyTaskState `
-    -Status "running" `
+    -Status "detail-complete" `
     -Attempts $attempts `
     -CandidateCount (Get-AuditCandidateCount) `
     -RetryAllowed $true `
@@ -1596,6 +1614,17 @@ try {
   }
 
   Clear-StaleProgressiveApplyReports -Reason "before prepare-apply"
+
+  Write-DailyTaskState `
+    -Status "ready-to-apply" `
+    -Attempts $attempts `
+    -CandidateCount (Get-AuditCandidateCount) `
+    -RetryAllowed $true `
+    -DetailPhaseStatus "detail-complete" `
+    -DetailPendingCount 0 `
+    -DetailPending 0 `
+    -DetailCompletedThisRun $script:DetailCompletedThisRun `
+    -CachedListResume $script:CachedListResumeState
 
   $prepareExit = Invoke-InventoryNode -StepName "progressive-prepare-apply" -Arguments (@(
     "scripts/inventory/run-inventory-automation-v1.mjs",
@@ -1630,8 +1659,9 @@ try {
   $prepareIsolatedCandidateCount = if ($prepareResult -and $prepareResult.isolatedCandidateCount) {
     [int]$prepareResult.isolatedCandidateCount
   } else {
-    0
+      0
   }
+  $applyChangeSummary = $null
 
   if ($prepareApplyReady) {
     Write-DailyLog "progressive prepare apply gate ready candidateCount=$prepareCandidateCount wouldApplyCount=$prepareWouldApplyCount isolatedCandidateCount=$prepareIsolatedCandidateCount"
@@ -1690,6 +1720,11 @@ try {
     } else {
       0
     }
+    $applyChangeSummary = if ($applyResult -and $applyResult.changeSummary) {
+      $applyResult.changeSummary
+    } else {
+      $null
+    }
     if (
       $applyExit -ne 0 -or
       -not $applyProductionWritten -or
@@ -1720,7 +1755,8 @@ try {
         -RetryAllowed $retryAllowed `
         -NextRetryRecommendedAt $(if ($retryAllowed) { Get-NextRetryAt } else { $null }) `
         -DetailPhaseStatus $script:DetailPhaseStatus `
-        -CachedListResume $script:CachedListResumeState
+        -CachedListResume $script:CachedListResumeState `
+        -ChangeSummary $applyChangeSummary
       Send-MobileReport
       Write-DailyLog "production write was not confirmed; cached-list resume remains locked"
       exit $(if ($retryAllowed) { 1 } else { 0 })
@@ -1745,7 +1781,8 @@ try {
       -FailureType "audit" `
       -RetryAllowed $false `
       -DetailPhaseStatus $script:DetailPhaseStatus `
-      -CachedListResume $script:CachedListResumeState
+      -CachedListResume $script:CachedListResumeState `
+      -ChangeSummary $applyChangeSummary
     Send-MobileReport
     Write-DailyLog "DAILY TASK TERMINAL FAILED"
     exit 0
@@ -1755,7 +1792,7 @@ try {
     Set-CachedListResumeFromCache -Cache $currentListCache -Completed $true
   }
   Write-DailyTaskState `
-    -Status "success" `
+    -Status "applied" `
     -Attempts $attempts `
     -ProductionWritten $true `
     -AppliedCount $applyAppliedCount `
@@ -1764,9 +1801,9 @@ try {
     -IsolatedCandidateCount $applyIsolatedCandidateCount `
     -RetryAllowed $false `
     -DetailPhaseStatus $script:DetailPhaseStatus `
-    -CachedListResume $script:CachedListResumeState
-  Send-MobileReport
-  Write-DailyLog "DAILY TASK COMPLETE"
+    -CachedListResume $script:CachedListResumeState `
+    -ChangeSummary $applyChangeSummary
+  Write-DailyLog "DAILY TASK APPLY COMPLETE; final notification waits for auto-publish validation/build/push completion"
 } catch {
   $failureReason = $_.Exception.Message
   $failureType = Get-FailureType -Message $failureReason

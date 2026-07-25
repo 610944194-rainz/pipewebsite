@@ -30,42 +30,53 @@ function makeFixture(name) {
   const temp = fs.mkdtempSync(path.join(fixtureTempRoot, `smokingpipes-runtime-sync-${name}-`));
   const fixture = path.join(temp, "worktree");
   const bare = path.join(temp, "origin.git");
-  run("git", ["init", "--bare", bare]);
-  run("git", ["clone", "--no-local", "--branch", "main", root, fixture]);
+  run("git", ["clone", "--bare", "--local", root, bare]);
+  run("git", ["clone", "--branch", "main", bare, fixture]);
   git(fixture, ["config", "user.email", "sync-e2e@example.invalid"]);
   git(fixture, ["config", "user.name", "Smokingpipes Sync E2E"]);
   git(fixture, ["switch", "-c", "automation/smokingpipes-production-run", "origin/main"]);
   for (const file of [
     ".gitignore",
     "scripts/inventory/run-smokingpipes-auto-publish.ps1",
+    "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1",
     "scripts/inventory/smokingpipes-command-execution-v1.psm1",
     "scripts/inventory/smokingpipes-command-runner-v1.mjs",
   ]) fs.copyFileSync(path.join(root, file), path.join(fixture, file));
   write(path.join(fixture, "scripts", "inventory", "run-smokingpipes-progressive-daily.ps1"), String.raw`param(
   [switch]$NoProductionWrite,
   [switch]$ForceRunOnce,
+  [switch]$ForceSameDayRerun,
   [switch]$SkipCurrentList,
   [switch]$AllowStaleCurrentListCache,
   [int]$ProgressiveDetailMax,
-  [int]$MaxAutoApply
+  [int]$MaxAutoApply,
+  [string]$RunId,
+  [string]$InvocationStartedAt
 )
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $state = [ordered]@{ status="completed"; productionWritten=$false; candidateCount=0; wouldApplyCount=0; appliedCount=0; progressiveDetailMax=30; maxAutoApply=1000 }
 New-Item -ItemType Directory -Force -Path (Join-Path $root "data\inventory") | Out-Null
 [IO.File]::WriteAllText((Join-Path $root "data\inventory\smokingpipes-daily-task-state.json"), (($state | ConvertTo-Json -Compress) + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
 `);
-  write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "process.exit(0);\n");
-  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs"]);
+  for (const file of [
+    "scripts/validate-public-product-indexes-v1.mjs",
+    "scripts/test-public-products-inventory-default-v1.mjs",
+    "scripts/inventory/test-inventory-runner-v1.mjs",
+  ]) write(path.join(fixture, file), "process.exit(0);\n");
+  const build = path.join(fixture, "build.cmd");
+  write(build, "@echo off\r\nexit /b 0\r\n");
+  write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "console.log(JSON.stringify({ notificationSent: false, notificationSkipped: true, notificationReason: 'fixture' }));\n");
+  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs", "scripts/validate-public-product-indexes-v1.mjs", "scripts/test-public-products-inventory-default-v1.mjs", "scripts/inventory/test-inventory-runner-v1.mjs", "build.cmd"]);
   git(fixture, ["commit", "-m", "test: configure runtime sync fixture"]);
   git(fixture, ["remote", "set-url", "origin", bare]);
   git(fixture, ["push", "origin", "HEAD:main"]);
   git(fixture, ["branch", "--set-upstream-to=origin/main"]);
-  return { temp, fixture, bare, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
+  return { temp, fixture, bare, build, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
 }
 
 function advanceRemote(scenario, count = 1) {
   const writer = path.join(scenario.temp, `writer-${Date.now()}-${Math.random().toString(16).slice(2)}`);
-  run("git", ["clone", scenario.bare, writer]);
+  run("git", ["clone", "--branch", "main", scenario.bare, writer]);
   git(writer, ["config", "user.email", "writer@example.invalid"]);
   git(writer, ["config", "user.name", "Sync Writer"]);
   for (let index = 0; index < count; index += 1) {
@@ -82,12 +93,12 @@ function localCommit(scenario, name) {
   git(scenario.fixture, ["commit", "-m", `test: ${name}`]);
 }
 
-function invoke(scenario, { preflight = true } = {}) {
+function invoke(scenario, { preflight = true, env = {} } = {}) {
   const wrapper = path.join(scenario.fixture, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1");
   const args = ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", wrapper,
-    "-AutomationWorktree", scenario.fixture, "-BuildExecutable", npm, "-NotificationScriptPath", scenario.notify];
+    "-AutomationWorktree", scenario.fixture, "-BuildExecutable", scenario.build, "-NotificationScriptPath", scenario.notify];
   if (preflight) args.push("-PreflightOnly"); else args.push("-ForceRunOnce");
-  return run(powershell, args, { cwd: scenario.fixture, allowFailure: true });
+  return run(powershell, args, { cwd: scenario.fixture, allowFailure: true, env });
 }
 
 function report(scenario) {
@@ -133,10 +144,21 @@ function summary(name, scenario, started, extra = {}) {
     value = report(scenario);
     assert.equal(value.headAfterSync, value.originMainSha);
     const beforeNoChange = git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim();
-    assert.equal(invoke(scenario, { preflight: false }).status, 0); // J/K
+    const firstNoChange = invoke(scenario, { preflight: false });
+    assert.equal(firstNoChange.status, 0, firstNoChange.stderr || firstNoChange.stdout); // J/K
     value = report(scenario);
     assert.equal(value.status, "no-production-change");
     assert.equal(value.commitPerformed, false); assert.equal(value.pushPerformed, false);
+    assert.equal(value.appliedCount, 0); assert.equal(value.productionWritten, false);
+    assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeNoChange);
+    const completedTaskState = JSON.parse(fs.readFileSync(path.join(scenario.fixture, "data", "inventory", "smokingpipes-daily-task-state.json"), "utf8"));
+    assert.equal(completedTaskState.lastSuccessfulStatus, "no-production-change");
+    assert.equal(completedTaskState.lastSuccessfulRunId, value.runId);
+    const reportBeforeSameDayNoop = fs.readFileSync(path.join(scenario.fixture, "data", "review", "smokingpipes-auto-publish-latest.json"), "utf8");
+    const sameDayNoop = invoke(scenario, { preflight: false });
+    assert.equal(sameDayNoop.status, 0, sameDayNoop.stderr || sameDayNoop.stdout);
+    assert.match(sameDayNoop.stdout, /same-day-success-already-completed/);
+    assert.equal(fs.readFileSync(path.join(scenario.fixture, "data", "review", "smokingpipes-auto-publish-latest.json"), "utf8"), reportBeforeSameDayNoop);
     assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeNoChange);
     summary("A-B-C-J-K-L", scenario, started, { initialHead: equalHead });
   } finally { cleanup(scenario); }
@@ -177,13 +199,18 @@ for (const [name, remoteAdvance, expected] of [["E", true, /diverged/], ["F", fa
   } finally { cleanup(scenario); }
 }
 
-// H: a real index lock makes ff-only merge fail and preserves its stderr diagnostics.
+// H: a merge-only Git shim makes ff-only merge fail without leaving a real lock that Windows Git may wait on.
 {
   const scenario = makeFixture("merge-failure"); const started = Date.now();
   try {
-    advanceRemote(scenario, 1); write(path.join(scenario.fixture, ".git", "index.lock"), "sync-e2e\n");
-    const outcome = invoke(scenario); assert.notEqual(outcome.status, 0);
-    const value = report(scenario); assert.match(value.gitCommand, /merge --ff-only origin\/main/); assert.match(value.gitStderrTail, /index\.lock|Unable to create/i);
+    advanceRemote(scenario, 1);
+    const gitSource = run(powershell, ["-NoProfile", "-Command", "(Get-Command git -CommandType Application | Select-Object -First 1).Source"]).stdout.trim();
+    assert.ok(path.isAbsolute(gitSource), "fixture requires an absolute Git executable path");
+    const shimRoot = path.join(scenario.temp, "git-shim");
+    const shim = path.join(shimRoot, "git.cmd");
+    write(shim, `@echo off\r\necho %* | findstr /C:"merge --ff-only origin/main" >nul\r\nif not errorlevel 1 (\r\n  >&2 echo fixture merge failure: ff-only denied\r\n  exit /b 1\r\n)\r\ncall "${gitSource}" %*\r\n`);
+    const outcome = invoke(scenario, { env: { PATH: `${shimRoot};${process.env.PATH}` } }); assert.notEqual(outcome.status, 0);
+    const value = report(scenario); assert.match(value.gitCommand, /merge --ff-only origin\/main/); assert.match(value.gitStderrTail, /fixture merge failure: ff-only denied/i);
     summary("H", scenario, started);
   } finally { cleanup(scenario); }
 }

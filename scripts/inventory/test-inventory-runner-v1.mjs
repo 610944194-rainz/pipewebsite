@@ -42,6 +42,71 @@ import {
   shouldTreatSmokingpipesEmptyListPageAsEndOfList,
   shouldApplyPageBatchCooldown,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
+
+const inventoryCommonModulePath = pathToFileURL(
+  path.join(process.cwd(), "scripts", "inventory", "inventory-common-v1.mjs")
+).href;
+const inventoryCommonSource = fs.readFileSync(
+  path.join(process.cwd(), "scripts", "inventory", "inventory-common-v1.mjs"),
+  "utf8"
+);
+const smokingpipesListCollectorSource = fs.readFileSync(
+  path.join(process.cwd(), "scripts", "inventory", "smokingpipes-fetch-current-list-v1.mjs"),
+  "utf8"
+);
+assert.match(
+  smokingpipesListCollectorSource,
+  /data",\s*"audits",\s*"smokingpipes-daily-fix",\s*"list-duplicate-audit-latest\.json"/
+);
+assert.match(inventoryCommonSource, /DRY_RUN_AUDIT_WRITE_ALLOWLIST/);
+
+const dryRunWriteGuardRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-dry-run-write-guard-")
+);
+try {
+  const writeGuardHarness = `
+    import assert from "node:assert/strict";
+    import fs from "node:fs";
+    import path from "node:path";
+    import { writeJsonAtomic, writeTextAtomic } from ${JSON.stringify(inventoryCommonModulePath)};
+    const allowedJsonPaths = [
+      "data/inventory/smokingpipes-current-list-dry-run.json",
+      "data/inventory/smokingpipes-inventory-diff-dry-run.json",
+      "data/inventory/recent-new-dry-run.json",
+      "data/audits/smokingpipes-daily-fix/list-duplicate-audit-latest.json",
+    ];
+    for (const relativePath of allowedJsonPaths) {
+      await writeJsonAtomic(path.join(process.cwd(), relativePath), { relativePath });
+    }
+    await writeTextAtomic(
+      path.join(process.cwd(), "data/review/smokingpipes-inventory-update-report-v1.md"),
+      "fixed report\\n"
+    );
+    for (const relativePath of [
+      "data/audits/smokingpipes-daily-fix/unapproved.json",
+      "data/audits/smokingpipes-daily-fix-copy/list-duplicate-audit-latest.json",
+      "data/audits/other-audit.json",
+      "data/review/unapproved-report.md",
+    ]) {
+      await assert.rejects(
+        () => writeJsonAtomic(path.join(process.cwd(), relativePath), { relativePath }),
+        /Refusing to write outside dry-run inventory\\/report paths/
+      );
+    }
+    process.stdout.write(JSON.stringify({ status: "PASS", allowedJsonPaths }));
+  `;
+  const writeGuardResult = spawnSync(
+    process.execPath,
+    ["--input-type=module", "--eval", writeGuardHarness],
+    { cwd: dryRunWriteGuardRoot, encoding: "utf8" }
+  );
+  assert.equal(writeGuardResult.status, 0, writeGuardResult.stderr || writeGuardResult.stdout);
+  const writeGuardSummary = JSON.parse(writeGuardResult.stdout);
+  assert.equal(writeGuardSummary.status, "PASS");
+  assert.equal(writeGuardSummary.allowedJsonPaths.length, 4);
+} finally {
+  fs.rmSync(dryRunWriteGuardRoot, { recursive: true, force: true });
+}
 import {
   auditSmokingpipesDuplicateIds,
   evaluateSmokingpipesCurrentListCache,
@@ -51,6 +116,7 @@ import {
 } from "./smokingpipes-daily-recovery-preflight-v1.mjs";
 import {
   buildInventoryDiff,
+  DEFAULT_MAX_AUTO_APPLY as DIFF_DEFAULT_MAX_AUTO_APPLY,
   LEGACY_DUPLICATE_SNAPSHOT_CONTRACT,
 } from "./smokingpipes-diff-inventory-v1.mjs";
 import * as detailsQueueModule from "./smokingpipes-details-queue-v1.mjs";
@@ -142,6 +208,7 @@ import {
 } from "./smokingpipes-progressive-candidate-v1.mjs";
 import {
   buildSafeSubsetProductionProducts,
+  buildSmokingpipesChangeSummary,
   evaluateProgressiveProductionApplyGate,
   legacyDuplicateOverrideGateBlockReason,
   runSmokingpipesProgressiveMode,
@@ -152,6 +219,7 @@ import {
 } from "./smokingpipes-retry-failed-details-v1.mjs";
 import {
   buildSmokingpipesDetailPendingSpikeDiagnosis,
+  DETAIL_PENDING_SPIKE_THRESHOLD,
   evaluateSmokingpipesDetailQueueSpikeGuard,
 } from "./smokingpipes-detail-queue-spike-v1.mjs";
 import {
@@ -487,7 +555,11 @@ const pendingOverLimitGuard =
     previousDetailPendingCount: 0,
     pendingExistingWithConvertedCount: 0,
   });
+assert.equal(DETAIL_PENDING_SPIKE_THRESHOLD, 500);
 assert.equal(pendingOverLimitGuard.blocked, true);
+assert.equal(pendingOverLimitGuard.failureType, "detail-queue-spike");
+assert.equal(pendingOverLimitGuard.retryAllowed, false);
+assert.equal(pendingOverLimitGuard.detailPendingSpikeThreshold, 500);
 assert.match(
   pendingOverLimitGuard.blockReasons.join("\n"),
   /detailPendingCount 501 exceeds 500/
@@ -495,11 +567,19 @@ assert.match(
 
 assert.equal(
   evaluateSmokingpipesDetailQueueSpikeGuard({
-    detailPendingCount: 301,
+    detailPendingCount: 317,
     previousDetailPendingCount: 0,
     pendingExistingWithConvertedCount: 0,
   }).blocked,
-  true
+  false
+);
+assert.equal(
+  evaluateSmokingpipesDetailQueueSpikeGuard({
+    detailPendingCount: 500,
+    previousDetailPendingCount: 0,
+    pendingExistingWithConvertedCount: 0,
+  }).blocked,
+  false
 );
 assert.equal(
   evaluateSmokingpipesDetailQueueSpikeGuard({
@@ -8150,7 +8230,7 @@ const safeGapState = {
       sourceProductId: "3",
       changeTypes: ["price-change"],
       detailStatus: "complete",
-      publicStatus: "ready",
+      publicStatus: "not-public",
     },
   ],
 };
@@ -8196,7 +8276,7 @@ const safeGapDiagnosis = diagnoseProgressiveApplyGap({
 assert.equal(safeGapDiagnosis.candidateCount, 3);
 assert.equal(safeGapDiagnosis.wouldApplyCount, 2);
 assert.equal(safeGapDiagnosis.gapCount, 1);
-assert.equal(safeGapDiagnosis.gapClassifications.noOpAlreadyCurrent, 1);
+assert.equal(safeGapDiagnosis.gapClassifications.notPublic, 1);
 assert.equal(safeGapDiagnosis.unknownGapCount, 0);
 assert.equal(safeGapDiagnosis.readyUnexpectedlyExcludedCount, 0);
 assert.equal(safeGapDiagnosis.safeToApplyWouldApplySubset, true);
@@ -8248,8 +8328,9 @@ for (const [wouldApplyCount, warning, blocked] of [
   [300, false, false],
   [301, true, false],
   [895, true, false],
-  [1000, true, false],
-  [1001, true, true],
+  [1469, true, false],
+  [2000, true, false],
+  [2001, true, true],
 ]) {
   const largeApplyGate = evaluateProgressiveProductionApplyGate({
     state: { dailyRunId: "daily-update-20260708" },
@@ -8265,7 +8346,7 @@ for (const [wouldApplyCount, warning, blocked] of [
     },
     candidateProducts: safeGapCandidateProducts,
     publicPayloads: completePublicPayloads,
-    maxAutoApply: 1000,
+    maxAutoApply: 2000,
   });
   assert.equal(largeApplyGate.largeApplyWarning, warning);
   assert.equal(largeApplyGate.largeApplyBlocked, blocked);
@@ -8435,6 +8516,12 @@ const safeSubsetMerged = buildSafeSubsetProductionProducts({
       ...safeGapCandidateProducts[2],
       unsafeGapMutation: true,
     },
+    {
+      id: "smokingpipes-4",
+      source: "smokingpipes",
+      sourceProductId: "4",
+      inventoryStatus: "available",
+    },
   ],
   wouldApplyProductIds: ["1", "2"],
 });
@@ -8450,6 +8537,10 @@ assert.equal(
   safeSubsetMerged.find((item) => item.sourceProductId === "3")
     .unsafeGapMutation,
   undefined
+);
+assert.equal(
+  safeSubsetMerged.some((item) => item.sourceProductId === "4"),
+  false
 );
 
 const progressiveApplyRoot = fs.mkdtempSync(
@@ -8807,7 +8898,7 @@ assert.equal(progressivePrepareApplyReady.applyReady, true);
 assert.equal(progressivePrepareApplyReady.candidateCount, 4);
 assert.equal(progressivePrepareApplyReady.wouldApplyCount, 2);
 assert.equal(progressivePrepareApplyReady.isolatedCandidateCount, 2);
-assert.equal(progressivePrepareApplyReady.maxAutoApply, 1000);
+assert.equal(progressivePrepareApplyReady.maxAutoApply, 2000);
 assert.equal(progressivePrepareApplyReady.largeApplyWarningThreshold, 300);
 assert.equal(progressivePrepareApplyReady.largeApplyWarning, false);
 assert.equal(progressivePrepareApplyReady.largeApplyBlocked, false);
@@ -8822,7 +8913,7 @@ const validOfflineApplyGate = JSON.parse(
     "utf8"
   )
 );
-const progressiveFailedDetailApplyBlocked =
+const progressiveFailedDetailSafelyIsolated =
   await runSmokingpipesProgressiveMode({
     root: progressiveApplyRoot,
     options: parseRunnerOptions([
@@ -8832,10 +8923,13 @@ const progressiveFailedDetailApplyBlocked =
       "--no-deploy",
     ]),
   });
-assert.equal(progressiveFailedDetailApplyBlocked.status, "apply-blocked");
-assert.match(
-  progressiveFailedDetailApplyBlocked.blockedReason,
-  /failed candidates=1/
+assert.equal(progressiveFailedDetailSafelyIsolated.status, "apply-complete");
+assert.equal(progressiveFailedDetailSafelyIsolated.failedIsolatedCount, 1);
+assert.equal(progressiveFailedDetailSafelyIsolated.isolatedCandidateCount, 0);
+fs.writeFileSync(
+  progressiveApplyPaths.existingProducts,
+  JSON.stringify(progressiveApplyProduction),
+  "utf8"
 );
 fs.writeFileSync(
   progressiveApplyPaths.progressiveApplyGateReport,
@@ -9355,7 +9449,7 @@ offlinePrepareState.currentListPath =
 offlinePrepareState.diffPath =
   "data/inventory/smokingpipes-inventory-diff-dry-run.json";
 offlinePrepareState.candidates = [
-  ...Array.from({ length: 1389 }, (_, index) =>
+  ...Array.from({ length: 1469 }, (_, index) =>
     makeOfflinePrepareCandidate({
       sourceProductId: `ready-${index + 1}`,
       detailStatus: "complete",
@@ -9369,7 +9463,7 @@ offlinePrepareState.candidates = [
       publicStatus: "review-only",
     })
   ),
-  ...Array.from({ length: 149 }, (_, index) =>
+  ...Array.from({ length: 136 }, (_, index) =>
     makeOfflinePrepareCandidate({
       sourceProductId: `failed-${index + 1}`,
       detailStatus: "failed",
@@ -9440,14 +9534,37 @@ const offlinePrepareResult =
 assert.equal(offlinePrepareResult.networkAccessed, false);
 assert.equal(offlinePrepareResult.browserStarted, false);
 assert.equal(offlinePrepareResult.productionWritten, false);
-assert.equal(offlinePrepareResult.readyCount, 1389);
+assert.equal(offlinePrepareResult.readyCount, 1469);
 assert.equal(offlinePrepareResult.reviewOnlyCount, 4);
-assert.equal(offlinePrepareResult.notPublicCount, 235);
-assert.equal(offlinePrepareResult.failedNotPublicCount, 149);
+assert.equal(offlinePrepareResult.notPublicCount, 222);
+assert.equal(offlinePrepareResult.failedNotPublicCount, 136);
 assert.equal(offlinePrepareResult.excludedBrandCount, 86);
-assert.equal(offlinePrepareResult.candidateCount, 1628);
-assert.equal(offlinePrepareResult.wouldApplyCount, 1389);
-assert.equal(offlinePrepareResult.isolatedCandidateCount, 239);
+assert.equal(offlinePrepareResult.candidateCount, 1695);
+assert.equal(offlinePrepareResult.wouldApplyCount, 1469);
+assert.equal(offlinePrepareResult.isolatedCandidateCount, 226);
+assert.equal(offlinePrepareResult.maxAutoApply, 2000);
+assert.equal(offlinePrepareResult.largeApplyWarningThreshold, 300);
+assert.equal(offlinePrepareResult.largeApplyWarning, true);
+assert.equal(offlinePrepareResult.largeApplyBlocked, false);
+assert.equal(offlinePrepareResult.applyReady, true);
+assert.equal(offlinePrepareResult.safeSubsetApply, true);
+assert.equal(
+  offlinePrepareResult.audit.applyGap.safeToApplyWouldApplySubset,
+  true
+);
+assert.equal(offlinePrepareResult.audit.applyGap.unknownGapCount, 0);
+assert.equal(
+  offlinePrepareResult.audit.applyGap.readyUnexpectedlyExcludedCount,
+  0
+);
+assert.equal(offlinePrepareResult.preview.safeSubsetApply, true);
+assert.equal(offlinePrepareResult.preview.applyGap.gapCount, 226);
+assert.equal(
+  offlinePrepareResult.preview.isolatedCandidateIds.some((id) =>
+    offlinePrepareResult.preview.wouldApplyProductIds.includes(id)
+  ),
+  false
+);
 assert.equal(
   fs.existsSync(offlinePreparePaths.progressiveApplyGateReport),
   true
@@ -9481,7 +9598,8 @@ assert.equal(
   ]).progressiveDetailMax,
   3
 );
-assert.equal(parseRunnerOptions([]).maxAutoApply, 1000);
+assert.equal(parseRunnerOptions([]).maxAutoApply, 2000);
+assert.equal(DIFF_DEFAULT_MAX_AUTO_APPLY, 2000);
 assert.equal(
   parseRunnerOptions([
     `--legacy-duplicate-snapshot-sha256=${legacySnapshotSha256}`,
@@ -9498,7 +9616,7 @@ for (const value of ["0", "100.5", "Infinity", "unlimited"]) {
     /positive (?:safe )?integer/i
   );
 }
-for (const value of ["1", "30", "100", "200", "1000"]) {
+for (const value of ["1", "30", "100", "200", "1000", "2000"]) {
   assert.equal(
     parseRunnerOptions([`--max-auto-apply=${value}`]).maxAutoApply,
     Number(value)
@@ -9734,10 +9852,13 @@ assert.deepEqual(progressiveIngestState.summary, {
   totalCandidates: 6,
   newProductCandidates: 3,
   priceChangeCandidates: 1,
-  explicitOutOfStockCandidates: 1,
-  reappearedCandidates: 1,
-  disappearedCandidatesRecorded: 1,
-  disappearedCandidatesApplyAllowed: false,
+    explicitOutOfStockCandidates: 1,
+    reappearedCandidates: 1,
+    confirmedDisappearedCandidates: 0,
+    disappearedCandidatesRecorded: 1,
+    disappearedCandidatesApplyAllowed: false,
+    confirmedDisappearedCandidatesApplyAllowed: true,
+    disappearedPendingConfirmationCount: 0,
   pending: 3,
   deferred: 0,
   complete: 3,
@@ -12241,5 +12362,133 @@ assert.match(installDailyTaskScript, /MultipleInstances[\s\S]*IgnoreNew/);
 assert.match(installDailyTaskScript, /run-smokingpipes-progressive-daily\.ps1/);
 assert.doesNotMatch(installDailyTaskScript, /\bgit\s+push\b/i);
 assert.doesNotMatch(installDailyTaskScript, /\bgit\s+commit\b/i);
+
+const failedIsolatedGate = evaluateProgressiveProductionApplyGate({
+  state: {
+    dailyRunId: "daily-update-failed-isolation",
+    candidates: [
+      {
+        sourceProductId: "3",
+        detailStatus: "failed",
+        publicStatus: "not-public",
+        changeTypes: ["new-product"],
+      },
+    ],
+  },
+  audit: safeGapAudit,
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(failedIsolatedGate.applyReady, true);
+assert.equal(failedIsolatedGate.failedIsolatedCount, 1);
+assert.equal(failedIsolatedGate.isolatedCandidateCount, 1);
+const failedWouldApplyGate = evaluateProgressiveProductionApplyGate({
+  state: {
+    dailyRunId: "daily-update-failed-would-apply",
+    candidates: [{ sourceProductId: "1", detailStatus: "failed", publicStatus: "ready", changeTypes: ["new-product"] }],
+  },
+  audit: safeGapAudit,
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(failedWouldApplyGate.applyReady, false);
+assert.match(failedWouldApplyGate.blockedReason, /failed candidate requires apply=1/);
+const failedPublicGate = evaluateProgressiveProductionApplyGate({
+  state: {
+    dailyRunId: "daily-update-failed-public",
+    candidates: [{ sourceProductId: "3", detailStatus: "failed", publicStatus: "not-public", changeTypes: ["new-product"] }],
+  },
+  audit: safeGapAudit,
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: { ...completePublicPayloads, catalog: { products: [{ sourceProductId: "3" }] } },
+});
+assert.equal(failedPublicGate.applyReady, false);
+assert.match(failedPublicGate.blockedReason, /failed candidate leaked into public catalog=3/);
+const failedDeletionGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-failed-deletion", candidates: [] },
+  audit: { ...safeGapAudit, counts: { ...safeGapAudit.counts, deletedProducts: 1 } },
+  preview: safeGapPreview,
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(failedDeletionGate.applyReady, false);
+assert.match(failedDeletionGate.blockedReason, /deletedProducts=1/);
+
+const disappearanceProduction = [{
+  id: "smokingpipes-disappearance-1",
+  sourceProductId: "disappearance-1",
+  sourceUrl: "https://example.invalid/disappearance-1",
+  title: "Disappearance test",
+  inventoryStatus: "available",
+  inventoryConfidence: "high",
+  price: { current: { currency: "USD", amount: 100 } },
+}];
+const trustedMissingPayload = (snapshotId, complete = true) => ({
+  generatedAt: snapshotId,
+  products: [],
+  summary: {
+    expectedPages: 2,
+    pagesScanned: complete ? 2 : 1,
+    fullExpectedRangeScanned: complete,
+    captchaDetected: false,
+    verificationDetected: false,
+  },
+});
+const trustedMissingDiff = { allowApply: true, newIds: [], reappearedIds: [], disappearedIds: ["disappearance-1"], coverage: { expectedPages: 2, pagesScanned: 2, fullExpectedRangeScanned: true } };
+let disappearanceState = createProgressiveDailyState({ dailyRunId: "disappearance-test", expectedPages: 2, now: "2026-07-22T00:00:00.000Z" });
+disappearanceState = ingestProgressiveListSnapshot({ state: disappearanceState, currentPayload: trustedMissingPayload("snapshot-one"), diffPayload: trustedMissingDiff, productionProducts: disappearanceProduction, runId: "run-one", now: "2026-07-22T00:00:00.000Z" });
+assert.equal(disappearanceState.globalReconcile.disappearanceTracking.items["disappearance-1"].consecutiveTrustedMissingScans, 1);
+assert.equal(disappearanceState.candidates.some((item) => item.changeTypes.includes("confirmed-disappeared")), false);
+const repeatedSnapshotState = ingestProgressiveListSnapshot({ state: disappearanceState, currentPayload: trustedMissingPayload("snapshot-one"), diffPayload: trustedMissingDiff, productionProducts: disappearanceProduction, runId: "run-one-repeat", now: "2026-07-22T00:05:00.000Z" });
+assert.equal(repeatedSnapshotState.globalReconcile.disappearanceTracking.items["disappearance-1"].consecutiveTrustedMissingScans, 1);
+const cachedResumeState = ingestProgressiveListSnapshot({ state: repeatedSnapshotState, currentPayload: trustedMissingPayload("snapshot-cached-resume"), diffPayload: trustedMissingDiff, productionProducts: disappearanceProduction, runId: "run-cached", now: "2026-07-22T00:06:00.000Z", currentListFresh: false });
+assert.equal(cachedResumeState.globalReconcile.disappearanceTracking.items["disappearance-1"].consecutiveTrustedMissingScans, 1);
+const partialSnapshotState = ingestProgressiveListSnapshot({ state: cachedResumeState, currentPayload: trustedMissingPayload("snapshot-partial", false), diffPayload: { ...trustedMissingDiff, allowApply: false, coverage: { expectedPages: 2, pagesScanned: 1, fullExpectedRangeScanned: false } }, productionProducts: disappearanceProduction, runId: "run-partial", now: "2026-07-22T00:10:00.000Z" });
+assert.equal(partialSnapshotState.globalReconcile.disappearanceTracking.items["disappearance-1"].consecutiveTrustedMissingScans, 1);
+const verificationSnapshotState = ingestProgressiveListSnapshot({ state: partialSnapshotState, currentPayload: { ...trustedMissingPayload("snapshot-verification"), summary: { ...trustedMissingPayload("snapshot-verification").summary, verificationDetected: true } }, diffPayload: trustedMissingDiff, productionProducts: disappearanceProduction, runId: "run-verification", now: "2026-07-22T00:20:00.000Z" });
+assert.equal(verificationSnapshotState.globalReconcile.disappearanceTracking.items["disappearance-1"].consecutiveTrustedMissingScans, 1);
+const confirmedDisappearanceState = ingestProgressiveListSnapshot({ state: verificationSnapshotState, currentPayload: trustedMissingPayload("snapshot-two"), diffPayload: trustedMissingDiff, productionProducts: disappearanceProduction, runId: "run-two", now: "2026-07-22T01:00:00.000Z" });
+const confirmedCandidate = confirmedDisappearanceState.candidates.find((item) => item.sourceProductId === "disappearance-1");
+assert.ok(confirmedCandidate.changeTypes.includes("confirmed-disappeared"));
+const confirmedProducts = buildProgressivePartialProducts({ productionProducts: disappearanceProduction, state: confirmedDisappearanceState, now: "2026-07-22T01:00:00.000Z" });
+assert.equal(confirmedProducts.products[0].inventoryStatus, "sold");
+assert.equal(confirmedProducts.products[0].inventoryConfidence, "medium");
+assert.match(confirmedProducts.products[0].inventoryEvidence.reasons.join("\n"), /two consecutive trusted complete list scans/);
+const reappearedState = ingestProgressiveListSnapshot({ state: confirmedDisappearanceState, currentPayload: { generatedAt: "snapshot-three", products: [{ sourceProductId: "disappearance-1", sourceUrl: "https://example.invalid/disappearance-1", title: "Disappearance test", price: "$100.00" }], summary: { expectedPages: 2, pagesScanned: 2, fullExpectedRangeScanned: true, captchaDetected: false, verificationDetected: false } }, diffPayload: { allowApply: true, newIds: [], reappearedIds: ["disappearance-1"], disappearedIds: [], coverage: { expectedPages: 2, pagesScanned: 2, fullExpectedRangeScanned: true } }, productionProducts: confirmedProducts.products, runId: "run-three", now: "2026-07-22T02:00:00.000Z" });
+assert.equal(reappearedState.globalReconcile.disappearanceTracking.items["disappearance-1"], undefined);
+assert.ok(reappearedState.candidates.find((item) => item.sourceProductId === "disappearance-1").changeTypes.includes("reappeared"));
+
+const summaryBefore = [];
+const summaryAfter = [];
+const summaryCandidates = [];
+const addSummaryItem = (id, changeTypes, beforeAmount, afterAmount) => {
+  if (beforeAmount !== null) summaryBefore.push({ sourceProductId: id, price: { current: { currency: "USD", amount: beforeAmount } }, inventoryStatus: changeTypes.includes("reappeared") ? "sold" : "available" });
+  summaryAfter.push({ sourceProductId: id, price: { current: { currency: "USD", amount: afterAmount } }, inventoryStatus: changeTypes.includes("reappeared") ? "available" : changeTypes.some((item) => item.includes("out-of-stock") || item.includes("disappeared")) ? "sold" : "available" });
+  summaryCandidates.push({ sourceProductId: id, changeTypes });
+};
+for (const id of ["n1", "n2", "n3"]) addSummaryItem(id, ["new-product"], null, 100);
+for (const id of ["up1", "up2"]) addSummaryItem(id, ["price-change"], 100, 110);
+addSummaryItem("down", ["price-change"], 110, 100);
+for (const id of ["o1", "o2", "o3", "o4"]) addSummaryItem(id, ["explicit-out-of-stock"], 100, 100);
+for (const id of ["d1", "d2"]) addSummaryItem(id, ["confirmed-disappeared"], 100, 100);
+addSummaryItem("return", ["reappeared"], 100, 100);
+const changeSummaryFixture = buildSmokingpipesChangeSummary({
+  productionBefore: summaryBefore,
+  productionAfter: summaryAfter,
+  state: { candidates: summaryCandidates, globalReconcile: { disappearanceTracking: { items: { pending: { disappearanceStatus: "pending-confirmation" }, pending2: { disappearanceStatus: "pending-confirmation" }, pending3: { disappearanceStatus: "pending-confirmation" }, pending4: { disappearanceStatus: "pending-confirmation" }, pending5: { disappearanceStatus: "pending-confirmation" } } } } },
+  actualAppliedCount: 13,
+  isolatedCandidateCount: 6,
+  failedIsolatedCount: 2,
+});
+assert.deepEqual(changeSummaryFixture, {
+  newlyPublishedCount: 3, sourcePriceIncreaseCount: 2, sourcePriceDecreaseCount: 1,
+  explicitOutOfStockCount: 4, confirmedDisappearedCount: 2, reappearedCount: 1,
+  disappearedPendingConfirmationCount: 5, isolatedCandidateCount: 6, failedIsolatedCount: 2,
+  otherAppliedCount: 0, actualAppliedCount: 13,
+  consistency: { valid: true, classifiedAppliedCount: 13, reason: null },
+});
 
 console.log("Inventory runner core tests passed.");

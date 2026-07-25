@@ -31,7 +31,7 @@ export const LEGACY_DUPLICATE_SNAPSHOT_CONTRACT = Object.freeze({
   uniqueProducts: 4993,
   duplicateCount: 334,
 });
-const DEFAULT_MAX_AUTO_APPLY = 1000;
+export const DEFAULT_MAX_AUTO_APPLY = 2000;
 
 function normalizeSha256(value) {
   const normalized = String(value || "").trim().toUpperCase();

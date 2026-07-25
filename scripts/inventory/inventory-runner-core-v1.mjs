@@ -292,7 +292,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
   );
   const maxAutoApply = positiveSafeInteger(
     args.get("max-auto-apply"),
-    1000,
+    2000,
     "max-auto-apply"
   );
   const legacyDuplicateSnapshotSha256 = args.has(
@@ -416,6 +416,10 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     diffPath: args.has("diff")
       ? path.resolve(String(args.get("diff") || ""))
       : null,
+    currentListFresh: booleanValue(
+      args.get("current-list-fresh"),
+      false
+    ),
     manualVerificationTimeoutMs: positiveInteger(
       args.get("manual-verification-timeout-ms"),
       30 * 60 * 1000

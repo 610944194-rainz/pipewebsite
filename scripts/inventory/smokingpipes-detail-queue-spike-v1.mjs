@@ -4,6 +4,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const ROOT = process.cwd();
+export const DETAIL_PENDING_SPIKE_THRESHOLD = 500;
 const DEFAULT_PATHS = {
   state: path.join(
     ROOT,
@@ -127,9 +128,9 @@ export function evaluateSmokingpipesDetailQueueSpikeGuard({
     pending > 0 ? existingConverted / pending : 0;
   const blockReasons = [];
 
-  if (pending > 500) {
+  if (pending > DETAIL_PENDING_SPIKE_THRESHOLD) {
     blockReasons.push(
-      `detailPendingCount ${pending} exceeds 500`
+      `detailPendingCount ${pending} exceeds ${DETAIL_PENDING_SPIKE_THRESHOLD}`
     );
   }
   if (previous > 0 && pending > previous * 3) {
@@ -137,9 +138,12 @@ export function evaluateSmokingpipesDetailQueueSpikeGuard({
       `detailPendingCount ${pending} exceeds previous ${previous} by more than 3x`
     );
   }
-  if (previous === 0 && pending > 300) {
+  if (
+    previous === 0 &&
+    pending > DETAIL_PENDING_SPIKE_THRESHOLD
+  ) {
     blockReasons.push(
-      `detailPendingCount ${pending} exceeds 300 after previous count 0`
+      `detailPendingCount ${pending} exceeds ${DETAIL_PENDING_SPIKE_THRESHOLD} after previous count 0`
     );
   }
   if (existingConvertedRatio > 0.3) {
@@ -159,6 +163,8 @@ export function evaluateSmokingpipesDetailQueueSpikeGuard({
       ? "detail-queue-spike"
       : null,
     retryAllowed: false,
+    detailPendingSpikeThreshold:
+      DETAIL_PENDING_SPIKE_THRESHOLD,
     detailPendingCount: pending,
     previousDetailPendingCount: previous,
     pendingExistingWithConvertedCount: existingConverted,
@@ -596,6 +602,8 @@ async function main(argv = process.argv.slice(2)) {
         blocked: report.guard.blocked,
         failureType: report.guard.failureType,
         retryAllowed: report.guard.retryAllowed,
+        detailPendingSpikeThreshold:
+          report.guard.detailPendingSpikeThreshold,
         detailPendingCount:
           report.counts.actualDetailPending,
         previousDetailPendingCount:
