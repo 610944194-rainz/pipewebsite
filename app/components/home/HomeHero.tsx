@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const slides = [
   {
@@ -11,7 +11,8 @@ const slides = [
     href: "/products",
     image: "/home/hero/home-hero-day.png",
     position: "object-[62%_center] lg:object-[58%_center]",
-    overlay: "bg-[linear-gradient(90deg,rgba(12,8,5,0.76)_0%,rgba(12,8,5,0.40)_34%,rgba(12,8,5,0.08)_55%,transparent_68%)]",
+    overlay:
+      "bg-[linear-gradient(90deg,rgba(12,8,5,0.76)_0%,rgba(12,8,5,0.40)_34%,rgba(12,8,5,0.08)_55%,transparent_68%)]",
   },
   {
     title: "没有找到合适的烟斗？",
@@ -20,32 +21,137 @@ const slides = [
     href: "/request",
     image: "/home/hero/home-hero-night.png",
     position: "object-[60%_center] lg:object-[56%_center]",
-    overlay: "bg-[linear-gradient(90deg,rgba(12,8,5,0.64)_0%,rgba(12,8,5,0.30)_34%,rgba(12,8,5,0.04)_54%,transparent_66%)]",
+    overlay:
+      "bg-[linear-gradient(90deg,rgba(12,8,5,0.64)_0%,rgba(12,8,5,0.30)_34%,rgba(12,8,5,0.04)_54%,transparent_66%)]",
   },
 ] as const;
 
+const SWIPE_DISTANCE = 44;
+const SWIPE_AXIS_RATIO = 1.15;
+const SWIPE_MAX_DURATION = 900;
+
+type TouchPoint = {
+  x: number;
+  y: number;
+  startedAt: number;
+};
+
 export default function HomeHero() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const touchStartRef = useRef<TouchPoint | null>(null);
+  const touchEndRef = useRef<{ x: number; y: number } | null>(null);
 
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotion.matches) return;
-
-    const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 6000);
-
-    return () => window.clearInterval(timer);
+  const showSlide = useCallback((index: number) => {
+    const normalized = (index + slides.length) % slides.length;
+    setActiveSlide(normalized);
   }, []);
 
+  const showNextSlide = useCallback(() => {
+    setActiveSlide((current) => (current + 1) % slides.length);
+  }, []);
+
+  const showPreviousSlide = useCallback(() => {
+    setActiveSlide(
+      (current) => (current - 1 + slides.length) % slides.length,
+    );
+  }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (reducedMotion.matches) return;
+
+    const timer = window.setInterval(showNextSlide, 6000);
+
+    return () => window.clearInterval(timer);
+  }, [showNextSlide]);
+
+  function handleTouchStart(
+    event: React.TouchEvent<HTMLElement>,
+  ) {
+    const touch = event.touches[0];
+
+    if (!touch) return;
+
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      startedAt: Date.now(),
+    };
+
+    touchEndRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  }
+
+  function handleTouchMove(
+    event: React.TouchEvent<HTMLElement>,
+  ) {
+    const touch = event.touches[0];
+
+    if (!touch || !touchStartRef.current) return;
+
+    touchEndRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  }
+
+  function handleTouchEnd() {
+    const start = touchStartRef.current;
+    const end = touchEndRef.current;
+
+    touchStartRef.current = null;
+    touchEndRef.current = null;
+
+    if (!start || !end) return;
+
+    const deltaX = end.x - start.x;
+    const deltaY = end.y - start.y;
+    const duration = Date.now() - start.startedAt;
+    const horizontalDistance = Math.abs(deltaX);
+    const verticalDistance = Math.abs(deltaY);
+
+    const isHorizontalSwipe =
+      horizontalDistance >= SWIPE_DISTANCE &&
+      horizontalDistance > verticalDistance * SWIPE_AXIS_RATIO &&
+      duration <= SWIPE_MAX_DURATION;
+
+    if (!isHorizontalSwipe) return;
+
+    if (deltaX < 0) {
+      showNextSlide();
+      return;
+    }
+
+    showPreviousSlide();
+  }
+
+  function handleTouchCancel() {
+    touchStartRef.current = null;
+    touchEndRef.current = null;
+  }
+
   return (
-    <section aria-label="首页推荐" className="relative h-[clamp(220px,60vw,244px)] overflow-hidden bg-[var(--coffee-dark)] lg:h-[340px]">
+    <section
+      aria-label="首页推荐"
+      className="relative h-[clamp(220px,60vw,244px)] touch-pan-y select-none overflow-hidden bg-[var(--coffee-dark)] lg:h-[340px]"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
+    >
       {slides.map((slide, index) => (
         <div
           key={slide.href}
           aria-hidden={index !== activeSlide}
           className={`absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none ${
-            index === activeSlide ? "z-10 opacity-100" : "pointer-events-none opacity-0"
+            index === activeSlide
+              ? "z-10 opacity-100"
+              : "pointer-events-none opacity-0"
           }`}
         >
           <img
@@ -68,7 +174,11 @@ export default function HomeHero() {
                   {slide.title}
                 </h2>
               )}
-              <p className="mt-3 text-[12px] font-normal leading-[1.65] text-[rgba(244,238,231,0.78)] sm:text-[13px]">{slide.description}</p>
+
+              <p className="mt-3 text-[12px] font-normal leading-[1.65] text-[rgba(244,238,231,0.78)] sm:text-[13px]">
+                {slide.description}
+              </p>
+
               <Link
                 href={slide.href}
                 className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal leading-[1.4] text-[#e4c18d] transition-colors hover:text-[#f4eee7] motion-reduce:transition-none"
@@ -81,7 +191,11 @@ export default function HomeHero() {
         </div>
       ))}
 
-      <div className="absolute bottom-2.5 left-1/2 z-20 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero 轮播">
+      <div
+        className="absolute bottom-2.5 left-1/2 z-20 flex -translate-x-1/2 gap-2"
+        role="tablist"
+        aria-label="Hero 轮播"
+      >
         {slides.map((slide, index) => (
           <button
             key={slide.href}
@@ -89,7 +203,7 @@ export default function HomeHero() {
             role="tab"
             aria-label={`显示第 ${index + 1} 张推荐`}
             aria-selected={index === activeSlide}
-            onClick={() => setActiveSlide(index)}
+            onClick={() => showSlide(index)}
             className={`h-1.5 w-1.5 rounded-full border border-white/75 transition-colors motion-reduce:transition-none ${
               index === activeSlide ? "bg-white" : "bg-transparent"
             }`}
@@ -102,8 +216,19 @@ export default function HomeHero() {
 
 function ArrowIcon({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      className={className}
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2.5 8h10M9 4.5 12.5 8 9 11.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
