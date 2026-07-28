@@ -1579,6 +1579,28 @@ async function buildCandidateArtifacts({
         ),
       }
     : actionPlan;
+  const isCatchupBatch = Array.isArray(selectedEventIds);
+  const globalCandidateIds = (stateWithActionEvents?.candidates || [])
+    .map(sourceProductId)
+    .filter(Boolean);
+  const selectedCandidateIds = isCatchupBatch
+    ? [
+        ...new Set(
+          (selectedActionPlan.items || [])
+            .map((item) => sourceProductId(item.event))
+            .filter(Boolean)
+        ),
+      ]
+    : globalCandidateIds;
+  const selectedCandidateIdSet = new Set(selectedCandidateIds);
+  const gateState = isCatchupBatch
+    ? {
+        ...stateWithActionEvents,
+        candidates: (stateWithActionEvents.candidates || []).filter(
+          (item) => selectedCandidateIdSet.has(sourceProductId(item))
+        ),
+      }
+    : stateWithActionEvents;
   const candidate = buildProgressivePartialProducts({
     productionProducts,
     state: stateWithActionEvents,
@@ -1620,16 +1642,18 @@ async function buildCandidateArtifacts({
   const audit = auditProgressivePartialCandidate({
     productionProducts,
     candidateProducts: candidate.products,
-    state: stateWithActionEvents,
+    state: gateState,
     publicCatalog: publicBase.catalog.products,
     recentNew: recentNew.products,
   });
   audit.runId = runId || null;
-  const allCandidateIds = (stateWithActionEvents?.candidates || [])
-    .map(sourceProductId)
-    .filter(Boolean);
-  audit.attemptedCandidateCount =
-    allCandidateIds.length;
+  audit.scope = isCatchupBatch ? "manual-catchup-batch" : "all-candidates";
+  audit.globalCandidateCount = globalCandidateIds.length;
+  audit.globalActionableEventCount = actionPlan.items.length;
+  audit.deferredActionableCount = isCatchupBatch
+    ? actionPlan.items.length - selectedActionPlan.items.length
+    : 0;
+  audit.attemptedCandidateCount = selectedCandidateIds.length;
   audit.candidateCount = audit.attemptedCandidateCount;
   audit.effectiveCandidateCount =
     candidate.appliedCandidateIds.length;
@@ -1657,10 +1681,10 @@ async function buildCandidateArtifacts({
   });
   audit.wouldApplyCount = applyPreview.wouldApplyCount || 0;
   audit.applyGap = diagnoseProgressiveApplyGap({
-    state,
+    state: gateState,
     productionProducts,
     candidateProducts: candidate.products,
-    candidateIds: allCandidateIds,
+    candidateIds: selectedCandidateIds,
     wouldApplyProductIds:
       applyPreview.wouldApplyProductIds || [],
   });
@@ -1683,6 +1707,7 @@ async function buildCandidateArtifacts({
     candidate,
     audit,
     state: stateWithActionEvents,
+    gateState,
     actionPlan,
     selectedActionPlan,
     publicPayloads: {
@@ -1752,7 +1777,7 @@ async function prepareProgressiveApplyGate({
   const publicNext = readProgressivePublicNext(paths);
   const diff = readJsonIfExists(paths.diff, null);
   const gate = evaluateProgressiveProductionApplyGate({
-    state: nextState,
+    state: artifacts.gateState,
     audit: artifacts.audit,
     preview,
     candidateProducts,

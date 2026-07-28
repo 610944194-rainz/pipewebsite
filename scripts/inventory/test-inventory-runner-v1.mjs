@@ -12801,6 +12801,15 @@ assert.equal(
   catchupApplied.effectiveApplyCount,
   catchupPlan.batches[0].expectedEffectiveApplyCount
 );
+const catchupBatchAudit = JSON.parse(
+  fs.readFileSync(catchupExecutionPaths.progressiveAuditJson, "utf8")
+);
+assert.equal(catchupBatchAudit.scope, "manual-catchup-batch");
+assert.equal(catchupBatchAudit.globalCandidateCount, 4);
+assert.equal(catchupBatchAudit.globalActionableEventCount, 2);
+assert.equal(catchupBatchAudit.deferredActionableCount, 0);
+assert.equal(catchupBatchAudit.candidateCount, 2);
+assert.equal(catchupBatchAudit.applyGap.gapCount, 0);
 const catchupReceipt = JSON.parse(
   fs.readFileSync(catchupExecutionPaths.smokingpipesCatchupReceipt, "utf8")
 );
@@ -12868,5 +12877,167 @@ const catchupRepeat = await runSmokingpipesProgressiveMode({
 });
 assert.equal(catchupRepeat.status, "catchup-plan-stale");
 fs.rmSync(catchupExecutionRoot, { recursive: true, force: true });
+
+const scopedCatchupRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-catchup-batch-scope-")
+);
+fs.cpSync(progressiveApplyRoot, scopedCatchupRoot, { recursive: true });
+const scopedCatchupPaths = runnerCore.getRunnerPaths(scopedCatchupRoot);
+const scopedProduction = Array.from({ length: 2400 }, (_, index) => ({
+  ...progressiveApplyProduction[0],
+  id: `smokingpipes-scope-${index + 1}`,
+  sourceProductId: String(index + 1),
+  sourceUrl: `https://example.invalid/scope-${index + 1}`,
+  title: `Scope pipe ${index + 1}`,
+  price: {
+    current: {
+      rawText: "$100.00",
+      currency: "USD",
+      amount: 100,
+      parseStatus: "parsed",
+    },
+  },
+}));
+const scopedState = createProgressiveDailyState({
+  dailyRunId: "catchup-batch-scope",
+  now: progressiveNow,
+});
+scopedState.candidates = [
+  ...scopedProduction.map((item) => ({
+    sourceProductId: item.sourceProductId,
+    sourceUrl: item.sourceUrl,
+    listTitle: item.title,
+    listPrice: "$101.00",
+    inventoryStatus: "available",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "catchup-batch-scope",
+    lastSeenRunId: "catchup-batch-scope",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["price-change"],
+    detailStatus: "complete",
+    detailAttempts: 0,
+    retryCount: 0,
+    blockedCount: 0,
+    priority: 50,
+    publicStatus: "ready",
+  })),
+  ...Array.from({ length: 1744 }, (_, index) => ({
+    sourceProductId: `deferred-${index + 1}`,
+    sourceUrl: `https://example.invalid/deferred-${index + 1}`,
+    listTitle: `Deferred ${index + 1}`,
+    listPrice: "$100.00",
+    inventoryStatus: "available",
+    discoveredAt: progressiveNow,
+    firstSeenRunId: "catchup-batch-scope",
+    lastSeenRunId: "catchup-batch-scope",
+    lastSeenAt: progressiveNow,
+    changeTypes: ["new-product"],
+    detailStatus: "failed",
+    detailAttempts: 1,
+    retryCount: 1,
+    blockedCount: 0,
+    priority: 100,
+    lastError: "fixture detail failure",
+    publicStatus: "not-public",
+  })),
+];
+scopedState.listSnapshotStatus = "complete";
+scopedState.pagesScanned = 104;
+scopedState.expectedPages = 104;
+scopedState.fullExpectedRangeScanned = true;
+scopedState.updatedAt = progressiveNow;
+fs.writeFileSync(scopedCatchupPaths.existingProducts, JSON.stringify(scopedProduction), "utf8");
+fs.writeFileSync(scopedCatchupPaths.progressiveState, JSON.stringify(scopedState), "utf8");
+fs.writeFileSync(
+  scopedCatchupPaths.currentList,
+  JSON.stringify({
+    source: "smokingpipes",
+    generatedAt: progressiveNow,
+    completedAt: progressiveNow,
+    products: scopedProduction.map((item) => ({
+      sourceProductId: item.sourceProductId,
+      sourceUrl: item.sourceUrl,
+      title: item.title,
+      price: "$101.00",
+      inventoryStatus: "available",
+    })),
+    summary: {
+      expectedPages: 104,
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      verificationDetected: false,
+    },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  scopedCatchupPaths.diff,
+  JSON.stringify({
+    allowApply: true,
+    newIds: [],
+    reappearedIds: [],
+    disappearedIds: [],
+    coverage: {
+      expectedPages: 104,
+      pagesScanned: 104,
+      fullExpectedRangeScanned: true,
+    },
+  }),
+  "utf8"
+);
+const scopedPrepared = await runSmokingpipesProgressiveMode({
+  root: scopedCatchupRoot,
+  options: parseRunnerOptions(["--mode=progressive-prepare-apply"]),
+});
+assert.equal(scopedPrepared.status, "apply-blocked", JSON.stringify(scopedPrepared));
+assert.equal(
+  JSON.parse(
+    fs.readFileSync(scopedCatchupPaths.progressiveApplyGateReport, "utf8")
+  ).largeApplyBlocked,
+  true
+);
+const scopedPlan = JSON.parse(
+  fs.readFileSync(scopedCatchupPaths.smokingpipesCatchupPlan, "utf8")
+);
+assert.equal(scopedPlan.totalEventCount, 2400);
+assert.equal(scopedPlan.batches.length, 2);
+assert.equal(scopedPlan.batches[0].expectedEffectiveApplyCount, 2000);
+assert.equal(scopedPlan.batches[1].expectedEffectiveApplyCount, 400);
+const scopedApplied = await runSmokingpipesProgressiveMode({
+  root: scopedCatchupRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-partial-apply",
+    "--write-production",
+    "--manual-large-apply",
+    "--manual-catchup-batch=1",
+    `--catchup-plan-id=${scopedPlan.planId}`,
+    `--catchup-batch-hash=${scopedPlan.batches[0].batchHash}`,
+    "--no-commit",
+    "--no-deploy",
+  ]),
+});
+assert.equal(scopedApplied.status, "apply-complete");
+assert.equal(scopedApplied.effectiveApplyCount, 2000);
+assert.equal(scopedApplied.largeApplyBlocked, false);
+const scopedAudit = JSON.parse(
+  fs.readFileSync(scopedCatchupPaths.progressiveAuditJson, "utf8")
+);
+assert.equal(scopedAudit.scope, "manual-catchup-batch");
+assert.equal(scopedAudit.globalCandidateCount, 4144);
+assert.equal(scopedAudit.globalActionableEventCount, 2400);
+assert.equal(scopedAudit.deferredActionableCount, 400);
+assert.equal(scopedAudit.candidateCount, 2000);
+assert.equal(scopedAudit.wouldApplyCount, 2000);
+assert.equal(scopedAudit.effectiveCandidateCount, 2000);
+assert.equal(scopedAudit.applyGap.gapCount, 0);
+assert.equal(scopedAudit.applyGap.readyUnexpectedlyExcludedCount, 0);
+const scopedStateAfter = JSON.parse(
+  fs.readFileSync(scopedCatchupPaths.progressiveState, "utf8")
+);
+const scopedEvents = Object.values(scopedStateAfter.actionEvents);
+assert.equal(scopedEvents.filter((event) => event.status === "applied").length, 2000);
+assert.equal(scopedEvents.filter((event) => event.status === "pending").length, 400);
+fs.rmSync(scopedCatchupRoot, { recursive: true, force: true });
 
 console.log("Inventory runner core tests passed.");
