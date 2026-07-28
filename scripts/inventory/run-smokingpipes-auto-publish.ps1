@@ -312,16 +312,35 @@ function Copy-DailyStateToReport {
   $report.productionWritten = $State.productionWritten -eq $true
   $report.candidateCount = Get-DailyNumber -State $State -Name "candidateCount"
   $report.wouldApplyCount = Get-DailyNumber -State $State -Name "wouldApplyCount"
-  $report.effectiveApplyCount = Get-DailyNumber -State $State -Name "effectiveApplyCount"
+  $hasEffectiveApplyCount =
+    $null -ne $State -and
+    ($State.PSObject.Properties.Name -contains "effectiveApplyCount")
+  $hasActualAppliedCount =
+    $null -ne $State.changeSummary -and
+    ($State.changeSummary.PSObject.Properties.Name -contains "actualAppliedCount") -and
+    $null -ne $State.changeSummary.actualAppliedCount
+  $report.effectiveApplyCount = if ($hasEffectiveApplyCount) {
+    Get-DailyNumber -State $State -Name "effectiveApplyCount"
+  } elseif ($hasActualAppliedCount) {
+    [int]$State.changeSummary.actualAppliedCount
+  } else {
+    0
+  }
   $report.appliedCount = Get-DailyNumber -State $State -Name "appliedCount"
   $report.isolatedCandidateCount = Get-DailyNumber -State $State -Name "isolatedCandidateCount"
   if ($null -ne $State.changeSummary) { $report.changeSummary = $State.changeSummary }
-  $report.actualAppliedCount = if ($null -ne $State.changeSummary -and $null -ne $State.changeSummary.actualAppliedCount) {
+  $report.actualAppliedCount = if ($hasActualAppliedCount) {
     [int]$State.changeSummary.actualAppliedCount
   } else {
     $report.effectiveApplyCount
   }
-  if ($report.effectiveApplyCount -le 0) { $report.effectiveApplyCount = $report.actualAppliedCount }
+  if (
+    $hasEffectiveApplyCount -and
+    $hasActualAppliedCount -and
+    $report.effectiveApplyCount -ne $report.actualAppliedCount
+  ) {
+    throw "effective-apply-report-mismatch: effectiveApplyCount=$($report.effectiveApplyCount) changeSummary.actualAppliedCount=$($report.actualAppliedCount)"
+  }
   $report.detailPendingCount = Get-DailyNumber -State $State -Name "detailPendingCount"
   $report.detailPhaseStatus = [string]$State.detailPhaseStatus
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
@@ -812,6 +831,9 @@ try {
   }
   $dailyState = Get-Content -LiteralPath $DailyTaskStatePath -Raw -Encoding utf8 | ConvertFrom-Json
   Copy-DailyStateToReport -State $dailyState
+  if ($dailyState.status -in @("runtime-artifact-version-mismatch", "effective-apply-report-mismatch")) {
+    Stop-AutoPublish -Status $dailyState.status -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
+  }
   if ($dailyState.status -in @("manual-review-required", "safety-gate-blocked", "terminal-failed", "retryable-failed")) {
     Stop-AutoPublish -Status "safety-gate-blocked" -Stage "daily" -Reason ([string]$dailyState.lastFailureReason)
   }

@@ -113,6 +113,12 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
           : args.get("mode") || "dry-run"
   ).toLowerCase();
   const source = String(args.get("source") || "smokingpipes").toLowerCase();
+  const runId = args.has("run-id")
+    ? String(args.get("run-id") || "").trim()
+    : null;
+  if (args.has("run-id") && !runId) {
+    throw new Error("--run-id must be a non-empty identifier.");
+  }
   const dailyUpdate = mode === "daily-update";
   const verificationProbe = mode === "verification-probe";
   const detailProbe = mode === "detail-probe";
@@ -379,6 +385,7 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
 
   return {
     source,
+    runId,
     mode,
     dailyUpdate,
     verificationProbe,

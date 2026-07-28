@@ -253,6 +253,52 @@ try {
     fs.rmSync(requiredRoot, { recursive: true, force: true });
   }
 
+  const dailyNumberSource = publishScript.match(
+    /function Get-DailyNumber\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Read-RequiredJson/
+  )?.[0].replace(/\r?\n\r?\nfunction Read-RequiredJson$/, "");
+  const copyDailyStateSource = publishScript.match(
+    /function Copy-DailyStateToReport\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Get-PostApplyRecoveryReadiness/
+  )?.[0].replace(/\r?\n\r?\nfunction Get-PostApplyRecoveryReadiness$/, "");
+  assert.ok(dailyNumberSource);
+  assert.ok(copyDailyStateSource);
+  const copyDailyStateHarness = (state) => [
+    "$report = [ordered]@{ maxAutoApply = 2000; largeApplyWarningThreshold = 300 }",
+    `$State = '${JSON.stringify(state).replaceAll("'", "''")}' | ConvertFrom-Json`,
+    dailyNumberSource,
+    copyDailyStateSource,
+    "Copy-DailyStateToReport -State $State",
+    "$report | ConvertTo-Json -Compress",
+  ].join("\n");
+  const explicitZeroMismatch = runPowerShell(
+    copyDailyStateHarness({
+      effectiveApplyCount: 0,
+      changeSummary: { actualAppliedCount: 315 },
+    })
+  );
+  assert.notEqual(explicitZeroMismatch.status, 0);
+  assert.match(explicitZeroMismatch.stderr, /effective-apply-report-mismatch/);
+  const missingEffectiveIsBackfilled = runPowerShell(
+    copyDailyStateHarness({
+      changeSummary: { actualAppliedCount: 315 },
+    })
+  );
+  assert.equal(missingEffectiveIsBackfilled.status, 0, missingEffectiveIsBackfilled.stderr);
+  assert.equal(
+    JSON.parse(missingEffectiveIsBackfilled.stdout).effectiveApplyCount,
+    315
+  );
+  const explicitZeroNoChange = runPowerShell(
+    copyDailyStateHarness({
+      effectiveApplyCount: 0,
+      changeSummary: { actualAppliedCount: 0 },
+    })
+  );
+  assert.equal(explicitZeroNoChange.status, 0, explicitZeroNoChange.stderr);
+  assert.equal(
+    JSON.parse(explicitZeroNoChange.stdout).effectiveApplyCount,
+    0
+  );
+
   const notificationSource = publishScript.match(
     /function Send-AutoPublishNotification\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Complete-AutoPublish/
   )?.[0].replace(/\r?\n\r?\nfunction Complete-AutoPublish$/, "");
