@@ -130,6 +130,7 @@ function progressiveMarkdown(report) {
 - partialAppliedCount: ${report.partialAppliedCount || 0}
 - candidateCount: ${report.candidateCount || 0}
 - wouldApplyCount: ${report.wouldApplyCount || 0}
+- effectiveApplyCount: ${report.effectiveApplyCount || 0}
 - largeApplyWarningThreshold: ${report.largeApplyWarningThreshold ?? LARGE_APPLY_WARNING_THRESHOLD}
 - maxAutoApply: ${report.maxAutoApply ?? DEFAULT_MAX_AUTO_APPLY}
 - largeApplyWarning: ${Boolean(report.largeApplyWarning)}
@@ -238,6 +239,7 @@ function makeReport({ mode, state, result = {} }) {
       result.partialAppliedCount || 0,
     candidateCount: result.candidateCount || 0,
     wouldApplyCount: result.wouldApplyCount || 0,
+    effectiveApplyCount: result.effectiveApplyCount || 0,
     largeApplyWarningThreshold:
       result.largeApplyWarningThreshold ??
       LARGE_APPLY_WARNING_THRESHOLD,
@@ -750,9 +752,20 @@ export function evaluateProgressiveProductionApplyGate({
     preview?.candidateCount ?? candidateCount
   );
   const wouldApplyCount = previewWouldApplyCount;
+  const hasEffectiveApplyEvidence =
+    Number.isFinite(preview?.effectiveApplyCount) &&
+    preview?.effectiveApplyConsistency;
+  const effectiveApplyCount = hasEffectiveApplyEvidence
+    ? Number(preview.effectiveApplyCount)
+    : previewWouldApplyCount;
+  const effectiveApplyConsistency = preview?.effectiveApplyConsistency || {
+    valid: true,
+    reason: null,
+    appliedCandidateIds: (preview?.wouldApplyProductIds || []).map(String),
+  };
   const largeApplyWarning =
-    previewWouldApplyCount > largeApplyWarningThreshold;
-  const largeApplyBlocked = previewWouldApplyCount > maxAutoApply;
+    effectiveApplyCount > largeApplyWarningThreshold;
+  const largeApplyBlocked = effectiveApplyCount > maxAutoApply;
   if (!(candidateCount > 0)) {
     blockers.push("candidateCount must be greater than 0");
   }
@@ -761,7 +774,12 @@ export function evaluateProgressiveProductionApplyGate({
   }
   if (largeApplyBlocked) {
     blockers.push(
-      `wouldApplyCount ${previewWouldApplyCount} exceeds max auto apply ${maxAutoApply}`
+      `effectiveApplyCount ${effectiveApplyCount} exceeds max auto apply ${maxAutoApply}`
+    );
+  }
+  if (effectiveApplyConsistency.valid !== true) {
+    blockers.push(
+      effectiveApplyConsistency.reason || "effective apply count mismatch"
     );
   }
   const applyGap = audit?.applyGap || null;
@@ -873,6 +891,10 @@ export function evaluateProgressiveProductionApplyGate({
     applyReady: blockers.length === 0,
     candidateCount,
     wouldApplyCount,
+    effectiveApplyCount,
+    appliedCandidateIds: effectiveApplyConsistency.appliedCandidateIds || [],
+    fieldChanges: preview?.fieldChanges || [],
+    effectiveApplyConsistency,
     safeSubsetApply: safeGap && blockers.length === 0,
     isolatedCandidateCount: gapCount,
     failedIsolatedCount: failedIsolatedCandidates.length,
@@ -958,6 +980,8 @@ export function buildSmokingpipesChangeSummary({
   actualAppliedCount = 0,
   isolatedCandidateCount = 0,
   failedIsolatedCount = 0,
+  appliedCandidateIds = null,
+  fieldChanges = null,
 } = {}) {
   const beforeById = new Map(
     productionBefore.map((item) => [sourceProductId(item), item])
@@ -968,6 +992,7 @@ export function buildSmokingpipesChangeSummary({
   const candidatesById = new Map(
     (state?.candidates || []).map((item) => [sourceProductId(item), item])
   );
+  const changedIds = new Set();
   const summary = {
     newlyPublishedCount: 0,
     sourcePriceIncreaseCount: 0,
@@ -982,11 +1007,12 @@ export function buildSmokingpipesChangeSummary({
     isolatedCandidateCount: Number(isolatedCandidateCount || 0),
     failedIsolatedCount: Number(failedIsolatedCount || 0),
     otherAppliedCount: 0,
-    actualAppliedCount: Number(actualAppliedCount || 0),
+    actualAppliedCount: 0,
   };
   for (const [id, after] of afterById) {
     const before = beforeById.get(id);
     if (before && JSON.stringify(before) === JSON.stringify(after)) continue;
+    changedIds.add(id);
     const candidate = candidatesById.get(id);
     const changeTypes = candidate?.changeTypes || [];
     if (!before) summary.newlyPublishedCount += 1;
@@ -1013,14 +1039,35 @@ export function buildSmokingpipesChangeSummary({
     summary.confirmedDisappearedCount +
     summary.reappearedCount +
     summary.otherAppliedCount;
+  summary.actualAppliedCount = changedIds.size;
+  const expectedActualAppliedCount = Number(actualAppliedCount || 0);
+  const expectedAppliedCandidateIds = Array.isArray(appliedCandidateIds)
+    ? [...new Set(appliedCandidateIds.map(String).filter(Boolean))].sort()
+    : null;
+  const expectedFieldChangeIds = Array.isArray(fieldChanges)
+    ? [...new Set(fieldChanges.map((change) => sourceProductId(change)).filter(Boolean))].sort()
+    : null;
+  const changedIdList = [...changedIds].sort();
+  const appliedCandidateIdsMatch = expectedAppliedCandidateIds === null ||
+    JSON.stringify(changedIdList) === JSON.stringify(expectedAppliedCandidateIds);
+  const fieldChangesMatch = expectedFieldChangeIds === null ||
+    JSON.stringify(changedIdList) === JSON.stringify(expectedFieldChangeIds);
+  const countMatches = expectedActualAppliedCount === changedIds.size;
+  const valid = classified === summary.actualAppliedCount && countMatches && appliedCandidateIdsMatch && fieldChangesMatch;
   summary.consistency = {
-    valid: classified === summary.actualAppliedCount,
+    valid,
     classifiedAppliedCount: classified,
     reason:
-      classified === summary.actualAppliedCount
+      valid
         ? null
-        : `change summary classified ${classified} does not match actualAppliedCount ${summary.actualAppliedCount}`,
+        : `effective apply count mismatch: changeSummary=${summary.actualAppliedCount}, classified=${classified}, expected=${expectedActualAppliedCount}, appliedCandidateIds=${expectedAppliedCandidateIds?.length ?? "missing"}, fieldChanges=${expectedFieldChangeIds?.length ?? "missing"}`,
   };
+  if (expectedAppliedCandidateIds !== null) {
+    summary.consistency.appliedCandidateCount = expectedAppliedCandidateIds.length;
+  }
+  if (expectedFieldChangeIds !== null) {
+    summary.consistency.fieldChangeCount = expectedFieldChangeIds.length;
+  }
   return summary;
 }
 
@@ -1394,6 +1441,8 @@ async function buildCandidateArtifacts({
     audit,
     productionProducts,
     candidateProducts: candidate.products,
+    appliedCandidateIds: candidate.appliedCandidateIds,
+    fieldChanges: candidate.fieldChanges,
   });
   audit.wouldApplyCount = applyPreview.wouldApplyCount || 0;
   audit.applyGap = diagnoseProgressiveApplyGap({
@@ -1462,6 +1511,8 @@ async function prepareProgressiveApplyGate({
     audit: artifacts.audit,
     productionProducts,
     candidateProducts,
+    appliedCandidateIds: artifacts.candidate.appliedCandidateIds,
+    fieldChanges: artifacts.candidate.fieldChanges,
   });
   await writeJsonAtomic(paths.progressiveApplyPreview, preview);
   const publicNext = readProgressivePublicNext(paths);
@@ -1503,6 +1554,8 @@ async function prepareProgressiveApplyGate({
     blockers: gate.blockers,
     candidateCount: gate.candidateCount,
     wouldApplyCount: gate.wouldApplyCount,
+    effectiveApplyCount: gate.effectiveApplyCount,
+    effectiveApplyConsistency: gate.effectiveApplyConsistency,
     isolatedCandidateCount: gate.isolatedCandidateCount,
     safeSubsetApply: gate.safeSubsetApply,
     maxAutoApply: gate.maxAutoApply,
@@ -2883,7 +2936,7 @@ export async function runSmokingpipesProgressiveMode({
       gate.blockers.push(...publicNext.blockers);
       if (gate.largeApplyWarning && options.verbose) {
         console.log(
-          `APPLY warning: wouldApplyCount ${gate.wouldApplyCount} exceeds large-apply warning threshold ${gate.largeApplyWarningThreshold}; automatic apply remains subject to all safety gates and maxAutoApply=${gate.maxAutoApply}`
+          `APPLY warning: effectiveApplyCount ${gate.effectiveApplyCount} exceeds large-apply warning threshold ${gate.largeApplyWarningThreshold}; automatic apply remains subject to all safety gates and maxAutoApply=${gate.maxAutoApply}`
         );
       }
       if (manualLargeApplyEvidence) {
@@ -2974,6 +3027,42 @@ export async function runSmokingpipesProgressiveMode({
           `NON-APPLY candidates retained for review: ${gate.isolatedCandidateCount}`
         );
       }
+      if (gate.effectiveApplyCount === 0) {
+        const noChange = {
+          version: "smokingpipes-progressive-partial-apply-preview-v1",
+          generatedAt: new Date().toISOString(),
+          status: "no-production-change",
+          candidateCount: gate.candidateCount,
+          wouldApplyCount: gate.wouldApplyCount,
+          effectiveApplyCount: 0,
+          appliedCount: 0,
+          partialAppliedCount: 0,
+          appliedCandidateIds: [],
+          fieldChanges: [],
+          isolatedCandidateCount: gate.isolatedCandidateCount,
+          safeSubsetApply: gate.safeSubsetApply,
+          maxAutoApply: gate.maxAutoApply,
+          largeApplyWarningThreshold: gate.largeApplyWarningThreshold,
+          largeApplyWarning: false,
+          largeApplyBlocked: false,
+          changeSummary: buildSmokingpipesChangeSummary({
+            productionBefore: productionProducts,
+            productionAfter: productionProducts,
+            state,
+            actualAppliedCount: 0,
+            isolatedCandidateCount: gate.isolatedCandidateCount,
+            failedIsolatedCount: gate.failedIsolatedCount,
+            appliedCandidateIds: [],
+            fieldChanges: [],
+          }),
+          productionWritten: false,
+          commitPerformed: false,
+          pushPerformed: false,
+        };
+        await writeJsonAtomic(paths.progressiveApplyPreview, noChange);
+        await writeProgressiveReport(paths, makeReport({ mode: options.mode, state, result: noChange }));
+        return noChange;
+      }
       const productionSafeSubset =
         buildSafeSubsetProductionProducts({
           productionProducts,
@@ -2998,9 +3087,11 @@ export async function runSmokingpipesProgressiveMode({
         productionBefore: productionProducts,
         productionAfter: productionSafeSubset,
         state,
-        actualAppliedCount: gate.wouldApplyCount,
+        actualAppliedCount: gate.effectiveApplyCount,
         isolatedCandidateCount: gate.isolatedCandidateCount,
         failedIsolatedCount: gate.failedIsolatedCount,
+        appliedCandidateIds: gate.appliedCandidateIds,
+        fieldChanges: gate.fieldChanges,
       });
       if (!changeSummary.consistency.valid) {
         postApplyValidation.blockers.push(changeSummary.consistency.reason);
@@ -3013,6 +3104,7 @@ export async function runSmokingpipesProgressiveMode({
           status: "apply-blocked",
           candidateCount: gate.candidateCount,
           wouldApplyCount: gate.wouldApplyCount,
+          effectiveApplyCount: gate.effectiveApplyCount,
           blockers: postApplyValidation.blockers,
           blockedReason: postApplyValidation.blockers.join("; "),
           warnings: postApplyValidation.warnings,
@@ -3066,9 +3158,12 @@ export async function runSmokingpipesProgressiveMode({
         status: "apply-complete",
         candidateCount: gate.candidateCount,
         wouldApplyCount: gate.wouldApplyCount,
-        partialAppliedCount: gate.wouldApplyCount,
-        appliedCount: gate.wouldApplyCount,
+        effectiveApplyCount: gate.effectiveApplyCount,
+        partialAppliedCount: gate.effectiveApplyCount,
+        appliedCount: gate.effectiveApplyCount,
         wouldApplyProductIds: freshPreview.wouldApplyProductIds,
+        appliedCandidateIds: gate.appliedCandidateIds,
+        fieldChanges: gate.fieldChanges,
         safeSubsetApply: gate.safeSubsetApply,
         isolatedCandidateCount:
           gate.isolatedCandidateCount,

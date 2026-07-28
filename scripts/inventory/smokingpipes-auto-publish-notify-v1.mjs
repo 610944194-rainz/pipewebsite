@@ -100,6 +100,8 @@ export function buildAutoPublishNotification(report = {}) {
     `状态：${status}`,
     `候选：${Number(report.candidateCount || 0)}`,
     `拟应用：${Number(report.wouldApplyCount || 0)}`,
+    `实际变更：${getActualAppliedCount(report)}`,
+    `自动应用上限：${Number(report.maxAutoApply || 0)}`,
     ...summaryLines,
     `production 写入：${report.productionWritten === true ? "是" : "否"}`,
     `提交：${report.commitPerformed === true ? "是" : "否"}`,

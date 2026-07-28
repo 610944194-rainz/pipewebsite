@@ -389,6 +389,25 @@ try {
   assert.equal(evaluateAutoPublishGate(base).allowed, true);
   assert.equal(DEFAULT_MAX_AUTO_APPLY, 2000);
   assert.equal(LARGE_APPLY_WARNING_THRESHOLD, 300);
+  const effectiveFixture = evaluateAutoPublishGate({
+    ...base,
+    candidateCount: 4144,
+    wouldApplyCount: 3920,
+    appliedCount: 315,
+    effectiveApplyCount: 315,
+  });
+  assert.equal(effectiveFixture.allowed, true);
+  assert.equal(effectiveFixture.largeApplyWarning, true);
+  assert.equal(effectiveFixture.largeApplyBlocked, false);
+  assert.equal(effectiveFixture.effectiveApplyCount, 315);
+  assert.equal(
+    evaluateAutoPublishGate({ ...base, wouldApplyCount: 5000, appliedCount: 2000, effectiveApplyCount: 2000 }).largeApplyBlocked,
+    false
+  );
+  assert.equal(
+    evaluateAutoPublishGate({ ...base, wouldApplyCount: 5000, appliedCount: 2001, effectiveApplyCount: 2001 }).largeApplyBlocked,
+    true
+  );
   for (const [count, warning, allowed] of [
     [300, false, true],
     [301, true, true],

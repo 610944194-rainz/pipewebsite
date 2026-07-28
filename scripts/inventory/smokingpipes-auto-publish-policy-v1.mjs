@@ -48,6 +48,7 @@ export function evaluateAutoPublishGate({
   candidateCount = 0,
   wouldApplyCount = 0,
   appliedCount = 0,
+  effectiveApplyCount = appliedCount,
   pendingCount = 0,
   failedCount = 0,
   maxAutoApply = DEFAULT_MAX_AUTO_APPLY,
@@ -80,10 +81,10 @@ export function evaluateAutoPublishGate({
   if (pendingCount > 0) blockers.push(`pending candidates=${pendingCount}`);
   if (failedCount > 0) blockers.push(`failed candidates=${failedCount}`);
   const largeApplyWarning =
-    wouldApplyCount > largeApplyWarningThreshold;
-  const largeApplyBlocked = wouldApplyCount > maxAutoApply;
+    effectiveApplyCount > largeApplyWarningThreshold;
+  const largeApplyBlocked = effectiveApplyCount > maxAutoApply;
   if (largeApplyBlocked) {
-    blockers.push(`wouldApplyCount ${wouldApplyCount} exceeds max auto apply ${maxAutoApply}`);
+    blockers.push(`effectiveApplyCount ${effectiveApplyCount} exceeds max auto apply ${maxAutoApply}`);
   }
   if (!validatorPassed) blockers.push("public index validator failed");
   if (!inventoryDefaultPassed) blockers.push("inventory default test failed");
@@ -101,6 +102,7 @@ export function evaluateAutoPublishGate({
     allowed,
     blockers,
     wouldApplyCount,
+    effectiveApplyCount,
     maxAutoApply,
     largeApplyWarningThreshold,
     largeApplyWarning,

@@ -8324,6 +8324,83 @@ assert.equal(safeSubsetGate.safeSubsetApply, true);
 assert.equal(safeSubsetGate.isolatedCandidateCount, 1);
 assert.deepEqual(safeSubsetGate.blockers, []);
 
+const effectiveApplyFixtureGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-effective-fixture" },
+  audit: {
+    ...safeGapAudit,
+    candidateCount: 4144,
+    wouldApplyCount: 3920,
+    applyGap: {
+      ...safeGapDiagnosis,
+      candidateCount: 4144,
+      wouldApplyCount: 3920,
+      gapCount: 224,
+      safeToApplyWouldApplySubset: true,
+    },
+  },
+  preview: {
+    ...safeGapPreview,
+    candidateCount: 4144,
+    wouldApplyCount: 3920,
+    effectiveApplyCount: 315,
+    effectiveApplyConsistency: { valid: true, appliedCandidateIds: [] },
+  },
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+  maxAutoApply: 2000,
+});
+assert.equal(effectiveApplyFixtureGate.applyReady, true);
+assert.equal(effectiveApplyFixtureGate.largeApplyWarning, true);
+assert.equal(effectiveApplyFixtureGate.largeApplyBlocked, false);
+assert.equal(effectiveApplyFixtureGate.effectiveApplyCount, 315);
+assert.equal(effectiveApplyFixtureGate.isolatedCandidateCount, 224);
+
+const effectiveNoChangeGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-effective-no-change" },
+  audit: {
+    ...safeGapAudit,
+    candidateCount: 4144,
+    wouldApplyCount: 3920,
+    applyGap: {
+      ...safeGapDiagnosis,
+      candidateCount: 4144,
+      wouldApplyCount: 3920,
+      gapCount: 224,
+      safeToApplyWouldApplySubset: true,
+    },
+  },
+  preview: {
+    ...safeGapPreview,
+    candidateCount: 4144,
+    wouldApplyCount: 3920,
+    effectiveApplyCount: 0,
+    effectiveApplyConsistency: { valid: true, appliedCandidateIds: [] },
+  },
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+  maxAutoApply: 2000,
+});
+assert.equal(effectiveNoChangeGate.applyReady, true);
+assert.equal(effectiveNoChangeGate.largeApplyWarning, false);
+assert.equal(effectiveNoChangeGate.largeApplyBlocked, false);
+
+const effectiveApplyMismatchGate = evaluateProgressiveProductionApplyGate({
+  state: { dailyRunId: "daily-update-effective-mismatch" },
+  audit: safeGapAudit,
+  preview: {
+    ...safeGapPreview,
+    effectiveApplyCount: 315,
+    effectiveApplyConsistency: {
+      valid: false,
+      reason: "effective apply count mismatch: changeSummary=315, appliedCandidateIds=314",
+    },
+  },
+  candidateProducts: safeGapCandidateProducts,
+  publicPayloads: completePublicPayloads,
+});
+assert.equal(effectiveApplyMismatchGate.applyReady, false);
+assert.match(effectiveApplyMismatchGate.blockedReason, /effective apply count mismatch/);
+
 for (const [wouldApplyCount, warning, blocked] of [
   [300, false, false],
   [301, true, false],
@@ -8485,7 +8562,7 @@ assert.equal(overMaxAutoApplyGate.status, "apply-blocked");
 assert.equal(overMaxAutoApplyGate.maxAutoApply, 300);
 assert.match(
   overMaxAutoApplyGate.blockedReason,
-  /wouldApplyCount 4039 exceeds max auto apply 300/
+  /effectiveApplyCount 4039 exceeds max auto apply 300/
 );
 
 const noOpApplyGate = evaluateProgressiveProductionApplyGate({
@@ -10320,7 +10397,7 @@ const detailProgressMobileReport = buildSmokingpipesDailyMobileReport({
     candidates: [],
   },
 });
-assert.equal(detailProgressMobileReport.status, "detail-progress");
+assert.equal(detailProgressMobileReport.status, "detail-in-progress");
 assert.equal(detailProgressMobileReport.productionWritten, false);
 assert.equal(detailProgressMobileReport.retryAllowed, true);
 assert.equal(detailProgressMobileReport.detailCompletedThisRun, 30);
@@ -12077,7 +12154,7 @@ assert.match(
 assert.match(dailyTaskScript, /--mode=progressive-prepare-apply/);
 assert.match(
   dailyTaskScript,
-  /progressive prepare apply gate blocked:[\s\S]*-Status "safety-gate-blocked"[\s\S]*-FailureType "audit"[\s\S]*-CachedListResume \$script:CachedListResumeState/
+  /progressive prepare apply gate blocked:[\s\S]*-Status "safety-gate-blocked"[\s\S]*-FailureType \$\(if \(\$prepareBlockedReason -match "effectiveApplyCount \.[*] exceeds max auto apply"\) \{ "max-auto-apply" \} else \{ "audit" \}\)[\s\S]*-CachedListResume \$script:CachedListResumeState/
 );
 assert.doesNotMatch(dailyTaskScript, /function Test-AuditAllowsProductionWrite/);
 assert.match(
@@ -12310,7 +12387,7 @@ assert.ok(
   detailProgressBranch,
   "pending details must exit as detail-progress before prepare-apply"
 );
-assert.match(detailProgressBranch, /-Status "detail-progress"/);
+assert.match(detailProgressBranch, /-Status "detail-in-progress"/);
 assert.match(detailProgressBranch, /-ProductionWritten \$false/);
 assert.match(detailProgressBranch, /-RetryAllowed \$true/);
 assert.match(detailProgressBranch, /ResumeFromCachedListEffective = \$true/);
