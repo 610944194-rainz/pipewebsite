@@ -608,6 +608,8 @@ export function buildProgressivePartialApplyPreview({
   audit,
   productionProducts = [],
   candidateProducts = [],
+  appliedCandidateIds,
+  fieldChanges,
   now = new Date().toISOString(),
 }) {
   if (!audit || audit.verdict !== "PASS") {
@@ -643,6 +645,44 @@ export function buildProgressivePartialApplyPreview({
     })
     .map(sourceProductId)
     .sort();
+  const effectiveApplyIds = [
+    ...new Set(
+      (Array.isArray(appliedCandidateIds)
+        ? appliedCandidateIds
+        : wouldApplyProductIds
+      ).map(String).filter(Boolean)
+    ),
+  ].sort();
+  const evidenceAppliedIds = [
+    ...new Set(
+      (Array.isArray(appliedCandidateIds)
+        ? appliedCandidateIds
+        : effectiveApplyIds
+      ).map(String).filter(Boolean)
+    ),
+  ].sort();
+  const evidenceFieldChangeIds = [
+    ...new Set(
+      (Array.isArray(fieldChanges)
+        ? fieldChanges
+        : effectiveApplyIds.map((sourceProductId) => ({ sourceProductId }))
+      )
+        .map((change) => sourceProductId(change))
+        .filter(Boolean)
+    ),
+  ].sort();
+  const effectiveApplyCount = effectiveApplyIds.length;
+  const effectiveApplyConsistency = {
+    valid:
+      JSON.stringify(effectiveApplyIds) === JSON.stringify(evidenceAppliedIds) &&
+      JSON.stringify(effectiveApplyIds) === JSON.stringify(evidenceFieldChangeIds),
+    productionChangedIds: effectiveApplyIds,
+    appliedCandidateIds: evidenceAppliedIds,
+    fieldChangeIds: evidenceFieldChangeIds,
+  };
+  effectiveApplyConsistency.reason = effectiveApplyConsistency.valid
+    ? null
+    : `effective apply count mismatch: production=${effectiveApplyIds.length}, appliedCandidateIds=${evidenceAppliedIds.length}, fieldChanges=${evidenceFieldChangeIds.length}`;
   const candidateCount = Number(
     audit?.candidateCount ?? wouldApplyProductIds.length
   );
@@ -655,6 +695,10 @@ export function buildProgressivePartialApplyPreview({
     candidateCount,
     wouldApplyProductIds,
     wouldApplyCount: wouldApplyProductIds.length,
+    effectiveApplyCount,
+    appliedCandidateIds: evidenceAppliedIds,
+    fieldChanges: Array.isArray(fieldChanges) ? fieldChanges : evidenceFieldChangeIds.map((sourceProductId) => ({ sourceProductId, operation: "derived-production-diff", fields: [] })),
+    effectiveApplyConsistency,
     isolatedCandidateCount: Number(
       audit?.isolatedCandidateCount ??
         audit?.applyGap?.gapCount ??

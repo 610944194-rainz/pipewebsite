@@ -312,14 +312,16 @@ function Copy-DailyStateToReport {
   $report.productionWritten = $State.productionWritten -eq $true
   $report.candidateCount = Get-DailyNumber -State $State -Name "candidateCount"
   $report.wouldApplyCount = Get-DailyNumber -State $State -Name "wouldApplyCount"
+  $report.effectiveApplyCount = Get-DailyNumber -State $State -Name "effectiveApplyCount"
   $report.appliedCount = Get-DailyNumber -State $State -Name "appliedCount"
   $report.isolatedCandidateCount = Get-DailyNumber -State $State -Name "isolatedCandidateCount"
   if ($null -ne $State.changeSummary) { $report.changeSummary = $State.changeSummary }
   $report.actualAppliedCount = if ($null -ne $State.changeSummary -and $null -ne $State.changeSummary.actualAppliedCount) {
     [int]$State.changeSummary.actualAppliedCount
   } else {
-    0
+    $report.effectiveApplyCount
   }
+  if ($report.effectiveApplyCount -le 0) { $report.effectiveApplyCount = $report.actualAppliedCount }
   $report.detailPendingCount = Get-DailyNumber -State $State -Name "detailPendingCount"
   $report.detailPhaseStatus = [string]$State.detailPhaseStatus
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
@@ -330,12 +332,12 @@ function Copy-DailyStateToReport {
   $report.largeApplyWarning = if ($null -ne $State.largeApplyWarning) {
     $State.largeApplyWarning -eq $true
   } else {
-    $report.wouldApplyCount -gt $report.largeApplyWarningThreshold
+    $report.effectiveApplyCount -gt $report.largeApplyWarningThreshold
   }
   $report.largeApplyBlocked = if ($null -ne $State.largeApplyBlocked) {
     $State.largeApplyBlocked -eq $true
   } else {
-    $report.wouldApplyCount -gt $report.maxAutoApply
+    $report.effectiveApplyCount -gt $report.maxAutoApply
   }
 }
 
@@ -391,6 +393,7 @@ $report = [ordered]@{
   productionWritten = $false
   candidateCount = 0
   wouldApplyCount = 0
+  effectiveApplyCount = 0
   appliedCount = 0
   actualAppliedCount = 0
   isolatedCandidateCount = 0
@@ -469,6 +472,7 @@ function Write-AutoPublishReport {
     "- productionWritten: $($report.productionWritten)",
     "- candidateCount: $($report.candidateCount)",
     "- wouldApplyCount: $($report.wouldApplyCount)",
+    "- effectiveApplyCount: $($report.effectiveApplyCount)",
     "- appliedCount: $($report.appliedCount)",
     "- actualAppliedCount: $($report.actualAppliedCount)",
     "- isolatedCandidateCount: $($report.isolatedCandidateCount)",

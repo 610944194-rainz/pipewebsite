@@ -438,6 +438,8 @@ async function run() {
               result.candidateCount || 0,
             wouldApplyCount:
               result.wouldApplyCount || 0,
+            effectiveApplyCount:
+              result.effectiveApplyCount || 0,
             maxAutoApply:
               result.maxAutoApply ?? options.maxAutoApply,
             largeApplyWarningThreshold:

@@ -157,6 +157,13 @@ if (errors.length === 0) {
   const homepagePriceTiers = homepageProducts.map((product) =>
     homepagePriceTier(product.siteDisplayAmount, priceTierThresholds)
   );
+  const eligiblePriceTiers = new Set(
+    catalog
+      .filter(
+        (product) => getFeaturedProductExclusionReasons(product).length === 0
+      )
+      .map((product) => homepagePriceTier(product.siteDisplayAmount, priceTierThresholds))
+  );
   const eligibleEntryFriendlyProducts = catalog.filter(
     (product) =>
       getFeaturedProductExclusionReasons(product).length === 0 &&
@@ -210,11 +217,22 @@ if (errors.length === 0) {
     );
   }
 
-  addError(
-    errors,
-    new Set(homepagePriceTiers).size === FEATURED_PRODUCT_RULES.homepageSize,
-    `Homepage must cover entry, mainstream, upper, and collectible price tiers; got ${homepagePriceTiers.join(", ")}.`
+  const missingHomepagePriceTiers = ["entry", "mainstream", "upper", "collectible"].filter(
+    (tier) => !homepagePriceTiers.includes(tier)
   );
+  const allHomepagePriceTiersAreEligible =
+    eligiblePriceTiers.size === FEATURED_PRODUCT_RULES.homepageSize;
+  if (allHomepagePriceTiersAreEligible) {
+    addError(
+      errors,
+      missingHomepagePriceTiers.length === 0,
+      `Homepage must cover entry, mainstream, upper, and collectible price tiers; got ${homepagePriceTiers.join(", ")}.`
+    );
+  } else if (missingHomepagePriceTiers.length > 0) {
+    warnings.push(
+      `Homepage price-tier diversity is limited by eligible inventory; missing ${missingHomepagePriceTiers.join(", ")}.`
+    );
+  }
 
   const homePagePath = path.join(ROOT, "app", "page.tsx");
   const featuredPagePath = path.join(ROOT, "app", "featured", "page.tsx");
@@ -234,9 +252,20 @@ if (errors.length === 0) {
     homePageSource.includes("getHomepageFeaturedProducts"),
     "Homepage does not read generated homepage featured products."
   );
+  const homeEditorialSectionsPath = path.join(
+    ROOT,
+    "app",
+    "components",
+    "home",
+    "HomeEditorialSections.tsx"
+  );
+  const homeEditorialSectionsSource = fs.existsSync(homeEditorialSectionsPath)
+    ? fs.readFileSync(homeEditorialSectionsPath, "utf8")
+    : "";
   addError(
     errors,
-    homePageSource.includes('href="/featured"'),
+    homePageSource.includes("<HomeEditorialSections") &&
+      homeEditorialSectionsSource.includes('href="/featured"'),
     "Homepage featured link does not point to /featured."
   );
   addError(

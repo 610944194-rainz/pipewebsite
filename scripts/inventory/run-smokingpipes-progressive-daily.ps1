@@ -347,6 +347,11 @@ function Write-DailyTaskState {
   $inventoryLocksForState = if ($InventoryLocks) { $InventoryLocks } else { $script:InventoryLocksState }
   $progressiveLockForState = if ($ProgressiveLock) { $ProgressiveLock } else { $script:ProgressiveLockState }
   $cachedListResumeForState = if ($CachedListResume) { $CachedListResume } else { $script:CachedListResumeState }
+  $effectiveApplyCount = if ($null -ne $ChangeSummary -and $null -ne $ChangeSummary.actualAppliedCount) {
+    [int]$ChangeSummary.actualAppliedCount
+  } else {
+    [int]$AppliedCount
+  }
   $state = [ordered]@{
     source = "smokingpipes"
     runMode = if ($script:NoProductionWriteEffective) { "safe-bootstrap" } else { "daily-update" }
@@ -363,6 +368,7 @@ function Write-DailyTaskState {
     lastFailureAt = $null
     lastFailureReason = $FailureReason
     lastFailureType = $FailureType
+    requiresManualVerification = ($FailureType -eq "verification")
     lastSuccessfulLocalDate = if ($existingState) { [string]$existingState.lastSuccessfulLocalDate } else { $null }
     lastSuccessfulCompletedAt = if ($existingState) { [string]$existingState.lastSuccessfulCompletedAt } else { $null }
     lastSuccessfulRunId = if ($existingState) { [string]$existingState.lastSuccessfulRunId } else { $null }
@@ -372,13 +378,14 @@ function Write-DailyTaskState {
     appliedCount = $AppliedCount
     candidateCount = $CandidateCount
     wouldApplyCount = $WouldApplyCount
+    effectiveApplyCount = $effectiveApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
     changeSummary = if ($null -ne $ChangeSummary) { $ChangeSummary } elseif ($existingState -and $existingState.changeSummary) { $existingState.changeSummary } else { $null }
     progressiveDetailMax = [int]$ProgressiveDetailMax
     maxAutoApply = [int]$MaxAutoApply
     largeApplyWarningThreshold = $LargeApplyWarningThreshold
-    largeApplyWarning = [bool]($WouldApplyCount -gt $LargeApplyWarningThreshold)
-    largeApplyBlocked = [bool]($WouldApplyCount -gt [int]$MaxAutoApply)
+    largeApplyWarning = [bool]($effectiveApplyCount -gt $LargeApplyWarningThreshold)
+    largeApplyBlocked = [bool]($effectiveApplyCount -gt [int]$MaxAutoApply)
     nextRetryRecommendedAt = $NextRetryRecommendedAt
     retryAllowed = $RetryAllowed
     currentList = $currentListForState
@@ -1725,6 +1732,23 @@ try {
     } else {
       $null
     }
+    if ($applyStatus -eq "no-production-change" -and $applyExit -eq 0) {
+      Write-DailyTaskState `
+        -Status "no-production-change" `
+        -Attempts $attempts `
+        -ProductionWritten $false `
+        -AppliedCount 0 `
+        -CandidateCount $prepareCandidateCount `
+        -WouldApplyCount $prepareWouldApplyCount `
+        -IsolatedCandidateCount $applyIsolatedCandidateCount `
+        -RetryAllowed $false `
+        -DetailPhaseStatus $script:DetailPhaseStatus `
+        -CachedListResume $script:CachedListResumeState `
+        -ChangeSummary $applyChangeSummary
+      Send-MobileReport
+      Write-DailyLog "DAILY TASK NO PRODUCTION CHANGE"
+      exit 0
+    }
     if (
       $applyExit -ne 0 -or
       -not $applyProductionWritten -or
@@ -1737,7 +1761,9 @@ try {
       }
       $failureReason =
         "progressive-partial-apply blocked before confirmed production write: $applyBlockedReason"
-      $failureType = if ($applyStatus -eq "apply-blocked") {
+      $failureType = if ($applyBlockedReason -match "effectiveApplyCount .* exceeds max auto apply") {
+        "max-auto-apply"
+      } elseif ($applyStatus -eq "apply-blocked") {
         "audit"
       } else {
         Get-FailureType -Message $failureReason
@@ -1778,7 +1804,7 @@ try {
       -WouldApplyCount $prepareWouldApplyCount `
       -IsolatedCandidateCount $prepareIsolatedCandidateCount `
       -FailureReason $failureReason `
-      -FailureType "audit" `
+      -FailureType $(if ($prepareBlockedReason -match "effectiveApplyCount .* exceeds max auto apply") { "max-auto-apply" } else { "audit" }) `
       -RetryAllowed $false `
       -DetailPhaseStatus $script:DetailPhaseStatus `
       -CachedListResume $script:CachedListResumeState `

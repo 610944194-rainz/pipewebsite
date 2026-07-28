@@ -613,9 +613,9 @@ export function buildSmokingpipesDailyMobileReport({
   const wouldApplyCount =
     Number.isFinite(audit?.wouldApplyCount) ? audit.wouldApplyCount : 0;
   const isolatedCandidateCount = Number(
-    audit?.isolatedCandidateCount ??
+    taskState?.isolatedCandidateCount ??
       audit?.applyGap?.gapCount ??
-      taskState?.isolatedCandidateCount ??
+      audit?.isolatedCandidateCount ??
       0
   );
   const attemptedCandidateCount = Number(
@@ -633,6 +633,9 @@ export function buildSmokingpipesDailyMobileReport({
     taskState?.changeSummary,
     appliedCount,
     isolatedCandidateCount
+  );
+  const effectiveApplyCount = Number(
+    taskState?.effectiveApplyCount ?? changeSummary.actualAppliedCount
   );
   const detailComplete = countBy(
     candidates,
@@ -706,6 +709,8 @@ export function buildSmokingpipesDailyMobileReport({
       ? "详情分批处理中"
       : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
+      : failureType === "max-auto-apply"
+      ? "实际变更超过自动应用上限"
       : status === "success"
       ? statusLabelV2(status)
       : status === "detail-complete"
@@ -747,6 +752,7 @@ export function buildSmokingpipesDailyMobileReport({
     candidateCount,
     attemptedCandidateCount,
     wouldApplyCount,
+    effectiveApplyCount,
     isolatedCandidateCount,
     appliedCount,
     changeSummary,
@@ -890,6 +896,9 @@ function deriveReasonV2({
   }
 
   if (["retryable-failed", "terminal-failed", "manual-review-required", "safety-gate-blocked"].includes(status)) {
+    if (taskState?.lastFailureType === "max-auto-apply") {
+      return "实际变更超过自动应用上限；未写入 Production。";
+    }
     if (taskState?.lastFailureType === "preflight") {
       return `恢复预检失败：${sanitizeMobileTextV2(
         taskState?.lastFailureReason || "请查看 recovery preflight report"
@@ -1285,6 +1294,7 @@ function buildSourceAccessTextV2(report) {
 
 function failureTypeLabelV2(value) {
   const type = normalizeText(value);
+  if (type === "max-auto-apply") return "实际变更超过自动应用上限";
   if (type === "lock") return "任务锁定";
   if (type === "verification") return "源站验证";
   if (type === "network") return "网络异常";
