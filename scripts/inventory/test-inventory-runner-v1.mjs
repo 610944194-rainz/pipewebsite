@@ -2952,14 +2952,32 @@ assert.equal(
   parseRunnerOptions(["--write-production"]).writeProduction,
   true
 );
-assert.equal(
-  parseRunnerOptions([
+  assert.equal(
+    parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--write-production",
+      "--manual-large-apply",
+  ]).manualLargeApply,
+    true
+  );
+  const catchupOptions = parseRunnerOptions([
     "--mode=progressive-partial-apply",
     "--write-production",
     "--manual-large-apply",
-  ]).manualLargeApply,
-  true
-);
+    "--manual-catchup-batch=1",
+    "--catchup-plan-id=plan-1",
+    "--catchup-batch-hash=batch-1",
+  ]);
+  assert.equal(catchupOptions.manualCatchupBatch, 1);
+  assert.equal(catchupOptions.catchupPlanId, "plan-1");
+  assert.equal(catchupOptions.catchupBatchHash, "batch-1");
+  assert.throws(
+    () => parseRunnerOptions([
+      "--mode=progressive-partial-apply",
+      "--manual-catchup-batch=1",
+    ]),
+    /are all required for catch-up execution/
+  );
 assert.throws(
   () =>
     parseRunnerOptions([
@@ -12734,5 +12752,121 @@ assert.deepEqual(changeSummaryFixture, {
   otherAppliedCount: 0, actualAppliedCount: 13,
   consistency: { valid: true, classifiedAppliedCount: 13, reason: null },
 });
+
+// Exercise the real progressive-partial-apply CLI contract in an isolated
+// fixture: plan first, then apply only the explicitly approved batch.
+const catchupExecutionRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "inventory-catchup-execution-")
+);
+fs.cpSync(progressiveApplyRoot, catchupExecutionRoot, { recursive: true });
+const catchupExecutionPaths = runnerCore.getRunnerPaths(catchupExecutionRoot);
+fs.writeFileSync(
+  catchupExecutionPaths.existingProducts,
+  JSON.stringify(progressiveApplyProduction),
+  "utf8"
+);
+fs.writeFileSync(
+  catchupExecutionPaths.progressiveState,
+  JSON.stringify({ ...progressiveApplyState, actionEvents: {} }),
+  "utf8"
+);
+const catchupPrepared = await runSmokingpipesProgressiveMode({
+  root: catchupExecutionRoot,
+  options: parseRunnerOptions(["--mode=progressive-prepare-apply"]),
+});
+assert.equal(catchupPrepared.status, "apply-ready");
+const catchupPlan = JSON.parse(
+  fs.readFileSync(catchupExecutionPaths.smokingpipesCatchupPlan, "utf8")
+);
+assert.equal(catchupPlan.batches.length, 1);
+const catchupApplied = await runSmokingpipesProgressiveMode({
+  root: catchupExecutionRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-partial-apply",
+    "--write-production",
+    "--manual-large-apply",
+    "--manual-catchup-batch=1",
+    `--catchup-plan-id=${catchupPlan.planId}`,
+    `--catchup-batch-hash=${catchupPlan.batches[0].batchHash}`,
+    "--no-commit",
+    "--no-deploy",
+  ]),
+});
+assert.equal(
+  catchupApplied.status,
+  "apply-complete",
+  JSON.stringify(catchupApplied, null, 2)
+);
+assert.equal(
+  catchupApplied.effectiveApplyCount,
+  catchupPlan.batches[0].expectedEffectiveApplyCount
+);
+const catchupReceipt = JSON.parse(
+  fs.readFileSync(catchupExecutionPaths.smokingpipesCatchupReceipt, "utf8")
+);
+assert.equal(catchupReceipt.phase, "events-committed");
+assert.equal(catchupReceipt.selectedEventIds.length, 2);
+const catchupState = JSON.parse(
+  fs.readFileSync(catchupExecutionPaths.progressiveState, "utf8")
+);
+assert.ok(
+  catchupReceipt.selectedEventIds.every(
+    (eventId) => catchupState.actionEvents[eventId]?.status === "applied"
+  )
+);
+const interruptedCatchupState = structuredClone(catchupState);
+for (const eventId of catchupReceipt.selectedEventIds) {
+  interruptedCatchupState.actionEvents[eventId].status = "pending";
+  delete interruptedCatchupState.actionEvents[eventId].appliedAt;
+  delete interruptedCatchupState.actionEvents[eventId].appliedRunId;
+}
+fs.writeFileSync(
+  catchupExecutionPaths.progressiveState,
+  JSON.stringify(interruptedCatchupState),
+  "utf8"
+);
+fs.writeFileSync(
+  catchupExecutionPaths.smokingpipesCatchupReceipt,
+  JSON.stringify({ ...catchupReceipt, phase: "production-written" }),
+  "utf8"
+);
+const catchupRecovery = await runSmokingpipesProgressiveMode({
+  root: catchupExecutionRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-partial-apply",
+    "--write-production",
+    "--manual-large-apply",
+    "--manual-catchup-batch=1",
+    `--catchup-plan-id=${catchupPlan.planId}`,
+    `--catchup-batch-hash=${catchupPlan.batches[0].batchHash}`,
+    "--no-commit",
+    "--no-deploy",
+  ]),
+});
+assert.equal(catchupRecovery.status, "catchup-recovery-complete");
+assert.equal(catchupRecovery.productionRewritten, false);
+const recoveredCatchupState = JSON.parse(
+  fs.readFileSync(catchupExecutionPaths.progressiveState, "utf8")
+);
+assert.ok(
+  catchupReceipt.selectedEventIds.every(
+    (eventId) => recoveredCatchupState.actionEvents[eventId]?.status === "applied"
+  )
+);
+const catchupRepeat = await runSmokingpipesProgressiveMode({
+  root: catchupExecutionRoot,
+  options: parseRunnerOptions([
+    "--mode=progressive-partial-apply",
+    "--write-production",
+    "--manual-large-apply",
+    "--manual-catchup-batch=1",
+    `--catchup-plan-id=${catchupPlan.planId}`,
+    `--catchup-batch-hash=${catchupPlan.batches[0].batchHash}`,
+    "--no-commit",
+    "--no-deploy",
+  ]),
+});
+assert.equal(catchupRepeat.status, "catchup-plan-stale");
+fs.rmSync(catchupExecutionRoot, { recursive: true, force: true });
 
 console.log("Inventory runner core tests passed.");

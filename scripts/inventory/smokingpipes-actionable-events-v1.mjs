@@ -6,6 +6,8 @@ import {
 export const SMOKINGPIPES_ACTION_EVENT_SCHEMA_VERSION =
   "smokingpipes-action-event-v1";
 export const SMOKINGPIPES_CATCHUP_BATCH_LIMIT = 2000;
+export const SMOKINGPIPES_CATCHUP_PLAN_SCHEMA_VERSION =
+  "smokingpipes-catchup-plan-v1";
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -36,12 +38,16 @@ function canonicalize(value) {
   return value;
 }
 
-export function stableProductHash(product) {
-  if (!product) return null;
+function stableHash(value) {
   return crypto
     .createHash("sha256")
-    .update(JSON.stringify(canonicalize(product)))
+    .update(JSON.stringify(canonicalize(value)))
     .digest("hex");
+}
+
+export function stableProductHash(product) {
+  if (!product) return null;
+  return stableHash(product);
 }
 
 function updateExplicitPrice(product, candidate) {
@@ -182,6 +188,16 @@ function actionPriority(actionType) {
     "price-change": 3,
     "new-product": 4,
   }[actionType] ?? 99;
+}
+
+function comparePlanItems(left, right) {
+  return actionPriority(left.event.changeType) - actionPriority(right.event.changeType) ||
+    left.event.sourceProductId.localeCompare(
+      right.event.sourceProductId,
+      "en",
+      { numeric: true }
+    ) ||
+    left.event.eventId.localeCompare(right.event.eventId);
 }
 
 function observedActionType({
@@ -437,14 +453,7 @@ export function buildSmokingpipesActionableApplyPlan({
     });
   }
 
-  items.sort((left, right) =>
-    actionPriority(left.event.changeType) - actionPriority(right.event.changeType) ||
-    left.event.sourceProductId.localeCompare(
-      right.event.sourceProductId,
-      "en",
-      { numeric: true }
-    )
-  );
+  items.sort(comparePlanItems);
   const batches = [];
   for (let index = 0; index < items.length; index += SMOKINGPIPES_CATCHUP_BATCH_LIMIT) {
     batches.push({
@@ -465,6 +474,94 @@ export function buildSmokingpipesActionableApplyPlan({
     isolated,
     superseded,
     catchupBatches: batches,
+  };
+}
+
+export function createSmokingpipesCatchupPlan({
+  actionablePlan,
+  productionProducts = [],
+  runId,
+  codeCommitSha,
+  createdAt = new Date().toISOString(),
+}) {
+  const orderedItems = [...(actionablePlan?.items || [])].sort(comparePlanItems);
+  const productionBaselineHash = stableProductHash(productionProducts);
+  const identity = {
+    schemaVersion: SMOKINGPIPES_CATCHUP_PLAN_SCHEMA_VERSION,
+    codeCommitSha: codeCommitSha || null,
+    sourceSnapshotHash: actionablePlan?.sourceSnapshotHash || null,
+    productionBaselineHash,
+    batchLimit: SMOKINGPIPES_CATCHUP_BATCH_LIMIT,
+    eventIds: orderedItems.map((item) => item.event.eventId),
+  };
+  const planId = stableHash(identity);
+  const batches = [];
+  for (let index = 0; index < orderedItems.length; index += SMOKINGPIPES_CATCHUP_BATCH_LIMIT) {
+    const selected = orderedItems.slice(index, index + SMOKINGPIPES_CATCHUP_BATCH_LIMIT);
+    const batchNumber = batches.length + 1;
+    const eventIds = selected.map((item) => item.event.eventId);
+    const sourceProductIds = selected.map((item) => item.event.sourceProductId);
+    batches.push({
+      batchNumber,
+      eventIds,
+      sourceProductIds,
+      expectedEffectiveApplyCount: selected.length,
+      batchHash: stableHash({ planId, batchNumber, eventIds, sourceProductIds }),
+      requiresManualApproval: true,
+      status: "pending",
+    });
+  }
+  return {
+    schemaVersion: SMOKINGPIPES_CATCHUP_PLAN_SCHEMA_VERSION,
+    planId,
+    runId: runId || null,
+    codeCommitSha: codeCommitSha || null,
+    sourceSnapshotHash: actionablePlan?.sourceSnapshotHash || null,
+    productionBaselineHash,
+    createdAt,
+    totalEventCount: orderedItems.length,
+    batchLimit: SMOKINGPIPES_CATCHUP_BATCH_LIMIT,
+    batches,
+  };
+}
+
+export function selectSmokingpipesCatchupBatch({
+  actionablePlan,
+  plan,
+  batchNumber,
+  planId,
+  batchHash,
+  codeCommitSha,
+  productionProducts = [],
+}) {
+  const blockers = [];
+  if (plan?.schemaVersion !== SMOKINGPIPES_CATCHUP_PLAN_SCHEMA_VERSION) {
+    blockers.push("catch-up plan schemaVersion is invalid");
+  }
+  if (!planId || plan?.planId !== planId) blockers.push("catch-up planId does not match");
+  if (plan?.codeCommitSha !== codeCommitSha) blockers.push("catch-up plan codeCommitSha does not match current HEAD");
+  if (plan?.sourceSnapshotHash !== actionablePlan?.sourceSnapshotHash) blockers.push("catch-up plan sourceSnapshotHash is stale");
+  if (plan?.productionBaselineHash !== stableProductHash(productionProducts)) blockers.push("catch-up plan productionBaselineHash is stale");
+  const batch = (plan?.batches || []).find((item) => item.batchNumber === batchNumber);
+  if (!batch || batch.status !== "pending") blockers.push("catch-up batch is not pending");
+  if (!batchHash || batch?.batchHash !== batchHash) blockers.push("catch-up batchHash does not match");
+  if (!Number.isSafeInteger(batch?.expectedEffectiveApplyCount) || batch?.expectedEffectiveApplyCount !== (batch?.eventIds || []).length) blockers.push("catch-up batch expectedEffectiveApplyCount is inconsistent");
+  if ((batch?.eventIds || []).length > SMOKINGPIPES_CATCHUP_BATCH_LIMIT) blockers.push("catch-up batch exceeds 2000 events");
+  const byEventId = new Map((actionablePlan?.items || []).map((item) => [item.event.eventId, item]));
+  const items = (batch?.eventIds || []).map((eventId) => byEventId.get(eventId)).filter(Boolean);
+  if (items.length !== (batch?.eventIds || []).length) blockers.push("catch-up batch contains missing events");
+  if (new Set((batch?.sourceProductIds || []).map(String)).size !== (batch?.sourceProductIds || []).length) blockers.push("catch-up batch contains duplicate product IDs");
+  if (JSON.stringify((batch?.sourceProductIds || []).map(String)) !== JSON.stringify(items.map((item) => item.event.sourceProductId))) blockers.push("catch-up batch sourceProductIds do not match events");
+  for (const item of items) {
+    if (item.event.status !== "pending") blockers.push(`catch-up event ${item.event.eventId} is not pending`);
+    if (item.event.baselineProductHash !== stableProductHash(item.production)) blockers.push(`catch-up event ${item.event.eventId} baseline hash is stale`);
+  }
+  return {
+    valid: blockers.length === 0,
+    blockers: [...new Set(blockers)],
+    plan,
+    batch,
+    actionablePlan: { ...actionablePlan, items },
   };
 }
 

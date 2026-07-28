@@ -59,7 +59,11 @@ import {
 } from "./smokingpipes-progressive-candidate-v1.mjs";
 import {
   buildSmokingpipesActionableApplyPlan,
+  createSmokingpipesCatchupPlan,
   markSmokingpipesActionEventsApplied,
+  SMOKINGPIPES_CATCHUP_BATCH_LIMIT,
+  selectSmokingpipesCatchupBatch,
+  stableProductHash,
 } from "./smokingpipes-actionable-events-v1.mjs";
 import {
   sendPushDeerNotification,
@@ -1010,6 +1014,11 @@ export function evaluateProgressiveProductionApplyGate({
     largeApplyWarningThreshold,
     largeApplyWarning,
     largeApplyBlocked,
+    failureType: largeApplyBlocked ? "catchup-required" : null,
+    requiresManualVerification: false,
+    suggestedCatchupBatchCount: largeApplyBlocked
+      ? Math.ceil(effectiveApplyCount / SMOKINGPIPES_CATCHUP_BATCH_LIMIT)
+      : 0,
     stateDailyRunId,
     stateManualReconcileBlocked,
     auditGeneratedAt: audit?.generatedAt || null,
@@ -1306,6 +1315,62 @@ function createProgressiveProductionBackup(paths) {
   };
 }
 
+function buildCatchupReceipt({
+  selection,
+  runId,
+  productionBefore,
+  productionAfter,
+  phase,
+  backup = null,
+  prior = null,
+}) {
+  const selectedItems = selection?.actionablePlan?.items || [];
+  const timestamps = { ...(prior?.timestamps || {}) };
+  timestamps[phase] = new Date().toISOString();
+  return {
+    schemaVersion: "smokingpipes-catchup-receipt-v1",
+    planId: selection?.plan?.planId || null,
+    batchNumber: selection?.batch?.batchNumber || null,
+    batchHash: selection?.batch?.batchHash || null,
+    runId,
+    phase,
+    selectedEventIds: selectedItems.map((item) => item.event.eventId),
+    selectedSourceProductIds: selectedItems.map(
+      (item) => item.event.sourceProductId
+    ),
+    selectedDesiredProductHashes: selectedItems.map((item) => ({
+      sourceProductId: item.event.sourceProductId,
+      desiredProductHash: item.event.desiredProductHash,
+    })),
+    productionBeforeHash: stableProductHash(productionBefore),
+    expectedProductionAfterHash: stableProductHash(productionAfter),
+    actualProductionAfterHash:
+      phase === "prepared" ? null : stableProductHash(productionAfter),
+    backup,
+    commitSha: prior?.commitSha || null,
+    pushStatus: prior?.pushStatus || "not-requested",
+    timestamps,
+  };
+}
+
+function receiptMatchesWrittenProduction({ receipt, productionProducts }) {
+  if (receipt?.phase !== "production-written") return false;
+  if (
+    !receipt.expectedProductionAfterHash ||
+    receipt.expectedProductionAfterHash !== stableProductHash(productionProducts)
+  ) {
+    return false;
+  }
+  const productionById = new Map(
+    productionProducts.map((item) => [sourceProductId(item), item])
+  );
+  return (receipt.selectedDesiredProductHashes || []).every(
+    ({ sourceProductId: id, desiredProductHash }) =>
+      desiredProductHash &&
+      desiredProductHash === stableProductHash(productionById.get(String(id)))
+  );
+}
+
 function summarizeSmokingpipesProducts(products) {
   return {
     total: (products || []).length,
@@ -1487,6 +1552,7 @@ async function buildCandidateArtifacts({
   state,
   options,
   runId = null,
+  selectedEventIds = null,
 }) {
   const productionProducts = loadProduction(
     paths,
@@ -1505,10 +1571,18 @@ async function buildCandidateArtifacts({
     ...state,
     actionEvents: actionPlan.eventsById,
   };
+  const selectedActionPlan = Array.isArray(selectedEventIds)
+    ? {
+        ...actionPlan,
+        items: actionPlan.items.filter((item) =>
+          selectedEventIds.includes(item.event.eventId)
+        ),
+      }
+    : actionPlan;
   const candidate = buildProgressivePartialProducts({
     productionProducts,
     state: stateWithActionEvents,
-    actionablePlan: actionPlan,
+    actionablePlan: selectedActionPlan,
   });
   const unifiedRows = buildUnifiedProductsFromInputs({
     danishProducts,
@@ -1610,6 +1684,7 @@ async function buildCandidateArtifacts({
     audit,
     state: stateWithActionEvents,
     actionPlan,
+    selectedActionPlan,
     publicPayloads: {
       ...publicBase,
       recentNew,
@@ -1625,6 +1700,8 @@ async function prepareProgressiveApplyGate({
   options,
   runId,
   maxAutoApplyOverride = null,
+  selectedEventIds = null,
+  persistCatchupPlan = true,
 }) {
   const normalized =
     normalizeProgressivePublicStatuses(state);
@@ -1641,9 +1718,21 @@ async function prepareProgressiveApplyGate({
     state: nextState,
     options,
     runId,
+    selectedEventIds,
   });
   nextState = artifacts.state;
   await writeProgressiveDailyState(paths.progressiveState, nextState);
+  const catchupPlan = createSmokingpipesCatchupPlan({
+    actionablePlan: artifacts.actionPlan,
+    productionProducts: loadProduction(paths, options.mock),
+    runId,
+    codeCommitSha: resolveCodeCommitSha(root),
+  });
+  // A manual catch-up apply must validate the immutable plan it was given;
+  // never replace that plan during the validation/rebuild pass.
+  if (persistCatchupPlan) {
+    await writeJsonAtomic(paths.smokingpipesCatchupPlan, catchupPlan);
+  }
   const productionProducts = loadProduction(
     paths,
     options.mock
@@ -1678,6 +1767,11 @@ async function prepareProgressiveApplyGate({
           : progressiveMaxAutoApplyFromEnv(),
   });
   gate.actionEventLifecycle = artifacts.audit.actionEventLifecycle;
+  gate.catchupPlan = {
+    planId: catchupPlan.planId,
+    totalEventCount: catchupPlan.totalEventCount,
+    batchCount: catchupPlan.batches.length,
+  };
   gate.blockers.push(...publicNext.blockers);
   const legacyOverrideBlockReason = legacyDuplicateOverrideGateBlockReason({
     diff,
@@ -1765,6 +1859,7 @@ async function prepareProgressiveApplyGate({
     preview,
     gate,
     report,
+    catchupPlan,
   };
 }
 
@@ -3071,8 +3166,101 @@ export async function runSmokingpipesProgressiveMode({
     stampEffectiveApplyArtifact(preview, { root, runId });
     if (options.writeProduction) {
       assertMockProductionPathsAreIsolated(paths, options);
+      let catchupSelection = null;
+      if (options.manualCatchupBatch !== null) {
+        const persistedCatchupPlan = readJsonIfExists(
+          paths.smokingpipesCatchupPlan,
+          null
+        );
+        const existingReceipt = readJsonIfExists(
+          paths.smokingpipesCatchupReceipt,
+          null
+        );
+        if (
+          existingReceipt?.planId === options.catchupPlanId &&
+          existingReceipt?.batchNumber === options.manualCatchupBatch &&
+          existingReceipt?.batchHash === options.catchupBatchHash &&
+          receiptMatchesWrittenProduction({
+            receipt: existingReceipt,
+            productionProducts,
+          })
+        ) {
+          state = markSmokingpipesActionEventsApplied({
+            state,
+            eventIds: existingReceipt.selectedEventIds || [],
+            appliedRunId: existingReceipt.runId || runId,
+          });
+          await writeProgressiveDailyState(paths.progressiveState, state);
+          const recoveredReceipt = {
+            ...existingReceipt,
+            phase: "events-committed",
+            timestamps: {
+              ...(existingReceipt.timestamps || {}),
+              "events-committed": new Date().toISOString(),
+            },
+          };
+          await writeJsonAtomic(
+            paths.smokingpipesCatchupReceipt,
+            recoveredReceipt
+          );
+          const recovered = {
+            version: "smokingpipes-catchup-apply-v1",
+            generatedAt: new Date().toISOString(),
+            status: "catchup-recovery-complete",
+            catchupPlanId: options.catchupPlanId,
+            catchupBatchNumber: options.manualCatchupBatch,
+            catchupBatchHash: options.catchupBatchHash,
+            productionWritten: false,
+            productionRewritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          };
+          await writeProgressiveReport(
+            paths,
+            makeReport({ mode: options.mode, state, result: recovered })
+          );
+          return recovered;
+        }
+        const freshActionPlan = buildSmokingpipesActionableApplyPlan({
+          productionProducts,
+          state,
+          currentPayload: readJsonIfExists(paths.currentList, null),
+          diffPayload: readJsonIfExists(paths.diff, null),
+        });
+        catchupSelection = selectSmokingpipesCatchupBatch({
+          actionablePlan: freshActionPlan,
+          plan: persistedCatchupPlan,
+          batchNumber: options.manualCatchupBatch,
+          planId: options.catchupPlanId,
+          batchHash: options.catchupBatchHash,
+          codeCommitSha: resolveCodeCommitSha(root),
+          productionProducts,
+        });
+        if (!catchupSelection.valid) {
+          const blocked = {
+            version: "smokingpipes-catchup-apply-v1",
+            generatedAt: new Date().toISOString(),
+            status: "catchup-plan-stale",
+            failureType: "catchup-plan-stale",
+            catchupPlanId: options.catchupPlanId,
+            catchupBatchNumber: options.manualCatchupBatch,
+            catchupBatchHash: options.catchupBatchHash,
+            blockers: catchupSelection.blockers,
+            blockedReason: catchupSelection.blockers.join("; "),
+            productionWritten: false,
+            commitPerformed: false,
+            pushPerformed: false,
+          };
+          await writeJsonAtomic(paths.progressiveApplyPreview, blocked);
+          await writeProgressiveReport(
+            paths,
+            makeReport({ mode: options.mode, state, result: blocked })
+          );
+          return blocked;
+        }
+      }
       let manualLargeApplyEvidence = null;
-      if (options.manualLargeApply) {
+      if (options.manualLargeApply && !catchupSelection) {
         const existingGateReport = readJsonIfExists(
           paths.progressiveApplyGateReport,
           null
@@ -3088,6 +3276,19 @@ export async function runSmokingpipesProgressiveMode({
             preview: existingPreview,
             audit,
           });
+        if (
+          manualLargeApplyEvidence.allowed &&
+          manualLargeApplyEvidence.authorizedWouldApplyCount >
+            SMOKINGPIPES_CATCHUP_BATCH_LIMIT
+        ) {
+          manualLargeApplyEvidence.allowed = false;
+          manualLargeApplyEvidence.blockers = [
+            ...manualLargeApplyEvidence.blockers,
+            `manual-large-apply cannot authorize more than ${SMOKINGPIPES_CATCHUP_BATCH_LIMIT}; use an immutable catch-up batch`,
+          ];
+          manualLargeApplyEvidence.blockedReason =
+            manualLargeApplyEvidence.blockers.join("; ");
+        }
         if (!manualLargeApplyEvidence.allowed) {
           return {
             version:
@@ -3126,8 +3327,12 @@ export async function runSmokingpipesProgressiveMode({
         options,
         runId,
         maxAutoApplyOverride:
-          manualLargeApplyEvidence?.authorizedWouldApplyCount ||
+          catchupSelection
+            ? SMOKINGPIPES_CATCHUP_BATCH_LIMIT
+            : manualLargeApplyEvidence?.authorizedWouldApplyCount ||
           options.maxAutoApply,
+        selectedEventIds: catchupSelection?.batch?.eventIds || null,
+        persistCatchupPlan: !catchupSelection,
       });
       state = prepared.state;
       audit = prepared.artifacts.audit;
@@ -3167,6 +3372,41 @@ export async function runSmokingpipesProgressiveMode({
             "rebuilt wouldApplyProductIds do not match the offline authorized set"
           );
         }
+      }
+      if (catchupSelection) {
+        const rebuiltSelection = selectSmokingpipesCatchupBatch({
+          actionablePlan: prepared.artifacts.actionPlan,
+          plan: readJsonIfExists(paths.smokingpipesCatchupPlan, null),
+          batchNumber: options.manualCatchupBatch,
+          planId: options.catchupPlanId,
+          batchHash: options.catchupBatchHash,
+          codeCommitSha: resolveCodeCommitSha(root),
+          productionProducts,
+        });
+        if (!rebuiltSelection.valid) {
+          gate.blockers.push(...rebuiltSelection.blockers);
+        }
+        if (
+          gate.effectiveApplyCount !==
+          catchupSelection.batch.expectedEffectiveApplyCount
+        ) {
+          gate.blockers.push(
+            `catch-up effectiveApplyCount ${gate.effectiveApplyCount} does not match expected ${catchupSelection.batch.expectedEffectiveApplyCount}`
+          );
+        }
+        if (
+          new Set(gate.appliedEventIds || []).size !==
+          catchupSelection.batch.eventIds.length
+        ) {
+          gate.blockers.push("catch-up selected event set is incomplete or duplicated");
+        }
+        gate.catchupBatch = {
+          planId: options.catchupPlanId,
+          batchNumber: options.manualCatchupBatch,
+          batchHash: options.catchupBatchHash,
+          expectedEffectiveApplyCount:
+            catchupSelection.batch.expectedEffectiveApplyCount,
+        };
       }
       gate.blockers = [...new Set(gate.blockers)];
       gate.blockedReason = gate.blockers.join("; ") || null;
@@ -3340,7 +3580,25 @@ export async function runSmokingpipesProgressiveMode({
         );
         return blocked;
       }
+      let catchupReceipt = null;
+      if (catchupSelection) {
+        catchupReceipt = buildCatchupReceipt({
+          selection: catchupSelection,
+          runId,
+          productionBefore: productionProducts,
+          productionAfter: productionSafeSubset,
+          phase: "prepared",
+        });
+        await writeJsonAtomic(paths.smokingpipesCatchupReceipt, catchupReceipt);
+      }
       const backup = createProgressiveProductionBackup(paths);
+      if (catchupReceipt) {
+        catchupReceipt = {
+          ...catchupReceipt,
+          backup,
+        };
+        await writeJsonAtomic(paths.smokingpipesCatchupReceipt, catchupReceipt);
+      }
       await writeJsonAtomic(
         paths.existingProducts,
         productionSafeSubset
@@ -3353,12 +3611,36 @@ export async function runSmokingpipesProgressiveMode({
         paths,
         publicNext.payloads
       );
+      if (catchupReceipt) {
+        catchupReceipt = buildCatchupReceipt({
+          selection: catchupSelection,
+          runId,
+          productionBefore: productionProducts,
+          productionAfter: productionSafeSubset,
+          phase: "production-written",
+          backup,
+          prior: catchupReceipt,
+        });
+        await writeJsonAtomic(paths.smokingpipesCatchupReceipt, catchupReceipt);
+      }
       state = markSmokingpipesActionEventsApplied({
         state,
         eventIds: gate.appliedEventIds || [],
         appliedRunId: runId,
       });
       await writeProgressiveDailyState(paths.progressiveState, state);
+      if (catchupReceipt) {
+        catchupReceipt = buildCatchupReceipt({
+          selection: catchupSelection,
+          runId,
+          productionBefore: productionProducts,
+          productionAfter: productionSafeSubset,
+          phase: "events-committed",
+          backup,
+          prior: catchupReceipt,
+        });
+        await writeJsonAtomic(paths.smokingpipesCatchupReceipt, catchupReceipt);
+      }
       const completed = {
         version:
           "smokingpipes-progressive-partial-apply-preview-v1",
@@ -3385,6 +3667,14 @@ export async function runSmokingpipesProgressiveMode({
         largeApplyBlocked: gate.largeApplyBlocked,
         manualLargeApply:
           options.manualLargeApply === true,
+        catchupBatch: catchupSelection
+          ? {
+              planId: options.catchupPlanId,
+              batchNumber: options.manualCatchupBatch,
+              batchHash: options.catchupBatchHash,
+              receiptPath: path.relative(root, paths.smokingpipesCatchupReceipt),
+            }
+          : null,
         productionWritten: true,
         publicCatalogWritten: true,
         unifiedProductsStagingWritten: true,
