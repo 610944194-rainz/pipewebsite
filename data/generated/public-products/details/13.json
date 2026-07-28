@@ -20308,6 +20308,170 @@
       "msrpRawText": "$250.00"
     },
     {
+      "id": "smokingpipes-734089",
+      "source": "smokingpipes",
+      "sourceProductId": "734089",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Miele Smooth (614) (6mm) Tobacco Pipe",
+      "displayNameEn": "Miele Smooth (614) (6mm) Tobacco Pipe",
+      "rawTitle": "Miele Smooth (614) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111807.8895.jpg",
+      "sourcePriceAmount": 228,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 285,
+      "siteDisplayAmount": 2223.8884925999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 5,
+      "weightGrams": 51.03,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "miele smooth (614) (6mm) tobacco pipe",
+        "price": 2223.8884925999996,
+        "sourceProductId": "734089"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111807.8895.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111807_1.9989.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111807_2.9058.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111807_3.6519.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-88921_2.9275.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.14,
+        "heightMm": 46.99,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 42.93,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 38.61
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-614__series-miele-tobacco-pipe__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Miele Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111807",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.14,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734089",
+      "sourceOriginalText": "Miele Smooth (614) (6mm) Tobacco Pipe",
+      "priceRawText": "$228.00",
+      "msrpRawText": "$285.00"
+    },
+    {
       "id": "smokingpipes-734516",
       "source": "smokingpipes",
       "sourceProductId": "734516",
@@ -20651,10 +20815,10 @@
       "siteDisplayAmount": 2510.8275869999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -21448,10 +21612,10 @@
       "siteDisplayAmount": 1757.6124641999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21609,10 +21773,10 @@
       "siteDisplayAmount": 2097.4087601999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,

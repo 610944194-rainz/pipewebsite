@@ -20853,6 +20853,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-730608",
+      "source": "smokingpipes",
+      "sourceProductId": "730608",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Silver Classic Sandblasted Poker Tobacco Pipe",
+      "displayNameEn": "Silver Classic Sandblasted Poker Tobacco Pipe",
+      "rawTitle": "Silver Classic Sandblasted Poker Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23610.5566.jpg",
+      "sourcePriceAmount": 137.6,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172,
+      "siteDisplayAmount": 1400.4094639999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 54.43,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "silver classic sandblasted poker tobacco pipe",
+        "price": 1400.4094639999998,
+        "sourceProductId": "730608"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23610.5566.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23610_1.4088.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 120.14,
+        "heightMm": 69.09,
+        "weightGrams": 54.43,
+        "chamberDepthMm": 40.13,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 34.54
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-silver-classic-sandblasted-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Silver Classic Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23610",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 120.14,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 69.09,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 54.43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.54,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=730608",
+      "sourceOriginalText": "Silver Classic Sandblasted Poker Tobacco Pipe",
+      "priceRawText": "$137.60",
+      "msrpRawText": "$172.00"
+    },
+    {
       "id": "smokingpipes-730711",
       "source": "smokingpipes",
       "sourceProductId": "730711",
@@ -21987,10 +22148,10 @@
       "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -22147,10 +22308,10 @@
       "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -23279,10 +23440,10 @@
       "siteDisplayAmount": 1347.0598039999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -24229,6 +24390,328 @@
       "sourceOriginalText": "Compass Brown Grain Smooth Matte Tobacco Pipe",
       "priceRawText": "$84.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-735428",
+      "source": "smokingpipes",
+      "sourceProductId": "735428",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Plateau Smooth Bent Apple (2) Tobacco Pipe",
+      "displayNameEn": "Plateau Smooth Bent Apple (2) Tobacco Pipe",
+      "rawTitle": "Plateau Smooth Bent Apple (2) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23733.9438.jpg",
+      "sourcePriceAmount": 190.4,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 238,
+      "siteDisplayAmount": 1976.5922994,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 70.31,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "plateau smooth bent apple (2) tobacco pipe",
+        "price": 1976.5922994,
+        "sourceProductId": "735428"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23733.9438.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23733_1.9824.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 154.94,
+        "heightMm": 43.94,
+        "weightGrams": 70.31,
+        "chamberDepthMm": 35.05,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 51.82
+      },
+      "model": {
+        "canonicalModelKey": "nording__model-2__series-plateau-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Plateau Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23733",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 154.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.31,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 51.82,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735428",
+      "sourceOriginalText": "Plateau Smooth Bent Apple (2) Tobacco Pipe",
+      "priceRawText": "$190.40",
+      "msrpRawText": "$238.00"
+    },
+    {
+      "id": "smokingpipes-735771",
+      "source": "smokingpipes",
+      "sourceProductId": "735771",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Siena (626) (9mm) Tobacco Pipe",
+      "displayNameEn": "Siena (626) (9mm) Tobacco Pipe",
+      "rawTitle": "Siena (626) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112053.4320.jpg",
+      "sourcePriceAmount": 154,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 192.5,
+      "siteDisplayAmount": 1471.8159319999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 36.85,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "siena (626) (9mm) tobacco pipe",
+        "price": 1471.8159319999997,
+        "sourceProductId": "735771"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112053.4320.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112053_1.3122.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.05,
+        "heightMm": 42.67,
+        "weightGrams": 36.85,
+        "chamberDepthMm": 34.54,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 38.35
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-626__series-siena-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Siena Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112053",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.85,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.35,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735771",
+      "sourceOriginalText": "Siena (626) (9mm) Tobacco Pipe",
+      "priceRawText": "$154.00",
+      "msrpRawText": "$192.50"
     }
   ]
 }

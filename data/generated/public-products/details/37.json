@@ -17487,6 +17487,167 @@
       "msrpRawText": "$980.00"
     },
     {
+      "id": "smokingpipes-728319",
+      "source": "smokingpipes",
+      "sourceProductId": "728319",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (150) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (150) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (150) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144261.8180.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Bulldog",
+      "shapeZh": "斗牛犬斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (150) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "728319"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144261.8180.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144261_1.6766.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 146.05,
+        "heightMm": 46.48,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 37.34,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-150__series-aran-nickel-mounted-fishtail-tobacco__shape-bulldog",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-144261",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bulldog",
+          "labelZh": "斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=728319",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (150) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
       "id": "smokingpipes-728580",
       "source": "smokingpipes",
       "sourceProductId": "728580",
@@ -22014,10 +22175,10 @@
       "siteDisplayAmount": 3048.8383889999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -22797,6 +22958,652 @@
       "sourceOriginalText": "Copperhead Sandblasted Billiard Tobacco Pipe",
       "priceRawText": "$137.60",
       "msrpRawText": "$172.00"
+    },
+    {
+      "id": "smokingpipes-736582",
+      "source": "smokingpipes",
+      "sourceProductId": "736582",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (87) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (87) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (87) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146865.4772.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 42.52,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (87) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "736582"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146865.4772.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146865_1.4941.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.8,
+        "heightMm": 45.21,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.81,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 37.34
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-87__series-aran-nickel-mounted-fishtail-tobacco__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146865",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736582",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (87) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-736632",
+      "source": "smokingpipes",
+      "sourceProductId": "736632",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146915.8431.jpg",
+      "sourcePriceAmount": 140,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 175,
+      "siteDisplayAmount": 1362.6543199999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter heritage (xl90) fishtail (9mm) tobacco pipe",
+        "price": 1362.6543199999999,
+        "sourceProductId": "736632"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146915.8431.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146915_1.3915.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.27,
+        "heightMm": 52.07,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-army-filter-heritage-fishtail-tobacco__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Army Filter Heritage Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146915",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736632",
+      "sourceOriginalText": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$140.00",
+      "msrpRawText": "$175.00"
+    },
+    {
+      "id": "smokingpipes-736647",
+      "source": "smokingpipes",
+      "sourceProductId": "736647",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (85) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (85) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (85) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146930.7077.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (85) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "736647"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146930.7077.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146930_1.1377.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.91,
+        "heightMm": 36.07,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 28.45,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 34.8
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-85__series-aran-nickel-mounted-fishtail-tobacco__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146930",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736647",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (85) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-736915",
+      "source": "smokingpipes",
+      "sourceProductId": "736915",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "House Pipe Heritage Billiard P-Lip Tobacco Pipe",
+      "displayNameEn": "House Pipe Heritage Billiard P-Lip Tobacco Pipe",
+      "rawTitle": "House Pipe Heritage Billiard P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147171.3419.jpg",
+      "sourcePriceAmount": 268,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 335,
+      "siteDisplayAmount": 2582.5623605999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 85.05,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "house pipe heritage billiard p-lip tobacco pipe",
+        "price": 2582.5623605999995,
+        "sourceProductId": "736915"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147171.3419.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147171_1.5246.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147171_2.2454.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147171_3.1248.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 162.05,
+        "heightMm": 59.18,
+        "weightGrams": 85.05,
+        "chamberDepthMm": 49.28,
+        "chamberDiameterMm": 23.62,
+        "outsideDiameterMm": 46.48
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-house-pipe-heritage-p-lip-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "House Pipe Heritage P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-147171",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 162.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 85.05,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736915",
+      "sourceOriginalText": "House Pipe Heritage Billiard P-Lip Tobacco Pipe",
+      "priceRawText": "$268.00",
+      "msrpRawText": "$335.00"
     }
   ]
 }

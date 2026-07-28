@@ -17481,10 +17481,10 @@
       "siteDisplayAmount": 2690.1645209999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -18747,6 +18747,169 @@
       "msrpRawText": "$264.00"
     },
     {
+      "id": "smokingpipes-735669",
+      "source": "smokingpipes",
+      "sourceProductId": "735669",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-029-146709.6701.jpg",
+      "sourcePriceAmount": 140,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 175,
+      "siteDisplayAmount": 1362.6543199999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 59.53,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter heritage (xl90) fishtail (9mm) tobacco pipe",
+        "price": 1362.6543199999999,
+        "sourceProductId": "735669"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-029-146709.6701.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-146709_1.5692.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146709.6701.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146709_1.5692.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.78,
+        "heightMm": 52.07,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 37.08,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-army-filter-heritage-fishtail-tobacco__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Army Filter Heritage Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146709",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735669",
+      "sourceOriginalText": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$140.00",
+      "msrpRawText": "$175.00"
+    },
+    {
       "id": "smokingpipes-735712",
       "source": "smokingpipes",
       "sourceProductId": "735712",
@@ -19073,6 +19236,169 @@
       "msrpRawText": "$600.00"
     },
     {
+      "id": "smokingpipes-735950",
+      "source": "smokingpipes",
+      "sourceProductId": "735950",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (338) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (338) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (338) Fishtail Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-029-146731.2652.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 42.52,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (338) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "735950"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-029-146731.2652.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-146731_1.7895.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146731.2652.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146731_1.7895.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 135.13,
+        "heightMm": 47.24,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.05,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 30.23
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-338__series-aran-nickel-mounted-fishtail-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146731",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 135.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.24,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735950",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (338) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
       "id": "smokingpipes-736014",
       "source": "smokingpipes",
       "sourceProductId": "736014",
@@ -19232,6 +19558,169 @@
       "sourceOriginalText": "Junior Heritage Silver Mounted Straight Billiard Fishtail Tobacco Pipe",
       "priceRawText": "$120.00",
       "msrpRawText": "$150.00"
+    },
+    {
+      "id": "smokingpipes-736923",
+      "source": "smokingpipes",
+      "sourceProductId": "736923",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Natural Hansom P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Natural Hansom P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Natural Hansom P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147179.3877.jpg",
+      "sourcePriceAmount": 476,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 595,
+      "siteDisplayAmount": 4770.1583292,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 59.53,
+      "shape": "Bent Bulldog",
+      "shapeZh": "弯式斗牛犬斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes natural hansom p-lip tobacco pipe",
+        "price": 4770.1583292,
+        "sourceProductId": "736923"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147179.3877.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147179_1.1389.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147179_2.1311.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147179_3.3885.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 142.49,
+        "heightMm": 61.98,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 47.5,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-natural-hansom-p-lip__shape-bent-bulldog",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Natural Hansom P Lip",
+      "year": null,
+      "productCode": "002-029-147179",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Bulldog",
+          "labelZh": "弯式斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 142.49,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 61.98,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736923",
+      "sourceOriginalText": "Sherlock Holmes Natural Hansom P-Lip Tobacco Pipe",
+      "priceRawText": "$476.00",
+      "msrpRawText": "$595.00"
     }
   ]
 }

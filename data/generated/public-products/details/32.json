@@ -24946,10 +24946,10 @@
       "siteDisplayAmount": 2188.0211057999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -25431,10 +25431,10 @@
       "siteDisplayAmount": 2295.6232661999993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -25888,6 +25888,167 @@
       "sourceOriginalText": "Frihand Black Grain Smooth (B) Tobacco Pipe",
       "priceRawText": "$193.50",
       "msrpRawText": "$215.00"
+    },
+    {
+      "id": "smokingpipes-735230",
+      "source": "smokingpipes",
+      "sourceProductId": "735230",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Minuto Rusticated (109) (6mm) Tobacco Pipe",
+      "displayNameEn": "Minuto Rusticated (109) (6mm) Tobacco Pipe",
+      "rawTitle": "Minuto Rusticated (109) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111915.8405.jpg",
+      "sourcePriceAmount": 118,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 147.5,
+      "siteDisplayAmount": 1191.1146439999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 14.17,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "minuto rusticated (109) (6mm) tobacco pipe",
+        "price": 1191.1146439999998,
+        "sourceProductId": "735230"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111915.8405.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-89250_1.7506.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 114.05,
+        "heightMm": 33.02,
+        "weightGrams": 14.17,
+        "chamberDepthMm": 27.94,
+        "chamberDiameterMm": 16.51,
+        "outsideDiameterMm": 28.45
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-109__series-minuto-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Minuto Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111915",
+      "filterSizeMm": 6,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 114.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 14.17,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 27.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 28.45,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735230",
+      "sourceOriginalText": "Minuto Rusticated (109) (6mm) Tobacco Pipe",
+      "priceRawText": "$118.00",
+      "msrpRawText": "$147.50"
     },
     {
       "id": "smokingpipes-735377",

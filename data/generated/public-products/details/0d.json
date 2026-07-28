@@ -22902,6 +22902,169 @@
       "msrpRawText": "$325.00"
     },
     {
+      "id": "smokingpipes-733350",
+      "source": "smokingpipes",
+      "sourceProductId": "733350",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Smooth Natural (315 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Smooth Natural (315 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Smooth Natural (315 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111348.4510.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 48.19,
+      "shape": "Prince",
+      "shapeZh": "王子斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza smooth natural (315 ks) (6mm) tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "733350"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111348.4510.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111348_1.8815.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111348_2.1589.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111348_3.1713.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.03,
+        "heightMm": 37.08,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 30.99,
+        "chamberDiameterMm": 21.84,
+        "outsideDiameterMm": 43.18
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-eleganza-natural-tobacco-pipe__shape-prince",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111348",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Prince",
+          "labelZh": "王子斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 37.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733350",
+      "sourceOriginalText": "Eleganza Smooth Natural (315 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
+    },
+    {
       "id": "smokingpipes-733475",
       "source": "smokingpipes",
       "sourceProductId": "733475",
@@ -23244,10 +23407,10 @@
       "siteDisplayAmount": 1972.8167849999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -23570,10 +23733,10 @@
       "siteDisplayAmount": 1331.4652879999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -23731,10 +23894,10 @@
       "siteDisplayAmount": 1739.6787707999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -24359,10 +24522,10 @@
       "siteDisplayAmount": 2869.501455,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -24666,6 +24829,167 @@
       "msrpRawText": "$172.50"
     },
     {
+      "id": "smokingpipes-735352",
+      "source": "smokingpipes",
+      "sourceProductId": "735352",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Black and Orange Smooth Freehand Tobacco Pipe",
+      "displayNameEn": "Black and Orange Smooth Freehand Tobacco Pipe",
+      "rawTitle": "Black and Orange Smooth Freehand Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23660.4382.jpg",
+      "sourcePriceAmount": 131.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 164,
+      "siteDisplayAmount": 1347.8805679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 68.04,
+      "shape": "Freehand",
+      "shapeZh": "自由式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "black and orange smooth freehand tobacco pipe",
+        "price": 1347.8805679999998,
+        "sourceProductId": "735352"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23660.4382.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23660_1.6306.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.03,
+        "heightMm": 60.96,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 46.74,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 44.96
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-black-and-orange-tobacco-pipe__shape-freehand",
+        "confidence": "medium"
+      },
+      "series": "Black And Orange Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23660",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Freehand",
+          "labelZh": "自由式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 60.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 46.74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735352",
+      "sourceOriginalText": "Black and Orange Smooth Freehand Tobacco Pipe",
+      "priceRawText": "$131.20",
+      "msrpRawText": "$164.00"
+    },
+    {
       "id": "smokingpipes-735434",
       "source": "smokingpipes",
       "sourceProductId": "735434",
@@ -24682,10 +25006,10 @@
       "siteDisplayAmount": 1599.0408593999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -24825,6 +25149,167 @@
       "sourceOriginalText": "Signature Black Freehand Tobacco Pipe",
       "priceRawText": "$150.40",
       "msrpRawText": "$188.00"
+    },
+    {
+      "id": "smokingpipes-735451",
+      "source": "smokingpipes",
+      "sourceProductId": "735451",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Silver Classic Smooth Zulu Tobacco Pipe",
+      "displayNameEn": "Silver Classic Smooth Zulu Tobacco Pipe",
+      "rawTitle": "Silver Classic Smooth Zulu Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23753.7203.jpg",
+      "sourcePriceAmount": 163.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 204,
+      "siteDisplayAmount": 1719.8573201999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 37.19,
+      "shape": "Zulu",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "silver classic smooth zulu tobacco pipe",
+        "price": 1719.8573201999998,
+        "sourceProductId": "735451"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23753.7203.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23753_1.1754.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 46.23,
+        "weightGrams": 37.19,
+        "chamberDepthMm": 33.02,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 38.86
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-silver-classic-tobacco-pipe__shape-zulu",
+        "confidence": "medium"
+      },
+      "series": "Silver Classic Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23753",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Zulu",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 37.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735451",
+      "sourceOriginalText": "Silver Classic Smooth Zulu Tobacco Pipe",
+      "priceRawText": "$163.20",
+      "msrpRawText": "$204.00"
     },
     {
       "id": "smokingpipes-735519",

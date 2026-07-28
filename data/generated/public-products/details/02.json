@@ -18638,6 +18638,167 @@
       "msrpRawText": "$300.00"
     },
     {
+      "id": "smokingpipes-726374",
+      "source": "smokingpipes",
+      "sourceProductId": "726374",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Made Army Sandblasted (701) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Made Army Sandblasted (701) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Made Army Sandblasted (701) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-143897.9328.jpg",
+      "sourcePriceAmount": 126,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 157.5,
+      "siteDisplayAmount": 1253.4927079999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish made army sandblasted (701) fishtail tobacco pipe",
+        "price": 1253.4927079999998,
+        "sourceProductId": "726374"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-143897.9328.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-143897_1.7102.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.6,
+        "heightMm": 45.72,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 34.8,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 30.23
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-701__series-irish-made-army-sandblasted-fishtail__shape-poker",
+        "confidence": "high"
+      },
+      "series": "Irish Made Army Sandblasted Fishtail",
+      "year": null,
+      "productCode": "002-029-143897",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.6,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=726374",
+      "sourceOriginalText": "Irish Made Army Sandblasted (701) Fishtail Tobacco Pipe",
+      "priceRawText": "$126.00",
+      "msrpRawText": "$157.50"
+    },
+    {
       "id": "smokingpipes-726395",
       "source": "smokingpipes",
       "sourceProductId": "726395",
@@ -18792,6 +18953,163 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/musico/moreinfo.cfm?product_id=726395",
       "sourceOriginalText": "Sandblasted Bent Apple (Floodlight Special) Tobacco Pipe",
       "priceRawText": "$300.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-727181",
+      "source": "smokingpipes",
+      "sourceProductId": "727181",
+      "brandName": "Valbruna",
+      "brandSlug": "valbruna",
+      "brandCountry": null,
+      "displayName": "Smooth Light Bent Apple Tobacco Pipe",
+      "displayNameEn": "Smooth Light Bent Apple Tobacco Pipe",
+      "rawTitle": "Smooth Light Bent Apple Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0036.8314.jpg",
+      "sourcePriceAmount": 325,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3247.0528949999994,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 78.47,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "valbruna",
+        "name": "smooth light bent apple tobacco pipe",
+        "price": 3247.0528949999994,
+        "sourceProductId": "727181"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0036.8314.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0036_1.1716.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0036_2.4603.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0036_3.6098.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.84,
+        "heightMm": 46.74,
+        "weightGrams": 78.47,
+        "chamberDepthMm": 37.59,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 47.24
+      },
+      "model": {
+        "canonicalModelKey": "valbruna__series-light-tobacco-pipe__shape-bent-apple",
+        "confidence": "medium"
+      },
+      "series": "Light Tobacco Pipe",
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Valbruna",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 78.47,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 47.24,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/valbruna/moreinfo.cfm?product_id=727181",
+      "sourceOriginalText": "Smooth Light Bent Apple Tobacco Pipe",
+      "priceRawText": "$325.00",
       "msrpRawText": null
     },
     {
@@ -22015,6 +22333,167 @@
       "msrpRawText": "$260.00"
     },
     {
+      "id": "smokingpipes-732985",
+      "source": "smokingpipes",
+      "sourceProductId": "732985",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "displayNameEn": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "rawTitle": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146113.5577.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1901.0820113999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "160th anniversary dark smooth (pat. ob) p-lip tobacco pipe",
+        "price": 1901.0820113999998,
+        "sourceProductId": "732985"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146113.5577.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146113_1.4253.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.4,
+        "heightMm": 45.21,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 29.97,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 38.1
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-160th-anniversary-dark-p-lip-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "160th Anniversary Dark P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146113",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.4,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732985",
+      "sourceOriginalText": "160th Anniversary Dark Smooth (Pat. OB) P-Lip Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
+    },
+    {
       "id": "smokingpipes-733008",
       "source": "smokingpipes",
       "sourceProductId": "733008",
@@ -22174,6 +22653,161 @@
       "sourceOriginalText": "Crown Smooth Scoop (200) (9mm) Tobacco Pipe",
       "priceRawText": "$155.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-734466",
+      "source": "smokingpipes",
+      "sourceProductId": "734466",
+      "brandName": "AKB",
+      "brandSlug": "akb",
+      "brandCountry": null,
+      "displayName": "Carved Masonic Ram (Selver) (with Case) Tobacco Pipe",
+      "displayNameEn": "Carved Masonic Ram (Selver) (with Case) Tobacco Pipe",
+      "rawTitle": "Carved Masonic Ram (Selver) (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13229.7980.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1878.4289249999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 54.43,
+      "shape": "Figural",
+      "shapeZh": null,
+      "finish": "Carved",
+      "finishZh": "雕刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "akb",
+        "name": "carved masonic ram (selver) (with case) tobacco pipe",
+        "price": 1878.4289249999997,
+        "sourceProductId": "734466"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13229.7980.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13229_1.9016.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.91,
+        "heightMm": 61.72,
+        "weightGrams": 54.43,
+        "chamberDepthMm": 42.42,
+        "chamberDiameterMm": 17.78,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "akb__series-masonic-ram-tobacco-pipe__shape-figural",
+        "confidence": "medium"
+      },
+      "series": "Masonic Ram Tobacco Pipe",
+      "year": null,
+      "productCode": "002-574-13229",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "AKB",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Figural",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Carved",
+          "labelZh": "雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 61.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 54.43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=734466",
+      "sourceOriginalText": "Carved Masonic Ram (Selver) (with Case) Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$200.00"
     },
     {
       "id": "smokingpipes-734534",
@@ -22493,6 +23127,167 @@
       "msrpRawText": "$230.00"
     },
     {
+      "id": "smokingpipes-735207",
+      "source": "smokingpipes",
+      "sourceProductId": "735207",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Killarney Red (129) Fishtail Tobacco Pipe",
+      "displayNameEn": "Killarney Red (129) Fishtail Tobacco Pipe",
+      "rawTitle": "Killarney Red (129) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146489.5981.jpg",
+      "sourcePriceAmount": 136,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 170,
+      "siteDisplayAmount": 1331.4652879999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 34.02,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "killarney red (129) fishtail tobacco pipe",
+        "price": 1331.4652879999999,
+        "sourceProductId": "735207"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146489.5981.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146489_1.6438.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 147.07,
+        "heightMm": 44.2,
+        "weightGrams": 34.02,
+        "chamberDepthMm": 36.07,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 37.34
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-129__series-killarney-red-fishtail-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Killarney Red Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146489",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 147.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 34.02,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735207",
+      "sourceOriginalText": "Killarney Red (129) Fishtail Tobacco Pipe",
+      "priceRawText": "$136.00",
+      "msrpRawText": "$170.00"
+    },
+    {
       "id": "smokingpipes-735544",
       "source": "smokingpipes",
       "sourceProductId": "735544",
@@ -22670,10 +23465,10 @@
       "siteDisplayAmount": 3093.6726224999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -22994,10 +23789,10 @@
       "siteDisplayAmount": 1300.2762559999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,

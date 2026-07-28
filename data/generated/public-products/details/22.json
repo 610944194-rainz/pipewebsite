@@ -16602,6 +16602,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-727180",
+      "source": "smokingpipes",
+      "sourceProductId": "727180",
+      "brandName": "Valbruna",
+      "brandSlug": "valbruna",
+      "brandCountry": null,
+      "displayName": "Smooth Light Acorn Tobacco Pipe",
+      "displayNameEn": "Smooth Light Acorn Tobacco Pipe",
+      "rawTitle": "Smooth Light Acorn Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0035.7752.jpg",
+      "sourcePriceAmount": 325,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3247.0528949999994,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 55.34,
+      "shape": "Acorn/Pear",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "valbruna",
+        "name": "smooth light acorn tobacco pipe",
+        "price": 3247.0528949999994,
+        "sourceProductId": "727180"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0035.7752.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0035_1.2214.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0035_2.5576.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0035_3.2385.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 118.62,
+        "heightMm": 57.4,
+        "weightGrams": 55.34,
+        "chamberDepthMm": 44.96,
+        "chamberDiameterMm": 21.84,
+        "outsideDiameterMm": 45.47
+      },
+      "model": {
+        "canonicalModelKey": "valbruna__series-light-tobacco-pipe__shape-acorn-pear",
+        "confidence": "medium"
+      },
+      "series": "Light Tobacco Pipe",
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Valbruna",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Acorn/Pear",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 118.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 57.4,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 55.34,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 45.47,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/valbruna/moreinfo.cfm?product_id=727180",
+      "sourceOriginalText": "Smooth Light Acorn Tobacco Pipe",
+      "priceRawText": "$325.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-727842",
       "source": "smokingpipes",
       "sourceProductId": "727842",
@@ -22234,10 +22391,10 @@
       "siteDisplayAmount": 1793.479851,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -22377,6 +22534,166 @@
       "sourceOriginalText": "Irish Harp (X105) Fishtail Tobacco Pipe",
       "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
+    },
+    {
+      "id": "smokingpipes-734501",
+      "source": "smokingpipes",
+      "sourceProductId": "734501",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Oceano Rusticated (311 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Oceano Rusticated (311 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Oceano Rusticated (311 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111872.6043.jpg",
+      "sourcePriceAmount": 138,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172.5,
+      "siteDisplayAmount": 1347.0598039999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "oceano rusticated (311 ks) (6mm) tobacco pipe",
+        "price": 1347.0598039999998,
+        "sourceProductId": "734501"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111872.6043.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 129.54,
+        "heightMm": 50.55,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 38.61
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-oceano-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Oceano Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111872",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 129.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.55,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734501",
+      "sourceOriginalText": "Oceano Rusticated (311 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$138.00",
+      "msrpRawText": "$172.50"
     },
     {
       "id": "smokingpipes-734515",
@@ -22865,6 +23182,163 @@
       "sourceOriginalText": "House Pipe Rusticated Bent Billiard P-Lip Tobacco Pipe",
       "priceRawText": "$224.00",
       "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-736246",
+      "source": "smokingpipes",
+      "sourceProductId": "736246",
+      "brandName": "Bruno Nuttens",
+      "brandSlug": "bruno-nuttens",
+      "brandCountry": null,
+      "displayName": "Heritage Smooth Rhodesian (H3) Tobacco Pipe",
+      "displayNameEn": "Heritage Smooth Rhodesian (H3) Tobacco Pipe",
+      "rawTitle": "Heritage Smooth Rhodesian (H3) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0613.2320.jpg",
+      "sourcePriceAmount": 275,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2775.113595,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 42.64,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "bruno nuttens",
+        "name": "heritage smooth rhodesian (h3) tobacco pipe",
+        "price": 2775.113595,
+        "sourceProductId": "736246"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0613.2320.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0613_1.9587.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0613_2.1348.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0613_3.5879.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.05,
+        "heightMm": 41.91,
+        "weightGrams": 42.64,
+        "chamberDepthMm": 30.99,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 44.2
+      },
+      "model": {
+        "canonicalModelKey": "bruno-nuttens__model-h3__series-heritage-tobacco-pipe__shape-rhodesian",
+        "confidence": "high"
+      },
+      "series": "Heritage Tobacco Pipe",
+      "year": null,
+      "productCode": "002-939-0613",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Bruno Nuttens",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.64,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=736246",
+      "sourceOriginalText": "Heritage Smooth Rhodesian (H3) Tobacco Pipe",
+      "priceRawText": "$275.00",
+      "msrpRawText": null
     }
   ]
 }

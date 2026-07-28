@@ -23235,10 +23235,10 @@
       "siteDisplayAmount": 1685.8776905999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -24209,10 +24209,10 @@
       "siteDisplayAmount": 2223.8884925999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 5,
@@ -24838,6 +24838,490 @@
       "sourceOriginalText": "Partially Rusticated Tomato with Silver (3) Tobacco Pipe",
       "priceRawText": "$227.20",
       "msrpRawText": "$284.00"
+    },
+    {
+      "id": "smokingpipes-735527",
+      "source": "smokingpipes",
+      "sourceProductId": "735527",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes PSB Original P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes PSB Original P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes PSB Original P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146568.1438.jpg",
+      "sourcePriceAmount": 256,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 320,
+      "siteDisplayAmount": 2474.9602001999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 68.04,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes psb original p-lip tobacco pipe",
+        "price": 2474.9602001999997,
+        "sourceProductId": "735527"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146568.1438.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146568_1.8529.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146568_2.1414.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146568_3.8072.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.1,
+        "heightMm": 57.91,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 44.96,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 38.61
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-psb-original-p-lip__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Psb Original P Lip",
+      "year": null,
+      "productCode": "002-029-146568",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 57.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735527",
+      "sourceOriginalText": "Sherlock Holmes PSB Original P-Lip Tobacco Pipe",
+      "priceRawText": "$256.00",
+      "msrpRawText": "$320.00"
+    },
+    {
+      "id": "smokingpipes-735734",
+      "source": "smokingpipes",
+      "sourceProductId": "735734",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Arcobaleno Rusticated Blue (606 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Arcobaleno Rusticated Blue (606 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Arcobaleno Rusticated Blue (606 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112016.2672.jpg",
+      "sourcePriceAmount": 112,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 140,
+      "siteDisplayAmount": 1144.331096,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 51.03,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "arcobaleno rusticated blue (606 ks) (6mm) tobacco pipe",
+        "price": 1144.331096,
+        "sourceProductId": "735734"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112016.2672.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 155.19,
+        "heightMm": 50.04,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 43.69,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 39.12
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-arcobaleno-blue-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Arcobaleno Blue Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112016",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 155.19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735734",
+      "sourceOriginalText": "Arcobaleno Rusticated Blue (606 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$112.00",
+      "msrpRawText": "$140.00"
+    },
+    {
+      "id": "smokingpipes-736593",
+      "source": "smokingpipes",
+      "sourceProductId": "736593",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (69) P-Lip Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (69) P-Lip Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (69) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146876.3561.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.03,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (69) p-lip tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "736593"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146876.3561.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146876_1.4767.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.56,
+        "heightMm": 49.28,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 41.15,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 37.08
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-69__series-aran-nickel-mounted-p-lip-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146876",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.08,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736593",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (69) P-Lip Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
     }
   ]
 }

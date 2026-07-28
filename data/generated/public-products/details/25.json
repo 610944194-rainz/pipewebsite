@@ -10396,6 +10396,167 @@
       "msrpRawText": "$336.50"
     },
     {
+      "id": "smokingpipes-700807",
+      "source": "smokingpipes",
+      "sourceProductId": "700807",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Silver Classic Smooth Billiard Tobacco Pipe",
+      "displayNameEn": "Silver Classic Smooth Billiard Tobacco Pipe",
+      "rawTitle": "Silver Classic Smooth Billiard Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22831.4080.jpg",
+      "sourcePriceAmount": 163.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 204,
+      "siteDisplayAmount": 1719.8573201999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 43.09,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "silver classic smooth billiard tobacco pipe",
+        "price": 1719.8573201999998,
+        "sourceProductId": "700807"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22831.4080.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22831_1.5927.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.14,
+        "heightMm": 46.23,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 37.34,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 35.56
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-silver-classic-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Silver Classic Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-22831",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.14,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=700807",
+      "sourceOriginalText": "Silver Classic Smooth Billiard Tobacco Pipe",
+      "priceRawText": "$163.20",
+      "msrpRawText": "$204.00"
+    },
+    {
       "id": "smokingpipes-701749",
       "source": "smokingpipes",
       "sourceProductId": "701749",
@@ -19681,6 +19842,167 @@
       "msrpRawText": "$122.50"
     },
     {
+      "id": "smokingpipes-733052",
+      "source": "smokingpipes",
+      "sourceProductId": "733052",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Bianca Smooth (207) (6mm) Tobacco Pipe",
+      "displayNameEn": "Bianca Smooth (207) (6mm) Tobacco Pipe",
+      "rawTitle": "Bianca Smooth (207) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111253.4807.jpg",
+      "sourcePriceAmount": 152,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 190,
+      "siteDisplayAmount": 1456.2214159999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 36.85,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "bianca smooth (207) (6mm) tobacco pipe",
+        "price": 1456.2214159999999,
+        "sourceProductId": "733052"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111253.4807.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111253_1.4213.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 42.67,
+        "weightGrams": 36.85,
+        "chamberDepthMm": 36.58,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 38.35
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-207__series-bianca-tobacco-pipe__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Bianca Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111253",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.85,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.35,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733052",
+      "sourceOriginalText": "Bianca Smooth (207) (6mm) Tobacco Pipe",
+      "priceRawText": "$152.00",
+      "msrpRawText": "$190.00"
+    },
+    {
       "id": "smokingpipes-733082",
       "source": "smokingpipes",
       "sourceProductId": "733082",
@@ -20670,10 +20992,10 @@
       "siteDisplayAmount": 1144.331096,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -21134,6 +21456,163 @@
       "sourceOriginalText": "Aran Smooth (606) Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-735085",
+      "source": "smokingpipes",
+      "sourceProductId": "735085",
+      "brandName": "Cavicchi",
+      "brandSlug": "cavicchi",
+      "brandCountry": null,
+      "displayName": "Smooth Tomato with Ivorite (Perla) Tobacco Pipe",
+      "displayNameEn": "Smooth Tomato with Ivorite (Perla) Tobacco Pipe",
+      "rawTitle": "Smooth Tomato with Ivorite (Perla) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4192.8993.jpg",
+      "sourcePriceAmount": 1080,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 1200,
+      "siteDisplayAmount": 10695.828179999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 61.23,
+      "shape": "Tomato",
+      "shapeZh": "番茄斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "cavicchi",
+        "name": "smooth tomato with ivorite (perla) tobacco pipe",
+        "price": 10695.828179999999,
+        "sourceProductId": "735085"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4192.8993.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4192_1.8105.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4192_2.9484.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4192_3.6016.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.92,
+        "heightMm": 44.7,
+        "weightGrams": 61.23,
+        "chamberDepthMm": 38.61,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 52.32
+      },
+      "model": {
+        "canonicalModelKey": "cavicchi__series-with-ivorite-tobacco-pipe__shape-tomato",
+        "confidence": "medium"
+      },
+      "series": "With Ivorite Tobacco Pipe",
+      "year": null,
+      "productCode": "002-400-4192",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Cavicchi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Tomato",
+          "labelZh": "番茄斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 61.23,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 52.32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/cavicchi/moreinfo.cfm?product_id=735085",
+      "sourceOriginalText": "Smooth Tomato with Ivorite (Perla) Tobacco Pipe",
+      "priceRawText": "$1,080.00",
+      "msrpRawText": "$1,200.00"
     },
     {
       "id": "smokingpipes-735195",
@@ -22097,6 +22576,169 @@
       "sourceOriginalText": "Dracula Rusticated (80s) Fishtail Tobacco Pipe",
       "priceRawText": "$132.00",
       "msrpRawText": "$165.00"
+    },
+    {
+      "id": "smokingpipes-735943",
+      "source": "smokingpipes",
+      "sourceProductId": "735943",
+      "brandName": "Tine Balleby",
+      "brandSlug": "tine-balleby",
+      "brandCountry": "Denmark",
+      "displayName": "Smooth Paneled Bent Brandy with Mammoth Tobacco Pipe",
+      "displayNameEn": "Smooth Paneled Bent Brandy with Mammoth Tobacco Pipe",
+      "rawTitle": "Smooth Paneled Bent Brandy with Mammoth Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-947-0024.5025.jpg",
+      "sourcePriceAmount": 4295,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 41041.52516999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 54.43,
+      "shape": "Panel",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "tine balleby",
+        "name": "smooth paneled bent brandy with mammoth tobacco pipe",
+        "price": 41041.52516999999,
+        "sourceProductId": "735943"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-947-0024.5025.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-947-0024_1.9411.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-947-0024_2.4878.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-947-0024_3.8544.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 126.24,
+        "heightMm": 49.28,
+        "weightGrams": 54.43,
+        "chamberDepthMm": 40.89,
+        "chamberDiameterMm": 17.53,
+        "outsideDiameterMm": 44.2
+      },
+      "model": {
+        "canonicalModelKey": "tine-balleby__series-paneled-with-mammoth-tobacco-pipe__shape-panel",
+        "confidence": "medium"
+      },
+      "series": "Paneled With Mammoth Tobacco Pipe",
+      "year": null,
+      "productCode": "002-947-0024",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Tine Balleby",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Panel",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 126.24,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 54.43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Tine-Balleby/moreinfo.cfm?product_id=735943",
+      "sourceOriginalText": "Smooth Paneled Bent Brandy with Mammoth Tobacco Pipe",
+      "priceRawText": "$4,295.00",
+      "msrpRawText": null
     }
   ]
 }

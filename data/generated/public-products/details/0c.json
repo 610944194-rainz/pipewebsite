@@ -16161,6 +16161,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-727185",
+      "source": "smokingpipes",
+      "sourceProductId": "727185",
+      "brandName": "Valbruna",
+      "brandSlug": "valbruna",
+      "brandCountry": null,
+      "displayName": "Smooth Light Lumberman (Two Jellyfish) Tobacco Pipe",
+      "displayNameEn": "Smooth Light Lumberman (Two Jellyfish) Tobacco Pipe",
+      "rawTitle": "Smooth Light Lumberman (Two Jellyfish) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0040.5591.jpg",
+      "sourcePriceAmount": 385,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3813.3800549999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 49.44,
+      "shape": "Lumberman",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "valbruna",
+        "name": "smooth light lumberman (two jellyfish) tobacco pipe",
+        "price": 3813.3800549999996,
+        "sourceProductId": "727185"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0040.5591.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0040_1.4625.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0040_2.6516.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0040_3.3010.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 181.61,
+        "heightMm": 59.69,
+        "weightGrams": 49.44,
+        "chamberDepthMm": 51.56,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 38.35
+      },
+      "model": {
+        "canonicalModelKey": "valbruna__series-light-tobacco-pipe__shape-lumberman",
+        "confidence": "medium"
+      },
+      "series": "Light Tobacco Pipe",
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Valbruna",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Lumberman",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 181.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 49.44,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 51.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.35,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/valbruna/moreinfo.cfm?product_id=727185",
+      "sourceOriginalText": "Smooth Light Lumberman (Two Jellyfish) Tobacco Pipe",
+      "priceRawText": "$385.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-727240",
       "source": "smokingpipes",
       "sourceProductId": "727240",
@@ -20197,10 +20354,10 @@
       "siteDisplayAmount": 2188.0211057999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -20680,10 +20837,10 @@
       "siteDisplayAmount": 1953.939213,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21002,10 +21159,10 @@
       "siteDisplayAmount": 2510.8275869999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -21147,6 +21304,167 @@
       "sourceOriginalText": "Red Spigot (80s) Fishtail Tobacco Pipe",
       "priceRawText": "$260.00",
       "msrpRawText": "$325.00"
+    },
+    {
+      "id": "smokingpipes-735993",
+      "source": "smokingpipes",
+      "sourceProductId": "735993",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Sandblasted (80s) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Sandblasted (80s) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Sandblasted (80s) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146774.3146.jpg",
+      "sourcePriceAmount": 130,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 162.5,
+      "siteDisplayAmount": 1284.68174,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 42.52,
+      "shape": "Bent Bulldog",
+      "shapeZh": "弯式斗牛犬斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter sandblasted (80s) fishtail (9mm) tobacco pipe",
+        "price": 1284.68174,
+        "sourceProductId": "735993"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146774.3146.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146774_1.5248.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.97,
+        "heightMm": 39.37,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 25.65,
+        "chamberDiameterMm": 21.59,
+        "outsideDiameterMm": 40.64
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-80s__series-army-filter-sandblasted-fishtail-tobacco__shape-bent-bulldog",
+        "confidence": "high"
+      },
+      "series": "Army Filter Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146774",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Bulldog",
+          "labelZh": "弯式斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 25.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.64,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735993",
+      "sourceOriginalText": "Army Filter Sandblasted (80s) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$130.00",
+      "msrpRawText": "$162.50"
     }
   ]
 }

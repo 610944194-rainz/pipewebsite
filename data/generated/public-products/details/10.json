@@ -23788,10 +23788,10 @@
       "siteDisplayAmount": 2223.8884925999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 5,
@@ -24115,10 +24115,10 @@
       "siteDisplayAmount": 1471.8159319999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -24258,6 +24258,163 @@
       "sourceOriginalText": "Siena (606 KS) (9mm) Tobacco Pipe",
       "priceRawText": "$154.00",
       "msrpRawText": "$192.50"
+    },
+    {
+      "id": "smokingpipes-734703",
+      "source": "smokingpipes",
+      "sourceProductId": "734703",
+      "brandName": "Cavicchi",
+      "brandSlug": "cavicchi",
+      "brandCountry": null,
+      "displayName": "Brown Sandblasted Dublin Tobacco Pipe",
+      "displayNameEn": "Brown Sandblasted Dublin Tobacco Pipe",
+      "rawTitle": "Brown Sandblasted Dublin Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4144.9195.jpg",
+      "sourcePriceAmount": 427.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 475,
+      "siteDisplayAmount": 4537.020315,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 38.56,
+      "shape": "Dublin",
+      "shapeZh": "都柏林斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "cavicchi",
+        "name": "brown sandblasted dublin tobacco pipe",
+        "price": 4537.020315,
+        "sourceProductId": "734703"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4144.9195.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4144_1.9150.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4144_2.5868.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4144_3.8109.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 147.32,
+        "heightMm": 48.01,
+        "weightGrams": 38.56,
+        "chamberDepthMm": 39.88,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 43.18
+      },
+      "model": {
+        "canonicalModelKey": "cavicchi__series-brown-sandblasted-tobacco-pipe__shape-dublin",
+        "confidence": "medium"
+      },
+      "series": "Brown Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-400-4144",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Cavicchi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Dublin",
+          "labelZh": "都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 147.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38.56,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/cavicchi/moreinfo.cfm?product_id=734703",
+      "sourceOriginalText": "Brown Sandblasted Dublin Tobacco Pipe",
+      "priceRawText": "$427.50",
+      "msrpRawText": "$475.00"
     },
     {
       "id": "smokingpipes-734911",
@@ -24887,6 +25044,330 @@
       "sourceOriginalText": "Autograph Smooth Bent Billiard (6) Tobacco Pipe",
       "priceRawText": "$760.00",
       "msrpRawText": "$950.00"
+    },
+    {
+      "id": "smokingpipes-736429",
+      "source": "smokingpipes",
+      "sourceProductId": "736429",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
+      "displayNameEn": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
+      "rawTitle": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146824.3696.jpg",
+      "sourcePriceAmount": 232,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 290,
+      "siteDisplayAmount": 2259.7558793999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 65.2,
+      "shape": "Calabash",
+      "shapeZh": "葫芦斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "deluxe system sandblasted (xl5s) p-lip tobacco pipe",
+        "price": 2259.7558793999997,
+        "sourceProductId": "736429"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146824.3696.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146824_1.4460.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146824_2.7984.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146824_3.3814.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.92,
+        "heightMm": 56.64,
+        "weightGrams": 65.2,
+        "chamberDepthMm": 42.93,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-deluxe-system-sandblasted-p-lip-tobacco__shape-calabash",
+        "confidence": "medium"
+      },
+      "series": "Deluxe System Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146824",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Calabash",
+          "labelZh": "葫芦斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 56.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.2,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736429",
+      "sourceOriginalText": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
+      "priceRawText": "$232.00",
+      "msrpRawText": "$290.00"
+    },
+    {
+      "id": "smokingpipes-736630",
+      "source": "smokingpipes",
+      "sourceProductId": "736630",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (128) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (128) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (128) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146913.2135.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 25.51,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (128) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "736630"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146913.2135.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146913_1.2940.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.08,
+        "heightMm": 47.5,
+        "weightGrams": 25.51,
+        "chamberDepthMm": 34.8,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 30.73
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-128__series-aran-nickel-mounted-fishtail-tobacco__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146913",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 25.51,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.73,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736630",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (128) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
     }
   ]
 }

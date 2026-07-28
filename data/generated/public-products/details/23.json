@@ -20479,10 +20479,10 @@
       "siteDisplayAmount": 1685.8776905999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21272,6 +21272,161 @@
       "msrpRawText": "$192.50"
     },
     {
+      "id": "smokingpipes-734632",
+      "source": "smokingpipes",
+      "sourceProductId": "734632",
+      "brandName": "AKB",
+      "brandSlug": "akb",
+      "brandCountry": null,
+      "displayName": "Spot Carved Zulu (Mcinar) (with Case) Tobacco Pipe",
+      "displayNameEn": "Spot Carved Zulu (Mcinar) (with Case) Tobacco Pipe",
+      "rawTitle": "Spot Carved Zulu (Mcinar) (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13252.6166.jpg",
+      "sourcePriceAmount": 100,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1091.8022,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 31.75,
+      "shape": "Zulu",
+      "shapeZh": null,
+      "finish": "Spot Carved",
+      "finishZh": "局部雕刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "akb",
+        "name": "spot carved zulu (mcinar) (with case) tobacco pipe",
+        "price": 1091.8022,
+        "sourceProductId": "734632"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13252.6166.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13252_1.3908.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.37,
+        "heightMm": 45.47,
+        "weightGrams": 31.75,
+        "chamberDepthMm": 38.86,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 28.96
+      },
+      "model": {
+        "canonicalModelKey": "akb__series-tobacco-pipe__shape-zulu",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-574-13252",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "AKB",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Zulu",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Spot Carved",
+          "labelZh": "局部雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=734632",
+      "sourceOriginalText": "Spot Carved Zulu (Mcinar) (with Case) Tobacco Pipe",
+      "priceRawText": "$100.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-734872",
       "source": "smokingpipes",
       "sourceProductId": "734872",
@@ -21443,10 +21598,10 @@
       "siteDisplayAmount": 1487.4104479999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
