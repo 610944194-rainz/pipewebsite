@@ -8909,6 +8909,20 @@ fs.writeFileSync(
   progressiveApplyPaths.currentList,
   JSON.stringify({
     source: "smokingpipes",
+    generatedAt: progressiveNow,
+    completedAt: progressiveNow,
+    products: [
+      {
+        sourceProductId: "100",
+        price: "$110.00",
+        rawListStatus: "",
+      },
+      {
+        sourceProductId: "200",
+        price: "$200.00",
+        rawListStatus: "",
+      },
+    ],
     summary: {
       pagesScanned: 104,
       fullExpectedRangeScanned: true,
@@ -8923,6 +8937,8 @@ fs.writeFileSync(
   JSON.stringify({
     source: "smokingpipes",
     allowApply: true,
+    newIds: ["200"],
+    reappearedIds: [],
     fatalWarnings: [],
     coverage: {
       pagesScanned: 104,
@@ -9506,6 +9522,32 @@ fs.writeFileSync(
     ...progressiveApplyAudit,
     verdict: "FAIL",
     blockers: ["reviewOnlyLeak=1"],
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.currentList,
+  JSON.stringify({
+    source: "smokingpipes",
+    generatedAt: progressiveNow,
+    completedAt: progressiveNow,
+    products: [
+      { sourceProductId: "100", price: "$110.00", rawListStatus: "" },
+      { sourceProductId: "200", price: "$200.00", rawListStatus: "" },
+    ],
+    summary: { pagesScanned: 104, expectedPages: 104, fullExpectedRangeScanned: true },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.diff,
+  JSON.stringify({
+    source: "smokingpipes",
+    allowApply: true,
+    newIds: ["200"],
+    reappearedIds: [],
+    fatalWarnings: [],
+    coverage: { pagesScanned: 104, expectedPages: 104, fullExpectedRangeScanned: true },
   }),
   "utf8"
 );

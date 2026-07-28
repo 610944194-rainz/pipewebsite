@@ -58,6 +58,10 @@ import {
   selectProgressiveRecentNew,
 } from "./smokingpipes-progressive-candidate-v1.mjs";
 import {
+  buildSmokingpipesActionableApplyPlan,
+  markSmokingpipesActionEventsApplied,
+} from "./smokingpipes-actionable-events-v1.mjs";
+import {
   sendPushDeerNotification,
 } from "./inventory-pushdeer-notifier-v1.mjs";
 import {
@@ -995,6 +999,7 @@ export function evaluateProgressiveProductionApplyGate({
     wouldApplyCount,
     effectiveApplyCount,
     appliedCandidateIds: effectiveApplyConsistency.appliedCandidateIds || [],
+    appliedEventIds: preview?.appliedEventIds || [],
     fieldChanges: preview?.fieldChanges || [],
     effectiveApplyConsistency,
     safeSubsetApply: safeGap && blockers.length === 0,
@@ -1490,9 +1495,20 @@ async function buildCandidateArtifacts({
   const danishProducts = options.mock
     ? []
     : items(readJsonIfExists(paths.danishProducts, []));
-  const candidate = buildProgressivePartialProducts({
+  const actionPlan = buildSmokingpipesActionableApplyPlan({
     productionProducts,
     state,
+    currentPayload: readJsonIfExists(paths.currentList, null),
+    diffPayload: readJsonIfExists(paths.diff, null),
+  });
+  const stateWithActionEvents = {
+    ...state,
+    actionEvents: actionPlan.eventsById,
+  };
+  const candidate = buildProgressivePartialProducts({
+    productionProducts,
+    state: stateWithActionEvents,
+    actionablePlan: actionPlan,
   });
   const unifiedRows = buildUnifiedProductsFromInputs({
     danishProducts,
@@ -1530,12 +1546,12 @@ async function buildCandidateArtifacts({
   const audit = auditProgressivePartialCandidate({
     productionProducts,
     candidateProducts: candidate.products,
-    state,
+    state: stateWithActionEvents,
     publicCatalog: publicBase.catalog.products,
     recentNew: recentNew.products,
   });
   audit.runId = runId || null;
-  const allCandidateIds = (state?.candidates || [])
+  const allCandidateIds = (stateWithActionEvents?.candidates || [])
     .map(sourceProductId)
     .filter(Boolean);
   audit.attemptedCandidateCount =
@@ -1543,13 +1559,27 @@ async function buildCandidateArtifacts({
   audit.candidateCount = audit.attemptedCandidateCount;
   audit.effectiveCandidateCount =
     candidate.appliedCandidateIds.length;
+  audit.actionEventLifecycle = {
+    schemaVersion: actionPlan.schemaVersion,
+    sourceSnapshotId: actionPlan.sourceSnapshotId,
+    sourceSnapshotHash: actionPlan.sourceSnapshotHash,
+    pendingEventCount: actionPlan.items.length,
+    isolatedEventCount: actionPlan.isolated.length,
+    supersededEventCount: actionPlan.superseded.length,
+    catchupBatches: actionPlan.catchupBatches.map((batch) => ({
+      batchNumber: batch.batchNumber,
+      count: batch.sourceProductIds.length,
+      requiresManualApproval: batch.requiresManualApproval,
+    })),
+  };
   const applyPreview = buildProgressivePartialApplyPreview({
-    state,
+    state: stateWithActionEvents,
     audit,
     productionProducts,
     candidateProducts: candidate.products,
     appliedCandidateIds: candidate.appliedCandidateIds,
     fieldChanges: candidate.fieldChanges,
+    appliedEventIds: candidate.appliedEventIds || [],
   });
   audit.wouldApplyCount = applyPreview.wouldApplyCount || 0;
   audit.applyGap = diagnoseProgressiveApplyGap({
@@ -1578,6 +1608,8 @@ async function buildCandidateArtifacts({
   return {
     candidate,
     audit,
+    state: stateWithActionEvents,
+    actionPlan,
     publicPayloads: {
       ...publicBase,
       recentNew,
@@ -1610,6 +1642,8 @@ async function prepareProgressiveApplyGate({
     options,
     runId,
   });
+  nextState = artifacts.state;
+  await writeProgressiveDailyState(paths.progressiveState, nextState);
   const productionProducts = loadProduction(
     paths,
     options.mock
@@ -1622,6 +1656,7 @@ async function prepareProgressiveApplyGate({
     candidateProducts,
     appliedCandidateIds: artifacts.candidate.appliedCandidateIds,
     fieldChanges: artifacts.candidate.fieldChanges,
+    appliedEventIds: artifacts.candidate.appliedEventIds || [],
   });
   stampEffectiveApplyArtifact(preview, { root, runId });
   await writeJsonAtomic(paths.progressiveApplyPreview, preview);
@@ -1642,6 +1677,7 @@ async function prepareProgressiveApplyGate({
           ? options.maxAutoApply
           : progressiveMaxAutoApplyFromEnv(),
   });
+  gate.actionEventLifecycle = artifacts.audit.actionEventLifecycle;
   gate.blockers.push(...publicNext.blockers);
   const legacyOverrideBlockReason = legacyDuplicateOverrideGateBlockReason({
     diff,
@@ -3317,6 +3353,12 @@ export async function runSmokingpipesProgressiveMode({
         paths,
         publicNext.payloads
       );
+      state = markSmokingpipesActionEventsApplied({
+        state,
+        eventIds: gate.appliedEventIds || [],
+        appliedRunId: runId,
+      });
+      await writeProgressiveDailyState(paths.progressiveState, state);
       const completed = {
         version:
           "smokingpipes-progressive-partial-apply-preview-v1",

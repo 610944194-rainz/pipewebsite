@@ -23,6 +23,12 @@ function clone(value) {
   return structuredClone(value);
 }
 
+function uniqueIds(values) {
+  return [...new Set(values.map(String).filter(Boolean))].sort(
+    (left, right) => left.localeCompare(right, "en", { numeric: true })
+  );
+}
+
 function updateExplicitPrice(product, candidate) {
   const amount = parsePrice(candidate.listPrice);
   if (!amount) return product;
@@ -134,6 +140,7 @@ function newProductEligible(candidate) {
 export function buildProgressivePartialProducts({
   productionProducts = [],
   state,
+  actionablePlan = null,
   now = null,
 }) {
   const generatedAt =
@@ -149,6 +156,65 @@ export function buildProgressivePartialProducts({
   const attemptedCandidateIds = [];
   const appliedCandidateIds = [];
   const fieldChanges = [];
+
+  if (actionablePlan) {
+    for (const item of actionablePlan.items || []) {
+      const id = sourceProductId(item.event);
+      if (!id || !item.desired) continue;
+      const existing = productsById.get(id);
+      productsById.set(id, clone(item.desired));
+      attemptedCandidateIds.push(id);
+      appliedCandidateIds.push(id);
+      if (!existing) newProductIds.push(id);
+      fieldChanges.push({
+        sourceProductId: id,
+        operation: existing ? "update-fields" : "add-product",
+        fields: item.fields?.length
+          ? [...new Set(item.fields)].sort()
+          : existing
+            ? ["*no-op-blocked"]
+            : ["*new-product"],
+        eventId: item.event.eventId,
+        changeType: item.event.changeType,
+      });
+    }
+    return {
+      version: "smokingpipes-products-partial-next-dry-run-v1",
+      generatedAt,
+      source: "smokingpipes",
+      productionWritten: false,
+      products: [...productsById.values()].sort((left, right) =>
+        sourceProductId(left).localeCompare(
+          sourceProductId(right),
+          "en",
+          { numeric: true }
+        )
+      ),
+      productionProductCount: productionIds.size,
+      newProductIds: uniqueIds(newProductIds),
+      attemptedCandidateIds: uniqueIds(attemptedCandidateIds),
+      appliedCandidateIds: uniqueIds(appliedCandidateIds),
+      appliedEventIds: uniqueIds(
+        (actionablePlan.items || []).map((item) => item.event?.eventId)
+      ),
+      fieldChanges: fieldChanges.sort((left, right) =>
+        left.sourceProductId.localeCompare(
+          right.sourceProductId,
+          "en",
+          { numeric: true }
+        )
+      ),
+      actionablePlan: {
+        schemaVersion: actionablePlan.schemaVersion,
+        sourceSnapshotId: actionablePlan.sourceSnapshotId,
+        sourceSnapshotHash: actionablePlan.sourceSnapshotHash,
+        pendingEventCount: actionablePlan.items?.length || 0,
+        isolatedEventCount: actionablePlan.isolated?.length || 0,
+        supersededEventCount: actionablePlan.superseded?.length || 0,
+        catchupBatches: actionablePlan.catchupBatches || [],
+      },
+    };
+  }
 
   for (const candidate of state?.candidates || []) {
     const id = sourceProductId(candidate);
@@ -610,6 +676,7 @@ export function buildProgressivePartialApplyPreview({
   candidateProducts = [],
   appliedCandidateIds,
   fieldChanges,
+  appliedEventIds = [],
   now = new Date().toISOString(),
 }) {
   if (!audit || audit.verdict !== "PASS") {
@@ -678,6 +745,7 @@ export function buildProgressivePartialApplyPreview({
       JSON.stringify(effectiveApplyIds) === JSON.stringify(evidenceFieldChangeIds),
     productionChangedIds: effectiveApplyIds,
     appliedCandidateIds: evidenceAppliedIds,
+    appliedEventIds: uniqueIds(appliedEventIds),
     fieldChangeIds: evidenceFieldChangeIds,
   };
   effectiveApplyConsistency.reason = effectiveApplyConsistency.valid
