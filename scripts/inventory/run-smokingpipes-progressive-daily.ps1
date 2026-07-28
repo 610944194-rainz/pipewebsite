@@ -298,6 +298,49 @@ function Invoke-InventoryNode {
   return [int]$exitCode
 }
 
+function Test-EffectiveApplyArtifacts {
+  param([string]$ExpectedRunId, [string]$InvocationStartedAt)
+
+  $schemaVersion = "smokingpipes-effective-apply-v2"
+  $generatorModule = "scripts/inventory/smokingpipes-progressive-runner-v1.mjs"
+  $blockers = @()
+  $preview = $null
+  $gate = $null
+  foreach ($entry in @(
+    @{ Label = "apply preview"; Path = $ApplyPreviewPath },
+    @{ Label = "apply gate"; Path = $ApplyGateReportPath }
+  )) {
+    if (-not (Test-Path -LiteralPath $entry.Path -PathType Leaf)) {
+      $blockers += "$($entry.Label) is missing"
+      continue
+    }
+    try {
+      $artifact = Get-Content -LiteralPath $entry.Path -Raw -Encoding utf8 | ConvertFrom-Json
+    } catch {
+      $blockers += "$($entry.Label) JSON parse failed"
+      continue
+    }
+    if ($entry.Label -eq "apply preview") { $preview = $artifact } else { $gate = $artifact }
+    if ([string]$artifact.schemaVersion -ne $schemaVersion) { $blockers += "$($entry.Label).schemaVersion is incompatible" }
+    if ([string]$artifact.generatorModule -ne $generatorModule) { $blockers += "$($entry.Label).generatorModule is incompatible" }
+    if ([string]$artifact.runId -ne $ExpectedRunId) { $blockers += "$($entry.Label).runId does not match current run" }
+    if ($artifact.effectiveApplyConsistency -eq $null -or $artifact.effectiveApplyConsistency.valid -ne $true) { $blockers += "$($entry.Label).effectiveApplyConsistency is not valid" }
+    if ($artifact.effectiveApplyCount -isnot [int] -and $artifact.effectiveApplyCount -isnot [long]) { $blockers += "$($entry.Label).effectiveApplyCount is invalid" }
+    elseif ([int64]$artifact.effectiveApplyCount -lt 0) { $blockers += "$($entry.Label).effectiveApplyCount is invalid" }
+    try {
+      if ([datetimeoffset]::Parse([string]$artifact.generatedAt) -lt [datetimeoffset]::Parse($InvocationStartedAt)) { $blockers += "$($entry.Label).generatedAt predates current invocation" }
+    } catch { $blockers += "$($entry.Label).generatedAt is invalid" }
+  }
+  $currentHead = ((& git -C $ProjectRoot rev-parse HEAD 2>$null) | Select-Object -First 1).Trim()
+  foreach ($entry in @(@{ Label = "apply preview"; Artifact = $preview }, @{ Label = "apply gate"; Artifact = $gate })) {
+    if ($entry.Artifact -and [string]$entry.Artifact.codeCommitSha -ne $currentHead) { $blockers += "$($entry.Label).codeCommitSha does not match current HEAD" }
+  }
+  if ($preview -and $gate -and [int64]$preview.effectiveApplyCount -ne [int64]$gate.effectiveApplyCount) { $blockers += "apply preview and gate effectiveApplyCount differ" }
+  if (-not $preview -or -not ($preview.PSObject.Properties.Name -contains "appliedCandidateIds")) { $blockers += "apply preview.appliedCandidateIds is missing" }
+  if (-not $preview -or -not ($preview.PSObject.Properties.Name -contains "fieldChanges")) { $blockers += "apply preview.fieldChanges is missing" }
+  return [pscustomobject]@{ Valid = (@($blockers | Select-Object -Unique).Count -eq 0); Blockers = @($blockers | Select-Object -Unique) }
+}
+
 function Get-TodayDateKey {
   return (Get-Date).ToString("yyyy-MM-dd")
 }
@@ -338,7 +381,8 @@ function Write-DailyTaskState {
     [object]$DetailPending = $null,
     [object]$DetailCompletedThisRun = $null,
     [object]$DetailQueueSpike = $null,
-    [object]$ChangeSummary = $null
+    [object]$ChangeSummary = $null,
+    [object]$EffectiveApplyCount = $null
   )
 
   $now = Get-Date
@@ -347,10 +391,25 @@ function Write-DailyTaskState {
   $inventoryLocksForState = if ($InventoryLocks) { $InventoryLocks } else { $script:InventoryLocksState }
   $progressiveLockForState = if ($ProgressiveLock) { $ProgressiveLock } else { $script:ProgressiveLockState }
   $cachedListResumeForState = if ($CachedListResume) { $CachedListResume } else { $script:CachedListResumeState }
-  $effectiveApplyCount = if ($null -ne $ChangeSummary -and $null -ne $ChangeSummary.actualAppliedCount) {
+  $hasReportedEffectiveApplyCount =
+    $PSBoundParameters.ContainsKey("EffectiveApplyCount") -and
+    $null -ne $EffectiveApplyCount
+  $hasChangeSummaryActualAppliedCount =
+    $null -ne $ChangeSummary -and
+    $null -ne $ChangeSummary.actualAppliedCount
+  if (
+    $hasReportedEffectiveApplyCount -and
+    $hasChangeSummaryActualAppliedCount -and
+    [int]$EffectiveApplyCount -ne [int]$ChangeSummary.actualAppliedCount
+  ) {
+    throw "effective-apply-report-mismatch: effectiveApplyCount=$EffectiveApplyCount changeSummary.actualAppliedCount=$($ChangeSummary.actualAppliedCount)"
+  }
+  $effectiveApplyCount = if ($hasReportedEffectiveApplyCount) {
+    [int]$EffectiveApplyCount
+  } elseif ($hasChangeSummaryActualAppliedCount) {
     [int]$ChangeSummary.actualAppliedCount
   } else {
-    [int]$AppliedCount
+    0
   }
   $state = [ordered]@{
     source = "smokingpipes"
@@ -380,7 +439,7 @@ function Write-DailyTaskState {
     wouldApplyCount = $WouldApplyCount
     effectiveApplyCount = $effectiveApplyCount
     isolatedCandidateCount = $IsolatedCandidateCount
-    changeSummary = if ($null -ne $ChangeSummary) { $ChangeSummary } elseif ($existingState -and $existingState.changeSummary) { $existingState.changeSummary } else { $null }
+    changeSummary = $ChangeSummary
     progressiveDetailMax = [int]$ProgressiveDetailMax
     maxAutoApply = [int]$MaxAutoApply
     largeApplyWarningThreshold = $LargeApplyWarningThreshold
@@ -727,6 +786,14 @@ function Get-ExistingAttemptCount {
 
 function Get-FailureType {
   param([string]$Message)
+
+  if ($Message -match "runtime-artifact-version-mismatch") {
+    return "runtime-artifact-version-mismatch"
+  }
+
+  if ($Message -match "effective-apply-report-mismatch") {
+    return "effective-apply-report-mismatch"
+  }
 
   if ($Message -match "preflight|预检|recovery preflight") {
     return "preflight"
@@ -1637,6 +1704,7 @@ try {
     "scripts/inventory/run-inventory-automation-v1.mjs",
     "--source=smokingpipes",
     "--mode=progressive-prepare-apply",
+    "--run-id=$InvocationRunId",
     "--max-auto-apply=$MaxAutoApply",
     "--no-commit",
     "--no-deploy",
@@ -1648,6 +1716,26 @@ try {
     [string]$prepareResult.status
   } else {
     ""
+  }
+  $artifactValidation = Test-EffectiveApplyArtifacts `
+    -ExpectedRunId $InvocationRunId `
+    -InvocationStartedAt $InvocationStartedAtValue
+  if (-not $artifactValidation.Valid) {
+    $artifactReason = "runtime-artifact-version-mismatch: $($artifactValidation.Blockers -join '; ')"
+    Write-DailyLog $artifactReason
+    Write-DailyTaskState `
+      -Status "runtime-artifact-version-mismatch" `
+      -Attempts $attempts `
+      -CandidateCount (if ($prepareResult) { [int]$prepareResult.candidateCount } else { 0 }) `
+      -WouldApplyCount (if ($prepareResult) { [int]$prepareResult.wouldApplyCount } else { 0 }) `
+      -IsolatedCandidateCount (if ($prepareResult) { [int]$prepareResult.isolatedCandidateCount } else { 0 }) `
+      -FailureReason $artifactReason `
+      -FailureType "runtime-artifact-version-mismatch" `
+      -RetryAllowed $false `
+      -DetailPhaseStatus $script:DetailPhaseStatus `
+      -CachedListResume $script:CachedListResumeState
+    Send-MobileReport
+    exit 0
   }
   $prepareApplyReady =
     $prepareExit -eq 0 -and
@@ -1662,6 +1750,11 @@ try {
     [int]$prepareResult.wouldApplyCount
   } else {
     0
+  }
+  $prepareEffectiveApplyCount = if ($prepareResult -and $null -ne $prepareResult.effectiveApplyCount) {
+    [int]$prepareResult.effectiveApplyCount
+  } else {
+    $null
   }
   $prepareIsolatedCandidateCount = if ($prepareResult -and $prepareResult.isolatedCandidateCount) {
     [int]$prepareResult.isolatedCandidateCount
@@ -1681,6 +1774,7 @@ try {
         -AppliedCount 0 `
         -CandidateCount $prepareCandidateCount `
         -WouldApplyCount $prepareWouldApplyCount `
+        -EffectiveApplyCount $prepareEffectiveApplyCount `
         -IsolatedCandidateCount $prepareIsolatedCandidateCount `
         -FailureReason "安全首跑完成：已生成候选、audit、preview 和 gate report，未写 production，等待人工确认。" `
         -FailureType "safe-bootstrap" `
@@ -1701,6 +1795,7 @@ try {
       "scripts/inventory/run-inventory-automation-v1.mjs",
       "--source=smokingpipes",
       "--mode=progressive-partial-apply",
+      "--run-id=$InvocationRunId",
       "--max-auto-apply=$MaxAutoApply",
       "--write-production",
       "--no-commit",
@@ -1719,6 +1814,11 @@ try {
       [int]$applyResult.appliedCount
     } else {
       0
+    }
+    $applyEffectiveApplyCount = if ($applyResult -and $null -ne $applyResult.effectiveApplyCount) {
+      [int]$applyResult.effectiveApplyCount
+    } else {
+      $null
     }
     $applyIsolatedCandidateCount = if (
       $applyResult -and $applyResult.isolatedCandidateCount
@@ -1740,6 +1840,7 @@ try {
         -AppliedCount 0 `
         -CandidateCount $prepareCandidateCount `
         -WouldApplyCount $prepareWouldApplyCount `
+        -EffectiveApplyCount $applyEffectiveApplyCount `
         -IsolatedCandidateCount $applyIsolatedCandidateCount `
         -RetryAllowed $false `
         -DetailPhaseStatus $script:DetailPhaseStatus `
@@ -1774,6 +1875,7 @@ try {
         -Attempts $attempts `
         -CandidateCount $prepareCandidateCount `
         -WouldApplyCount $prepareWouldApplyCount `
+        -EffectiveApplyCount $applyEffectiveApplyCount `
         -AppliedCount $applyAppliedCount `
         -IsolatedCandidateCount $applyIsolatedCandidateCount `
         -FailureReason $failureReason `
@@ -1824,6 +1926,7 @@ try {
     -AppliedCount $applyAppliedCount `
     -CandidateCount $prepareCandidateCount `
     -WouldApplyCount $prepareWouldApplyCount `
+    -EffectiveApplyCount $applyEffectiveApplyCount `
     -IsolatedCandidateCount $applyIsolatedCandidateCount `
     -RetryAllowed $false `
     -DetailPhaseStatus $script:DetailPhaseStatus `

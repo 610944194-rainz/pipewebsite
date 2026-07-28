@@ -209,9 +209,12 @@ import {
 import {
   buildSafeSubsetProductionProducts,
   buildSmokingpipesChangeSummary,
+  EFFECTIVE_APPLY_GENERATOR_MODULE,
+  EFFECTIVE_APPLY_SCHEMA_VERSION,
   evaluateProgressiveProductionApplyGate,
   legacyDuplicateOverrideGateBlockReason,
   runSmokingpipesProgressiveMode,
+  validateEffectiveApplyArtifacts,
 } from "./smokingpipes-progressive-runner-v1.mjs";
 import {
   planFailedSmokingpipesDetailRetry,
@@ -241,6 +244,72 @@ const defaultInventoryState = runnerCore.initialInventoryState();
 assert.equal(defaultInventoryState.checkpointFailed, false);
 assert.equal(defaultInventoryState.checkpointTargetPath, null);
 assert.equal(defaultInventoryState.checkpointTempPath, null);
+
+const effectiveArtifactFixture = {
+  schemaVersion: EFFECTIVE_APPLY_SCHEMA_VERSION,
+  codeCommitSha: "fixture-current-head",
+  generatorModule: EFFECTIVE_APPLY_GENERATOR_MODULE,
+  runId: "effective-apply-fixture-run",
+  generatedAt: "2026-07-28T14:30:01.000Z",
+  effectiveApplyCount: 315,
+  effectiveApplyConsistency: { valid: true },
+};
+const effectiveArtifactPreview = {
+  ...effectiveArtifactFixture,
+  appliedCandidateIds: Array.from({ length: 315 }, (_, index) => `fixture-${index + 1}`),
+  fieldChanges: [],
+};
+const effectiveArtifactGate = { ...effectiveArtifactFixture };
+assert.deepEqual(
+  validateEffectiveApplyArtifacts({
+    preview: effectiveArtifactPreview,
+    gateReport: effectiveArtifactGate,
+    runId: "effective-apply-fixture-run",
+    codeCommitSha: "fixture-current-head",
+    invocationStartedAt: "2026-07-28T14:30:00.000Z",
+  }),
+  { valid: true, blockers: [] }
+);
+const legacyPreviewWithoutEffectiveFields = {
+  schemaVersion: "smokingpipes-progressive-partial-apply-preview-v1",
+  codeCommitSha: "fixture-current-head",
+  generatorModule: EFFECTIVE_APPLY_GENERATOR_MODULE,
+  runId: "effective-apply-fixture-run",
+  generatedAt: "2026-07-28T14:30:01.000Z",
+};
+const legacyArtifactValidation = validateEffectiveApplyArtifacts({
+  preview: legacyPreviewWithoutEffectiveFields,
+  gateReport: effectiveArtifactGate,
+  runId: "effective-apply-fixture-run",
+  codeCommitSha: "fixture-current-head",
+  invocationStartedAt: "2026-07-28T14:30:00.000Z",
+});
+assert.equal(legacyArtifactValidation.valid, false);
+assert.ok(
+  legacyArtifactValidation.blockers.some((blocker) =>
+    blocker.includes("apply preview.schemaVersion")
+  )
+);
+assert.ok(
+  legacyArtifactValidation.blockers.some((blocker) =>
+    blocker.includes("apply preview.effectiveApplyCount")
+  )
+);
+for (const invalidArtifact of [
+  { ...effectiveArtifactGate, runId: "stale-run" },
+  { ...effectiveArtifactGate, codeCommitSha: "stale-commit" },
+]) {
+  assert.equal(
+    validateEffectiveApplyArtifacts({
+      preview: effectiveArtifactPreview,
+      gateReport: invalidArtifact,
+      runId: "effective-apply-fixture-run",
+      codeCommitSha: "fixture-current-head",
+      invocationStartedAt: "2026-07-28T14:30:00.000Z",
+    }).valid,
+    false
+  );
+}
 
 const duplicateFixtureProduct = {
   source: "smokingpipes",
@@ -8301,6 +8370,13 @@ const safeGapPreview = {
   candidateCount: 3,
   wouldApplyCount: 2,
   wouldApplyProductIds: ["1", "2"],
+  appliedCandidateIds: ["1", "2"],
+  fieldChanges: [],
+  effectiveApplyCount: 2,
+  effectiveApplyConsistency: {
+    valid: true,
+    appliedCandidateIds: ["1", "2"],
+  },
   productionWritten: false,
 };
 const completePublicPayloads = {
@@ -8420,6 +8496,8 @@ for (const [wouldApplyCount, warning, blocked] of [
       ...safeGapPreview,
       candidateCount: wouldApplyCount,
       wouldApplyCount,
+      effectiveApplyCount: wouldApplyCount,
+      effectiveApplyConsistency: { valid: true, appliedCandidateIds: [] },
     },
     candidateProducts: safeGapCandidateProducts,
     publicPayloads: completePublicPayloads,
@@ -8444,6 +8522,8 @@ for (const [wouldApplyCount, blocked] of [
       ...safeGapPreview,
       candidateCount: wouldApplyCount,
       wouldApplyCount,
+      effectiveApplyCount: wouldApplyCount,
+      effectiveApplyConsistency: { valid: true, appliedCandidateIds: [] },
     },
     candidateProducts: safeGapCandidateProducts,
     publicPayloads: completePublicPayloads,
@@ -8550,6 +8630,8 @@ const overMaxAutoApplyGate = evaluateProgressiveProductionApplyGate({
     ...safeGapPreview,
     candidateCount: 4039,
     wouldApplyCount: 4039,
+    effectiveApplyCount: 4039,
+    effectiveApplyConsistency: { valid: true, appliedCandidateIds: [] },
     wouldApplyProductIds: Array.from({ length: 4039 }, (_, index) =>
       String(index + 1)
     ),
@@ -8827,6 +8909,20 @@ fs.writeFileSync(
   progressiveApplyPaths.currentList,
   JSON.stringify({
     source: "smokingpipes",
+    generatedAt: progressiveNow,
+    completedAt: progressiveNow,
+    products: [
+      {
+        sourceProductId: "100",
+        price: "$110.00",
+        rawListStatus: "",
+      },
+      {
+        sourceProductId: "200",
+        price: "$200.00",
+        rawListStatus: "",
+      },
+    ],
     summary: {
       pagesScanned: 104,
       fullExpectedRangeScanned: true,
@@ -8841,6 +8937,8 @@ fs.writeFileSync(
   JSON.stringify({
     source: "smokingpipes",
     allowApply: true,
+    newIds: ["200"],
+    reappearedIds: [],
     fatalWarnings: [],
     coverage: {
       pagesScanned: 104,
@@ -9002,7 +9100,7 @@ const progressiveFailedDetailSafelyIsolated =
   });
 assert.equal(progressiveFailedDetailSafelyIsolated.status, "apply-complete");
 assert.equal(progressiveFailedDetailSafelyIsolated.failedIsolatedCount, 1);
-assert.equal(progressiveFailedDetailSafelyIsolated.isolatedCandidateCount, 0);
+assert.equal(progressiveFailedDetailSafelyIsolated.isolatedCandidateCount, 2);
 fs.writeFileSync(
   progressiveApplyPaths.existingProducts,
   JSON.stringify(progressiveApplyProduction),
@@ -9088,7 +9186,7 @@ const progressiveApplyWriteResult =
     ]),
   });
 assert.equal(progressiveApplyWriteResult.status, "apply-complete");
-assert.equal(progressiveApplyWriteResult.candidateCount, 2);
+assert.equal(progressiveApplyWriteResult.candidateCount, 4);
 assert.equal(progressiveApplyWriteResult.wouldApplyCount, 2);
 assert.equal(progressiveApplyWriteResult.productionWritten, true);
 assert.equal(progressiveApplyWriteResult.commitPerformed, false);
@@ -9427,6 +9525,32 @@ fs.writeFileSync(
   }),
   "utf8"
 );
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.currentList,
+  JSON.stringify({
+    source: "smokingpipes",
+    generatedAt: progressiveNow,
+    completedAt: progressiveNow,
+    products: [
+      { sourceProductId: "100", price: "$110.00", rawListStatus: "" },
+      { sourceProductId: "200", price: "$200.00", rawListStatus: "" },
+    ],
+    summary: { pagesScanned: 104, expectedPages: 104, fullExpectedRangeScanned: true },
+  }),
+  "utf8"
+);
+fs.writeFileSync(
+  progressiveApplyBlockedPaths.diff,
+  JSON.stringify({
+    source: "smokingpipes",
+    allowApply: true,
+    newIds: ["200"],
+    reappearedIds: [],
+    fatalWarnings: [],
+    coverage: { pagesScanned: 104, expectedPages: 104, fullExpectedRangeScanned: true },
+  }),
+  "utf8"
+);
 const progressiveApplyBlocked =
   await runSmokingpipesProgressiveMode({
     root: progressiveApplyBlockedRoot,
@@ -9617,31 +9741,28 @@ assert.equal(offlinePrepareResult.notPublicCount, 222);
 assert.equal(offlinePrepareResult.failedNotPublicCount, 136);
 assert.equal(offlinePrepareResult.excludedBrandCount, 86);
 assert.equal(offlinePrepareResult.candidateCount, 1695);
-assert.equal(offlinePrepareResult.wouldApplyCount, 1469);
-assert.equal(offlinePrepareResult.isolatedCandidateCount, 226);
+// The current effective-apply gate rebuilds from converted candidate products.
+// These legacy fixture entries intentionally have no convertedProduct payloads,
+// so they must fail closed rather than inheriting the legacy status-only count.
+assert.equal(offlinePrepareResult.wouldApplyCount, 0);
+assert.equal(offlinePrepareResult.isolatedCandidateCount, 1695);
 assert.equal(offlinePrepareResult.maxAutoApply, 2000);
 assert.equal(offlinePrepareResult.largeApplyWarningThreshold, 300);
-assert.equal(offlinePrepareResult.largeApplyWarning, true);
+assert.equal(offlinePrepareResult.largeApplyWarning, false);
 assert.equal(offlinePrepareResult.largeApplyBlocked, false);
-assert.equal(offlinePrepareResult.applyReady, true);
-assert.equal(offlinePrepareResult.safeSubsetApply, true);
+assert.equal(offlinePrepareResult.applyReady, false);
+assert.equal(offlinePrepareResult.safeSubsetApply, false);
 assert.equal(
   offlinePrepareResult.audit.applyGap.safeToApplyWouldApplySubset,
-  true
+  false
 );
 assert.equal(offlinePrepareResult.audit.applyGap.unknownGapCount, 0);
 assert.equal(
   offlinePrepareResult.audit.applyGap.readyUnexpectedlyExcludedCount,
-  0
+  1469
 );
-assert.equal(offlinePrepareResult.preview.safeSubsetApply, true);
-assert.equal(offlinePrepareResult.preview.applyGap.gapCount, 226);
-assert.equal(
-  offlinePrepareResult.preview.isolatedCandidateIds.some((id) =>
-    offlinePrepareResult.preview.wouldApplyProductIds.includes(id)
-  ),
-  false
-);
+assert.equal(offlinePrepareResult.preview.safeSubsetApply, false);
+assert.equal(offlinePrepareResult.preview.applyGap.gapCount, 1695);
 assert.equal(
   fs.existsSync(offlinePreparePaths.progressiveApplyGateReport),
   true
@@ -9656,11 +9777,11 @@ assert.equal(
 );
 assert.equal(
   fs.existsSync(offlinePreparePaths.progressiveProductsNext),
-  false
+  true
 );
 assert.equal(
   fs.existsSync(offlinePreparePaths.progressivePublicNextRoot),
-  false
+  true
 );
 assert.equal(
   parseRunnerOptions([
@@ -10128,6 +10249,52 @@ const safeBootstrapMobileMessage = buildPushDeerDailyMessage(
 );
 assert.match(safeBootstrapMobileMessage.body, /安全首跑完成/);
 assert.match(safeBootstrapMobileMessage.body, /production/);
+
+const runtimeArtifactMismatchMobileReport =
+  buildSmokingpipesDailyMobileReport({
+    runAt: "2026-07-28T22:30:10.000+08:00",
+    taskState: {
+      source: "smokingpipes",
+      status: "runtime-artifact-version-mismatch",
+      runId: "current-invocation",
+      invocationStartedAt: "2026-07-28T14:30:00.000Z",
+      completedAt: "2026-07-28T14:30:10.000Z",
+      productionWritten: false,
+      appliedCount: 0,
+      candidateCount: 4144,
+      wouldApplyCount: 3920,
+      lastFailureType: "runtime-artifact-version-mismatch",
+      lastFailureReason:
+        "runtime-artifact-version-mismatch: apply gate.runId does not match current run",
+      retryAllowed: true,
+    },
+    state: {
+      source: "smokingpipes",
+      listSnapshotStatus: "complete",
+      candidates: [],
+    },
+    // Deliberately old, contradictory audit evidence: it must not turn this
+    // invocation into a manual-verification or production-change notification.
+    audit: {
+      verdict: "PASS",
+      runId: "stale-invocation",
+      productionWritten: true,
+      actualAppliedCount: 315,
+      blockers: [],
+      warnings: [],
+    },
+  });
+assert.equal(
+  runtimeArtifactMismatchMobileReport.statusLabel,
+  "运行产物版本不一致"
+);
+assert.equal(runtimeArtifactMismatchMobileReport.productionWritten, false);
+assert.equal(runtimeArtifactMismatchMobileReport.appliedCount, 0);
+assert.equal(runtimeArtifactMismatchMobileReport.verificationRequired, false);
+assert.match(
+  buildPushDeerDailyMessage(runtimeArtifactMismatchMobileReport).body,
+  /apply gate\.runId does not match current run/
+);
 
 const safeBootstrapCurrentListFailureReport =
   buildSmokingpipesDailyMobileReport({

@@ -456,12 +456,26 @@ function normalizeSmokingpipesChangeSummary(value, appliedCount = 0, isolatedCan
 
 export function buildSmokingpipesDailyMobileReport({
   state,
-  audit,
+  audit: inputAudit,
   taskState,
   taskLogText = "",
   runAt = new Date().toISOString(),
   notification = {},
 } = {}) {
+  const taskRunId = normalizeText(taskState?.runId);
+  const auditRunId = normalizeText(inputAudit?.runId);
+  const artifactMismatchFailure = [
+    "runtime-artifact-version-mismatch",
+    "effective-apply-report-mismatch",
+  ].includes(normalizeText(taskState?.lastFailureType));
+  // A report can only describe this invocation when it carries the same runId.
+  // Legacy or mismatched latest reports must not leak previous apply counts into
+  // a failed current run notification.
+  const audit =
+    artifactMismatchFailure ||
+    (taskRunId && auditRunId !== taskRunId)
+      ? null
+      : inputAudit;
   const candidates = toArray(state?.candidates);
   const counts = getAuditCounts(audit);
   const taskStatus = normalizeTaskStatus(taskState);
@@ -707,6 +721,10 @@ export function buildSmokingpipesDailyMobileReport({
           : "人工全量对齐：详情分批处理中"
       : status === "detail-in-progress"
       ? "详情分批处理中"
+      : failureType === "runtime-artifact-version-mismatch"
+      ? "运行产物版本不一致"
+      : failureType === "effective-apply-report-mismatch"
+      ? "实际变更报告不一致"
       : unsafeApplyGap
       ? "候选应用被安全门禁阻断"
       : failureType === "max-auto-apply"
@@ -771,7 +789,10 @@ export function buildSmokingpipesDailyMobileReport({
       : "daily-update",
     manualFullReconcile,
     manualDetailBatch,
-    verificationRequired: !isDetailProgress && Boolean(verificationBlocker),
+    verificationRequired:
+      !isDetailProgress &&
+      !["runtime-artifact-version-mismatch", "effective-apply-report-mismatch", "max-auto-apply"].includes(failureType) &&
+      Boolean(verificationBlocker),
     retryAllowed:
       typeof taskState?.retryAllowed === "boolean"
         ? taskState.retryAllowed
@@ -868,6 +889,16 @@ function deriveReasonV2({
   wouldApplyCount,
   productionWritten,
 }) {
+  if (
+    [
+      "runtime-artifact-version-mismatch",
+      "effective-apply-report-mismatch",
+    ].includes(normalizeText(taskState?.lastFailureType))
+  ) {
+    return sanitizeMobileTextV2(
+      taskState?.lastFailureReason || "运行产物版本不一致。"
+    );
+  }
   const isolatedCandidateCount = Number(
     audit?.isolatedCandidateCount ??
       audit?.applyGap?.gapCount ??
@@ -896,6 +927,12 @@ function deriveReasonV2({
   }
 
   if (["retryable-failed", "terminal-failed", "manual-review-required", "safety-gate-blocked"].includes(status)) {
+    if (taskState?.lastFailureType === "runtime-artifact-version-mismatch") {
+      return taskState?.lastFailureReason || "运行产物版本不一致。";
+    }
+    if (taskState?.lastFailureType === "effective-apply-report-mismatch") {
+      return taskState?.lastFailureReason || "实际变更报告不一致。";
+    }
     if (taskState?.lastFailureType === "max-auto-apply") {
       return "实际变更超过自动应用上限；未写入 Production。";
     }
@@ -1294,6 +1331,8 @@ function buildSourceAccessTextV2(report) {
 
 function failureTypeLabelV2(value) {
   const type = normalizeText(value);
+  if (type === "runtime-artifact-version-mismatch") return "运行产物版本不一致";
+  if (type === "effective-apply-report-mismatch") return "实际变更报告不一致";
   if (type === "max-auto-apply") return "实际变更超过自动应用上限";
   if (type === "lock") return "任务锁定";
   if (type === "verification") return "源站验证";

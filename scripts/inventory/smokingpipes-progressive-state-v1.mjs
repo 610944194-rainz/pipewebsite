@@ -174,6 +174,9 @@ export function createProgressiveDailyState({
     latestRun: null,
     candidateBuild: null,
     partialApplyPreview: null,
+    // Event history is intentionally separate from candidate history. Candidates
+    // are observational records; only pending events may enter an ApplyPlan.
+    actionEvents: {},
     productionWritten: false,
   };
 }
@@ -237,6 +240,14 @@ export function validateProgressiveDailyState(state) {
         }
         seen.add(id);
       });
+    }
+    if (
+      state.actionEvents !== undefined &&
+      (!state.actionEvents ||
+        typeof state.actionEvents !== "object" ||
+        Array.isArray(state.actionEvents))
+    ) {
+      errors.push("actionEvents is invalid");
     }
     if (
       !state.globalReconcile ||
