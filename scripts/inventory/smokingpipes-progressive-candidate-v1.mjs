@@ -765,6 +765,7 @@ export function buildProgressivePartialApplyPreview({
     wouldApplyCount: wouldApplyProductIds.length,
     effectiveApplyCount,
     appliedCandidateIds: evidenceAppliedIds,
+    appliedEventIds: uniqueIds(appliedEventIds),
     fieldChanges: Array.isArray(fieldChanges) ? fieldChanges : evidenceFieldChangeIds.map((sourceProductId) => ({ sourceProductId, operation: "derived-production-diff", fields: [] })),
     effectiveApplyConsistency,
     isolatedCandidateCount: Number(

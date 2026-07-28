@@ -296,6 +296,19 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     args.get("manual-large-apply"),
     false
   );
+  const manualCatchupBatch = args.has("manual-catchup-batch")
+    ? positiveSafeInteger(
+        args.get("manual-catchup-batch"),
+        null,
+        "manual-catchup-batch"
+      )
+    : null;
+  const catchupPlanId = args.has("catchup-plan-id")
+    ? String(args.get("catchup-plan-id") || "").trim()
+    : "";
+  const catchupBatchHash = args.has("catchup-batch-hash")
+    ? String(args.get("catchup-batch-hash") || "").trim()
+    : "";
   const maxAutoApply = positiveSafeInteger(
     args.get("max-auto-apply"),
     2000,
@@ -381,6 +394,26 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     throw new Error(
       "--manual-large-apply requires --write-production."
     );
+  }
+  const hasCatchupArgument =
+    manualCatchupBatch !== null || catchupPlanId || catchupBatchHash;
+  if (hasCatchupArgument) {
+    if (mode !== "progressive-partial-apply") {
+      throw new Error(
+        "Catch-up batch arguments require --mode=progressive-partial-apply."
+      );
+    }
+    if (
+      manualCatchupBatch === null ||
+      !catchupPlanId ||
+      !catchupBatchHash ||
+      !writeProduction ||
+      !manualLargeApply
+    ) {
+      throw new Error(
+        "--manual-catchup-batch, --catchup-plan-id, --catchup-batch-hash, --write-production, and --manual-large-apply are all required for catch-up execution."
+      );
+    }
   }
 
   return {
@@ -496,6 +529,9 @@ export function parseRunnerOptions(argv = process.argv.slice(2)) {
     deploy: args.has("deploy") && !args.has("no-deploy"),
     writeProduction,
     manualLargeApply,
+    manualCatchupBatch,
+    catchupPlanId,
+    catchupBatchHash,
     verbose: booleanValue(args.get("verbose"), false),
     forceUnlock: booleanValue(args.get("force-unlock"), false),
     mock: booleanValue(args.get("mock"), false),
@@ -878,6 +914,14 @@ export function getRunnerPaths(root, options = {}) {
     progressiveApplyPreview: path.join(
       reviewRoot,
       "smokingpipes-progressive-partial-apply-preview.json"
+    ),
+    smokingpipesCatchupPlan: path.join(
+      reviewRoot,
+      "smokingpipes-catchup-plan.json"
+    ),
+    smokingpipesCatchupReceipt: path.join(
+      reviewRoot,
+      "smokingpipes-catchup-receipt.json"
     ),
     progressiveApplyGateReport: path.join(
       reviewRoot,
