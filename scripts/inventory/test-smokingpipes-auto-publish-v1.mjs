@@ -345,8 +345,10 @@ try {
       changeSummary: { actualAppliedCount: 315 },
     })
   );
-  assert.notEqual(explicitZeroMismatch.status, 0);
-  assert.match(explicitZeroMismatch.stderr, /effective-apply-report-mismatch/);
+  assert.equal(explicitZeroMismatch.status, 0, explicitZeroMismatch.stderr);
+  const copiedMismatch = JSON.parse(explicitZeroMismatch.stdout);
+  assert.equal(copiedMismatch.effectiveApplyCount, 0);
+  assert.equal(copiedMismatch.actualAppliedCount, 315);
   const missingEffectiveIsBackfilled = runPowerShell(
     copyDailyStateHarness({
       changeSummary: { actualAppliedCount: 315 },

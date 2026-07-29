@@ -386,13 +386,6 @@ function Copy-DailyStateToReport {
   } else {
     $report.effectiveApplyCount
   }
-  if (
-    $hasEffectiveApplyCount -and
-    $hasActualAppliedCount -and
-    $report.effectiveApplyCount -ne $report.actualAppliedCount
-  ) {
-    throw "effective-apply-report-mismatch: effectiveApplyCount=$($report.effectiveApplyCount) changeSummary.actualAppliedCount=$($report.actualAppliedCount)"
-  }
   $report.detailPendingCount = Get-DailyNumber -State $State -Name "detailPendingCount"
   $report.detailPhaseStatus = [string]$State.detailPhaseStatus
   $report.progressiveDetailMax = Get-DailyNumber -State $State -Name "progressiveDetailMax"
@@ -409,6 +402,32 @@ function Copy-DailyStateToReport {
     $State.largeApplyBlocked -eq $true
   } else {
     $report.effectiveApplyCount -gt $report.maxAutoApply
+  }
+}
+
+function Get-TrackedProductionChanges {
+  return @(& git -C $ProjectRoot diff --name-only -- @ProductionExactPaths "data/generated/public-products") |
+    Where-Object { $_ }
+}
+
+function Set-NoProductionChangeReport {
+  # A fresh no-op must never carry forward counters from a prior production run.
+  $report.productionWritten = $false
+  $report.candidateCount = 0
+  $report.wouldApplyCount = 0
+  $report.effectiveApplyCount = 0
+  $report.actualAppliedCount = 0
+  $report.appliedCount = 0
+  $report.isolatedCandidateCount = 0
+  $report.changedProductionFiles = @()
+  $report.commitPerformed = $false
+  $report.pushPerformed = $false
+  $report.changeSummary = [ordered]@{
+    newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
+    explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
+    disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
+    otherAppliedCount = 0; actualAppliedCount = 0
+    consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
   }
 }
 
@@ -769,7 +788,6 @@ function Sync-AutomationRuntimeWithOriginMain {
   return [pscustomobject]@{ Head = $headAfter; OriginMain = $originAfter; Branch = $branch; Upstream = $upstream }
 }
 
-$dailyReportedNoProductionChange = $false
 $postApplyRollbackSnapshot = $null
 $dailyInvocationStarted = $false
 
@@ -898,10 +916,27 @@ try {
     Complete-AutoPublish -Status "detail-in-progress"
     exit 0
   }
-  if ($report.productionWritten -and ($report.actualAppliedCount -le 0 -or $report.actualAppliedCount -ne $report.appliedCount)) {
-    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "daily" -Reason "productionWritten requires a matching positive actualAppliedCount"
+  $dailyProductionChanges = Get-TrackedProductionChanges
+  $report.changedProductionFiles = @($dailyProductionChanges)
+  if (-not $report.productionWritten -and $dailyProductionChanges.Count -eq 0) {
+    Set-NoProductionChangeReport
+    $report.deploymentStatus = "not-requested"
+    Complete-AutoPublish -Status "no-production-change"
+    exit 0
   }
-  $dailyReportedNoProductionChange = -not $report.productionWritten
+  $positiveMatchingApplyCounts =
+    $report.productionWritten -and
+    $report.actualAppliedCount -gt 0 -and
+    $report.effectiveApplyCount -gt 0 -and
+    $report.appliedCount -gt 0 -and
+    $report.actualAppliedCount -eq $report.effectiveApplyCount -and
+    $report.actualAppliedCount -eq $report.appliedCount
+  if (-not $positiveMatchingApplyCounts) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "daily" -Reason "daily state must either report no production change with no tracked production diff, or matching positive productionWritten apply counts"
+  }
+  if ($dailyProductionChanges.Count -eq 0) {
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "daily" -Reason "daily reported production write with matching apply counts but no tracked production changes"
+  }
   }
 
   if ($ResumeAfterProductionWrite) {
@@ -914,8 +949,10 @@ try {
   $report.failureStage = "validator"
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($ValidatorScriptPath) -Stage "validator" | Out-Null
   $report.validatorPassed = $true
+  $report.failureStage = "inventory-default-test"
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryDefaultTestPath) -Stage "inventory-default-test" | Out-Null
   $report.inventoryDefaultPassed = $true
+  $report.failureStage = "inventory-runner-test"
   Invoke-CheckedCommand -FilePath $NodeExecutablePath -Arguments @($InventoryRunnerTestPath) -Stage "inventory-runner-test" | Out-Null
   $report.inventoryRunnerPassed = $true
   $report.failureStage = "executable-resolution"
@@ -932,32 +969,11 @@ try {
     Invoke-GitChecked -Arguments @("diff", "--check") | Out-Null
     $changed = @(& git -C $ProjectRoot diff --name-only) | Where-Object { $_ }
   } else {
-    $changed = @(& git -C $ProjectRoot diff --name-only -- @ProductionExactPaths "data/generated/public-products") | Where-Object { $_ }
+    $changed = @($dailyProductionChanges)
   }
   $report.changedProductionFiles = @($changed)
-  if ($dailyReportedNoProductionChange -and $changed.Count -gt 0) {
-    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "diff-guard" -Reason "daily reported no production write but tracked production changes exist"
-  }
   if ($changed.Count -eq 0) {
-    if ($dailyReportedNoProductionChange) {
-      # A no-change completion is a fresh invocation, never a projection of a
-      # prior production run's counters.
-      $report.productionWritten = $false
-      $report.candidateCount = 0
-      $report.wouldApplyCount = 0
-      $report.appliedCount = 0
-      $report.isolatedCandidateCount = 0
-      $report.changeSummary = [ordered]@{
-        newlyPublishedCount = 0; sourcePriceIncreaseCount = 0; sourcePriceDecreaseCount = 0
-        explicitOutOfStockCount = 0; confirmedDisappearedCount = 0; reappearedCount = 0
-        disappearedPendingConfirmationCount = 0; isolatedCandidateCount = 0; failedIsolatedCount = 0
-        otherAppliedCount = 0; actualAppliedCount = 0
-        consistency = [ordered]@{ valid = $true; classifiedAppliedCount = 0; reason = $null }
-      }
-    }
-    $report.deploymentStatus = "not-requested"
-    Complete-AutoPublish -Status "no-production-change"
-    exit 0
+    Stop-AutoPublish -Status "daily-state-inconsistent" -Stage "diff-guard" -Reason "tracked production changes disappeared before staging"
   }
   foreach ($filePath in $changed) {
     $report.failureStage = "stage"
@@ -1028,6 +1044,7 @@ try {
   Complete-AutoPublish -Status "deployment-pending-verification"
 } catch {
   $failureReason = $_.Exception.Message
+  $rollbackPerformed = $false
   if ($postApplyRollbackSnapshot -and $dailyInvocationStarted -and -not $report.commitPerformed) {
     try {
       Restore-PostApplyRollbackSnapshot -Snapshot $postApplyRollbackSnapshot
@@ -1035,6 +1052,8 @@ try {
       $report.appliedCount = 0
       $report.effectiveApplyCount = 0
       $report.actualAppliedCount = 0
+      $report.changedProductionFiles = @()
+      $rollbackPerformed = $true
       $failureReason += "; production changes restored after failed post-apply validation"
     } catch {
       $failureReason += "; production rollback failed: $($_.Exception.Message)"
@@ -1043,10 +1062,13 @@ try {
       $postApplyRollbackSnapshot = $null
     }
   }
+  $failureStatus = if ($report.status -and $report.status -ne "running") { $report.status } else { "failed" }
   if (-not $report.completedAt) {
-    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
+    Write-AutoPublishReport -Status $failureStatus -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
     Send-AutoPublishNotificationSafely
-    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
+  }
+  if ($rollbackPerformed -or -not $report.completedAt) {
+    Write-AutoPublishReport -Status $failureStatus -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
   }
   Write-Error $failureReason
   exit 1

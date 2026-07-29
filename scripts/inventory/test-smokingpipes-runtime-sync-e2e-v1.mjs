@@ -30,10 +30,12 @@ function makeFixture(name) {
   const temp = fs.mkdtempSync(path.join(fixtureTempRoot, `smokingpipes-runtime-sync-${name}-`));
   const fixture = path.join(temp, "worktree");
   const bare = path.join(temp, "origin.git");
-  run("git", ["clone", "--bare", "--local", root, bare]);
-  run("git", ["clone", "--branch", "main", bare, fixture]);
+  run("git", ["-c", "core.autocrlf=false", "clone", "--bare", "--local", root, bare]);
+  run("git", ["-c", "core.autocrlf=false", "clone", "--branch", "main", bare, fixture]);
   git(fixture, ["config", "user.email", "sync-e2e@example.invalid"]);
   git(fixture, ["config", "user.name", "Smokingpipes Sync E2E"]);
+  git(fixture, ["config", "core.autocrlf", "false"]);
+  git(fixture, ["reset", "--hard", "HEAD"]);
   git(fixture, ["switch", "-c", "automation/smokingpipes-production-run", "origin/main"]);
   for (const file of [
     ".gitignore",
@@ -54,24 +56,45 @@ function makeFixture(name) {
   [string]$InvocationStartedAt
 )
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
-$state = [ordered]@{ status="completed"; productionWritten=$false; candidateCount=0; wouldApplyCount=0; appliedCount=0; progressiveDetailMax=30; maxAutoApply=1000 }
+$mode = if ([string]::IsNullOrWhiteSpace($env:FIXTURE_DAILY_SCENARIO)) { "no-op" } else { $env:FIXTURE_DAILY_SCENARIO }
+if ($env:FIXTURE_ACTIVITY_LOG) { Add-Content -LiteralPath $env:FIXTURE_ACTIVITY_LOG -Value "daily" }
+$state = [ordered]@{
+  status="completed"; productionWritten=$false; candidateCount=4144; wouldApplyCount=1; effectiveApplyCount=0; appliedCount=0
+  progressiveDetailMax=50; maxAutoApply=2000; changeSummary=[ordered]@{ actualAppliedCount=0 }
+}
+if ($mode -in @("production-change", "inventory-runner-failure", "false-with-diff", "written-with-zero")) {
+  [IO.File]::WriteAllText((Join-Path $root "data\products\smokingpipes-products.json"), ("after-production" + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
+  [IO.File]::WriteAllText((Join-Path $root "data\generated\public-products\catalog.json"), ("after-catalog" + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
+}
+if ($mode -in @("production-change", "inventory-runner-failure")) {
+  $state.productionWritten = $true; $state.candidateCount = 1; $state.wouldApplyCount = 1
+  $state.effectiveApplyCount = 1; $state.appliedCount = 1; $state.changeSummary.actualAppliedCount = 1
+}
+if ($mode -eq "written-with-zero") {
+  $state.productionWritten = $true; $state.candidateCount = 1; $state.wouldApplyCount = 1
+  $state.effectiveApplyCount = 1; $state.appliedCount = 1; $state.changeSummary.actualAppliedCount = 0
+}
 New-Item -ItemType Directory -Force -Path (Join-Path $root "data\inventory") | Out-Null
 [IO.File]::WriteAllText((Join-Path $root "data\inventory\smokingpipes-daily-task-state.json"), (($state | ConvertTo-Json -Compress) + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
+[IO.File]::WriteAllText((Join-Path $root "data\inventory\smokingpipes-progressive-daily-state.json"), ("after-" + $mode + [Environment]::NewLine), [Text.UTF8Encoding]::new($false))
 `);
-  for (const file of [
-    "scripts/validate-public-product-indexes-v1.mjs",
-    "scripts/test-public-products-inventory-default-v1.mjs",
-    "scripts/inventory/test-inventory-runner-v1.mjs",
-  ]) write(path.join(fixture, file), "process.exit(0);\n");
+  write(path.join(fixture, "data", "products", "smokingpipes-products.json"), "before-production\n");
+  write(path.join(fixture, "data", "products", "unified-products-staging.json"), "before-unified\n");
+  write(path.join(fixture, "data", "generated", "public-products", "catalog.json"), "before-catalog\n");
+  const activityLog = path.join(temp, "activity.log");
+  write(path.join(fixture, "scripts", "validate-public-product-indexes-v1.mjs"), "import fs from 'node:fs'; if (process.env.FIXTURE_ACTIVITY_LOG) fs.appendFileSync(process.env.FIXTURE_ACTIVITY_LOG, 'validator\\n');\n");
+  write(path.join(fixture, "scripts", "test-public-products-inventory-default-v1.mjs"), "import fs from 'node:fs'; if (process.env.FIXTURE_ACTIVITY_LOG) fs.appendFileSync(process.env.FIXTURE_ACTIVITY_LOG, 'inventory-default\\n');\n");
+  write(path.join(fixture, "scripts", "inventory", "test-inventory-runner-v1.mjs"), "import fs from 'node:fs'; if (process.env.FIXTURE_ACTIVITY_LOG) fs.appendFileSync(process.env.FIXTURE_ACTIVITY_LOG, 'inventory-runner\\n'); if (process.env.FIXTURE_DAILY_SCENARIO === 'inventory-runner-failure') process.exit(1);\n");
   const build = path.join(fixture, "build.cmd");
-  write(build, "@echo off\r\nexit /b 0\r\n");
+  write(build, "@echo off\r\nif not \"%FIXTURE_ACTIVITY_LOG%\"==\"\" echo build>>\"%FIXTURE_ACTIVITY_LOG%\"\r\nexit /b 0\r\n");
   write(path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs"), "console.log(JSON.stringify({ notificationSent: false, notificationSkipped: true, notificationReason: 'fixture' }));\n");
-  git(fixture, ["add", "--", ".gitignore", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs", "scripts/validate-public-product-indexes-v1.mjs", "scripts/test-public-products-inventory-default-v1.mjs", "scripts/inventory/test-inventory-runner-v1.mjs", "build.cmd"]);
+  git(fixture, ["add", "--", ".gitignore", "data/products/smokingpipes-products.json", "data/products/unified-products-staging.json", "data/generated/public-products/catalog.json", "scripts/inventory/run-smokingpipes-auto-publish.ps1", "scripts/inventory/smokingpipes-daily-invocation-guard-v1.psm1", "scripts/inventory/smokingpipes-command-execution-v1.psm1", "scripts/inventory/smokingpipes-command-runner-v1.mjs", "scripts/inventory/run-smokingpipes-progressive-daily.ps1", "scripts/inventory/sync-e2e-notify.mjs", "scripts/validate-public-product-indexes-v1.mjs", "scripts/test-public-products-inventory-default-v1.mjs", "scripts/inventory/test-inventory-runner-v1.mjs", "build.cmd"]);
   git(fixture, ["commit", "-m", "test: configure runtime sync fixture"]);
   git(fixture, ["remote", "set-url", "origin", bare]);
   git(fixture, ["push", "origin", "HEAD:main"]);
   git(fixture, ["branch", "--set-upstream-to=origin/main"]);
-  return { temp, fixture, bare, build, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
+  write(path.join(fixture, "data", "inventory", "smokingpipes-progressive-daily-state.json"), "before-progressive\n");
+  return { temp, fixture, bare, build, activityLog, notify: path.join(fixture, "scripts", "inventory", "sync-e2e-notify.mjs") };
 }
 
 function advanceRemote(scenario, count = 1) {
@@ -212,6 +235,137 @@ for (const [name, remoteAdvance, expected] of [["E", true, /diverged/], ["F", fa
     const outcome = invoke(scenario, { env: { PATH: `${shimRoot};${process.env.PATH}` } }); assert.notEqual(outcome.status, 0);
     const value = report(scenario); assert.match(value.gitCommand, /merge --ff-only origin\/main/); assert.match(value.gitStderrTail, /fixture merge failure: ff-only denied/i);
     summary("H", scenario, started);
+  } finally { cleanup(scenario); }
+}
+
+function activity(scenario) {
+  return fs.existsSync(scenario.activityLog)
+    ? fs.readFileSync(scenario.activityLog, "utf8").trim().split(/\r?\n/).filter(Boolean)
+    : [];
+}
+
+function productionFile(scenario) {
+  return path.join(scenario.fixture, "data", "products", "smokingpipes-products.json");
+}
+
+function progressiveStateFile(scenario) {
+  return path.join(scenario.fixture, "data", "inventory", "smokingpipes-progressive-daily-state.json");
+}
+
+function readTextNormalized(target) {
+  return fs.readFileSync(target, "utf8").replace(/\r\n/g, "\n");
+}
+
+// Full wrapper control-flow E2E: no-op must stop immediately before validators.
+{
+  const scenario = makeFixture("control-no-op"); const started = Date.now();
+  try {
+    const beforeHead = git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim();
+    const outcome = invoke(scenario, { preflight: false, env: {
+      FIXTURE_DAILY_SCENARIO: "no-op", FIXTURE_ACTIVITY_LOG: scenario.activityLog,
+    } });
+    assert.equal(outcome.status, 0, outcome.stderr || outcome.stdout);
+    const value = report(scenario);
+    assert.equal(value.status, "no-production-change");
+    assert.equal(value.productionWritten, false);
+    for (const field of ["candidateCount", "wouldApplyCount", "effectiveApplyCount", "actualAppliedCount", "appliedCount"]) assert.equal(value[field], 0);
+    assert.equal(value.changeSummary.consistency.valid, true);
+    assert.deepEqual(activity(scenario), ["daily"]);
+    assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeHead);
+    assert.equal(git(scenario.fixture, ["status", "--short"]).stdout, "");
+    const state = JSON.parse(fs.readFileSync(path.join(scenario.fixture, "data", "inventory", "smokingpipes-daily-task-state.json"), "utf8"));
+    assert.equal(state.lastSuccessfulStatus, "no-production-change");
+    summary("control-no-op", scenario, started);
+  } finally { cleanup(scenario); }
+}
+
+// Full wrapper control-flow E2E: a real one-product write validates, commits, and pushes.
+{
+  const scenario = makeFixture("control-production-change"); const started = Date.now();
+  try {
+    const beforeHead = git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim();
+    const outcome = invoke(scenario, { preflight: false, env: {
+      FIXTURE_DAILY_SCENARIO: "production-change", FIXTURE_ACTIVITY_LOG: scenario.activityLog,
+    } });
+    assert.equal(outcome.status, 0, outcome.stderr || outcome.stdout);
+    const value = report(scenario);
+    assert.equal(value.productionWritten, true);
+    assert.equal(value.effectiveApplyCount, 1);
+    assert.equal(value.actualAppliedCount, 1);
+    assert.equal(value.appliedCount, 1);
+    assert.equal(value.commitPerformed, true);
+    assert.equal(value.pushPerformed, true);
+    assert.notEqual(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeHead);
+    assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), git(scenario.fixture, ["rev-parse", "origin/main"]).stdout.trim());
+    for (const step of ["daily", "validator", "inventory-default", "inventory-runner", "build"]) assert.ok(activity(scenario).includes(step), step);
+    assert.equal(git(scenario.fixture, ["status", "--short"]).stdout, "");
+    summary("control-production-change", scenario, started);
+  } finally { cleanup(scenario); }
+}
+
+// A post-write inventory-runner failure restores production and progressive state without commit or push.
+{
+  const scenario = makeFixture("control-test-failure"); const started = Date.now();
+  try {
+    const beforeHead = git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim();
+    const outcome = invoke(scenario, { preflight: false, env: {
+      FIXTURE_DAILY_SCENARIO: "inventory-runner-failure", FIXTURE_ACTIVITY_LOG: scenario.activityLog,
+    } });
+    assert.notEqual(outcome.status, 0);
+    const value = report(scenario);
+    assert.equal(value.status, "failed");
+    assert.equal(value.failureStage, "inventory-runner-test");
+    assert.match(value.failureReason, /production changes restored after failed post-apply validation/);
+    assert.equal(value.productionWritten, false);
+    assert.equal(value.commitPerformed, false);
+    assert.equal(value.pushPerformed, false);
+    assert.equal(readTextNormalized(productionFile(scenario)), "before-production\n");
+    assert.equal(readTextNormalized(progressiveStateFile(scenario)), "before-progressive\n");
+    assert.ok(activity(scenario).includes("inventory-runner"));
+    assert.ok(!activity(scenario).includes("build"));
+    assert.equal(git(scenario.fixture, ["rev-parse", "HEAD"]).stdout.trim(), beforeHead);
+    assert.equal(git(scenario.fixture, ["status", "--short"]).stdout, "");
+    summary("control-test-failure", scenario, started);
+  } finally { cleanup(scenario); }
+}
+
+// A false productionWritten flag with a tracked production diff is inconsistent and rolls back before validators.
+{
+  const scenario = makeFixture("control-false-with-diff"); const started = Date.now();
+  try {
+    const outcome = invoke(scenario, { preflight: false, env: {
+      FIXTURE_DAILY_SCENARIO: "false-with-diff", FIXTURE_ACTIVITY_LOG: scenario.activityLog,
+    } });
+    assert.notEqual(outcome.status, 0);
+    const value = report(scenario);
+    assert.equal(value.status, "daily-state-inconsistent");
+    assert.equal(value.failureStage, "daily");
+    assert.equal(value.productionWritten, false);
+    assert.deepEqual(activity(scenario), ["daily"]);
+    assert.equal(readTextNormalized(productionFile(scenario)), "before-production\n");
+    assert.equal(readTextNormalized(progressiveStateFile(scenario)), "before-progressive\n");
+    assert.equal(git(scenario.fixture, ["status", "--short"]).stdout, "");
+    summary("control-false-with-diff", scenario, started);
+  } finally { cleanup(scenario); }
+}
+
+// A productionWritten result without a positive actual count is inconsistent and rolls back before validators.
+{
+  const scenario = makeFixture("control-written-zero"); const started = Date.now();
+  try {
+    const outcome = invoke(scenario, { preflight: false, env: {
+      FIXTURE_DAILY_SCENARIO: "written-with-zero", FIXTURE_ACTIVITY_LOG: scenario.activityLog,
+    } });
+    assert.notEqual(outcome.status, 0);
+    const value = report(scenario);
+    assert.equal(value.status, "daily-state-inconsistent");
+    assert.equal(value.failureStage, "daily");
+    assert.equal(value.productionWritten, false);
+    assert.deepEqual(activity(scenario), ["daily"]);
+    assert.equal(readTextNormalized(productionFile(scenario)), "before-production\n");
+    assert.equal(readTextNormalized(progressiveStateFile(scenario)), "before-progressive\n");
+    assert.equal(git(scenario.fixture, ["status", "--short"]).stdout, "");
+    summary("control-written-zero", scenario, started);
   } finally { cleanup(scenario); }
 }
 
