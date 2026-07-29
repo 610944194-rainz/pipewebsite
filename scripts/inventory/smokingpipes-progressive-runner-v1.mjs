@@ -1187,6 +1187,64 @@ export function buildSmokingpipesChangeSummary({
   return summary;
 }
 
+export function evaluateSmokingpipesProductionWriteNeed({
+  effectiveApplyCount = 0,
+  fieldChanges = [],
+  productionBefore = [],
+  productionAfter = [],
+} = {}) {
+  const fieldChangeProductIds = new Set(
+    (fieldChanges || []).map((change) => sourceProductId(change)).filter(Boolean)
+  );
+  const beforeById = new Map(
+    (productionBefore || []).map((item) => [sourceProductId(item), item])
+  );
+  const afterById = new Map(
+    (productionAfter || []).map((item) => [sourceProductId(item), item])
+  );
+  const changedProductIds = new Set();
+  for (const id of new Set([...beforeById.keys(), ...afterById.keys()])) {
+    if (JSON.stringify(beforeById.get(id)) !== JSON.stringify(afterById.get(id))) {
+      changedProductIds.add(id);
+    }
+  }
+  const reason =
+    Number(effectiveApplyCount || 0) === 0
+      ? "effectiveApplyCount=0"
+      : fieldChangeProductIds.size === 0
+        ? "fieldChanges contain no unique products"
+        : changedProductIds.size === 0
+          ? "production before/after contain no product changes"
+          : null;
+  return {
+    shouldSkipProductionWrite: reason !== null,
+    reason,
+    fieldChangeProductCount: fieldChangeProductIds.size,
+    productionChangedProductCount: changedProductIds.size,
+  };
+}
+
+function markSmokingpipesActionEventsSuperseded({
+  state,
+  eventIds = [],
+  supersededRunId,
+  supersededAt = new Date().toISOString(),
+  reason = "selected apply produced no production change",
+}) {
+  const next = structuredClone(state);
+  next.actionEvents ||= {};
+  for (const eventId of [...new Set(eventIds.map(String).filter(Boolean))]) {
+    const event = next.actionEvents[eventId];
+    if (!event || event.status !== "pending") continue;
+    event.status = "superseded";
+    event.supersededReason = reason;
+    event.supersededAt = supersededAt;
+    event.supersededRunId = supersededRunId || null;
+    event.updatedAt = supersededAt;
+  }
+  return next;
+}
+
 
 function textValue(value) {
   return String(value ?? "").trim();
@@ -3494,7 +3552,32 @@ export async function runSmokingpipesProgressiveMode({
           `NON-APPLY candidates retained for review: ${gate.isolatedCandidateCount}`
         );
       }
-      if (gate.effectiveApplyCount === 0) {
+      const productionSafeSubset =
+        buildSafeSubsetProductionProducts({
+          productionProducts,
+          candidateProducts,
+          wouldApplyProductIds:
+            freshPreview.wouldApplyProductIds || [],
+        });
+      const productionWriteNeed = evaluateSmokingpipesProductionWriteNeed({
+        effectiveApplyCount: gate.effectiveApplyCount,
+        fieldChanges: gate.fieldChanges,
+        productionBefore: productionProducts,
+        productionAfter: productionSafeSubset,
+      });
+      if (productionWriteNeed.shouldSkipProductionWrite) {
+        const noOpEventIds = [
+          ...(gate.appliedEventIds || []),
+          ...((prepared.artifacts.selectedActionPlan?.items || []).map(
+            (item) => item.event?.eventId
+          )),
+        ];
+        state = markSmokingpipesActionEventsSuperseded({
+          state,
+          eventIds: noOpEventIds,
+          supersededRunId: runId,
+        });
+        await writeProgressiveDailyState(paths.progressiveState, state);
         const noChange = {
           version: "smokingpipes-progressive-partial-apply-preview-v1",
           generatedAt: new Date().toISOString(),
@@ -3530,13 +3613,6 @@ export async function runSmokingpipesProgressiveMode({
         await writeProgressiveReport(paths, makeReport({ mode: options.mode, state, result: noChange }));
         return noChange;
       }
-      const productionSafeSubset =
-        buildSafeSubsetProductionProducts({
-          productionProducts,
-          candidateProducts,
-          wouldApplyProductIds:
-            freshPreview.wouldApplyProductIds || [],
-        });
       const danishProducts = options.mock
         ? []
         : items(readJsonIfExists(paths.danishProducts, []));

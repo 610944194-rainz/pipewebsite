@@ -273,6 +273,58 @@ function Test-AllowedProductionPath {
   )
 }
 
+function New-PostApplyRollbackSnapshot {
+  param([string]$HeadSha)
+  $snapshotRoot = Join-Path ([IO.Path]::GetTempPath()) ("smokingpipes-post-apply-rollback-" + $report.runId)
+  New-Item -ItemType Directory -Force -Path $snapshotRoot | Out-Null
+  $stateBackupPath = Join-Path $snapshotRoot "smokingpipes-progressive-daily-state.json"
+  $stateExisted = Test-Path -LiteralPath $ProgressiveStatePath -PathType Leaf
+  if ($stateExisted) {
+    Copy-Item -LiteralPath $ProgressiveStatePath -Destination $stateBackupPath -Force
+  }
+  $publicRoot = Join-Path $ProjectRoot "data\generated\public-products"
+  $existingPublicFiles = if (Test-Path -LiteralPath $publicRoot -PathType Container) {
+    @(Get-ChildItem -LiteralPath $publicRoot -File -Recurse | ForEach-Object { $_.FullName })
+  } else {
+    @()
+  }
+  return [pscustomobject]@{
+    HeadSha = $HeadSha
+    SnapshotRoot = $snapshotRoot
+    StateBackupPath = $stateBackupPath
+    StateExisted = $stateExisted
+    ExistingPublicFiles = $existingPublicFiles
+  }
+}
+
+function Restore-PostApplyRollbackSnapshot {
+  param([object]$Snapshot)
+  if (-not $Snapshot) { return }
+  & git -C $ProjectRoot restore "--source=$($Snapshot.HeadSha)" --worktree -- "data/products/smokingpipes-products.json" "data/products/unified-products-staging.json" "data/generated/public-products"
+  if ($LASTEXITCODE -ne 0) {
+    throw "git restore failed while rolling back post-apply changes"
+  }
+  $publicRoot = Join-Path $ProjectRoot "data\generated\public-products"
+  $existingPublicFiles = @($Snapshot.ExistingPublicFiles)
+  if (Test-Path -LiteralPath $publicRoot -PathType Container) {
+    Get-ChildItem -LiteralPath $publicRoot -File -Recurse |
+      Where-Object { $existingPublicFiles -notcontains $_.FullName } |
+      ForEach-Object { Remove-Item -LiteralPath $_.FullName -Force }
+  }
+  if ($Snapshot.StateExisted) {
+    Copy-Item -LiteralPath $Snapshot.StateBackupPath -Destination $ProgressiveStatePath -Force
+  } elseif (Test-Path -LiteralPath $ProgressiveStatePath) {
+    Remove-Item -LiteralPath $ProgressiveStatePath -Force
+  }
+}
+
+function Remove-PostApplyRollbackSnapshot {
+  param([object]$Snapshot)
+  if ($Snapshot -and (Test-Path -LiteralPath $Snapshot.SnapshotRoot)) {
+    Remove-Item -LiteralPath $Snapshot.SnapshotRoot -Recurse -Force
+  }
+}
+
 function Get-DailyNumber {
   param([object]$State, [string]$Name)
   if ($State -and $null -ne $State.$Name) { return [int]$State.$Name }
@@ -568,7 +620,7 @@ function Set-DailyTaskSuccessfulCompletion {
     retryAllowed = $false
     nextRetryRecommendedAt = $null
   }
-  if ($Status -eq "deployment-verified") {
+  if ($Status -in @("no-production-change", "validated-no-push", "committed", "pushed", "deployment-pending-verification", "deployment-verified")) {
     $updates.lastSuccessAt = $now.ToString("o")
     $updates.lastSuccessfulLocalDate = $now.ToString("yyyy-MM-dd")
     $updates.lastSuccessfulCompletedAt = $report.completedAt
@@ -718,6 +770,8 @@ function Sync-AutomationRuntimeWithOriginMain {
 }
 
 $dailyReportedNoProductionChange = $false
+$postApplyRollbackSnapshot = $null
+$dailyInvocationStarted = $false
 
  $locationPushed = $false
 try {
@@ -808,6 +862,7 @@ try {
 
   if (-not $ResumeAfterProductionWrite) {
   $effectiveDailyTimeoutSeconds = Resolve-DailyTimeoutSeconds -RequestedSeconds $DailyTimeoutSeconds
+  $postApplyRollbackSnapshot = New-PostApplyRollbackSnapshot -HeadSha $report.headAfterSync
   $dailyArguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $DailyScriptPath)
   if ($NoProductionWrite) { $dailyArguments += "-NoProductionWrite" }
   if ($ForceRunOnce) { $dailyArguments += "-ForceRunOnce" }
@@ -822,6 +877,7 @@ try {
     $dailyArguments += @("-LegacyDuplicateSnapshotSha256", $LegacyDuplicateSnapshotSha256.Trim())
   }
   try {
+    $dailyInvocationStarted = $true
     Invoke-CheckedCommand -FilePath $PowerShellExecutablePath -Arguments $dailyArguments -Stage "daily" -TimeoutSeconds $effectiveDailyTimeoutSeconds | Out-Null
   } catch {
     Stop-AutoPublish -Status "daily-failed" -Stage "daily" -Reason $_.Exception.Message
@@ -941,6 +997,8 @@ try {
   $report.failureStage = "commit"
   Invoke-GitChecked -Arguments @("commit", "-m", $commitMessage) | Out-Null
   $report.commitPerformed = $true
+  Remove-PostApplyRollbackSnapshot -Snapshot $postApplyRollbackSnapshot
+  $postApplyRollbackSnapshot = $null
   $report.commitSha = Invoke-GitChecked -Arguments @("rev-parse", "HEAD")
   try {
     $report.failureStage = "push"
@@ -969,14 +1027,31 @@ try {
   $report.failureStage = $null
   Complete-AutoPublish -Status "deployment-pending-verification"
 } catch {
-  if (-not $report.completedAt) {
-    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message
-    Send-AutoPublishNotificationSafely
-    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $_.Exception.Message
+  $failureReason = $_.Exception.Message
+  if ($postApplyRollbackSnapshot -and $dailyInvocationStarted -and -not $report.commitPerformed) {
+    try {
+      Restore-PostApplyRollbackSnapshot -Snapshot $postApplyRollbackSnapshot
+      $report.productionWritten = $false
+      $report.appliedCount = 0
+      $report.effectiveApplyCount = 0
+      $report.actualAppliedCount = 0
+      $failureReason += "; production changes restored after failed post-apply validation"
+    } catch {
+      $failureReason += "; production rollback failed: $($_.Exception.Message)"
+    } finally {
+      Remove-PostApplyRollbackSnapshot -Snapshot $postApplyRollbackSnapshot
+      $postApplyRollbackSnapshot = $null
+    }
   }
-  Write-Error $_.Exception.Message
+  if (-not $report.completedAt) {
+    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
+    Send-AutoPublishNotificationSafely
+    Write-AutoPublishReport -Status "failed" -FailureStage $(if ($report.failureStage) { $report.failureStage } else { "unexpected" }) -FailureReason $failureReason
+  }
+  Write-Error $failureReason
   exit 1
 } finally {
+  Remove-PostApplyRollbackSnapshot -Snapshot $postApplyRollbackSnapshot
   if ($locationPushed) {
     Pop-Location -ErrorAction SilentlyContinue
   }

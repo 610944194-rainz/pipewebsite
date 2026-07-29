@@ -125,6 +125,9 @@ try {
   assert.match(publishScript, /"-BuildExecutable", \$resolvedBuild\.resolved/);
   assert.match(publishScript, /"-ExpectedAppliedCount", \$ExpectedAppliedCount/);
   assert.match(publishScript, /function Test-PostApplyRecoveryRequiredPaths/);
+  assert.match(publishScript, /function New-PostApplyRollbackSnapshot/);
+  assert.match(publishScript, /function Restore-PostApplyRollbackSnapshot/);
+  assert.match(publishScript, /production changes restored after failed post-apply validation/);
   assert.match(publishScript, /Test-PostApplyRecoveryRequiredPaths\s*\n\s*\$previousReport/);
   assert.match(publishScript, /daily task state path is not initialized/);
   assert.match(publishScript, /notificationStatus/);
@@ -251,6 +254,73 @@ try {
     assert.doesNotMatch(emptyDaily.stderr, /LiteralPath/);
   } finally {
     fs.rmSync(requiredRoot, { recursive: true, force: true });
+  }
+
+  const rollbackSource = publishScript.match(
+    /function New-PostApplyRollbackSnapshot\s*\{[\s\S]*?\n\}\r?\n\r?\nfunction Get-DailyNumber/
+  )?.[0].replace(/\r?\n\r?\nfunction Get-DailyNumber$/, "");
+  assert.ok(rollbackSource, "post-apply rollback helpers must be present");
+  const rollbackRoot = fs.mkdtempSync(path.join(os.tmpdir(), "yandoubuy-post-apply-rollback-"));
+  try {
+    const productionPaths = [
+      "data/products/smokingpipes-products.json",
+      "data/products/unified-products-staging.json",
+      "data/generated/public-products/catalog.json",
+      "data/generated/public-products/manifest.json",
+      "data/generated/public-products/recent-new.json",
+      "data/generated/public-products/details/00.json",
+    ];
+    for (const relativePath of productionPaths) {
+      const target = path.join(rollbackRoot, relativePath);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, `before:${relativePath}\n`);
+    }
+    const progressiveStatePath = path.join(
+      rollbackRoot,
+      "data/inventory/smokingpipes-progressive-daily-state.json"
+    );
+    fs.mkdirSync(path.dirname(progressiveStatePath), { recursive: true });
+    fs.writeFileSync(progressiveStatePath, "before-state\n");
+    fs.writeFileSync(path.join(rollbackRoot, ".gitignore"), "data/inventory/smokingpipes-progressive-daily-state.json\n");
+    git(rollbackRoot, ["init", "--initial-branch=main"]);
+    git(rollbackRoot, ["config", "user.email", "test@example.invalid"]);
+    git(rollbackRoot, ["config", "user.name", "Rollback Test"]);
+    git(rollbackRoot, ["config", "core.autocrlf", "false"]);
+    git(rollbackRoot, ["add", "."]);
+    git(rollbackRoot, ["commit", "-m", "before apply"]);
+    const quote = (value) => value.replaceAll("'", "''");
+    const rollbackHarness = [
+      "$ErrorActionPreference = 'Stop'",
+      `$ProjectRoot = '${quote(rollbackRoot)}'`,
+      `$ProgressiveStatePath = '${quote(progressiveStatePath)}'`,
+      "$ProductionExactPaths = @('data/products/smokingpipes-products.json', 'data/products/unified-products-staging.json')",
+      "$report = [pscustomobject]@{ runId = 'rollback-fixture' }",
+      "function Invoke-GitChecked { param([string[]]$Arguments) $output = @(& git -C $ProjectRoot @Arguments 2>&1); if ($LASTEXITCODE -ne 0) { throw ($output -join '; ') }; return ($output -join \"`n\").Trim() }",
+      rollbackSource,
+      "$snapshot = New-PostApplyRollbackSnapshot -HeadSha (Invoke-GitChecked -Arguments @('rev-parse', 'HEAD'))",
+      "try {",
+      ...productionPaths.map((relativePath) => `[IO.File]::WriteAllText((Join-Path $ProjectRoot '${relativePath}'), 'after:${relativePath}' + [char]10)`),
+      "[IO.File]::WriteAllText($ProgressiveStatePath, 'after-state' + [char]10)",
+      "throw 'inventory-runner-test failed'",
+      "} catch { $failure = $_.Exception.Message; Restore-PostApplyRollbackSnapshot -Snapshot $snapshot } finally { Remove-PostApplyRollbackSnapshot -Snapshot $snapshot }",
+      "$status = (& git -C $ProjectRoot status --porcelain) -join \"`n\"",
+      "if ($status.Trim()) { throw ('worktree not clean: ' + $status) }",
+      "if ([IO.File]::ReadAllText($ProgressiveStatePath) -ne ('before-state' + [char]10)) { throw 'progressive state was not restored' }",
+      "$failure",
+    ].join("\n");
+    const rollbackResult = runPowerShell(rollbackHarness);
+    assert.equal(rollbackResult.status, 0, rollbackResult.stderr);
+    assert.match(rollbackResult.stdout, /inventory-runner-test failed/);
+    for (const relativePath of productionPaths) {
+      assert.equal(
+        fs.readFileSync(path.join(rollbackRoot, relativePath), "utf8"),
+        `before:${relativePath}\n`
+      );
+    }
+    assert.equal(fs.readFileSync(progressiveStatePath, "utf8"), "before-state\n");
+    assert.equal(git(rollbackRoot, ["status", "--short"]), "");
+  } finally {
+    fs.rmSync(rollbackRoot, { recursive: true, force: true });
   }
 
   const dailyNumberSource = publishScript.match(

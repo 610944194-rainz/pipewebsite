@@ -209,6 +209,7 @@ import {
 import {
   buildSafeSubsetProductionProducts,
   buildSmokingpipesChangeSummary,
+  evaluateSmokingpipesProductionWriteNeed,
   EFFECTIVE_APPLY_GENERATOR_MODULE,
   EFFECTIVE_APPLY_SCHEMA_VERSION,
   evaluateProgressiveProductionApplyGate,
@@ -8353,6 +8354,48 @@ const noOpCandidateBuild = buildProgressivePartialProducts({
 assert.deepEqual(noOpCandidateBuild.attemptedCandidateIds, ["3"]);
 assert.deepEqual(noOpCandidateBuild.appliedCandidateIds, []);
 assert.deepEqual(noOpCandidateBuild.fieldChanges, []);
+const noOpProductionWriteDecision = evaluateSmokingpipesProductionWriteNeed({
+  effectiveApplyCount: 1,
+  fieldChanges: [{ sourceProductId: "3" }],
+  productionBefore: [{ ...noOpCandidateBuild.products[0] }],
+  productionAfter: [{ ...noOpCandidateBuild.products[0] }],
+});
+assert.equal(noOpProductionWriteDecision.shouldSkipProductionWrite, true);
+assert.equal(noOpProductionWriteDecision.productionChangedProductCount, 0);
+assert.equal(noOpProductionWriteDecision.fieldChangeProductCount, 1);
+const noOpOutputRoot = fs.mkdtempSync(
+  path.join(os.tmpdir(), "smokingpipes-no-production-change-")
+);
+try {
+  const noOpOutputPaths = [
+    "data/products/smokingpipes-products.json",
+    "data/products/unified-products-staging.json",
+    "data/generated/public-products/catalog.json",
+    "data/generated/public-products/manifest.json",
+    "data/generated/public-products/recent-new.json",
+    "data/generated/public-products/details/00.json",
+  ];
+  for (const relativePath of noOpOutputPaths) {
+    const target = path.join(noOpOutputRoot, relativePath);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, `unchanged:${relativePath}\n`, "utf8");
+  }
+  const beforeHashes = Object.fromEntries(
+    noOpOutputPaths.map((relativePath) => [
+      relativePath,
+      fs.readFileSync(path.join(noOpOutputRoot, relativePath), "utf8"),
+    ])
+  );
+  assert.equal(noOpProductionWriteDecision.shouldSkipProductionWrite, true);
+  for (const relativePath of noOpOutputPaths) {
+    assert.equal(
+      fs.readFileSync(path.join(noOpOutputRoot, relativePath), "utf8"),
+      beforeHashes[relativePath]
+    );
+  }
+} finally {
+  fs.rmSync(noOpOutputRoot, { recursive: true, force: true });
+}
 const safeGapDiagnosis = diagnoseProgressiveApplyGap({
   state: safeGapState,
   productionProducts: safeGapProductionProducts,
