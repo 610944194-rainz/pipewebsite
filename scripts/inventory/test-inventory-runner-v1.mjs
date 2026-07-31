@@ -12111,6 +12111,13 @@ assert.doesNotMatch(
   /run-smokingpipes-progressive-daily\.ps1/
 );
 const dailyTaskScript = fs.readFileSync(dailyTaskScriptPath, "utf8");
+if (dailyTaskScript.includes("smokingpipes-collect-only-v2.mjs")) {
+  assert.match(dailyTaskScript, /StateRoot must be outside the runtime Git worktree/);
+  assert.match(dailyTaskScript, /--state-root=/);
+  assert.doesNotMatch(dailyTaskScript, /progressive-partial-apply/);
+  assert.doesNotMatch(dailyTaskScript, /--write-production/);
+  assert.doesNotMatch(dailyTaskScript, /\bgit\s+(?:commit|push)\b/i);
+} else {
 assert.match(dailyTaskScript, /function Clear-StaleProgressiveApplyReports/);
 assert.ok(
   dailyTaskScript.indexOf("Clear-StaleProgressiveApplyReports") <
@@ -12637,6 +12644,7 @@ assert.doesNotMatch(dailyTaskScript, /\bgit\s+commit\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bgit\s+push\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bvercel\b/i);
 assert.doesNotMatch(dailyTaskScript, /\bnpm(?:\.cmd)?\s+run\s+deploy\b/i);
+}
 
 const installDailyTaskScriptPath = path.join(
   process.cwd(),
