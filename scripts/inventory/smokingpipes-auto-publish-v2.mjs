@@ -120,6 +120,7 @@ export async function runSmokingpipesAutoPublishV2({
   maxAutoApply = 2000,
   noPublish = false,
   noPush = false,
+  preflightOnly = false,
   skipSync = false,
   processDetail = null,
   publisher = invokePublisher,
@@ -132,6 +133,21 @@ export async function runSmokingpipesAutoPublishV2({
   try {
     const resolvedRuntimeRoot = path.resolve(runtimeRoot);
     const runtimeSha = skipSync ? git(resolvedRuntimeRoot, ["rev-parse", "HEAD"]) : syncSmokingpipesRuntimeV2(resolvedRuntimeRoot);
+    if (preflightOnly) {
+      const cycle = await readCycle(stateRoot, cycleId);
+      return {
+        status: "preflight-passed",
+        preflightOnly: true,
+        runtimeSha,
+        cycle,
+        observedCandidateCount: cycle?.collection?.observedCandidateCount || 0,
+        readyChangeCount: 0,
+        pendingDetailCount: cycle?.collection?.pendingDetailIds?.length || 0,
+        bundleAppliedCount: 0,
+        publishedCount: 0,
+        networkAccessed: false,
+      };
+    }
     const collection = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot: resolvedRuntimeRoot,
@@ -264,6 +280,7 @@ async function main() {
     maxAutoApply: options.get("max-auto-apply") || 2000,
     noPublish: options.get("no-publish") === true || options.get("no-publish") === "true",
     noPush: options.get("no-push") === true || options.get("no-push") === "true",
+    preflightOnly: options.get("preflight-only") === true || options.get("preflight-only") === "true",
   });
   console.log(JSON.stringify(result, null, 2));
   if (["collection-retryable", "release-retryable", "manual-review-required"].includes(result.status)) {

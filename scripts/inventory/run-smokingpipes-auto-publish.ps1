@@ -33,6 +33,7 @@ $arguments = @(
 )
 if ($CycleId) { $arguments += "--cycle-id=$CycleId" }
 if ($NoProductionWrite -or $PreflightOnly) { $arguments += "--no-publish=true" }
+if ($PreflightOnly) { $arguments += "--preflight-only=true" }
 if ($NoPush) { $arguments += "--no-push=true" }
 if ($NoLiveCollection -or $PreflightOnly) {
   $arguments += "--live=false"

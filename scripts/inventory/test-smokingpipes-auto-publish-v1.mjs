@@ -21,6 +21,7 @@ async function main() {
   assert.match(entrypoint, /--state-root=/);
   assert.match(entrypoint, /--release-root=/);
   assert.match(entrypoint, /--no-publish=true/);
+  assert.match(entrypoint, /--preflight-only=true/);
   assert.doesNotMatch(entrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(entrypoint, /progressive-partial-apply/);
   assert.doesNotMatch(entrypoint, /smokingpipes-products\.json/);
@@ -39,6 +40,7 @@ async function main() {
   assert.match(orchestrator, /acquireOwnerTokenLock/);
   assert.match(orchestrator, /release-retryable/);
   assert.match(orchestrator, /bundle-ready/);
+  assert.match(orchestrator, /status: "preflight-passed"/);
   assert.doesNotMatch(orchestrator, /test-inventory-runner-v1/);
   assert.doesNotMatch(orchestrator, /run-inventory-automation-v1\.mjs/);
 

@@ -135,6 +135,21 @@ async function main() {
     git(runtimeRoot, ["branch", "--set-upstream-to=origin/main", "main"]);
     const releaseRoot = path.join(temporaryRoot, "release");
     execFileSync("git", ["clone", bareOrigin, releaseRoot], { stdio: "ignore" });
+    let preflightDetailCalled = false;
+    const preflight = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-04",
+      skipSync: true,
+      preflightOnly: true,
+      processDetail: async () => {
+        preflightDetailCalled = true;
+        throw new Error("preflight must not process details");
+      },
+    });
+    assert.equal(preflight.status, "preflight-passed");
+    assert.equal(preflight.networkAccessed, false);
+    assert.equal(preflightDetailCalled, false);
     const products = [
       ...Array.from({ length: 48 }, (_, index) => listItem(String(900000 + index))),
       listItem("999999", "Falcon"),
