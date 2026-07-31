@@ -2621,9 +2621,35 @@ export async function runSmokingpipesProgressiveMode({
   root = process.cwd(),
   options,
 }) {
-  const paths = getRunnerPaths(root, {
-    mock: options.mock,
-  });
+  const externalStateRoot = options.stateRoot
+    ? path.resolve(options.stateRoot)
+    : null;
+  const paths = {
+    ...getRunnerPaths(externalStateRoot || root, {
+      mock: options.mock,
+    }),
+    ...(options.pathOverrides || {}),
+  };
+  if (externalStateRoot) {
+    const runtimePaths = getRunnerPaths(root, { mock: false });
+    Object.assign(paths, {
+      existingProducts: runtimePaths.existingProducts,
+      danishProducts: runtimePaths.danishProducts,
+      productionPublicRoot: runtimePaths.productionPublicRoot,
+      root,
+    });
+    if (
+      [
+        "progressive-partial-apply",
+        "progressive-prepare-apply",
+        "progressive-build-candidate",
+      ].includes(options.mode)
+    ) {
+      throw new Error(
+        `external StateRoot does not permit V1 production candidate/apply mode: ${options.mode}`
+      );
+    }
+  }
   const runId = options.runId || formatRunId();
   let lock = null;
   let state = null;
@@ -2748,7 +2774,13 @@ export async function runSmokingpipesProgressiveMode({
       !state &&
       options.mode === "progressive-detail-chunk"
     ) {
-      if (options.mock) {
+      if (typeof options.processDetail === "function") {
+        processor = {
+          browserStarted: false,
+          process: options.processDetail,
+          async close() {},
+        };
+      } else if (options.mock) {
         state = seedMockState(paths, runId);
       } else {
         const currentPayload = readJsonIfExists(
@@ -3121,7 +3153,13 @@ export async function runSmokingpipesProgressiveMode({
         return result;
       }
       let processor = null;
-      if (options.mock) {
+      if (typeof options.processDetail === "function") {
+        processor = {
+          browserStarted: false,
+          process: options.processDetail,
+          async close() {},
+        };
+      } else if (options.mock) {
         const template =
           loadProduction(paths, true)[0] || {};
         processor = {
@@ -3167,6 +3205,9 @@ export async function runSmokingpipesProgressiveMode({
           maxItems: options.progressiveDetailMax,
           runId,
           processDetail: processor.process,
+          onDetailSettled: options.onDetailSettled,
+          retryFailedDetails: options.retryFailedDetails === true,
+          maxDetailAttempts: options.maxDetailAttempts,
           checkpoint: (checkpointState) =>
             writeProgressiveDailyState(
               paths.progressiveState,

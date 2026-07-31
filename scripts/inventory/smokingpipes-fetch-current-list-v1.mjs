@@ -1394,6 +1394,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
             stage: "current-list",
             errorMessage: parseFailureMessage,
             selector: LIST_PRODUCT_SELECTOR,
+            snapshotDir: options.failureSnapshotDir || FAILURE_SNAPSHOT_DIR,
           }).catch((error) => ({
             errorMessage: `failed to write failure snapshot: ${error.message}`,
           }));

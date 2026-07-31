@@ -911,8 +911,11 @@ export async function runProgressiveDetailChunk({
   maxItems = 5,
   now = new Date().toISOString(),
   retryDelayMs = 90 * 60 * 1000,
+  retryFailedDetails = false,
+  maxDetailAttempts = 3,
   processDetail,
   checkpoint = async () => {},
+  onDetailSettled = async () => {},
   runId = state?.dailyRunId,
 }) {
   const validation = validateProgressiveDailyState(state);
@@ -995,11 +998,27 @@ export async function runProgressiveDetailChunk({
         blockedReason = message;
         recommendedNextRunAt = candidate.nextEligibleAt;
       } else {
-        candidate.detailStatus = "failed";
-        failedThisRun += 1;
+        candidate.retryCount += 1;
+        if (
+          retryFailedDetails === true &&
+          candidate.retryCount < Math.max(1, Number(maxDetailAttempts) || 3)
+        ) {
+          candidate.detailStatus = "blocked";
+          candidate.nextEligibleAt = new Date(
+            Date.parse(now) + retryDelayMs
+          ).toISOString();
+        } else {
+          candidate.detailStatus = "failed";
+          failedThisRun += 1;
+        }
       }
     }
     next.updatedAt = new Date().toISOString();
+    await onDetailSettled({
+      candidate: structuredClone(candidate),
+      state: next,
+      runId,
+    });
     await checkpoint(next);
     if (blockedReason) break;
   }
