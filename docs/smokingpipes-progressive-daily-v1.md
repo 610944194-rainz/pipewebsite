@@ -203,3 +203,6 @@ node scripts/inventory/run-inventory-automation-v1.mjs --source=smokingpipes --m
 
 Mock mode uses `.cache/inventory-v1/mock` and does not open a browser or access
 Smokingpipes.
+# V2 cutover note
+
+The scheduled Production path has moved to the external-StateRoot V2 orchestrator. This V1 runbook remains for historical/manual diagnosis only; do not use its V1 production-write flow after cutover. See SMOKINGPIPES_AUTOMATION_ARCHITECTURE_V2.md for status, retry, backup/restore, and rollback procedures.
