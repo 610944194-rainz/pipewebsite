@@ -18,8 +18,17 @@ function Invoke-Git {
     [string[]]$Arguments,
     [int[]]$AllowedExitCodes = @(0)
   )
-  $output = @(& git -C $Directory @Arguments 2>&1)
-  $exitCode = $LASTEXITCODE
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    # Git can emit an informational CRLF conversion warning on stderr while
+    # succeeding. Preserve it for diagnostics without treating it as a
+    # PowerShell terminating error.
+    $ErrorActionPreference = "Continue"
+    $output = @(& git -C $Directory @Arguments 2>&1)
+    $exitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
   if ($exitCode -notin $AllowedExitCodes) {
     throw "git command failed: git -C '$Directory' $($Arguments -join ' '); gitExitCode=$exitCode; stderr-tail=$($output | Select-Object -Last 20 | Out-String)"
   }
@@ -42,10 +51,22 @@ function Complete-ReleaseState {
   )
   if ($CommitSha) { $arguments += "--commit-sha=$CommitSha" }
   if ($Reason) { $arguments += "--reason=$Reason" }
-  $output = @(& node @arguments 2>&1)
-  if ($LASTEXITCODE -ne 0) {
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    $output = @(& node @arguments 2>&1)
+    $nodeExitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($nodeExitCode -ne 0) {
     throw "release state update failed: $($output | Out-String)"
   }
+}
+
+function Get-FileSha256 {
+  param([string]$Path)
+  return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
 }
 
 $manifestPath = Join-Path $BundleRoot "manifest.json"
@@ -79,10 +100,7 @@ $commitSha = ""
 try {
   if (-not (Test-Path -LiteralPath $ReleaseRoot)) {
     $origin = Invoke-Git -Directory $RuntimeRoot -Arguments @("remote", "get-url", "origin")
-    $cloneOutput = @(& git clone $origin $ReleaseRoot 2>&1)
-    if ($LASTEXITCODE -ne 0) {
-      throw "release clone creation failed: $($cloneOutput | Out-String)"
-    }
+    Invoke-Git -Directory $RuntimeRoot -Arguments @("clone", $origin, $ReleaseRoot) | Out-Null
   }
   if (-not (Test-Path -LiteralPath (Join-Path $ReleaseRoot ".git"))) {
     throw "release root must be an independent Git clone: $ReleaseRoot"
@@ -122,8 +140,15 @@ try {
       } | ConvertTo-Json -Depth 8
       exit 0
     }
-    $retryPushOutput = @(& git -C $ReleaseRoot push "HEAD:main" 2>&1)
-    if ($LASTEXITCODE -ne 0) {
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+      $ErrorActionPreference = "Continue"
+      $retryPushOutput = @(& git -C $ReleaseRoot push "origin" "HEAD:main" 2>&1)
+      $retryPushExitCode = $LASTEXITCODE
+    } finally {
+      $ErrorActionPreference = $previousErrorActionPreference
+    }
+    if ($retryPushExitCode -ne 0) {
       Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Reason "retained commit push failed; retry push only"
       [pscustomobject]@{
         status = "push-retryable"
@@ -140,6 +165,7 @@ try {
       bundleId = $bundleId
       commitSha = $commitSha
       publishedCount = [int]$manifest.actualAppliedCount
+      stagedFiles = @()
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
     exit 0
@@ -157,8 +183,15 @@ try {
   Invoke-Git -Directory $ReleaseRoot -Arguments @("reset", "--hard", $manifest.baseMainSha) | Out-Null
   $releasePrepared = $true
 
-  $validatorOutput = @(& node (Join-Path $RuntimeRoot "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs") "--bundle-root=$BundleRoot" "--runtime-root=$ReleaseRoot" 2>&1)
-  if ($LASTEXITCODE -ne 0) {
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    $validatorOutput = @(& node (Join-Path $RuntimeRoot "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs") "--bundle-root=$BundleRoot" "--runtime-root=$ReleaseRoot" 2>&1)
+    $validatorExitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($validatorExitCode -ne 0) {
     throw "bundle validator failed: $($validatorOutput | Out-String)"
   }
   foreach ($relativeFile in $outputFiles) {
@@ -167,8 +200,15 @@ try {
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
       throw "bundle output is missing: $relativeFile"
     }
+    $expectedHash = [string]$manifest.outputFileHashes.PSObject.Properties[$relativeFile].Value
+    if (-not $expectedHash -or (Get-FileSha256 -Path $source) -ne $expectedHash) {
+      throw "bundle output hash mismatch before copy: $relativeFile"
+    }
     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
     Copy-Item -LiteralPath $source -Destination $destination -Force
+    if ((Get-FileSha256 -Path $destination) -ne $expectedHash) {
+      throw "bundle output hash mismatch after copy: $relativeFile"
+    }
   }
   $projectValidator = Join-Path $ReleaseRoot "scripts/validate-public-product-indexes-v1.mjs"
   $inventoryDefaultTest = Join-Path $ReleaseRoot "scripts/test-public-products-inventory-default-v1.mjs"
@@ -176,25 +216,30 @@ try {
     @("node", $projectValidator),
     @("node", $inventoryDefaultTest),
     @("git", "-C", $ReleaseRoot, "diff", "--check"),
-    @("npm.cmd", "run", "build")
+    @("npm.cmd", "--prefix", $ReleaseRoot, "run", "build")
   )) {
     $program = $command[0]
     $arguments = @($command | Select-Object -Skip 1)
-    $output = @(& $program @arguments 2>&1)
-    if ($LASTEXITCODE -ne 0) {
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+      $ErrorActionPreference = "Continue"
+      $output = @(& $program @arguments 2>&1)
+      $exitCode = $LASTEXITCODE
+    } finally {
+      $ErrorActionPreference = $previousErrorActionPreference
+    }
+    if ($exitCode -ne 0) {
       throw "release production gate failed: $program $($arguments -join ' '); $($output | Select-Object -Last 40 | Out-String)"
     }
   }
   Invoke-Git -Directory $ReleaseRoot -Arguments (@("add", "--") + $outputFiles) | Out-Null
   $staged = @((Invoke-Git -Directory $ReleaseRoot -Arguments @("diff", "--cached", "--name-only")) -split [Environment]::NewLine | Where-Object { $_ })
-  $unexpected = @($staged | Where-Object { $_ -notin $outputFiles })
-  $missing = @($outputFiles | Where-Object { $_ -notin $staged })
-  if ($unexpected.Count -or $missing.Count) {
-    throw "staged file whitelist mismatch; unexpected=$($unexpected -join ','); missing=$($missing -join ',')"
-  }
-  $cachedQuiet = Invoke-Git -Directory $ReleaseRoot -Arguments @("diff", "--cached", "--quiet") -AllowedExitCodes @(0, 1)
-  if ($LASTEXITCODE -eq 0) {
+  if (-not $staged.Count) {
     throw "bundle has no staged product change; it must not be published"
+  }
+  $unexpected = @($staged | Where-Object { $_ -notin $outputFiles })
+  if ($unexpected.Count) {
+    throw "staged file whitelist mismatch; unexpected=$($unexpected -join ',')"
   }
   $subject = "chore(inventory): publish Smokingpipes cycle $CycleId"
   $body = "Smokingpipes-Bundle-Id: $bundleId" + [Environment]::NewLine + "Smokingpipes-Applied-Count: $($manifest.actualAppliedCount)"
@@ -209,8 +254,15 @@ try {
     } | ConvertTo-Json -Depth 8
     exit 0
   }
-  $pushOutput = @(& git -C $ReleaseRoot push "HEAD:main" 2>&1)
-  if ($LASTEXITCODE -ne 0) {
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    $pushOutput = @(& git -C $ReleaseRoot push "origin" "HEAD:main" 2>&1)
+    $pushExitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($pushExitCode -ne 0) {
     Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Reason "push failed; retry push only"
     [pscustomobject]@{
       status = "push-retryable"
@@ -227,6 +279,7 @@ try {
     bundleId = $bundleId
     commitSha = $commitSha
     publishedCount = [int]$manifest.actualAppliedCount
+    stagedFiles = $staged
     sourceNetworkAccessed = $false
   } | ConvertTo-Json -Depth 8
 } catch {
@@ -239,9 +292,9 @@ try {
       $cleanupErrors += "reset failed: $($_.Exception.Message)"
     }
     try {
-      Invoke-Git -Directory $ReleaseRoot -Arguments (@("clean", "-fd", "--") + $outputFiles) | Out-Null
+      Invoke-Git -Directory $ReleaseRoot -Arguments @("clean", "-fd", "--") | Out-Null
     } catch {
-      $cleanupErrors += "owned-output clean failed: $($_.Exception.Message)"
+      $cleanupErrors += "release clone clean failed: $($_.Exception.Message)"
     }
     try {
       $remaining = Invoke-Git -Directory $ReleaseRoot -Arguments @("status", "--porcelain", "--untracked-files=all")

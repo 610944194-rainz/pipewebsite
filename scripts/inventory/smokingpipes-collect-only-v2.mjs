@@ -15,12 +15,12 @@ import {
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
   assertExternalStateRoot,
-  cycleIdForDate,
   cyclePaths,
   hashJson,
   loadOrCreateCycle,
   recordQuarantinedProduct,
   readJson,
+  resolveActiveSmokingpipesCycle,
   transitionCycle,
   writeJsonAtomic,
 } from "./smokingpipes-cycle-store-v2.mjs";
@@ -132,7 +132,8 @@ function collectionSummary(state) {
 export async function runSmokingpipesCollectOnlyV2({
   stateRoot,
   runtimeRoot = process.cwd(),
-  cycleId = cycleIdForDate(),
+  cycleId = null,
+  now = new Date(),
   listInputPath = null,
   live = false,
   detailLimit = 50,
@@ -145,12 +146,37 @@ export async function runSmokingpipesCollectOnlyV2({
     stateRoot,
     worktreeRoot: resolvedRuntimeRoot,
   });
+  const active = await resolveActiveSmokingpipesCycle({
+    stateRoot: resolvedStateRoot,
+    cycleId,
+    now,
+  });
+  if (active.status === "manual-review-required") {
+    return { status: active.status, cycle: active.cycle, networkAccessed: false };
+  }
+  cycleId = active.cycleId;
   const { cycle: initialCycle } = await loadOrCreateCycle({
     stateRoot: resolvedStateRoot,
     cycleId,
   });
   const paths = cyclePaths(resolvedStateRoot, cycleId);
   let cycle = initialCycle;
+
+  if (cycle.phase === "validating-release") {
+    cycle = await transitionCycle({
+      stateRoot: resolvedStateRoot,
+      cycle,
+      phase: "release-retryable",
+      reason: "interrupted-validating-release",
+      patch: {
+        failure: {
+          stage: "interrupted-validating-release",
+          message: "previous release validation was interrupted; retained bundle requires a release retry",
+          at: new Date().toISOString(),
+        },
+      },
+    });
+  }
 
   if (["bundle-ready", "release-retryable"].includes(cycle.phase)) {
     return { status: "release-resume-required", cycle, networkAccessed: false };
@@ -372,7 +398,7 @@ async function main() {
   const result = await runSmokingpipesCollectOnlyV2({
     stateRoot,
     runtimeRoot: options.get("runtime-root") || process.cwd(),
-    cycleId: options.get("cycle-id") || cycleIdForDate(),
+    cycleId: options.get("cycle-id") || null,
     listInputPath: options.get("list-input") || null,
     live: options.get("live") === true || options.get("live") === "true",
     detailLimit: options.get("detail-limit") || 50,

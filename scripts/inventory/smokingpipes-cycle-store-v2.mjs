@@ -22,6 +22,16 @@ export const CYCLE_PHASES = new Set([
 ]);
 
 const TERMINAL_PHASES = new Set(["published", "no-change"]);
+const RESUMABLE_PHASES = new Set([
+  "collecting-list",
+  "collection-retryable",
+  "list-ready",
+  "enriching-details",
+  "ready-to-bundle",
+  "bundle-ready",
+  "validating-release",
+  "release-retryable",
+]);
 const TRANSITIONS = new Map([
   ["new", new Set(["collecting-list", "manual-review-required"])],
   ["collecting-list", new Set(["list-ready", "collection-retryable", "manual-review-required"])],
@@ -211,6 +221,49 @@ export async function readCycle(stateRoot, cycleId) {
     throw new Error(`cycle validation failed: ${validation.errors.join("; ")}`);
   }
   return cycle;
+}
+
+/**
+ * Resolve the one cycle a normal Daily invocation is allowed to operate on.
+ * latest.json is deliberately the only historical entrypoint: scanning old
+ * cycles would turn a damaged state pointer into an unsafe implicit resume.
+ */
+export async function resolveActiveSmokingpipesCycle({
+  stateRoot,
+  cycleId = null,
+  now = new Date(),
+} = {}) {
+  const explicitCycleId = String(cycleId || "").trim();
+  if (explicitCycleId) {
+    return { cycleId: explicitCycleId, source: "explicit", cycle: await readCycle(stateRoot, explicitCycleId) };
+  }
+
+  const latestPath = path.join(stateRoot, "latest.json");
+  const latest = await readJson(latestPath, null);
+  if (!latest) {
+    return { cycleId: cycleIdForDate(now), source: "current-date", cycle: null };
+  }
+  const latestCycleId = String(latest?.cycleId || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(latestCycleId)) {
+    throw new Error("latest.json is invalid: cycleId must be YYYY-MM-DD");
+  }
+  const cycle = await readCycle(stateRoot, latestCycleId);
+  if (!cycle) {
+    throw new Error(`latest.json points to a missing cycle: ${latestCycleId}`);
+  }
+  if (latest.phase && latest.phase !== cycle.phase) {
+    throw new Error(`latest.json phase does not match cycle ${latestCycleId}`);
+  }
+  if (cycle.phase === "manual-review-required") {
+    return { cycleId: latestCycleId, source: "latest", cycle, status: "manual-review-required" };
+  }
+  if (RESUMABLE_PHASES.has(cycle.phase)) {
+    return { cycleId: latestCycleId, source: "latest", cycle };
+  }
+  if (TERMINAL_PHASES.has(cycle.phase)) {
+    return { cycleId: cycleIdForDate(now), source: "current-date", cycle: null };
+  }
+  throw new Error(`latest cycle has an unsupported phase: ${cycle.phase}`);
 }
 
 export async function loadOrCreateCycle({ stateRoot, cycleId = cycleIdForDate(), now } = {}) {

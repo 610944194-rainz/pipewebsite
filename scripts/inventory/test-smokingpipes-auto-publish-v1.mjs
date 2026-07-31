@@ -22,6 +22,11 @@ async function main() {
   assert.match(entrypoint, /--release-root=/);
   assert.match(entrypoint, /--no-publish=true/);
   assert.match(entrypoint, /--preflight-only=true/);
+  assert.match(entrypoint, /"fetch", "origin"/);
+  assert.match(entrypoint, /"merge", "--ff-only", "origin\/main"/);
+  assert.match(entrypoint, /--skip-sync=true/);
+  assert.match(entrypoint, /--expected-runtime-sha=/);
+  assert.match(entrypoint, /--notify=true/);
   assert.doesNotMatch(entrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(entrypoint, /progressive-partial-apply/);
   assert.doesNotMatch(entrypoint, /smokingpipes-products\.json/);
@@ -40,6 +45,11 @@ async function main() {
   assert.match(orchestrator, /acquireOwnerTokenLock/);
   assert.match(orchestrator, /release-retryable/);
   assert.match(orchestrator, /bundle-ready/);
+  assert.match(orchestrator, /resolveActiveSmokingpipesCycle/);
+  assert.match(orchestrator, /interrupted-validating-release/);
+  assert.match(orchestrator, /stale-base/);
+  assert.match(orchestrator, /smokingpipesV2ExitCode/);
+  assert.match(orchestrator, /sendPushDeerNotification/);
   assert.match(orchestrator, /status: "preflight-passed"/);
   assert.doesNotMatch(orchestrator, /test-inventory-runner-v1/);
   assert.doesNotMatch(orchestrator, /run-inventory-automation-v1\.mjs/);
@@ -51,9 +61,11 @@ async function main() {
   assert.match(publisher, /Smokingpipes-Bundle-Id:/);
   assert.match(publisher, /retained release commit no longer descends/);
   assert.match(publisher, /retained commit push failed; retry push only/);
-  assert.match(publisher, /owned-output clean/);
+  assert.match(publisher, /release clone clean/);
   assert.match(publisher, /bundle owns an unsafe or non-Smokingpipes output path/);
   assert.match(publisher, /@\("add", "--"\)/);
+  assert.match(publisher, /Get-FileSha256/);
+  assert.match(publisher, /hash mismatch after copy/);
   assert.match(publisher, /featured\.json/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");
