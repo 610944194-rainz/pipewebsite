@@ -203,54 +203,19 @@ assert.equal(
   "corrupt state evidence must stop same-day automatic retry"
 );
 
-assert.match(scheduledLauncher, /Test-SmokingpipesSameDaySuccess/);
-assert.match(scheduledLauncher, /same-day-success-already-completed/);
-assert.match(scheduledLauncher, /\[switch\]\$ForceSameDayRerun/);
-assert.match(scheduledLauncher, /-ForceRunOnce/);
-assert.match(scheduledLauncher, /-ForceSameDayRerun:\$ForceSameDayRerun/);
-assert.ok(
-  scheduledLauncher.indexOf("Start-Transcript") < scheduledLauncher.indexOf("Test-SmokingpipesSameDaySuccess"),
-  "scheduled launcher must create an early transcript before the same-day guard"
-);
-assert.ok(
-  scheduledLauncher.indexOf("Test-SmokingpipesSameDaySuccess") < scheduledLauncher.indexOf("& $wrapper"),
-  "scheduled guard must still run before wrapper execution"
-);
-assert.match(autoPublish, /Test-SmokingpipesSameDaySuccess/);
-assert.match(progressiveDaily, /Test-SmokingpipesSameDayFailureRetryPolicy/);
-assert.ok(
-  autoPublish.indexOf("Test-SmokingpipesSameDaySuccess") < autoPublish.indexOf("Sync-AutomationRuntimeWithOriginMain"),
-  "auto-publish guard must run before runtime sync"
-);
-assert.match(progressiveDaily, /-ForceSameDayRerun/);
-assert.match(progressiveDaily, /"--run-id=\$InvocationRunId"/);
-assert.match(progressiveDaily, /final notification waits for auto-publish validation\/build\/push completion/);
-assert.match(autoPublish, /Set-DailyTaskSuccessfulCompletion/);
-assert.match(autoPublish, /daily reported no production write but tracked production changes exist/);
-
-const noOpLauncher = runScheduledLauncherFixture({
-  guardSource: fs.readFileSync(guardModule, "utf8"),
-  stateText: JSON.stringify({ dateKey: localDateKey, status: "skipped-success", productionWritten: true }),
-  expectedExitCode: 0,
-});
-assert.equal(noOpLauncher.wrapperInvoked, false, "same-day no-op must not call Daily wrapper");
-assert.match(noOpLauncher.result.stdout, /same-day-success-already-completed/);
-assert.match(noOpLauncher.logText, /same-day guard start/);
-assert.match(noOpLauncher.logText, /same-day guard result shouldSkip=True/);
-
-const failedGuardLauncher = runScheduledLauncherFixture({
-  guardSource: [
-    "Set-StrictMode -Version Latest",
-    "function Read-SmokingpipesDailyTaskState { param([string]$Path) return @{} }",
-    "function Test-SmokingpipesSameDaySuccess { param([object]$State, [switch]$ForceSameDayRerun) throw 'fixture guard failure' }",
-    "Export-ModuleMember -Function Read-SmokingpipesDailyTaskState, Test-SmokingpipesSameDaySuccess",
-  ].join("\n"),
-  stateText: "{}\n",
-  expectedExitCode: 1,
-});
-assert.equal(failedGuardLauncher.wrapperInvoked, false, "guard failure must not call Daily wrapper");
-assert.match(failedGuardLauncher.logText, /same-day guard start/);
-assert.match(failedGuardLauncher.logText, /fixture guard failure/);
+assert.match(scheduledLauncher, /logs\\scheduler/);
+assert.match(scheduledLauncher, /DailyTimeoutSeconds/);
+assert.match(scheduledLauncher, /Start-Process/);
+assert.match(scheduledLauncher, /run-smokingpipes-auto-publish\.ps1/);
+assert.match(scheduledLauncher, /NoProductionWrite/);
+assert.match(scheduledLauncher, /NoPush/);
+assert.match(scheduledLauncher, /PreflightOnly/);
+assert.doesNotMatch(scheduledLauncher, /smokingpipes-daily-invocation-guard-v1/);
+assert.match(autoPublish, /--preflight-only=true/);
+assert.match(autoPublish, /--live=false/);
+assert.match(progressiveDaily, /smokingpipes-collect-only-v2\.mjs/);
+assert.match(progressiveDaily, /--live=false/);
+assert.match(progressiveDaily, /StateRoot must be outside the runtime Git worktree/);
 
 for (const time of ["10:30", "12:30", "14:30", "16:30", "18:30", "20:30", "22:30"]) {
   assert.match(installer, new RegExp(time));

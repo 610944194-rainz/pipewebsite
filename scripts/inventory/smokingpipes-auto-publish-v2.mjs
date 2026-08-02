@@ -295,6 +295,7 @@ export async function runSmokingpipesAutoPublishV2({
         networkAccessed: false,
       });
     }
+    console.error("SCHEDULER_STAGE collection");
     const collection = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot: resolvedRuntimeRoot,
@@ -318,6 +319,7 @@ export async function runSmokingpipesAutoPublishV2({
         publishedCount: 0,
       });
     }
+    console.error("SCHEDULER_STAGE release");
     let cycle = collection.cycle || await readCycle(stateRoot, activeCycleId);
     let built;
     const staleBaseRetry = collection.status === "release-resume-required" && cycle.failure?.stage === "stale-base";

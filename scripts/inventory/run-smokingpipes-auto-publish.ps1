@@ -5,6 +5,8 @@ param(
   [int]$ProgressiveDetailMax = 50,
   [ValidateRange(1, 2000)]
   [int]$MaxAutoApply = 2000,
+  [ValidateRange(1, 14400)]
+  [int]$DailyTimeoutSeconds = 3600,
   [switch]$NoProductionWrite,
   [switch]$NoPush,
   [switch]$PreflightOnly,
@@ -51,11 +53,14 @@ if ([IO.Path]::GetFullPath($StateRoot).StartsWith([IO.Path]::GetFullPath($Runtim
 
 # A scheduled process must never load Node modules before it has synchronized
 # the worktree. This keeps the orchestrator and publisher on one runtime SHA.
+Write-Output "SCHEDULER_STAGE runtime-check"
 Assert-TrackedRuntimeClean
+Write-Output "SCHEDULER_STAGE git-fetch"
 Invoke-Git -Arguments @("fetch", "origin") | Out-Null
 $head = Invoke-Git -Arguments @("rev-parse", "HEAD")
 $remoteMain = Invoke-Git -Arguments @("rev-parse", "origin/main")
 if ($head -ne $remoteMain) {
+  Write-Output "SCHEDULER_STAGE git-fast-forward"
   & git -C $RuntimeRoot merge-base --is-ancestor HEAD origin/main 2>&1 | Out-Null
   if ($LASTEXITCODE -ne 0) {
     throw "runtime is ahead of or diverged from origin/main; automatic sync is blocked"
@@ -64,6 +69,7 @@ if ($head -ne $remoteMain) {
 }
 Assert-TrackedRuntimeClean
 $runtimeSha = Invoke-Git -Arguments @("rev-parse", "HEAD")
+$nodeCommand = Get-Command node -CommandType Application -ErrorAction Stop
 
 $arguments = @(
   $Orchestrator,
@@ -89,7 +95,8 @@ if ($NoLiveCollection -or $PreflightOnly) {
 $previousErrorActionPreference = $ErrorActionPreference
 try {
   $ErrorActionPreference = "Continue"
-  $output = @(& node @arguments 2>&1)
+  Write-Output "SCHEDULER_STAGE node-start"
+  $output = @(& $nodeCommand.Source @arguments 2>&1)
   $nodeExitCode = $LASTEXITCODE
 } finally {
   $ErrorActionPreference = $previousErrorActionPreference
