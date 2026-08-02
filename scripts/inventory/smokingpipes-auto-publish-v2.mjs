@@ -457,6 +457,30 @@ function parseArgs(argv = process.argv.slice(2)) {
   return options;
 }
 
+export function summarizeSmokingpipesV2CliResult(result = {}) {
+  const cycle = result.cycle || {};
+  const collection = cycle.collection || {};
+  return {
+    status: result.status || "unknown",
+    cycleId: result.cycleId || cycle.cycleId || null,
+    runtimeSha: result.runtimeSha || null,
+    preflightOnly: result.preflightOnly === true,
+    networkAccessed: result.networkAccessed === true,
+    pendingDetailCount: result.pendingDetailCount ?? collection.pendingDetailIds?.length ?? 0,
+    completedDetailCount: collection.completedDetailIds?.length ?? null,
+    readyChangeCount: result.readyChangeCount ?? 0,
+    bundleAppliedCount: result.bundleAppliedCount ?? 0,
+    publishedCount: result.publishedCount ?? 0,
+    failureStage: result.failureStage || cycle.failure?.stage || null,
+    error: errorTail(result.error || result.stderrTail || cycle.failure?.message || "") || null,
+    notification: result.notification ? {
+      configured: result.notification.configured === true,
+      sent: result.notification.sent === true,
+      reason: result.notification.reason || null,
+    } : null,
+  };
+}
+
 async function main() {
   const options = parseArgs();
   const stateRoot = options.get("state-root");
@@ -477,7 +501,7 @@ async function main() {
     expectedRuntimeSha: options.get("expected-runtime-sha") || null,
     notificationsEnabled: options.get("notify") === true || options.get("notify") === "true",
   });
-  console.log(JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(summarizeSmokingpipesV2CliResult(result), null, 2));
   process.exitCode = smokingpipesV2ExitCode(result.status);
 }
 

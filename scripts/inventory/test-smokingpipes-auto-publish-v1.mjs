@@ -50,6 +50,7 @@ async function main() {
   assert.match(orchestrator, /stale-base/);
   assert.match(orchestrator, /smokingpipesV2ExitCode/);
   assert.match(orchestrator, /sendPushDeerNotification/);
+  assert.match(orchestrator, /summarizeSmokingpipesV2CliResult/);
   assert.match(orchestrator, /status: "preflight-passed"/);
   assert.doesNotMatch(orchestrator, /test-inventory-runner-v1/);
   assert.doesNotMatch(orchestrator, /run-inventory-automation-v1\.mjs/);
