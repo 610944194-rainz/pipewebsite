@@ -165,6 +165,25 @@ function Stop-OwnedProcessTree {
   return $pids
 }
 
+function Get-NodeResultSummary {
+  param([string]$Output)
+  $markers = @($Output -split "`r?`n" | Where-Object { $_.StartsWith("SMOKINGPIPES_V2_RESULT_JSON=") })
+  if ($markers.Count -ne 1) {
+    return [pscustomobject]@{ valid = $false; reason = "expected exactly one SMOKINGPIPES_V2_RESULT_JSON marker; found $($markers.Count)"; result = $null }
+  }
+  try {
+    $result = ($markers[0].Substring("SMOKINGPIPES_V2_RESULT_JSON=".Length) | ConvertFrom-Json -ErrorAction Stop)
+  } catch {
+    return [pscustomobject]@{ valid = $false; reason = "result marker JSON is invalid: $($_.Exception.Message)"; result = $null }
+  }
+  $successfulStatuses = @("published", "no-change", "same-day-complete", "enriching-details", "ready-to-bundle", "bundle-ready", "preflight-passed", "already-running")
+  $status = [string]$result.status
+  if ($successfulStatuses -notcontains $status) {
+    return [pscustomobject]@{ valid = $false; reason = "result status is not successful: $status"; result = $result }
+  }
+  return [pscustomobject]@{ valid = $true; reason = ""; result = $result }
+}
+
 Add-SchedulerStage -Stage "scheduled-entry" -Message "scheduler entry started"
 $exitCode = 1
 try {
@@ -214,18 +233,23 @@ try {
     if ($combinedOutput -match 'SCHEDULER_STAGE collection') { Add-SchedulerStage -Stage "collection" -Message "V2 collection started" }
     if ($combinedOutput -match 'SCHEDULER_STAGE release') { Add-SchedulerStage -Stage "release" -Message "V2 release phase reached" }
     $exitCode = [int]$child.ExitCode
-    if ($exitCode -eq 0) {
+    $nodeSummary = Get-NodeResultSummary -Output $combinedOutput
+    if ($nodeSummary.result) { $script:run.nodeResult = $nodeSummary.result }
+    $nodeNotificationSent = [bool]($nodeSummary.result -and $nodeSummary.result.notification -and $nodeSummary.result.notification.sent)
+    if ($exitCode -eq 0 -and $nodeSummary.valid) {
       $script:run.status = "completed"
       $script:run.exitCode = 0
       Add-SchedulerStage -Stage "completed" -Message "owned V2 wrapper completed"
     } else {
       $script:run.status = "failed"
-      $script:run.exitCode = $exitCode
+      $script:run.exitCode = if ($exitCode -ne 0) { $exitCode } else { 1 }
       $script:run.error = Redact-SchedulerText ($combinedOutput.Trim())
-      Add-SchedulerStage -Stage "failed" -Message ("owned V2 wrapper exited $exitCode")
-      if ($stdout -notmatch 'SCHEDULER_STAGE node-start') {
-        Send-SchedulerFailureNotification -Kind "startup-failed" -Reason ("V2 wrapper failed before Node start; exitCode=$exitCode; " + $script:run.error) | Out-Null
+      $failureReason = if ($exitCode -ne 0) { "owned V2 wrapper exited $exitCode" } else { "V2 result validation failed: $($nodeSummary.reason)" }
+      Add-SchedulerStage -Stage "failed" -Message $failureReason
+      if (-not $nodeNotificationSent) {
+        Send-SchedulerFailureNotification -Kind "v2-failed" -Reason ($failureReason + "; " + $script:run.error) | Out-Null
       }
+      $exitCode = $script:run.exitCode
     }
   }
 } catch {

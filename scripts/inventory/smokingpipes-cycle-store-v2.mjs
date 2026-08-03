@@ -38,7 +38,7 @@ const TRANSITIONS = new Map([
   ["collection-retryable", new Set(["collecting-list", "list-ready", "manual-review-required"])],
   ["list-ready", new Set(["enriching-details", "ready-to-bundle", "manual-review-required"])],
   ["enriching-details", new Set(["enriching-details", "ready-to-bundle", "collection-retryable", "manual-review-required"])],
-  ["ready-to-bundle", new Set(["bundle-ready", "no-change", "manual-review-required"])],
+  ["ready-to-bundle", new Set(["bundle-ready", "no-change", "release-retryable", "manual-review-required"])],
   ["bundle-ready", new Set(["validating-release", "release-retryable", "manual-review-required"])],
   ["validating-release", new Set(["published", "release-retryable", "manual-review-required"])],
   ["release-retryable", new Set(["validating-release", "bundle-ready", "manual-review-required"])],

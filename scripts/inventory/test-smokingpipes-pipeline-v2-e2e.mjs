@@ -24,6 +24,8 @@ import {
 } from "./smokingpipes-collect-only-v2.mjs";
 import {
   buildSmokingpipesReleaseBundleV2,
+  GIT_JSON_MAX_BUFFER_BYTES,
+  readJsonAtGitRef,
 } from "./smokingpipes-build-release-bundle-v2.mjs";
 import {
   validateSmokingpipesReleaseBundleV2,
@@ -153,6 +155,17 @@ async function main() {
     git(runtimeRoot, ["branch", "--set-upstream-to=origin/main", "main"]);
     const releaseRoot = path.join(temporaryRoot, "release");
     execFileSync("git", ["clone", bareOrigin, releaseRoot], { stdio: "ignore" });
+    const largeGitRoot = path.join(temporaryRoot, "large-git-json");
+    await fs.promises.mkdir(largeGitRoot, { recursive: true });
+    await writeText(largeGitRoot, "large.json", JSON.stringify({ payload: "x".repeat(2 * 1024 * 1024) }));
+    git(temporaryRoot, ["init", "--initial-branch=main", largeGitRoot]);
+    git(largeGitRoot, ["config", "user.email", "fixture@example.invalid"]);
+    git(largeGitRoot, ["config", "user.name", "Fixture"]);
+    git(largeGitRoot, ["add", "--", "large.json"]);
+    git(largeGitRoot, ["commit", "-m", "large JSON fixture"]);
+    const largeJson = readJsonAtGitRef({ runtimeRoot: largeGitRoot, ref: "HEAD", relativePath: "large.json" });
+    assert.equal(largeJson.payload.length, 2 * 1024 * 1024);
+    assert.ok(GIT_JSON_MAX_BUFFER_BYTES > 2 * 1024 * 1024);
     let preflightDetailCalled = false;
     const preflight = await runSmokingpipesAutoPublishV2({
       stateRoot,
@@ -168,6 +181,34 @@ async function main() {
     assert.equal(preflight.status, "preflight-passed");
     assert.equal(preflight.networkAccessed, false);
     assert.equal(preflightDetailCalled, false);
+
+    const bundleFailureId = "2030-01-05";
+    const bundleFailureCycle = createCycle({ cycleId: bundleFailureId });
+    bundleFailureCycle.phase = "ready-to-bundle";
+    bundleFailureCycle.collection = {
+      ...bundleFailureCycle.collection,
+      observedCandidateCount: 1,
+      completedDetailIds: ["900000"],
+      pendingDetailIds: [],
+    };
+    bundleFailureCycle.history.push({ at: bundleFailureCycle.updatedAt, phase: bundleFailureCycle.phase, reason: "fixture-ready" });
+    await writeCycle(stateRoot, bundleFailureCycle);
+    const bundleFailure = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: bundleFailureId,
+      skipSync: true,
+      collector: async () => ({ status: "ready-to-bundle", cycle: await readCycle(stateRoot, bundleFailureId), networkAccessed: false }),
+      bundleBuilder: async () => { throw new Error("fixture bundle builder failure"); },
+    });
+    assert.equal(bundleFailure.status, "release-retryable");
+    assert.equal(bundleFailure.failureStage, "bundle-build");
+    assert.equal(bundleFailure.networkAccessed, false);
+    assert.equal(bundleFailure.publishedCount, 0);
+    assert.equal(smokingpipesV2ExitCode(bundleFailure.status), 1);
+    const retainedBundleFailureCycle = await readCycle(stateRoot, bundleFailureId);
+    assert.equal(retainedBundleFailureCycle.phase, "release-retryable");
+    assert.equal(retainedBundleFailureCycle.failure.stage, "bundle-build");
     const products = [
       ...Array.from({ length: 48 }, (_, index) => listItem(String(900000 + index))),
       listItem("999999", "Falcon"),

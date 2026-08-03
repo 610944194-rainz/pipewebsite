@@ -48,6 +48,21 @@ param(
 } | ConvertTo-Json | Set-Content -LiteralPath $env:FORWARDED_PATH -Encoding utf8
 Write-Output 'SCHEDULER_STAGE collection'
 Write-Output 'SCHEDULER_STAGE release'
+Write-Output 'SMOKINGPIPES_V2_RESULT_JSON={"status":"published","cycleId":"2026-07-31","failureStage":null,"error":null,"pendingDetailCount":0,"bundleAppliedCount":3,"publishedCount":3,"notification":{"sent":true,"reason":"fixture-sent"}}'
+`);
+    }
+    if (mode === "missing-result") {
+      fs.writeFileSync(path.join(inventory, "run-smokingpipes-auto-publish.ps1"), `
+param([Parameter(ValueFromRemainingArguments = $true)][object[]]$Remaining)
+Write-Error 'Error: fixture inner failure without a result marker'
+exit 0
+`);
+    }
+    if (mode === "retryable-result") {
+      fs.writeFileSync(path.join(inventory, "run-smokingpipes-auto-publish.ps1"), `
+param([Parameter(ValueFromRemainingArguments = $true)][object[]]$Remaining)
+Write-Output 'SMOKINGPIPES_V2_RESULT_JSON={"status":"release-retryable","cycleId":"2026-07-31","failureStage":"bundle-build","error":"fixture failure","pendingDetailCount":0,"bundleAppliedCount":0,"publishedCount":0,"notification":{"sent":true,"reason":"fixture-sent"}}'
+exit 0
 `);
     }
     if (mode === "timeout") {
@@ -118,6 +133,18 @@ assert.equal(failed.latest.notification.configured, true);
 assert.equal(failed.latest.notification.skipped, true);
 assert.equal(failed.latest.notification.reason, "dry-run notification");
 
+const missingResult = runFixture({ mode: "missing-result" });
+assert.equal(missingResult.result.status, 1);
+assert.equal(missingResult.latest.status, "failed");
+assert.match(missingResult.latest.error, /fixture inner failure/);
+assert.equal(missingResult.latest.notification.attempted, true);
+
+const retryable = runFixture({ mode: "retryable-result" });
+assert.equal(retryable.result.status, 1);
+assert.equal(retryable.latest.status, "failed");
+assert.equal(retryable.latest.nodeResult.status, "release-retryable");
+assert.equal(retryable.latest.notification, null, "a Node-sent notification must not be duplicated by the scheduler");
+
 const timedOut = runFixture({ mode: "timeout", timeout: 10 });
 assert.equal(timedOut.result.status, 124, timedOut.result.stderr || timedOut.result.stdout);
 assert.equal(timedOut.latest.status, "timeout");
@@ -128,4 +155,5 @@ assert.match(entrySource, /Start-Process/);
 assert.match(entrySource, /Stop-OwnedProcessTree/);
 assert.match(entrySource, /DailyTimeoutSeconds/);
 assert.match(entrySource, /Send-SchedulerFailureNotification/);
+assert.match(entrySource, /SMOKINGPIPES_V2_RESULT_JSON/);
 console.log("Smokingpipes scheduled entrypoint tests passed.");

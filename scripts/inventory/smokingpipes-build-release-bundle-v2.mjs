@@ -27,6 +27,7 @@ import {
 } from "./smokingpipes-progressive-state-v1.mjs";
 
 export const SMOKINGPIPES_BUNDLE_SCHEMA_V2 = "smokingpipes-release-bundle-v2";
+export const GIT_JSON_MAX_BUFFER_BYTES = 128 * 1024 * 1024;
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -53,12 +54,20 @@ function isFalcon(value) {
   );
 }
 
-function readJsonAtGitRef({ runtimeRoot, ref, relativePath }) {
-  const raw = execFileSync("git", ["-C", runtimeRoot, "show", `${ref}:${relativePath.replace(/\\/g, "/")}`], {
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  return JSON.parse(raw);
+export function readJsonAtGitRef({ runtimeRoot, ref, relativePath }) {
+  const normalizedPath = relativePath.replace(/\\/g, "/");
+  try {
+    const raw = execFileSync("git", ["-C", runtimeRoot, "show", `${ref}:${normalizedPath}`], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+      maxBuffer: GIT_JSON_MAX_BUFFER_BYTES,
+    });
+    return JSON.parse(raw);
+  } catch (error) {
+    const code = String(error?.code || "unknown");
+    const message = text(error?.message).slice(0, 500);
+    throw new Error(`git JSON read failed: ref=${ref}; relativePath=${normalizedPath}; code=${code}; maxBuffer=${GIT_JSON_MAX_BUFFER_BYTES}; message=${message}`);
+  }
 }
 
 function resolveGitSha(runtimeRoot, ref) {

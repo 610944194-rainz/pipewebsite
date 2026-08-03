@@ -218,7 +218,9 @@ export async function runSmokingpipesAutoPublishV2({
   expectedRuntimeSha = null,
   notificationsEnabled = false,
   notifier = sendPushDeerNotification,
+  collector = runSmokingpipesCollectOnlyV2,
   processDetail = null,
+  bundleBuilder = buildSmokingpipesReleaseBundleV2,
   publisher = invokePublisher,
 } = {}) {
   const lock = await acquireOwnerTokenLock({
@@ -296,7 +298,7 @@ export async function runSmokingpipesAutoPublishV2({
       });
     }
     console.error("SCHEDULER_STAGE collection");
-    const collection = await runSmokingpipesCollectOnlyV2({
+    const collection = await collector({
       stateRoot,
       runtimeRoot: resolvedRuntimeRoot,
       cycleId: activeCycleId,
@@ -323,7 +325,8 @@ export async function runSmokingpipesAutoPublishV2({
     let cycle = collection.cycle || await readCycle(stateRoot, activeCycleId);
     let built;
     const staleBaseRetry = collection.status === "release-resume-required" && cycle.failure?.stage === "stale-base";
-    if (collection.status === "release-resume-required" && !staleBaseRetry) {
+    const retainedBundle = collection.status === "release-resume-required" && !staleBaseRetry && cycle.bundle?.bundleId && cycle.bundle?.path;
+    if (retainedBundle) {
       built = {
         status: "bundle-ready",
         bundleId: cycle.bundle?.bundleId,
@@ -331,13 +334,43 @@ export async function runSmokingpipesAutoPublishV2({
         cycle,
       };
     } else {
-      built = await buildSmokingpipesReleaseBundleV2({
-        stateRoot,
-        cycleId: activeCycleId,
-        runtimeRoot: resolvedRuntimeRoot,
-        baseMainSha: runtimeSha,
-        maxAutoApply,
-      });
+      try {
+        built = await bundleBuilder({
+          stateRoot,
+          cycleId: activeCycleId,
+          runtimeRoot: resolvedRuntimeRoot,
+          baseMainSha: runtimeSha,
+          maxAutoApply,
+        });
+      } catch (error) {
+        const retryCycle = await transitionCycle({
+          stateRoot,
+          cycle,
+          phase: "release-retryable",
+          reason: "bundle-build-failed",
+          patch: {
+            failure: {
+              stage: "bundle-build",
+              message: errorTail(error?.message || error),
+              at: new Date().toISOString(),
+            },
+          },
+        });
+        return finalize({
+          status: "release-retryable",
+          failureStage: "bundle-build",
+          error: errorTail(error?.message || error),
+          cycleId: activeCycleId,
+          cycle: retryCycle,
+          runtimeSha,
+          observedCandidateCount: retryCycle.collection?.observedCandidateCount || 0,
+          readyChangeCount: 0,
+          pendingDetailCount: retryCycle.collection?.pendingDetailIds?.length || 0,
+          bundleAppliedCount: 0,
+          publishedCount: 0,
+          networkAccessed: false,
+        });
+      }
       if (built.status === "no-change") {
         return finalize({
           status: "no-change",
@@ -473,11 +506,10 @@ export function summarizeSmokingpipesV2CliResult(result = {}) {
     publishedCount: result.publishedCount ?? 0,
     failureStage: result.failureStage || cycle.failure?.stage || null,
     error: errorTail(result.error || result.stderrTail || cycle.failure?.message || "") || null,
-    notification: result.notification ? {
-      configured: result.notification.configured === true,
-      sent: result.notification.sent === true,
-      reason: result.notification.reason || null,
-    } : null,
+    notification: {
+      sent: result.notificationSent === true || result.notification?.sent === true,
+      reason: result.notificationReason || result.notification?.reason || null,
+    },
   };
 }
 
@@ -501,7 +533,9 @@ async function main() {
     expectedRuntimeSha: options.get("expected-runtime-sha") || null,
     notificationsEnabled: options.get("notify") === true || options.get("notify") === "true",
   });
-  console.log(JSON.stringify(summarizeSmokingpipesV2CliResult(result), null, 2));
+  const summary = summarizeSmokingpipesV2CliResult(result);
+  console.log(JSON.stringify(summary, null, 2));
+  console.log(`SMOKINGPIPES_V2_RESULT_JSON=${JSON.stringify(summary)}`);
   process.exitCode = smokingpipesV2ExitCode(result.status);
 }
 
