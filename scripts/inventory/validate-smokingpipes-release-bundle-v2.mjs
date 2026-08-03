@@ -1,4 +1,3 @@
-import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -10,6 +9,7 @@ import {
 } from "./smokingpipes-cycle-store-v2.mjs";
 import {
   SMOKINGPIPES_BUNDLE_SCHEMA_V2,
+  readJsonAtGitRef,
 } from "./smokingpipes-build-release-bundle-v2.mjs";
 
 function text(value) {
@@ -40,12 +40,11 @@ function actualChangedIds(before = [], after = []) {
 }
 
 function readBaselineAtGitRef(runtimeRoot, ref) {
-  const raw = execFileSync(
-    "git",
-    ["-C", runtimeRoot, "show", `${ref}:data/products/smokingpipes-products.json`],
-    { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
-  );
-  return JSON.parse(raw);
+  return readJsonAtGitRef({
+    runtimeRoot,
+    ref,
+    relativePath: "data/products/smokingpipes-products.json",
+  });
 }
 
 async function baselineProducts({ runtimeRoot, baselineRoot, baseMainSha }) {
@@ -164,7 +163,11 @@ export async function validateSmokingpipesReleaseBundleV2({
       }
       const byId = new Map((products || []).map((product) => [sourceProductId(product), product]));
       for (const change of changes || []) {
-        if (hashJson(byId.get(text(change.sourceProductId)) || null) !== change.afterHash) {
+        const after = byId.get(text(change.sourceProductId)) || null;
+        const afterHashMatches = change.afterHash === null
+          ? after === null
+          : hashJson(after) === change.afterHash;
+        if (!afterHashMatches) {
           blockers.push(`change after hash mismatch: ${text(change.sourceProductId)}`);
         }
       }

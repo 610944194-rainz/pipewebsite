@@ -262,10 +262,26 @@ async function main() {
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "900000.json")), true);
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "999999.json")), false);
 
+    const legacyBaselineRoot = path.join(temporaryRoot, "legacy-falcon-baseline");
+    const legacyFalcon = {
+      ...structuredClone(template),
+      id: "smokingpipes-legacy-falcon",
+      sourceProductId: "legacy-falcon",
+      brand: "Falcon",
+      brandName: "Falcon",
+    };
+    await writeJsonAtomic(
+      path.join(legacyBaselineRoot, "data", "products", "smokingpipes-products.json"),
+      [legacyFalcon]
+    );
+    await writeJsonAtomic(
+      path.join(legacyBaselineRoot, "data", "products", "danish-products.json"),
+      []
+    );
     const built = await buildSmokingpipesReleaseBundleV2({
       stateRoot,
       cycleId: "2030-01-01",
-      baselineRoot: runtimeRoot,
+      baselineRoot: legacyBaselineRoot,
       baseMainSha: "fixture-base",
       generatorCommitSha: "fixture-generator",
       maxAutoApply: 2000,
@@ -273,9 +289,10 @@ async function main() {
     assert.equal(built.status, "bundle-ready");
     const validation = await validateSmokingpipesReleaseBundleV2({
       bundleRoot: built.bundleRoot,
-      baselineRoot: runtimeRoot,
+      baselineRoot: legacyBaselineRoot,
     });
     assert.equal(validation.valid, true, validation.blockers.join("; "));
+    assert.equal(built.manifest.selectedIds.includes("legacy-falcon"), true);
     const outputProducts = await readJson(
       path.join(built.bundleRoot, "outputs", "data", "products", "smokingpipes-products.json")
     );

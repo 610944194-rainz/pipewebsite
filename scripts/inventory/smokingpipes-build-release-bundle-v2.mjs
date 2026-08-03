@@ -218,6 +218,12 @@ export async function buildSmokingpipesReleaseBundleV2({
     state,
     now: cycle.updatedAt,
   });
+  // The final bundle contract excludes Falcon products, including legacy
+  // baseline rows which are not part of the current detail queue.  Keep the
+  // resulting removals in the immutable before/after diff so they are
+  // explicitly selected, validated, and published rather than disappearing
+  // as an untracked side effect.
+  candidate.products = candidate.products.filter((product) => !isFalcon(product));
   const candidatesById = new Map(state.candidates.map((item) => [sourceProductId(item), item]));
   const changes = actualChanges(
     baseline.smokingpipesProducts,
