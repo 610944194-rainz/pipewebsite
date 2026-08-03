@@ -362,6 +362,38 @@ async function main() {
     assert.equal(retry.status, "release-resume-required");
     assert.equal(retry.networkAccessed, false);
 
+    const validatorRetryId = "2030-01-06";
+    const validatorRetryCycle = createCycle({ cycleId: validatorRetryId });
+    validatorRetryCycle.phase = "release-retryable";
+    validatorRetryCycle.collection = {
+      ...validatorRetryCycle.collection,
+      pendingDetailIds: [],
+      completedDetailIds: ["900000"],
+    };
+    validatorRetryCycle.bundle = {
+      bundleId: "retained-invalid-bundle",
+      path: "cycles/2030-01-06/bundles/retained-invalid-bundle",
+      actualAppliedCount: 1,
+    };
+    validatorRetryCycle.failure = { stage: "bundle-validator", message: "fixture invalid bundle" };
+    validatorRetryCycle.history.push({ at: validatorRetryCycle.updatedAt, phase: validatorRetryCycle.phase, reason: "fixture-validator-retry" });
+    await writeCycle(stateRoot, validatorRetryCycle);
+    let rebuiltAfterValidatorFailure = 0;
+    const rebuiltValidatorRetry = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: validatorRetryId,
+      skipSync: true,
+      noPublish: true,
+      collector: async () => ({ status: "release-resume-required", cycle: await readCycle(stateRoot, validatorRetryId), networkAccessed: false }),
+      bundleBuilder: async () => {
+        rebuiltAfterValidatorFailure += 1;
+        return publishBundle;
+      },
+    });
+    assert.equal(rebuiltAfterValidatorFailure, 1);
+    assert.equal(rebuiltValidatorRetry.status, "bundle-ready");
+
     const remoteWriter = path.join(temporaryRoot, "remote-writer");
     execFileSync("git", ["clone", bareOrigin, remoteWriter], { stdio: "ignore" });
     git(remoteWriter, ["config", "user.email", "writer@example.invalid"]);

@@ -325,7 +325,8 @@ export async function runSmokingpipesAutoPublishV2({
     let cycle = collection.cycle || await readCycle(stateRoot, activeCycleId);
     let built;
     const staleBaseRetry = collection.status === "release-resume-required" && cycle.failure?.stage === "stale-base";
-    const retainedBundle = collection.status === "release-resume-required" && !staleBaseRetry && cycle.bundle?.bundleId && cycle.bundle?.path;
+    const rebuildBundle = ["bundle-build", "bundle-validator"].includes(cycle.failure?.stage);
+    const retainedBundle = collection.status === "release-resume-required" && !staleBaseRetry && !rebuildBundle && cycle.bundle?.bundleId && cycle.bundle?.path;
     if (retainedBundle) {
       built = {
         status: "bundle-ready",
