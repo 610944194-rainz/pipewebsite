@@ -8070,10 +8070,10 @@
       "siteDisplayAmount": 1141.0480399999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -10902,10 +10902,10 @@
       "siteDisplayAmount": 1300.2762559999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -16631,6 +16631,163 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-726625",
+      "source": "smokingpipes",
+      "sourceProductId": "726625",
+      "brandName": "GH Zhang",
+      "brandSlug": "gh-zhang",
+      "brandCountry": null,
+      "displayName": "Dark Sandblasted Apple with Ivorite (Valeriy Shevchenko) (05) Tobacco Pipe",
+      "displayNameEn": "Dark Sandblasted Apple with Ivorite (Valeriy Shevchenko) (05) Tobacco Pipe",
+      "rawTitle": "Dark Sandblasted Apple with Ivorite (Valeriy Shevchenko) (05) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0576.6721.jpg",
+      "sourcePriceAmount": 230,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2350.3682249999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 56.7,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "gh zhang",
+        "name": "dark sandblasted apple with ivorite (valeriy shevchenko) (05) tobacco pipe",
+        "price": 2350.3682249999997,
+        "sourceProductId": "726625"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0576.6721.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0576_1.2043.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0576_2.2239.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0576_3.8253.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 111.51,
+        "heightMm": 45.21,
+        "weightGrams": 56.7,
+        "chamberDepthMm": 35.05,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 44.96
+      },
+      "model": {
+        "canonicalModelKey": "gh-zhang__model-05__series-dark-sandblasted-with-ivorite-tobacco__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Dark Sandblasted With Ivorite Tobacco",
+      "year": null,
+      "productCode": "002-937-0576",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "GH Zhang",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 111.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 56.7,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/GH-Zhang/moreinfo.cfm?product_id=726625",
+      "sourceOriginalText": "Dark Sandblasted Apple with Ivorite (Valeriy Shevchenko) (05) Tobacco Pipe",
+      "priceRawText": "$230.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-727490",
       "source": "smokingpipes",
       "sourceProductId": "727490",
@@ -16810,10 +16967,10 @@
       "siteDisplayAmount": 4961.765685,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "inventoryConfidence": "medium",
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -16967,10 +17124,10 @@
       "displayNameEn": "Smooth Billiard (Saddle Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Billiard (Saddle Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0058.1158.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17000,7 +17157,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth billiard (saddle stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727629"
       },
       "displayNameZh": null,
@@ -17108,7 +17265,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727629",
       "sourceOriginalText": "Smooth Billiard (Saddle Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -17122,10 +17279,10 @@
       "displayNameEn": "Smooth Red Billiard (Tapered Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Red Billiard (Tapered Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0087.8399.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17155,7 +17312,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth red billiard (tapered stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727658"
       },
       "displayNameZh": null,
@@ -17263,7 +17420,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727658",
       "sourceOriginalText": "Smooth Red Billiard (Tapered Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -19988,6 +20145,169 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-732885",
+      "source": "smokingpipes",
+      "sourceProductId": "732885",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Deluxe System Dark Smooth (11s) P-Lip Tobacco Pipe",
+      "displayNameEn": "Deluxe System Dark Smooth (11s) P-Lip Tobacco Pipe",
+      "rawTitle": "Deluxe System Dark Smooth (11s) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146013.3381.jpg",
+      "sourcePriceAmount": 325,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3093.6726224999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 65.2,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "deluxe system dark smooth (11s) p-lip tobacco pipe",
+        "price": 3093.6726224999998,
+        "sourceProductId": "732885"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146013.3381.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146013_1.4370.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146013_2.7589.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146013_3.6202.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.72,
+        "heightMm": 50.8,
+        "weightGrams": 65.2,
+        "chamberDepthMm": 38.61,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 36.83
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-11s__series-deluxe-system-dark-p-lip-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Deluxe System Dark P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146013",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.2,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732885",
+      "sourceOriginalText": "Deluxe System Dark Smooth (11s) P-Lip Tobacco Pipe",
+      "priceRawText": "$325.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-733256",
       "source": "smokingpipes",
       "sourceProductId": "733256",
@@ -21757,6 +22077,167 @@
       "msrpRawText": "$220.00"
     },
     {
+      "id": "smokingpipes-735384",
+      "source": "smokingpipes",
+      "sourceProductId": "735384",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Danish Smooth Top Zulu (B) Tobacco Pipe",
+      "displayNameEn": "Danish Smooth Top Zulu (B) Tobacco Pipe",
+      "rawTitle": "Danish Smooth Top Zulu (B) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23692.9707.jpg",
+      "sourcePriceAmount": 195.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 244,
+      "siteDisplayAmount": 2021.8984721999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 54.43,
+      "shape": "Zulu",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "danish smooth top zulu (b) tobacco pipe",
+        "price": 2021.8984721999998,
+        "sourceProductId": "735384"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23692.9707.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23692_1.4600.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.91,
+        "heightMm": 49.78,
+        "weightGrams": 54.43,
+        "chamberDepthMm": 34.29,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 42.67
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-danish-top-tobacco-pipe__shape-zulu",
+        "confidence": "medium"
+      },
+      "series": "Danish Top Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23692",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Zulu",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 54.43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735384",
+      "sourceOriginalText": "Danish Smooth Top Zulu (B) Tobacco Pipe",
+      "priceRawText": "$195.20",
+      "msrpRawText": "$244.00"
+    },
+    {
       "id": "smokingpipes-735406",
       "source": "smokingpipes",
       "sourceProductId": "735406",
@@ -22079,6 +22560,167 @@
       "sourceOriginalText": "House Pipe Rusticated Billiard P-Lip Tobacco Pipe",
       "priceRawText": "$224.00",
       "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-736798",
+      "source": "smokingpipes",
+      "sourceProductId": "736798",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147073.8669.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1901.0820113999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 53.86,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival sandblasted (cp) (356) p-lip tobacco pipe",
+        "price": 1901.0820113999998,
+        "sourceProductId": "736798"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147073.8669.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147073_1.8882.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.37,
+        "heightMm": 58.42,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 49.02,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 31.5
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-sandblasted-p-lip__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival Sandblasted P Lip",
+      "year": null,
+      "productCode": "002-029-147073",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.5,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736798",
+      "sourceOriginalText": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
     }
   ]
 }

@@ -5469,10 +5469,10 @@
       "displayNameEn": "Shorty Black (MO12) (9mm) Tobacco Pipe",
       "rawTitle": "Shorty Black (MO12) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1008-0025.4871.jpg",
-      "sourcePriceAmount": 72.5,
+      "sourcePriceAmount": 58,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 866.0921,
+      "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5502,7 +5502,7 @@
       "sortKeys": {
         "brand": "molina",
         "name": "shorty black (mo12) (9mm) tobacco pipe",
-        "price": 866.0921,
+        "price": 747.0813199999999,
         "sourceProductId": "653717"
       },
       "displayNameZh": null,
@@ -5616,7 +5616,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/molina/moreinfo.cfm?product_id=653717",
       "sourceOriginalText": "Shorty Black (MO12) (9mm) Tobacco Pipe",
-      "priceRawText": "$72.50",
+      "priceRawText": "$58.00",
       "msrpRawText": null
     },
     {
@@ -7056,10 +7056,10 @@
       "siteDisplayAmount": 2067.2046450000003,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -18358,10 +18358,10 @@
       "displayNameEn": "Smooth Volcano (Saddle Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Volcano (Saddle Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0098.1858.jpg",
-      "sourcePriceAmount": 110,
+      "sourcePriceAmount": 88,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1173.8786,
+      "siteDisplayAmount": 993.3105199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18391,7 +18391,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth volcano (saddle stem) (9mm) tobacco pipe",
-        "price": 1173.8786,
+        "price": 993.3105199999999,
         "sourceProductId": "727669"
       },
       "displayNameZh": null,
@@ -18499,7 +18499,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727669",
       "sourceOriginalText": "Smooth Volcano (Saddle Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$110.00",
+      "priceRawText": "$88.00",
       "msrpRawText": null
     },
     {
@@ -19162,10 +19162,10 @@
       "siteDisplayAmount": 4954.686595499999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "inventoryConfidence": "medium",
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -22652,6 +22652,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-732387",
+      "source": "smokingpipes",
+      "sourceProductId": "732387",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Rusticated (307) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Rusticated (307) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Rusticated (307) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145773.2321.jpg",
+      "sourcePriceAmount": 220,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 275,
+      "siteDisplayAmount": 2152.153719,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 65.2,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot rusticated (307) p-lip tobacco pipe",
+        "price": 2152.153719,
+        "sourceProductId": "732387"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145773.2321.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145773_1.7277.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 152.65,
+        "heightMm": 53.34,
+        "weightGrams": 65.2,
+        "chamberDepthMm": 34.04,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 41.4
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-307__series-system-spigot-p-lip-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Spigot P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-145773",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 152.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 53.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.2,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.4,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732387",
+      "sourceOriginalText": "System Spigot Rusticated (307) P-Lip Tobacco Pipe",
+      "priceRawText": "$220.00",
+      "msrpRawText": "$275.00"
+    },
+    {
       "id": "smokingpipes-732950",
       "source": "smokingpipes",
       "sourceProductId": "732950",
@@ -23928,6 +24089,166 @@
       "msrpRawText": "$600.00"
     },
     {
+      "id": "smokingpipes-735334",
+      "source": "smokingpipes",
+      "sourceProductId": "735334",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Metal Matte Black Tobacco Pipe",
+      "displayNameEn": "Compass Metal Matte Black Tobacco Pipe",
+      "rawTitle": "Compass Metal Matte Black Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23642.2060.jpg",
+      "sourcePriceAmount": 72,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 861.9882799999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 40.82,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass metal matte black tobacco pipe",
+        "price": 861.9882799999999,
+        "sourceProductId": "735334"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23642.2060.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 148.08,
+        "heightMm": 47.75,
+        "weightGrams": 40.82,
+        "chamberDepthMm": 33.02,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 34.29
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-metal-matte-black-tobacco__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Metal Matte Black Tobacco",
+      "year": null,
+      "productCode": "002-508-23642",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 148.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 40.82,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735334",
+      "sourceOriginalText": "Compass Metal Matte Black Tobacco Pipe",
+      "priceRawText": "$72.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-735500",
       "source": "smokingpipes",
       "sourceProductId": "735500",
@@ -24252,6 +24573,169 @@
       "msrpRawText": "$162.50"
     },
     {
+      "id": "smokingpipes-736037",
+      "source": "smokingpipes",
+      "sourceProductId": "736037",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112137.7296.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 48.19,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza smooth natural (111 ks) (6mm) tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "736037"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112137.7296.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112137_1.5635.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112137_2.4060.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112137_3.7854.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.42,
+        "heightMm": 51.31,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 42.42,
+        "chamberDiameterMm": 22.35,
+        "outsideDiameterMm": 39.62
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-eleganza-natural-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112137",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736037",
+      "sourceOriginalText": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
+    },
+    {
       "id": "smokingpipes-736579",
       "source": "smokingpipes",
       "sourceProductId": "736579",
@@ -24572,6 +25056,327 @@
       "sourceOriginalText": "Aran Smooth Nickel Mounted (03) Fishtail Tobacco Pipe",
       "priceRawText": "$146.00",
       "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-736699",
+      "source": "smokingpipes",
+      "sourceProductId": "736699",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146982.3677.jpg",
+      "sourcePriceAmount": 225,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2196.9879524999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 62.37,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival rusticated (cp) (356) p-lip tobacco pipe",
+        "price": 2196.9879524999997,
+        "sourceProductId": "736699"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146982.3677.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.11,
+        "heightMm": 58.17,
+        "weightGrams": 62.37,
+        "chamberDepthMm": 49.02,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 31.75
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-p-lip-tobacco__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146982",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736699",
+      "sourceOriginalText": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$225.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-737032",
+      "source": "smokingpipes",
+      "sourceProductId": "737032",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Dracula Sandblasted (129) Fishtail Tobacco Pipe",
+      "displayNameEn": "Dracula Sandblasted (129) Fishtail Tobacco Pipe",
+      "rawTitle": "Dracula Sandblasted (129) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147210.5552.jpg",
+      "sourcePriceAmount": 148,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 185,
+      "siteDisplayAmount": 1425.0323839999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 39.69,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "dracula sandblasted (129) fishtail tobacco pipe",
+        "price": 1425.0323839999999,
+        "sourceProductId": "737032"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147210.5552.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147210_1.5052.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.97,
+        "heightMm": 42.67,
+        "weightGrams": 39.69,
+        "chamberDepthMm": 34.04,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 37.85
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-129__series-dracula-sandblasted-fishtail-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Dracula Sandblasted Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147210",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.69,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=737032",
+      "sourceOriginalText": "Dracula Sandblasted (129) Fishtail Tobacco Pipe",
+      "priceRawText": "$148.00",
+      "msrpRawText": "$185.00"
     }
   ]
 }

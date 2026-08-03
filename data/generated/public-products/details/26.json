@@ -7645,10 +7645,10 @@
       "displayNameEn": "Trafalgar The Very Finest (1813) (9mm) Tobacco Pipe",
       "rawTitle": "Trafalgar The Very Finest (1813) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1436.7244.jpg",
-      "sourcePriceAmount": 260,
+      "sourcePriceAmount": 227.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 325,
-      "siteDisplayAmount": 2633.5318049999996,
+      "siteDisplayAmount": 2326.77126,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7678,7 +7678,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "trafalgar the very finest (1813) (9mm) tobacco pipe",
-        "price": 2633.5318049999996,
+        "price": 2326.77126,
         "sourceProductId": "657921"
       },
       "displayNameZh": null,
@@ -7794,7 +7794,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/barling/moreinfo.cfm?product_id=657921",
       "sourceOriginalText": "Trafalgar The Very Finest (1813) (9mm) Tobacco Pipe",
-      "priceRawText": "$260.00",
+      "priceRawText": "$227.50",
       "msrpRawText": "$325.00"
     },
     {
@@ -15131,6 +15131,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-718415",
+      "source": "smokingpipes",
+      "sourceProductId": "718415",
+      "brandName": "Barling",
+      "brandSlug": "barling",
+      "brandCountry": "United Kingdom",
+      "displayName": "Benjamin The Very Finest (1817) (9mm) Tobacco Pipe",
+      "displayNameEn": "Benjamin The Very Finest (1817) (9mm) Tobacco Pipe",
+      "rawTitle": "Benjamin The Very Finest (1817) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1858.5653.jpg",
+      "sourcePriceAmount": 272,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 340,
+      "siteDisplayAmount": 2746.7972369999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "barling",
+        "name": "benjamin the very finest (1817) (9mm) tobacco pipe",
+        "price": 2746.7972369999998,
+        "sourceProductId": "718415"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1858.5653.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1858_1.9945.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1858_2.1309.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1858_3.2999.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 149.35,
+        "heightMm": 47.24,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 39.37,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "barling__model-1817__series-benjamin-the-very-finest-tobacco__shape-rhodesian",
+        "confidence": "high"
+      },
+      "series": "Benjamin The Very Finest Tobacco",
+      "year": null,
+      "productCode": "002-132-1858",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Barling",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 149.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.24,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/barling/moreinfo.cfm?product_id=718415",
+      "sourceOriginalText": "Benjamin The Very Finest (1817) (9mm) Tobacco Pipe",
+      "priceRawText": "$272.00",
+      "msrpRawText": "$340.00"
+    },
+    {
       "id": "smokingpipes-720499",
       "source": "smokingpipes",
       "sourceProductId": "720499",
@@ -18490,10 +18653,10 @@
       "displayNameEn": "Smooth Red Billiard (Saddle Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Red Billiard (Saddle Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0086.1985.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18523,7 +18686,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth red billiard (saddle stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727657"
       },
       "displayNameZh": null,
@@ -18631,7 +18794,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727657",
       "sourceOriginalText": "Smooth Red Billiard (Saddle Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -22005,10 +22168,10 @@
       "siteDisplayAmount": 2044.5515585999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -25216,10 +25379,10 @@
       "siteDisplayAmount": 829.1577199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -25843,6 +26006,166 @@
       "msrpRawText": "$280.00"
     },
     {
+      "id": "smokingpipes-735516",
+      "source": "smokingpipes",
+      "sourceProductId": "735516",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Rusticated Lestrade P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Rusticated Lestrade P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Rusticated Lestrade P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146557.6600.jpg",
+      "sourcePriceAmount": 172,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 215,
+      "siteDisplayAmount": 1721.7450774,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 76.54,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes rusticated lestrade p-lip tobacco pipe",
+        "price": 1721.7450774,
+        "sourceProductId": "735516"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146557.6600.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.46,
+        "heightMm": 46.74,
+        "weightGrams": 76.54,
+        "chamberDepthMm": 38.61,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 49.28
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-lestrade-p-lip-tobacco__shape-bent-apple",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Lestrade P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146557",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 76.54,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735516",
+      "sourceOriginalText": "Sherlock Holmes Rusticated Lestrade P-Lip Tobacco Pipe",
+      "priceRawText": "$172.00",
+      "msrpRawText": "$215.00"
+    },
+    {
       "id": "smokingpipes-735835",
       "source": "smokingpipes",
       "sourceProductId": "735835",
@@ -26004,6 +26327,166 @@
       "sourceOriginalText": "Punto Oro Gold Smooth (673 KS) (87/180) Tobacco Pipe",
       "priceRawText": "$480.00",
       "msrpRawText": "$600.00"
+    },
+    {
+      "id": "smokingpipes-736661",
+      "source": "smokingpipes",
+      "sourceProductId": "736661",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146944.4504.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 225,
+      "siteDisplayAmount": 1793.479851,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 59.53,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival rusticated (cp) (356) p-lip tobacco pipe",
+        "price": 1793.479851,
+        "sourceProductId": "736661"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146944.4504.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.6,
+        "heightMm": 58.67,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 48.77,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 32
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-p-lip-tobacco__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146944",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.6,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 48.77,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736661",
+      "sourceOriginalText": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$225.00"
     }
   ]
 }

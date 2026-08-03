@@ -6526,10 +6526,10 @@
       "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -9399,6 +9399,160 @@
       "msrpRawText": "$161.59"
     },
     {
+      "id": "smokingpipes-677056",
+      "source": "smokingpipes",
+      "sourceProductId": "677056",
+      "brandName": "Rossi",
+      "brandSlug": "rossi",
+      "brandCountry": null,
+      "displayName": "Sitting (8611) (6mm) Tobacco Pipe",
+      "displayNameEn": "Sitting (8611) (6mm) Tobacco Pipe",
+      "rawTitle": "Sitting (8611) (6mm) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products-hr/002-577-18441.8394.jpg",
+      "sourcePriceAmount": 96,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 120,
+      "siteDisplayAmount": 1058.9716399999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 48.19,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "rossi",
+        "name": "sitting (8611) (6mm) tobacco pipe",
+        "price": 1058.9716399999998,
+        "sourceProductId": "677056"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products-hr/002-577-18441.8394.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 142.49,
+        "heightMm": 50.55,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 44.96,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 37.59
+      },
+      "model": {
+        "canonicalModelKey": "rossi__model-8611__series-sitting-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Sitting Tobacco Pipe",
+      "year": null,
+      "productCode": "002-577-21087",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Rossi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 142.49,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.55,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.59,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/rossi/moreinfo.cfm?product_id=677056",
+      "sourceOriginalText": "Sitting (8611) (6mm) Tobacco Pipe",
+      "priceRawText": "$96.00",
+      "msrpRawText": "$120.00"
+    },
+    {
       "id": "smokingpipes-680781",
       "source": "smokingpipes",
       "sourceProductId": "680781",
@@ -10533,10 +10687,10 @@
       "displayNameEn": "Lattice Bent Dublin with Silver (with Case) Tobacco Pipe",
       "rawTitle": "Lattice Bent Dublin with Silver (with Case) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4679.9213.jpg",
-      "sourcePriceAmount": 432,
+      "sourcePriceAmount": 384,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 480,
-      "siteDisplayAmount": 4579.494852,
+      "siteDisplayAmount": 3803.9412689999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -10566,7 +10720,7 @@
       "sortKeys": {
         "brand": "imp meerschaum",
         "name": "lattice bent dublin with silver (with case) tobacco pipe",
-        "price": 4579.494852,
+        "price": 3803.9412689999995,
         "sourceProductId": "691639"
       },
       "displayNameZh": null,
@@ -10682,7 +10836,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/imp-meerschaum/moreinfo.cfm?product_id=691639",
       "sourceOriginalText": "Lattice Bent Dublin with Silver (with Case) Tobacco Pipe",
-      "priceRawText": "$432.00",
+      "priceRawText": "$384.00",
       "msrpRawText": "$480.00"
     },
     {
@@ -14186,10 +14340,10 @@
       "siteDisplayAmount": 1237.8981919999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -20724,10 +20878,10 @@
       "siteDisplayAmount": 1300.2762559999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -22794,10 +22948,10 @@
       "siteDisplayAmount": 2295.6232661999993,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -22939,6 +23093,167 @@
       "sourceOriginalText": "System Spigot Smooth (306) P-Lip Tobacco Pipe",
       "priceRawText": "$236.00",
       "msrpRawText": "$295.00"
+    },
+    {
+      "id": "smokingpipes-733097",
+      "source": "smokingpipes",
+      "sourceProductId": "733097",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Standard Sandblasted (XL315) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Standard Sandblasted (XL315) P-Lip Tobacco Pipe",
+      "rawTitle": "System Standard Sandblasted (XL315) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146131.3053.jpg",
+      "sourcePriceAmount": 136,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 170,
+      "siteDisplayAmount": 1331.4652879999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 53.86,
+      "shape": "Calabash",
+      "shapeZh": "葫芦斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system standard sandblasted (xl315) p-lip tobacco pipe",
+        "price": 1331.4652879999999,
+        "sourceProductId": "733097"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146131.3053.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146131_1.5385.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.84,
+        "heightMm": 54.86,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 45.72,
+        "chamberDiameterMm": 21.34,
+        "outsideDiameterMm": 39.62
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-system-standard-sandblasted-p-lip-tobacco__shape-calabash",
+        "confidence": "medium"
+      },
+      "series": "System Standard Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146131",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Calabash",
+          "labelZh": "葫芦斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=733097",
+      "sourceOriginalText": "System Standard Sandblasted (XL315) P-Lip Tobacco Pipe",
+      "priceRawText": "$136.00",
+      "msrpRawText": "$170.00"
     },
     {
       "id": "smokingpipes-733116",
@@ -24074,6 +24389,167 @@
       "msrpRawText": "$250.00"
     },
     {
+      "id": "smokingpipes-733973",
+      "source": "smokingpipes",
+      "sourceProductId": "733973",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Tre Smooth (614) Tobacco Pipe",
+      "displayNameEn": "Tre Smooth (614) Tobacco Pipe",
+      "rawTitle": "Tre Smooth (614) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111691.1199.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.03,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "tre smooth (614) tobacco pipe",
+        "price": 1614.1429169999997,
+        "sourceProductId": "733973"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111691.1199.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111691_1.6129.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 112.27,
+        "heightMm": 48.01,
+        "weightGrams": 51.03,
+        "chamberDepthMm": 41.66,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 37.85
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-614__series-tre-tobacco-pipe__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Tre Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111691",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 112.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.03,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733973",
+      "sourceOriginalText": "Tre Smooth (614) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
+    },
+    {
       "id": "smokingpipes-734107",
       "source": "smokingpipes",
       "sourceProductId": "734107",
@@ -24877,6 +25353,327 @@
       "sourceOriginalText": "Aran Smooth Nickel Mounted (338) Fishtail Tobacco Pipe",
       "priceRawText": "$146.00",
       "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-736700",
+      "source": "smokingpipes",
+      "sourceProductId": "736700",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146983.3781.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 225,
+      "siteDisplayAmount": 1793.479851,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 62.37,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival rusticated (cp) (356) p-lip tobacco pipe",
+        "price": 1793.479851,
+        "sourceProductId": "736700"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146983.3781.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.87,
+        "heightMm": 58.67,
+        "weightGrams": 62.37,
+        "chamberDepthMm": 49.28,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 31.75
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-p-lip-tobacco__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146983",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.87,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736700",
+      "sourceOriginalText": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$225.00"
+    },
+    {
+      "id": "smokingpipes-736762",
+      "source": "smokingpipes",
+      "sourceProductId": "736762",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147037.9120.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1901.0820113999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 56.7,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival sandblasted (cp) (356) p-lip tobacco pipe",
+        "price": 1901.0820113999998,
+        "sourceProductId": "736762"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147037.9120.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147037_1.1228.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.86,
+        "heightMm": 58.67,
+        "weightGrams": 56.7,
+        "chamberDepthMm": 49.02,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 31.75
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-sandblasted-p-lip__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival Sandblasted P Lip",
+      "year": null,
+      "productCode": "002-029-147037",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 56.7,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736762",
+      "sourceOriginalText": "Premier System Revival Sandblasted (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
     }
   ]
 }

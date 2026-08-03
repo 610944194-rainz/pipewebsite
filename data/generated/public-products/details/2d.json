@@ -10729,10 +10729,10 @@
       "siteDisplayAmount": 6278.476331999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -17107,10 +17107,10 @@
       "displayNameEn": "Smooth Pot with Nickel Band (Tapered Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Pot with Nickel Band (Tapered Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0079.8395.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17140,7 +17140,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth pot with nickel band (tapered stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727650"
       },
       "displayNameZh": null,
@@ -17248,7 +17248,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727650",
       "sourceOriginalText": "Smooth Pot with Nickel Band (Tapered Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -20653,10 +20653,10 @@
       "siteDisplayAmount": 1206.7091599999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21132,10 +21132,10 @@
       "siteDisplayAmount": 1409.4378679999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21454,10 +21454,10 @@
       "siteDisplayAmount": 2021.8984721999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21597,6 +21597,167 @@
       "sourceOriginalText": "Rye Smooth Freehand (2) Tobacco Pipe",
       "priceRawText": "$195.20",
       "msrpRawText": "$244.00"
+    },
+    {
+      "id": "smokingpipes-735376",
+      "source": "smokingpipes",
+      "sourceProductId": "735376",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Copperhead Sandblasted Poker Tobacco Pipe",
+      "displayNameEn": "Copperhead Sandblasted Poker Tobacco Pipe",
+      "rawTitle": "Copperhead Sandblasted Poker Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23684.4651.jpg",
+      "sourcePriceAmount": 172,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1802.918637,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 51.71,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "copperhead sandblasted poker tobacco pipe",
+        "price": 1802.918637,
+        "sourceProductId": "735376"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23684.4651.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23684_1.6265.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.95,
+        "heightMm": 69.09,
+        "weightGrams": 51.71,
+        "chamberDepthMm": 42.16,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 33.78
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-copperhead-sandblasted-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Copperhead Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23684",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 69.09,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 51.71,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.78,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735376",
+      "sourceOriginalText": "Copperhead Sandblasted Poker Tobacco Pipe",
+      "priceRawText": "$172.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-735631",
@@ -22078,6 +22239,326 @@
       "sourceOriginalText": "Smooth Cherrywood (CCCC) Tobacco Pipe",
       "priceRawText": "$630.00",
       "msrpRawText": "$700.00"
+    },
+    {
+      "id": "smokingpipes-736058",
+      "source": "smokingpipes",
+      "sourceProductId": "736058",
+      "brandName": "Randy Wiley",
+      "brandSlug": "randy-wiley",
+      "brandCountry": null,
+      "displayName": "Patina Pot (20) Tobacco Pipe",
+      "displayNameEn": "Patina Pot (20) Tobacco Pipe",
+      "rawTitle": "Patina Pot (20) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3426.7559.jpg",
+      "sourcePriceAmount": 330,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3294.2468249999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 59.87,
+      "shape": "Pot",
+      "shapeZh": "罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "randy wiley",
+        "name": "patina pot (20) tobacco pipe",
+        "price": 3294.2468249999993,
+        "sourceProductId": "736058"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3426.7559.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3426_1.9506.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3426_2.9571.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-093-3426_3.3845.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 150.62,
+        "heightMm": 43.18,
+        "weightGrams": 59.87,
+        "chamberDepthMm": 36.58,
+        "chamberDiameterMm": 23.62,
+        "outsideDiameterMm": 46.23
+      },
+      "model": {
+        "canonicalModelKey": "randy-wiley__model-20__series-patina-tobacco-pipe__shape-pot",
+        "confidence": "high"
+      },
+      "series": "Patina Tobacco Pipe",
+      "year": null,
+      "productCode": "002-093-3426",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Randy Wiley",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Pot",
+          "labelZh": "罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.87,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/randy-wiley/moreinfo.cfm?product_id=736058",
+      "sourceOriginalText": "Patina Pot (20) Tobacco Pipe",
+      "priceRawText": "$330.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-736263",
+      "source": "smokingpipes",
+      "sourceProductId": "736263",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Old Antiquari Bent Dublin (KK) Tobacco Pipe",
+      "displayNameEn": "Old Antiquari Bent Dublin (KK) Tobacco Pipe",
+      "rawTitle": "Old Antiquari Bent Dublin (KK) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6149.5799.jpg",
+      "sourcePriceAmount": 538,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 5580.006168,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 36.29,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "old antiquari bent dublin (kk) tobacco pipe",
+        "price": 5580.006168,
+        "sourceProductId": "736263"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6149.5799.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6149_1.8289.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6149_2.8758.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6149_3.3693.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.54,
+        "heightMm": 48.01,
+        "weightGrams": 36.29,
+        "chamberDepthMm": 36.58,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 36.83
+      },
+      "model": {
+        "canonicalModelKey": "castello__series-old-antiquari-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Old Antiquari Tobacco Pipe",
+      "year": null,
+      "productCode": "002-386-6149",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.29,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736263",
+      "sourceOriginalText": "Old Antiquari Bent Dublin (KK) Tobacco Pipe",
+      "priceRawText": "$538.00",
+      "msrpRawText": null
     }
   ]
 }

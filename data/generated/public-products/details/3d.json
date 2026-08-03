@@ -7357,10 +7357,10 @@
       "siteDisplayAmount": 1878.4289249999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -8638,10 +8638,10 @@
       "displayNameEn": "Smooth Volcano with Silver (B) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Volcano with Silver (B) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3379.5130.jpg",
-      "sourcePriceAmount": 625,
+      "sourcePriceAmount": 500,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 6401.180549999999,
+      "siteDisplayAmount": 5221.332299999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8671,7 +8671,7 @@
       "sortKeys": {
         "brand": "winsløw",
         "name": "smooth volcano with silver (b) (9mm) tobacco pipe",
-        "price": 6401.180549999999,
+        "price": 5221.332299999999,
         "sourceProductId": "691821"
       },
       "displayNameZh": null,
@@ -8787,7 +8787,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=691821",
       "sourceOriginalText": "Smooth Volcano with Silver (B) (9mm) Tobacco Pipe",
-      "priceRawText": "$625.00",
+      "priceRawText": "$500.00",
       "msrpRawText": null
     },
     {
@@ -11497,10 +11497,10 @@
       "siteDisplayAmount": 6448.374479999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -14516,10 +14516,10 @@
       "siteDisplayAmount": 2107.3194854999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -18196,6 +18196,161 @@
       "msrpRawText": "$270.00"
     },
     {
+      "id": "smokingpipes-734468",
+      "source": "smokingpipes",
+      "sourceProductId": "734468",
+      "brandName": "AKB",
+      "brandSlug": "akb",
+      "brandCountry": null,
+      "displayName": "Carved Dragon Claw Holding Spot Carved Egg (with Case) Tobacco Pipe",
+      "displayNameEn": "Carved Dragon Claw Holding Spot Carved Egg (with Case) Tobacco Pipe",
+      "rawTitle": "Carved Dragon Claw Holding Spot Carved Egg (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13231.6483.jpg",
+      "sourcePriceAmount": 270,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2727.9196649999994,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 86.18,
+      "shape": "Figural",
+      "shapeZh": null,
+      "finish": "Carved",
+      "finishZh": "雕刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "akb",
+        "name": "carved dragon claw holding spot carved egg (with case) tobacco pipe",
+        "price": 2727.9196649999994,
+        "sourceProductId": "734468"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13231.6483.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13231_1.1936.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 178.05,
+        "heightMm": 56.39,
+        "weightGrams": 86.18,
+        "chamberDepthMm": 45.47,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 54.36
+      },
+      "model": {
+        "canonicalModelKey": "akb__series-dragon-claw-holding-tobacco-pipe__shape-figural",
+        "confidence": "medium"
+      },
+      "series": "Dragon Claw Holding Tobacco Pipe",
+      "year": null,
+      "productCode": "002-574-13231",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "AKB",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Figural",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Carved",
+          "labelZh": "雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 178.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 56.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 86.18,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 54.36,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=734468",
+      "sourceOriginalText": "Carved Dragon Claw Holding Spot Carved Egg (with Case) Tobacco Pipe",
+      "priceRawText": "$270.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-734513",
       "source": "smokingpipes",
       "sourceProductId": "734513",
@@ -19477,6 +19632,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-735501",
+      "source": "smokingpipes",
+      "sourceProductId": "735501",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Smooth (307) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Smooth (307) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Smooth (307) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146542.2993.jpg",
+      "sourcePriceAmount": 325,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3093.6726224999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 70.87,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot smooth (307) p-lip tobacco pipe",
+        "price": 3093.6726224999998,
+        "sourceProductId": "735501"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146542.2993.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146542_1.7346.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146542_2.2831.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146542_3.3287.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 143.76,
+        "heightMm": 53.34,
+        "weightGrams": 70.87,
+        "chamberDepthMm": 41.15,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-307__series-system-spigot-p-lip-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Spigot P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146542",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 143.76,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 53.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.87,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735501",
+      "sourceOriginalText": "System Spigot Smooth (307) P-Lip Tobacco Pipe",
+      "priceRawText": "$325.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-735737",
       "source": "smokingpipes",
       "sourceProductId": "735737",
@@ -19635,6 +19953,167 @@
       "sourceOriginalText": "Arcobaleno Rusticated Green (111 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$112.00",
       "msrpRawText": "$140.00"
+    },
+    {
+      "id": "smokingpipes-736009",
+      "source": "smokingpipes",
+      "sourceProductId": "736009",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp Sandblasted (X105) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp Sandblasted (X105) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp Sandblasted (X105) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146790.8151.jpg",
+      "sourcePriceAmount": 156,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 195,
+      "siteDisplayAmount": 1487.4104479999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 39.69,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp sandblasted (x105) fishtail tobacco pipe",
+        "price": 1487.4104479999996,
+        "sourceProductId": "736009"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146790.8151.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146790_1.6366.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 142.75,
+        "heightMm": 48.01,
+        "weightGrams": 39.69,
+        "chamberDepthMm": 38.61,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 36.58
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-x105__series-irish-harp-sandblasted-fishtail-tobacco__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146790",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 142.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.69,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736009",
+      "sourceOriginalText": "Irish Harp Sandblasted (X105) Fishtail Tobacco Pipe",
+      "priceRawText": "$156.00",
+      "msrpRawText": "$195.00"
     },
     {
       "id": "smokingpipes-736011",
@@ -19796,6 +20275,169 @@
       "sourceOriginalText": "Junior Ebony Silver Mounted Prince Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-736038",
+      "source": "smokingpipes",
+      "sourceProductId": "736038",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112138.7703.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 48.19,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza smooth natural (111 ks) (6mm) tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "736038"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112138.7703.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112138_1.6345.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112138_2.8829.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112138_3.5012.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.16,
+        "heightMm": 51.31,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 42.42,
+        "chamberDiameterMm": 22.35,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-eleganza-natural-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112138",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736038",
+      "sourceOriginalText": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
     }
   ]
 }

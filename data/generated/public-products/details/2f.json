@@ -4786,9 +4786,9 @@
       "siteDisplayAmount": 359.68071199999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8075,10 +8075,10 @@
       "siteDisplayAmount": 2024.730108,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -17112,6 +17112,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-726571",
+      "source": "smokingpipes",
+      "sourceProductId": "726571",
+      "brandName": "GH Zhang",
+      "brandSlug": "gh-zhang",
+      "brandCountry": null,
+      "displayName": "Red Sandblasted Bent Apple (David Huber) (07) Tobacco Pipe",
+      "displayNameEn": "Red Sandblasted Bent Apple (David Huber) (07) Tobacco Pipe",
+      "rawTitle": "Red Sandblasted Bent Apple (David Huber) (07) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0522.6754.jpg",
+      "sourcePriceAmount": 230,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2350.3682249999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 38.56,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "gh zhang",
+        "name": "red sandblasted bent apple (david huber) (07) tobacco pipe",
+        "price": 2350.3682249999997,
+        "sourceProductId": "726571"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0522.6754.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0522_1.4621.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0522_2.5628.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0522_3.2033.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 146.81,
+        "heightMm": 46.99,
+        "weightGrams": 38.56,
+        "chamberDepthMm": 39.62,
+        "chamberDiameterMm": 16.26,
+        "outsideDiameterMm": 36.83
+      },
+      "model": {
+        "canonicalModelKey": "gh-zhang__model-07__series-red-sandblasted-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Red Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-937-0522",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "GH Zhang",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38.56,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/GH-Zhang/moreinfo.cfm?product_id=726571",
+      "sourceOriginalText": "Red Sandblasted Bent Apple (David Huber) (07) Tobacco Pipe",
+      "priceRawText": "$230.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-727135",
       "source": "smokingpipes",
       "sourceProductId": "727135",
@@ -17452,10 +17609,10 @@
       "siteDisplayAmount": 5344.036518,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -22413,6 +22570,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-735381",
+      "source": "smokingpipes",
+      "sourceProductId": "735381",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Danish Rustic Top Zulu (B) Tobacco Pipe",
+      "displayNameEn": "Danish Rustic Top Zulu (B) Tobacco Pipe",
+      "rawTitle": "Danish Rustic Top Zulu (B) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23689.6320.jpg",
+      "sourcePriceAmount": 195.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 244,
+      "siteDisplayAmount": 2021.8984721999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 43.09,
+      "shape": "Zulu",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "danish rustic top zulu (b) tobacco pipe",
+        "price": 2021.8984721999998,
+        "sourceProductId": "735381"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23689.6320.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23689_1.9946.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.14,
+        "heightMm": 42.67,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 30.99,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 39.37
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-danish-rustic-top-tobacco-pipe__shape-zulu",
+        "confidence": "medium"
+      },
+      "series": "Danish Rustic Top Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23689",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Zulu",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.14,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735381",
+      "sourceOriginalText": "Danish Rustic Top Zulu (B) Tobacco Pipe",
+      "priceRawText": "$195.20",
+      "msrpRawText": "$244.00"
+    },
+    {
       "id": "smokingpipes-735809",
       "source": "smokingpipes",
       "sourceProductId": "735809",
@@ -22574,6 +22892,167 @@
       "sourceOriginalText": "Punto Oro Gold Smooth (601) (44/180) Tobacco Pipe",
       "priceRawText": "$480.00",
       "msrpRawText": "$600.00"
+    },
+    {
+      "id": "smokingpipes-736990",
+      "source": "smokingpipes",
+      "sourceProductId": "736990",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112197.2742.jpg",
+      "sourcePriceAmount": 168,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 210,
+      "siteDisplayAmount": 1685.8776905999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 62.37,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "oceano smooth (320 ks) (6mm) tobacco pipe",
+        "price": 1685.8776905999998,
+        "sourceProductId": "736990"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112197.2742.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112197_1.1996.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.62,
+        "heightMm": 41.15,
+        "weightGrams": 62.37,
+        "chamberDepthMm": 32.51,
+        "chamberDiameterMm": 23.37,
+        "outsideDiameterMm": 48.77
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-oceano-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Oceano Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112197",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.77,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736990",
+      "sourceOriginalText": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$168.00",
+      "msrpRawText": "$210.00"
     }
   ]
 }

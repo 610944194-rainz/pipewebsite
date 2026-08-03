@@ -6373,9 +6373,9 @@
       "siteDisplayAmount": 341.8701332,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6521,9 +6521,9 @@
       "siteDisplayAmount": 359.68071199999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12346,10 +12346,10 @@
       "siteDisplayAmount": 1485.7689199999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -16656,6 +16656,167 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-720353",
+      "source": "smokingpipes",
+      "sourceProductId": "720353",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109685.9748.jpg",
+      "sourcePriceAmount": 172,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 215,
+      "siteDisplayAmount": 1721.7450774,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "lunaria rusticated bordeaux (920 ks) (6mm) tobacco pipe",
+        "price": 1721.7450774,
+        "sourceProductId": "720353"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109685.9748.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109685_1.8376.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 149.61,
+        "heightMm": 58.42,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 43.43,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 42.16
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-lunaria-bordeaux-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Lunaria Bordeaux Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-109685",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 149.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=720353",
+      "sourceOriginalText": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$172.00",
+      "msrpRawText": "$215.00"
+    },
+    {
       "id": "smokingpipes-721318",
       "source": "smokingpipes",
       "sourceProductId": "721318",
@@ -19201,10 +19362,10 @@
       "displayNameEn": "Smooth Bent Apple (Saddle Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Bent Apple (Saddle Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0037.5477.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -19234,7 +19395,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth bent apple (saddle stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727608"
       },
       "displayNameZh": null,
@@ -19342,7 +19503,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727608",
       "sourceOriginalText": "Smooth Bent Apple (Saddle Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -22231,6 +22392,161 @@
       "msrpRawText": "$325.00"
     },
     {
+      "id": "smokingpipes-731565",
+      "source": "smokingpipes",
+      "sourceProductId": "731565",
+      "brandName": "AKB",
+      "brandSlug": "akb",
+      "brandCountry": null,
+      "displayName": "Carved Laughing Bacchus (with Case) Tobacco Pipe",
+      "displayNameEn": "Carved Laughing Bacchus (with Case) Tobacco Pipe",
+      "rawTitle": "Carved Laughing Bacchus (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13121.7709.jpg",
+      "sourcePriceAmount": 127.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 150,
+      "siteDisplayAmount": 1317.5122999999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 39.92,
+      "shape": "Figural",
+      "shapeZh": null,
+      "finish": "Carved",
+      "finishZh": "雕刻",
+      "bowlMaterial": "Meerschaum",
+      "bowlMaterialZh": "海泡石",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "akb",
+        "name": "carved laughing bacchus (with case) tobacco pipe",
+        "price": 1317.5122999999999,
+        "sourceProductId": "731565"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13121.7709.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13121_1.2358.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.84,
+        "heightMm": 59.18,
+        "weightGrams": 39.92,
+        "chamberDepthMm": 28.45,
+        "chamberDiameterMm": 16.51,
+        "outsideDiameterMm": 48.01
+      },
+      "model": {
+        "canonicalModelKey": "akb__series-laughing-bacchus-tobacco-pipe__shape-figural",
+        "confidence": "medium"
+      },
+      "series": "Laughing Bacchus Tobacco Pipe",
+      "year": null,
+      "productCode": "002-574-13121",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "AKB",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Figural",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Carved",
+          "labelZh": "雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Meerschaum",
+          "labelZh": "海泡石",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.92,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=731565",
+      "sourceOriginalText": "Carved Laughing Bacchus (with Case) Tobacco Pipe",
+      "priceRawText": "$127.50",
+      "msrpRawText": "$150.00"
+    },
+    {
       "id": "smokingpipes-731898",
       "source": "smokingpipes",
       "sourceProductId": "731898",
@@ -22548,6 +22864,166 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/dunhill/moreinfo.cfm?product_id=732442",
       "sourceOriginalText": "Shell Briar with Silver (4102) (2026) Tobacco Pipe",
       "priceRawText": "$865.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-732537",
+      "source": "smokingpipes",
+      "sourceProductId": "732537",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Egg (200) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Egg (200) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Egg (200) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3783.2646.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1642.459275,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 81.65,
+      "shape": "Bent Egg",
+      "shapeZh": "弯式蛋形斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent egg (200) tobacco pipe",
+        "price": 1642.459275,
+        "sourceProductId": "732537"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3783.2646.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.02,
+        "heightMm": 52.83,
+        "weightGrams": 81.65,
+        "chamberDepthMm": 37.59,
+        "chamberDiameterMm": 22.61,
+        "outsideDiameterMm": 48.01
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-tobacco-pipe__shape-bent-egg",
+        "confidence": "high"
+      },
+      "series": "Crown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3783",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Egg",
+          "labelZh": "弯式蛋形斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 81.65,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732537",
+      "sourceOriginalText": "Crown Smooth Bent Egg (200) Tobacco Pipe",
+      "priceRawText": "$155.00",
       "msrpRawText": null
     },
     {
@@ -23358,6 +23834,161 @@
       "msrpRawText": "$210.00"
     },
     {
+      "id": "smokingpipes-734454",
+      "source": "smokingpipes",
+      "sourceProductId": "734454",
+      "brandName": "AKB",
+      "brandSlug": "akb",
+      "brandCountry": null,
+      "displayName": "Carved Dragon Claw Holding Carved Egg (Ali) (with Case) Tobacco Pipe",
+      "displayNameEn": "Carved Dragon Claw Holding Carved Egg (Ali) (with Case) Tobacco Pipe",
+      "rawTitle": "Carved Dragon Claw Holding Carved Egg (Ali) (with Case) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13217.4948.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1878.4289249999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 52.16,
+      "shape": "Figural",
+      "shapeZh": null,
+      "finish": "Carved",
+      "finishZh": "雕刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "akb",
+        "name": "carved dragon claw holding carved egg (ali) (with case) tobacco pipe",
+        "price": 1878.4289249999997,
+        "sourceProductId": "734454"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13217.4948.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13217_1.1437.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 160.78,
+        "heightMm": 58.93,
+        "weightGrams": 52.16,
+        "chamberDepthMm": 47.75,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 42.42
+      },
+      "model": {
+        "canonicalModelKey": "akb__series-dragon-claw-holding-tobacco-pipe__shape-figural",
+        "confidence": "medium"
+      },
+      "series": "Dragon Claw Holding Tobacco Pipe",
+      "year": null,
+      "productCode": "002-574-13217",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "AKB",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Figural",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Carved",
+          "labelZh": "雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 160.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 52.16,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 47.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=734454",
+      "sourceOriginalText": "Carved Dragon Claw Holding Carved Egg (Ali) (with Case) Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$200.00"
+    },
+    {
       "id": "smokingpipes-734484",
       "source": "smokingpipes",
       "sourceProductId": "734484",
@@ -23989,6 +24620,173 @@
       "sourceOriginalText": "Irish Harp (3085) Fishtail Tobacco Pipe",
       "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
+    },
+    {
+      "id": "smokingpipes-735646",
+      "source": "smokingpipes",
+      "sourceProductId": "735646",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "House Pipe PSB Billiard P-Lip Tobacco Pipe",
+      "displayNameEn": "House Pipe PSB Billiard P-Lip Tobacco Pipe",
+      "rawTitle": "House Pipe PSB Billiard P-Lip Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-029-146686.6962.jpg",
+      "sourcePriceAmount": 320,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 400,
+      "siteDisplayAmount": 3048.8383889999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 8,
+      "weightGrams": 82.21,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "house pipe psb billiard p-lip tobacco pipe",
+        "price": 3048.8383889999996,
+        "sourceProductId": "735646"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-029-146686.6962.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-146686_1.7755.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-146686_2.4672.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-146686_3.8571.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146686.6962.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146686_1.7755.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146686_2.4672.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-146686_3.8571.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 165.35,
+        "heightMm": 59.44,
+        "weightGrams": 82.21,
+        "chamberDepthMm": 45.97,
+        "chamberDiameterMm": 21.84,
+        "outsideDiameterMm": 46.48
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-house-pipe-psb-p-lip-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "House Pipe Psb P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146686",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 165.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 82.21,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735646",
+      "sourceOriginalText": "House Pipe PSB Billiard P-Lip Tobacco Pipe",
+      "priceRawText": "$320.00",
+      "msrpRawText": "$400.00"
     },
     {
       "id": "smokingpipes-735676",

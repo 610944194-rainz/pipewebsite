@@ -5229,10 +5229,10 @@
       "displayNameEn": "Nelson Ye Olde Wood (1817) (9mm) Tobacco Pipe",
       "rawTitle": "Nelson Ye Olde Wood (1817) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1438.8472.jpg",
-      "sourcePriceAmount": 224,
+      "sourcePriceAmount": 196,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 280,
-      "siteDisplayAmount": 2293.7355089999996,
+      "siteDisplayAmount": 2029.4495009999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5262,7 +5262,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "nelson ye olde wood (1817) (9mm) tobacco pipe",
-        "price": 2293.7355089999996,
+        "price": 2029.4495009999998,
         "sourceProductId": "659601"
       },
       "displayNameZh": null,
@@ -5376,7 +5376,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/barling/moreinfo.cfm?product_id=659601",
       "sourceOriginalText": "Nelson Ye Olde Wood (1817) (9mm) Tobacco Pipe",
-      "priceRawText": "$224.00",
+      "priceRawText": "$196.00",
       "msrpRawText": "$280.00"
     },
     {
@@ -7944,10 +7944,10 @@
       "displayNameEn": "The Purple Nomad Tobacco Pipe",
       "rawTitle": "The Purple Nomad Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0155.7192.jpg",
-      "sourcePriceAmount": 8.99,
+      "sourcePriceAmount": 9.97,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 344.8248836,
+      "siteDisplayAmount": 352.8683708,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -7977,7 +7977,7 @@
       "sortKeys": {
         "brand": "missouri meerschaum",
         "name": "the purple nomad tobacco pipe",
-        "price": 344.8248836,
+        "price": 352.8683708,
         "sourceProductId": "689899"
       },
       "displayNameZh": null,
@@ -8078,7 +8078,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=689899",
       "sourceOriginalText": "The Purple Nomad Tobacco Pipe",
-      "priceRawText": "$8.99",
+      "priceRawText": "$9.97",
       "msrpRawText": null
     },
     {
@@ -14480,6 +14480,163 @@
       "msrpRawText": "$170.00"
     },
     {
+      "id": "smokingpipes-724693",
+      "source": "smokingpipes",
+      "sourceProductId": "724693",
+      "brandName": "GH Zhang",
+      "brandSlug": "gh-zhang",
+      "brandCountry": null,
+      "displayName": "Dark Sandblasted Tomato (J.Alan) (01) (2026) Tobacco Pipe",
+      "displayNameEn": "Dark Sandblasted Tomato (J.Alan) (01) (2026) Tobacco Pipe",
+      "rawTitle": "Dark Sandblasted Tomato (J.Alan) (01) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0480.2159.jpg",
+      "sourcePriceAmount": 207,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 230,
+      "siteDisplayAmount": 2133.2761469999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 62.6,
+      "shape": "Tomato",
+      "shapeZh": "番茄斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "gh zhang",
+        "name": "dark sandblasted tomato (j.alan) (01) (2026) tobacco pipe",
+        "price": 2133.2761469999996,
+        "sourceProductId": "724693"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0480.2159.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0480_1.9272.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0480_2.2476.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-937-0480_3.1539.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.81,
+        "heightMm": 40.39,
+        "weightGrams": 62.6,
+        "chamberDepthMm": 32.51,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 49.02
+      },
+      "model": {
+        "canonicalModelKey": "gh-zhang__model-01__series-dark-sandblasted-tobacco-pipe__shape-tomato",
+        "confidence": "high"
+      },
+      "series": "Dark Sandblasted Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-937-0480",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "GH Zhang",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Tomato",
+          "labelZh": "番茄斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.6,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/GH-Zhang/moreinfo.cfm?product_id=724693",
+      "sourceOriginalText": "Dark Sandblasted Tomato (J.Alan) (01) (2026) Tobacco Pipe",
+      "priceRawText": "$207.00",
+      "msrpRawText": "$230.00"
+    },
+    {
       "id": "smokingpipes-725556",
       "source": "smokingpipes",
       "sourceProductId": "725556",
@@ -18335,10 +18492,10 @@
       "siteDisplayAmount": 1667.9439971999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,

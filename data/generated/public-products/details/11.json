@@ -16233,10 +16233,10 @@
       "siteDisplayAmount": 2303.174295,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -16684,6 +16684,167 @@
       "sourceOriginalText": "Carved Sultan Tobacco Pipe",
       "priceRawText": "$75.00",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-723246",
+      "source": "smokingpipes",
+      "sourceProductId": "723246",
+      "brandName": "Barling",
+      "brandSlug": "barling",
+      "brandCountry": "United Kingdom",
+      "displayName": "Marylebone Fossil (1818) (9mm) Tobacco Pipe",
+      "displayNameEn": "Marylebone Fossil (1818) (9mm) Tobacco Pipe",
+      "rawTitle": "Marylebone Fossil (1818) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1900.3741.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1689.653205,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 39.69,
+      "shape": "Prince",
+      "shapeZh": "王子斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "barling",
+        "name": "marylebone fossil (1818) (9mm) tobacco pipe",
+        "price": 1689.653205,
+        "sourceProductId": "723246"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1900.3741.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1900_1.7268.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 152.15,
+        "heightMm": 36.07,
+        "weightGrams": 39.69,
+        "chamberDepthMm": 28.45,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.91
+      },
+      "model": {
+        "canonicalModelKey": "barling__model-1818__series-marylebone-fossil-tobacco-pipe__shape-prince",
+        "confidence": "high"
+      },
+      "series": "Marylebone Fossil Tobacco Pipe",
+      "year": null,
+      "productCode": "002-132-1900",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Barling",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Prince",
+          "labelZh": "王子斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 152.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.69,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/barling/moreinfo.cfm?product_id=723246",
+      "sourceOriginalText": "Marylebone Fossil (1818) (9mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
     },
     {
       "id": "smokingpipes-723566",
@@ -18596,10 +18757,10 @@
       "displayNameEn": "Smooth Red Apple with Briar Ring (Tapered Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Red Apple with Briar Ring (Tapered Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0082.8968.jpg",
-      "sourcePriceAmount": 95,
+      "sourcePriceAmount": 76,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1050.764,
+      "siteDisplayAmount": 894.8188399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -18629,7 +18790,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth red apple with briar ring (tapered stem) (9mm) tobacco pipe",
-        "price": 1050.764,
+        "price": 894.8188399999999,
         "sourceProductId": "727653"
       },
       "displayNameZh": null,
@@ -18737,7 +18898,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727653",
       "sourceOriginalText": "Smooth Red Apple with Briar Ring (Tapered Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$95.00",
+      "priceRawText": "$76.00",
       "msrpRawText": null
     },
     {
@@ -20835,10 +20996,10 @@
       "siteDisplayAmount": 1721.7450774,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -21483,10 +21644,10 @@
       "siteDisplayAmount": 2223.8884925999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 5,
@@ -21647,10 +21808,10 @@
       "siteDisplayAmount": 1144.331096,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -21964,10 +22125,10 @@
       "siteDisplayAmount": 1440.6269,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -22433,6 +22594,163 @@
       "sourceOriginalText": "Extra Coffee Smooth Horn (2) Tobacco Pipe",
       "priceRawText": "$227.20",
       "msrpRawText": "$284.00"
+    },
+    {
+      "id": "smokingpipes-735443",
+      "source": "smokingpipes",
+      "sourceProductId": "735443",
+      "brandName": "Dirk Heinemann",
+      "brandSlug": "dirk-heinemann",
+      "brandCountry": null,
+      "displayName": "Sandblasted Stack Tobacco Pipe",
+      "displayNameEn": "Sandblasted Stack Tobacco Pipe",
+      "rawTitle": "Sandblasted Stack Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-793-0136.7477.jpg",
+      "sourcePriceAmount": 855,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 8572.10133,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 49.9,
+      "shape": "Chimney",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "dirk heinemann",
+        "name": "sandblasted stack tobacco pipe",
+        "price": 8572.10133,
+        "sourceProductId": "735443"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-793-0136.7477.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-793-0136_1.5862.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-793-0136_2.9414.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-793-0136_3.3395.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 120.65,
+        "heightMm": 64.77,
+        "weightGrams": 49.9,
+        "chamberDepthMm": 54.1,
+        "chamberDiameterMm": 18.29,
+        "outsideDiameterMm": 37.85
+      },
+      "model": {
+        "canonicalModelKey": "dirk-heinemann__series-sandblasted-stack-tobacco-pipe__shape-chimney",
+        "confidence": "medium"
+      },
+      "series": "Sandblasted Stack Tobacco Pipe",
+      "year": null,
+      "productCode": "002-793-0136",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Dirk Heinemann",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Chimney",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 120.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 64.77,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 49.9,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 54.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/dirk-heinemann/moreinfo.cfm?product_id=735443",
+      "sourceOriginalText": "Sandblasted Stack Tobacco Pipe",
+      "priceRawText": "$855.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-735562",

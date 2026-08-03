@@ -4602,10 +4602,10 @@
       "displayNameEn": "Nelson Fossil (1817) (9mm) Tobacco Pipe",
       "rawTitle": "Nelson Fossil (1817) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-132-1336.3650.jpg",
-      "sourcePriceAmount": 198.4,
+      "sourcePriceAmount": 173.6,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 248,
-      "siteDisplayAmount": 2052.1025873999997,
+      "siteDisplayAmount": 1818.0206946,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -4635,7 +4635,7 @@
       "sortKeys": {
         "brand": "barling",
         "name": "nelson fossil (1817) (9mm) tobacco pipe",
-        "price": 2052.1025873999997,
+        "price": 1818.0206946,
         "sourceProductId": "651888"
       },
       "displayNameZh": null,
@@ -4749,7 +4749,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/barling/moreinfo.cfm?product_id=651888",
       "sourceOriginalText": "Nelson Fossil (1817) (9mm) Tobacco Pipe",
-      "priceRawText": "$198.40",
+      "priceRawText": "$173.60",
       "msrpRawText": "$248.00"
     },
     {
@@ -7973,10 +7973,10 @@
       "displayNameEn": "Smooth Oom Paul with Silver (with Case) Tobacco Pipe",
       "rawTitle": "Smooth Oom Paul with Silver (with Case) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-316-4670.2414.jpg",
-      "sourcePriceAmount": 459,
+      "sourcePriceAmount": 408,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 510,
-      "siteDisplayAmount": 4834.342073999999,
+      "siteDisplayAmount": 4352.9639879999995,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -8006,7 +8006,7 @@
       "sortKeys": {
         "brand": "imp meerschaum",
         "name": "smooth oom paul with silver (with case) tobacco pipe",
-        "price": 4834.342073999999,
+        "price": 4352.9639879999995,
         "sourceProductId": "691620"
       },
       "displayNameZh": null,
@@ -8122,7 +8122,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/imp-meerschaum/moreinfo.cfm?product_id=691620",
       "sourceOriginalText": "Smooth Oom Paul with Silver (with Case) Tobacco Pipe",
-      "priceRawText": "$459.00",
+      "priceRawText": "$408.00",
       "msrpRawText": "$510.00"
     },
     {
@@ -15623,6 +15623,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-727408",
+      "source": "smokingpipes",
+      "sourceProductId": "727408",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Brown Matte Smooth Freehand (2) Tobacco Pipe",
+      "displayNameEn": "Brown Matte Smooth Freehand (2) Tobacco Pipe",
+      "rawTitle": "Brown Matte Smooth Freehand (2) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-508-23441.1821.jpg",
+      "sourcePriceAmount": 182.4,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 228,
+      "siteDisplayAmount": 1901.0820113999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 81.65,
+      "shape": "Freehand",
+      "shapeZh": "自由式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "brown matte smooth freehand (2) tobacco pipe",
+        "price": 1901.0820113999998,
+        "sourceProductId": "727408"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-508-23441.1821.jpg",
+        "https://assets.smokingpipes.com/images/products/002-508-23441_1.7874.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-508-23441.1821.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-508-23441_1.7874.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.45,
+        "heightMm": 74.17,
+        "weightGrams": 81.65,
+        "chamberDepthMm": 50.8,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 49.53
+      },
+      "model": {
+        "canonicalModelKey": "nording__model-2__series-brown-matte-tobacco-pipe__shape-freehand",
+        "confidence": "high"
+      },
+      "series": "Brown Matte Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23441",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Freehand",
+          "labelZh": "自由式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 74.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 81.65,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.53,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=727408",
+      "sourceOriginalText": "Brown Matte Smooth Freehand (2) Tobacco Pipe",
+      "priceRawText": "$182.40",
+      "msrpRawText": "$228.00"
+    },
+    {
       "id": "smokingpipes-727612",
       "source": "smokingpipes",
       "sourceProductId": "727612",
@@ -15633,10 +15796,10 @@
       "displayNameEn": "Smooth Semi Bent Billiard with Nickel Band (Saddle Stem) (9mm) Tobacco Pipe",
       "rawTitle": "Smooth Semi Bent Billiard with Nickel Band (Saddle Stem) (9mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1049-0041.4544.jpg",
-      "sourcePriceAmount": 110,
+      "sourcePriceAmount": 88,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1173.8786,
+      "siteDisplayAmount": 993.3105199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -15666,7 +15829,7 @@
       "sortKeys": {
         "brand": "lorenzetti",
         "name": "smooth semi bent billiard with nickel band (saddle stem) (9mm) tobacco pipe",
-        "price": 1173.8786,
+        "price": 993.3105199999999,
         "sourceProductId": "727612"
       },
       "displayNameZh": null,
@@ -15774,7 +15937,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/lorenzetti/moreinfo.cfm?product_id=727612",
       "sourceOriginalText": "Smooth Semi Bent Billiard with Nickel Band (Saddle Stem) (9mm) Tobacco Pipe",
-      "priceRawText": "$110.00",
+      "priceRawText": "$88.00",
       "msrpRawText": null
     },
     {
@@ -16762,10 +16925,10 @@
       "siteDisplayAmount": 2152.153719,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -18504,6 +18667,167 @@
       "msrpRawText": "$125.10"
     },
     {
+      "id": "smokingpipes-730336",
+      "source": "smokingpipes",
+      "sourceProductId": "730336",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Oceano Smooth (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Oceano Smooth (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Oceano Smooth (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111099.5412.jpg",
+      "sourcePriceAmount": 168,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 210,
+      "siteDisplayAmount": 1685.8776905999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "oceano smooth (111 ks) (6mm) tobacco pipe",
+        "price": 1685.8776905999998,
+        "sourceProductId": "730336"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111099.5412.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111099_1.2281.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 151.38,
+        "heightMm": 51.05,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 43.94,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 39.12
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-oceano-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Oceano Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111099",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 151.38,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=730336",
+      "sourceOriginalText": "Oceano Smooth (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$168.00",
+      "msrpRawText": "$210.00"
+    },
+    {
       "id": "smokingpipes-731157",
       "source": "smokingpipes",
       "sourceProductId": "731157",
@@ -19458,6 +19782,327 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732156",
       "sourceOriginalText": "Smooth Bent Dublin Sitter (D) (9mm) Tobacco Pipe",
       "priceRawText": "$425.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-732306",
+      "source": "smokingpipes",
+      "sourceProductId": "732306",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111226.6891.jpg",
+      "sourcePriceAmount": 172,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 215,
+      "siteDisplayAmount": 1721.7450774,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 45.36,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "lunaria rusticated bordeaux (920 ks) (6mm) tobacco pipe",
+        "price": 1721.7450774,
+        "sourceProductId": "732306"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111226.6891.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 150.62,
+        "heightMm": 58.67,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 43.43,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 41.91
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-lunaria-bordeaux-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Lunaria Bordeaux Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111226",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=732306",
+      "sourceOriginalText": "Lunaria Rusticated Bordeaux (920 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$172.00",
+      "msrpRawText": "$215.00"
+    },
+    {
+      "id": "smokingpipes-732498",
+      "source": "smokingpipes",
+      "sourceProductId": "732498",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Ball Sitter (200) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Ball Sitter (200) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Ball Sitter (200) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3766.5957.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1642.459275,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 104.33,
+      "shape": "Bent Ball",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent ball sitter (200) tobacco pipe",
+        "price": 1642.459275,
+        "sourceProductId": "732498"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3766.5957.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3766_1.4914.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 143,
+        "heightMm": 59.18,
+        "weightGrams": 104.33,
+        "chamberDepthMm": 43.43,
+        "chamberDiameterMm": 21.34,
+        "outsideDiameterMm": 53.34
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-ball-sitter-tobacco-pipe__shape-bent-ball",
+        "confidence": "high"
+      },
+      "series": "Crown Ball Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3766",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Ball",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 143,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 104.33,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 53.34,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732498",
+      "sourceOriginalText": "Crown Smooth Bent Ball Sitter (200) Tobacco Pipe",
+      "priceRawText": "$155.00",
       "msrpRawText": null
     },
     {
@@ -21073,6 +21718,169 @@
       "sourceOriginalText": "Ottagono Long Sandblasted II (6mm) (199/800) Tobacco Pipe",
       "priceRawText": "$200.00",
       "msrpRawText": "$250.00"
+    },
+    {
+      "id": "smokingpipes-734048",
+      "source": "smokingpipes",
+      "sourceProductId": "734048",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Smooth Natural (614) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Smooth Natural (614) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Smooth Natural (614) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111766.8621.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 53.86,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza smooth natural (614) (6mm) tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "734048"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111766.8621.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111766_1.9427.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111766_2.4686.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111766_3.8731.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 124.21,
+        "heightMm": 47.75,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 42.42,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-614__series-eleganza-natural-tobacco-pipe__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Eleganza Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111766",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 124.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734048",
+      "sourceOriginalText": "Eleganza Smooth Natural (614) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
     },
     {
       "id": "smokingpipes-734092",
@@ -23314,6 +24122,169 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=736273",
       "sourceOriginalText": "Handmade Smooth Volcano (AAA+) (2026) Tobacco Pipe",
       "priceRawText": "$1,150.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-736510",
+      "source": "smokingpipes",
+      "sourceProductId": "736510",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Collection Great Line Bent Dublin (KKK) (2026) Tobacco Pipe",
+      "displayNameEn": "Collection Great Line Bent Dublin (KKK) (2026) Tobacco Pipe",
+      "rawTitle": "Collection Great Line Bent Dublin (KKK) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6187.3192.jpg",
+      "sourcePriceAmount": 1102,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 10903.481471999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 58.97,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "collection great line bent dublin (kkk) (2026) tobacco pipe",
+        "price": 10903.481471999998,
+        "sourceProductId": "736510"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6187.3192.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6187_1.5006.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6187_2.1424.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6187_3.6554.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.19,
+        "heightMm": 60.45,
+        "weightGrams": 58.97,
+        "chamberDepthMm": 45.21,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 43.94
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2026__series-collection-great-line-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Collection Great Line Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-386-6187",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 60.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 58.97,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736510",
+      "sourceOriginalText": "Collection Great Line Bent Dublin (KKK) (2026) Tobacco Pipe",
+      "priceRawText": "$1,102.00",
       "msrpRawText": null
     }
   ]

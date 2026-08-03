@@ -4199,9 +4199,9 @@
       "siteDisplayAmount": 381.2668052,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11812,10 +11812,10 @@
       "siteDisplayAmount": 976.89524,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -16276,10 +16276,10 @@
       "displayNameEn": "Tyrone (408) Fishtail Tobacco Pipe",
       "rawTitle": "Tyrone (408) Fishtail Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-029-139996.9316.jpg",
-      "sourcePriceAmount": 162.5,
+      "sourcePriceAmount": 130,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1636.5600337500002,
+      "siteDisplayAmount": 1284.68174,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -16309,7 +16309,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "tyrone (408) fishtail tobacco pipe",
-        "price": 1636.5600337500002,
+        "price": 1284.68174,
         "sourceProductId": "716078"
       },
       "displayNameZh": null,
@@ -16423,7 +16423,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=716078",
       "sourceOriginalText": "Tyrone (408) Fishtail Tobacco Pipe",
-      "priceRawText": "$162.50",
+      "priceRawText": "$130.00",
       "msrpRawText": null
     },
     {
@@ -16757,10 +16757,10 @@
       "siteDisplayAmount": 804.5347999999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
+      "publiclySellable": false,
+      "inventoryConfidence": "medium",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -23611,6 +23611,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-732922",
+      "source": "smokingpipes",
+      "sourceProductId": "732922",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Aran Smooth Nickel Mounted (124) Fishtail Tobacco Pipe",
+      "displayNameEn": "Aran Smooth Nickel Mounted (124) Fishtail Tobacco Pipe",
+      "rawTitle": "Aran Smooth Nickel Mounted (124) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146050.4525.jpg",
+      "sourcePriceAmount": 146,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 182.5,
+      "siteDisplayAmount": 1409.4378679999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "aran smooth nickel mounted (124) fishtail tobacco pipe",
+        "price": 1409.4378679999998,
+        "sourceProductId": "732922"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146050.4525.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146050_1.1630.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.67,
+        "heightMm": 46.23,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 38.1,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 30.23
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-124__series-aran-nickel-mounted-fishtail-tobacco__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Aran Nickel Mounted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146050",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=732922",
+      "sourceOriginalText": "Aran Smooth Nickel Mounted (124) Fishtail Tobacco Pipe",
+      "priceRawText": "$146.00",
+      "msrpRawText": "$182.50"
+    },
+    {
       "id": "smokingpipes-733230",
       "source": "smokingpipes",
       "sourceProductId": "733230",
@@ -23769,6 +23930,166 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=733230",
       "sourceOriginalText": "Crown Partially Rusticated Apple (Viking) (9mm) Tobacco Pipe",
       "priceRawText": "$135.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-733380",
+      "source": "smokingpipes",
+      "sourceProductId": "733380",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Rusticated Dark Brown (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Rusticated Dark Brown (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Rusticated Dark Brown (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111378.8132.jpg",
+      "sourcePriceAmount": 200,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1972.8167849999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 59.53,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza rusticated dark brown (320 ks) (6mm) tobacco pipe",
+        "price": 1972.8167849999998,
+        "sourceProductId": "733380"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111378.8132.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 148.34,
+        "heightMm": 41.91,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 24.13,
+        "outsideDiameterMm": 49.02
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-eleganza-dark-brown-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111378",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 148.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 24.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733380",
+      "sourceOriginalText": "Eleganza Rusticated Dark Brown (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$200.00",
       "msrpRawText": null
     },
     {
@@ -24260,6 +24581,167 @@
       "msrpRawText": "$192.50"
     },
     {
+      "id": "smokingpipes-734585",
+      "source": "smokingpipes",
+      "sourceProductId": "734585",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Rusticated (XL315) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Rusticated (XL315) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Rusticated (XL315) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146339.6405.jpg",
+      "sourcePriceAmount": 220,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 275,
+      "siteDisplayAmount": 2152.153719,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 65.2,
+      "shape": "Calabash",
+      "shapeZh": "葫芦斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot rusticated (xl315) p-lip tobacco pipe",
+        "price": 2152.153719,
+        "sourceProductId": "734585"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146339.6405.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146339_1.2864.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 149.1,
+        "heightMm": 58.17,
+        "weightGrams": 65.2,
+        "chamberDepthMm": 41.66,
+        "chamberDiameterMm": 22.1,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-system-spigot-p-lip-tobacco-pipe__shape-calabash",
+        "confidence": "medium"
+      },
+      "series": "System Spigot P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146339",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Calabash",
+          "labelZh": "葫芦斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 149.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 65.2,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=734585",
+      "sourceOriginalText": "System Spigot Rusticated (XL315) P-Lip Tobacco Pipe",
+      "priceRawText": "$220.00",
+      "msrpRawText": "$275.00"
+    },
+    {
       "id": "smokingpipes-734703",
       "source": "smokingpipes",
       "sourceProductId": "734703",
@@ -24730,6 +25212,167 @@
       "sourceOriginalText": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$168.00",
       "msrpRawText": "$210.00"
+    },
+    {
+      "id": "smokingpipes-735586",
+      "source": "smokingpipes",
+      "sourceProductId": "735586",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Churchwarden Smooth (D6) Fishtail Tobacco Pipe",
+      "displayNameEn": "Churchwarden Smooth (D6) Fishtail Tobacco Pipe",
+      "rawTitle": "Churchwarden Smooth (D6) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146626.8802.jpg",
+      "sourcePriceAmount": 148,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 185,
+      "siteDisplayAmount": 1425.0323839999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 39.69,
+      "shape": "Churchwarden",
+      "shapeZh": "长杆斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "churchwarden smooth (d6) fishtail tobacco pipe",
+        "price": 1425.0323839999999,
+        "sourceProductId": "735586"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146626.8802.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146626_1.1978.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 265.94,
+        "heightMm": 44.7,
+        "weightGrams": 39.69,
+        "chamberDepthMm": 36.58,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 36.58
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-d6__series-fishtail-tobacco-pipe__shape-churchwarden",
+        "confidence": "high"
+      },
+      "series": "Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-146626",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Churchwarden",
+          "labelZh": "长杆斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 265.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.69,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735586",
+      "sourceOriginalText": "Churchwarden Smooth (D6) Fishtail Tobacco Pipe",
+      "priceRawText": "$148.00",
+      "msrpRawText": "$185.00"
     },
     {
       "id": "smokingpipes-735855",
@@ -25209,6 +25852,169 @@
       "msrpRawText": "$290.00"
     },
     {
+      "id": "smokingpipes-736482",
+      "source": "smokingpipes",
+      "sourceProductId": "736482",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Collection Occhio di Pernice Pot (K) (2026) Tobacco Pipe",
+      "displayNameEn": "Collection Occhio di Pernice Pot (K) (2026) Tobacco Pipe",
+      "rawTitle": "Collection Occhio di Pernice Pot (K) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6178.2666.jpg",
+      "sourcePriceAmount": 736,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7448.885795999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 63.5,
+      "shape": "Pot",
+      "shapeZh": "罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "collection occhio di pernice pot (k) (2026) tobacco pipe",
+        "price": 7448.885795999999,
+        "sourceProductId": "736482"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6178.2666.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6178_1.2978.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6178_2.8170.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6178_3.5854.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.81,
+        "heightMm": 53.59,
+        "weightGrams": 63.5,
+        "chamberDepthMm": 44.7,
+        "chamberDiameterMm": 21.59,
+        "outsideDiameterMm": 40.89
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2026__series-collection-occhio-di-pernice-tobacco__shape-pot",
+        "confidence": "high"
+      },
+      "series": "Collection Occhio Di Pernice Tobacco",
+      "year": 2026,
+      "productCode": "002-386-6178",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Pot",
+          "labelZh": "罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 53.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 63.5,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736482",
+      "sourceOriginalText": "Collection Occhio di Pernice Pot (K) (2026) Tobacco Pipe",
+      "priceRawText": "$736.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736630",
       "source": "smokingpipes",
       "sourceProductId": "736630",
@@ -25368,6 +26174,329 @@
       "sourceOriginalText": "Aran Smooth Nickel Mounted (128) Fishtail Tobacco Pipe",
       "priceRawText": "$146.00",
       "msrpRawText": "$182.50"
+    },
+    {
+      "id": "smokingpipes-736707",
+      "source": "smokingpipes",
+      "sourceProductId": "736707",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "displayNameEn": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "rawTitle": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146990.5384.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 225,
+      "siteDisplayAmount": 1793.479851,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 59.53,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "premier system revival rusticated (cp) (356) p-lip tobacco pipe",
+        "price": 1793.479851,
+        "sourceProductId": "736707"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146990.5384.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.87,
+        "heightMm": 58.67,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 48.77,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 31.75
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-356__series-premier-system-revival-p-lip-tobacco__shape-oom-paul",
+        "confidence": "high"
+      },
+      "series": "Premier System Revival P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146990",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.87,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 48.77,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736707",
+      "sourceOriginalText": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$225.00"
+    },
+    {
+      "id": "smokingpipes-736899",
+      "source": "smokingpipes",
+      "sourceProductId": "736899",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Heritage Hansom P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Heritage Hansom P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Heritage Hansom P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147155.5993.jpg",
+      "sourcePriceAmount": 212,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 265,
+      "siteDisplayAmount": 2080.4189453999993,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 59.53,
+      "shape": "Bent Bulldog",
+      "shapeZh": "弯式斗牛犬斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes heritage hansom p-lip tobacco pipe",
+        "price": 2080.4189453999993,
+        "sourceProductId": "736899"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147155.5993.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147155_1.1681.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147155_2.8465.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147155_3.4817.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 138.43,
+        "heightMm": 58.42,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 43.18,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 41.91
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-heritage-hansom-p-lip__shape-bent-bulldog",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Heritage Hansom P Lip",
+      "year": null,
+      "productCode": "002-029-147155",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Bulldog",
+          "labelZh": "弯式斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 138.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 58.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736899",
+      "sourceOriginalText": "Sherlock Holmes Heritage Hansom P-Lip Tobacco Pipe",
+      "priceRawText": "$212.00",
+      "msrpRawText": "$265.00"
     }
   ]
 }
