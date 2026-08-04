@@ -196,25 +196,30 @@ try {
   }
   $projectValidator = Join-Path $ReleaseRoot "scripts/validate-public-product-indexes-v1.mjs"
   $inventoryDefaultTest = Join-Path $ReleaseRoot "scripts/test-public-products-inventory-default-v1.mjs"
-  foreach ($command in @(
-    @("node", $projectValidator),
-    @("node", $inventoryDefaultTest),
-    @("git", "-C", $ReleaseRoot, "diff", "--check"),
-    @("npm.cmd", "--prefix", $ReleaseRoot, "run", "build")
-  )) {
-    $program = $command[0]
-    $arguments = @($command | Select-Object -Skip 1)
-    $previousErrorActionPreference = $ErrorActionPreference
-    try {
-      $ErrorActionPreference = "Continue"
-      $output = @(& $program @arguments 2>&1)
-      $exitCode = $LASTEXITCODE
-    } finally {
-      $ErrorActionPreference = $previousErrorActionPreference
+  Push-Location -LiteralPath $ReleaseRoot
+  try {
+    foreach ($command in @(
+      @("node", $projectValidator),
+      @("node", $inventoryDefaultTest),
+      @("git", "diff", "--check"),
+      @("npm.cmd", "run", "build")
+    )) {
+      $program = $command[0]
+      $arguments = @($command | Select-Object -Skip 1)
+      $previousErrorActionPreference = $ErrorActionPreference
+      try {
+        $ErrorActionPreference = "Continue"
+        $output = @(& $program @arguments 2>&1)
+        $exitCode = $LASTEXITCODE
+      } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+      }
+      if ($exitCode -ne 0) {
+        throw "release production gate failed: $program $($arguments -join ' '); $($output | Select-Object -Last 40 | Out-String)"
+      }
     }
-    if ($exitCode -ne 0) {
-      throw "release production gate failed: $program $($arguments -join ' '); $($output | Select-Object -Last 40 | Out-String)"
-    }
+  } finally {
+    Pop-Location
   }
   Invoke-Git -Directory $ReleaseRoot -Arguments (@("add", "--") + $outputFiles) | Out-Null
   $staged = @((Invoke-Git -Directory $ReleaseRoot -Arguments @("diff", "--cached", "--name-only")) -split [Environment]::NewLine | Where-Object { $_ })
@@ -292,13 +297,13 @@ try {
   $failureStage = "release-retryable"
   if ($message -match "bundle validator failed") {
     $failureStage = "bundle-validator"
-  } elseif ($message -match "validate-public-product-indexes-v1\\.mjs") {
-    if ($message -match "Manifest staging hash mismatch|manifest .*hash|staging hash") {
+  } elseif ($message -match "validate-public-product-indexes-v1\.mjs") {
+    if ($message -match "Manifest staging hash mismatch") {
       $failureStage = "bundle-validator"
     } else {
       $failureStage = "public-validator"
     }
-  } elseif ($message -match "npm\\.cmd .* run build") {
+  } elseif ($message -match "npm\.cmd .* run build") {
     $failureStage = "release-build"
   }
   [pscustomobject]@{

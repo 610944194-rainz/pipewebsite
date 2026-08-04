@@ -63,7 +63,7 @@ async function writeText(root, relativePath, contents) {
   await fs.promises.writeFile(target, contents, "utf8");
 }
 
-function runPublisher(arguments_, { env = {} } = {}) {
+function runPublisher(arguments_, { env = {}, cwd = workspaceRoot } = {}) {
   return spawnSync("powershell.exe", [
     "-NoProfile",
     "-ExecutionPolicy",
@@ -71,7 +71,7 @@ function runPublisher(arguments_, { env = {} } = {}) {
     "-File",
     path.join(workspaceRoot, "scripts", "inventory", "publish-smokingpipes-release-bundle-v2.ps1"),
     ...arguments_,
-  ], { encoding: "utf8", windowsHide: true, env: { ...process.env, ...env } });
+  ], { encoding: "utf8", windowsHide: true, cwd, env: { ...process.env, ...env } });
 }
 
 function lastJson(stdout) {
@@ -1112,6 +1112,115 @@ async function main() {
     assert.notEqual(unexpectedPublish.status, 0);
     assert.match(`${unexpectedPublish.stdout}\n${unexpectedPublish.stderr}`, /staged file whitelist mismatch; unexpected=unexpected.txt/);
     assert.equal(git(subsetRelease, ["status", "--short"]), "");
+
+    // The Publisher must run real project gates from ReleaseRoot.  This
+    // reproduces the production defect by giving the caller Runtime a broken
+    // manifest while the Release clone receives a valid Bundle.
+    const releaseCwdRoot = path.join(temporaryRoot, "publisher-release-cwd");
+    const releaseCwdSource = path.join(releaseCwdRoot, "source");
+    const releaseCwdBare = path.join(releaseCwdRoot, "origin.git");
+    const releaseCwdInvalidBare = path.join(releaseCwdRoot, "invalid-origin.git");
+    const releaseCwdRelease = path.join(releaseCwdRoot, "release");
+    const releaseCwdInvalidRelease = path.join(releaseCwdRoot, "release-invalid");
+    const releaseCwdRuntime = path.join(releaseCwdRoot, "runtime-caller");
+    const releaseCwdState = path.join(releaseCwdRoot, "state");
+    await fs.promises.mkdir(releaseCwdRuntime, { recursive: true });
+    await writeJsonAtomic(path.join(releaseCwdRuntime, "data", "products", "unified-products-staging.json"), []);
+    await writeJsonAtomic(path.join(releaseCwdRuntime, "data", "generated", "public-products", "manifest.json"), {
+      inputHashes: { staging: "runtime-fixture-is-deliberately-invalid" },
+    });
+    execFileSync("git", ["clone", workspaceRoot, releaseCwdSource], { stdio: "ignore" });
+    git(releaseCwdSource, ["checkout", "-B", "main", "origin/main"]);
+    git(releaseCwdSource, ["config", "user.email", "fixture@example.invalid"]);
+    git(releaseCwdSource, ["config", "user.name", "Fixture"]);
+    const releaseCwdBaseSha = git(releaseCwdSource, ["rev-parse", "HEAD"]);
+    execFileSync("git", ["clone", "--bare", releaseCwdSource, releaseCwdBare], { stdio: "ignore" });
+    execFileSync("git", ["clone", "--bare", releaseCwdSource, releaseCwdInvalidBare], { stdio: "ignore" });
+    execFileSync("git", ["clone", releaseCwdBare, releaseCwdRelease], { stdio: "ignore" });
+    execFileSync("git", ["clone", releaseCwdInvalidBare, releaseCwdInvalidRelease], { stdio: "ignore" });
+    for (const releaseFixture of [releaseCwdRelease, releaseCwdInvalidRelease]) {
+      git(releaseFixture, ["checkout", "main"]);
+      git(releaseFixture, ["config", "user.email", "fixture@example.invalid"]);
+      git(releaseFixture, ["config", "user.name", "Fixture"]);
+    }
+    // Turbopack rejects a node_modules junction that points outside the
+    // project root, so the successful Production-gate fixture installs from
+    // the local cache in strict offline mode.
+    execFileSync("cmd.exe", ["/d", "/s", "/c", "npm.cmd ci --offline"], {
+      cwd: releaseCwdRelease,
+      stdio: "ignore",
+      windowsHide: true,
+    });
+    await fs.promises.symlink(
+      path.join(workspaceRoot, "node_modules"),
+      path.join(releaseCwdInvalidRelease, "node_modules"),
+      "junction"
+    );
+    const releaseCwdCycleId = "2030-03-01";
+    const releaseCwdList = path.join(releaseCwdRoot, "list.json");
+    await writeJsonAtomic(releaseCwdList, trustedSnapshot([listItem("940000")]));
+    const releaseCwdCollected = await runSmokingpipesCollectOnlyV2({
+      stateRoot: releaseCwdState,
+      runtimeRoot,
+      cycleId: releaseCwdCycleId,
+      listInputPath: releaseCwdList,
+      detailLimit: 1,
+      processDetail: detailProcessor,
+    });
+    assert.equal(releaseCwdCollected.status, "ready-to-bundle");
+    const releaseCwdBundle = await buildSmokingpipesReleaseBundleV2({
+      stateRoot: releaseCwdState,
+      cycleId: releaseCwdCycleId,
+      runtimeRoot: workspaceRoot,
+      baseMainSha: releaseCwdBaseSha,
+      generatorCommitSha: releaseCwdBaseSha,
+      maxAutoApply: 2000,
+    });
+    const callerCwdBeforePublisher = process.cwd();
+    const releaseCwdPublish = runPublisher([
+      "-StateRoot", releaseCwdState,
+      "-CycleId", releaseCwdCycleId,
+      "-BundleRoot", releaseCwdBundle.bundleRoot,
+      "-ReleaseRoot", releaseCwdRelease,
+      "-RuntimeRoot", workspaceRoot,
+    ], { cwd: releaseCwdRuntime });
+    assert.equal(releaseCwdPublish.status, 0, `${releaseCwdPublish.stdout}\n${releaseCwdPublish.stderr}`);
+    assert.equal(lastJson(releaseCwdPublish.stdout).status, "published");
+    assert.equal(process.cwd(), callerCwdBeforePublisher);
+    assert.equal(git(releaseCwdRelease, ["status", "--short"]), "");
+
+    const invalidReleaseCwdBundleRoot = path.join(releaseCwdRoot, "invalid-public-validator-bundle");
+    await fs.promises.cp(releaseCwdBundle.bundleRoot, invalidReleaseCwdBundleRoot, { recursive: true });
+    const invalidCatalogPath = path.join(
+      invalidReleaseCwdBundleRoot,
+      "outputs",
+      "data",
+      "generated",
+      "public-products",
+      "catalog.json"
+    );
+    const invalidCatalog = await readJson(invalidCatalogPath);
+    invalidCatalog.products = [];
+    await writeJsonAtomic(invalidCatalogPath, invalidCatalog);
+    const invalidBundleManifestPath = path.join(invalidReleaseCwdBundleRoot, "manifest.json");
+    const invalidBundleManifest = await readJson(invalidBundleManifestPath);
+    invalidBundleManifest.outputFileHashes["data/generated/public-products/catalog.json"] = await hashFile(invalidCatalogPath);
+    await writeJsonAtomic(invalidBundleManifestPath, invalidBundleManifest);
+    const releaseCwdPublicValidatorFailure = runPublisher([
+      "-StateRoot", releaseCwdState,
+      "-CycleId", "2030-03-02",
+      "-BundleRoot", invalidReleaseCwdBundleRoot,
+      "-ReleaseRoot", releaseCwdInvalidRelease,
+      "-RuntimeRoot", workspaceRoot,
+    ], { cwd: releaseCwdRuntime });
+    assert.notEqual(releaseCwdPublicValidatorFailure.status, 0);
+    const publicValidatorFailureResult = lastJson(releaseCwdPublicValidatorFailure.stdout);
+    assert.equal(
+      publicValidatorFailureResult.failureStage,
+      "public-validator",
+      JSON.stringify(publicValidatorFailureResult)
+    );
+    assert.equal(git(releaseCwdInvalidRelease, ["status", "--short"]), "");
 
     const autoPublishScript = await fs.promises.readFile(
       path.join(workspaceRoot, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1"),
