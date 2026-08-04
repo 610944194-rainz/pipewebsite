@@ -21620,6 +21620,167 @@
       "msrpRawText": "$250.00"
     },
     {
+      "id": "smokingpipes-734109",
+      "source": "smokingpipes",
+      "sourceProductId": "734109",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Dolomiti Smooth (812) (6mm) Tobacco Pipe",
+      "displayNameEn": "Dolomiti Smooth (812) (6mm) Tobacco Pipe",
+      "rawTitle": "Dolomiti Smooth (812) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111827.1392.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1614.1429169999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "dolomiti smooth (812) (6mm) tobacco pipe",
+        "price": 1614.1429169999997,
+        "sourceProductId": "734109"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111827.1392.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111827_1.6735.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 150.88,
+        "heightMm": 45.97,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 40.64,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 36.32
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-812__series-dolomiti-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Dolomiti Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111827",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=734109",
+      "sourceOriginalText": "Dolomiti Smooth (812) (6mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
+    },
+    {
       "id": "smokingpipes-734169",
       "source": "smokingpipes",
       "sourceProductId": "734169",
@@ -21781,6 +21942,315 @@
       "sourceOriginalText": "Eleganza Smooth Natural (320 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$224.00",
       "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-734685",
+      "source": "smokingpipes",
+      "sourceProductId": "734685",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Black Grain Partially Rusticated Dublin (C) Tobacco Pipe",
+      "displayNameEn": "Black Grain Partially Rusticated Dublin (C) Tobacco Pipe",
+      "rawTitle": "Black Grain Partially Rusticated Dublin (C) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3163.5648.jpg",
+      "sourcePriceAmount": 162,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 180,
+      "siteDisplayAmount": 1708.5307770000002,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 61.84,
+      "shape": "Dublin",
+      "shapeZh": "都柏林斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "black grain partially rusticated dublin (c) tobacco pipe",
+        "price": 1708.5307770000002,
+        "sourceProductId": "734685"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3163.5648.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3163_1.2367.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.74,
+        "heightMm": 50.26,
+        "weightGrams": 61.84,
+        "chamberDepthMm": 38.57,
+        "chamberDiameterMm": 19.74,
+        "outsideDiameterMm": 43.03
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__series-black-grain-partially-tobacco-pipe__shape-dublin",
+        "confidence": "medium"
+      },
+      "series": "Black Grain Partially Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3163",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Dublin",
+          "labelZh": "都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 61.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.03,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734685",
+      "sourceOriginalText": "Black Grain Partially Rusticated Dublin (C) Tobacco Pipe",
+      "priceRawText": "$162.00",
+      "msrpRawText": "$180.00"
+    },
+    {
+      "id": "smokingpipes-734845",
+      "source": "smokingpipes",
+      "sourceProductId": "734845",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Forza Grappa (1882) Tobacco Pipe",
+      "displayNameEn": "Forza Grappa (1882) Tobacco Pipe",
+      "rawTitle": "Forza Grappa (1882) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3249.2744.jpg",
+      "sourcePriceAmount": 170.1,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 189,
+      "siteDisplayAmount": 1784.9849436,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 46.98,
+      "shape": "Volcano",
+      "shapeZh": "火山斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "forza grappa (1882) tobacco pipe",
+        "price": 1784.9849436,
+        "sourceProductId": "734845"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3249.2744.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.95,
+        "heightMm": 57.97,
+        "weightGrams": 46.98,
+        "chamberDepthMm": 49.72,
+        "chamberDiameterMm": 19.46,
+        "outsideDiameterMm": 35.97
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-1882__series-forza-grappa-tobacco-pipe__shape-volcano",
+        "confidence": "high"
+      },
+      "series": "Forza Grappa Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3249",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Volcano",
+          "labelZh": "火山斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 57.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 46.98,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.97,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734845",
+      "sourceOriginalText": "Forza Grappa (1882) Tobacco Pipe",
+      "priceRawText": "$170.10",
+      "msrpRawText": "$189.00"
     },
     {
       "id": "smokingpipes-735114",

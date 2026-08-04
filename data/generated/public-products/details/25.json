@@ -20159,6 +20159,167 @@
       "msrpRawText": "$122.50"
     },
     {
+      "id": "smokingpipes-732583",
+      "source": "smokingpipes",
+      "sourceProductId": "732583",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Dublin Sitter (300) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Dublin Sitter (300) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Dublin Sitter (300) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3824.5520.jpg",
+      "sourcePriceAmount": 195,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2020.0107149999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 77.11,
+      "shape": "Bent Bulldog",
+      "shapeZh": "弯式斗牛犬斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent dublin sitter (300) (9mm) tobacco pipe",
+        "price": 2020.0107149999997,
+        "sourceProductId": "732583"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3824.5520.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3824_1.1088.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 157.23,
+        "heightMm": 54.86,
+        "weightGrams": 77.11,
+        "chamberDepthMm": 33.02,
+        "chamberDiameterMm": 21.34,
+        "outsideDiameterMm": 39.37
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-300__series-crown-sitter-tobacco-pipe__shape-bent-bulldog",
+        "confidence": "high"
+      },
+      "series": "Crown Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3824",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Bulldog",
+          "labelZh": "弯式斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 157.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 77.11,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732583",
+      "sourceOriginalText": "Crown Smooth Bent Dublin Sitter (300) (9mm) Tobacco Pipe",
+      "priceRawText": "$195.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-733052",
       "source": "smokingpipes",
       "sourceProductId": "733052",
@@ -24016,6 +24177,167 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736894",
       "sourceOriginalText": "Irish Harp Sandblasted (XL02) Fishtail Tobacco Pipe",
+      "priceRawText": "$156.00",
+      "msrpRawText": "$195.00"
+    },
+    {
+      "id": "smokingpipes-737402",
+      "source": "smokingpipes",
+      "sourceProductId": "737402",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp Sandblasted (701) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp Sandblasted (701) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp Sandblasted (701) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147239.8639.jpg",
+      "sourcePriceAmount": 156,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 195,
+      "siteDisplayAmount": 1487.4104479999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 31.18,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp sandblasted (701) fishtail tobacco pipe",
+        "price": 1487.4104479999996,
+        "sourceProductId": "737402"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147239.8639.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147239_1.8050.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.11,
+        "heightMm": 44.96,
+        "weightGrams": 31.18,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 17.27,
+        "outsideDiameterMm": 29.21
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-701__series-irish-harp-sandblasted-fishtail-tobacco__shape-poker",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-147239",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.18,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 29.21,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=737402",
+      "sourceOriginalText": "Irish Harp Sandblasted (701) Fishtail Tobacco Pipe",
       "priceRawText": "$156.00",
       "msrpRawText": "$195.00"
     }

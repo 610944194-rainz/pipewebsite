@@ -25575,6 +25575,167 @@
       "msrpRawText": "$185.00"
     },
     {
+      "id": "smokingpipes-733652",
+      "source": "smokingpipes",
+      "sourceProductId": "733652",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Partially Rusticated Scoop (Viking) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Partially Rusticated Scoop (Viking) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Partially Rusticated Scoop (Viking) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3904.2040.jpg",
+      "sourcePriceAmount": 135,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1379.0695999999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 63.5,
+      "shape": "Freehand",
+      "shapeZh": "自由式斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown partially rusticated scoop (viking) (9mm) tobacco pipe",
+        "price": 1379.0695999999998,
+        "sourceProductId": "733652"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3904.2040.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3904_1.5117.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.92,
+        "heightMm": 44.45,
+        "weightGrams": 63.5,
+        "chamberDepthMm": 29.46,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 44.7
+      },
+      "model": {
+        "canonicalModelKey": "winslow__series-crown-partially-scoop-tobacco-pipe__shape-freehand",
+        "confidence": "medium"
+      },
+      "series": "Crown Partially Scoop Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3904",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Freehand",
+          "labelZh": "自由式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 63.5,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=733652",
+      "sourceOriginalText": "Crown Partially Rusticated Scoop (Viking) (9mm) Tobacco Pipe",
+      "priceRawText": "$135.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-733959",
       "source": "smokingpipes",
       "sourceProductId": "733959",
@@ -26370,6 +26531,163 @@
       "sourceOriginalText": "Frihand Black Grain Smooth (B) Tobacco Pipe",
       "priceRawText": "$193.50",
       "msrpRawText": "$215.00"
+    },
+    {
+      "id": "smokingpipes-734879",
+      "source": "smokingpipes",
+      "sourceProductId": "734879",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Forza Nebbiolo (1897) Tobacco Pipe",
+      "displayNameEn": "Forza Nebbiolo (1897) Tobacco Pipe",
+      "rawTitle": "Forza Nebbiolo (1897) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-787-3276.8747.jpg",
+      "sourcePriceAmount": 198,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 220,
+      "siteDisplayAmount": 2048.327073,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 58.92,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "forza nebbiolo (1897) tobacco pipe",
+        "price": 2048.327073,
+        "sourceProductId": "734879"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-787-3276.8747.jpg",
+        "https://assets.smokingpipes.com/images/products/002-787-3276_1.5783.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-787-3276.8747.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-787-3276_1.5783.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.05,
+        "heightMm": 45.14,
+        "weightGrams": 58.92,
+        "chamberDepthMm": 32.75,
+        "chamberDiameterMm": 19.44,
+        "outsideDiameterMm": 47.01
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-1897__series-forza-nebbiolo-tobacco-pipe__shape-bent-pot",
+        "confidence": "high"
+      },
+      "series": "Forza Nebbiolo Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3276",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.14,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 58.92,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 47.01,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734879",
+      "sourceOriginalText": "Forza Nebbiolo (1897) Tobacco Pipe",
+      "priceRawText": "$198.00",
+      "msrpRawText": "$220.00"
     },
     {
       "id": "smokingpipes-735230",
@@ -27815,6 +28133,167 @@
       "sourceOriginalText": "Aran Smooth (B10) Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-735987",
+      "source": "smokingpipes",
+      "sourceProductId": "735987",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146768.9358.jpg",
+      "sourcePriceAmount": 130,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 162.5,
+      "siteDisplayAmount": 1284.68174,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 48.19,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter sandblasted (999) fishtail (9mm) tobacco pipe",
+        "price": 1284.68174,
+        "sourceProductId": "735987"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146768.9358.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146768_1.3048.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.95,
+        "heightMm": 39.12,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 29.46,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 42.16
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-999__series-army-filter-sandblasted-fishtail-tobacco__shape-rhodesian",
+        "confidence": "high"
+      },
+      "series": "Army Filter Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146768",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735987",
+      "sourceOriginalText": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$130.00",
+      "msrpRawText": "$162.50"
     },
     {
       "id": "smokingpipes-736384",

@@ -21429,6 +21429,169 @@
       "sourceOriginalText": "Premier System Revival Rusticated (CP) (356) P-Lip Tobacco Pipe",
       "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
+    },
+    {
+      "id": "smokingpipes-737658",
+      "source": "smokingpipes",
+      "sourceProductId": "737658",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Foresta Smooth Natural (616 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Foresta Smooth Natural (616 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Foresta Smooth Natural (616 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112279.8393.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2188.0211057999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 79.38,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "foresta smooth natural (616 ks) (6mm) tobacco pipe",
+        "price": 2188.0211057999995,
+        "sourceProductId": "737658"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112279.8393.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112279_1.2167.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112279_2.9005.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112279_3.3453.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 143.51,
+        "heightMm": 53.34,
+        "weightGrams": 79.38,
+        "chamberDepthMm": 44.45,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 44.45
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-foresta-natural-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Foresta Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112279",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 143.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 53.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 79.38,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737658",
+      "sourceOriginalText": "Foresta Smooth Natural (616 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
     }
   ]
 }

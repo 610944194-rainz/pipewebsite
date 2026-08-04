@@ -19990,6 +19990,161 @@
       "msrpRawText": "$475.00"
     },
     {
+      "id": "smokingpipes-730223",
+      "source": "smokingpipes",
+      "sourceProductId": "730223",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Forza Nebbiolo (1957) Tobacco Pipe",
+      "displayNameEn": "Forza Nebbiolo (1957) Tobacco Pipe",
+      "rawTitle": "Forza Nebbiolo (1957) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3107.1672.jpg",
+      "sourcePriceAmount": 178.2,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 198,
+      "siteDisplayAmount": 1861.4391101999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 70.04,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "forza nebbiolo (1957) tobacco pipe",
+        "price": 1861.4391101999997,
+        "sourceProductId": "730223"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3107.1672.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3107_1.2803.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 124.7,
+        "heightMm": 46.54,
+        "weightGrams": 70.04,
+        "chamberDepthMm": 40.17,
+        "chamberDiameterMm": 20.12,
+        "outsideDiameterMm": 46.5
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-1957__series-forza-nebbiolo-tobacco-pipe__shape-bent-pot",
+        "confidence": "high"
+      },
+      "series": "Forza Nebbiolo Tobacco Pipe",
+      "year": 1957,
+      "productCode": "002-787-3107",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 124.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.5,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=730223",
+      "sourceOriginalText": "Forza Nebbiolo (1957) Tobacco Pipe",
+      "priceRawText": "$178.20",
+      "msrpRawText": "$198.00"
+    },
+    {
       "id": "smokingpipes-730329",
       "source": "smokingpipes",
       "sourceProductId": "730329",
@@ -21755,6 +21910,167 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732492",
       "sourceOriginalText": "Crown Smooth Freehand Sitter (200) Tobacco Pipe",
+      "priceRawText": "$155.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-732700",
+      "source": "smokingpipes",
+      "sourceProductId": "732700",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Pot Sitter (200) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Pot Sitter (200) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Pot Sitter (200) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3843.3873.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1642.459275,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 70.31,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent pot sitter (200) (9mm) tobacco pipe",
+        "price": 1642.459275,
+        "sourceProductId": "732700"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3843.3873.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3843_1.9435.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.7,
+        "heightMm": 43.94,
+        "weightGrams": 70.31,
+        "chamberDepthMm": 28.96,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 49.28
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-sitter-tobacco-pipe__shape-bent-pot",
+        "confidence": "high"
+      },
+      "series": "Crown Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3843",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 70.31,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732700",
+      "sourceOriginalText": "Crown Smooth Bent Pot Sitter (200) (9mm) Tobacco Pipe",
       "priceRawText": "$155.00",
       "msrpRawText": null
     },
@@ -24652,6 +24968,166 @@
       "sourceOriginalText": "Churchwarden Smooth Dublin Fishtail Tobacco Pipe",
       "priceRawText": "$182.50",
       "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-736985",
+      "source": "smokingpipes",
+      "sourceProductId": "736985",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
+      "displayNameEn": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
+      "rawTitle": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112192.4016.jpg",
+      "sourcePriceAmount": 112,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 140,
+      "siteDisplayAmount": 1144.331096,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 45.36,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "arcobaleno rusticated red (207) (6mm) tobacco pipe",
+        "price": 1144.331096,
+        "sourceProductId": "736985"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112192.4016.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 42.93,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 34.8,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 40.39
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-207__series-arcobaleno-red-tobacco-pipe__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Arcobaleno Red Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112192",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736985",
+      "sourceOriginalText": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
+      "priceRawText": "$112.00",
+      "msrpRawText": "$140.00"
     }
   ]
 }

@@ -24853,6 +24853,166 @@
       "sourceOriginalText": "Irish Harp Sandblasted (X105) Fishtail Tobacco Pipe",
       "priceRawText": "$156.00",
       "msrpRawText": "$195.00"
+    },
+    {
+      "id": "smokingpipes-737636",
+      "source": "smokingpipes",
+      "sourceProductId": "737636",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Arcobaleno Rusticated Red (606 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Arcobaleno Rusticated Red (606 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Arcobaleno Rusticated Red (606 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112257.9925.jpg",
+      "sourcePriceAmount": 112,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 140,
+      "siteDisplayAmount": 1144.331096,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 48.19,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "arcobaleno rusticated red (606 ks) (6mm) tobacco pipe",
+        "price": 1144.331096,
+        "sourceProductId": "737636"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112257.9925.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.16,
+        "heightMm": 50.29,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 44.45,
+        "chamberDiameterMm": 21.59,
+        "outsideDiameterMm": 38.86
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-arcobaleno-red-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Arcobaleno Red Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112257",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737636",
+      "sourceOriginalText": "Arcobaleno Rusticated Red (606 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$112.00",
+      "msrpRawText": "$140.00"
     }
   ]
 }

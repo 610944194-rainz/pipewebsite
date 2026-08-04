@@ -23611,6 +23611,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-732549",
+      "source": "smokingpipes",
+      "sourceProductId": "732549",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Dublin (200) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Dublin (200) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Dublin (200) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3793.5956.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1642.459275,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 43.09,
+      "shape": "Dublin",
+      "shapeZh": "都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth dublin (200) tobacco pipe",
+        "price": 1642.459275,
+        "sourceProductId": "732549"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3793.5956.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3793_1.3037.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.3,
+        "heightMm": 54.86,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 38.86,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 40.13
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-tobacco-pipe__shape-dublin",
+        "confidence": "high"
+      },
+      "series": "Crown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3793",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Dublin",
+          "labelZh": "都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732549",
+      "sourceOriginalText": "Crown Smooth Dublin (200) Tobacco Pipe",
+      "priceRawText": "$155.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-732922",
       "source": "smokingpipes",
       "sourceProductId": "732922",

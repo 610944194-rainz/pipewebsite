@@ -17856,10 +17856,10 @@
       "displayNameEn": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
       "rawTitle": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-110245.6546.jpg",
-      "sourcePriceAmount": 500,
+      "sourcePriceAmount": 396,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 4985.362649999999,
+      "siteDisplayAmount": 3730.3187381999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -17889,7 +17889,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "collection 2026 sandblasted (6mm) tobacco pipe",
-        "price": 4985.362649999999,
+        "price": 3730.3187381999996,
         "sourceProductId": "724525"
       },
       "displayNameZh": null,
@@ -18005,7 +18005,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=724525",
       "sourceOriginalText": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
-      "priceRawText": "$500.00",
+      "priceRawText": "$396.00",
       "msrpRawText": null
     },
     {
@@ -23293,6 +23293,167 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-733659",
+      "source": "smokingpipes",
+      "sourceProductId": "733659",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Partially Rusticated Paneled Bent Egg Sitter (Viking) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Partially Rusticated Paneled Bent Egg Sitter (Viking) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Partially Rusticated Paneled Bent Egg Sitter (Viking) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3911.5131.jpg",
+      "sourcePriceAmount": 135,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1379.0695999999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 81.65,
+      "shape": "Bent Egg",
+      "shapeZh": "弯式蛋形斗",
+      "finish": "Partial Rusticated",
+      "finishZh": "局部锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown partially rusticated paneled bent egg sitter (viking) (9mm) tobacco pipe",
+        "price": 1379.0695999999998,
+        "sourceProductId": "733659"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3911.5131.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3911_1.9630.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.21,
+        "heightMm": 71.12,
+        "weightGrams": 81.65,
+        "chamberDepthMm": 46.23,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 48.26
+      },
+      "model": {
+        "canonicalModelKey": "winslow__series-crown-partially-paneled-sitter-tobacco__shape-bent-egg",
+        "confidence": "medium"
+      },
+      "series": "Crown Partially Paneled Sitter Tobacco",
+      "year": null,
+      "productCode": "002-036-3911",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Egg",
+          "labelZh": "弯式蛋形斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Rusticated",
+          "labelZh": "局部锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 71.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 81.65,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 46.23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 48.26,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=733659",
+      "sourceOriginalText": "Crown Partially Rusticated Paneled Bent Egg Sitter (Viking) (9mm) Tobacco Pipe",
+      "priceRawText": "$135.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-734392",
       "source": "smokingpipes",
       "sourceProductId": "734392",
@@ -23767,6 +23928,161 @@
       "sourceOriginalText": "150th Anniversary Achille III Rusticated (6mm) Tobacco Pipe",
       "priceRawText": "$192.00",
       "msrpRawText": "$240.00"
+    },
+    {
+      "id": "smokingpipes-734697",
+      "source": "smokingpipes",
+      "sourceProductId": "734697",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "displayNameEn": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "rawTitle": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3175.4218.jpg",
+      "sourcePriceAmount": 144.59,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 160.65,
+      "siteDisplayAmount": 1457.7808676,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 62.99,
+      "shape": "Churchwarden",
+      "shapeZh": "长杆斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "churchwarden smooth contrast (863) tobacco pipe",
+        "price": 1457.7808676,
+        "sourceProductId": "734697"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3175.4218.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3175_1.2487.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 253.95,
+        "heightMm": 48.61,
+        "weightGrams": 62.99,
+        "chamberDepthMm": 38.42,
+        "chamberDiameterMm": 19.95,
+        "outsideDiameterMm": 35.52
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__model-863__series-contrast-tobacco-pipe__shape-churchwarden",
+        "confidence": "high"
+      },
+      "series": "Contrast Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3175",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Churchwarden",
+          "labelZh": "长杆斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 253.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.61,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.99,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.95,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.52,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734697",
+      "sourceOriginalText": "Churchwarden Smooth Contrast (863) Tobacco Pipe",
+      "priceRawText": "$144.59",
+      "msrpRawText": "$160.65"
     },
     {
       "id": "smokingpipes-734822",

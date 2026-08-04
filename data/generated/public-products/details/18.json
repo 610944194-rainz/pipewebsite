@@ -21062,6 +21062,167 @@
       "msrpRawText": "$325.00"
     },
     {
+      "id": "smokingpipes-735986",
+      "source": "smokingpipes",
+      "sourceProductId": "735986",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146767.3192.jpg",
+      "sourcePriceAmount": 130,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 162.5,
+      "siteDisplayAmount": 1284.68174,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 48.19,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter sandblasted (999) fishtail (9mm) tobacco pipe",
+        "price": 1284.68174,
+        "sourceProductId": "735986"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146767.3192.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146767_1.4519.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 139.45,
+        "heightMm": 39.12,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 29.46,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 42.16
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-999__series-army-filter-sandblasted-fishtail-tobacco__shape-rhodesian",
+        "confidence": "high"
+      },
+      "series": "Army Filter Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-146767",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 139.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735986",
+      "sourceOriginalText": "Army Filter Sandblasted (999) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$130.00",
+      "msrpRawText": "$162.50"
+    },
+    {
       "id": "smokingpipes-736244",
       "source": "smokingpipes",
       "sourceProductId": "736244",

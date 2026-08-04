@@ -23232,6 +23232,167 @@
       "sourceOriginalText": "Cobble (701) P-Lip Tobacco Pipe",
       "priceRawText": "$158.00",
       "msrpRawText": "$197.50"
+    },
+    {
+      "id": "smokingpipes-737762",
+      "source": "smokingpipes",
+      "sourceProductId": "737762",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Arklow Sandblasted (68) Fishtail Tobacco Pipe",
+      "displayNameEn": "Arklow Sandblasted (68) Fishtail Tobacco Pipe",
+      "rawTitle": "Arklow Sandblasted (68) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147357.2082.jpg",
+      "sourcePriceAmount": 130,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 162.5,
+      "siteDisplayAmount": 1284.68174,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Bent Brandy",
+      "shapeZh": "弯式白兰地斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "arklow sandblasted (68) fishtail tobacco pipe",
+        "price": 1284.68174,
+        "sourceProductId": "737762"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147357.2082.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147357_1.9261.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 138.94,
+        "heightMm": 48.01,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 41.15,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 42.42
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-68__series-arklow-sandblasted-fishtail-tobacco-pipe__shape-bent-brandy",
+        "confidence": "high"
+      },
+      "series": "Arklow Sandblasted Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147357",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Brandy",
+          "labelZh": "弯式白兰地斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 138.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.01,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=737762",
+      "sourceOriginalText": "Arklow Sandblasted (68) Fishtail Tobacco Pipe",
+      "priceRawText": "$130.00",
+      "msrpRawText": "$162.50"
     }
   ]
 }
