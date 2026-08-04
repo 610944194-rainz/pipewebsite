@@ -17,6 +17,7 @@ import {
   cyclePaths,
   hashFile,
   hashJson,
+  hashText,
   readCycle,
   readJson,
   transitionCycle,
@@ -119,6 +120,10 @@ function publicManifest({ publicCandidate, recentNew, generatedAt, stagingHash, 
   };
 }
 
+function serializedJsonForAtomicWrite(value) {
+  return `${JSON.stringify(value, null, 2)}\n`;
+}
+
 function bundleOutputMap({ smokingpipesProducts, unifiedProducts, publicCandidate, recentNew, generatedAt }) {
   const output = new Map();
   output.set("data/products/smokingpipes-products.json", smokingpipesProducts);
@@ -143,7 +148,7 @@ function bundleOutputMap({ smokingpipesProducts, unifiedProducts, publicCandidat
     publicCandidate,
     recentNew,
     generatedAt,
-    stagingHash: hashJson(unifiedProducts),
+    stagingHash: hashText(serializedJsonForAtomicWrite(unifiedProducts)),
     detailFiles,
   }));
   return output;

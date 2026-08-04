@@ -64,7 +64,16 @@ function number(value) {
 }
 
 function errorTail(value) {
-  return String(value || "").split(/\r?\n/).filter(Boolean).slice(-8).join("\n");
+  const source = String(value || "");
+  try {
+    const parsed = JSON.parse(source);
+    if (Array.isArray(parsed?.errors) && parsed.errors.length) return String(parsed.errors[0]);
+    if (Array.isArray(parsed?.warnings) && parsed.warnings.length) return String(parsed.warnings[0]);
+  } catch {
+    const errors = source.match(/"errors"\s*:\s*\[\s*"([^"]+)/);
+    if (errors) return errors[1];
+  }
+  return source.split(/\r?\n/).filter(Boolean).slice(-8).join("\n");
 }
 
 export function buildSmokingpipesV2Notification(result = {}) {

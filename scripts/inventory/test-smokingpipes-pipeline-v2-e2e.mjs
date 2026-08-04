@@ -290,6 +290,11 @@ async function main() {
     const outputProducts = await readJson(
       path.join(built.bundleRoot, "outputs", "data", "products", "smokingpipes-products.json")
     );
+    const publicManifest = await readJson(
+      path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json")
+    );
+    const stagingPath = path.join(built.bundleRoot, "outputs", "data", "products", "unified-products-staging.json");
+    assert.equal(publicManifest.inputHashes.staging.toLowerCase(), (await hashFile(stagingPath)).toLowerCase());
     assert.equal(outputProducts.some((product) => /falcon/i.test(String(product.brand || product.brandName || ""))), false);
 
     const invalidBundleRoot = path.join(temporaryRoot, "invalid-bundle");

@@ -478,14 +478,14 @@ async function main() {
   const progressiveManifest =
     /^smokingpipes-progressive-/i.test(
       requiredText(manifest.generatorVersion)
-    );
+    ) || requiredText(manifest.generatorVersion) === "smokingpipes-release-bundle-v2";
 
   if (!progressiveManifest && buildReport.status !== "passed") {
     errors.push(`Build report status is not passed: ${buildReport.status ?? "(missing)"}`);
   }
   if (progressiveManifest) {
     warnings.push(
-      "Progressive manifest detected; stale Round 5 fixed-count build report is not used as a gate."
+      "Progressive or V2 bundle manifest detected; stale Round 5 fixed-count build report is not used as a gate."
     );
   }
   if (catalog.length !== expectedCatalogCount) errors.push(`Catalog count mismatch: ${catalog.length}; staging public rows: ${expectedCatalogCount}`);
@@ -657,7 +657,7 @@ async function main() {
       continue;
     }
     const actualHash = hashFile(filePath);
-    if (actualHash !== expectedHash) {
+    if (String(actualHash).toLowerCase() !== String(expectedHash).toLowerCase()) {
       manifestHashesConsistent = false;
       errors.push(`Manifest hash mismatch for ${relativeFile}`);
     }
@@ -665,7 +665,7 @@ async function main() {
 
   const stagingSha256 = hashFile(INPUTS.staging);
   const manifestStagingHash = manifest.inputHashes?.staging || null;
-  if (manifestStagingHash && manifestStagingHash !== stagingSha256) {
+  if (manifestStagingHash && String(manifestStagingHash).toLowerCase() !== String(stagingSha256).toLowerCase()) {
     errors.push(
       `Manifest staging hash mismatch: ${manifestStagingHash}; current: ${stagingSha256}`
     );
