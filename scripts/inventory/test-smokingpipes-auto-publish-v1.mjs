@@ -68,8 +68,15 @@ async function main() {
   assert.match(publisher, /hash mismatch after copy/);
   assert.match(publisher, /featured\.json/);
   assert.match(publisher, /SMOKINGPIPES_PUBLISHER_RESULT_JSON=/);
+  assert.match(publisher, /failureStage/);
+  assert.match(publisher, /bundle-validator/);
+  assert.match(publisher, /public-validator/);
+  assert.match(publisher, /release-build/);
   assert.doesNotMatch(publisher, /smokingpipes-release-state-v2\.mjs/);
   assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
+  assert.match(orchestrator, /isDeterministicRetainedBundleContractFailure/);
+  assert.match(orchestrator, /retainedBundleRebuildAttemptedForBundleId/);
+  assert.match(orchestrator, /published\.failureStage \|\| published\.status/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");
 }

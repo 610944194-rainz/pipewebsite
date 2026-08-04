@@ -10,6 +10,7 @@ import {
   createCycle,
   cyclePaths,
   hashFile,
+  hashText,
   loadOrCreateCycle,
   readCycle,
   readJson,
@@ -296,6 +297,29 @@ async function main() {
     const stagingPath = path.join(built.bundleRoot, "outputs", "data", "products", "unified-products-staging.json");
     assert.equal(publicManifest.inputHashes.staging.toLowerCase(), (await hashFile(stagingPath)).toLowerCase());
     assert.equal(outputProducts.some((product) => /falcon/i.test(String(product.brand || product.brandName || ""))), false);
+    const bundleManifestPath = path.join(built.bundleRoot, "manifest.json");
+    const bundleManifest = await readJson(bundleManifestPath);
+    publicManifest.inputHashes.staging = publicManifest.inputHashes.staging.toUpperCase();
+    await writeJsonAtomic(
+      path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json"),
+      publicManifest
+    );
+    bundleManifest.outputFileHashes["data/generated/public-products/manifest.json"] = await hashFile(
+      path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json")
+    );
+    await writeJsonAtomic(bundleManifestPath, bundleManifest);
+    const caseInsensitiveValidation = await validateSmokingpipesReleaseBundleV2({
+      bundleRoot: built.bundleRoot,
+      baselineRoot: legacyBaselineRoot,
+    });
+    assert.equal(caseInsensitiveValidation.valid, true, caseInsensitiveValidation.blockers.join("; "));
+    await fs.promises.appendFile(stagingPath, "\n", "utf8");
+    const byteChangedValidation = await validateSmokingpipesReleaseBundleV2({
+      bundleRoot: built.bundleRoot,
+      baselineRoot: legacyBaselineRoot,
+    });
+    assert.equal(byteChangedValidation.valid, false);
+    assert.ok(byteChangedValidation.blockers.includes("retained bundle public staging hash mismatch"));
 
     const invalidBundleRoot = path.join(temporaryRoot, "invalid-bundle");
     await writeJsonAtomic(path.join(invalidBundleRoot, "manifest.json"), {
@@ -363,21 +387,12 @@ async function main() {
     assert.equal(retry.networkAccessed, false);
 
     const validatorRetryId = "2030-01-06";
-    const validatorRetryCycle = createCycle({ cycleId: validatorRetryId });
-    validatorRetryCycle.phase = "release-retryable";
-    validatorRetryCycle.collection = {
-      ...validatorRetryCycle.collection,
-      pendingDetailIds: [],
-      completedDetailIds: ["900000"],
-    };
-    validatorRetryCycle.bundle = {
-      bundleId: "retained-invalid-bundle",
-      path: "cycles/2030-01-06/bundles/retained-invalid-bundle",
-      actualAppliedCount: 1,
-    };
-    validatorRetryCycle.failure = { stage: "bundle-validator", message: "fixture invalid bundle" };
-    validatorRetryCycle.history.push({ at: validatorRetryCycle.updatedAt, phase: validatorRetryCycle.phase, reason: "fixture-validator-retry" });
-    await writeCycle(stateRoot, validatorRetryCycle);
+    const validatorRetryFixture = await createRetainedBundleFixture({
+      cycleId: validatorRetryId,
+      count: 1,
+      legacyGeneratorCommitSha: "legacy-builder-validator-retry",
+    });
+    await setLegacyCompactStagingHash(validatorRetryFixture.retained.bundleRoot);
     let rebuiltAfterValidatorFailure = 0;
     const rebuiltValidatorRetry = await runSmokingpipesAutoPublishV2({
       stateRoot,
@@ -385,14 +400,314 @@ async function main() {
       cycleId: validatorRetryId,
       skipSync: true,
       noPublish: true,
-      collector: async () => ({ status: "release-resume-required", cycle: await readCycle(stateRoot, validatorRetryId), networkAccessed: false }),
-      bundleBuilder: async () => {
+      collector: offlineResumeCollector(validatorRetryId, { collector: 0, details: 0 }),
+      bundleBuilder: async (arguments_) => {
         rebuiltAfterValidatorFailure += 1;
-        return publishBundle;
+        return buildSmokingpipesReleaseBundleV2(arguments_);
       },
     });
     assert.equal(rebuiltAfterValidatorFailure, 1);
     assert.equal(rebuiltValidatorRetry.status, "bundle-ready");
+
+    async function createRetainedBundleFixture({ cycleId, count, legacyGeneratorCommitSha }) {
+      const listInputPath = path.join(temporaryRoot, `${cycleId}-list.json`);
+      const ids = Array.from({ length: count }, (_, index) => String(930000 + index));
+      await writeJsonAtomic(listInputPath, trustedSnapshot(ids.map((id) => listItem(id))));
+      const collected = await runSmokingpipesCollectOnlyV2({
+        stateRoot,
+        runtimeRoot,
+        cycleId,
+        listInputPath,
+        detailLimit: count,
+        processDetail: detailProcessor,
+      });
+      assert.equal(collected.status, "ready-to-bundle");
+      assert.equal(collected.networkAccessed, false);
+      assert.equal(collected.cycle.collection.completedDetailIds.length, count);
+      assert.equal(collected.cycle.collection.pendingDetailIds.length, 0);
+      const retained = await buildSmokingpipesReleaseBundleV2({
+        stateRoot,
+        cycleId,
+        runtimeRoot,
+        baseMainSha: runtimeBaseSha,
+        generatorCommitSha: legacyGeneratorCommitSha,
+        maxAutoApply: 2000,
+      });
+      let retryCycle = await readCycle(stateRoot, cycleId);
+      retryCycle = await transitionCycle({
+        stateRoot,
+        cycle: retryCycle,
+        phase: "release-retryable",
+        reason: "fixture-retained-bundle-retry",
+        patch: { failure: { stage: "release-retryable", message: "fixture retained bundle retry" } },
+      });
+      return { retained, retryCycle };
+    }
+
+    async function setLegacyCompactStagingHash(bundleRoot) {
+      const publicManifestPath = path.join(
+        bundleRoot,
+        "outputs",
+        "data",
+        "generated",
+        "public-products",
+        "manifest.json"
+      );
+      const stagingPath = path.join(bundleRoot, "outputs", "data", "products", "unified-products-staging.json");
+      const publicManifest = await readJson(publicManifestPath);
+      publicManifest.inputHashes.staging = hashText(JSON.stringify(await readJson(stagingPath)));
+      await writeJsonAtomic(publicManifestPath, publicManifest);
+      const bundleManifestPath = path.join(bundleRoot, "manifest.json");
+      const bundleManifest = await readJson(bundleManifestPath);
+      bundleManifest.outputFileHashes["data/generated/public-products/manifest.json"] = await hashFile(publicManifestPath);
+      await writeJsonAtomic(bundleManifestPath, bundleManifest);
+    }
+
+    function offlineResumeCollector(cycleId, counters) {
+      return async (arguments_) => {
+        counters.collector += 1;
+        const resumed = await runSmokingpipesCollectOnlyV2({
+          ...arguments_,
+          cycleId,
+          live: false,
+          processDetail: async () => {
+            counters.details += 1;
+            throw new Error("retained bundle resume must not process details");
+          },
+        });
+        assert.equal(resumed.status, "release-resume-required");
+        assert.equal(resumed.networkAccessed, false);
+        return resumed;
+      };
+    }
+
+    // Reproduce the retained 99-detail failure: an old Builder's compact JSON
+    // hash is internally inconsistent with the pretty-printed staging file.
+    const retainedFaultId = "2030-01-07";
+    const retainedFault = await createRetainedBundleFixture({
+      cycleId: retainedFaultId,
+      count: 99,
+      legacyGeneratorCommitSha: "legacy-builder-compact-staging-hash",
+    });
+    await setLegacyCompactStagingHash(retainedFault.retained.bundleRoot);
+    const retainedFaultValidation = await validateSmokingpipesReleaseBundleV2({
+      bundleRoot: retainedFault.retained.bundleRoot,
+      runtimeRoot,
+    });
+    assert.equal(retainedFaultValidation.valid, false);
+    assert.ok(retainedFaultValidation.blockers.includes("retained bundle public staging hash mismatch"));
+    const retainedFaultCounters = { collector: 0, details: 0, builder: 0, publisher: 0, notifications: 0 };
+    const retainedFaultResult = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: retainedFaultId,
+      skipSync: true,
+      live: false,
+      notificationsEnabled: true,
+      collector: offlineResumeCollector(retainedFaultId, retainedFaultCounters),
+      bundleBuilder: async (arguments_) => {
+        retainedFaultCounters.builder += 1;
+        return buildSmokingpipesReleaseBundleV2(arguments_);
+      },
+      publisher: async ({ bundleRoot }) => {
+        retainedFaultCounters.publisher += 1;
+        const rebuiltPublicManifest = await readJson(path.join(
+          bundleRoot,
+          "outputs",
+          "data",
+          "generated",
+          "public-products",
+          "manifest.json"
+        ));
+        assert.equal(
+          rebuiltPublicManifest.inputHashes.staging.toLowerCase(),
+          (await hashFile(path.join(bundleRoot, "outputs", "data", "products", "unified-products-staging.json"))).toLowerCase()
+        );
+        return { status: "published", commitSha: "fixture-retained-rebuilt-published", exitCode: 0 };
+      },
+      notifier: async () => {
+        retainedFaultCounters.notifications += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
+    });
+    assert.equal(retainedFaultResult.status, "published");
+    assert.equal(retainedFaultResult.publishedCount, 99);
+    assert.equal(retainedFaultResult.networkAccessed, false);
+    assert.deepEqual(retainedFaultCounters, { collector: 1, details: 0, builder: 1, publisher: 1, notifications: 1 });
+    const retainedFaultCycle = await readCycle(stateRoot, retainedFaultId);
+    assert.equal(retainedFaultCycle.phase, "published");
+    assert.equal(retainedFaultCycle.collection.completedDetailIds.length, 99);
+    assert.equal(retainedFaultCycle.collection.pendingDetailIds.length, 0);
+    const retainedFaultLedger = await readJson(path.join(stateRoot, "ledger", "published-bundles.json"));
+    assert.equal(retainedFaultLedger.entries.filter((entry) => entry.cycleId === retainedFaultId).length, 1);
+
+    const invalidRebuildId = "2030-01-08";
+    const invalidRebuild = await createRetainedBundleFixture({
+      cycleId: invalidRebuildId,
+      count: 1,
+      legacyGeneratorCommitSha: "legacy-builder-invalid-rebuild",
+    });
+    await setLegacyCompactStagingHash(invalidRebuild.retained.bundleRoot);
+    const invalidRebuildCounters = { collector: 0, details: 0, builder: 0, publisher: 0 };
+    const invalidRebuildResult = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: invalidRebuildId,
+      skipSync: true,
+      live: false,
+      collector: offlineResumeCollector(invalidRebuildId, invalidRebuildCounters),
+      bundleBuilder: async (arguments_) => {
+        invalidRebuildCounters.builder += 1;
+        const rebuilt = await buildSmokingpipesReleaseBundleV2(arguments_);
+        await setLegacyCompactStagingHash(rebuilt.bundleRoot);
+        return rebuilt;
+      },
+      publisher: async () => {
+        invalidRebuildCounters.publisher += 1;
+        throw new Error("invalid rebuilt bundle must not reach Publisher");
+      },
+    });
+    assert.equal(invalidRebuildResult.status, "release-retryable");
+    assert.equal(invalidRebuildResult.failureStage, "bundle-validator");
+    assert.equal(invalidRebuildResult.networkAccessed, false);
+    assert.deepEqual(invalidRebuildCounters, { collector: 1, details: 0, builder: 1, publisher: 0 });
+    const invalidRebuildCycle = await readCycle(stateRoot, invalidRebuildId);
+    assert.equal(invalidRebuildCycle.failure.stage, "bundle-validator");
+    assert.equal(
+      invalidRebuildCycle.failure.retainedBundleRebuildAttemptedForBundleId,
+      invalidRebuildCycle.bundle.bundleId
+    );
+    const invalidRebuildSecondAttempt = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: invalidRebuildId,
+      skipSync: true,
+      live: false,
+      collector: offlineResumeCollector(invalidRebuildId, invalidRebuildCounters),
+      bundleBuilder: async () => {
+        invalidRebuildCounters.builder += 1;
+        throw new Error("an already rebuilt invalid bundle must not rebuild again");
+      },
+      publisher: async () => {
+        invalidRebuildCounters.publisher += 1;
+        throw new Error("an already rebuilt invalid bundle must not reach Publisher");
+      },
+    });
+    assert.equal(invalidRebuildSecondAttempt.status, "release-retryable");
+    assert.equal(invalidRebuildSecondAttempt.failureStage, "bundle-validator");
+    assert.deepEqual(invalidRebuildCounters, { collector: 2, details: 0, builder: 1, publisher: 0 });
+
+    const differentRetainedBundle = await buildSmokingpipesReleaseBundleV2({
+      stateRoot,
+      cycleId: invalidRebuildId,
+      runtimeRoot,
+      baseMainSha: runtimeBaseSha,
+      generatorCommitSha: "fixture-different-retained-bundle",
+      maxAutoApply: 2000,
+    });
+    const rebuiltForDifferentBundle = await buildSmokingpipesReleaseBundleV2({
+      stateRoot,
+      cycleId: invalidRebuildId,
+      runtimeRoot,
+      baseMainSha: runtimeBaseSha,
+      generatorCommitSha: "fixture-different-retained-bundle-rebuild",
+      maxAutoApply: 2000,
+    });
+    assert.notEqual(differentRetainedBundle.bundleId, invalidRebuildCycle.bundle.bundleId);
+    await setLegacyCompactStagingHash(differentRetainedBundle.bundleRoot);
+    let differentRetainedCycle = await readCycle(stateRoot, invalidRebuildId);
+    differentRetainedCycle = await transitionCycle({
+      stateRoot,
+      cycle: differentRetainedCycle,
+      phase: "release-retryable",
+      reason: "fixture-different-retained-bundle",
+      patch: {
+        bundle: {
+          bundleId: differentRetainedBundle.bundleId,
+          path: path.relative(stateRoot, differentRetainedBundle.bundleRoot).replace(/\\/g, "/"),
+          baseMainSha: differentRetainedBundle.manifest.baseMainSha,
+          actualAppliedCount: differentRetainedBundle.manifest.actualAppliedCount,
+          selectedIds: differentRetainedBundle.manifest.selectedIds,
+        },
+        failure: {
+          stage: "bundle-validator",
+          message: "fixture old bundle rebuild marker",
+          retainedBundleRebuildAttemptedForBundleId: invalidRebuildCycle.bundle.bundleId,
+        },
+      },
+    });
+    assert.equal(
+      differentRetainedCycle.failure.retainedBundleRebuildAttemptedForBundleId,
+      invalidRebuildCycle.bundle.bundleId
+    );
+    const differentRetainedCounters = { collector: 0, details: 0, builder: 0 };
+    const differentRetainedResult = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: invalidRebuildId,
+      skipSync: true,
+      live: false,
+      noPublish: true,
+      collector: offlineResumeCollector(invalidRebuildId, differentRetainedCounters),
+      bundleBuilder: async () => {
+        differentRetainedCounters.builder += 1;
+        return rebuiltForDifferentBundle;
+      },
+    });
+    assert.equal(differentRetainedResult.status, "bundle-ready");
+    assert.deepEqual(differentRetainedCounters, { collector: 1, details: 0, builder: 1 });
+
+    const validRetainedId = "2030-01-09";
+    const validRetained = await createRetainedBundleFixture({
+      cycleId: validRetainedId,
+      count: 1,
+      legacyGeneratorCommitSha: "legacy-builder-valid-retained",
+    });
+    const validRetainedCounters = { collector: 0, details: 0, builder: 0, publisher: 0 };
+    const validRetainedResult = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: validRetainedId,
+      skipSync: true,
+      live: false,
+      collector: offlineResumeCollector(validRetainedId, validRetainedCounters),
+      bundleBuilder: async () => {
+        validRetainedCounters.builder += 1;
+        throw new Error("valid retained bundle must not rebuild");
+      },
+      publisher: async ({ bundleRoot }) => {
+        validRetainedCounters.publisher += 1;
+        assert.equal(bundleRoot, validRetained.retained.bundleRoot);
+        return { status: "published", commitSha: "fixture-valid-retained-published", exitCode: 0 };
+      },
+    });
+    assert.equal(validRetainedResult.status, "published");
+    assert.deepEqual(validRetainedCounters, { collector: 1, details: 0, builder: 0, publisher: 1 });
+
+    const semanticFailureId = "2030-01-10";
+    await createRetainedBundleFixture({
+      cycleId: semanticFailureId,
+      count: 1,
+      legacyGeneratorCommitSha: "legacy-builder-semantic-failure",
+    });
+    const semanticFailureCounters = { collector: 0, details: 0 };
+    const semanticFailureResult = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: semanticFailureId,
+      skipSync: true,
+      live: false,
+      collector: offlineResumeCollector(semanticFailureId, semanticFailureCounters),
+      publisher: async () => ({
+        status: "release-retryable",
+        failureStage: "public-validator",
+        error: "fixture public validation failure",
+        exitCode: 1,
+      }),
+    });
+    assert.equal(semanticFailureResult.status, "release-retryable");
+    assert.equal((await readCycle(stateRoot, semanticFailureId)).failure.stage, "public-validator");
+    assert.deepEqual(semanticFailureCounters, { collector: 1, details: 0 });
 
     const remoteWriter = path.join(temporaryRoot, "remote-writer");
     execFileSync("git", ["clone", bareOrigin, remoteWriter], { stdio: "ignore" });

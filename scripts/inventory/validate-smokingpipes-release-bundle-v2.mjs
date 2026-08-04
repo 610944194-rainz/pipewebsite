@@ -127,6 +127,22 @@ export async function validateSmokingpipesReleaseBundleV2({
     path.join(resolvedBundleRoot, "outputs", "data", "products", "unified-products-staging.json"),
     null
   );
+  const publicManifestPath = path.join(
+    resolvedBundleRoot,
+    "outputs",
+    "data",
+    "generated",
+    "public-products",
+    "manifest.json"
+  );
+  const stagingPath = path.join(
+    resolvedBundleRoot,
+    "outputs",
+    "data",
+    "products",
+    "unified-products-staging.json"
+  );
+  const publicManifest = await readJson(publicManifestPath, null);
   const catalog = await readJson(
     path.join(resolvedBundleRoot, "outputs", "data", "generated", "public-products", "catalog.json"),
     null
@@ -148,6 +164,17 @@ export async function validateSmokingpipesReleaseBundleV2({
       if (!lookup?.byId?.[text(product.id)]) {
         blockers.push(`catalog product is missing from detail lookup: ${text(product.id)}`);
       }
+    }
+  }
+  const expectedStagingHash = text(publicManifest?.inputHashes?.staging);
+  if (!expectedStagingHash) {
+    blockers.push("retained bundle public staging hash is missing");
+  } else if (!fs.existsSync(stagingPath)) {
+    blockers.push("retained bundle staging output is missing");
+  } else {
+    const actualStagingHash = await hashFile(stagingPath);
+    if (expectedStagingHash.toLowerCase() !== actualStagingHash.toLowerCase()) {
+      blockers.push("retained bundle public staging hash mismatch");
     }
   }
   if (runtimeRoot || baselineRoot) {

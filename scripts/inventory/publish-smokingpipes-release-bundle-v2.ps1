@@ -43,9 +43,11 @@ function Write-PublisherResult {
     [int]$PublishedCount = 0,
     [string[]]$StagedFiles = @(),
     [string]$Error = "",
+    [string]$FailureStage = "",
     [int]$ExitCode = 1
   )
-  $result = [ordered]@{ status=$Status; bundleId=$BundleId; commitSha=$CommitSha; publishedCount=$PublishedCount; stagedFiles=@($StagedFiles); sourceNetworkAccessed=$false; error=$Error; exitCode=$ExitCode }
+  if (-not $FailureStage -and $Status -ne "published") { $FailureStage = $Status }
+  $result = [ordered]@{ status=$Status; failureStage=$FailureStage; bundleId=$BundleId; commitSha=$CommitSha; publishedCount=$PublishedCount; stagedFiles=@($StagedFiles); sourceNetworkAccessed=$false; error=$Error; exitCode=$ExitCode }
   Write-Output ("SMOKINGPIPES_PUBLISHER_RESULT_JSON=" + ($result | ConvertTo-Json -Compress -Depth 8))
   exit $ExitCode
 }
@@ -140,7 +142,7 @@ try {
         sourceNetworkAccessed = $false
         error = ($retryPushOutput | Select-Object -Last 20 | Out-String).Trim()
       } | ConvertTo-Json -Depth 8
-       Write-PublisherResult -Status "push-retryable" -BundleId $bundleId -CommitSha $commitSha -Error (($retryPushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
+      Write-PublisherResult -Status "push-retryable" -FailureStage "push-retryable" -BundleId $bundleId -CommitSha $commitSha -Error (($retryPushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
     }
     [pscustomobject]@{
       status = "published"
@@ -160,7 +162,7 @@ try {
       remoteMainSha = $remoteMain
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-     Write-PublisherResult -Status "stale-base" -BundleId $bundleId -Error "origin/main changed after bundle creation" -ExitCode 2
+     Write-PublisherResult -Status "stale-base" -FailureStage "stale-base" -BundleId $bundleId -Error "origin/main changed after bundle creation" -ExitCode 2
   }
   Invoke-Git -Directory $ReleaseRoot -Arguments @("reset", "--hard", $manifest.baseMainSha) | Out-Null
   $releasePrepared = $true
@@ -234,7 +236,7 @@ try {
       commitSha = $commitSha
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-     Write-PublisherResult -Status "commit-created-no-push" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -ExitCode 1
+     Write-PublisherResult -Status "commit-created-no-push" -FailureStage "push-retryable" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -ExitCode 1
   }
   $previousErrorActionPreference = $ErrorActionPreference
   try {
@@ -252,7 +254,7 @@ try {
       sourceNetworkAccessed = $false
       error = ($pushOutput | Select-Object -Last 20 | Out-String).Trim()
     } | ConvertTo-Json -Depth 8
-     Write-PublisherResult -Status "push-retryable" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -Error (($pushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
+      Write-PublisherResult -Status "push-retryable" -FailureStage "push-retryable" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -Error (($pushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
   }
   [pscustomobject]@{
     status = "published"
@@ -287,12 +289,25 @@ try {
       $message = "$message; $($cleanupErrors -join '; ')"
     }
   }
+  $failureStage = "release-retryable"
+  if ($message -match "bundle validator failed") {
+    $failureStage = "bundle-validator"
+  } elseif ($message -match "validate-public-product-indexes-v1\\.mjs") {
+    if ($message -match "Manifest staging hash mismatch|manifest .*hash|staging hash") {
+      $failureStage = "bundle-validator"
+    } else {
+      $failureStage = "public-validator"
+    }
+  } elseif ($message -match "npm\\.cmd .* run build") {
+    $failureStage = "release-build"
+  }
   [pscustomobject]@{
     status = "release-retryable"
+    failureStage = $failureStage
     bundleId = $bundleId
     commitSha = $commitSha
     sourceNetworkAccessed = $false
     error = $message
   } | ConvertTo-Json -Depth 8
-   Write-PublisherResult -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Error $message -ExitCode 1
+   Write-PublisherResult -Status "release-retryable" -FailureStage $failureStage -BundleId $bundleId -CommitSha $commitSha -Error $message -ExitCode 1
 }
