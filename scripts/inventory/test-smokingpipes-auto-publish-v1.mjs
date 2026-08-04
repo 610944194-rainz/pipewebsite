@@ -61,13 +61,15 @@ async function main() {
   assert.match(publisher, /"diff", "--check"/);
   assert.match(publisher, /Smokingpipes-Bundle-Id:/);
   assert.match(publisher, /retained release commit no longer descends/);
-  assert.match(publisher, /retained commit push failed; retry push only/);
   assert.match(publisher, /release clone clean/);
   assert.match(publisher, /bundle owns an unsafe or non-Smokingpipes output path/);
   assert.match(publisher, /@\("add", "--"\)/);
   assert.match(publisher, /Get-FileSha256/);
   assert.match(publisher, /hash mismatch after copy/);
   assert.match(publisher, /featured\.json/);
+  assert.match(publisher, /SMOKINGPIPES_PUBLISHER_RESULT_JSON=/);
+  assert.doesNotMatch(publisher, /smokingpipes-release-state-v2\.mjs/);
+  assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");
 }

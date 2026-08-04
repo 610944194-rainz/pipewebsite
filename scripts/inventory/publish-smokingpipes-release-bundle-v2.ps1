@@ -35,33 +35,19 @@ function Invoke-Git {
   return ($output | Out-String).Trim()
 }
 
-function Complete-ReleaseState {
+function Write-PublisherResult {
   param(
     [string]$Status,
     [string]$BundleId,
     [string]$CommitSha = "",
-    [string]$Reason = ""
+    [int]$PublishedCount = 0,
+    [string[]]$StagedFiles = @(),
+    [string]$Error = "",
+    [int]$ExitCode = 1
   )
-  $arguments = @(
-    (Join-Path $RuntimeRoot "scripts\inventory\smokingpipes-release-state-v2.mjs"),
-    "--state-root=$StateRoot",
-    "--cycle-id=$CycleId",
-    "--bundle-id=$BundleId",
-    "--status=$Status"
-  )
-  if ($CommitSha) { $arguments += "--commit-sha=$CommitSha" }
-  if ($Reason) { $arguments += "--reason=$Reason" }
-  $previousErrorActionPreference = $ErrorActionPreference
-  try {
-    $ErrorActionPreference = "Continue"
-    $output = @(& node @arguments 2>&1)
-    $nodeExitCode = $LASTEXITCODE
-  } finally {
-    $ErrorActionPreference = $previousErrorActionPreference
-  }
-  if ($nodeExitCode -ne 0) {
-    throw "release state update failed: $($output | Out-String)"
-  }
+  $result = [ordered]@{ status=$Status; bundleId=$BundleId; commitSha=$CommitSha; publishedCount=$PublishedCount; stagedFiles=@($StagedFiles); sourceNetworkAccessed=$false; error=$Error; exitCode=$ExitCode }
+  Write-Output ("SMOKINGPIPES_PUBLISHER_RESULT_JSON=" + ($result | ConvertTo-Json -Compress -Depth 8))
+  exit $ExitCode
 }
 
 function Get-FileSha256 {
@@ -114,7 +100,6 @@ try {
   $headMessage = Invoke-Git -Directory $ReleaseRoot -Arguments @("log", "-1", "--format=%B", "HEAD")
   $remoteMessage = Invoke-Git -Directory $ReleaseRoot -Arguments @("log", "-1", "--format=%B", "origin/main")
   if ($remoteMessage -match [regex]::Escape($bundleTrailer)) {
-    Complete-ReleaseState -Status "published" -BundleId $bundleId -CommitSha $remoteMain
     [pscustomobject]@{
       status = "published"
       bundleId = $bundleId
@@ -122,7 +107,7 @@ try {
       publishedCount = [int]$manifest.actualAppliedCount
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-    exit 0
+     Write-PublisherResult -Status "published" -BundleId $bundleId -CommitSha $remoteMain -PublishedCount ([int]$manifest.actualAppliedCount) -ExitCode 0
   }
   if ($headMessage -match [regex]::Escape($bundleTrailer)) {
     $remoteIsAncestor = @(& git -C $ReleaseRoot merge-base --is-ancestor origin/main HEAD 2>&1)
@@ -131,14 +116,13 @@ try {
     }
     $commitSha = $head
     if ($NoPush) {
-      Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Reason "commit retained; push explicitly disabled"
       [pscustomobject]@{
         status = "commit-created-no-push"
         bundleId = $bundleId
         commitSha = $commitSha
         sourceNetworkAccessed = $false
       } | ConvertTo-Json -Depth 8
-      exit 0
+       Write-PublisherResult -Status "commit-created-no-push" -BundleId $bundleId -CommitSha $commitSha -ExitCode 1
     }
     $previousErrorActionPreference = $ErrorActionPreference
     try {
@@ -149,7 +133,6 @@ try {
       $ErrorActionPreference = $previousErrorActionPreference
     }
     if ($retryPushExitCode -ne 0) {
-      Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Reason "retained commit push failed; retry push only"
       [pscustomobject]@{
         status = "push-retryable"
         bundleId = $bundleId
@@ -157,9 +140,8 @@ try {
         sourceNetworkAccessed = $false
         error = ($retryPushOutput | Select-Object -Last 20 | Out-String).Trim()
       } | ConvertTo-Json -Depth 8
-      exit 3
+       Write-PublisherResult -Status "push-retryable" -BundleId $bundleId -CommitSha $commitSha -Error (($retryPushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
     }
-    Complete-ReleaseState -Status "published" -BundleId $bundleId -CommitSha $commitSha
     [pscustomobject]@{
       status = "published"
       bundleId = $bundleId
@@ -168,7 +150,7 @@ try {
       stagedFiles = @()
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-    exit 0
+     Write-PublisherResult -Status "published" -BundleId $bundleId -CommitSha $commitSha -PublishedCount ([int]$manifest.actualAppliedCount) -ExitCode 0
   }
   if ($remoteMain -ne [string]$manifest.baseMainSha) {
     [pscustomobject]@{
@@ -178,7 +160,7 @@ try {
       remoteMainSha = $remoteMain
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-    exit 2
+     Write-PublisherResult -Status "stale-base" -BundleId $bundleId -Error "origin/main changed after bundle creation" -ExitCode 2
   }
   Invoke-Git -Directory $ReleaseRoot -Arguments @("reset", "--hard", $manifest.baseMainSha) | Out-Null
   $releasePrepared = $true
@@ -252,7 +234,7 @@ try {
       commitSha = $commitSha
       sourceNetworkAccessed = $false
     } | ConvertTo-Json -Depth 8
-    exit 0
+     Write-PublisherResult -Status "commit-created-no-push" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -ExitCode 1
   }
   $previousErrorActionPreference = $ErrorActionPreference
   try {
@@ -263,7 +245,6 @@ try {
     $ErrorActionPreference = $previousErrorActionPreference
   }
   if ($pushExitCode -ne 0) {
-    Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Reason "push failed; retry push only"
     [pscustomobject]@{
       status = "push-retryable"
       bundleId = $bundleId
@@ -271,9 +252,8 @@ try {
       sourceNetworkAccessed = $false
       error = ($pushOutput | Select-Object -Last 20 | Out-String).Trim()
     } | ConvertTo-Json -Depth 8
-    exit 3
+     Write-PublisherResult -Status "push-retryable" -BundleId $bundleId -CommitSha $commitSha -StagedFiles $staged -Error (($pushOutput | Select-Object -Last 20 | Out-String).Trim()) -ExitCode 3
   }
-  Complete-ReleaseState -Status "published" -BundleId $bundleId -CommitSha $commitSha
   [pscustomobject]@{
     status = "published"
     bundleId = $bundleId
@@ -282,7 +262,8 @@ try {
     stagedFiles = $staged
     sourceNetworkAccessed = $false
   } | ConvertTo-Json -Depth 8
-} catch {
+   Write-PublisherResult -Status "published" -BundleId $bundleId -CommitSha $commitSha -PublishedCount ([int]$manifest.actualAppliedCount) -StagedFiles $staged -ExitCode 0
+ } catch {
   $message = $_.Exception.Message
   if ($releasePrepared -and -not $commitSha) {
     $cleanupErrors = @()
@@ -306,7 +287,6 @@ try {
       $message = "$message; $($cleanupErrors -join '; ')"
     }
   }
-  Complete-ReleaseState -Status "release-retryable" -BundleId $bundleId -Reason $message
   [pscustomobject]@{
     status = "release-retryable"
     bundleId = $bundleId
@@ -314,5 +294,5 @@ try {
     sourceNetworkAccessed = $false
     error = $message
   } | ConvertTo-Json -Depth 8
-  exit 1
+   Write-PublisherResult -Status "release-retryable" -BundleId $bundleId -CommitSha $commitSha -Error $message -ExitCode 1
 }

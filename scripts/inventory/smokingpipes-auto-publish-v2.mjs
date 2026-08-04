@@ -5,6 +5,7 @@ import {
   acquireOwnerTokenLock,
   cleanupRetention,
   readCycle,
+  recordPublishedBundle,
   releaseOwnerTokenLock,
   resolveActiveSmokingpipesCycle,
   transitionCycle,
@@ -151,15 +152,18 @@ export function syncSmokingpipesRuntimeV2(runtimeRoot) {
   return git(runtimeRoot, ["rev-parse", "HEAD"]);
 }
 
-function parseLastJson(stdout) {
-  for (let start = stdout.lastIndexOf("{"); start >= 0; start = stdout.lastIndexOf("{", start - 1)) {
-    try {
-      return JSON.parse(stdout.slice(start).trim());
-    } catch {
-      // PowerShell's ConvertTo-Json may emit nested objects; try its outer object.
-    }
+export function parseSmokingpipesPublisherResult(stdout = "") {
+  const prefix = "SMOKINGPIPES_PUBLISHER_RESULT_JSON=";
+  const markers = String(stdout).split(/\r?\n/).filter((line) => line.startsWith(prefix));
+  if (markers.length !== 1) return { status: "publisher-output-invalid", error: `expected exactly one publisher result marker, got ${markers.length}` };
+  try {
+    const parsed = JSON.parse(markers[0].slice(prefix.length));
+    const allowed = new Set(["published", "stale-base", "push-retryable", "release-retryable", "commit-created-no-push"]);
+    if (!allowed.has(parsed?.status)) throw new Error(`unsupported publisher status: ${parsed?.status}`);
+    return parsed;
+  } catch (error) {
+    return { status: "publisher-output-invalid", error: error.message };
   }
-  return { status: "publisher-output-invalid", raw: stdout };
 }
 
 async function invokePublisher({
@@ -193,7 +197,7 @@ async function invokePublisher({
     encoding: "utf8",
     windowsHide: true,
   });
-  const payload = parseLastJson(String(result.stdout || ""));
+  const payload = parseSmokingpipesPublisherResult(String(result.stdout || ""));
   return {
     ...payload,
     exitCode: result.status,
@@ -427,7 +431,16 @@ export async function runSmokingpipesAutoPublishV2({
       runtimeRoot: resolvedRuntimeRoot,
       noPush,
     });
-    if (published.status === "stale-base") {
+    if (published.status === "published") {
+      cycle = await transitionCycle({
+        stateRoot,
+        cycle,
+        phase: "published",
+        reason: "release-published",
+        patch: { release: { bundleId: built.bundleId, commitSha: published.commitSha || null, publishedAt: new Date().toISOString() }, failure: null },
+      });
+      await recordPublishedBundle({ stateRoot, bundleId: built.bundleId, cycleId: activeCycleId, commitSha: published.commitSha || null });
+    } else if (published.status === "stale-base") {
       cycle = await transitionCycle({
         stateRoot,
         cycle,

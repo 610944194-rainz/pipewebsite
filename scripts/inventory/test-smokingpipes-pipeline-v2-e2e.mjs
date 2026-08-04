@@ -32,6 +32,7 @@ import {
 } from "./validate-smokingpipes-release-bundle-v2.mjs";
 import {
   runSmokingpipesAutoPublishV2,
+  parseSmokingpipesPublisherResult,
   buildSmokingpipesV2Notification,
   smokingpipesV2ExitCode,
 } from "./smokingpipes-auto-publish-v2.mjs";
@@ -73,14 +74,7 @@ function runPublisher(arguments_, { env = {} } = {}) {
 }
 
 function lastJson(stdout) {
-  for (let start = stdout.lastIndexOf("{"); start >= 0; start = stdout.lastIndexOf("{", start - 1)) {
-    try {
-      return JSON.parse(stdout.slice(start));
-    } catch {
-      // Continue until the outer PowerShell JSON object is found.
-    }
-  }
-  throw new Error(`publisher did not emit JSON: ${stdout}`);
+  return parseSmokingpipesPublisherResult(`ordinary log\n${stdout}`);
 }
 
 function trustedSnapshot(products) {
@@ -350,7 +344,8 @@ async function main() {
 
     const retainedDetail = await readJson(path.join(stateRoot, "details", "900000.json"));
     const releaseRetry = await readCycle(stateRoot, "2030-01-01");
-    assert.equal(releaseRetry.phase, "release-retryable");
+    assert.equal(releaseRetry.phase, "bundle-ready");
+    await transitionCycle({ stateRoot, cycle: releaseRetry, phase: "release-retryable", reason: "fixture-orchestrator-retry" });
     assert.equal((await readJson(path.join(stateRoot, "details", "900000.json"))).sourceProductId, retainedDetail.sourceProductId);
     const retry = await runSmokingpipesCollectOnlyV2({
       stateRoot,
@@ -717,7 +712,6 @@ async function main() {
     git(subsetRelease, ["config", "user.email", "fixture@example.invalid"]);
     git(subsetRelease, ["config", "user.name", "Fixture"]);
     await writeText(fakeRuntimeRoot, "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs", "process.exit(0);\n");
-    await writeText(fakeRuntimeRoot, "scripts/inventory/smokingpipes-release-state-v2.mjs", "process.exit(0);\n");
 
     async function writeFixtureBundle(bundleRoot, outputValues, baseMainSha, bundleId) {
       const outputFileHashes = {};
@@ -748,6 +742,7 @@ async function main() {
     ]);
     assert.equal(subsetPublish.status, 0, `${subsetPublish.stdout}\n${subsetPublish.stderr}`);
     const subsetPayload = lastJson(subsetPublish.stdout);
+    assert.equal(subsetPayload.status, "published");
     assert.equal(Array.isArray(subsetPayload.stagedFiles), true, JSON.stringify(subsetPayload));
     assert.deepEqual([...subsetPayload.stagedFiles].sort(), [...changedFiles].sort());
     for (const [file, expectedHash] of Object.entries(subsetHashes)) {
