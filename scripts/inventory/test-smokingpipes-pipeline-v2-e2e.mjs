@@ -1143,6 +1143,7 @@ async function main() {
     assert.match(detailMessage, /实际详情完成: 1/);
     assert.match(detailMessage, /无需抓详情的状态变更: 3/);
     assert.match(detailMessage, /待处理详情: 1/);
+    assert.match(detailMessage, /隔离: 1/);
     assert.doesNotMatch(detailMessage, /已完成详情/);
     assert.match(detailMessage, /下一窗口/);
     const publishedMessage = buildSmokingpipesV2Notification({

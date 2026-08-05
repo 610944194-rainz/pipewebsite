@@ -118,6 +118,9 @@ export function buildSmokingpipesV2Notification(result = {}) {
   const completed = Array.isArray(collection.completedDetailIds) ? collection.completedDetailIds.length : 0;
   const completedWithoutDetail = number(collection.completedWithoutDetailCount);
   const pending = number(result.pendingDetailCount ?? collection.pendingDetailIds?.length);
+  const quarantined = Array.isArray(collection.quarantinedDetailIds)
+    ? collection.quarantinedDetailIds.length
+    : 0;
   if (status === "enriching-details") {
     return {
       title: "Smokingpipes V2｜详情续跑",
@@ -128,6 +131,7 @@ export function buildSmokingpipesV2Notification(result = {}) {
         `实际详情完成: ${completed}`,
         `无需抓详情的状态变更: ${completedWithoutDetail}`,
         `待处理详情: ${pending}`,
+        `隔离: ${quarantined}`,
         `本轮访问源站: ${result.networkAccessed === true ? "是" : "否"}`,
         "下一窗口: 继续待处理详情，不重新抓取已可信列表。",
       ].join("\n"),
