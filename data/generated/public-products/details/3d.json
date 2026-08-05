@@ -5139,9 +5139,9 @@
       "siteDisplayAmount": 804.5347999999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5942,9 +5942,9 @@
       "siteDisplayAmount": 1636.5600337500002,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6566,9 +6566,9 @@
       "siteDisplayAmount": 812.74244,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6714,10 +6714,10 @@
       "siteDisplayAmount": 1800.0870011999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -7357,9 +7357,9 @@
       "siteDisplayAmount": 1878.4289249999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7518,9 +7518,9 @@
       "siteDisplayAmount": 1623.5817029999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8329,9 +8329,9 @@
       "siteDisplayAmount": 829.1577199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -18837,6 +18837,163 @@
       "msrpRawText": "$295.00"
     },
     {
+      "id": "smokingpipes-734771",
+      "source": "smokingpipes",
+      "sourceProductId": "734771",
+      "brandName": "Erik Stokkebye 4th Generation",
+      "brandSlug": "erik-stokkebye-4th-generation",
+      "brandCountry": null,
+      "displayName": "Summer Collection Bent Dublin Tobacco Pipe",
+      "displayNameEn": "Summer Collection Bent Dublin Tobacco Pipe",
+      "rawTitle": "Summer Collection Bent Dublin Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3207.4023.jpg",
+      "sourcePriceAmount": 243,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 270,
+      "siteDisplayAmount": 2473.0724429999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 44.98,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "erik stokkebye 4th generation",
+        "name": "summer collection bent dublin tobacco pipe",
+        "price": 2473.0724429999996,
+        "sourceProductId": "734771"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3207.4023.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3207_1.3389.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3207_2.7943.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-787-3207_3.3867.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.44,
+        "heightMm": 51.96,
+        "weightGrams": 44.98,
+        "chamberDepthMm": 41.52,
+        "chamberDiameterMm": 19.71,
+        "outsideDiameterMm": 37.98
+      },
+      "model": {
+        "canonicalModelKey": "erik-stokkebye-4th-generation__series-summer-collection-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Summer Collection Tobacco Pipe",
+      "year": null,
+      "productCode": "002-787-3207",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Erik Stokkebye 4th Generation",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 44.98,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.71,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.98,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/erik-stokkebye-4th-generation/moreinfo.cfm?product_id=734771",
+      "sourceOriginalText": "Summer Collection Bent Dublin Tobacco Pipe",
+      "priceRawText": "$243.00",
+      "msrpRawText": "$270.00"
+    },
+    {
       "id": "smokingpipes-735083",
       "source": "smokingpipes",
       "sourceProductId": "735083",
@@ -20761,6 +20918,163 @@
       "sourceOriginalText": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$224.00",
       "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-737097",
+      "source": "smokingpipes",
+      "sourceProductId": "737097",
+      "brandName": "David Huber",
+      "brandSlug": "david-huber",
+      "brandCountry": null,
+      "displayName": "Sakai-samegawara Fugu (2326) (2026) Tobacco Pipe",
+      "displayNameEn": "Sakai-samegawara Fugu (2326) (2026) Tobacco Pipe",
+      "rawTitle": "Sakai-samegawara Fugu (2326) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0150.7952.jpg",
+      "sourcePriceAmount": 850,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 8524.9074,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 47.63,
+      "shape": "Blowfish",
+      "shapeZh": "河豚斗",
+      "finish": "Partial Sandblast",
+      "finishZh": "局部喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "david huber",
+        "name": "sakai-samegawara fugu (2326) (2026) tobacco pipe",
+        "price": 8524.9074,
+        "sourceProductId": "737097"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0150.7952.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0150_1.1431.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0150_2.5885.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0150_3.6700.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.44,
+        "heightMm": 59.44,
+        "weightGrams": 47.63,
+        "chamberDepthMm": 35.81,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 38.1
+      },
+      "model": {
+        "canonicalModelKey": "david-huber__model-2326__series-sakai-samegawara-fugu-tobacco-pipe__shape-blowfish",
+        "confidence": "high"
+      },
+      "series": "Sakai Samegawara Fugu Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-755-0150",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "David Huber",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Blowfish",
+          "labelZh": "河豚斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Partial Sandblast",
+          "labelZh": "局部喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 59.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 47.63,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/david-huber/moreinfo.cfm?product_id=737097",
+      "sourceOriginalText": "Sakai-samegawara Fugu (2326) (2026) Tobacco Pipe",
+      "priceRawText": "$850.00",
+      "msrpRawText": null
     }
   ]
 }

@@ -5256,10 +5256,10 @@
       "displayNameEn": "Pony Express Tobacco Pipe",
       "rawTitle": "Pony Express Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0007.jpg",
-      "sourcePriceAmount": 8.99,
+      "sourcePriceAmount": 8.63,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 344.8248836,
+      "siteDisplayAmount": 341.8701332,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5289,7 +5289,7 @@
       "sortKeys": {
         "brand": "missouri meerschaum",
         "name": "pony express tobacco pipe",
-        "price": 344.8248836,
+        "price": 341.8701332,
         "sourceProductId": "109742"
       },
       "displayNameZh": null,
@@ -5390,7 +5390,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=109742",
       "sourceOriginalText": "Pony Express Tobacco Pipe",
-      "priceRawText": "$8.99",
+      "priceRawText": "$8.63",
       "msrpRawText": null
     },
     {
@@ -5404,10 +5404,10 @@
       "displayNameEn": "Cobbit Dwarf Tobacco Pipe",
       "rawTitle": "Cobbit Dwarf Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0023.6871.jpg",
-      "sourcePriceAmount": 42.49,
+      "sourcePriceAmount": 40.79,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 619.7808236000001,
+      "siteDisplayAmount": 605.8278356000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -5437,7 +5437,7 @@
       "sortKeys": {
         "brand": "missouri meerschaum",
         "name": "cobbit dwarf tobacco pipe",
-        "price": 619.7808236000001,
+        "price": 605.8278356000001,
         "sourceProductId": "169876"
       },
       "displayNameZh": null,
@@ -5544,7 +5544,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=169876",
       "sourceOriginalText": "Cobbit Dwarf Tobacco Pipe",
-      "priceRawText": "$42.49",
+      "priceRawText": "$40.79",
       "msrpRawText": null
     },
     {
@@ -5564,9 +5564,9 @@
       "siteDisplayAmount": 279.24584,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6679,9 +6679,9 @@
       "siteDisplayAmount": 747.0813199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6834,9 +6834,9 @@
       "siteDisplayAmount": 861.9882799999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8380,9 +8380,9 @@
       "siteDisplayAmount": 2350.3682249999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12700,9 +12700,9 @@
       "siteDisplayAmount": 1968.097392,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -26472,6 +26472,169 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-735808",
+      "source": "smokingpipes",
+      "sourceProductId": "735808",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Punto Oro Gold Smooth (601) (70/180) Tobacco Pipe",
+      "displayNameEn": "Punto Oro Gold Smooth (601) (70/180) Tobacco Pipe",
+      "rawTitle": "Punto Oro Gold Smooth (601) (70/180) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112090.9398.jpg",
+      "sourcePriceAmount": 480,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 600,
+      "siteDisplayAmount": 4806.025715999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 36.85,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "punto oro gold smooth (601) (70/180) tobacco pipe",
+        "price": 4806.025715999999,
+        "sourceProductId": "735808"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112090.9398.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112090_1.7265.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112090_2.4528.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112090_3.9371.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.19,
+        "heightMm": 44.7,
+        "weightGrams": 36.85,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 36.83
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-601__series-punto-oro-gold-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Punto Oro Gold Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112090",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.85,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735808",
+      "sourceOriginalText": "Punto Oro Gold Smooth (601) (70/180) Tobacco Pipe",
+      "priceRawText": "$480.00",
+      "msrpRawText": "$600.00"
+    },
+    {
       "id": "smokingpipes-735850",
       "source": "smokingpipes",
       "sourceProductId": "735850",
@@ -27434,6 +27597,167 @@
       "sourceOriginalText": "Oceano Smooth (320 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$168.00",
       "msrpRawText": "$210.00"
+    },
+    {
+      "id": "smokingpipes-737675",
+      "source": "smokingpipes",
+      "sourceProductId": "737675",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Petite Smooth (313) Tobacco Pipe",
+      "displayNameEn": "Petite Smooth (313) Tobacco Pipe",
+      "rawTitle": "Petite Smooth (313) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112296.6217.jpg",
+      "sourcePriceAmount": 164,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 205,
+      "siteDisplayAmount": 1650.0103038,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 25.51,
+      "shape": "Prince",
+      "shapeZh": "王子斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "petite smooth (313) tobacco pipe",
+        "price": 1650.0103038,
+        "sourceProductId": "737675"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112296.6217.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112296_1.8088.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 32,
+        "weightGrams": 25.51,
+        "chamberDepthMm": 25.65,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 36.07
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-313__series-petite-tobacco-pipe__shape-prince",
+        "confidence": "high"
+      },
+      "series": "Petite Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112296",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Prince",
+          "labelZh": "王子斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 25.51,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 25.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737675",
+      "sourceOriginalText": "Petite Smooth (313) Tobacco Pipe",
+      "priceRawText": "$164.00",
+      "msrpRawText": "$205.00"
     }
   ]
 }

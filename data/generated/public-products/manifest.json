@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "generatorVersion": "smokingpipes-release-bundle-v2",
-  "generatedAt": "2026-08-05T15:34:00.465Z",
+  "generatedAt": "2026-08-05T17:59:04.024Z",
   "productionWritten": false,
-  "publicProductCount": 10206,
-  "excludedProductCount": 348,
+  "publicProductCount": 10327,
+  "excludedProductCount": 347,
   "brandCount": 167,
-  "detailCount": 10206,
+  "detailCount": 10327,
   "detailShardCount": 64,
   "detailFiles": [
     "data/generated/public-products/details/00.json",
@@ -74,8 +74,8 @@
     "data/generated/public-products/details/38.json",
     "data/generated/public-products/details/39.json"
   ],
-  "recentNewCount": 19,
+  "recentNewCount": 120,
   "inputHashes": {
-    "staging": "db82f5b47941ee11772d6194630045c6284a15d48fedfa7da3bd63fd010d1328"
+    "staging": "64fc1ffa0c6d5647ee365393c3d8736704c023c97455fd302cabeccfdf283cdc"
   }
 }

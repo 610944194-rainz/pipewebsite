@@ -4950,6 +4950,154 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-109741",
+      "source": "smokingpipes",
+      "sourceProductId": "109741",
+      "brandName": "Missouri Meerschaum",
+      "brandSlug": "missouri-meerschaum",
+      "brandCountry": "United States",
+      "displayName": "Washington 5th Avenue Bent (6mm) Tobacco Pipe",
+      "displayNameEn": "Washington 5th Avenue Bent (6mm) Tobacco Pipe",
+      "rawTitle": "Washington 5th Avenue Bent (6mm) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products-hr/002-543-0006.8578.jpg",
+      "sourcePriceAmount": 13.43,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 13.99,
+      "siteDisplayAmount": 381.2668052,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 31.18,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": null,
+      "finishZh": null,
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialZh": "玉米芯",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "missouri meerschaum",
+        "name": "washington 5th avenue bent (6mm) tobacco pipe",
+        "price": 381.2668052,
+        "sourceProductId": "109741"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products-hr/002-543-0006.8578.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.97,
+        "heightMm": 46.48,
+        "weightGrams": 31.18,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 32.26
+      },
+      "model": {
+        "canonicalModelKey": "missouri-meerschaum__series-washington-5th-avenue-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Washington 5th Avenue Tobacco Pipe",
+      "year": null,
+      "productCode": "002-543-0006",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Missouri Meerschaum",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United States",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Corn Cob",
+          "labelZh": "玉米芯",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.18,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 32.26,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=109741",
+      "sourceOriginalText": "Washington 5th Avenue Bent (6mm) Tobacco Pipe",
+      "priceRawText": "$13.43",
+      "msrpRawText": "$13.99"
+    },
+    {
       "id": "smokingpipes-344792",
       "source": "smokingpipes",
       "sourceProductId": "344792",
@@ -5126,9 +5274,9 @@
       "siteDisplayAmount": 648.5896399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -5441,9 +5589,9 @@
       "siteDisplayAmount": 648.5896399999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6856,9 +7004,9 @@
       "siteDisplayAmount": 861.9882799999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7172,9 +7320,9 @@
       "siteDisplayAmount": 1401.6406099999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10347,9 +10495,9 @@
       "siteDisplayAmount": 1479.6131899999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10829,9 +10977,9 @@
       "siteDisplayAmount": 1269.0872239999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -13223,9 +13371,9 @@
       "siteDisplayAmount": 1703.8113839999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -14184,9 +14332,9 @@
       "siteDisplayAmount": 1815.89696775,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -26142,6 +26290,163 @@
       "sourceOriginalText": "Frihand Black Grain Smooth (B) Tobacco Pipe",
       "priceRawText": "$193.50",
       "msrpRawText": "$215.00"
+    },
+    {
+      "id": "smokingpipes-735076",
+      "source": "smokingpipes",
+      "sourceProductId": "735076",
+      "brandName": "Cavicchi",
+      "brandSlug": "cavicchi",
+      "brandCountry": null,
+      "displayName": "Smooth Bent Brandy (CCCCC) Tobacco Pipe",
+      "displayNameEn": "Smooth Bent Brandy (CCCCC) Tobacco Pipe",
+      "rawTitle": "Smooth Bent Brandy (CCCCC) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4183.3341.jpg",
+      "sourcePriceAmount": 787.5,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 875,
+      "siteDisplayAmount": 7934.983274999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 40.82,
+      "shape": "Bent Brandy",
+      "shapeZh": "弯式白兰地斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "cavicchi",
+        "name": "smooth bent brandy (ccccc) tobacco pipe",
+        "price": 7934.983274999999,
+        "sourceProductId": "735076"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4183.3341.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4183_1.5921.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4183_2.7320.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-400-4183_3.8357.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 134.62,
+        "heightMm": 46.99,
+        "weightGrams": 40.82,
+        "chamberDepthMm": 39.12,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 34.8
+      },
+      "model": {
+        "canonicalModelKey": "cavicchi__series-tobacco-pipe__shape-bent-brandy",
+        "confidence": "medium"
+      },
+      "series": "Tobacco Pipe",
+      "year": null,
+      "productCode": "002-400-4183",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Cavicchi",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Brandy",
+          "labelZh": "弯式白兰地斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 134.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 40.82,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/cavicchi/moreinfo.cfm?product_id=735076",
+      "sourceOriginalText": "Smooth Bent Brandy (CCCCC) Tobacco Pipe",
+      "priceRawText": "$787.50",
+      "msrpRawText": "$875.00"
     },
     {
       "id": "smokingpipes-735262",
