@@ -37,12 +37,49 @@ async function readJsonFile(filePath) {
   return JSON.parse(await fs.promises.readFile(filePath, "utf8"));
 }
 
-function trustedListReason(payload) {
+export const SMOKINGPIPES_V2_LIST_MAX_PAGES = 200;
+export const SMOKINGPIPES_V2_DETAIL_PACING = Object.freeze({
+  detailWarmupMinMs: 4000,
+  detailWarmupMaxMs: 10000,
+  detailBatchSize: 20,
+  detailBatchCooldownMinMs: 30000,
+  detailBatchCooldownMaxMs: 60000,
+});
+
+function hasTrustedPaginationTotal(summary) {
+  const detectedTotalPages = Number(summary.detectedTotalPages);
+  return (
+    Number.isInteger(detectedTotalPages) &&
+    detectedTotalPages > 1 &&
+    summary.detectionConfidence === "high" &&
+    Number(summary.effectiveScannedPages) >= detectedTotalPages
+  );
+}
+
+function hasConfirmedNormalEndOfList(payload, summary) {
+  const endOfListPage = Number(summary.normalEndOfListPage);
+  if (
+    summary.normalEndOfListConfirmed !== true ||
+    !Number.isInteger(endOfListPage) ||
+    endOfListPage <= 1 ||
+    Number(summary.effectiveScannedPages) < endOfListPage - 1 ||
+    !Array.isArray(payload?.pages)
+  ) {
+    return false;
+  }
+  const scannedPages = new Set(
+    payload.pages.map((item) => Number(item?.page)).filter(Number.isInteger)
+  );
+  for (let pageNumber = 1; pageNumber < endOfListPage; pageNumber += 1) {
+    if (!scannedPages.has(pageNumber)) return false;
+  }
+  return true;
+}
+
+export function trustedListReason(payload, diff = null) {
   const summary = payload?.summary || {};
   if (!items(payload).length) return "list snapshot is empty";
-  if (summary.fullExpectedRangeScanned !== true) {
-    return "list snapshot did not scan the full expected range";
-  }
+  if ((summary.failedPages || []).length) return "list snapshot contains failed pages";
   if (
     summary.captchaDetected === true ||
     summary.verificationDetected === true ||
@@ -50,9 +87,20 @@ function trustedListReason(payload) {
   ) {
     return "list snapshot contains CAPTCHA or verification evidence";
   }
-  if ((summary.failedPages || []).length) return "list snapshot contains failed pages";
   const ids = items(payload).map((item) => text(item.sourceProductId)).filter(Boolean);
   if (new Set(ids).size !== ids.length) return "list snapshot has duplicate source product IDs";
+  if (summary.fullExpectedRangeScanned !== true) {
+    return "list snapshot did not scan the full expected range";
+  }
+  if (
+    !hasTrustedPaginationTotal(summary) &&
+    !hasConfirmedNormalEndOfList(payload, summary)
+  ) {
+    return "list snapshot has no trusted pagination total or normal end-of-list evidence";
+  }
+  if ((diff?.fatalWarnings || []).length > 0) {
+    return "list diff contains fatal warnings";
+  }
   return null;
 }
 
@@ -140,6 +188,7 @@ export async function runSmokingpipesCollectOnlyV2({
   maxAutoApply = 2000,
   processDetail = null,
   fetchOptions = {},
+  progressiveRunner = runSmokingpipesProgressiveMode,
 } = {}) {
   const resolvedRuntimeRoot = path.resolve(runtimeRoot);
   const resolvedStateRoot = assertExternalStateRoot({
@@ -222,14 +271,15 @@ export async function runSmokingpipesCollectOnlyV2({
           writeOutOfStockTailCache: false,
           failureSnapshotDir: path.join(paths.logs, "failure-snapshots"),
           ...fetchOptions,
+          maxPages: SMOKINGPIPES_V2_LIST_MAX_PAGES,
         });
       } else {
         throw new Error("no list input supplied and live collection is disabled");
       }
-      const trustFailure = trustedListReason(snapshot);
-      if (trustFailure) throw new Error(trustFailure);
       const productionProducts = await readJsonFile(overrides.existingProducts);
       const diff = buildInventoryDiff(snapshot, productionProducts, { maxAutoApply });
+      const trustFailure = trustedListReason(snapshot, diff);
+      if (trustFailure) throw new Error(trustFailure);
       await writeJsonAtomic(paths.listSnapshot, snapshot);
       await writeJsonAtomic(paths.inventoryDiff, diff);
       await writeJsonAtomic(paths.listManifest, {
@@ -272,6 +322,11 @@ export async function runSmokingpipesCollectOnlyV2({
   }
 
   if (snapshot && cycle.phase === "collection-retryable") {
+    const existingDiff = await readJson(paths.inventoryDiff, null);
+    const trustFailure = trustedListReason(snapshot, existingDiff);
+    if (trustFailure) {
+      return { status: "collection-retryable", cycle, networkAccessed, error: trustFailure };
+    }
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
@@ -281,7 +336,7 @@ export async function runSmokingpipesCollectOnlyV2({
   }
 
   if (cycle.phase === "list-ready") {
-    const ingest = await runSmokingpipesProgressiveMode({
+    const ingest = await progressiveRunner({
       root: resolvedRuntimeRoot,
       options: {
         mode: "progressive-ingest-list",
@@ -312,7 +367,10 @@ export async function runSmokingpipesCollectOnlyV2({
     });
   }
 
-  const detailResult = await runSmokingpipesProgressiveMode({
+  console.log(
+    "Smokingpipes V2 detail pacing: detail warmup: 4000-10000 ms; detail batch: 20; detail batch cooldown: 30000-60000 ms"
+  );
+  const detailResult = await progressiveRunner({
     root: resolvedRuntimeRoot,
     options: {
       mode: "progressive-detail-chunk",
@@ -323,8 +381,7 @@ export async function runSmokingpipesCollectOnlyV2({
       browserChannel: "chrome",
       browserProfile: "sp-chrome",
       allowManualVerification: true,
-      detailWarmupMinMs: 0,
-      detailWarmupMaxMs: 0,
+      ...SMOKINGPIPES_V2_DETAIL_PACING,
       manualVerificationTimeoutMs: 10 * 60 * 1000,
       retryFailedDetails: true,
       maxDetailAttempts: 3,

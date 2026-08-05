@@ -1547,6 +1547,10 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
 
   const deduped = classifySmokingpipesListDuplicates(collected);
   const completedAt = new Date().toISOString();
+  const normalEndOfListConfirmed =
+    endedByEmptyOutOfRangePage === true &&
+    Number.isInteger(Number(endOfListPage)) &&
+    Number(endOfListPage) > 1;
   const effectiveScannedPages =
     pages.length + skippedOutOfStockTailPages.length;
   const lastSuccessfulPage = pages.length
@@ -1569,6 +1573,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       paginationMaxPageParam,
       endedByEmptyOutOfRangePage,
       endOfListPage,
+      normalEndOfListConfirmed,
+      normalEndOfListPage: normalEndOfListConfirmed ? Number(endOfListPage) : null,
       displayNum,
       ...pacing,
       allowManualVerification,
@@ -1597,6 +1603,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       effectiveScannedPages,
       endedByEmptyOutOfRangePage,
       endOfListPage,
+      normalEndOfListConfirmed,
+      normalEndOfListPage: normalEndOfListConfirmed ? Number(endOfListPage) : null,
       firstOutOfStockOnlyPage,
       skippedOutOfStockTailPages,
       tailCacheUsed,

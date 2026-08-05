@@ -511,6 +511,7 @@ async function createRealDetailProcessor({
     manualVerificationRecovered: false,
     notification: null,
   };
+  let networkDetailRequestCount = 0;
   return {
     browserStarted: true,
     verificationState,
@@ -519,6 +520,18 @@ async function createRealDetailProcessor({
         waitUntil: "domcontentloaded",
         timeout: 60000,
       });
+      networkDetailRequestCount += 1;
+      const detailBatchSize = Math.max(0, Number(options.detailBatchSize) || 0);
+      if (
+        detailBatchSize > 0 &&
+        networkDetailRequestCount % detailBatchSize === 0
+      ) {
+        const cooldownMs = randomDelayMs(
+          options.detailBatchCooldownMinMs,
+          options.detailBatchCooldownMaxMs
+        );
+        if (cooldownMs > 0) await page.waitForTimeout(cooldownMs);
+      }
       const warmupMs = randomDelayMs(
         options.detailWarmupMinMs,
         options.detailWarmupMaxMs

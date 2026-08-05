@@ -22,7 +22,13 @@ import {
 } from "./smokingpipes-cycle-store-v2.mjs";
 import {
   runSmokingpipesCollectOnlyV2,
+  SMOKINGPIPES_V2_DETAIL_PACING,
+  SMOKINGPIPES_V2_LIST_MAX_PAGES,
+  trustedListReason,
 } from "./smokingpipes-collect-only-v2.mjs";
+import {
+  runSmokingpipesProgressiveMode,
+} from "./smokingpipes-progressive-runner-v1.mjs";
 import {
   buildSmokingpipesReleaseBundleV2,
   GIT_JSON_MAX_BUFFER_BYTES,
@@ -78,18 +84,26 @@ function lastJson(stdout) {
   return parseSmokingpipesPublisherResult(`ordinary log\n${stdout}`);
 }
 
-function trustedSnapshot(products) {
+function trustedSnapshot(products, { summary = {}, pages = null, config = null } = {}) {
+  const anchoredProducts = products.some((product) => product.sourceProductId === "109736")
+    ? products
+    : [trustedExistingListItem(), ...products];
   return {
     version: "smokingpipes-current-list-dry-run-v1",
     source: "smokingpipes",
-    products,
+    ...(pages ? { pages } : {}),
+    ...(config ? { config } : {}),
+    products: anchoredProducts,
     summary: {
-      expectedPages: 1,
-      effectiveScannedPages: 1,
+      expectedPages: 2,
+      effectiveScannedPages: 2,
+      detectedTotalPages: 2,
+      detectionConfidence: "high",
       fullExpectedRangeScanned: true,
       failedPages: [],
       captchaDetected: false,
       verificationDetected: false,
+      ...summary,
     },
   };
 }
@@ -110,6 +124,22 @@ function listItem(id, brand = "Test Brand") {
   };
 }
 
+function trustedExistingListItem() {
+  return {
+    source: "smokingpipes",
+    sourceProductId: "109736",
+    sourceUrl: "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=109736",
+    title: "Missouri Pride Straight (6mm) Tobacco Pipe",
+    rawTitle: "Missouri Pride Straight (6mm) Tobacco Pipe",
+    brand: "Missouri Meerschaum",
+    price: "$8.63",
+    image: "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0001.jpg",
+    mainImage: "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0001.jpg",
+    listPage: 1,
+    listPosition: 1,
+  };
+}
+
 async function transitionToReady({ stateRoot, cycleId }) {
   let cycle = await readCycle(stateRoot, cycleId);
   cycle = await transitionCycle({ stateRoot, cycle, phase: "collecting-list", reason: "fixture" });
@@ -125,7 +155,16 @@ async function main() {
     const template = (await readWorkspaceJson("data/products/smokingpipes-products.json"))[0];
     await writeJsonAtomic(
       path.join(runtimeRoot, "data", "products", "smokingpipes-products.json"),
-      [template]
+      [
+        template,
+        ...Array.from({ length: 500 }, (_, index) => ({
+          ...structuredClone(template),
+          id: `smokingpipes-sold-${index}`,
+          sourceProductId: `sold-${index}`,
+          sourceUrl: `https://example.test/sold-${index}`,
+          inventoryStatus: "sold",
+        })),
+      ]
     );
     await writeJsonAtomic(
       path.join(runtimeRoot, "data", "products", "danish-products.json"),
@@ -234,6 +273,103 @@ async function main() {
       publicReady: true,
     });
 
+    const incompleteThreePageSnapshot = trustedSnapshot([listItem("incomplete-three")], {
+      config: { maxPages: 3, requestedMaxPages: 3 },
+      summary: {
+        expectedPages: 3,
+        pagesScanned: 3,
+        effectiveScannedPages: 3,
+        detectedTotalPages: null,
+        detectionConfidence: "low",
+        paginationLinksFound: 0,
+        normalEndOfListConfirmed: false,
+        normalEndOfListPage: null,
+      },
+    });
+    assert.match(
+      trustedListReason(incompleteThreePageSnapshot),
+      /no trusted pagination total or normal end-of-list evidence/
+    );
+    const incompleteThreePath = path.join(temporaryRoot, "incomplete-three.json");
+    await writeJsonAtomic(incompleteThreePath, incompleteThreePageSnapshot);
+    const incompleteThreeResult = await runSmokingpipesCollectOnlyV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-06",
+      listInputPath: incompleteThreePath,
+      processDetail: async () => {
+        throw new Error("untrusted list must not process details");
+      },
+    });
+    assert.equal(incompleteThreeResult.status, "collection-retryable");
+    assert.equal(incompleteThreeResult.cycle.phase, "collection-retryable");
+    assert.equal(fs.existsSync(path.join(stateRoot, "cycles", "2030-01-06", "bundles")), false);
+
+    const detectedPaginationSnapshot = trustedSnapshot([listItem("detected-pagination")], {
+      summary: {
+        expectedPages: 105,
+        effectiveScannedPages: 105,
+        detectedTotalPages: 105,
+        detectionConfidence: "high",
+      },
+    });
+    assert.equal(trustedListReason(detectedPaginationSnapshot), null);
+
+    const normalEndOfListSnapshot = trustedSnapshot([listItem("normal-end")], {
+      pages: Array.from({ length: 104 }, (_, index) => ({ page: index + 1 })),
+      summary: {
+        expectedPages: 104,
+        effectiveScannedPages: 104,
+        detectedTotalPages: null,
+        detectionConfidence: "low",
+        normalEndOfListConfirmed: true,
+        normalEndOfListPage: 105,
+      },
+    });
+    assert.equal(trustedListReason(normalEndOfListSnapshot), null);
+
+    const cappedWithoutEndSnapshot = trustedSnapshot([listItem("capped-without-end")], {
+      config: { maxPages: 200, requestedMaxPages: 200 },
+      summary: {
+        expectedPages: 200,
+        effectiveScannedPages: 200,
+        detectedTotalPages: null,
+        detectionConfidence: "low",
+        normalEndOfListConfirmed: false,
+        normalEndOfListPage: null,
+      },
+    });
+    assert.match(
+      trustedListReason(cappedWithoutEndSnapshot),
+      /no trusted pagination total or normal end-of-list evidence/
+    );
+    assert.match(
+      trustedListReason(detectedPaginationSnapshot, { fatalWarnings: ["fixture"] }),
+      /fatal warnings/
+    );
+    assert.equal(SMOKINGPIPES_V2_LIST_MAX_PAGES, 200);
+    assert.deepEqual(SMOKINGPIPES_V2_DETAIL_PACING, {
+      detailWarmupMinMs: 4000,
+      detailWarmupMaxMs: 10000,
+      detailBatchSize: 20,
+      detailBatchCooldownMinMs: 30000,
+      detailBatchCooldownMaxMs: 60000,
+    });
+
+    let detailPacingPassedToRunner = null;
+    const progressiveRunner = async (input) => {
+      if (input.options?.mode === "progressive-detail-chunk") {
+        detailPacingPassedToRunner = {
+          detailWarmupMinMs: input.options.detailWarmupMinMs,
+          detailWarmupMaxMs: input.options.detailWarmupMaxMs,
+          detailBatchSize: input.options.detailBatchSize,
+          detailBatchCooldownMinMs: input.options.detailBatchCooldownMinMs,
+          detailBatchCooldownMaxMs: input.options.detailBatchCooldownMaxMs,
+        };
+      }
+      return runSmokingpipesProgressiveMode(input);
+    };
+
     const first = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot,
@@ -241,9 +377,11 @@ async function main() {
       listInputPath: listPath,
       detailLimit: 24,
       processDetail: detailProcessor,
+      progressiveRunner,
     });
-    assert.equal(first.status, "enriching-details");
+    assert.equal(first.status, "enriching-details", first.error);
     assert.equal(first.cycle.collection.pendingDetailIds.length, 24);
+    assert.deepEqual(detailPacingPassedToRunner, SMOKINGPIPES_V2_DETAIL_PACING);
     const second = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot,
@@ -253,10 +391,9 @@ async function main() {
     });
     assert.equal(second.status, "ready-to-bundle");
     assert.equal(second.networkAccessed, false);
-    assert.equal(second.cycle.collection.completedDetailIds.length, 48);
+    assert.equal(second.cycle.collection.completedDetailIds.length, 48, JSON.stringify(second.cycle.collection));
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "900000.json")), true);
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "999999.json")), false);
-
     const legacyBaselineRoot = path.join(temporaryRoot, "legacy-falcon-baseline");
     const legacyFalcon = {
       ...structuredClone(template),
