@@ -879,6 +879,7 @@ export async function launchSmokingpipesContext(options = {}) {
   const baseOptions = {
     headless: browserDescriptor.headless,
     viewport: { width: 1365, height: 900 },
+    chromiumSandbox: true,
   };
   const launchSelection = resolveSmokingpipesBrowserLaunch(
     browserDescriptor.effectiveBrowserChannel,

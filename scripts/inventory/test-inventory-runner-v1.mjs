@@ -3818,6 +3818,7 @@ assert.equal(
 );
 assert.equal(launchCapture.launchOptions.channel, "chrome");
 assert.equal(launchCapture.launchOptions.headless, false);
+assert.equal(launchCapture.launchOptions.chromiumSandbox, true);
 assert.equal(launchedChromeSession.context, fakePersistentContext);
 assert.equal(
   launchedChromeSession.browser.requestedBrowserChannel,

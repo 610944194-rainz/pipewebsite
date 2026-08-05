@@ -155,20 +155,33 @@ async function persistDetail({ stateRoot, candidate }) {
   });
 }
 
-function collectionSummary(state) {
+export function collectionSummary(state) {
   const candidates = state?.candidates || [];
+  const requiresDetail = (candidate) =>
+    (candidate.changeTypes || []).includes("new-product");
   return {
     observedCandidateCount: candidates.length,
     pendingDetailIds: candidates
-      .filter((candidate) => candidate.detailStatus === "pending" || candidate.detailStatus === "blocked")
+      .filter(
+        (candidate) =>
+          requiresDetail(candidate) &&
+          (candidate.detailStatus === "pending" || candidate.detailStatus === "blocked")
+      )
       .map((candidate) => text(candidate.sourceProductId))
       .filter(Boolean)
       .sort(),
     completedDetailIds: candidates
-      .filter((candidate) => candidate.detailStatus === "complete")
+      .filter(
+        (candidate) =>
+          requiresDetail(candidate) && candidate.detailStatus === "complete"
+      )
       .map((candidate) => text(candidate.sourceProductId))
       .filter(Boolean)
       .sort(),
+    completedWithoutDetailCount: candidates.filter(
+      (candidate) =>
+        !requiresDetail(candidate) && candidate.detailStatus === "complete"
+    ).length,
     quarantinedDetailIds: candidates
       .filter((candidate) => candidate.detailStatus === "failed" || candidate.detailStatus === "review-only")
       .map((candidate) => text(candidate.sourceProductId))

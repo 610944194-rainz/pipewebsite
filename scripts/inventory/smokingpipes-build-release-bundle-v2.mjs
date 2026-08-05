@@ -348,6 +348,7 @@ export async function buildSmokingpipesReleaseBundleV2({
         path: path.relative(stateRoot, bundleRoot).replace(/\\/g, "/"),
         baseMainSha: resolvedBaseMainSha,
         actualAppliedCount: selectedIds.length,
+        changeTypeCounts: manifest.changeTypeCounts,
         selectedIds: manifest.selectedIds,
       },
     },

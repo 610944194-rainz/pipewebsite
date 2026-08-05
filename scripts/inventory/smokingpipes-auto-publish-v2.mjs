@@ -5,6 +5,7 @@ import {
   acquireOwnerTokenLock,
   cleanupRetention,
   readCycle,
+  readJson,
   recordPublishedBundle,
   releaseOwnerTokenLock,
   resolveActiveSmokingpipesCycle,
@@ -63,6 +64,37 @@ function number(value) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+const CHANGE_TYPE_LABELS = {
+  "new-product": "新增",
+  "price-change": "改价",
+  "explicit-out-of-stock": "下架",
+  reappeared: "恢复库存",
+  "confirmed-disappeared": "确认消失",
+  other: "其他",
+};
+
+function resolvedChangeTypeCounts(result, cycle) {
+  for (const counts of [result.changeTypeCounts, cycle.bundle?.changeTypeCounts]) {
+    if (
+      counts &&
+      typeof counts === "object" &&
+      Object.values(counts).some((count) => number(count) > 0)
+    ) {
+      return counts;
+    }
+  }
+  return {};
+}
+
+function formatChangeTypeCounts(result, cycle) {
+  const counts = resolvedChangeTypeCounts(result, cycle);
+  const lines = Object.entries(CHANGE_TYPE_LABELS)
+    .map(([type, label]) => [label, number(counts[type])])
+    .filter(([, count]) => count > 0)
+    .map(([label, count]) => `- ${label}: ${count}`);
+  return lines.length ? ["变更类型:", ...lines] : ["变更类型: 无"];
+}
+
 function errorTail(value) {
   const source = String(value || "");
   try {
@@ -84,8 +116,8 @@ export function buildSmokingpipesV2Notification(result = {}) {
   const bundleId = String(result.bundleId || cycle.bundle?.bundleId || "-");
   const observed = number(result.observedCandidateCount ?? collection.observedCandidateCount);
   const completed = Array.isArray(collection.completedDetailIds) ? collection.completedDetailIds.length : 0;
+  const completedWithoutDetail = number(collection.completedWithoutDetailCount);
   const pending = number(result.pendingDetailCount ?? collection.pendingDetailIds?.length);
-  const quarantined = Array.isArray(collection.quarantinedDetailIds) ? collection.quarantinedDetailIds.length : 0;
   if (status === "enriching-details") {
     return {
       title: "Smokingpipes V2｜详情续跑",
@@ -93,9 +125,9 @@ export function buildSmokingpipesV2Notification(result = {}) {
         `cycleId: ${cycleId}`,
         "状态: enriching-details",
         `候选: ${observed}`,
-        `已完成详情: ${completed}`,
+        `实际详情完成: ${completed}`,
+        `无需抓详情的状态变更: ${completedWithoutDetail}`,
         `待处理详情: ${pending}`,
-        `隔离: ${quarantined}`,
         `本轮访问源站: ${result.networkAccessed === true ? "是" : "否"}`,
         "下一窗口: 继续待处理详情，不重新抓取已可信列表。",
       ].join("\n"),
@@ -108,7 +140,7 @@ export function buildSmokingpipesV2Notification(result = {}) {
         `cycleId: ${cycleId}`,
         `bundleId: ${bundleId}`,
         `实际发布数: ${number(result.publishedCount ?? result.bundleAppliedCount)}`,
-        `变更类型: ${JSON.stringify(cycle.bundle?.changeTypeCounts || result.changeTypeCounts || {})}`,
+        ...formatChangeTypeCounts(result, cycle),
         `commit: ${result.commitSha || "-"}`,
         "push: 成功",
       ].join("\n"),
@@ -349,10 +381,12 @@ export async function runSmokingpipesAutoPublishV2({
     const staleBaseRetry = collection.status === "release-resume-required" && cycle.failure?.stage === "stale-base";
     const retainedBundle = collection.status === "release-resume-required" && !staleBaseRetry && cycle.bundle?.bundleId && cycle.bundle?.path;
     if (retainedBundle) {
+      const bundleRoot = path.join(stateRoot, cycle.bundle?.path || "");
       built = {
         status: "bundle-ready",
         bundleId: cycle.bundle?.bundleId,
-        bundleRoot: path.join(stateRoot, cycle.bundle?.path || ""),
+        bundleRoot,
+        manifest: await readJson(path.join(bundleRoot, "manifest.json"), null),
         cycle,
       };
     } else {
@@ -581,6 +615,10 @@ export async function runSmokingpipesAutoPublishV2({
       pendingDetailCount: cycle.collection.pendingDetailIds.length,
       bundleAppliedCount: built.manifest?.actualAppliedCount || 0,
       publishedCount: published.status === "published" ? built.manifest?.actualAppliedCount || 0 : 0,
+      changeTypeCounts:
+        built.manifest?.changeTypeCounts ||
+        cycle.bundle?.changeTypeCounts ||
+        {},
       networkAccessed: collection.networkAccessed,
     });
   } finally {

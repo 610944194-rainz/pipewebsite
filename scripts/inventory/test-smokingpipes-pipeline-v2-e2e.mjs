@@ -22,6 +22,7 @@ import {
 } from "./smokingpipes-cycle-store-v2.mjs";
 import {
   runSmokingpipesCollectOnlyV2,
+  collectionSummary,
   SMOKINGPIPES_V2_DETAIL_PACING,
   SMOKINGPIPES_V2_LIST_MAX_PAGES,
   trustedListReason,
@@ -152,7 +153,10 @@ async function main() {
   const runtimeRoot = path.join(temporaryRoot, "runtime");
   const stateRoot = path.join(temporaryRoot, "state");
   try {
-    const template = (await readWorkspaceJson("data/products/smokingpipes-products.json"))[0];
+    const template = structuredClone(
+      (await readWorkspaceJson("data/products/smokingpipes-products.json"))[0]
+    );
+    template.inventoryStatus = "available";
     await writeJsonAtomic(
       path.join(runtimeRoot, "data", "products", "smokingpipes-products.json"),
       [
@@ -272,6 +276,19 @@ async function main() {
       },
       publicReady: true,
     });
+
+    const detailStatistics = collectionSummary({
+      candidates: [
+        { sourceProductId: "new-complete", changeTypes: ["new-product"], detailStatus: "complete" },
+        { sourceProductId: "new-pending", changeTypes: ["new-product"], detailStatus: "pending" },
+        { sourceProductId: "sold-complete", changeTypes: ["explicit-out-of-stock"], detailStatus: "complete" },
+        { sourceProductId: "price-complete", changeTypes: ["price-change"], detailStatus: "complete" },
+        { sourceProductId: "reappeared-complete", changeTypes: ["reappeared"], detailStatus: "complete" },
+      ],
+    });
+    assert.equal(detailStatistics.completedDetailIds.length, 1);
+    assert.equal(detailStatistics.pendingDetailIds.length, 1);
+    assert.equal(detailStatistics.completedWithoutDetailCount, 3);
 
     const incompleteThreePageSnapshot = trustedSnapshot([listItem("incomplete-three")], {
       config: { maxPages: 3, requestedMaxPages: 3 },
@@ -570,6 +587,10 @@ async function main() {
         generatorCommitSha: legacyGeneratorCommitSha,
         maxAutoApply: 2000,
       });
+      assert.deepEqual(
+        retained.cycle.bundle.changeTypeCounts,
+        retained.manifest.changeTypeCounts
+      );
       let retryCycle = await readCycle(stateRoot, cycleId);
       retryCycle = await transitionCycle({
         stateRoot,
@@ -1082,8 +1103,9 @@ async function main() {
     notificationCycle.collection = {
       ...notificationCycle.collection,
       observedCandidateCount: 211,
-      completedDetailIds: ["1", "2"],
+      completedDetailIds: ["1"],
       pendingDetailIds: ["3"],
+      completedWithoutDetailCount: 3,
       quarantinedDetailIds: ["4"],
     };
     notificationCycle.history.push({ at: notificationCycle.updatedAt, phase: notificationCycle.phase, reason: "fixture-notification" });
@@ -1118,8 +1140,32 @@ async function main() {
       cycle: notificationCycle,
       networkAccessed: false,
     }).body;
+    assert.match(detailMessage, /实际详情完成: 1/);
+    assert.match(detailMessage, /无需抓详情的状态变更: 3/);
     assert.match(detailMessage, /待处理详情: 1/);
+    assert.doesNotMatch(detailMessage, /已完成详情/);
     assert.match(detailMessage, /下一窗口/);
+    const publishedMessage = buildSmokingpipesV2Notification({
+      status: "published",
+      cycleId: notificationCycle.cycleId,
+      cycle: {
+        ...notificationCycle,
+        bundle: {
+          changeTypeCounts: {
+            "new-product": 120,
+            "price-change": 10,
+            "explicit-out-of-stock": 649,
+            reappeared: 57,
+          },
+        },
+      },
+      changeTypeCounts: {},
+    }).body;
+    assert.match(publishedMessage, /新增: 120/);
+    assert.match(publishedMessage, /改价: 10/);
+    assert.match(publishedMessage, /下架: 649/);
+    assert.match(publishedMessage, /恢复库存: 57/);
+    assert.doesNotMatch(publishedMessage, /变更类型: \{\}/);
 
     // Publisher E2E: a bundle can own many output files while only the files
     // whose content changed are staged. Hashes are verified on both sides of
