@@ -386,6 +386,14 @@ function createScenario(name, options = {}) {
     if (options.failStage === request.stage) {
       return { exitCode: options.failExitCode || 1, timedOut: false, stdout: "", stderr: `${request.stage} fixture failure` };
     }
+    if (request.stage === "git-cached-diff") {
+      return {
+        exitCode: options.cachedDiffExitCode ?? 1,
+        timedOut: false,
+        stdout: "",
+        stderr: "",
+      };
+    }
     if (request.stage === "convert" && !options.omitConvertedOutput) {
       const conversionInput = JSON.parse(fs.readFileSync(request.env.DANISH_FULL_INPUT, "utf8"));
       const selectedIds = new Set(conversionInput.products.map((item) => Number(item.href.match(/-i(\d+)\.html/)[1])));
@@ -589,7 +597,7 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(scenario.calls.includes("git-push"), false);
 }
 
-// Publish reaches explicit commit and push only after every Daily stage succeeds.
+// Staged changes make the cached diff exit 1, so Publish reaches commit and push.
 {
   const scenario = createScenario("publish-success");
   const report = await runScenario(scenario, "publish");
@@ -597,7 +605,41 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(report.buildPassed, true);
   assert.equal(report.commitExecuted, true);
   assert.equal(report.pushExecuted, true);
-  assert.deepEqual(scenario.calls.slice(-5), ["build", "git-diff-check", "git-add", "git-commit", "git-push"]);
+  assert.equal(report.commitSkipped, false);
+  assert.equal(report.pushSkipped, false);
+  assert.deepEqual(scenario.calls.slice(-6), ["build", "git-diff-check", "git-add", "git-cached-diff", "git-commit", "git-push"]);
+}
+
+// An empty staged diff is a successful no-op, even when unrelated local files exist.
+{
+  const scenario = createScenario("publish-noop", { cachedDiffExitCode: 0 });
+  const unrelatedLocalPath = path.join(scenario.root, "raw", "untracked-local-note.txt");
+  fs.writeFileSync(unrelatedLocalPath, "preserve this local artifact", "utf8");
+  const report = await runScenario(scenario, "publish");
+  assert.equal(report.status, "publish-noop");
+  assert.equal(report.allowPublish, true);
+  assert.equal(report.failureReason, null);
+  assert.equal(report.commitExecuted, false);
+  assert.equal(report.pushExecuted, false);
+  assert.equal(report.commitSkipped, true);
+  assert.equal(report.pushSkipped, true);
+  assert.equal(report.skipReason, "no-changes");
+  assert.equal(scenario.calls.includes("git-commit"), false);
+  assert.equal(scenario.calls.includes("git-push"), false);
+  assert.deepEqual(scenario.calls.slice(-4), ["build", "git-diff-check", "git-add", "git-cached-diff"]);
+}
+
+// Any cached-diff exit other than 0 or 1 is a real Git failure.
+{
+  const scenario = createScenario("publish-cached-diff-failure", { cachedDiffExitCode: 2 });
+  const report = await runScenario(scenario, "publish");
+  assert.equal(report.status, "failed");
+  assert.equal(report.allowPublish, false);
+  assert.match(report.failureReason, /git-cached-diff-failed exitCode=2/);
+  assert.equal(report.commitExecuted, false);
+  assert.equal(report.pushExecuted, false);
+  assert.equal(scenario.calls.includes("git-commit"), false);
+  assert.equal(scenario.calls.includes("git-push"), false);
 }
 
 // A failed detail retains the existing Production record instead of deleting it.

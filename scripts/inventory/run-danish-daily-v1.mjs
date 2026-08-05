@@ -968,11 +968,14 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     buildPassed: false,
     commitExecuted: false,
     pushExecuted: false,
+    commitSkipped: false,
+    pushSkipped: false,
+    skipReason: null,
     allowPublish: false,
     failureReason: null,
   };
   let lock = null;
-  const runStage = async (stage, command, args, env = {}) => {
+  const runStage = async (stage, command, args, env = {}, acceptedExitCodes = [0]) => {
     log("stage-start", { stage, command, args });
     const result = await execute({
       stage,
@@ -988,7 +991,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     });
     report.stages[stage] = { exitCode: result?.exitCode ?? null, timedOut: Boolean(result?.timedOut) };
     log("stage-result", { stage, ...report.stages[stage] });
-    requireStage(result, stage);
+    if (!acceptedExitCodes.includes(result?.exitCode)) requireStage(result, stage);
     return result;
   };
   try {
@@ -1203,6 +1206,18 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     if (mode === "publish") {
       await runStage("git-diff-check", "git", ["diff", "--check"]);
       await runStage("git-add", "git", ["add", "--", "data/products/danish-products.json", "data/products/unified-products-staging.json", "data/generated/public-products"]);
+      const stagedDiff = await runStage("git-cached-diff", "git", ["diff", "--cached", "--quiet"], {}, [0, 1]);
+      if (stagedDiff.exitCode === 0) {
+        report.commitSkipped = true;
+        report.pushSkipped = true;
+        report.skipReason = "no-changes";
+        report.status = "publish-noop";
+        log("publish-noop", { reason: report.skipReason });
+        return report;
+      }
+      if (stagedDiff.exitCode !== 1) {
+        throw new Error(`git-cached-diff-failed exitCode=${stagedDiff.exitCode ?? "unknown"}`);
+      }
       await runStage("git-commit", "git", ["commit", "-m", `chore: update Danish daily inventory ${runId}`]);
       report.commitExecuted = true;
       await runStage("git-push", "git", ["push", "origin", "HEAD"]);
@@ -1222,7 +1237,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     report.finishedAtLocal = localRunTime();
     report.durationSeconds = Number(((Date.parse(report.finishedAt) - Date.parse(report.startedAt)) / 1000).toFixed(2));
     writeJson(summaryPath, report);
-    log("final", { status: report.status, allowPublish: report.allowPublish, productionWritten: report.productionWritten, buildPassed: report.buildPassed, commitExecuted: report.commitExecuted, pushExecuted: report.pushExecuted, failureReason: report.failureReason });
+    log("final", { status: report.status, allowPublish: report.allowPublish, productionWritten: report.productionWritten, buildPassed: report.buildPassed, commitExecuted: report.commitExecuted, pushExecuted: report.pushExecuted, commitSkipped: report.commitSkipped, pushSkipped: report.pushSkipped, skipReason: report.skipReason, failureReason: report.failureReason });
   }
 }
 
