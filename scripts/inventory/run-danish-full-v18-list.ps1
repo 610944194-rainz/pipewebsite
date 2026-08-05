@@ -104,7 +104,7 @@ Write-Host "Maximum Show-more clicks: $MaxLoadMoreClicks"
 Write-Host ''
 Write-Host 'Browser procedure:' -ForegroundColor Yellow
 Write-Host '1. Complete the robot verification in Chrome.'
-Write-Host '2. Return to PowerShell and press Enter when prompted.'
+Write-Host '2. Keep Chrome open; the collector polls the page and continues automatically.'
 Write-Host '3. The collector will automatically select the language.'
 Write-Host '4. Do not close Chrome while collection is running.'
 Write-Host ''

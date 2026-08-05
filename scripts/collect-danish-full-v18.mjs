@@ -1,7 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createInterface } from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
 import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 import { parsePipeCondition } from "./collect-danish-details-v16.mjs";
@@ -23,11 +21,15 @@ const loadMoreDelayMs = readIntegerEnv("DANISH_LOAD_MORE_DELAY_MS", 4000, { min:
 const showMoreRetries = readIntegerEnv("DANISH_SHOW_MORE_RETRIES", 2, { min: 0 });
 const pageReadyTimeoutMs = readIntegerEnv("DANISH_PAGE_READY_TIMEOUT_MS", 90000, { min: 5000 });
 const languageFallbackSeconds = readIntegerEnv("DANISH_LANGUAGE_FALLBACK_SECONDS", 20, { min: 1 });
+const manualVerificationTimeoutSeconds = readIntegerEnv("DANISH_MANUAL_VERIFICATION_TIMEOUT_SECONDS", 900, { min: 30 });
+const manualVerificationPollMs = readIntegerEnv("DANISH_MANUAL_VERIFICATION_POLL_MS", 3000, { min: 500 });
 const minimumExpectedCount = readIntegerEnv("DANISH_MIN_EXPECTED_COUNT", 1000, { min: 1 });
 const outputPath = resolveOutputPath(process.env.DANISH_OUTPUT, defaultOutputPath);
 const listOutputPath = resolveOutputPath(process.env.DANISH_LIST_OUTPUT, defaultListOutputPath);
 const errorsOutputPath = resolveOutputPath(process.env.DANISH_ERRORS_OUTPUT, defaultErrorsOutputPath);
+const detailQueuePath = resolveOutputPath(process.env.DANISH_DETAIL_QUEUE_PATH, "");
 const collectorMode = normalizeText(process.env.DANISH_MODE || "full").toLowerCase();
+const detailMode = normalizeText(process.env.DANISH_DETAIL_MODE || "full").toLowerCase();
 const scraperProxy = normalizeText(process.env.SCRAPER_PROXY);
 const saveScreenshots = readBooleanEnv("DANISH_SAVE_SCREENSHOTS", false);
 const checkpointEvery = readIntegerEnv("DANISH_CHECKPOINT_EVERY", 10, { min: 0 });
@@ -290,6 +292,25 @@ function getPartialOutputPath(filePath) {
   const baseName = path.basename(filePath, ext);
 
   return path.join(path.dirname(filePath), baseName + ".partial" + ext);
+}
+
+function getQueuedProducts(queuePayload) {
+  const entries = Array.isArray(queuePayload)
+    ? queuePayload
+    : Array.isArray(queuePayload?.items)
+      ? queuePayload.items
+      : Array.isArray(queuePayload?.products)
+        ? queuePayload.products
+        : [];
+
+  return entries
+    .filter((entry) => !entry?.status || entry.status === "pending" || entry.status === "retry")
+    .map((entry) => ({
+      ...entry,
+      href: firstNonEmpty(entry?.href, entry?.sourceUrl, entry?.detailUrl),
+      name: firstNonEmpty(entry?.name, entry?.title),
+    }))
+    .filter((entry) => entry.href);
 }
 
 function resolveOutputPath(value, fallback) {
@@ -2022,13 +2043,28 @@ function isRobotCheckNavigationError(error) {
 }
 
 async function evaluateRobotVerificationPage(tab) {
-  return await tab.evaluate(() => {
+  const state = await inspectVerificationPage(tab);
+  return state.challenge;
+}
+
+function collectorLog(stage, value = null) {
+  console.log(
+    `[${stage}]` + (value ? " " + JSON.stringify(value) : "")
+  );
+}
+
+async function inspectVerificationPage(tab) {
+  if (tab.isClosed?.()) {
+    throw new Error("manual-verification-page-closed");
+  }
+  try {
+    const state = await tab.evaluate(() => {
     const text = [
       document.title || "",
       document.body?.innerText || "",
     ].join("\n").toLowerCase();
-
-    return (
+    const title = String(document.title || "").trim();
+    const challenge = (
       text.includes("i am not a robot") ||
       text.includes("confirm that you are not a robot") ||
       text.includes("not a robot") ||
@@ -2037,7 +2073,27 @@ async function evaluateRobotVerificationPage(tab) {
       text.includes("checking your browser") ||
       text.includes("captcha")
     );
+    return {
+      title,
+      challenge,
+      hasListContainer: Boolean(document.querySelector("#list-container-inner")),
+      listItemCount: document.querySelectorAll("#list-container-inner .list-item").length,
+    };
   });
+    const url = tab.url();
+    let danishHost = false;
+    try { danishHost = new URL(url).hostname.toLowerCase().endsWith("danishpipeshop.com"); } catch {}
+    return { ...state, url, danishHost };
+  } catch (error) {
+    const message = String(error?.message || error || "").toLowerCase();
+    if (tab.isClosed?.() || message.includes("target closed")) {
+      throw new Error("manual-verification-page-closed");
+    }
+    if (isRobotCheckNavigationError(error)) {
+      return { title: "", challenge: true, hasListContainer: false, listItemCount: 0, url: tab.url(), danishHost: true, navigating: true };
+    }
+    throw error;
+  }
 }
 
 async function isRobotVerificationPage(tab) {
@@ -2045,6 +2101,9 @@ async function isRobotVerificationPage(tab) {
     try {
       return await evaluateRobotVerificationPage(tab);
     } catch (error) {
+      if (String(error?.message || error).includes("manual-verification-page-closed")) {
+        throw error;
+      }
       const shouldRetry = attempt === 0 && isRobotCheckNavigationError(error);
 
       if (shouldRetry) {
@@ -2062,34 +2121,46 @@ async function isRobotVerificationPage(tab) {
   return false;
 }
 
-async function waitForManualVerification() {
-  const terminal = createInterface({ input, output });
+export async function waitForManualVerificationRecovery(tab, options = {}) {
+  const targetUrl = options.targetUrl || tab.url();
+  const requireList = Boolean(options.requireList);
+  const timeoutMs = Number(options.timeoutMs ?? manualVerificationTimeoutSeconds * 1000);
+  const pollMs = Number(options.pollMs ?? manualVerificationPollMs);
+  const now = options.now || (() => Date.now());
+  const sleep = options.sleep || ((milliseconds) => tab.waitForTimeout(milliseconds));
+  const log = options.log || collectorLog;
+  const deadline = now() + timeoutMs;
+  let refreshedTarget = false;
 
-  try {
-    await terminal.question("Please complete verification in the browser, then press Enter here to continue.");
-  } finally {
-    terminal.close();
+  log("manual-verification-required", { targetUrl, timeoutSeconds: Math.round(timeoutMs / 1000), pollMs });
+  while (now() <= deadline) {
+    const state = await inspectVerificationPage(tab);
+    const normalPage = !state.challenge && state.danishHost && !/just a moment|verification|captcha/i.test(state.title);
+    const listReady = !requireList || (state.hasListContainer && state.listItemCount > 0);
+    if (normalPage && listReady) {
+      log("manual-verification-completed", { url: state.url, title: state.title, listItemCount: state.listItemCount });
+      if (requireList) log("normal-list-page-ready", { url: state.url, listItemCount: state.listItemCount });
+      return state;
+    }
+    if (normalPage && !refreshedTarget) {
+      refreshedTarget = true;
+      log("manual-verification-reload-target", { targetUrl, currentUrl: state.url });
+      await tab.goto(targetUrl, {
+        waitUntil: "domcontentloaded",
+        timeout: Math.min(60000, Math.max(1000, deadline - now())),
+      });
+      continue;
+    }
+    await sleep(Math.min(pollMs, Math.max(100, deadline - now())));
   }
+  throw new Error(`manual-verification-timeout after ${Math.round(timeoutMs / 1000)} seconds`);
 }
 
-async function ensureManualVerificationIfNeeded(tab) {
+export async function ensureManualVerificationIfNeeded(tab, options = {}) {
   if (!(await isRobotVerificationPage(tab))) {
     return true;
   }
-
-  console.log("Detected robot / verification page. This script will not bypass or auto-click verification.");
-  await waitForManualVerification();
-  await tab.reload({
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await tab.waitForTimeout(2200);
-
-  if (await isRobotVerificationPage(tab)) {
-    console.warn("Robot / verification page remained after manual verification.");
-    return false;
-  }
-
+  await waitForManualVerificationRecovery(tab, options);
   return true;
 }
 
@@ -2333,17 +2404,12 @@ async function waitForAgeLanguageGateDismissal(
   };
 }
 
-async function waitForManualAgeLanguageSelection() {
-  const terminal = createInterface({ input, output });
-
-  try {
-    await terminal.question(
-      "Automatic age/language selection did not complete. " +
-      "Please select any language in the browser, then press Enter here."
-    );
-  } finally {
-    terminal.close();
-  }
+async function waitForManualAgeLanguageSelection(tab, { requireList }) {
+  collectorLog("manual-age-language-required", { timeoutSeconds: manualVerificationTimeoutSeconds });
+  return await waitForAgeLanguageGateDismissal(tab, {
+    requireList,
+    timeoutMs: manualVerificationTimeoutSeconds * 1000,
+  });
 }
 
 async function ensureAgeLanguageGateHandled(
@@ -2472,12 +2538,7 @@ async function ensureAgeLanguageGateHandled(
     }
   }
 
-  await waitForManualAgeLanguageSelection();
-
-  const manualReadyResult = await waitForAgeLanguageGateDismissal(tab, {
-    requireList,
-    timeoutMs: pageReadyTimeoutMs,
-  });
+  const manualReadyResult = await waitForManualAgeLanguageSelection(tab, { requireList });
 
   if (!manualReadyResult.ready) {
     throw new Error(
@@ -2693,7 +2754,7 @@ async function discoverProductLinksLegacy(tab, listUrl, pageIndex) {
   });
   await tab.waitForTimeout(1800);
 
-  if (!(await ensureManualVerificationIfNeeded(tab))) {
+  if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: listUrl, requireList: true }))) {
     throw new Error("Robot / verification page remained during list discovery.");
   }
 
@@ -2896,7 +2957,7 @@ async function discoverProductLinks(tab, listUrl, pageIndex) {
   });
   await tab.waitForTimeout(1800);
 
-  if (!(await ensureManualVerificationIfNeeded(tab))) {
+  if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: listUrl, requireList: true }))) {
     throw new Error("Robot / verification page remained during list discovery.");
   }
 
@@ -3080,15 +3141,17 @@ async function discoverProducts(context) {
     console.log(
       "Scanning Danish list: " + normalizedStartUrl
     );
+    collectorLog("initial-navigation-start", { url: normalizedStartUrl });
 
     await tab.goto(normalizedStartUrl, {
       waitUntil: "domcontentloaded",
       timeout: 60000,
     });
+    collectorLog("initial-navigation-complete", { url: tab.url() });
 
     await tab.waitForTimeout(1800);
 
-    if (!(await ensureManualVerificationIfNeeded(tab))) {
+    if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: normalizedStartUrl, requireList: true }))) {
       throw new Error(
         "Robot / verification page remained during list discovery."
       );
@@ -3097,6 +3160,8 @@ async function discoverProducts(context) {
     await ensureAgeLanguageGateHandled(tab, {
       requireList: true,
     });
+    collectorLog("normal-list-page-ready", { url: tab.url(), listItemCount: await getCurrentListItemCount(tab) });
+    collectorLog("list-collection-start", { url: normalizedStartUrl });
 
     addDiscoveredProducts(
       await collectProductLinksFromCurrentListPage(
@@ -3122,6 +3187,7 @@ async function discoverProducts(context) {
       ", detectedTotal=" +
       (detectedTotalCount || "unknown")
     );
+    collectorLog("list-page-progress", { page: 1, domCount: progress.itemCount, uniqueCount: discovered.length, detectedTotalCount });
 
     for (
       let clickIndex = 1;
@@ -3145,7 +3211,7 @@ async function discoverProducts(context) {
           "[WARN] Danish verification reappeared during list loading."
         );
 
-        if (!(await ensureManualVerificationIfNeeded(tab))) {
+        if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: normalizedStartUrl, requireList: true }))) {
           integrityFailureReason =
             "robot-verification-remained-during-show-more";
           break;
@@ -3294,6 +3360,7 @@ async function discoverProducts(context) {
         ", total=" +
         (detectedTotalCount || "unknown")
       );
+      collectorLog("list-page-progress", { page: 1, batch: clickIndex, domCount: afterProgress.itemCount, uniqueCount: discovered.length, detectedTotalCount });
     }
 
     /*
@@ -3503,6 +3570,7 @@ async function discoverProducts(context) {
     console.log(
       JSON.stringify(lastListIntegrityReport, null, 2)
     );
+    collectorLog("list-collection-complete", { uniqueCount: discovered.length, integrityGate, completionReason, integrityFailureReason });
 
     return discovered.slice(0, targetCount);
   } finally {
@@ -3521,7 +3589,7 @@ async function collectDetail(context, product, index) {
     });
     await tab.waitForTimeout(2200);
 
-    if (!(await ensureManualVerificationIfNeeded(tab))) {
+    if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: product.href, requireList: false }))) {
       throw new Error("Robot / verification page remained during detail collection.");
     }
 
@@ -4045,6 +4113,7 @@ function writeCheckpoint({ discoveredProducts, products, errors, collectedAt }) 
   payload.checkpointAt = new Date().toISOString();
   writeCollectorOutput(partialOutputPath, payload);
   console.log("Checkpoint written: " + partialOutputPath);
+  collectorLog("checkpoint-written", { path: partialOutputPath, successCount: payload.successCount, failCount: payload.failCount });
 }
 
 async function main() {
@@ -4057,9 +4126,16 @@ async function main() {
   if (!["full", "list", "details"].includes(collectorMode)) {
     throw new Error(`Unsupported DANISH_MODE: ${collectorMode}. Use full, list, or details.`);
   }
+  if (!["full", "incremental"].includes(detailMode)) {
+    throw new Error(`Unsupported DANISH_DETAIL_MODE: ${detailMode}. Use full or incremental.`);
+  }
+  if (collectorMode === "details" && detailMode === "incremental" && !detailQueuePath) {
+    throw new Error("DANISH_DETAIL_MODE=incremental requires DANISH_DETAIL_QUEUE_PATH; refusing full-detail fallback.");
+  }
 
   console.log("Danish full collector v18 parameters:");
   console.log(`DANISH_MODE=${collectorMode}`);
+  console.log(`DANISH_DETAIL_MODE=${detailMode}`);
   console.log(`SCRAPER_PROXY=${scraperProxy ? "enabled" : "disabled"}`);
   console.log(`DANISH_START_URL=${startUrl}`);
   console.log(`DANISH_TARGET_COUNT=${targetCount}`);
@@ -4069,6 +4145,8 @@ async function main() {
   console.log(`DANISH_SHOW_MORE_RETRIES=${showMoreRetries}`);
   console.log(`DANISH_PAGE_READY_TIMEOUT_MS=${pageReadyTimeoutMs}`);
   console.log(`DANISH_LANGUAGE_FALLBACK_SECONDS=${languageFallbackSeconds}`);
+  console.log(`DANISH_MANUAL_VERIFICATION_TIMEOUT_SECONDS=${manualVerificationTimeoutSeconds}`);
+  console.log(`DANISH_MANUAL_VERIFICATION_POLL_MS=${manualVerificationPollMs}`);
   console.log(`DANISH_MIN_EXPECTED_COUNT=${minimumExpectedCount}`);
   console.log(`DANISH_DETAIL_DELAY_MS=${fixedDetailDelayMs || "random"}`);
   console.log(`DANISH_DETAIL_MIN_DELAY_MS=${minDetailDelayMs}`);
@@ -4076,12 +4154,14 @@ async function main() {
   console.log(`DANISH_LIST_OUTPUT=${listOutputPath}`);
   console.log(`DANISH_OUTPUT=${outputPath}`);
   console.log(`DANISH_ERRORS_OUTPUT=${errorsOutputPath}`);
+  console.log(`DANISH_DETAIL_QUEUE_PATH=${detailQueuePath || "none"}`);
   console.log(`DANISH_SAVE_SCREENSHOTS=${saveScreenshots ? "1" : "0"}`);
   console.log(`DANISH_CHECKPOINT_EVERY=${checkpointEvery}`);
   console.log(`DANISH_PARTIAL_OUTPUT=${partialOutputPath}`);
   console.log(`DANISH_BROWSER_PROFILE=${browserProfilePath}`);
 
   const executablePath = getLocalBrowserExecutablePath();
+  collectorLog("browser-launch-start", { browserProfilePath, executablePath: executablePath || "playwright-default" });
   const context = await chromium.launchPersistentContext(
     browserProfilePath,
     {
@@ -4091,6 +4171,7 @@ async function main() {
       ...(scraperProxy ? { proxy: { server: scraperProxy } } : {}),
     }
   );
+  collectorLog("browser-launch-complete", { browserProfilePath });
 
   const collectedAt = new Date().toISOString();
 
@@ -4098,9 +4179,15 @@ async function main() {
     let discoveredProducts = [];
 
     if (collectorMode === "details") {
-      const listPayload = readJsonIfExists(listOutputPath);
-      discoveredProducts = getPayloadProducts(listPayload).slice(0, targetCount);
-      console.log(`Loaded ${discoveredProducts.length} product links from: ${listOutputPath}`);
+      if (detailQueuePath) {
+        const queuePayload = readJsonIfExists(detailQueuePath);
+        discoveredProducts = getQueuedProducts(queuePayload).slice(0, targetCount);
+        console.log(`Loaded ${discoveredProducts.length} queued detail links from: ${detailQueuePath}`);
+      } else {
+        const listPayload = readJsonIfExists(listOutputPath);
+        discoveredProducts = getPayloadProducts(listPayload).slice(0, targetCount);
+        console.log(`Loaded ${discoveredProducts.length} product links from: ${listOutputPath}`);
+      }
 
       if (discoveredProducts.length === 0) {
         throw new Error("No product links found in DANISH_LIST_OUTPUT.");
@@ -4111,6 +4198,7 @@ async function main() {
       writeListOutput({ products: discoveredProducts, collectedAt });
 
       if (collectorMode === "list") {
+        collectorLog("collector-complete", { mode: collectorMode, listCount: discoveredProducts.length });
         return;
       }
     }
@@ -4126,6 +4214,8 @@ async function main() {
     const errors = getProductErrors(products);
     let processedThisRun = 0;
 
+    collectorLog("details-resume-state", { existingDetails: products.length, discoveredProducts: discoveredProducts.length });
+    collectorLog("details-collection-start", { pendingDetails: discoveredProducts.filter((product) => !processedHrefs.has(normalizeHrefForSet(product.href))).length });
     if (products.length > 0) {
       console.log(`Resume enabled: ${products.length} existing detail records loaded.`);
     }
@@ -4193,6 +4283,7 @@ async function main() {
     console.log(`v18 output written: ${outputPath}`);
     console.log(`successCount=${payload.successCount}`);
     console.log(`failCount=${payload.failCount}`);
+    collectorLog("collector-complete", { mode: collectorMode, successCount: payload.successCount, failCount: payload.failCount, outputPath });
   } finally {
     await context.close().catch(() => {});
   }
