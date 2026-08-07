@@ -3299,9 +3299,32 @@ async function discoverProducts(context) {
       const afterProgress = await getListProgress(tab);
 
       if (!successfulGrowth) {
-        integrityFailureReason = loadMoreResult?.clicked
-          ? "show-more-no-progress"
-          : "show-more-click-failed";
+        /*
+         * PROTECTED BEHAVIOR — Danish List natural exhaustion
+         *
+         * Danish 会在商品加载到底后移除 Show-more 控件。
+         * reason=missing 本身不能直接视为点击失败。
+         *
+         * 此时继续交给后面的最终完整性 Gate 判断：
+         * - Show-more 已不可见
+         * - List 数量稳定
+         * - 达到最低商品数量
+         * - 无机器人验证 / 年龄语言 Gate
+         * - fallback 页面已耗尽
+         *
+         * 真正的按钮点击失败或点击后无增长仍然保持失败。
+         *
+         * 未经明确授权，不得删除或回退此逻辑。
+         */
+        const showMoreNaturallyMissing =
+          !loadMoreResult?.clicked &&
+          loadMoreResult?.reason === "missing";
+
+        if (!showMoreNaturallyMissing) {
+          integrityFailureReason = loadMoreResult?.clicked
+            ? "show-more-no-progress"
+            : "show-more-click-failed";
+        }
 
         loadMoreProgress.push({
           batchIndex: clickIndex,
@@ -3312,7 +3335,8 @@ async function discoverProducts(context) {
           clicked: Boolean(loadMoreResult?.clicked),
           reason:
             loadMoreResult?.reason ||
-            integrityFailureReason,
+            integrityFailureReason ||
+            "show-more-missing-awaiting-final-gate",
           url: tab.url(),
         });
 
