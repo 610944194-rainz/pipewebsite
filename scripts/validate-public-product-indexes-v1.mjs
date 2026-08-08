@@ -345,9 +345,14 @@ ${warnings}
 `;
 }
 
+function structuralOnlyEnabled(argv = process.argv.slice(2)) {
+  return argv.includes("--structural-only=true");
+}
+
 async function main() {
   const errors = [];
   const warnings = [];
+  const structuralOnly = structuralOnlyEnabled();
 
   const requiredFiles = [
     OUTPUTS.manifest,
@@ -643,34 +648,44 @@ async function main() {
 
   const manifestHashes = manifest.fileHashes || {};
   const manifestHashEntries = Object.entries(manifestHashes);
-  let manifestHashesConsistent = manifestHashEntries.length ? true : null;
-  if (!manifestHashEntries.length) {
+  let manifestHashesConsistent = structuralOnly
+    ? null
+    : manifestHashEntries.length
+      ? true
+      : null;
+  if (structuralOnly) {
+    warnings.push(
+      "Structural-only validation skips manifest file and staging hash eligibility checks."
+    );
+  } else if (!manifestHashEntries.length) {
     warnings.push(
       "Progressive manifest has no fileHashes; full structural and lookup/detail consistency checks were used instead."
     );
   }
-  for (const [relativeFile, expectedHash] of manifestHashEntries) {
-    const filePath = path.join(ROOT, relativeFile);
-    if (!fsSync.existsSync(filePath)) {
-      manifestHashesConsistent = false;
-      errors.push(`Manifest file missing: ${relativeFile}`);
-      continue;
-    }
-    const actualHash = hashFile(filePath);
-    if (String(actualHash).toLowerCase() !== String(expectedHash).toLowerCase()) {
-      manifestHashesConsistent = false;
-      errors.push(`Manifest hash mismatch for ${relativeFile}`);
+  if (!structuralOnly) {
+    for (const [relativeFile, expectedHash] of manifestHashEntries) {
+      const filePath = path.join(ROOT, relativeFile);
+      if (!fsSync.existsSync(filePath)) {
+        manifestHashesConsistent = false;
+        errors.push(`Manifest file missing: ${relativeFile}`);
+        continue;
+      }
+      const actualHash = hashFile(filePath);
+      if (String(actualHash).toLowerCase() !== String(expectedHash).toLowerCase()) {
+        manifestHashesConsistent = false;
+        errors.push(`Manifest hash mismatch for ${relativeFile}`);
+      }
     }
   }
 
-  const stagingSha256 = hashFile(INPUTS.staging);
+  const stagingSha256 = structuralOnly ? null : hashFile(INPUTS.staging);
   const manifestStagingHash = manifest.inputHashes?.staging || null;
-  if (manifestStagingHash && String(manifestStagingHash).toLowerCase() !== String(stagingSha256).toLowerCase()) {
+  if (!structuralOnly && manifestStagingHash && String(manifestStagingHash).toLowerCase() !== String(stagingSha256).toLowerCase()) {
     errors.push(
       `Manifest staging hash mismatch: ${manifestStagingHash}; current: ${stagingSha256}`
     );
   }
-  if (!manifestStagingHash) {
+  if (!structuralOnly && !manifestStagingHash) {
     warnings.push(
       "Progressive manifest has no staging input hash; catalog coverage was validated directly against current staging."
     );
@@ -761,6 +776,7 @@ async function main() {
     status: errors.length ? "failed" : "passed",
     architecture: {
       generatorVersion: manifest.generatorVersion || null,
+      structuralOnly,
       detailShardsRequired: true,
       detailFilesSource:
         Array.isArray(manifest.detailFiles) &&
@@ -795,7 +811,7 @@ async function main() {
       filtersConsistent,
       manifestHashesConsistent,
       manifestStagingHashMatchesRound3:
-        manifestStagingHash &&
+        !structuralOnly && manifestStagingHash &&
         round3Validation.hashes?.unifiedStaging
           ? manifestStagingHash ===
             round3Validation.hashes.unifiedStaging

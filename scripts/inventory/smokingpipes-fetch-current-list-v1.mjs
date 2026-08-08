@@ -980,6 +980,20 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     options.manualVerificationTimeoutMs,
     10 * 60 * 1000
   );
+  const deadlineAtMs =
+    options.deadlineAtMs === null || options.deadlineAtMs === undefined
+      ? Number.NaN
+      : Number(options.deadlineAtMs);
+  const nowMs = typeof options.nowMs === "function" ? options.nowMs : Date.now;
+  const deadlineExpired = () =>
+    Number.isFinite(deadlineAtMs) && nowMs() >= deadlineAtMs;
+  const remainingDeadlineMs = () =>
+    Number.isFinite(deadlineAtMs) ? Math.max(0, deadlineAtMs - nowMs()) : null;
+  const deadlineError = (stage, pageNumber) =>
+    Object.assign(
+      new Error(`daily deadline reached ${stage} list page ${pageNumber}`),
+      { code: "DAILY_DEADLINE_REACHED", pageNumber }
+    );
   const checkpoint =
     options.useCheckpoint === false
       ? null
@@ -1085,6 +1099,10 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       pageNumber <= effectiveMaxPages;
       pageNumber += 1
     ) {
+      if (deadlineExpired()) {
+        await writeCurrentCheckpoint();
+        throw deadlineError("before", pageNumber);
+      }
       const url = buildSmokingpipesListUrl("new", pageNumber, displayNum);
       const pageStartedAt = new Date().toISOString();
       let pageVerificationDetectedAt = null;
@@ -1231,10 +1249,18 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         verificationDetectedAt ||= pageVerificationDetectedAt;
         let recovery = null;
         if (allowManualVerification) {
+          const remainingMs = remainingDeadlineMs();
+          if (remainingMs !== null && remainingMs <= 0) {
+            await writeCurrentCheckpoint();
+            throw deadlineError("during verification for", pageNumber);
+          }
           recovery =
             await waitForSmokingpipesManualRecovery(page, {
               pageKind: "list",
-              timeoutMs: manualVerificationTimeoutMs,
+              timeoutMs:
+                remainingMs === null
+                  ? manualVerificationTimeoutMs
+                  : Math.min(manualVerificationTimeoutMs, remainingMs),
               verbose,
               restoreTargetPage: async (targetPage) => {
                 await targetPage.goto(url, {
@@ -1260,6 +1286,10 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
                 };
               },
             });
+          if (deadlineExpired()) {
+            await writeCurrentCheckpoint();
+            throw deadlineError("after verification for", pageNumber);
+          }
           verificationDetectedAt =
             recovery.verificationDetectedAt ||
             verificationDetectedAt;

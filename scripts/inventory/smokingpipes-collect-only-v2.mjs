@@ -98,6 +98,9 @@ export function trustedListReason(payload, diff = null) {
   ) {
     return "list snapshot has no trusted pagination total or normal end-of-list evidence";
   }
+  if (Number(diff?.counts?.suspiciousDuplicates || 0) > 0) {
+    return "list diff contains suspicious duplicate source product IDs";
+  }
   if ((diff?.fatalWarnings || []).length > 0) {
     return "list diff contains fatal warnings";
   }
@@ -195,6 +198,7 @@ export async function runSmokingpipesCollectOnlyV2({
   maxAutoApply = 2000,
   processDetail = null,
   fetchOptions = {},
+  deadline = null,
 } = {}) {
   const resolvedRuntimeRoot = path.resolve(runtimeRoot);
   const resolvedStateRoot = assertExternalStateRoot({
@@ -300,12 +304,18 @@ export async function runSmokingpipesCollectOnlyV2({
           // ===== END PROTECTED OPTIMIZATION =====
           ...fetchOptions,
           maxPages: SMOKINGPIPES_V2_LIST_MAX_PAGES,
+          deadlineAtMs: deadline?.deadlineAtMs ?? null,
+          nowMs: deadline?.nowMs,
         });
       } else {
         throw new Error("no list input supplied and live collection is disabled");
       }
       const productionProducts = await readJsonFile(overrides.existingProducts);
-      const diff = buildInventoryDiff(snapshot, productionProducts, { maxAutoApply });
+      const diff = buildInventoryDiff(snapshot, productionProducts, {
+        maxAutoApply,
+        // V2 never authorizes legacy unclassified duplicates by historical SHA.
+        allowLegacyDuplicateSnapshotOverride: false,
+      });
       const trustFailure = trustedListReason(snapshot, diff);
       if (trustFailure) throw new Error(trustFailure);
       await writeJsonAtomic(paths.listSnapshot, snapshot);
@@ -395,6 +405,8 @@ export async function runSmokingpipesCollectOnlyV2({
     allowManualVerification: true,
     ...SMOKINGPIPES_V2_DETAIL_PACING,
     manualVerificationTimeoutMs: 10 * 60 * 1000,
+    deadlineAtMs: deadline?.deadlineAtMs ?? null,
+    nowMs: deadline?.nowMs,
   };
   const detailResult = await enrichSmokingpipesDetailsV2({
     root: resolvedRuntimeRoot,
@@ -427,15 +439,25 @@ export async function runSmokingpipesCollectOnlyV2({
       });
     }
   }
-  if (detailResult.status === "blocked") {
+  if (detailResult.status === "blocked" || detailResult.status === "deadline-reached") {
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
       phase: "retryable",
-      reason: "detail-collection-blocked",
-      patch: { collection: { ...cycle.collection, ...summary } },
+      reason: detailResult.status === "deadline-reached" ? "daily-deadline-during-details" : "detail-collection-blocked",
+      patch: {
+        collection: { ...cycle.collection, ...summary },
+        failure: detailResult.status === "deadline-reached"
+          ? { stage: "daily-deadline", message: detailResult.blockedReason, at: new Date().toISOString() }
+          : cycle.failure,
+      },
     });
-    return { status: cycle.phase, cycle, detailResult, networkAccessed };
+    return {
+      status: detailResult.status === "deadline-reached" ? "enriching-details" : cycle.phase,
+      cycle,
+      detailResult,
+      networkAccessed,
+    };
   }
   cycle = await transitionCycle({
     stateRoot: resolvedStateRoot,

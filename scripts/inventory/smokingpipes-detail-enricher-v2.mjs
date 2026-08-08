@@ -36,6 +36,22 @@ function refreshSummary(state, now = new Date().toISOString()) {
   return next;
 }
 
+function deadlineRemainingMs(options = {}) {
+  const deadlineAtMs =
+    options.deadlineAtMs === null || options.deadlineAtMs === undefined
+      ? Number.NaN
+      : Number(options.deadlineAtMs);
+  if (!Number.isFinite(deadlineAtMs)) return null;
+  const nowMs = typeof options.nowMs === "function" ? options.nowMs : Date.now;
+  return Math.max(0, deadlineAtMs - nowMs());
+}
+
+function dailyDeadlineError(stage) {
+  return Object.assign(new Error(`daily deadline reached ${stage}`), {
+    code: "DAILY_DEADLINE_REACHED",
+  });
+}
+
 async function createDetailProcessor({ root, paths, options, runId }) {
   const session = await launchSmokingpipesContext({
     root,
@@ -52,6 +68,9 @@ async function createDetailProcessor({ root, paths, options, runId }) {
     browserStarted: true,
     verificationState,
     async process(candidate) {
+      if (deadlineRemainingMs(options) === 0) {
+        throw dailyDeadlineError("before detail request");
+      }
       const response = await page.goto(candidate.sourceUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
       requestCount += 1;
       if (options.detailBatchSize > 0 && requestCount % options.detailBatchSize === 0) {
@@ -62,15 +81,23 @@ async function createDetailProcessor({ root, paths, options, runId }) {
       let detail = null;
       if (detection.verificationBlocked && options.allowManualVerification) {
         verificationState.verificationDetected = true;
+        const remainingMs = deadlineRemainingMs(options);
+        if (remainingMs === 0) throw dailyDeadlineError("during detail verification");
         const recovery = await waitForSmokingpipesManualRecovery(page, {
           pageKind: "detail",
-          timeoutMs: options.manualVerificationTimeoutMs,
+          timeoutMs:
+            remainingMs === null
+              ? options.manualVerificationTimeoutMs
+              : Math.min(options.manualVerificationTimeoutMs, remainingMs),
           restoreTargetPage: (target) => target.goto(candidate.sourceUrl, { waitUntil: "domcontentloaded", timeout: 60000 }),
           verifyNormalContent: async (target) => {
             const parsed = addParsedMeasurements(await extractDetailProduct(target, candidate, "new"));
             return { valid: isNormalSmokingpipesDetail(parsed, candidate.sourceProductId), parsedValue: parsed };
           },
         });
+        if (deadlineRemainingMs(options) === 0) {
+          throw dailyDeadlineError("after detail verification");
+        }
         if (recovery.recovered) {
           verificationState.manualVerificationRecovered = true;
           detail = recovery.parsedValue;
@@ -137,11 +164,23 @@ export async function enrichSmokingpipesDetailsV2({ root, paths, detailLimit = 5
       maxDetailAttempts: 3,
       onDetailSettled,
       checkpoint: (state) => writeProgressiveDailyState(paths.progressiveState, refreshSummary(state)),
+      shouldStartDetail: () => {
+        if (deadlineRemainingMs(options) === 0) {
+          return {
+            allowed: false,
+            code: "DAILY_DEADLINE_REACHED",
+            reason: "daily deadline reached before the next detail",
+          };
+        }
+        return { allowed: true };
+      },
     });
     result.browserStarted = processor.browserStarted;
     result.state = refreshSummary(result.state);
     await writeProgressiveDailyState(paths.progressiveState, result.state);
-    return result;
+    return result.deadlineReached
+      ? { ...result, status: "deadline-reached" }
+      : result;
   } finally {
     await processor.close();
   }

@@ -43,6 +43,9 @@ import {
   createProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
+  buildInventoryDiff,
+} from "./smokingpipes-diff-inventory-v1.mjs";
+import {
   SP_CHROME_V2_PROFILE_NAME,
   buildSmokingpipesBrowserDescriptor,
 } from "../lib/smokingpipes-browser-profile-v1.mjs";
@@ -164,6 +167,7 @@ async function main() {
     assert.match(v2CollectorSource, /browserProfile: "sp-chrome-v2"/);
     assert.match(v2CollectorSource, /allowManualVerification: true/);
     assert.match(v2CollectorSource, /Math\.min\(50, Math\.max\(1, Number\(detailLimit\) \|\| 50\)\)/);
+    assert.match(v2CollectorSource, /allowLegacyDuplicateSnapshotOverride: false/);
     assert.equal(v2CollectorSource.includes("smokingpipes-progressive-runner-v1.mjs"), false);
     const v2DetailEnricherSource = await fs.promises.readFile(
       path.join(workspaceRoot, "scripts", "inventory", "smokingpipes-detail-enricher-v2.mjs"),
@@ -384,6 +388,49 @@ async function main() {
     });
     assert.equal(trustedListReason(normalEndOfListSnapshot), null);
 
+    // V2 must not inherit V1's one-off duplicate snapshot SHA exception. A
+    // single unclassified duplicate remains a List-integrity blocker even for
+    // a very large snapshot, while classified safe pagination duplicates pass.
+    const legacyDuplicateSnapshot = trustedSnapshot(
+      Array.from({ length: 5000 }, (_, index) => listItem(`duplicate-${index}`)),
+      { summary: { duplicateSourceProductIds: ["duplicate-1"] } }
+    );
+    const v2DuplicateDiff = buildInventoryDiff(
+      legacyDuplicateSnapshot,
+      { products: [template] },
+      {
+        maxAutoApply: 10000,
+        snapshotSha256: "legacy-authorization-must-not-be-used",
+        legacyDuplicateSnapshotSha256: "legacy-authorization-must-not-be-used",
+        allowLegacyDuplicateSnapshotOverride: false,
+      }
+    );
+    assert.equal(v2DuplicateDiff.legacyDuplicateOverride, null);
+    assert.equal(v2DuplicateDiff.counts.suspiciousDuplicates, 1);
+    assert.match(
+      trustedListReason(legacyDuplicateSnapshot, v2DuplicateDiff),
+      /suspicious duplicate source product IDs/
+    );
+    const safePaginationDuplicateSnapshot = trustedSnapshot([listItem("safe-duplicate")], {
+      summary: {
+        duplicateSourceProductIds: ["safe-duplicate"],
+        duplicateStats: {
+          totalDuplicateIds: 1,
+          safeDuplicateCount: 1,
+          suspiciousDuplicateCount: 0,
+          safeDuplicateIds: ["safe-duplicate"],
+          suspiciousDuplicateIds: [],
+        },
+      },
+    });
+    assert.equal(
+      trustedListReason(safePaginationDuplicateSnapshot, {
+        counts: { suspiciousDuplicates: 0 },
+        fatalWarnings: [],
+      }),
+      null
+    );
+
     const cappedWithoutEndSnapshot = trustedSnapshot([listItem("capped-without-end")], {
       config: { maxPages: 200, requestedMaxPages: 200 },
       summary: {
@@ -459,6 +506,31 @@ async function main() {
     assert.equal(fiftyItemDetailRequests, 50);
     assert.equal(fiftyItemRun.cycle.collection.completedDetailIds.length, 50);
     assert.equal(fiftyItemRun.cycle.collection.pendingDetailIds.length, 70);
+
+    // A deadline stops before the next Detail begins, persists the already
+    // completed checkpoint, and leaves the remaining queue for a later Daily.
+    const detailDeadlineStateRoot = path.join(temporaryRoot, "detail-deadline-state");
+    let detailDeadlineNow = 0;
+    let detailDeadlineRequests = 0;
+    const detailDeadlineResult = await runSmokingpipesCollectOnlyV2({
+      stateRoot: detailDeadlineStateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-08",
+      listInputPath: listPath,
+      detailLimit: 50,
+      deadline: { deadlineAtMs: 100, nowMs: () => detailDeadlineNow },
+      processDetail: async (candidate) => {
+        detailDeadlineRequests += 1;
+        detailDeadlineNow = 100;
+        return detailProcessor(candidate);
+      },
+    });
+    assert.equal(detailDeadlineResult.status, "enriching-details", JSON.stringify(detailDeadlineResult));
+    assert.equal(detailDeadlineResult.cycle.phase, "retryable");
+    assert.equal(detailDeadlineRequests, 1);
+    assert.equal(detailDeadlineResult.cycle.collection.completedDetailIds.length, 1);
+    assert.equal(detailDeadlineResult.cycle.collection.pendingDetailIds.length, 47);
+    assert.equal(detailDeadlineResult.cycle.failure.stage, "daily-deadline");
 
     const legacyBaselineRoot = path.join(temporaryRoot, "legacy-falcon-baseline");
     const legacyFalcon = {
@@ -1110,8 +1182,12 @@ async function main() {
       '}',
     ].join("\n"));
     await writeText(fakeRuntimeRoot, "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs", [
+      'import fs from "node:fs";',
       'const bundleRoot = process.env.SMOKINGPIPES_TEST_BUNDLE_ROOT;',
       'if (!bundleRoot) throw new Error("SMOKINGPIPES_TEST_BUNDLE_ROOT is required");',
+      'if (process.env.SMOKINGPIPES_TEST_BUILDER_COUNT_PATH) {',
+      '  fs.appendFileSync(process.env.SMOKINGPIPES_TEST_BUILDER_COUNT_PATH, "rebuilt\\n");',
+      '}',
       'console.log(JSON.stringify({ status: "bundle-ready", bundleRoot }));',
     ].join("\n"));
 
@@ -1134,6 +1210,7 @@ async function main() {
     for (const file of changedFiles) subsetOutputs[file] = { file, version: "changed" };
     await writeFixtureBundle(subsetBundleRoot, subsetOutputs, subsetBaseSha, "subset-bundle");
     const subsetValidatorCountPath = path.join(subsetRoot, "validator-count.log");
+    const subsetBuilderCountPath = path.join(subsetRoot, "builder-count.log");
     const subsetPublish = runPublisher([
       "-StateRoot", subsetStateRoot,
       "-CycleId", "2030-02-01",
@@ -1143,6 +1220,7 @@ async function main() {
     ], { env: {
       SMOKINGPIPES_TEST_BUNDLE_ROOT: subsetBundleRoot,
       SMOKINGPIPES_TEST_VALIDATOR_COUNT_PATH: subsetValidatorCountPath,
+      SMOKINGPIPES_TEST_BUILDER_COUNT_PATH: subsetBuilderCountPath,
     } });
     assert.equal(subsetPublish.status, 0, `${subsetPublish.stdout}\n${subsetPublish.stderr}`);
     const subsetPayload = lastJson(subsetPublish.stdout);
@@ -1150,6 +1228,7 @@ async function main() {
     assert.equal(Array.isArray(subsetPayload.stagedFiles), true, JSON.stringify(subsetPayload));
     assert.deepEqual([...subsetPayload.stagedFiles].sort(), [...changedFiles].sort());
     assert.deepEqual((await fs.promises.readFile(subsetValidatorCountPath, "utf8")).trim().split(/\r?\n/), ["validated"]);
+    assert.equal(fs.existsSync(subsetBuilderCountPath), false, "matching baseMainSha must not rebuild the Bundle");
     for (const [file, expectedValue] of Object.entries(subsetOutputs)) {
       assert.deepEqual(await readJson(path.join(subsetRelease, file)), expectedValue, file);
     }
@@ -1198,6 +1277,43 @@ async function main() {
     assert.notEqual(unexpectedPublish.status, 0);
     assert.match(`${unexpectedPublish.stdout}\n${unexpectedPublish.stderr}`, /staged file whitelist mismatch; unexpected=unexpected.txt/);
     assert.equal(git(subsetRelease, ["status", "--short"]), "");
+
+    // A base mismatch is a rebuild trigger rather than stale-base. The
+    // Publisher rebuilds exactly once against origin/main and then publishes.
+    git(subsetSource, ["remote", "add", "origin", subsetBare]);
+    git(subsetSource, ["fetch", "origin"]);
+    git(subsetSource, ["merge", "--ff-only", "origin/main"]);
+    await writeText(subsetSource, "README.md", "latest main B\n");
+    git(subsetSource, ["add", "--", "README.md"]);
+    git(subsetSource, ["commit", "-m", "fixture: latest-main B"]);
+    git(subsetSource, ["push", "origin", "HEAD:main"]);
+    const mismatchInputBundleRoot = path.join(subsetRoot, "mismatch-input-bundle");
+    const mismatchRebuiltBundleRoot = path.join(subsetRoot, "mismatch-rebuilt-bundle");
+    const mismatchOutputs = structuredClone(subsetOutputs);
+    for (const file of changedFiles) mismatchOutputs[file] = { file, version: "rebuilt-after-main-B" };
+    await writeFixtureBundle(mismatchInputBundleRoot, subsetOutputs, subsetBaseSha, "mismatch-input-bundle");
+    await writeFixtureBundle(
+      mismatchRebuiltBundleRoot,
+      mismatchOutputs,
+      git(subsetSource, ["rev-parse", "HEAD"]),
+      "mismatch-rebuilt-bundle"
+    );
+    const mismatchPublish = runPublisher([
+      "-StateRoot", subsetStateRoot,
+      "-CycleId", "2030-02-04",
+      "-BundleRoot", mismatchInputBundleRoot,
+      "-ReleaseRoot", subsetRelease,
+      "-RuntimeRoot", fakeRuntimeRoot,
+    ], { env: {
+      SMOKINGPIPES_TEST_BUNDLE_ROOT: mismatchRebuiltBundleRoot,
+      SMOKINGPIPES_TEST_BUILDER_COUNT_PATH: subsetBuilderCountPath,
+    } });
+    assert.equal(mismatchPublish.status, 0, `${mismatchPublish.stdout}\n${mismatchPublish.stderr}`);
+    assert.equal(lastJson(mismatchPublish.stdout).status, "published");
+    assert.deepEqual(
+      (await fs.promises.readFile(subsetBuilderCountPath, "utf8")).trim().split(/\r?\n/),
+      ["rebuilt"]
+    );
 
     // The Publisher must run real project gates from ReleaseRoot.  This
     // reproduces the production defect by giving the caller Runtime a broken
@@ -1300,6 +1416,42 @@ async function main() {
       releaseUnifiedB.find((product) => product.id === `danish-${danishBId}`)?.displayNameEn,
       danishBName
     );
+
+    // Structural-only keeps all real public-index integrity checks while
+    // deliberately ignoring legacy manifest hash eligibility. Normal mode
+    // still rejects those bad hashes, and a structural defect still fails.
+    const releaseValidator = path.join(workspaceRoot, "scripts", "validate-public-product-indexes-v1.mjs");
+    const releaseManifestPath = path.join(releaseCwdRelease, "data", "generated", "public-products", "manifest.json");
+    const releaseManifest = await readJson(releaseManifestPath);
+    releaseManifest.fileHashes = {
+      "data/generated/public-products/catalog.json": "deadbeef",
+    };
+    releaseManifest.inputHashes = { ...(releaseManifest.inputHashes || {}), staging: "deadbeef" };
+    await writeJsonAtomic(releaseManifestPath, releaseManifest);
+    const normalHashGate = spawnSync(process.execPath, [releaseValidator], {
+      cwd: releaseCwdRelease,
+      encoding: "utf8",
+      windowsHide: true,
+    });
+    assert.notEqual(normalHashGate.status, 0);
+    assert.match(`${normalHashGate.stdout}\n${normalHashGate.stderr}`, /Manifest (file |staging )?hash mismatch/i);
+    const structuralHashGate = spawnSync(process.execPath, [releaseValidator, "--structural-only=true"], {
+      cwd: releaseCwdRelease,
+      encoding: "utf8",
+      windowsHide: true,
+    });
+    assert.equal(structuralHashGate.status, 0, `${structuralHashGate.stdout}\n${structuralHashGate.stderr}`);
+    const structuralCatalogPath = path.join(releaseCwdRelease, "data", "generated", "public-products", "catalog.json");
+    const structuralCatalog = await readJson(structuralCatalogPath);
+    structuralCatalog.products = [];
+    await writeJsonAtomic(structuralCatalogPath, structuralCatalog);
+    const structuralFailure = spawnSync(process.execPath, [releaseValidator, "--structural-only=true"], {
+      cwd: releaseCwdRelease,
+      encoding: "utf8",
+      windowsHide: true,
+    });
+    assert.notEqual(structuralFailure.status, 0);
+    assert.match(`${structuralFailure.stdout}\n${structuralFailure.stderr}`, /Catalog count mismatch|catalog\.json cannot be exactly rebuilt/i);
 
     const invalidReleaseCwdBundleRoot = path.join(releaseCwdRoot, "invalid-public-validator-bundle");
     await fs.promises.cp(releaseCwdBundle.bundleRoot, invalidReleaseCwdBundleRoot, { recursive: true });

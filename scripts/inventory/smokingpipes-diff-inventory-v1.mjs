@@ -315,7 +315,9 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     [...existingSoldIds].filter((id) => currentIds.has(id))
   );
   const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
+  const { allowLegacyDuplicateSnapshotOverride = true } = options;
   const legacyDuplicateOverride =
+    allowLegacyDuplicateSnapshotOverride &&
     duplicateStats.classificationAvailable === false &&
     duplicateStats.totalDuplicateIds > 0
       ? evaluateLegacyDuplicateSnapshotOverride({

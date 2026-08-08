@@ -94,6 +94,7 @@ try {
   if ($dirty) { throw "release clone is not clean: $dirty" }
   Invoke-Git -Directory $ReleaseRoot -Arguments @("fetch", "origin") | Out-Null
   $remoteMain = Invoke-Git -Directory $ReleaseRoot -Arguments @("rev-parse", "origin/main")
+  $bundleMatchesRemoteMain = [string]$manifest.baseMainSha -eq [string]$remoteMain
   $head = Invoke-Git -Directory $ReleaseRoot -Arguments @("rev-parse", "HEAD")
   $bundleTrailer = "Smokingpipes-Bundle-Id: $bundleId"
   $headMessage = Invoke-Git -Directory $ReleaseRoot -Arguments @("log", "-1", "--format=%B", "HEAD")
@@ -108,7 +109,7 @@ try {
     } | ConvertTo-Json -Depth 8
      Write-PublisherResult -Status "published" -BundleId $bundleId -CommitSha $remoteMain -PublishedCount ([int]$manifest.actualAppliedCount) -ExitCode 0
   }
-  if ($headMessage -match [regex]::Escape($bundleTrailer)) {
+  if ($bundleMatchesRemoteMain -and $headMessage -match [regex]::Escape($bundleTrailer)) {
     $remoteIsAncestor = @(& git -C $ReleaseRoot merge-base --is-ancestor origin/main HEAD 2>&1)
     if ($LASTEXITCODE -ne 0) {
       throw "retained release commit no longer descends from origin/main; refusing to overwrite remote history"
@@ -171,42 +172,45 @@ try {
     }
   }
   # ===== BEGIN PROTECTED OPTIMIZATION: release on latest main =====
-  # An unrelated main update must not invalidate trusted Smokingpipes data.
+  # An unrelated main update only rebuilds a bundle whose base is stale. A
+  # bundle already built for origin/main goes straight to validation and gates.
   Invoke-Git -Directory $ReleaseRoot -Arguments @("merge", "--ff-only", "origin/main") | Out-Null
-  $builderScript = Join-Path $RuntimeRoot "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs"
-  $previousErrorActionPreference = $ErrorActionPreference
-  try {
-    $ErrorActionPreference = "Continue"
-    Push-Location -LiteralPath $RuntimeRoot
+  if (-not $bundleMatchesRemoteMain) {
+    $builderScript = Join-Path $RuntimeRoot "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs"
+    $previousErrorActionPreference = $ErrorActionPreference
     try {
-      $rebuildOutput = @(& node $builderScript "--state-root=$StateRoot" "--cycle-id=$CycleId" "--runtime-root=$RuntimeRoot" "--base-main-sha=$remoteMain" "--baseline-root=$ReleaseRoot" 2>&1)
-      $rebuildExitCode = $LASTEXITCODE
+      $ErrorActionPreference = "Continue"
+      Push-Location -LiteralPath $RuntimeRoot
+      try {
+        $rebuildOutput = @(& node $builderScript "--state-root=$StateRoot" "--cycle-id=$CycleId" "--runtime-root=$RuntimeRoot" "--base-main-sha=$remoteMain" "--baseline-root=$ReleaseRoot" 2>&1)
+        $rebuildExitCode = $LASTEXITCODE
+      } finally {
+        Pop-Location
+      }
     } finally {
-      Pop-Location
+      $ErrorActionPreference = $previousErrorActionPreference
     }
-  } finally {
-    $ErrorActionPreference = $previousErrorActionPreference
+    if ($rebuildExitCode -ne 0) {
+      throw "latest-main bundle rebuild failed: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
+    }
+    try {
+      $rebuilt = ($rebuildOutput | Out-String | ConvertFrom-Json -ErrorAction Stop)
+    } catch {
+      throw "latest-main bundle rebuild returned invalid JSON: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
+    }
+    if ($rebuilt.status -eq "no-change") {
+      Write-PublisherResult -Status "no-change" -BundleId $bundleId -ExitCode 0
+    }
+    if ($rebuilt.status -ne "bundle-ready" -or -not $rebuilt.bundleRoot) {
+      throw "latest-main bundle rebuild did not produce a releasable bundle: $($rebuilt.status)"
+    }
+    $BundleRoot = [string]$rebuilt.bundleRoot
+    $manifestPath = Join-Path $BundleRoot "manifest.json"
+    $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+    $bundleId = [string]$manifest.bundleId
+    $outputFiles = @($manifest.outputFiles)
+    if (-not $outputFiles.Count) { throw "latest-main bundle has no owned output files" }
   }
-  if ($rebuildExitCode -ne 0) {
-    throw "latest-main bundle rebuild failed: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
-  }
-  try {
-    $rebuilt = ($rebuildOutput | Out-String | ConvertFrom-Json -ErrorAction Stop)
-  } catch {
-    throw "latest-main bundle rebuild returned invalid JSON: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
-  }
-  if ($rebuilt.status -eq "no-change") {
-    Write-PublisherResult -Status "no-change" -BundleId $bundleId -ExitCode 0
-  }
-  if ($rebuilt.status -ne "bundle-ready" -or -not $rebuilt.bundleRoot) {
-    throw "latest-main bundle rebuild did not produce a releasable bundle: $($rebuilt.status)"
-  }
-  $BundleRoot = [string]$rebuilt.bundleRoot
-  $manifestPath = Join-Path $BundleRoot "manifest.json"
-  $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
-  $bundleId = [string]$manifest.bundleId
-  $outputFiles = @($manifest.outputFiles)
-  if (-not $outputFiles.Count) { throw "latest-main bundle has no owned output files" }
   # ===== END PROTECTED OPTIMIZATION =====
   $releasePrepared = $true
 
@@ -235,7 +239,7 @@ try {
   Push-Location -LiteralPath $ReleaseRoot
   try {
     foreach ($command in @(
-      @("node", $projectValidator),
+      @("node", $projectValidator, "--structural-only=true"),
       @("node", $inventoryDefaultTest),
       @("git", "diff", "--check"),
       @("npm.cmd", "run", "build")

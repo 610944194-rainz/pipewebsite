@@ -382,6 +382,7 @@ export async function runSmokingpipesAutoPublishV2({
       detailLimit,
       maxAutoApply,
       processDetail,
+      deadline,
     });
     if (!["ready-to-bundle", "release-resume-required"].includes(collection.status)) {
       return finalize({

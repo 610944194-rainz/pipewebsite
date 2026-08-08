@@ -16,6 +16,9 @@ async function main() {
   const collectOnly = await read("scripts/inventory/run-smokingpipes-progressive-daily.ps1");
   const publisher = await read("scripts/inventory/publish-smokingpipes-release-bundle-v2.ps1");
   const orchestrator = await read("scripts/inventory/smokingpipes-auto-publish-v2.mjs");
+  const collector = await read("scripts/inventory/smokingpipes-collect-only-v2.mjs");
+  const diff = await read("scripts/inventory/smokingpipes-diff-inventory-v1.mjs");
+  const validator = await read("scripts/validate-public-product-indexes-v1.mjs");
 
   assert.match(entrypoint, /smokingpipes-auto-publish-v2\.mjs/);
   assert.match(entrypoint, /--state-root=/);
@@ -59,16 +62,20 @@ async function main() {
   assert.match(orchestrator, /sendPushDeerNotification/);
   assert.match(orchestrator, /summarizeSmokingpipesV2CliResult/);
   assert.match(orchestrator, /status: "preflight-passed"/);
+  assert.match(orchestrator, /deadline,/);
   assert.doesNotMatch(orchestrator, /test-inventory-runner-v1/);
   assert.doesNotMatch(orchestrator, /run-inventory-automation-v1\.mjs/);
 
   assert.match(publisher, /validate-smokingpipes-release-bundle-v2\.mjs/);
   assert.match(publisher, /validate-public-product-indexes-v1\.mjs/);
+  assert.match(publisher, /--structural-only=true/);
   assert.match(publisher, /test-public-products-inventory-default-v1\.mjs/);
   assert.match(publisher, /"diff", "--check"/);
   assert.match(publisher, /Smokingpipes-Bundle-Id:/);
   assert.match(publisher, /merge-base --is-ancestor HEAD origin\/main/);
   assert.match(publisher, /--baseline-root=\$ReleaseRoot/);
+  assert.match(publisher, /\$bundleMatchesRemoteMain/);
+  assert.match(publisher, /if \(-not \$bundleMatchesRemoteMain\)/);
   assert.match(publisher, /Push-Location -LiteralPath \$ReleaseRoot/);
   assert.match(publisher, /release clone clean/);
   assert.match(publisher, /bundle owns an unsafe or non-Smokingpipes output path/);
@@ -84,6 +91,11 @@ async function main() {
   assert.doesNotMatch(publisher, /smokingpipes-release-state-v2\.mjs/);
   assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
   assert.match(orchestrator, /published\.failureStage \|\| published\.status/);
+  assert.match(collector, /allowLegacyDuplicateSnapshotOverride: false/);
+  assert.match(collector, /suspicious duplicate source product IDs/);
+  assert.match(collector, /deadlineAtMs: deadline\?\.deadlineAtMs/);
+  assert.match(diff, /allowLegacyDuplicateSnapshotOverride = true/);
+  assert.match(validator, /--structural-only=true/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");
 }

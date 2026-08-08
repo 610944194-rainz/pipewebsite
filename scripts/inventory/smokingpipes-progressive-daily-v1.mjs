@@ -916,6 +916,7 @@ export async function runProgressiveDetailChunk({
   processDetail,
   checkpoint = async () => {},
   onDetailSettled = async () => {},
+  shouldStartDetail = async () => ({ allowed: true }),
   runId = state?.dailyRunId,
 }) {
   const validation = validateProgressiveDailyState(state);
@@ -940,6 +941,7 @@ export async function runProgressiveDetailChunk({
   let failedThisRun = 0;
   let blockedReason = null;
   let recommendedNextRunAt = null;
+  let deadlineReached = false;
 
   for (let index = 0; index < selected.length; index += 1) {
     const selectedItem = selected[index];
@@ -947,6 +949,20 @@ export async function runProgressiveDetailChunk({
       (item) =>
         item.sourceProductId === selectedItem.sourceProductId
     );
+    const startDecision = await shouldStartDetail({
+      candidate: structuredClone(candidate),
+      index,
+      state: next,
+    });
+    if (startDecision === false || startDecision?.allowed === false) {
+      blockedReason =
+        startDecision?.reason || "detail processing stopped before the next detail";
+      recommendedNextRunAt = startDecision?.recommendedNextRunAt || null;
+      deadlineReached = startDecision?.code === "DAILY_DEADLINE_REACHED";
+      next.updatedAt = new Date().toISOString();
+      await checkpoint(next);
+      break;
+    }
     if (candidate.detailStatus === "blocked") {
       candidate.detailStatus = "pending";
     }
@@ -987,7 +1003,12 @@ export async function runProgressiveDetailChunk({
           ? error.message
           : String(error);
       candidate.lastError = message;
-      if (error?.code === "CAPTCHA_REQUIRED") {
+      if (error?.code === "DAILY_DEADLINE_REACHED") {
+        candidate.detailStatus = "pending";
+        candidate.nextEligibleAt = null;
+        blockedReason = message;
+        deadlineReached = true;
+      } else if (error?.code === "CAPTCHA_REQUIRED") {
         candidate.detailStatus = "blocked";
         candidate.blockedCount += 1;
         candidate.lastBlockedAt = now;
@@ -1032,6 +1053,7 @@ export async function runProgressiveDetailChunk({
     failedThisRun,
     blockedReason,
     recommendedNextRunAt,
+    deadlineReached,
   };
   const remainingPendingCount = next.candidates.filter(
     (candidate) => candidate.detailStatus === "pending"
@@ -1049,6 +1071,7 @@ export async function runProgressiveDetailChunk({
     remainingPendingCount,
     blockedReason,
     recommendedNextRunAt,
+    deadlineReached,
     productionWritten: false,
   };
 }
