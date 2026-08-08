@@ -19,7 +19,9 @@ import {
   validateIncrementalDetailQueue,
 } from "./run-danish-daily-v1.mjs";
 import {
+  ensureAgeLanguageGateHandled,
   ensureManualVerificationIfNeeded,
+  inspectAgeLanguageGateSafely,
 } from "../collect-danish-full-v18.mjs";
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "danish-daily-v1-"));
@@ -74,6 +76,49 @@ function verificationPage(states, options = {}) {
   return { page, navigations };
 }
 
+function ageLanguageGatePage(inspections) {
+  let index = 0;
+  const calls = { clicks: [], loadStates: [], waits: [] };
+  const page = {
+    isClosed: () => false,
+    evaluate: async () => {
+      const next = inspections[Math.min(index, inspections.length - 1)];
+      index += 1;
+      if (next instanceof Error) throw next;
+      return next;
+    },
+    waitForLoadState: async (state, options) => {
+      calls.loadStates.push({ state, options });
+    },
+    waitForTimeout: async (milliseconds) => {
+      calls.waits.push(milliseconds);
+    },
+    getByText: (text) => ({
+      first: () => ({
+        count: async () => 1,
+        isVisible: async () => true,
+        click: async () => { calls.clicks.push(text); },
+      }),
+    }),
+  };
+  return { page, calls };
+}
+
+function readyListGateState(overrides = {}) {
+  return {
+    gatePresent: false,
+    titlePresent: false,
+    chinesePresent: false,
+    englishPresent: false,
+    listContainerVisible: true,
+    listItemCount: 1,
+    visibleListItemCount: 1,
+    url: "https://www.danishpipeshop.com/l/-zh/Pipes1",
+    pageTitle: "Pipes",
+    ...overrides,
+  };
+}
+
 // V18 verification recovery must not wait for terminal input or rely on an automatic redirect.
 {
   const states = [
@@ -119,6 +164,66 @@ function verificationPage(states, options = {}) {
     () => ensureManualVerificationIfNeeded(closed, { targetUrl: "https://www.danishpipeshop.com/l/-zh/Pipes1" }),
     /manual-verification-page-closed/
   );
+}
+
+// A transient navigation race during the initial age/language inspect recovers after domcontentloaded.
+{
+  const { page, calls } = ageLanguageGatePage([
+    new Error("Execution context was destroyed, most likely because of a navigation"),
+    readyListGateState(),
+  ]);
+  const state = await inspectAgeLanguageGateSafely(page, { settleDelayMs: 0 });
+  assert.equal(state.gatePresent, false);
+  assert.equal(state.listContainerVisible, true);
+  assert.equal(state.listItemCount > 0, true);
+  assert.equal(calls.loadStates.length, 1);
+  assert.equal(calls.loadStates[0].state, "domcontentloaded");
+}
+
+// A language click can redirect before the first dismissal inspect; the safe inspect resumes normally.
+{
+  const gateState = readyListGateState({
+    gatePresent: true,
+    chinesePresent: true,
+    listContainerVisible: false,
+    listItemCount: 0,
+  });
+  const { page, calls } = ageLanguageGatePage([
+    gateState,
+    gateState,
+    new Error("Cannot find context with specified id"),
+    readyListGateState(),
+    readyListGateState(),
+  ]);
+  const result = await ensureAgeLanguageGateHandled(page, { requireList: true });
+  assert.equal(result.detected, true);
+  assert.equal(result.automatic, true);
+  assert.equal(calls.clicks.length, 1);
+  assert.equal(calls.loadStates.length, 1);
+}
+
+// A real evaluate failure is not classified as navigation and must be thrown immediately.
+{
+  const { page, calls } = ageLanguageGatePage([
+    new Error("selector/logic unexpected error"),
+  ]);
+  await assert.rejects(
+    () => inspectAgeLanguageGateSafely(page, { settleDelayMs: 0 }),
+    /selector\/logic unexpected error/
+  );
+  assert.equal(calls.loadStates.length, 0);
+}
+
+// Repeated transient context failures stop at the bounded retry limit instead of looping forever.
+{
+  const { page, calls } = ageLanguageGatePage([
+    new Error("Execution context was destroyed"),
+  ]);
+  await assert.rejects(
+    () => inspectAgeLanguageGateSafely(page, { maxAttempts: 3, settleDelayMs: 0 }),
+    /age-language-navigation-race-retry-exhausted attempts=3/
+  );
+  assert.equal(calls.loadStates.length, 2);
 }
 
 // Comparison normalizes only non-business representation differences.

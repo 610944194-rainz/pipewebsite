@@ -23,6 +23,9 @@ const pageReadyTimeoutMs = readIntegerEnv("DANISH_PAGE_READY_TIMEOUT_MS", 90000,
 const languageFallbackSeconds = readIntegerEnv("DANISH_LANGUAGE_FALLBACK_SECONDS", 20, { min: 1 });
 const manualVerificationTimeoutSeconds = readIntegerEnv("DANISH_MANUAL_VERIFICATION_TIMEOUT_SECONDS", 900, { min: 30 });
 const manualVerificationPollMs = readIntegerEnv("DANISH_MANUAL_VERIFICATION_POLL_MS", 3000, { min: 500 });
+const ageLanguageNavigationInspectMaxAttempts = 4;
+const ageLanguageNavigationSettleTimeoutMs = 3000;
+const ageLanguageNavigationSettleDelayMs = 150;
 const minimumExpectedCount = readIntegerEnv("DANISH_MIN_EXPECTED_COUNT", 1000, { min: 1 });
 const outputPath = resolveOutputPath(process.env.DANISH_OUTPUT, defaultOutputPath);
 const listOutputPath = resolveOutputPath(process.env.DANISH_LIST_OUTPUT, defaultListOutputPath);
@@ -2233,6 +2236,68 @@ async function inspectAgeLanguageGate(tab) {
   });
 }
 
+function isAgeLanguageNavigationRace(error) {
+  const message = String(error?.message || error || "").toLowerCase();
+
+  return (
+    message.includes("execution context was destroyed") ||
+    message.includes("most likely because of a navigation") ||
+    message.includes("cannot find context with specified id") ||
+    /(?:page|navigation).*(?:context|destroyed|lost)/.test(message) ||
+    /context.*(?:navigation|destroyed|lost)/.test(message)
+  );
+}
+
+/*
+ * PROTECTED BEHAVIOR — Danish age/language navigation-race recovery
+ *
+ * The Danish verification and age/language redirect may replace the page while
+ * an inspection is evaluating. Recover only the known transient navigation
+ * errors by waiting for domcontentloaded and retrying a bounded number of times.
+ * Other evaluate failures must remain visible to the caller.
+ *
+ * 未经用户明确授权不得删除。
+ */
+export async function inspectAgeLanguageGateSafely(
+  tab,
+  {
+    maxAttempts = ageLanguageNavigationInspectMaxAttempts,
+    settleTimeoutMs = ageLanguageNavigationSettleTimeoutMs,
+    settleDelayMs = ageLanguageNavigationSettleDelayMs,
+  } = {}
+) {
+  const attempts = Math.max(1, Number(maxAttempts) || ageLanguageNavigationInspectMaxAttempts);
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    if (tab.isClosed?.()) {
+      throw new Error("age-language-inspect-page-closed");
+    }
+
+    try {
+      return await inspectAgeLanguageGate(tab);
+    } catch (error) {
+      if (!isAgeLanguageNavigationRace(error)) {
+        throw error;
+      }
+      if (attempt === attempts) {
+        throw new Error(
+          `age-language-navigation-race-retry-exhausted attempts=${attempts}: ${String(error?.message || error)}`
+        );
+      }
+
+      collectorLog("age-language-navigation-race-retry", { attempt, maxAttempts: attempts });
+      try {
+        await tab.waitForLoadState("domcontentloaded", { timeout: settleTimeoutMs });
+      } catch (settleError) {
+        if (!isAgeLanguageNavigationRace(settleError)) {
+          throw settleError;
+        }
+      }
+      await tab.waitForTimeout(settleDelayMs);
+    }
+  }
+}
+
 async function clickExactAgeLanguageOption(tab, text) {
   const exactLocator = tab.getByText(text, { exact: true }).first();
   const locatorCount = await exactLocator.count().catch(() => 0);
@@ -2373,7 +2438,7 @@ async function waitForAgeLanguageGateDismissal(
   let lastState = null;
 
   while (Date.now() < deadline) {
-    lastState = await inspectAgeLanguageGate(tab);
+    lastState = await inspectAgeLanguageGateSafely(tab);
 
     const listReady =
       !requireList ||
@@ -2412,13 +2477,13 @@ async function waitForManualAgeLanguageSelection(tab, { requireList }) {
   });
 }
 
-async function ensureAgeLanguageGateHandled(
+export async function ensureAgeLanguageGateHandled(
   tab,
   {
     requireList = true,
   } = {}
 ) {
-  let state = await inspectAgeLanguageGate(tab);
+  let state = await inspectAgeLanguageGateSafely(tab);
 
   if (!state.gatePresent) {
     const readyResult = await waitForAgeLanguageGateDismissal(tab, {
@@ -2454,7 +2519,7 @@ async function ensureAgeLanguageGateHandled(
   ];
 
   for (const choice of choices) {
-    state = await inspectAgeLanguageGate(tab);
+    state = await inspectAgeLanguageGateSafely(tab);
 
     const choiceAvailable =
       choice === "请点击这里选择中文"
@@ -2516,7 +2581,7 @@ async function ensureAgeLanguageGateHandled(
    */
   await tab.waitForTimeout(languageFallbackSeconds * 1000);
 
-  state = await inspectAgeLanguageGate(tab);
+  state = await inspectAgeLanguageGateSafely(tab);
 
   if (!state.gatePresent) {
     const delayedReadyResult = await waitForAgeLanguageGateDismissal(tab, {
@@ -3194,7 +3259,7 @@ async function discoverProducts(context) {
       clickIndex <= maxLoadMoreClicks;
       clickIndex += 1
     ) {
-      const gateState = await inspectAgeLanguageGate(tab);
+      const gateState = await inspectAgeLanguageGateSafely(tab);
 
       if (gateState.gatePresent) {
         console.warn(
@@ -3470,7 +3535,7 @@ async function discoverProducts(context) {
     }
 
     const finalProgress = await getListProgress(tab);
-    const finalGateState = await inspectAgeLanguageGate(tab);
+    const finalGateState = await inspectAgeLanguageGateSafely(tab);
     const finalRobotCheck = await isRobotVerificationPage(tab);
     const stableResult = await waitForStableListCount(
       tab,
