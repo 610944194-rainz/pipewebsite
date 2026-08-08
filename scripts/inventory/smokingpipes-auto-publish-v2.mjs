@@ -20,9 +20,6 @@ import {
 import {
   buildSmokingpipesReleaseBundleV2,
 } from "./smokingpipes-build-release-bundle-v2.mjs";
-import {
-  validateSmokingpipesReleaseBundleV2,
-} from "./validate-smokingpipes-release-bundle-v2.mjs";
 
 function git(runtimeRoot, arguments_, allowed = [0]) {
   const result = spawnSync("git", ["-C", runtimeRoot, ...arguments_], {
@@ -63,6 +60,23 @@ function number(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : 0;
 }
+
+// ===== BEGIN PROTECTED OPTIMIZATION: cooperative Daily deadline =====
+// The scheduler owns process termination. V2 checks its own deadline only at
+// phase boundaries so it never interrupts an atomic state or bundle write.
+const RELEASE_DEADLINE_RESERVE_MS = 3 * 60 * 1000;
+
+function createDailyDeadline(timeoutSeconds, nowMs = Date.now) {
+  const seconds = Number(timeoutSeconds);
+  if (!Number.isFinite(seconds) || seconds <= 0) return null;
+  const startedAtMs = nowMs();
+  return { startedAtMs, deadlineAtMs: startedAtMs + seconds * 1000, nowMs };
+}
+
+function hasDeadlineBudget(deadline, reserveMs = 0) {
+  return !deadline || deadline.nowMs() + reserveMs < deadline.deadlineAtMs;
+}
+// ===== END PROTECTED OPTIMIZATION =====
 
 const CHANGE_TYPE_LABELS = {
   "new-product": "新增",
@@ -172,7 +186,7 @@ export function buildSmokingpipesV2Notification(result = {}) {
       `错误尾部: ${errorTail(result.error || result.stderrTail || cycle.failure?.message) || "-"}`,
       "采集结果: 已保留",
       "Bundle: 已保留",
-      `下一窗口: ${failureStage === "stale-base" ? "以新 main 基线重建 Bundle；不重新抓取。" : "发布重试；不重新抓取。"}`,
+      "下一窗口: 基于已保存的 Smokingpipes 变更集重试发布；不重新抓取。",
     ].join("\n"),
   };
 }
@@ -203,21 +217,12 @@ export function parseSmokingpipesPublisherResult(stdout = "") {
   if (markers.length !== 1) return { status: "publisher-output-invalid", error: `expected exactly one publisher result marker, got ${markers.length}` };
   try {
     const parsed = JSON.parse(markers[0].slice(prefix.length));
-    const allowed = new Set(["published", "stale-base", "push-retryable", "release-retryable", "commit-created-no-push"]);
+    const allowed = new Set(["published", "no-change", "push-retryable", "release-retryable", "commit-created-no-push"]);
     if (!allowed.has(parsed?.status)) throw new Error(`unsupported publisher status: ${parsed?.status}`);
     return parsed;
   } catch (error) {
     return { status: "publisher-output-invalid", error: error.message };
   }
-}
-
-function isDeterministicRetainedBundleContractFailure(validation = {}) {
-  const blockers = Array.isArray(validation.blockers) ? validation.blockers : [];
-  return blockers.some((blocker) => [
-    "retained bundle public staging hash mismatch",
-    "retained bundle public staging hash is missing",
-    "retained bundle staging output is missing",
-  ].includes(String(blocker)));
 }
 
 async function invokePublisher({
@@ -227,6 +232,7 @@ async function invokePublisher({
   releaseRoot,
   runtimeRoot,
   noPush,
+  pushRetryAttempt = 0,
 }) {
   const script = path.join(runtimeRoot, "scripts", "inventory", "publish-smokingpipes-release-bundle-v2.ps1");
   const arguments_ = [
@@ -247,6 +253,7 @@ async function invokePublisher({
     runtimeRoot,
   ];
   if (noPush) arguments_.push("-NoPush");
+  if (pushRetryAttempt) arguments_.push("-PushRetryAttempt", String(pushRetryAttempt));
   const result = spawnSync("powershell.exe", arguments_, {
     encoding: "utf8",
     windowsHide: true,
@@ -274,6 +281,8 @@ export async function runSmokingpipesAutoPublishV2({
   preflightOnly = false,
   skipSync = false,
   expectedRuntimeSha = null,
+  timeoutSeconds = 3600,
+  nowMs = Date.now,
   notificationsEnabled = false,
   notifier = sendPushDeerNotification,
   collector = runSmokingpipesCollectOnlyV2,
@@ -281,6 +290,7 @@ export async function runSmokingpipesAutoPublishV2({
   bundleBuilder = buildSmokingpipesReleaseBundleV2,
   publisher = invokePublisher,
 } = {}) {
+  const deadline = createDailyDeadline(timeoutSeconds, nowMs);
   const lock = await acquireOwnerTokenLock({
     stateRoot,
     command: "run-smokingpipes-auto-publish.ps1 V2",
@@ -311,25 +321,17 @@ export async function runSmokingpipesAutoPublishV2({
   try {
     const resolvedRuntimeRoot = path.resolve(runtimeRoot);
     const active = await resolveActiveSmokingpipesCycle({ stateRoot, cycleId, now });
-    if (active.status === "manual-review-required") {
-      return finalize({
-        status: active.status,
-        cycleId: active.cycleId,
-        cycle: active.cycle,
-        networkAccessed: false,
-      });
-    }
     const activeCycleId = active.cycleId;
     const runtimeSha = skipSync ? git(resolvedRuntimeRoot, ["rev-parse", "HEAD"]) : syncSmokingpipesRuntimeV2(resolvedRuntimeRoot);
     if (expectedRuntimeSha && runtimeSha !== String(expectedRuntimeSha).trim()) {
       throw new Error(`runtime HEAD changed before Node startup: expected ${expectedRuntimeSha}, got ${runtimeSha}`);
     }
     let activeCycle = active.cycle || await readCycle(stateRoot, activeCycleId);
-    if (activeCycle?.phase === "validating-release") {
+    if (activeCycle?.phase === "publishing") {
       activeCycle = await transitionCycle({
         stateRoot,
         cycle: activeCycle,
-        phase: "release-retryable",
+        phase: "retryable",
         reason: "interrupted-validating-release",
         patch: {
           failure: {
@@ -338,6 +340,20 @@ export async function runSmokingpipesAutoPublishV2({
             at: new Date().toISOString(),
           },
         },
+      });
+    }
+    if (activeCycle?.failure?.requiresManualReview === true) {
+      return finalize({
+        status: "manual-review-required",
+        cycleId: activeCycleId,
+        cycle: activeCycle,
+        runtimeSha,
+        observedCandidateCount: activeCycle.collection?.observedCandidateCount || 0,
+        readyChangeCount: 0,
+        pendingDetailCount: activeCycle.collection?.pendingDetailIds?.length || 0,
+        bundleAppliedCount: 0,
+        publishedCount: 0,
+        networkAccessed: false,
       });
     }
     if (preflightOnly) {
@@ -379,11 +395,39 @@ export async function runSmokingpipesAutoPublishV2({
         publishedCount: 0,
       });
     }
+    if (!hasDeadlineBudget(deadline, RELEASE_DEADLINE_RESERVE_MS)) {
+      const timeoutCycle = await transitionCycle({
+        stateRoot,
+        cycle: collection.cycle || await readCycle(stateRoot, activeCycleId),
+        phase: "retryable",
+        reason: "daily-deadline-before-release",
+        patch: {
+          failure: {
+            stage: "daily-timeout",
+            message: "Daily timeout budget is insufficient to start release safely",
+            at: new Date().toISOString(),
+          },
+        },
+      });
+      return finalize({
+        status: "release-retryable",
+        failureStage: "daily-timeout",
+        error: timeoutCycle.failure?.message,
+        cycleId: activeCycleId,
+        cycle: timeoutCycle,
+        runtimeSha,
+        observedCandidateCount: timeoutCycle.collection?.observedCandidateCount || 0,
+        readyChangeCount: 0,
+        pendingDetailCount: timeoutCycle.collection?.pendingDetailIds?.length || 0,
+        bundleAppliedCount: 0,
+        publishedCount: 0,
+        networkAccessed: collection.networkAccessed,
+      });
+    }
     console.error("SCHEDULER_STAGE release");
     let cycle = collection.cycle || await readCycle(stateRoot, activeCycleId);
     let built;
-    const staleBaseRetry = collection.status === "release-resume-required" && cycle.failure?.stage === "stale-base";
-    const retainedBundle = collection.status === "release-resume-required" && !staleBaseRetry && cycle.bundle?.bundleId && cycle.bundle?.path;
+    const retainedBundle = collection.status === "release-resume-required" && cycle.bundle?.bundleId && cycle.bundle?.path;
     if (retainedBundle) {
       const bundleRoot = path.join(stateRoot, cycle.bundle?.path || "");
       built = {
@@ -406,7 +450,7 @@ export async function runSmokingpipesAutoPublishV2({
         const retryCycle = await transitionCycle({
           stateRoot,
           cycle,
-          phase: "release-retryable",
+          phase: "retryable",
           reason: "bundle-build-failed",
           patch: {
             failure: {
@@ -447,97 +491,10 @@ export async function runSmokingpipesAutoPublishV2({
       }
       cycle = built.cycle;
     }
-    let rebuiltRetainedBundle = false;
-    let validation = await validateSmokingpipesReleaseBundleV2({
-      bundleRoot: built.bundleRoot,
-      runtimeRoot: resolvedRuntimeRoot,
-    });
-    const retainedBundleAlreadyRebuilt = String(
-      cycle.failure?.retainedBundleRebuildAttemptedForBundleId || ""
-    ) === String(cycle.bundle?.bundleId || "");
-    if (
-      retainedBundle &&
-      !retainedBundleAlreadyRebuilt &&
-      !validation.valid &&
-      isDeterministicRetainedBundleContractFailure(validation)
-    ) {
-      try {
-        built = await bundleBuilder({
-          stateRoot,
-          cycleId: activeCycleId,
-          runtimeRoot: resolvedRuntimeRoot,
-          baseMainSha: runtimeSha,
-          maxAutoApply,
-        });
-      } catch (error) {
-        const retryCycle = await transitionCycle({
-          stateRoot,
-          cycle,
-          phase: "release-retryable",
-          reason: "bundle-build-failed",
-          patch: {
-            failure: {
-              stage: "bundle-build",
-              message: errorTail(error?.message || error),
-              at: new Date().toISOString(),
-            },
-          },
-        });
-        return finalize({
-          status: "release-retryable",
-          failureStage: "bundle-build",
-          error: errorTail(error?.message || error),
-          cycleId: activeCycleId,
-          cycle: retryCycle,
-          runtimeSha,
-          observedCandidateCount: retryCycle.collection?.observedCandidateCount || 0,
-          readyChangeCount: 0,
-          pendingDetailCount: retryCycle.collection?.pendingDetailIds?.length || 0,
-          bundleAppliedCount: 0,
-          publishedCount: 0,
-          networkAccessed: false,
-        });
-      }
-      if (built.status === "no-change") {
-        return finalize({
-          status: "no-change",
-          cycleId: activeCycleId,
-          cycle: built.cycle,
-          runtimeSha,
-          observedCandidateCount: built.cycle.collection.observedCandidateCount,
-          readyChangeCount: 0,
-          pendingDetailCount: 0,
-          bundleAppliedCount: 0,
-          publishedCount: 0,
-          networkAccessed: false,
-        });
-      }
-      cycle = built.cycle;
-      rebuiltRetainedBundle = true;
-      validation = await validateSmokingpipesReleaseBundleV2({
-        bundleRoot: built.bundleRoot,
-        runtimeRoot: resolvedRuntimeRoot,
-      });
-    }
-    if (!validation.valid) {
-      const failedBundleRebuildId = rebuiltRetainedBundle
-        ? built.bundleId
-        : cycle.failure?.retainedBundleRebuildAttemptedForBundleId || null;
-      const retryCycle = await transitionCycle({
-        stateRoot,
-        cycle,
-        phase: "release-retryable",
-        reason: "bundle-validator-failed",
-        patch: {
-          failure: {
-            stage: "bundle-validator",
-            message: validation.blockers.join("; "),
-            ...(failedBundleRebuildId ? { retainedBundleRebuildAttemptedForBundleId: failedBundleRebuildId } : {}),
-          },
-        },
-      });
-      return finalize({ status: "release-retryable", failureStage: "bundle-validator", cycleId: activeCycleId, cycle: retryCycle, validation, networkAccessed: collection.networkAccessed });
-    }
+    // ===== BEGIN PROTECTED OPTIMIZATION: one final validator =====
+    // Only the Publisher validates the complete latest-main release candidate.
+    // Orchestrator-side validation would validate an obsolete intermediate twice.
+    // ===== END PROTECTED OPTIMIZATION =====
     if (noPublish) {
       return finalize({
         status: "bundle-ready",
@@ -552,10 +509,10 @@ export async function runSmokingpipesAutoPublishV2({
     cycle = await transitionCycle({
       stateRoot,
       cycle,
-      phase: "validating-release",
+      phase: "publishing",
       reason: "standalone-release-publish-started",
     });
-    const published = await publisher({
+    let published = await publisher({
       stateRoot,
       cycleId: activeCycleId,
       bundleRoot: built.bundleRoot,
@@ -563,39 +520,48 @@ export async function runSmokingpipesAutoPublishV2({
       runtimeRoot: resolvedRuntimeRoot,
       noPush,
     });
-    if (published.status === "published") {
-      cycle = await transitionCycle({
+    if (published.status === "push-retryable" && !noPush) {
+      // ===== BEGIN PROTECTED OPTIMIZATION: one normal Git race retry =====
+      // Rebuild against current origin/main from saved V2 state only. The
+      // collector is not invoked again and no source-site request is made.
+      console.error("SCHEDULER_STAGE release-push-retry");
+      published = await publisher({
         stateRoot,
-        cycle,
-        phase: "published",
-        reason: "release-published",
-        patch: { release: { bundleId: built.bundleId, commitSha: published.commitSha || null, publishedAt: new Date().toISOString() }, failure: null },
+        cycleId: activeCycleId,
+        bundleRoot: built.bundleRoot,
+        releaseRoot,
+        runtimeRoot: resolvedRuntimeRoot,
+        noPush,
+        pushRetryAttempt: 1,
       });
-      await recordPublishedBundle({ stateRoot, bundleId: built.bundleId, cycleId: activeCycleId, commitSha: published.commitSha || null });
-    } else if (published.status === "stale-base") {
+      // ===== END PROTECTED OPTIMIZATION =====
+    }
+    if (["published", "no-change"].includes(published.status)) {
+      const rebuiltCycle = await readCycle(stateRoot, activeCycleId);
+      const publishedBundleId = published.bundleId || rebuiltCycle?.bundle?.bundleId || built.bundleId;
       cycle = await transitionCycle({
         stateRoot,
         cycle,
-        phase: "release-retryable",
-        reason: "stale-base",
+        phase: "done",
+        reason: published.status === "published" ? "release-published" : "release-no-change",
         patch: {
-          failure: {
-            stage: "stale-base",
-            message: "origin/main changed after bundle creation",
-            bundleId: built.bundleId,
-            baseMainSha: cycle.bundle?.baseMainSha || built.manifest?.baseMainSha || null,
-            remoteMainSha: published.remoteMainSha || null,
-            at: new Date().toISOString(),
-          },
+          bundle: rebuiltCycle?.bundle || cycle.bundle,
+          release: published.status === "published"
+            ? { bundleId: publishedBundleId, commitSha: published.commitSha || null, publishedAt: new Date().toISOString() }
+            : null,
+          failure: null,
         },
       });
+      if (published.status === "published") {
+        await recordPublishedBundle({ stateRoot, bundleId: publishedBundleId, cycleId: activeCycleId, commitSha: published.commitSha || null });
+      }
     } else {
       const persistedCycle = await readCycle(stateRoot, activeCycleId);
-      if (published.status !== "published" && persistedCycle?.phase === "validating-release") {
+      if (published.status !== "published" && persistedCycle?.phase === "publishing") {
         cycle = await transitionCycle({
           stateRoot,
           cycle: persistedCycle,
-          phase: "release-retryable",
+          phase: "retryable",
           reason: `publisher-${published.status || "output-invalid"}`,
           patch: {
             failure: {
@@ -612,13 +578,13 @@ export async function runSmokingpipesAutoPublishV2({
     return finalize({
       ...published,
       cycleId: activeCycleId,
-      bundleId: built.bundleId,
+      bundleId: published.bundleId || cycle.bundle?.bundleId || built.bundleId,
       cycle,
       observedCandidateCount: cycle.collection.observedCandidateCount,
-      readyChangeCount: built.manifest?.actualAppliedCount || 0,
+      readyChangeCount: published.publishedCount ?? built.manifest?.actualAppliedCount ?? 0,
       pendingDetailCount: cycle.collection.pendingDetailIds.length,
-      bundleAppliedCount: built.manifest?.actualAppliedCount || 0,
-      publishedCount: published.status === "published" ? built.manifest?.actualAppliedCount || 0 : 0,
+      bundleAppliedCount: published.publishedCount ?? built.manifest?.actualAppliedCount ?? 0,
+      publishedCount: published.status === "published" ? published.publishedCount ?? built.manifest?.actualAppliedCount ?? 0 : 0,
       changeTypeCounts:
         built.manifest?.changeTypeCounts ||
         cycle.bundle?.changeTypeCounts ||
@@ -681,6 +647,7 @@ async function main() {
     preflightOnly: options.get("preflight-only") === true || options.get("preflight-only") === "true",
     skipSync: options.get("skip-sync") === true || options.get("skip-sync") === "true",
     expectedRuntimeSha: options.get("expected-runtime-sha") || null,
+    timeoutSeconds: options.get("timeout-seconds") || 3600,
     notificationsEnabled: options.get("notify") === true || options.get("notify") === "true",
   });
   const summary = summarizeSmokingpipesV2CliResult(result);

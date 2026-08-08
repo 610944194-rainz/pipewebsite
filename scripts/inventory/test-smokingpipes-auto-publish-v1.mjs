@@ -26,6 +26,9 @@ async function main() {
   assert.match(entrypoint, /"merge", "--ff-only", "origin\/main"/);
   assert.match(entrypoint, /--skip-sync=true/);
   assert.match(entrypoint, /--expected-runtime-sha=/);
+  assert.match(entrypoint, /--timeout-seconds=\$DailyTimeoutSeconds/);
+  assert.match(entrypoint, /\[ValidateRange\(1, 50\)\]/);
+  assert.match(entrypoint, /ProgressiveDetailMax = 50/);
   assert.match(entrypoint, /--notify=true/);
   assert.doesNotMatch(entrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(entrypoint, /progressive-partial-apply/);
@@ -45,9 +48,13 @@ async function main() {
   assert.match(orchestrator, /acquireOwnerTokenLock/);
   assert.match(orchestrator, /release-retryable/);
   assert.match(orchestrator, /bundle-ready/);
+  assert.match(orchestrator, /phase: "publishing"/);
+  assert.match(orchestrator, /phase: "done"/);
+  assert.match(orchestrator, /phase: "retryable"/);
   assert.match(orchestrator, /resolveActiveSmokingpipesCycle/);
   assert.match(orchestrator, /interrupted-validating-release/);
-  assert.match(orchestrator, /stale-base/);
+  assert.doesNotMatch(orchestrator, /stale-base/);
+  assert.doesNotMatch(orchestrator, /validate-smokingpipes-release-bundle-v2\.mjs/);
   assert.match(orchestrator, /smokingpipesV2ExitCode/);
   assert.match(orchestrator, /sendPushDeerNotification/);
   assert.match(orchestrator, /summarizeSmokingpipesV2CliResult/);
@@ -60,12 +67,14 @@ async function main() {
   assert.match(publisher, /test-public-products-inventory-default-v1\.mjs/);
   assert.match(publisher, /"diff", "--check"/);
   assert.match(publisher, /Smokingpipes-Bundle-Id:/);
-  assert.match(publisher, /retained release commit no longer descends/);
+  assert.match(publisher, /merge-base --is-ancestor HEAD origin\/main/);
+  assert.match(publisher, /--baseline-root=\$ReleaseRoot/);
+  assert.match(publisher, /Push-Location -LiteralPath \$ReleaseRoot/);
   assert.match(publisher, /release clone clean/);
   assert.match(publisher, /bundle owns an unsafe or non-Smokingpipes output path/);
   assert.match(publisher, /@\("add", "--"\)/);
-  assert.match(publisher, /Get-FileSha256/);
-  assert.match(publisher, /hash mismatch after copy/);
+  assert.doesNotMatch(publisher, /Get-FileSha256/);
+  assert.doesNotMatch(publisher, /hash mismatch after copy/);
   assert.match(publisher, /featured\.json/);
   assert.match(publisher, /SMOKINGPIPES_PUBLISHER_RESULT_JSON=/);
   assert.match(publisher, /failureStage/);
@@ -74,8 +83,6 @@ async function main() {
   assert.match(publisher, /release-build/);
   assert.doesNotMatch(publisher, /smokingpipes-release-state-v2\.mjs/);
   assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
-  assert.match(orchestrator, /isDeterministicRetainedBundleContractFailure/);
-  assert.match(orchestrator, /retainedBundleRebuildAttemptedForBundleId/);
   assert.match(orchestrator, /published\.failureStage \|\| published\.status/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");

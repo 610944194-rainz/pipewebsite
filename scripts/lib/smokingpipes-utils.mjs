@@ -886,6 +886,13 @@ export async function launchSmokingpipesContext(options = {}) {
     options.environmentChannel
   );
   const channelCandidates = launchSelection.candidates;
+  // Browser/profile telemetry is deliberately emitted before launch so a
+  // scheduled failure can be attributed without inspecting the profile.
+  console.log(
+    `Smokingpipes browser launch: channel=${
+      browserDescriptor.effectiveBrowserChannel
+    }; profile=${browserDescriptor.requestedBrowserProfile || "default"}; path=${userDataDir}`
+  );
   const launchPersistentContext =
     options.launchPersistentContext ||
     chromium.launchPersistentContext.bind(chromium);

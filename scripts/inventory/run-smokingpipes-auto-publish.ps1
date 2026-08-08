@@ -1,7 +1,7 @@
 param(
   [string]$StateRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-state",
   [string]$ReleaseRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release",
-  [ValidateRange(1, 200)]
+  [ValidateRange(1, 50)]
   [int]$ProgressiveDetailMax = 50,
   [ValidateRange(1, 2000)]
   [int]$MaxAutoApply = 2000,
@@ -78,6 +78,9 @@ $arguments = @(
   "--release-root=$ReleaseRoot",
   "--detail-limit=$ProgressiveDetailMax",
   "--max-auto-apply=$MaxAutoApply",
+  # ===== BEGIN PROTECTED OPTIMIZATION: Daily timeout reaches the Node orchestrator =====
+  "--timeout-seconds=$DailyTimeoutSeconds",
+  # ===== END PROTECTED OPTIMIZATION =====
   "--skip-sync=true",
   "--expected-runtime-sha=$runtimeSha"
 )
@@ -96,10 +99,10 @@ $previousErrorActionPreference = $ErrorActionPreference
 try {
   $ErrorActionPreference = "Continue"
   Write-Output "SCHEDULER_STAGE node-start"
-  $output = @(& $nodeCommand.Source @arguments 2>&1)
+  # ===== BEGIN PROTECTED OPTIMIZATION: stream Node output in real time =====
+  & $nodeCommand.Source @arguments 2>&1 | ForEach-Object { Write-Output $_ }
   $nodeExitCode = $LASTEXITCODE
 } finally {
   $ErrorActionPreference = $previousErrorActionPreference
 }
-$output | ForEach-Object { Write-Output $_ }
 exit $nodeExitCode

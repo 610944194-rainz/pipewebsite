@@ -1,4 +1,5 @@
 import { execFileSync } from "node:child_process";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -15,9 +16,6 @@ import {
 } from "./smokingpipes-progressive-candidate-v1.mjs";
 import {
   cyclePaths,
-  hashFile,
-  hashJson,
-  hashText,
   readCycle,
   readJson,
   transitionCycle,
@@ -96,14 +94,12 @@ function actualChanges(before = [], after = [], candidateById = new Map()) {
     changes.push({
       sourceProductId: id,
       changeType,
-      beforeHash: previous ? hashJson(previous) : null,
-      afterHash: next ? hashJson(next) : null,
     });
   }
   return changes;
 }
 
-function publicManifest({ publicCandidate, recentNew, generatedAt, stagingHash, detailFiles }) {
+function publicManifest({ publicCandidate, recentNew, generatedAt, detailFiles }) {
   return {
     schemaVersion: 1,
     generatorVersion: "smokingpipes-release-bundle-v2",
@@ -116,12 +112,7 @@ function publicManifest({ publicCandidate, recentNew, generatedAt, stagingHash, 
     detailShardCount: publicCandidate.detailShards.length,
     detailFiles,
     recentNewCount: recentNew.length,
-    inputHashes: { staging: stagingHash },
   };
-}
-
-function serializedJsonForAtomicWrite(value) {
-  return `${JSON.stringify(value, null, 2)}\n`;
 }
 
 function bundleOutputMap({ smokingpipesProducts, unifiedProducts, publicCandidate, recentNew, generatedAt }) {
@@ -148,20 +139,17 @@ function bundleOutputMap({ smokingpipesProducts, unifiedProducts, publicCandidat
     publicCandidate,
     recentNew,
     generatedAt,
-    stagingHash: hashText(serializedJsonForAtomicWrite(unifiedProducts)),
     detailFiles,
   }));
   return output;
 }
 
 async function writeBundleOutput(bundleRoot, outputMap) {
-  const hashes = {};
   for (const [relativeFile, value] of outputMap) {
     const target = path.join(bundleRoot, "outputs", relativeFile);
     await writeJsonAtomic(target, value);
-    hashes[relativeFile] = await hashFile(target);
   }
-  return Object.fromEntries(Object.entries(hashes).sort(([left], [right]) => stableCompare(left, right)));
+  return [...outputMap.keys()].sort(stableCompare);
 }
 
 async function readBaseline({ runtimeRoot, baseMainSha, baselineRoot }) {
@@ -198,7 +186,7 @@ export async function buildSmokingpipesReleaseBundleV2({
 } = {}) {
   const cycle = await readCycle(stateRoot, cycleId);
   if (!cycle) throw new Error(`cycle not found: ${cycleId}`);
-  if (!["ready-to-bundle", "bundle-ready", "release-retryable"].includes(cycle.phase)) {
+  if (!["ready", "retryable", "publishing"].includes(cycle.phase)) {
     throw new Error(`cycle is not eligible for bundle build: ${cycle.phase}`);
   }
   const paths = cyclePaths(stateRoot, cycleId);
@@ -208,8 +196,6 @@ export async function buildSmokingpipesReleaseBundleV2({
   }
   const state = structuredClone(stateRead.state);
   state.candidates = state.candidates.filter((candidate) => !isFalcon(candidate));
-  const sourceManifest = await readJson(paths.listManifest, null);
-  if (!sourceManifest?.snapshotHash) throw new Error("trusted source snapshot manifest is missing");
   const resolvedRuntimeRoot = path.resolve(runtimeRoot);
   const resolvedBaseMainSha = baseMainSha || resolveGitSha(resolvedRuntimeRoot, "origin/main");
   const resolvedGeneratorCommitSha = generatorCommitSha || resolveGitSha(resolvedRuntimeRoot, "HEAD");
@@ -246,7 +232,7 @@ export async function buildSmokingpipesReleaseBundleV2({
     const noChangeCycle = await transitionCycle({
       stateRoot,
       cycle,
-      phase: "no-change",
+      phase: "done",
       reason: "actual-before-after-diff-is-empty",
       patch: {
         bundle: {
@@ -269,22 +255,10 @@ export async function buildSmokingpipesReleaseBundleV2({
     catalog: publicCandidate.catalog.products,
     newProductIds: candidate.newProductIds,
   });
-  const selectedDetailHashes = Object.fromEntries(
-    selectedIds.sort(stableCompare).map((id) => {
-      const selected = candidatesById.get(id);
-      return [id, hashJson({
-        detail: selected?.detail || null,
-        convertedProduct: selected?.convertedProduct || null,
-      })];
-    })
-  );
-  const bundleId = hashJson({
-    baseMainSha: resolvedBaseMainSha,
-    sourceSnapshotHash: sourceManifest.snapshotHash,
-    selectedDetailHashes,
-    generatorCommitSha: resolvedGeneratorCommitSha,
-    schemaVersion: SMOKINGPIPES_BUNDLE_SCHEMA_V2,
-  });
+  // ===== BEGIN PROTECTED OPTIMIZATION: no SHA-based publish gate =====
+  // A Bundle is an execution record, not a content hash authorization token.
+  const bundleId = `${cycleId}-${crypto.randomUUID()}`;
+  // ===== END PROTECTED OPTIMIZATION =====
   const bundleRoot = path.join(paths.bundleRoot, bundleId);
   if (fs.existsSync(bundleRoot)) {
     const existing = await readJson(path.join(bundleRoot, "manifest.json"), null);
@@ -301,7 +275,7 @@ export async function buildSmokingpipesReleaseBundleV2({
     recentNew,
     generatedAt,
   });
-  const outputFileHashes = await writeBundleOutput(bundleRoot, outputMap);
+  const outputFiles = await writeBundleOutput(bundleRoot, outputMap);
   const countByType = Object.fromEntries(
     [...new Set(changes.map((change) => change.changeType))]
       .sort(stableCompare)
@@ -314,13 +288,11 @@ export async function buildSmokingpipesReleaseBundleV2({
     createdAt: generatedAt,
     baseMainSha: resolvedBaseMainSha,
     generatorCommitSha: resolvedGeneratorCommitSha,
-    sourceSnapshotHash: sourceManifest.snapshotHash,
     selectedIds: [...selectedIds].sort(stableCompare),
-    selectedDetailHashes,
     changeTypeCounts: countByType,
     actualAppliedCount: selectedIds.length,
     maxAutoApply: Number(maxAutoApply),
-    outputFileHashes,
+    outputFiles,
     featuredExcluded: true,
   };
   const summary = {
@@ -332,15 +304,13 @@ export async function buildSmokingpipesReleaseBundleV2({
     changeTypeCounts: countByType,
     selectedIds: manifest.selectedIds,
   };
-  await writeJsonAtomic(path.join(bundleRoot, "inputs", "list-manifest.json"), sourceManifest);
-  await writeJsonAtomic(path.join(bundleRoot, "inputs", "selected-detail-hashes.json"), selectedDetailHashes);
   await writeJsonAtomic(path.join(bundleRoot, "changes.json"), changes);
   await writeJsonAtomic(path.join(bundleRoot, "summary.json"), summary);
   await writeJsonAtomic(path.join(bundleRoot, "manifest.json"), manifest);
   const nextCycle = await transitionCycle({
     stateRoot,
     cycle,
-    phase: "bundle-ready",
+    phase: cycle.phase === "publishing" ? "publishing" : "ready",
     reason: "immutable-bundle-created",
     patch: {
       bundle: {
@@ -375,6 +345,7 @@ async function main() {
     cycleId,
     runtimeRoot: options.get("runtime-root") || process.cwd(),
     baseMainSha: options.get("base-main-sha") || null,
+    baselineRoot: options.get("baseline-root") || null,
     maxAutoApply: options.get("max-auto-apply") || 2000,
   });
   console.log(JSON.stringify(result, null, 2));

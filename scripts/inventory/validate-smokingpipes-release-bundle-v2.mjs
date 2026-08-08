@@ -2,8 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import {
-  hashFile,
-  hashJson,
   readJson,
   writeJsonAtomic,
 } from "./smokingpipes-cycle-store-v2.mjs";
@@ -100,9 +98,10 @@ export async function validateSmokingpipesReleaseBundleV2({
     blockers.push("changes contain IDs outside selectedIds");
   }
   if (manifest?.featuredExcluded !== true) blockers.push("bundle does not explicitly exclude featured.json");
-  const outputHashes = manifest?.outputFileHashes || {};
-  const outputFiles = Object.keys(outputHashes);
-  if (!outputFiles.length) blockers.push("bundle output file hashes are empty");
+  const outputFiles = Array.isArray(manifest?.outputFiles)
+    ? manifest.outputFiles.map(String)
+    : [];
+  if (!outputFiles.length) blockers.push("bundle output files are empty");
   for (const relativeFile of outputFiles) {
     if (!isOwnedOutputFile(relativeFile)) {
       blockers.push(`bundle owns a non-Smokingpipes output path: ${relativeFile}`);
@@ -111,12 +110,10 @@ export async function validateSmokingpipesReleaseBundleV2({
       blockers.push("bundle must not own featured.json");
     }
   }
-  for (const [relativeFile, expectedHash] of Object.entries(outputHashes)) {
+  for (const relativeFile of outputFiles) {
     const target = path.join(resolvedBundleRoot, "outputs", relativeFile);
     if (!fs.existsSync(target)) {
       blockers.push(`bundle output is missing: ${relativeFile}`);
-    } else if ((await hashFile(target)) !== expectedHash) {
-      blockers.push(`bundle output hash mismatch: ${relativeFile}`);
     }
   }
   const products = await readJson(
@@ -134,13 +131,6 @@ export async function validateSmokingpipesReleaseBundleV2({
     "generated",
     "public-products",
     "manifest.json"
-  );
-  const stagingPath = path.join(
-    resolvedBundleRoot,
-    "outputs",
-    "data",
-    "products",
-    "unified-products-staging.json"
   );
   const publicManifest = await readJson(publicManifestPath, null);
   const catalog = await readJson(
@@ -166,17 +156,6 @@ export async function validateSmokingpipesReleaseBundleV2({
       }
     }
   }
-  const expectedStagingHash = text(publicManifest?.inputHashes?.staging);
-  if (!expectedStagingHash) {
-    blockers.push("retained bundle public staging hash is missing");
-  } else if (!fs.existsSync(stagingPath)) {
-    blockers.push("retained bundle staging output is missing");
-  } else {
-    const actualStagingHash = await hashFile(stagingPath);
-    if (expectedStagingHash.toLowerCase() !== actualStagingHash.toLowerCase()) {
-      blockers.push("retained bundle public staging hash mismatch");
-    }
-  }
   if (runtimeRoot || baselineRoot) {
     try {
       const baseline = await baselineProducts({
@@ -187,16 +166,6 @@ export async function validateSmokingpipesReleaseBundleV2({
       const actualIds = actualChangedIds(baseline, products || []);
       if (JSON.stringify(actualIds) !== JSON.stringify(selectedIds)) {
         blockers.push("selected IDs do not equal actual before/after product diff");
-      }
-      const byId = new Map((products || []).map((product) => [sourceProductId(product), product]));
-      for (const change of changes || []) {
-        const after = byId.get(text(change.sourceProductId)) || null;
-        const afterHashMatches = change.afterHash === null
-          ? after === null
-          : hashJson(after) === change.afterHash;
-        if (!afterHashMatches) {
-          blockers.push(`change after hash mismatch: ${text(change.sourceProductId)}`);
-        }
       }
     } catch (error) {
       blockers.push(`baseline validation failed: ${error.message}`);

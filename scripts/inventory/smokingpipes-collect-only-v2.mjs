@@ -8,15 +8,15 @@ import {
   fetchSmokingpipesCurrentList,
 } from "./smokingpipes-fetch-current-list-v1.mjs";
 import {
-  runSmokingpipesProgressiveMode,
-} from "./smokingpipes-progressive-runner-v1.mjs";
+  enrichSmokingpipesDetailsV2,
+  ingestSmokingpipesListV2,
+} from "./smokingpipes-detail-enricher-v2.mjs";
 import {
   readProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
   assertExternalStateRoot,
   cyclePaths,
-  hashJson,
   loadOrCreateCycle,
   recordQuarantinedProduct,
   readJson,
@@ -129,14 +129,8 @@ function progressiveOverrides({ runtimeRoot, paths, stateRoot, cycleId }) {
     progressiveBrandExclusionReportMarkdown: path.join(paths.logs, "brand-exclusions.md"),
     progressiveAuditJson: path.join(paths.logs, "progressive-audit.json"),
     progressiveAuditMarkdown: path.join(paths.logs, "progressive-audit.md"),
-    progressiveApplyPreview: path.join(paths.logs, "legacy-apply-preview.json"),
-    progressiveApplyGateReport: path.join(paths.logs, "legacy-apply-gate.json"),
-    progressiveProductsNext: path.join(paths.root, "scratch", "smokingpipes-products-next.json"),
-    progressivePublicNextRoot: path.join(paths.root, "scratch", "public-products"),
     browserProfileLock: path.join(stateRoot, "locks", "browser-profile.lock"),
     existingProducts: path.join(runtimeData, "products", "smokingpipes-products.json"),
-    danishProducts: path.join(runtimeData, "products", "danish-products.json"),
-    productionPublicRoot: path.join(runtimeData, "generated", "public-products"),
   };
 }
 
@@ -201,7 +195,6 @@ export async function runSmokingpipesCollectOnlyV2({
   maxAutoApply = 2000,
   processDetail = null,
   fetchOptions = {},
-  progressiveRunner = runSmokingpipesProgressiveMode,
 } = {}) {
   const resolvedRuntimeRoot = path.resolve(runtimeRoot);
   const resolvedStateRoot = assertExternalStateRoot({
@@ -213,9 +206,6 @@ export async function runSmokingpipesCollectOnlyV2({
     cycleId,
     now,
   });
-  if (active.status === "manual-review-required") {
-    return { status: active.status, cycle: active.cycle, networkAccessed: false };
-  }
   cycleId = active.cycleId;
   const { cycle: initialCycle } = await loadOrCreateCycle({
     stateRoot: resolvedStateRoot,
@@ -223,12 +213,17 @@ export async function runSmokingpipesCollectOnlyV2({
   });
   const paths = cyclePaths(resolvedStateRoot, cycleId);
   let cycle = initialCycle;
+  // ===== BEGIN PROTECTED BEHAVIOR — Detail limit remains 50 for this optimization =====
+  // One Daily invocation processes a single bounded chunk. Do not raise this
+  // limit or add a loop here without an explicit collection-safety review.
+  const resolvedDetailLimit = Math.min(50, Math.max(1, Number(detailLimit) || 50));
+  // ===== END PROTECTED BEHAVIOR =====
 
-  if (cycle.phase === "validating-release") {
+  if (cycle.phase === "publishing") {
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
-      phase: "release-retryable",
+      phase: "retryable",
       reason: "interrupted-validating-release",
       patch: {
         failure: {
@@ -240,10 +235,19 @@ export async function runSmokingpipesCollectOnlyV2({
     });
   }
 
-  if (["bundle-ready", "release-retryable"].includes(cycle.phase)) {
+  if (
+    cycle.phase === "ready" ||
+    (cycle.phase === "retryable" &&
+      cycle.failure?.requiresManualReview !== true &&
+      cycle.bundle?.bundleId &&
+      cycle.bundle?.path)
+  ) {
     return { status: "release-resume-required", cycle, networkAccessed: false };
   }
-  if (["published", "no-change"].includes(cycle.phase)) {
+  if (cycle.phase === "retryable" && cycle.failure?.requiresManualReview === true) {
+    return { status: "manual-review-required", cycle, networkAccessed: false };
+  }
+  if (cycle.phase === "done") {
     return { status: "same-day-complete", cycle, networkAccessed: false };
   }
 
@@ -253,14 +257,18 @@ export async function runSmokingpipesCollectOnlyV2({
     stateRoot: resolvedStateRoot,
     cycleId,
   });
+  const v2Paths = {
+    progressiveState: overrides.progressiveState,
+    browserProfileLock: overrides.browserProfileLock,
+  };
   let snapshot = await readJson(paths.listSnapshot, null);
   let networkAccessed = false;
 
-  if (!snapshot || ["new", "collecting-list"].includes(cycle.phase)) {
+  if (!snapshot) {
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
-      phase: "collecting-list",
+      phase: "collecting",
       reason: "collect-list",
       patch: {
         attempts: { ...cycle.attempts, list: Number(cycle.attempts?.list || 0) + 1 },
@@ -276,13 +284,20 @@ export async function runSmokingpipesCollectOnlyV2({
           runId: `v2-${cycleId}`,
           mode: "v2-collect-only",
           browserChannel: "chrome",
-          browserProfile: "sp-chrome",
+          // ===== BEGIN PROTECTED OPTIMIZATION: V2 clean persistent browser profile =====
+          // V2 must not use a real user profile or the legacy sp-chrome profile.
+          browserProfile: "sp-chrome-v2",
+          // ===== END PROTECTED OPTIMIZATION =====
           browserProfileLockPath: overrides.browserProfileLock,
           useCheckpoint: false,
           writeCurrentList: false,
           writeDuplicateAudit: false,
           writeOutOfStockTailCache: false,
           failureSnapshotDir: path.join(paths.logs, "failure-snapshots"),
+          // ===== BEGIN PROTECTED OPTIMIZATION: first-page manual verification recovery =====
+          // A human can clear Chrome verification and resume this same Daily run.
+          allowManualVerification: true,
+          // ===== END PROTECTED OPTIMIZATION =====
           ...fetchOptions,
           maxPages: SMOKINGPIPES_V2_LIST_MAX_PAGES,
         });
@@ -299,8 +314,6 @@ export async function runSmokingpipesCollectOnlyV2({
         schemaVersion: "smokingpipes-list-manifest-v2",
         cycleId,
         capturedAt: new Date().toISOString(),
-        snapshotHash: hashJson(snapshot),
-        diffHash: hashJson(diff),
         expectedPages: snapshot.summary?.expectedPages ?? null,
         effectiveScannedPages: snapshot.summary?.effectiveScannedPages ?? null,
         fullExpectedRangeScanned: snapshot.summary?.fullExpectedRangeScanned === true,
@@ -308,14 +321,13 @@ export async function runSmokingpipesCollectOnlyV2({
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
-        phase: "list-ready",
+        phase: "collecting",
         reason: "trusted-list-persisted",
         patch: {
           collection: {
             ...cycle.collection,
             trustedSnapshot: {
               path: path.relative(resolvedStateRoot, paths.listSnapshot).replace(/\\/g, "/"),
-              hash: hashJson(snapshot),
             },
           },
         },
@@ -324,7 +336,7 @@ export async function runSmokingpipesCollectOnlyV2({
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
-        phase: "collection-retryable",
+        phase: "retryable",
         reason: "list-collection-failed",
         patch: {
           failure: { stage: "list", message: error.message, at: new Date().toISOString() },
@@ -334,7 +346,7 @@ export async function runSmokingpipesCollectOnlyV2({
     }
   }
 
-  if (snapshot && cycle.phase === "collection-retryable") {
+  if (snapshot && cycle.phase === "retryable" && cycle.failure?.stage === "list") {
     const existingDiff = await readJson(paths.inventoryDiff, null);
     const trustFailure = trustedListReason(snapshot, existingDiff);
     if (trustFailure) {
@@ -343,39 +355,33 @@ export async function runSmokingpipesCollectOnlyV2({
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
-      phase: "list-ready",
+      phase: "collecting",
       reason: "trusted-list-resume-without-source-refetch",
     });
   }
 
-  if (cycle.phase === "list-ready") {
-    const ingest = await progressiveRunner({
-      root: resolvedRuntimeRoot,
-      options: {
-        mode: "progressive-ingest-list",
-        stateRoot: resolvedStateRoot,
-        pathOverrides: overrides,
-        currentListPath: paths.listSnapshot,
-        diffPath: paths.inventoryDiff,
-        currentListFresh: true,
-        maxAutoApply,
-        mock: false,
-      },
+  if (cycle.phase === "collecting") {
+    const ingest = await ingestSmokingpipesListV2({
+      paths: v2Paths,
+      snapshotPath: paths.listSnapshot,
+      diffPath: paths.inventoryDiff,
+      productionProducts: await readJsonFile(overrides.existingProducts),
+      runId: `v2-${cycleId}`,
     });
     if (ingest.status !== "ingest-ready") {
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
-        phase: "manual-review-required",
+        phase: "retryable",
         reason: "ingest-contract-blocked",
-        patch: { failure: { stage: "ingest", message: ingest.blockedReason || ingest.status } },
+        patch: { failure: { stage: "ingest", message: ingest.blockedReason || ingest.status, requiresManualReview: true } },
       });
       return { status: cycle.phase, cycle, networkAccessed, ingest };
     }
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
-      phase: "enriching-details",
+      phase: "details",
       reason: "list-ingested",
     });
   }
@@ -383,28 +389,20 @@ export async function runSmokingpipesCollectOnlyV2({
   console.log(
     "Smokingpipes V2 detail pacing: detail warmup: 4000-10000 ms; detail batch: 20; detail batch cooldown: 30000-60000 ms"
   );
-  const detailResult = await progressiveRunner({
+  const detailOptions = {
+    browserChannel: "chrome",
+    browserProfile: "sp-chrome-v2",
+    allowManualVerification: true,
+    ...SMOKINGPIPES_V2_DETAIL_PACING,
+    manualVerificationTimeoutMs: 10 * 60 * 1000,
+  };
+  const detailResult = await enrichSmokingpipesDetailsV2({
     root: resolvedRuntimeRoot,
-    options: {
-      mode: "progressive-detail-chunk",
-      stateRoot: resolvedStateRoot,
-      pathOverrides: overrides,
-      progressiveDetailMax: Math.max(1, Number(detailLimit) || 1),
-      maxAutoApply,
-      browserChannel: "chrome",
-      browserProfile: "sp-chrome",
-      allowManualVerification: true,
-      ...SMOKINGPIPES_V2_DETAIL_PACING,
-      manualVerificationTimeoutMs: 10 * 60 * 1000,
-      retryFailedDetails: true,
-      maxDetailAttempts: 3,
-      mock: false,
-      processDetail,
-      onDetailSettled: ({ candidate }) => persistDetail({
-        stateRoot: resolvedStateRoot,
-        candidate,
-      }),
-    },
+    paths: v2Paths,
+    detailLimit: resolvedDetailLimit,
+    options: detailOptions,
+    processDetail,
+    onDetailSettled: ({ candidate }) => persistDetail({ stateRoot: resolvedStateRoot, candidate }),
   });
   const stateRead = readProgressiveDailyState(paths.legacyProgressiveState);
   if (stateRead.status !== "passed") {
@@ -433,7 +431,7 @@ export async function runSmokingpipesCollectOnlyV2({
     cycle = await transitionCycle({
       stateRoot: resolvedStateRoot,
       cycle,
-      phase: "collection-retryable",
+      phase: "retryable",
       reason: "detail-collection-blocked",
       patch: { collection: { ...cycle.collection, ...summary } },
     });
@@ -442,14 +440,19 @@ export async function runSmokingpipesCollectOnlyV2({
   cycle = await transitionCycle({
     stateRoot: resolvedStateRoot,
     cycle,
-    phase: summary.pendingDetailIds.length ? "enriching-details" : "ready-to-bundle",
+    phase: summary.pendingDetailIds.length ? "details" : "ready",
     reason: summary.pendingDetailIds.length ? "details-remain" : "details-complete",
     patch: {
       attempts: { ...cycle.attempts, details: Number(cycle.attempts?.details || 0) + 1 },
       collection: { ...cycle.collection, ...summary },
     },
   });
-  return { status: cycle.phase, cycle, detailResult, networkAccessed };
+  return {
+    status: summary.pendingDetailIds.length ? "enriching-details" : "ready-to-bundle",
+    cycle,
+    detailResult,
+    networkAccessed,
+  };
 }
 
 function parseArgs(argv = process.argv.slice(2)) {

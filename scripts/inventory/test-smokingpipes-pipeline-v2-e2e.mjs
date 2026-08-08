@@ -9,8 +9,6 @@ import {
   acquireOwnerTokenLock,
   createCycle,
   cyclePaths,
-  hashFile,
-  hashText,
   loadOrCreateCycle,
   readCycle,
   readJson,
@@ -28,9 +26,6 @@ import {
   trustedListReason,
 } from "./smokingpipes-collect-only-v2.mjs";
 import {
-  runSmokingpipesProgressiveMode,
-} from "./smokingpipes-progressive-runner-v1.mjs";
-import {
   buildSmokingpipesReleaseBundleV2,
   GIT_JSON_MAX_BUFFER_BYTES,
   readJsonAtGitRef,
@@ -45,11 +40,12 @@ import {
   smokingpipesV2ExitCode,
 } from "./smokingpipes-auto-publish-v2.mjs";
 import {
-  markSmokingpipesReleaseState,
-} from "./smokingpipes-release-state-v2.mjs";
-import {
   createProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
+import {
+  SP_CHROME_V2_PROFILE_NAME,
+  buildSmokingpipesBrowserDescriptor,
+} from "../lib/smokingpipes-browser-profile-v1.mjs";
 
 const workspaceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -143,9 +139,8 @@ function trustedExistingListItem() {
 
 async function transitionToReady({ stateRoot, cycleId }) {
   let cycle = await readCycle(stateRoot, cycleId);
-  cycle = await transitionCycle({ stateRoot, cycle, phase: "collecting-list", reason: "fixture" });
-  cycle = await transitionCycle({ stateRoot, cycle, phase: "list-ready", reason: "fixture" });
-  return transitionCycle({ stateRoot, cycle, phase: "ready-to-bundle", reason: "fixture" });
+  cycle = await transitionCycle({ stateRoot, cycle, phase: "collecting", reason: "fixture" });
+  return transitionCycle({ stateRoot, cycle, phase: "ready", reason: "fixture" });
 }
 
 async function main() {
@@ -153,6 +148,28 @@ async function main() {
   const runtimeRoot = path.join(temporaryRoot, "runtime");
   const stateRoot = path.join(temporaryRoot, "state");
   try {
+    const dedicatedBrowser = buildSmokingpipesBrowserDescriptor({
+      browserChannel: "chrome",
+      browserProfile: SP_CHROME_V2_PROFILE_NAME,
+      localAppData: path.join(temporaryRoot, "local-app-data"),
+    });
+    assert.equal(dedicatedBrowser.profileDir, path.join(temporaryRoot, "local-app-data", "YandouBuy", "chrome-profile-sp-v2"));
+    assert.equal(dedicatedBrowser.persistentContext, true);
+    assert.equal(dedicatedBrowser.headless, false);
+    assert.equal(/Google[\\/]Chrome[\\/]User Data/i.test(dedicatedBrowser.profileDir), false);
+    const v2CollectorSource = await fs.promises.readFile(
+      path.join(workspaceRoot, "scripts", "inventory", "smokingpipes-collect-only-v2.mjs"),
+      "utf8"
+    );
+    assert.match(v2CollectorSource, /browserProfile: "sp-chrome-v2"/);
+    assert.match(v2CollectorSource, /allowManualVerification: true/);
+    assert.match(v2CollectorSource, /Math\.min\(50, Math\.max\(1, Number\(detailLimit\) \|\| 50\)\)/);
+    assert.equal(v2CollectorSource.includes("smokingpipes-progressive-runner-v1.mjs"), false);
+    const v2DetailEnricherSource = await fs.promises.readFile(
+      path.join(workspaceRoot, "scripts", "inventory", "smokingpipes-detail-enricher-v2.mjs"),
+      "utf8"
+    );
+    assert.equal(v2DetailEnricherSource.includes("smokingpipes-progressive-runner-v1.mjs"), false);
     const template = structuredClone(
       (await readWorkspaceJson("data/products/smokingpipes-products.json"))[0]
     );
@@ -220,9 +237,31 @@ async function main() {
     assert.equal(preflight.networkAccessed, false);
     assert.equal(preflightDetailCalled, false);
 
+    const deadlineCycleId = "2030-01-06";
+    const deadlineStateRoot = path.join(temporaryRoot, "deadline-state");
+    const deadlineCycle = createCycle({ cycleId: deadlineCycleId });
+    deadlineCycle.phase = "ready";
+    deadlineCycle.history.push({ at: deadlineCycle.updatedAt, phase: deadlineCycle.phase, reason: "fixture-ready" });
+    await writeCycle(deadlineStateRoot, deadlineCycle);
+    let deadlineClockCalls = 0;
+    const deadlineResult = await runSmokingpipesAutoPublishV2({
+      stateRoot: deadlineStateRoot,
+      runtimeRoot,
+      cycleId: deadlineCycleId,
+      skipSync: true,
+      timeoutSeconds: 1,
+      nowMs: () => (deadlineClockCalls++ === 0 ? 0 : 1001),
+      collector: async () => ({ status: "ready-to-bundle", cycle: await readCycle(deadlineStateRoot, deadlineCycleId), networkAccessed: false }),
+      bundleBuilder: async () => {
+        throw new Error("deadline must prevent bundle/release work");
+      },
+    });
+    assert.equal(deadlineResult.status, "release-retryable");
+    assert.equal(deadlineResult.failureStage, "daily-timeout");
+
     const bundleFailureId = "2030-01-05";
     const bundleFailureCycle = createCycle({ cycleId: bundleFailureId });
-    bundleFailureCycle.phase = "ready-to-bundle";
+    bundleFailureCycle.phase = "ready";
     bundleFailureCycle.collection = {
       ...bundleFailureCycle.collection,
       observedCandidateCount: 1,
@@ -245,7 +284,7 @@ async function main() {
     assert.equal(bundleFailure.publishedCount, 0);
     assert.equal(smokingpipesV2ExitCode(bundleFailure.status), 1);
     const retainedBundleFailureCycle = await readCycle(stateRoot, bundleFailureId);
-    assert.equal(retainedBundleFailureCycle.phase, "release-retryable");
+    assert.equal(retainedBundleFailureCycle.phase, "retryable");
     assert.equal(retainedBundleFailureCycle.failure.stage, "bundle-build");
     const products = [
       ...Array.from({ length: 48 }, (_, index) => listItem(String(900000 + index))),
@@ -319,7 +358,7 @@ async function main() {
       },
     });
     assert.equal(incompleteThreeResult.status, "collection-retryable");
-    assert.equal(incompleteThreeResult.cycle.phase, "collection-retryable");
+    assert.equal(incompleteThreeResult.cycle.phase, "retryable");
     assert.equal(fs.existsSync(path.join(stateRoot, "cycles", "2030-01-06", "bundles")), false);
 
     const detectedPaginationSnapshot = trustedSnapshot([listItem("detected-pagination")], {
@@ -373,20 +412,6 @@ async function main() {
       detailBatchCooldownMaxMs: 60000,
     });
 
-    let detailPacingPassedToRunner = null;
-    const progressiveRunner = async (input) => {
-      if (input.options?.mode === "progressive-detail-chunk") {
-        detailPacingPassedToRunner = {
-          detailWarmupMinMs: input.options.detailWarmupMinMs,
-          detailWarmupMaxMs: input.options.detailWarmupMaxMs,
-          detailBatchSize: input.options.detailBatchSize,
-          detailBatchCooldownMinMs: input.options.detailBatchCooldownMinMs,
-          detailBatchCooldownMaxMs: input.options.detailBatchCooldownMaxMs,
-        };
-      }
-      return runSmokingpipesProgressiveMode(input);
-    };
-
     const first = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot,
@@ -394,11 +419,9 @@ async function main() {
       listInputPath: listPath,
       detailLimit: 24,
       processDetail: detailProcessor,
-      progressiveRunner,
     });
     assert.equal(first.status, "enriching-details", first.error);
     assert.equal(first.cycle.collection.pendingDetailIds.length, 24);
-    assert.deepEqual(detailPacingPassedToRunner, SMOKINGPIPES_V2_DETAIL_PACING);
     const second = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot,
@@ -411,6 +434,32 @@ async function main() {
     assert.equal(second.cycle.collection.completedDetailIds.length, 48, JSON.stringify(second.cycle.collection));
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "900000.json")), true);
     assert.equal(fs.existsSync(path.join(stateRoot, "details", "999999.json")), false);
+
+    // A Daily invocation is permanently capped to one 50-item Detail chunk,
+    // even when the caller asks for more work. The remaining queue must be
+    // retained for a later natural invocation rather than drained in a loop.
+    const fiftyItemStateRoot = path.join(temporaryRoot, "fifty-item-detail-state");
+    const fiftyItemListPath = path.join(temporaryRoot, "fifty-item-detail-list.json");
+    const fiftyItemIds = Array.from({ length: 120 }, (_, index) => String(950000 + index));
+    await writeJsonAtomic(fiftyItemListPath, trustedSnapshot(fiftyItemIds.map((id) => listItem(id))));
+    let fiftyItemDetailRequests = 0;
+    const fiftyItemRun = await runSmokingpipesCollectOnlyV2({
+      stateRoot: fiftyItemStateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-07",
+      listInputPath: fiftyItemListPath,
+      detailLimit: 120,
+      processDetail: async (candidate) => {
+        fiftyItemDetailRequests += 1;
+        return detailProcessor(candidate);
+      },
+    });
+    assert.equal(fiftyItemRun.status, "enriching-details");
+    assert.equal(fiftyItemRun.cycle.phase, "details");
+    assert.equal(fiftyItemDetailRequests, 50);
+    assert.equal(fiftyItemRun.cycle.collection.completedDetailIds.length, 50);
+    assert.equal(fiftyItemRun.cycle.collection.pendingDetailIds.length, 70);
+
     const legacyBaselineRoot = path.join(temporaryRoot, "legacy-falcon-baseline");
     const legacyFalcon = {
       ...structuredClone(template),
@@ -449,31 +498,20 @@ async function main() {
       path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json")
     );
     const stagingPath = path.join(built.bundleRoot, "outputs", "data", "products", "unified-products-staging.json");
-    assert.equal(publicManifest.inputHashes.staging.toLowerCase(), (await hashFile(stagingPath)).toLowerCase());
+    assert.equal(publicManifest.generatorVersion, "smokingpipes-release-bundle-v2");
+    assert.equal(publicManifest.inputHashes, undefined);
+    assert.ok(Array.isArray(built.manifest.outputFiles));
+    assert.ok(built.manifest.outputFiles.includes("data/products/unified-products-staging.json"));
     assert.equal(outputProducts.some((product) => /falcon/i.test(String(product.brand || product.brandName || ""))), false);
-    const bundleManifestPath = path.join(built.bundleRoot, "manifest.json");
-    const bundleManifest = await readJson(bundleManifestPath);
-    publicManifest.inputHashes.staging = publicManifest.inputHashes.staging.toUpperCase();
-    await writeJsonAtomic(
-      path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json"),
-      publicManifest
-    );
-    bundleManifest.outputFileHashes["data/generated/public-products/manifest.json"] = await hashFile(
-      path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "manifest.json")
-    );
-    await writeJsonAtomic(bundleManifestPath, bundleManifest);
-    const caseInsensitiveValidation = await validateSmokingpipesReleaseBundleV2({
-      bundleRoot: built.bundleRoot,
-      baselineRoot: legacyBaselineRoot,
-    });
-    assert.equal(caseInsensitiveValidation.valid, true, caseInsensitiveValidation.blockers.join("; "));
+    // An innocuous formatting-only byte change is not a publishing gate. The
+    // final validator evaluates the rebuilt product structure and diff, not a
+    // SHA authorization token.
     await fs.promises.appendFile(stagingPath, "\n", "utf8");
-    const byteChangedValidation = await validateSmokingpipesReleaseBundleV2({
+    const formattingOnlyValidation = await validateSmokingpipesReleaseBundleV2({
       bundleRoot: built.bundleRoot,
       baselineRoot: legacyBaselineRoot,
     });
-    assert.equal(byteChangedValidation.valid, false);
-    assert.ok(byteChangedValidation.blockers.includes("retained bundle public staging hash mismatch"));
+    assert.equal(formattingOnlyValidation.valid, true, formattingOnlyValidation.blockers.join("; "));
 
     const invalidBundleRoot = path.join(temporaryRoot, "invalid-bundle");
     await writeJsonAtomic(path.join(invalidBundleRoot, "manifest.json"), {
@@ -485,7 +523,7 @@ async function main() {
       maxAutoApply: 10,
       changeTypeCounts: { other: 1 },
       featuredExcluded: true,
-      outputFileHashes: { "data/products/smokingpipes-products.json": "not-a-real-hash" },
+      outputFiles: ["data/products/smokingpipes-products.json"],
     });
     await writeJsonAtomic(path.join(invalidBundleRoot, "summary.json"), {});
     await writeJsonAtomic(path.join(invalidBundleRoot, "changes.json"), []);
@@ -527,8 +565,8 @@ async function main() {
 
     const retainedDetail = await readJson(path.join(stateRoot, "details", "900000.json"));
     const releaseRetry = await readCycle(stateRoot, "2030-01-01");
-    assert.equal(releaseRetry.phase, "bundle-ready");
-    await transitionCycle({ stateRoot, cycle: releaseRetry, phase: "release-retryable", reason: "fixture-orchestrator-retry" });
+    assert.equal(releaseRetry.phase, "ready");
+    await transitionCycle({ stateRoot, cycle: releaseRetry, phase: "retryable", reason: "fixture-orchestrator-retry" });
     assert.equal((await readJson(path.join(stateRoot, "details", "900000.json"))).sourceProductId, retainedDetail.sourceProductId);
     const retry = await runSmokingpipesCollectOnlyV2({
       stateRoot,
@@ -540,34 +578,11 @@ async function main() {
     assert.equal(retry.status, "release-resume-required");
     assert.equal(retry.networkAccessed, false);
 
-    const validatorRetryId = "2030-01-06";
-    const validatorRetryFixture = await createRetainedBundleFixture({
-      cycleId: validatorRetryId,
-      count: 1,
-      legacyGeneratorCommitSha: "legacy-builder-validator-retry",
-    });
-    await setLegacyCompactStagingHash(validatorRetryFixture.retained.bundleRoot);
-    let rebuiltAfterValidatorFailure = 0;
-    const rebuiltValidatorRetry = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: validatorRetryId,
-      skipSync: true,
-      noPublish: true,
-      collector: offlineResumeCollector(validatorRetryId, { collector: 0, details: 0 }),
-      bundleBuilder: async (arguments_) => {
-        rebuiltAfterValidatorFailure += 1;
-        return buildSmokingpipesReleaseBundleV2(arguments_);
-      },
-    });
-    assert.equal(rebuiltAfterValidatorFailure, 1);
-    assert.equal(rebuiltValidatorRetry.status, "bundle-ready");
-
     async function createRetainedBundleFixture({ cycleId, count, legacyGeneratorCommitSha }) {
       const listInputPath = path.join(temporaryRoot, `${cycleId}-list.json`);
       const ids = Array.from({ length: count }, (_, index) => String(930000 + index));
       await writeJsonAtomic(listInputPath, trustedSnapshot(ids.map((id) => listItem(id))));
-      const collected = await runSmokingpipesCollectOnlyV2({
+      let collected = await runSmokingpipesCollectOnlyV2({
         stateRoot,
         runtimeRoot,
         cycleId,
@@ -575,7 +590,20 @@ async function main() {
         detailLimit: count,
         processDetail: detailProcessor,
       });
-      assert.equal(collected.status, "ready-to-bundle");
+      if (count > 50) {
+        // Separate scheduled invocations may continue a retained queue. Each
+        // invocation remains exactly one protected 50-detail chunk.
+        assert.equal(collected.status, "enriching-details", JSON.stringify(collected.cycle?.collection));
+        assert.equal(collected.cycle.collection.completedDetailIds.length, 50);
+        collected = await runSmokingpipesCollectOnlyV2({
+          stateRoot,
+          runtimeRoot,
+          cycleId,
+          detailLimit: count,
+          processDetail: detailProcessor,
+        });
+      }
+      assert.equal(collected.status, "ready-to-bundle", JSON.stringify(collected.cycle?.collection));
       assert.equal(collected.networkAccessed, false);
       assert.equal(collected.cycle.collection.completedDetailIds.length, count);
       assert.equal(collected.cycle.collection.pendingDetailIds.length, 0);
@@ -595,30 +623,11 @@ async function main() {
       retryCycle = await transitionCycle({
         stateRoot,
         cycle: retryCycle,
-        phase: "release-retryable",
+        phase: "retryable",
         reason: "fixture-retained-bundle-retry",
         patch: { failure: { stage: "release-retryable", message: "fixture retained bundle retry" } },
       });
       return { retained, retryCycle };
-    }
-
-    async function setLegacyCompactStagingHash(bundleRoot) {
-      const publicManifestPath = path.join(
-        bundleRoot,
-        "outputs",
-        "data",
-        "generated",
-        "public-products",
-        "manifest.json"
-      );
-      const stagingPath = path.join(bundleRoot, "outputs", "data", "products", "unified-products-staging.json");
-      const publicManifest = await readJson(publicManifestPath);
-      publicManifest.inputHashes.staging = hashText(JSON.stringify(await readJson(stagingPath)));
-      await writeJsonAtomic(publicManifestPath, publicManifest);
-      const bundleManifestPath = path.join(bundleRoot, "manifest.json");
-      const bundleManifest = await readJson(bundleManifestPath);
-      bundleManifest.outputFileHashes["data/generated/public-products/manifest.json"] = await hashFile(publicManifestPath);
-      await writeJsonAtomic(bundleManifestPath, bundleManifest);
     }
 
     function offlineResumeCollector(cycleId, counters) {
@@ -638,182 +647,6 @@ async function main() {
         return resumed;
       };
     }
-
-    // Reproduce the retained 99-detail failure: an old Builder's compact JSON
-    // hash is internally inconsistent with the pretty-printed staging file.
-    const retainedFaultId = "2030-01-07";
-    const retainedFault = await createRetainedBundleFixture({
-      cycleId: retainedFaultId,
-      count: 99,
-      legacyGeneratorCommitSha: "legacy-builder-compact-staging-hash",
-    });
-    await setLegacyCompactStagingHash(retainedFault.retained.bundleRoot);
-    const retainedFaultValidation = await validateSmokingpipesReleaseBundleV2({
-      bundleRoot: retainedFault.retained.bundleRoot,
-      runtimeRoot,
-    });
-    assert.equal(retainedFaultValidation.valid, false);
-    assert.ok(retainedFaultValidation.blockers.includes("retained bundle public staging hash mismatch"));
-    const retainedFaultCounters = { collector: 0, details: 0, builder: 0, publisher: 0, notifications: 0 };
-    const retainedFaultResult = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: retainedFaultId,
-      skipSync: true,
-      live: false,
-      notificationsEnabled: true,
-      collector: offlineResumeCollector(retainedFaultId, retainedFaultCounters),
-      bundleBuilder: async (arguments_) => {
-        retainedFaultCounters.builder += 1;
-        return buildSmokingpipesReleaseBundleV2(arguments_);
-      },
-      publisher: async ({ bundleRoot }) => {
-        retainedFaultCounters.publisher += 1;
-        const rebuiltPublicManifest = await readJson(path.join(
-          bundleRoot,
-          "outputs",
-          "data",
-          "generated",
-          "public-products",
-          "manifest.json"
-        ));
-        assert.equal(
-          rebuiltPublicManifest.inputHashes.staging.toLowerCase(),
-          (await hashFile(path.join(bundleRoot, "outputs", "data", "products", "unified-products-staging.json"))).toLowerCase()
-        );
-        return { status: "published", commitSha: "fixture-retained-rebuilt-published", exitCode: 0 };
-      },
-      notifier: async () => {
-        retainedFaultCounters.notifications += 1;
-        return { notificationSent: true, notificationReason: "fixture-sent" };
-      },
-    });
-    assert.equal(retainedFaultResult.status, "published");
-    assert.equal(retainedFaultResult.publishedCount, 99);
-    assert.equal(retainedFaultResult.networkAccessed, false);
-    assert.deepEqual(retainedFaultCounters, { collector: 1, details: 0, builder: 1, publisher: 1, notifications: 1 });
-    const retainedFaultCycle = await readCycle(stateRoot, retainedFaultId);
-    assert.equal(retainedFaultCycle.phase, "published");
-    assert.equal(retainedFaultCycle.collection.completedDetailIds.length, 99);
-    assert.equal(retainedFaultCycle.collection.pendingDetailIds.length, 0);
-    const retainedFaultLedger = await readJson(path.join(stateRoot, "ledger", "published-bundles.json"));
-    assert.equal(retainedFaultLedger.entries.filter((entry) => entry.cycleId === retainedFaultId).length, 1);
-
-    const invalidRebuildId = "2030-01-08";
-    const invalidRebuild = await createRetainedBundleFixture({
-      cycleId: invalidRebuildId,
-      count: 1,
-      legacyGeneratorCommitSha: "legacy-builder-invalid-rebuild",
-    });
-    await setLegacyCompactStagingHash(invalidRebuild.retained.bundleRoot);
-    const invalidRebuildCounters = { collector: 0, details: 0, builder: 0, publisher: 0 };
-    const invalidRebuildResult = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: invalidRebuildId,
-      skipSync: true,
-      live: false,
-      collector: offlineResumeCollector(invalidRebuildId, invalidRebuildCounters),
-      bundleBuilder: async (arguments_) => {
-        invalidRebuildCounters.builder += 1;
-        const rebuilt = await buildSmokingpipesReleaseBundleV2(arguments_);
-        await setLegacyCompactStagingHash(rebuilt.bundleRoot);
-        return rebuilt;
-      },
-      publisher: async () => {
-        invalidRebuildCounters.publisher += 1;
-        throw new Error("invalid rebuilt bundle must not reach Publisher");
-      },
-    });
-    assert.equal(invalidRebuildResult.status, "release-retryable");
-    assert.equal(invalidRebuildResult.failureStage, "bundle-validator");
-    assert.equal(invalidRebuildResult.networkAccessed, false);
-    assert.deepEqual(invalidRebuildCounters, { collector: 1, details: 0, builder: 1, publisher: 0 });
-    const invalidRebuildCycle = await readCycle(stateRoot, invalidRebuildId);
-    assert.equal(invalidRebuildCycle.failure.stage, "bundle-validator");
-    assert.equal(
-      invalidRebuildCycle.failure.retainedBundleRebuildAttemptedForBundleId,
-      invalidRebuildCycle.bundle.bundleId
-    );
-    const invalidRebuildSecondAttempt = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: invalidRebuildId,
-      skipSync: true,
-      live: false,
-      collector: offlineResumeCollector(invalidRebuildId, invalidRebuildCounters),
-      bundleBuilder: async () => {
-        invalidRebuildCounters.builder += 1;
-        throw new Error("an already rebuilt invalid bundle must not rebuild again");
-      },
-      publisher: async () => {
-        invalidRebuildCounters.publisher += 1;
-        throw new Error("an already rebuilt invalid bundle must not reach Publisher");
-      },
-    });
-    assert.equal(invalidRebuildSecondAttempt.status, "release-retryable");
-    assert.equal(invalidRebuildSecondAttempt.failureStage, "bundle-validator");
-    assert.deepEqual(invalidRebuildCounters, { collector: 2, details: 0, builder: 1, publisher: 0 });
-
-    const differentRetainedBundle = await buildSmokingpipesReleaseBundleV2({
-      stateRoot,
-      cycleId: invalidRebuildId,
-      runtimeRoot,
-      baseMainSha: runtimeBaseSha,
-      generatorCommitSha: "fixture-different-retained-bundle",
-      maxAutoApply: 2000,
-    });
-    const rebuiltForDifferentBundle = await buildSmokingpipesReleaseBundleV2({
-      stateRoot,
-      cycleId: invalidRebuildId,
-      runtimeRoot,
-      baseMainSha: runtimeBaseSha,
-      generatorCommitSha: "fixture-different-retained-bundle-rebuild",
-      maxAutoApply: 2000,
-    });
-    assert.notEqual(differentRetainedBundle.bundleId, invalidRebuildCycle.bundle.bundleId);
-    await setLegacyCompactStagingHash(differentRetainedBundle.bundleRoot);
-    let differentRetainedCycle = await readCycle(stateRoot, invalidRebuildId);
-    differentRetainedCycle = await transitionCycle({
-      stateRoot,
-      cycle: differentRetainedCycle,
-      phase: "release-retryable",
-      reason: "fixture-different-retained-bundle",
-      patch: {
-        bundle: {
-          bundleId: differentRetainedBundle.bundleId,
-          path: path.relative(stateRoot, differentRetainedBundle.bundleRoot).replace(/\\/g, "/"),
-          baseMainSha: differentRetainedBundle.manifest.baseMainSha,
-          actualAppliedCount: differentRetainedBundle.manifest.actualAppliedCount,
-          selectedIds: differentRetainedBundle.manifest.selectedIds,
-        },
-        failure: {
-          stage: "bundle-validator",
-          message: "fixture old bundle rebuild marker",
-          retainedBundleRebuildAttemptedForBundleId: invalidRebuildCycle.bundle.bundleId,
-        },
-      },
-    });
-    assert.equal(
-      differentRetainedCycle.failure.retainedBundleRebuildAttemptedForBundleId,
-      invalidRebuildCycle.bundle.bundleId
-    );
-    const differentRetainedCounters = { collector: 0, details: 0, builder: 0 };
-    const differentRetainedResult = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: invalidRebuildId,
-      skipSync: true,
-      live: false,
-      noPublish: true,
-      collector: offlineResumeCollector(invalidRebuildId, differentRetainedCounters),
-      bundleBuilder: async () => {
-        differentRetainedCounters.builder += 1;
-        return rebuiltForDifferentBundle;
-      },
-    });
-    assert.equal(differentRetainedResult.status, "bundle-ready");
-    assert.deepEqual(differentRetainedCounters, { collector: 1, details: 0, builder: 1 });
 
     const validRetainedId = "2030-01-09";
     const validRetained = await createRetainedBundleFixture({
@@ -867,52 +700,30 @@ async function main() {
     assert.equal((await readCycle(stateRoot, semanticFailureId)).failure.stage, "public-validator");
     assert.deepEqual(semanticFailureCounters, { collector: 1, details: 0 });
 
-    const remoteWriter = path.join(temporaryRoot, "remote-writer");
-    execFileSync("git", ["clone", bareOrigin, remoteWriter], { stdio: "ignore" });
-    git(remoteWriter, ["config", "user.email", "writer@example.invalid"]);
-    git(remoteWriter, ["config", "user.name", "Writer"]);
-    await writeText(remoteWriter, "remote-advance.txt", "advance\n");
-    git(remoteWriter, ["add", "--", "remote-advance.txt"]);
-    git(remoteWriter, ["commit", "-m", "fixture remote advance"]);
-    git(remoteWriter, ["push", "origin", "HEAD:main"]);
-    const staleBase = await runSmokingpipesAutoPublishV2({
+    const pushAttempts = [];
+    const retainedPublishRoot = path.join(
+      stateRoot,
+      (await readCycle(stateRoot, "2030-01-01")).bundle.path
+    );
+    const pushRace = await runSmokingpipesAutoPublishV2({
       stateRoot,
       runtimeRoot,
       cycleId: "2030-01-01",
+      skipSync: true,
       live: false,
-      publisher: async ({ bundleRoot }) => {
-        assert.equal(bundleRoot, publishBundle.bundleRoot);
-        return { status: "stale-base", remoteMainSha: git(runtimeRoot, ["rev-parse", "origin/main"]), exitCode: 2 };
+      collector: offlineResumeCollector("2030-01-01", { collector: 0, details: 0 }),
+      publisher: async ({ bundleRoot, pushRetryAttempt }) => {
+        assert.equal(bundleRoot, retainedPublishRoot);
+        pushAttempts.push(pushRetryAttempt || 0);
+        return pushAttempts.length === 1
+          ? { status: "push-retryable", failureStage: "push-retryable", error: "non-fast-forward", exitCode: 3 }
+          : { status: "published", commitSha: "fixture-git-race-published", publishedCount: publishBundle.manifest.actualAppliedCount, exitCode: 0 };
       },
     });
-    assert.equal(staleBase.status, "stale-base");
-    assert.equal(staleBase.networkAccessed, false);
-    assert.equal((await readCycle(stateRoot, "2030-01-01")).phase, "release-retryable");
-    assert.equal((await readCycle(stateRoot, "2030-01-01")).failure.stage, "stale-base");
-    assert.equal(fs.existsSync(publishBundle.bundleRoot), true);
-    const rebuiltAfterStaleBase = await runSmokingpipesAutoPublishV2({
-      stateRoot,
-      runtimeRoot,
-      cycleId: "2030-01-01",
-      live: false,
-      publisher: async ({ bundleRoot, cycleId }) => {
-        const manifest = await readJson(path.join(bundleRoot, "manifest.json"));
-        assert.equal(manifest.baseMainSha, git(runtimeRoot, ["rev-parse", "origin/main"]));
-        assert.notEqual(bundleRoot, publishBundle.bundleRoot);
-        await markSmokingpipesReleaseState({
-          stateRoot,
-          cycleId,
-          bundleId: manifest.bundleId,
-          status: "published",
-          commitSha: "fixture-stale-base-published",
-        });
-        return { status: "published", commitSha: "fixture-stale-base-published", exitCode: 0 };
-      },
-    });
-    assert.equal(rebuiltAfterStaleBase.status, "published");
-    assert.equal(rebuiltAfterStaleBase.networkAccessed, false);
-    assert.equal(git(runtimeRoot, ["status", "--short"]), "");
-    assert.equal(git(runtimeRoot, ["rev-parse", "HEAD"]), git(runtimeRoot, ["rev-parse", "origin/main"]));
+    assert.equal(pushRace.status, "published");
+    assert.equal(pushRace.networkAccessed, false);
+    assert.deepEqual(pushAttempts, [0, 1]);
+    assert.equal((await readCycle(stateRoot, "2030-01-01")).phase, "done");
 
     const detailFailureId = "2030-01-03";
     const detailFailureList = path.join(temporaryRoot, "detail-failure-list.json");
@@ -964,6 +775,42 @@ async function main() {
     });
     assert.equal(noChange.status, "no-change");
 
+    const publisherNoChangeId = "2030-01-08";
+    const publisherNoChangeCycle = createCycle({ cycleId: publisherNoChangeId });
+    publisherNoChangeCycle.phase = "ready";
+    publisherNoChangeCycle.collection = {
+      ...publisherNoChangeCycle.collection,
+      observedCandidateCount: 1,
+      completedDetailIds: ["900000"],
+      pendingDetailIds: [],
+    };
+    await writeCycle(stateRoot, publisherNoChangeCycle);
+    const publisherNoChange = await runSmokingpipesAutoPublishV2({
+      stateRoot,
+      runtimeRoot,
+      cycleId: publisherNoChangeId,
+      skipSync: true,
+      collector: async () => ({
+        status: "ready-to-bundle",
+        cycle: await readCycle(stateRoot, publisherNoChangeId),
+        networkAccessed: false,
+      }),
+      bundleBuilder: async () => ({
+        status: "bundle-ready",
+        bundleId: "publisher-no-change-bundle",
+        bundleRoot: path.join(temporaryRoot, "publisher-no-change-bundle"),
+        manifest: { actualAppliedCount: 1 },
+        cycle: await readCycle(stateRoot, publisherNoChangeId),
+      }),
+      publisher: async () => ({ status: "no-change", bundleId: "publisher-no-change-bundle", publishedCount: 0 }),
+    });
+    assert.equal(publisherNoChange.status, "no-change");
+    assert.equal(publisherNoChange.cycle.phase, "done");
+    assert.equal(publisherNoChange.publishedCount, 0);
+    assert.equal(parseSmokingpipesPublisherResult(
+      "SMOKINGPIPES_PUBLISHER_RESULT_JSON={\"status\":\"no-change\",\"bundleId\":\"fixture\"}"
+    ).status, "no-change");
+
     const lockOne = await acquireOwnerTokenLock({ stateRoot, ownerToken: "fixture-owner" });
     const lockTwo = await acquireOwnerTokenLock({ stateRoot, ownerToken: "other-owner" });
     assert.equal(lockOne.acquired, true);
@@ -979,6 +826,47 @@ async function main() {
       transitionCycle({ stateRoot, cycle: invalid, phase: "published", reason: "illegal" }),
       /illegal cycle transition/
     );
+
+    // Legacy persisted phases migrate on read, then write only their canonical
+    // V2 phase. Manual review remains a retryable cycle with its explicit
+    // human-review requirement rather than a second persisted state machine.
+    const legacyPhaseMappings = [
+      ["new", "collecting"],
+      ["collecting-list", "collecting"],
+      ["list-ready", "collecting"],
+      ["enriching-details", "details"],
+      ["ready-to-bundle", "ready"],
+      ["bundle-ready", "ready"],
+      ["validating-release", "publishing"],
+      ["published", "done"],
+      ["no-change", "done"],
+      ["collection-retryable", "retryable"],
+      ["release-retryable", "retryable"],
+      ["manual-review-required", "retryable"],
+    ];
+    for (const [legacyPhase, canonicalPhase] of legacyPhaseMappings) {
+      const migrationStateRoot = path.join(temporaryRoot, "phase-migration", legacyPhase);
+      const migrationCycle = createCycle({ cycleId: "2030-02-01" });
+      migrationCycle.phase = legacyPhase;
+      migrationCycle.history = [{ at: migrationCycle.updatedAt, phase: legacyPhase, reason: "legacy-fixture" }];
+      const migrationPaths = cyclePaths(migrationStateRoot, migrationCycle.cycleId);
+      await writeJsonAtomic(migrationPaths.cycle, migrationCycle);
+      const migrated = await readCycle(migrationStateRoot, migrationCycle.cycleId);
+      assert.equal(migrated.phase, canonicalPhase, legacyPhase);
+      assert.equal(
+        migrated.failure?.requiresManualReview === true,
+        legacyPhase === "manual-review-required",
+        legacyPhase
+      );
+      await writeCycle(migrationStateRoot, migrated);
+      const persisted = await readJson(migrationPaths.cycle);
+      assert.equal(persisted.phase, canonicalPhase, legacyPhase);
+      assert.equal(
+        persisted.failure?.requiresManualReview === true,
+        legacyPhase === "manual-review-required",
+        legacyPhase
+      );
+    }
 
     // A normal invocation on Aug 1 must resume the incomplete Jul 31 cycle
     // from latest.json and process only its pending details.
@@ -1079,7 +967,7 @@ async function main() {
     });
     assert.equal(recovered.status, "preflight-passed");
     assert.equal(recovered.cycle.cycleId, interruptedId);
-    assert.equal(recovered.cycle.phase, "release-retryable");
+    assert.equal(recovered.cycle.phase, "retryable");
     assert.equal(recovered.cycle.failure.stage, "interrupted-validating-release");
     assert.equal(recovered.networkAccessed, false);
 
@@ -1090,7 +978,7 @@ async function main() {
       assert.equal(smokingpipesV2ExitCode(status), 0, status);
     }
     for (const status of [
-      "collection-retryable", "release-retryable", "manual-review-required", "stale-base",
+      "collection-retryable", "release-retryable", "manual-review-required",
       "push-retryable", "publisher-output-invalid", "stale-lock-requires-manual-recovery",
       "bundle-validator-failed", "unknown-status",
     ]) {
@@ -1169,9 +1057,9 @@ async function main() {
     assert.doesNotMatch(publishedMessage, /变更类型: \{\}/);
 
     // Publisher E2E: a bundle can own many output files while only the files
-    // whose content changed are staged. Hashes are verified on both sides of
-    // the copy, empty staged diffs block, and injected unexpected staging is
-    // rejected and cleaned from the temporary release clone.
+    // whose content changed are staged. The final V2 validator runs once,
+    // empty staged diffs block, and injected unexpected staging is rejected
+    // and cleaned from the temporary release clone.
     const subsetRoot = path.join(temporaryRoot, "publisher-subset");
     const subsetSource = path.join(subsetRoot, "source");
     const subsetBare = path.join(subsetRoot, "origin.git");
@@ -1215,42 +1103,55 @@ async function main() {
     execFileSync("git", ["clone", subsetBare, subsetRelease], { stdio: "ignore" });
     git(subsetRelease, ["config", "user.email", "fixture@example.invalid"]);
     git(subsetRelease, ["config", "user.name", "Fixture"]);
-    await writeText(fakeRuntimeRoot, "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs", "process.exit(0);\n");
+    await writeText(fakeRuntimeRoot, "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs", [
+      'import fs from "node:fs";',
+      'if (process.env.SMOKINGPIPES_TEST_VALIDATOR_COUNT_PATH) {',
+      '  fs.appendFileSync(process.env.SMOKINGPIPES_TEST_VALIDATOR_COUNT_PATH, "validated\\n");',
+      '}',
+    ].join("\n"));
+    await writeText(fakeRuntimeRoot, "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs", [
+      'const bundleRoot = process.env.SMOKINGPIPES_TEST_BUNDLE_ROOT;',
+      'if (!bundleRoot) throw new Error("SMOKINGPIPES_TEST_BUNDLE_ROOT is required");',
+      'console.log(JSON.stringify({ status: "bundle-ready", bundleRoot }));',
+    ].join("\n"));
 
     async function writeFixtureBundle(bundleRoot, outputValues, baseMainSha, bundleId) {
-      const outputFileHashes = {};
       for (const [file, value] of Object.entries(outputValues)) {
         const target = path.join(bundleRoot, "outputs", file);
         await writeJsonAtomic(target, value);
-        outputFileHashes[file] = await hashFile(target);
       }
       await writeJsonAtomic(path.join(bundleRoot, "manifest.json"), {
         bundleId,
         baseMainSha,
         actualAppliedCount: 2,
-        outputFileHashes,
+        outputFiles: Object.keys(outputValues).sort(),
       });
-      return outputFileHashes;
+      return Object.keys(outputValues).sort();
     }
 
     const changedFiles = ownedFiles.slice(0, 2);
     const subsetOutputs = structuredClone(baselineOutputs);
     for (const file of changedFiles) subsetOutputs[file] = { file, version: "changed" };
-    const subsetHashes = await writeFixtureBundle(subsetBundleRoot, subsetOutputs, subsetBaseSha, "subset-bundle");
+    await writeFixtureBundle(subsetBundleRoot, subsetOutputs, subsetBaseSha, "subset-bundle");
+    const subsetValidatorCountPath = path.join(subsetRoot, "validator-count.log");
     const subsetPublish = runPublisher([
       "-StateRoot", subsetStateRoot,
       "-CycleId", "2030-02-01",
       "-BundleRoot", subsetBundleRoot,
       "-ReleaseRoot", subsetRelease,
       "-RuntimeRoot", fakeRuntimeRoot,
-    ]);
+    ], { env: {
+      SMOKINGPIPES_TEST_BUNDLE_ROOT: subsetBundleRoot,
+      SMOKINGPIPES_TEST_VALIDATOR_COUNT_PATH: subsetValidatorCountPath,
+    } });
     assert.equal(subsetPublish.status, 0, `${subsetPublish.stdout}\n${subsetPublish.stderr}`);
     const subsetPayload = lastJson(subsetPublish.stdout);
     assert.equal(subsetPayload.status, "published");
     assert.equal(Array.isArray(subsetPayload.stagedFiles), true, JSON.stringify(subsetPayload));
     assert.deepEqual([...subsetPayload.stagedFiles].sort(), [...changedFiles].sort());
-    for (const [file, expectedHash] of Object.entries(subsetHashes)) {
-      assert.equal(await hashFile(path.join(subsetRelease, file)), expectedHash, file);
+    assert.deepEqual((await fs.promises.readFile(subsetValidatorCountPath, "utf8")).trim().split(/\r?\n/), ["validated"]);
+    for (const [file, expectedValue] of Object.entries(subsetOutputs)) {
+      assert.deepEqual(await readJson(path.join(subsetRelease, file)), expectedValue, file);
     }
     assert.equal(git(subsetRelease, ["status", "--short"]), "");
 
@@ -1267,7 +1168,7 @@ async function main() {
       "-BundleRoot", emptyBundleRoot,
       "-ReleaseRoot", subsetRelease,
       "-RuntimeRoot", fakeRuntimeRoot,
-    ]);
+    ], { env: { SMOKINGPIPES_TEST_BUNDLE_ROOT: emptyBundleRoot } });
     assert.notEqual(emptyPublish.status, 0);
     assert.match(`${emptyPublish.stdout}\n${emptyPublish.stderr}`, /bundle has no staged product change/);
     assert.equal(git(subsetRelease, ["status", "--short"]), "");
@@ -1289,6 +1190,7 @@ async function main() {
       "-RuntimeRoot", fakeRuntimeRoot,
     ], {
       env: {
+        SMOKINGPIPES_TEST_BUNDLE_ROOT: unexpectedBundleRoot,
         SMOKINGPIPES_TEST_STAGE_UNEXPECTED: "1",
         SMOKINGPIPES_TEST_RELEASE_ROOT: subsetRelease,
       },
@@ -1311,7 +1213,7 @@ async function main() {
     await fs.promises.mkdir(releaseCwdRuntime, { recursive: true });
     await writeJsonAtomic(path.join(releaseCwdRuntime, "data", "products", "unified-products-staging.json"), []);
     await writeJsonAtomic(path.join(releaseCwdRuntime, "data", "generated", "public-products", "manifest.json"), {
-      inputHashes: { staging: "runtime-fixture-is-deliberately-invalid" },
+      generatorVersion: "runtime-fixture-is-deliberately-invalid",
     });
     execFileSync("git", ["clone", workspaceRoot, releaseCwdSource], { stdio: "ignore" });
     git(releaseCwdSource, ["checkout", "-B", "main", "origin/main"]);
@@ -1327,6 +1229,23 @@ async function main() {
       git(releaseFixture, ["config", "user.email", "fixture@example.invalid"]);
       git(releaseFixture, ["config", "user.name", "Fixture"]);
     }
+    // Collection begins against A. Before the Publisher starts, a Danish-only
+    // B reaches origin/main. The Publisher must rebuild against B rather than
+    // reject the finished Smokingpipes change set as stale.
+    const danishBPath = path.join(releaseCwdSource, "data", "products", "danish-products.json");
+    const danishBProducts = await readJson(danishBPath);
+    const danishBIndex = danishBProducts.findIndex((product) => product?.id != null);
+    assert.notEqual(danishBIndex, -1);
+    const danishBId = String(danishBProducts[danishBIndex].id);
+    const danishBName = `${danishBProducts[danishBIndex].name} [latest-main-B]`;
+    danishBProducts[danishBIndex] = { ...danishBProducts[danishBIndex], name: danishBName };
+    await writeJsonAtomic(danishBPath, danishBProducts);
+    git(releaseCwdSource, ["add", "--", "data/products/danish-products.json"]);
+    git(releaseCwdSource, ["commit", "-m", "fixture: Danish latest-main B"]);
+    git(releaseCwdSource, ["remote", "set-url", "origin", releaseCwdBare]);
+    git(releaseCwdSource, ["push", "origin", "HEAD:main"]);
+    const releaseCwdLatestMainSha = git(releaseCwdSource, ["rev-parse", "HEAD"]);
+    assert.notEqual(releaseCwdLatestMainSha, releaseCwdBaseSha);
     // Turbopack rejects a node_modules junction that points outside the
     // project root, so the successful Production-gate fixture installs from
     // the local cache in strict offline mode.
@@ -1372,6 +1291,15 @@ async function main() {
     assert.equal(lastJson(releaseCwdPublish.stdout).status, "published");
     assert.equal(process.cwd(), callerCwdBeforePublisher);
     assert.equal(git(releaseCwdRelease, ["status", "--short"]), "");
+    git(releaseCwdRelease, ["merge-base", "--is-ancestor", releaseCwdLatestMainSha, "HEAD"]);
+    const releaseDanishB = (await readJson(path.join(releaseCwdRelease, "data", "products", "danish-products.json")))
+      .find((product) => String(product?.id) === danishBId);
+    assert.equal(releaseDanishB?.name, danishBName);
+    const releaseUnifiedB = await readJson(path.join(releaseCwdRelease, "data", "products", "unified-products-staging.json"));
+    assert.equal(
+      releaseUnifiedB.find((product) => product.id === `danish-${danishBId}`)?.displayNameEn,
+      danishBName
+    );
 
     const invalidReleaseCwdBundleRoot = path.join(releaseCwdRoot, "invalid-public-validator-bundle");
     await fs.promises.cp(releaseCwdBundle.bundleRoot, invalidReleaseCwdBundleRoot, { recursive: true });
@@ -1384,19 +1312,40 @@ async function main() {
       "catalog.json"
     );
     const invalidCatalog = await readJson(invalidCatalogPath);
-    invalidCatalog.products = [];
+    invalidCatalog.products[0] = {
+      ...invalidCatalog.products[0],
+      title: "runtime-cwd-regression-mismatch",
+    };
     await writeJsonAtomic(invalidCatalogPath, invalidCatalog);
-    const invalidBundleManifestPath = path.join(invalidReleaseCwdBundleRoot, "manifest.json");
-    const invalidBundleManifest = await readJson(invalidBundleManifestPath);
-    invalidBundleManifest.outputFileHashes["data/generated/public-products/catalog.json"] = await hashFile(invalidCatalogPath);
-    await writeJsonAtomic(invalidBundleManifestPath, invalidBundleManifest);
+    const releaseCwdInvalidRuntime = path.join(releaseCwdRoot, "runtime-invalid-builder");
+    await writeText(releaseCwdInvalidRuntime, "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs", [
+      'import fs from "node:fs";',
+      'import path from "node:path";',
+      'export const SMOKINGPIPES_BUNDLE_SCHEMA_V2 = "smokingpipes-release-bundle-v2";',
+      'export function readJsonAtGitRef({ runtimeRoot, relativePath }) { return JSON.parse(fs.readFileSync(path.join(runtimeRoot, relativePath), "utf8")); }',
+      'console.log(JSON.stringify({ status: "bundle-ready", bundleRoot: process.env.SMOKINGPIPES_TEST_BUNDLE_ROOT }));',
+      "",
+    ].join("\n"));
+    await writeText(
+      releaseCwdInvalidRuntime,
+      "scripts/inventory/smokingpipes-cycle-store-v2.mjs",
+      await fs.promises.readFile(path.join(workspaceRoot, "scripts", "inventory", "smokingpipes-cycle-store-v2.mjs"), "utf8")
+    );
+    await writeText(
+      releaseCwdInvalidRuntime,
+      "scripts/inventory/validate-smokingpipes-release-bundle-v2.mjs",
+      await fs.promises.readFile(path.join(workspaceRoot, "scripts", "inventory", "validate-smokingpipes-release-bundle-v2.mjs"), "utf8")
+    );
     const releaseCwdPublicValidatorFailure = runPublisher([
       "-StateRoot", releaseCwdState,
       "-CycleId", "2030-03-02",
       "-BundleRoot", invalidReleaseCwdBundleRoot,
       "-ReleaseRoot", releaseCwdInvalidRelease,
-      "-RuntimeRoot", workspaceRoot,
-    ], { cwd: releaseCwdRuntime });
+      "-RuntimeRoot", releaseCwdInvalidRuntime,
+    ], {
+      cwd: releaseCwdRuntime,
+      env: { SMOKINGPIPES_TEST_BUNDLE_ROOT: invalidReleaseCwdBundleRoot },
+    });
     assert.notEqual(releaseCwdPublicValidatorFailure.status, 0);
     const publicValidatorFailureResult = lastJson(releaseCwdPublicValidatorFailure.stdout);
     assert.equal(
@@ -1411,6 +1360,8 @@ async function main() {
       "utf8"
     );
     assert.equal(autoPublishScript.includes("test-inventory-runner-v1.mjs"), false);
+    assert.match(autoPublishScript, /--timeout-seconds=\$DailyTimeoutSeconds/);
+    assert.match(autoPublishScript, /& \$nodeCommand\.Source @arguments 2>&1 \| ForEach-Object/);
     console.log("Smokingpipes V2 pipeline E2E passed");
   } finally {
     await fs.promises.rm(temporaryRoot, { recursive: true, force: true });

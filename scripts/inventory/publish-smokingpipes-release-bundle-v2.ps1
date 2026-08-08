@@ -7,7 +7,9 @@ param(
   [string]$BundleRoot,
   [string]$ReleaseRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release",
   [string]$RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path,
-  [switch]$NoPush
+  [switch]$NoPush,
+  [ValidateRange(0, 1)]
+  [int]$PushRetryAttempt = 0
 )
 
 $ErrorActionPreference = "Stop"
@@ -46,15 +48,10 @@ function Write-PublisherResult {
     [string]$FailureStage = "",
     [int]$ExitCode = 1
   )
-  if (-not $FailureStage -and $Status -ne "published") { $FailureStage = $Status }
+  if (-not $FailureStage -and $Status -notin @("published", "no-change")) { $FailureStage = $Status }
   $result = [ordered]@{ status=$Status; failureStage=$FailureStage; bundleId=$BundleId; commitSha=$CommitSha; publishedCount=$PublishedCount; stagedFiles=@($StagedFiles); sourceNetworkAccessed=$false; error=$Error; exitCode=$ExitCode }
   Write-Output ("SMOKINGPIPES_PUBLISHER_RESULT_JSON=" + ($result | ConvertTo-Json -Compress -Depth 8))
   exit $ExitCode
-}
-
-function Get-FileSha256 {
-  param([string]$Path)
-  return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
 }
 
 $manifestPath = Join-Path $BundleRoot "manifest.json"
@@ -62,11 +59,11 @@ if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
   throw "bundle manifest is missing: $manifestPath"
 }
 $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
-if (-not $manifest.bundleId -or -not $manifest.baseMainSha) {
+if (-not $manifest.bundleId) {
   throw "bundle manifest is incomplete"
 }
 $bundleId = [string]$manifest.bundleId
-$outputFiles = @($manifest.outputFileHashes.PSObject.Properties.Name)
+$outputFiles = @($manifest.outputFiles)
 if (-not $outputFiles.Count) { throw "bundle has no owned output files" }
 foreach ($relativeFile in $outputFiles) {
   $normalized = ([string]$relativeFile).Replace("\\", "/")
@@ -154,17 +151,63 @@ try {
     } | ConvertTo-Json -Depth 8
      Write-PublisherResult -Status "published" -BundleId $bundleId -CommitSha $commitSha -PublishedCount ([int]$manifest.actualAppliedCount) -ExitCode 0
   }
-  if ($remoteMain -ne [string]$manifest.baseMainSha) {
-    [pscustomobject]@{
-      status = "stale-base"
-      bundleId = $bundleId
-      baseMainSha = $manifest.baseMainSha
-      remoteMainSha = $remoteMain
-      sourceNetworkAccessed = $false
-    } | ConvertTo-Json -Depth 8
-     Write-PublisherResult -Status "stale-base" -FailureStage "stale-base" -BundleId $bundleId -Error "origin/main changed after bundle creation" -ExitCode 2
+  if ($head -ne $remoteMain) {
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+      $ErrorActionPreference = "Continue"
+      $headIsAncestorOutput = @(& git -C $ReleaseRoot merge-base --is-ancestor HEAD origin/main 2>&1)
+      $headIsAncestorExitCode = $LASTEXITCODE
+    } finally {
+      $ErrorActionPreference = $previousErrorActionPreference
+    }
+    if ($headIsAncestorExitCode -eq 0) {
+      Invoke-Git -Directory $ReleaseRoot -Arguments @("merge", "--ff-only", "origin/main") | Out-Null
+      $head = $remoteMain
+    } elseif ($headMessage -match 'Smokingpipes-Bundle-Id:') {
+      Invoke-Git -Directory $ReleaseRoot -Arguments @("reset", "--hard", "origin/main") | Out-Null
+      $head = $remoteMain
+    } else {
+      throw "release clone does not have a safe retained Smokingpipes commit; refusing to discard local history"
+    }
   }
-  Invoke-Git -Directory $ReleaseRoot -Arguments @("reset", "--hard", $manifest.baseMainSha) | Out-Null
+  # ===== BEGIN PROTECTED OPTIMIZATION: release on latest main =====
+  # An unrelated main update must not invalidate trusted Smokingpipes data.
+  Invoke-Git -Directory $ReleaseRoot -Arguments @("merge", "--ff-only", "origin/main") | Out-Null
+  $builderScript = Join-Path $RuntimeRoot "scripts/inventory/smokingpipes-build-release-bundle-v2.mjs"
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    Push-Location -LiteralPath $RuntimeRoot
+    try {
+      $rebuildOutput = @(& node $builderScript "--state-root=$StateRoot" "--cycle-id=$CycleId" "--runtime-root=$RuntimeRoot" "--base-main-sha=$remoteMain" "--baseline-root=$ReleaseRoot" 2>&1)
+      $rebuildExitCode = $LASTEXITCODE
+    } finally {
+      Pop-Location
+    }
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($rebuildExitCode -ne 0) {
+    throw "latest-main bundle rebuild failed: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
+  }
+  try {
+    $rebuilt = ($rebuildOutput | Out-String | ConvertFrom-Json -ErrorAction Stop)
+  } catch {
+    throw "latest-main bundle rebuild returned invalid JSON: $($rebuildOutput | Select-Object -Last 40 | Out-String)"
+  }
+  if ($rebuilt.status -eq "no-change") {
+    Write-PublisherResult -Status "no-change" -BundleId $bundleId -ExitCode 0
+  }
+  if ($rebuilt.status -ne "bundle-ready" -or -not $rebuilt.bundleRoot) {
+    throw "latest-main bundle rebuild did not produce a releasable bundle: $($rebuilt.status)"
+  }
+  $BundleRoot = [string]$rebuilt.bundleRoot
+  $manifestPath = Join-Path $BundleRoot "manifest.json"
+  $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+  $bundleId = [string]$manifest.bundleId
+  $outputFiles = @($manifest.outputFiles)
+  if (-not $outputFiles.Count) { throw "latest-main bundle has no owned output files" }
+  # ===== END PROTECTED OPTIMIZATION =====
   $releasePrepared = $true
 
   $previousErrorActionPreference = $ErrorActionPreference
@@ -184,15 +227,8 @@ try {
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
       throw "bundle output is missing: $relativeFile"
     }
-    $expectedHash = [string]$manifest.outputFileHashes.PSObject.Properties[$relativeFile].Value
-    if (-not $expectedHash -or (Get-FileSha256 -Path $source) -ne $expectedHash) {
-      throw "bundle output hash mismatch before copy: $relativeFile"
-    }
     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
     Copy-Item -LiteralPath $source -Destination $destination -Force
-    if ((Get-FileSha256 -Path $destination) -ne $expectedHash) {
-      throw "bundle output hash mismatch after copy: $relativeFile"
-    }
   }
   $projectValidator = Join-Path $ReleaseRoot "scripts/validate-public-product-indexes-v1.mjs"
   $inventoryDefaultTest = Join-Path $ReleaseRoot "scripts/test-public-products-inventory-default-v1.mjs"
@@ -298,11 +334,7 @@ try {
   if ($message -match "bundle validator failed") {
     $failureStage = "bundle-validator"
   } elseif ($message -match "validate-public-product-indexes-v1\.mjs") {
-    if ($message -match "Manifest staging hash mismatch") {
-      $failureStage = "bundle-validator"
-    } else {
-      $failureStage = "public-validator"
-    }
+    $failureStage = "public-validator"
   } elseif ($message -match "npm\.cmd .* run build") {
     $failureStage = "release-build"
   }

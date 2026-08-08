@@ -7,45 +7,58 @@ export const SMOKINGPIPES_CYCLE_SCHEMA_V2 = "smokingpipes-cycle-v2";
 export const SMOKINGPIPES_STATE_SCHEMA_V2 = "smokingpipes-state-v2";
 
 export const CYCLE_PHASES = new Set([
-  "new",
-  "collecting-list",
-  "list-ready",
-  "enriching-details",
-  "ready-to-bundle",
-  "bundle-ready",
-  "validating-release",
-  "published",
-  "no-change",
-  "collection-retryable",
-  "release-retryable",
-  "manual-review-required",
+  "collecting",
+  "details",
+  "ready",
+  "publishing",
+  "done",
+  "retryable",
 ]);
 
-const TERMINAL_PHASES = new Set(["published", "no-change"]);
-const RESUMABLE_PHASES = new Set([
-  "collecting-list",
-  "collection-retryable",
-  "list-ready",
-  "enriching-details",
-  "ready-to-bundle",
-  "bundle-ready",
-  "validating-release",
-  "release-retryable",
-]);
+const LEGACY_PHASES = Object.freeze({
+  new: "collecting",
+  "collecting-list": "collecting",
+  "list-ready": "collecting",
+  "enriching-details": "details",
+  "ready-to-bundle": "ready",
+  "bundle-ready": "ready",
+  "validating-release": "publishing",
+  published: "done",
+  "no-change": "done",
+  "collection-retryable": "retryable",
+  "release-retryable": "retryable",
+  "manual-review-required": "retryable",
+});
+
+const TERMINAL_PHASES = new Set(["done"]);
+const RESUMABLE_PHASES = new Set(["collecting", "details", "ready", "publishing", "retryable"]);
 const TRANSITIONS = new Map([
-  ["new", new Set(["collecting-list", "manual-review-required"])],
-  ["collecting-list", new Set(["list-ready", "collection-retryable", "manual-review-required"])],
-  ["collection-retryable", new Set(["collecting-list", "list-ready", "manual-review-required"])],
-  ["list-ready", new Set(["enriching-details", "ready-to-bundle", "manual-review-required"])],
-  ["enriching-details", new Set(["enriching-details", "ready-to-bundle", "collection-retryable", "manual-review-required"])],
-  ["ready-to-bundle", new Set(["bundle-ready", "no-change", "release-retryable", "manual-review-required"])],
-  ["bundle-ready", new Set(["validating-release", "release-retryable", "manual-review-required"])],
-  ["validating-release", new Set(["published", "release-retryable", "manual-review-required"])],
-  ["release-retryable", new Set(["validating-release", "bundle-ready", "manual-review-required"])],
-  ["published", new Set()],
-  ["no-change", new Set()],
-  ["manual-review-required", new Set()],
+  ["collecting", new Set(["collecting", "details", "ready", "retryable"])],
+  ["details", new Set(["details", "ready", "retryable"])],
+  ["ready", new Set(["ready", "publishing", "done", "retryable"])],
+  ["publishing", new Set(["publishing", "done", "retryable"])],
+  ["retryable", new Set(["collecting", "details", "ready", "publishing", "retryable"])],
+  ["done", new Set()],
 ]);
+
+export function canonicalSmokingpipesCyclePhase(phase) {
+  const value = requiredText(phase, "phase");
+  return LEGACY_PHASES[value] || value;
+}
+
+function migrateCyclePhase(cycle) {
+  const previousPhase = String(cycle?.phase || "");
+  const phase = canonicalSmokingpipesCyclePhase(previousPhase);
+  if (phase === previousPhase) return cycle;
+  const manual = previousPhase === "manual-review-required";
+  return {
+    ...cycle,
+    phase,
+    failure: manual
+      ? { ...(cycle.failure || {}), requiresManualReview: true }
+      : cycle.failure,
+  };
+}
 
 function requiredText(value, field) {
   const normalized = String(value ?? "").trim();
@@ -148,7 +161,7 @@ export function createCycle({ cycleId = cycleIdForDate(), now = new Date().toISO
     schemaVersion: SMOKINGPIPES_CYCLE_SCHEMA_V2,
     source: "smokingpipes",
     cycleId,
-    phase: "new",
+    phase: "collecting",
     createdAt: now,
     updatedAt: now,
     attempts: {
@@ -166,7 +179,7 @@ export function createCycle({ cycleId = cycleIdForDate(), now = new Date().toISO
     bundle: null,
     release: null,
     failure: null,
-    history: [{ at: now, phase: "new", reason: "cycle-created" }],
+    history: [{ at: now, phase: "collecting", reason: "cycle-created" }],
   };
 }
 
@@ -199,23 +212,25 @@ export function validateCycle(cycle) {
 }
 
 export async function writeCycle(stateRoot, cycle) {
-  const validation = validateCycle(cycle);
+  const normalizedCycle = migrateCyclePhase(cycle);
+  const validation = validateCycle(normalizedCycle);
   if (!validation.valid) {
     throw new Error(`cycle validation failed: ${validation.errors.join("; ")}`);
   }
-  await writeJsonAtomic(cyclePath(stateRoot, cycle.cycleId), cycle);
+  await writeJsonAtomic(cyclePath(stateRoot, normalizedCycle.cycleId), normalizedCycle);
   await writeJsonAtomic(path.join(stateRoot, "latest.json"), {
     schemaVersion: SMOKINGPIPES_STATE_SCHEMA_V2,
-    cycleId: cycle.cycleId,
-    phase: cycle.phase,
-    updatedAt: cycle.updatedAt,
+    cycleId: normalizedCycle.cycleId,
+    phase: normalizedCycle.phase,
+    updatedAt: normalizedCycle.updatedAt,
   });
-  return cycle;
+  return normalizedCycle;
 }
 
 export async function readCycle(stateRoot, cycleId) {
-  const cycle = await readJson(cyclePath(stateRoot, cycleId), null);
-  if (!cycle) return null;
+  const stored = await readJson(cyclePath(stateRoot, cycleId), null);
+  if (!stored) return null;
+  const cycle = migrateCyclePhase(stored);
   const validation = validateCycle(cycle);
   if (!validation.valid) {
     throw new Error(`cycle validation failed: ${validation.errors.join("; ")}`);
@@ -251,11 +266,8 @@ export async function resolveActiveSmokingpipesCycle({
   if (!cycle) {
     throw new Error(`latest.json points to a missing cycle: ${latestCycleId}`);
   }
-  if (latest.phase && latest.phase !== cycle.phase) {
+  if (latest.phase && canonicalSmokingpipesCyclePhase(latest.phase) !== cycle.phase) {
     throw new Error(`latest.json phase does not match cycle ${latestCycleId}`);
-  }
-  if (cycle.phase === "manual-review-required") {
-    return { cycleId: latestCycleId, source: "latest", cycle, status: "manual-review-required" };
   }
   if (RESUMABLE_PHASES.has(cycle.phase)) {
     return { cycleId: latestCycleId, source: "latest", cycle };
@@ -282,7 +294,7 @@ export async function transitionCycle({
   patch = {},
   now = new Date().toISOString(),
 } = {}) {
-  const nextPhase = requiredText(phase, "phase");
+  const nextPhase = canonicalSmokingpipesCyclePhase(phase);
   if (!CYCLE_PHASES.has(nextPhase)) throw new Error(`unsupported cycle phase: ${nextPhase}`);
   if (cycle.phase !== nextPhase && !TRANSITIONS.get(cycle.phase)?.has(nextPhase)) {
     throw new Error(`illegal cycle transition: ${cycle.phase} -> ${nextPhase}`);
@@ -292,7 +304,7 @@ export async function transitionCycle({
     ...patch,
     phase: nextPhase,
     updatedAt: now,
-    failure: patch.failure === undefined && !nextPhase.endsWith("retryable") ? null : patch.failure,
+    failure: patch.failure === undefined && nextPhase !== "retryable" ? null : patch.failure,
     history: [
       ...(cycle.history || []),
       { at: now, phase: nextPhase, reason: String(reason || "state-update") },

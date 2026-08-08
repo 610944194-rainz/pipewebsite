@@ -4,6 +4,7 @@ import path from "node:path";
 import process from "node:process";
 
 export const SP_CHROME_PROFILE_NAME = "sp-chrome";
+export const SP_CHROME_V2_PROFILE_NAME = "sp-chrome-v2";
 
 function normalizedChannel(value) {
   const channel = String(value || "").trim().toLowerCase();
@@ -69,15 +70,15 @@ export function resolveSmokingpipesBrowserProfile({
     : null;
   if (
     requestedBrowserProfile &&
-    requestedBrowserProfile !== SP_CHROME_PROFILE_NAME
+    ![SP_CHROME_PROFILE_NAME, SP_CHROME_V2_PROFILE_NAME].includes(requestedBrowserProfile)
   ) {
     throw new Error(
-      `Unsupported browser profile ${requestedBrowserProfile}. Supported: ${SP_CHROME_PROFILE_NAME}.`
+      `Unsupported browser profile ${requestedBrowserProfile}. Supported: ${SP_CHROME_PROFILE_NAME}, ${SP_CHROME_V2_PROFILE_NAME}.`
     );
   }
 
   const effectiveBrowserChannel =
-    requestedBrowserProfile === SP_CHROME_PROFILE_NAME
+    [SP_CHROME_PROFILE_NAME, SP_CHROME_V2_PROFILE_NAME].includes(requestedBrowserProfile)
       ? "chrome"
       : requestedBrowserChannel;
   let profileDir;
@@ -86,6 +87,16 @@ export function resolveSmokingpipesBrowserProfile({
   if (requestedBrowserProfileDir) {
     profileDir = requestedBrowserProfileDir;
     profileSource = "explicit-dir";
+  // ===== BEGIN PROTECTED OPTIMIZATION: Smokingpipes V2 dedicated Chrome profile =====
+  // Smokingpipes V2 must remain on its clean persistent profile unless the user
+  // explicitly authorizes a profile migration or a return to the legacy profile.
+  } else if (requestedBrowserProfile === SP_CHROME_V2_PROFILE_NAME) {
+    profileDir = path.join(
+      defaultLocalAppData(platform, localAppData),
+      "YandouBuy",
+      "chrome-profile-sp-v2"
+    );
+    profileSource = "named-sp-chrome-v2";
   } else if (requestedBrowserProfile === SP_CHROME_PROFILE_NAME) {
     profileDir = path.join(
       defaultLocalAppData(platform, localAppData),
@@ -93,6 +104,7 @@ export function resolveSmokingpipesBrowserProfile({
       "chrome-profile-sp"
     );
     profileSource = "named-sp-chrome";
+  // ===== END PROTECTED OPTIMIZATION =====
   } else if (effectiveBrowserChannel === "chrome") {
     profileDir = path.join(
       defaultLocalAppData(platform, localAppData),
