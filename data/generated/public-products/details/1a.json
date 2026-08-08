@@ -6977,9 +6977,9 @@
       "siteDisplayAmount": 866.0921,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8409,9 +8409,9 @@
       "siteDisplayAmount": 1654.4937271499998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -8569,9 +8569,9 @@
       "siteDisplayAmount": 3209.2977509999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10644,9 +10644,9 @@
       "siteDisplayAmount": 861.9882799999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11569,9 +11569,9 @@
       "siteDisplayAmount": 2293.7355089999996,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12203,9 +12203,9 @@
       "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -14587,9 +14587,9 @@
       "siteDisplayAmount": 1132.8404,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -26270,6 +26270,166 @@
       "msrpRawText": "$182.50"
     },
     {
+      "id": "smokingpipes-736383",
+      "source": "smokingpipes",
+      "sourceProductId": "736383",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Porto Cervo Rusticated (207) (6mm) Tobacco Pipe",
+      "displayNameEn": "Porto Cervo Rusticated (207) (6mm) Tobacco Pipe",
+      "rawTitle": "Porto Cervo Rusticated (207) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112150.2468.jpg",
+      "sourcePriceAmount": 156,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 195,
+      "siteDisplayAmount": 1487.4104479999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "porto cervo rusticated (207) (6mm) tobacco pipe",
+        "price": 1487.4104479999996,
+        "sourceProductId": "736383"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112150.2468.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.27,
+        "heightMm": 43.18,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 33.27,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 39.62
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-207__series-porto-cervo-tobacco-pipe__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Porto Cervo Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112150",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736383",
+      "sourceOriginalText": "Porto Cervo Rusticated (207) (6mm) Tobacco Pipe",
+      "priceRawText": "$156.00",
+      "msrpRawText": "$195.00"
+    },
+    {
       "id": "smokingpipes-736769",
       "source": "smokingpipes",
       "sourceProductId": "736769",
@@ -26912,6 +27072,326 @@
       "sourceOriginalText": "Irish Harp Sandblasted (999) Fishtail Tobacco Pipe",
       "priceRawText": "$156.00",
       "msrpRawText": "$195.00"
+    },
+    {
+      "id": "smokingpipes-737001",
+      "source": "smokingpipes",
+      "sourceProductId": "737001",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
+      "displayNameEn": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
+      "rawTitle": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112208.2581.jpg",
+      "sourcePriceAmount": 396,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 495,
+      "siteDisplayAmount": 3730.3187381999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Bent Bulldog",
+      "shapeZh": "弯式斗牛犬斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "collection 2026 sandblasted (6mm) tobacco pipe",
+        "price": 3730.3187381999996,
+        "sourceProductId": "737001"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112208.2581.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112208_1.8184.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112208_2.4250.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112208_3.8338.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.16,
+        "heightMm": 40.89,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 35.81,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 44.2
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-collection-2026-sandblasted-tobacco-pipe__shape-bent-bulldog",
+        "confidence": "medium"
+      },
+      "series": "Collection 2026 Sandblasted Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-033-112208",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Bulldog",
+          "labelZh": "弯式斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737001",
+      "sourceOriginalText": "Collection 2026 Sandblasted (6mm) Tobacco Pipe",
+      "priceRawText": "$396.00",
+      "msrpRawText": "$495.00"
+    },
+    {
+      "id": "smokingpipes-737491",
+      "source": "smokingpipes",
+      "sourceProductId": "737491",
+      "brandName": "Musico",
+      "brandSlug": "musico",
+      "brandCountry": null,
+      "displayName": "Smooth Bent Billiard with Silver (Set Special) Tobacco Pipe",
+      "displayNameEn": "Smooth Bent Billiard with Silver (Set Special) Tobacco Pipe",
+      "rawTitle": "Smooth Bent Billiard with Silver (Set Special) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1044.1761.jpg",
+      "sourcePriceAmount": 350,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 3483.022545,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 29.48,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "musico",
+        "name": "smooth bent billiard with silver (set special) tobacco pipe",
+        "price": 3483.022545,
+        "sourceProductId": "737491"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1044.1761.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1044_1.2787.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1044_2.3040.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1044_3.2874.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 129.79,
+        "heightMm": 37.85,
+        "weightGrams": 29.48,
+        "chamberDepthMm": 31.24,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 31.24
+      },
+      "model": {
+        "canonicalModelKey": "musico__series-with-silver-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "With Silver Tobacco Pipe",
+      "year": null,
+      "productCode": "002-008-1044",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Musico",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 129.79,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 29.48,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 31.24,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.24,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/musico/moreinfo.cfm?product_id=737491",
+      "sourceOriginalText": "Smooth Bent Billiard with Silver (Set Special) Tobacco Pipe",
+      "priceRawText": "$350.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-737653",

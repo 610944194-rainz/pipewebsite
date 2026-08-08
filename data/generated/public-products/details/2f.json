@@ -4786,9 +4786,9 @@
       "siteDisplayAmount": 359.68071199999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6505,9 +6505,9 @@
       "siteDisplayAmount": 866.0921,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7149,9 +7149,9 @@
       "siteDisplayAmount": 1026.1410799999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7593,9 +7593,9 @@
       "siteDisplayAmount": 1422.1597099999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10781,9 +10781,9 @@
       "siteDisplayAmount": 1614.1429169999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -11253,9 +11253,9 @@
       "siteDisplayAmount": 1479.6131899999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12520,9 +12520,9 @@
       "siteDisplayAmount": 1175.5201279999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -22724,6 +22724,166 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-735285",
+      "source": "smokingpipes",
+      "sourceProductId": "735285",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "displayNameEn": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "rawTitle": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111970.5362.jpg",
+      "sourcePriceAmount": 138,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172.5,
+      "siteDisplayAmount": 1347.0598039999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 59.53,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "unica rusticated dark brown (u31) (6mm) tobacco pipe",
+        "price": 1347.0598039999998,
+        "sourceProductId": "735285"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111970.5362.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 151.13,
+        "heightMm": 49.28,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 39.37,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 42.67
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-u31__series-unica-dark-brown-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Unica Dark Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111970",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 151.13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735285",
+      "sourceOriginalText": "Unica Rusticated Dark Brown (U31) (6mm) Tobacco Pipe",
+      "priceRawText": "$138.00",
+      "msrpRawText": "$172.50"
+    },
+    {
       "id": "smokingpipes-735381",
       "source": "smokingpipes",
       "sourceProductId": "735381",
@@ -23211,6 +23371,323 @@
       "msrpRawText": "$600.00"
     },
     {
+      "id": "smokingpipes-736224",
+      "source": "smokingpipes",
+      "sourceProductId": "736224",
+      "brandName": "Radice",
+      "brandSlug": "radice",
+      "brandCountry": null,
+      "displayName": "Rind Billiard (Magnum) (Magnum) (2026) Tobacco Pipe",
+      "displayNameEn": "Rind Billiard (Magnum) (Magnum) (2026) Tobacco Pipe",
+      "rawTitle": "Rind Billiard (Magnum) (Magnum) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8640.4553.jpg",
+      "sourcePriceAmount": 540,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 5598.883739999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 294.84,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "radice",
+        "name": "rind billiard (magnum) (magnum) (2026) tobacco pipe",
+        "price": 5598.883739999999,
+        "sourceProductId": "736224"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8640.4553.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8640_1.2408.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8640_2.9265.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8640_3.2290.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 188.21,
+        "heightMm": 83.57,
+        "weightGrams": 294.84,
+        "chamberDepthMm": 75.69,
+        "chamberDiameterMm": 23.88,
+        "outsideDiameterMm": 73.66
+      },
+      "model": {
+        "canonicalModelKey": "radice__model-2026__series-rind-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Rind Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-030-8640",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Radice",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 188.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 83.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 294.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 75.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 73.66,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=736224",
+      "sourceOriginalText": "Rind Billiard (Magnum) (Magnum) (2026) Tobacco Pipe",
+      "priceRawText": "$540.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-736979",
+      "source": "smokingpipes",
+      "sourceProductId": "736979",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Arcobaleno Rusticated Green (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Arcobaleno Rusticated Green (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Arcobaleno Rusticated Green (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112186.2854.jpg",
+      "sourcePriceAmount": 112,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 140,
+      "siteDisplayAmount": 1144.331096,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 48.19,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "arcobaleno rusticated green (111 ks) (6mm) tobacco pipe",
+        "price": 1144.331096,
+        "sourceProductId": "736979"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112186.2854.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 156.21,
+        "heightMm": 50.29,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 41.4,
+        "chamberDiameterMm": 22.1,
+        "outsideDiameterMm": 39.37
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-arcobaleno-green-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Arcobaleno Green Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112186",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 156.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.4,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=736979",
+      "sourceOriginalText": "Arcobaleno Rusticated Green (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$112.00",
+      "msrpRawText": "$140.00"
+    },
+    {
       "id": "smokingpipes-736990",
       "source": "smokingpipes",
       "sourceProductId": "736990",
@@ -23531,6 +24008,163 @@
       "sourceOriginalText": "Minuto Rusticated (609) (6mm) Tobacco Pipe",
       "priceRawText": "$118.00",
       "msrpRawText": "$147.50"
+    },
+    {
+      "id": "smokingpipes-737512",
+      "source": "smokingpipes",
+      "sourceProductId": "737512",
+      "brandName": "Musico",
+      "brandSlug": "musico",
+      "brandCountry": null,
+      "displayName": "Sandblasted Acorn with Boxwood (Floodlight) Tobacco Pipe",
+      "displayNameEn": "Sandblasted Acorn with Boxwood (Floodlight) Tobacco Pipe",
+      "rawTitle": "Sandblasted Acorn with Boxwood (Floodlight) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1055.7987.jpg",
+      "sourcePriceAmount": 225,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2303.174295,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 24.95,
+      "shape": "Acorn/Pear",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "musico",
+        "name": "sandblasted acorn with boxwood (floodlight) tobacco pipe",
+        "price": 2303.174295,
+        "sourceProductId": "737512"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1055.7987.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1055_1.3135.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1055_2.2552.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1055_3.2984.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 129.29,
+        "heightMm": 37.34,
+        "weightGrams": 24.95,
+        "chamberDepthMm": 33.78,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 35.05
+      },
+      "model": {
+        "canonicalModelKey": "musico__series-sandblasted-with-boxwood-tobacco-pipe__shape-acorn-pear",
+        "confidence": "medium"
+      },
+      "series": "Sandblasted With Boxwood Tobacco Pipe",
+      "year": null,
+      "productCode": "002-008-1055",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Musico",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Acorn/Pear",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 129.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 37.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 24.95,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/musico/moreinfo.cfm?product_id=737512",
+      "sourceOriginalText": "Sandblasted Acorn with Boxwood (Floodlight) Tobacco Pipe",
+      "priceRawText": "$225.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-737816",

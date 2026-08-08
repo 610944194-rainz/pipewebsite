@@ -5580,9 +5580,9 @@
       "siteDisplayAmount": 993.3105199999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -6837,9 +6837,9 @@
       "siteDisplayAmount": 1376.8535372,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -7964,9 +7964,9 @@
       "siteDisplayAmount": 3761.4667319999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10162,9 +10162,9 @@
       "siteDisplayAmount": 1950.3996682499999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10323,9 +10323,9 @@
       "siteDisplayAmount": 1950.3996682499999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10484,9 +10484,9 @@
       "siteDisplayAmount": 804.5347999999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -12536,9 +12536,9 @@
       "siteDisplayAmount": 1409.4378679999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -17622,6 +17622,173 @@
       "sourceOriginalText": "Red Spigot (608) Fishtail Tobacco Pipe",
       "priceRawText": "$260.00",
       "msrpRawText": "$300.00"
+    },
+    {
+      "id": "smokingpipes-729591",
+      "source": "smokingpipes",
+      "sourceProductId": "729591",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Pub Pipe Sandblasted Billiard P-Lip Tobacco Pipe",
+      "displayNameEn": "Pub Pipe Sandblasted Billiard P-Lip Tobacco Pipe",
+      "rawTitle": "Pub Pipe Sandblasted Billiard P-Lip Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-029-144777.5218.jpg",
+      "sourcePriceAmount": 208,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 260,
+      "siteDisplayAmount": 2044.5515585999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 8,
+      "weightGrams": 62.37,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "pub pipe sandblasted billiard p-lip tobacco pipe",
+        "price": 2044.5515585999997,
+        "sourceProductId": "729591"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-029-144777.5218.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-144777_1.4577.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-144777_2.8408.jpg",
+        "https://assets.smokingpipes.com/images/products/002-029-144777_3.3386.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-144777.5218.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-144777_1.4577.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-144777_2.8408.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-029-144777_3.3386.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 155.96,
+        "heightMm": 56.64,
+        "weightGrams": 62.37,
+        "chamberDepthMm": 47.5,
+        "chamberDiameterMm": 21.84,
+        "outsideDiameterMm": 41.66
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-pub-pipe-sandblasted-p-lip-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Pub Pipe Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-144777",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 155.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 56.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=729591",
+      "sourceOriginalText": "Pub Pipe Sandblasted Billiard P-Lip Tobacco Pipe",
+      "priceRawText": "$208.00",
+      "msrpRawText": "$260.00"
     },
     {
       "id": "smokingpipes-729943",
