@@ -52,8 +52,9 @@ function dailyDeadlineError(stage) {
   });
 }
 
-async function createDetailProcessor({ root, paths, options, runId }) {
-  const session = await launchSmokingpipesContext({
+async function createDetailProcessor({ root, paths, options, runId, browserSession = null }) {
+  const ownsBrowserSession = !browserSession;
+  const session = browserSession || await launchSmokingpipesContext({
     root,
     browserChannel: options.browserChannel,
     browserProfile: options.browserProfile,
@@ -124,7 +125,7 @@ async function createDetailProcessor({ root, paths, options, runId }) {
         reviewOnly: conversion.products.length !== 1 || conversion.failures.length > 0,
       };
     },
-    close: () => session.close(),
+    close: () => ownsBrowserSession ? session.close() : Promise.resolve(),
   };
 }
 
@@ -147,13 +148,13 @@ export async function ingestSmokingpipesListV2({ paths, snapshotPath, diffPath, 
   return { status: "ingest-ready", state };
 }
 
-export async function enrichSmokingpipesDetailsV2({ root, paths, detailLimit = 50, options = {}, processDetail = null, onDetailSettled = async () => {} }) {
+export async function enrichSmokingpipesDetailsV2({ root, paths, detailLimit = 50, options = {}, processDetail = null, browserSession = null, onDetailSettled = async () => {} }) {
   const stateRead = readProgressiveDailyState(paths.progressiveState);
   if (stateRead.status !== "passed") return { status: "blocked", blockedReason: stateRead.errors.join("; ") };
   const runId = `sp-v2-${Date.now()}`;
   const processor = typeof processDetail === "function"
     ? { browserStarted: false, process: processDetail, close: async () => {} }
-    : await createDetailProcessor({ root, paths, options, runId });
+    : await createDetailProcessor({ root, paths, options, runId, browserSession });
   try {
     const result = await runProgressiveDetailChunk({
       state: stateRead.state,

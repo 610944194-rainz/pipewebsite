@@ -12,6 +12,9 @@ import {
   ingestSmokingpipesListV2,
 } from "./smokingpipes-detail-enricher-v2.mjs";
 import {
+  launchSmokingpipesContext,
+} from "../lib/smokingpipes-utils.mjs";
+import {
   readProgressiveDailyState,
 } from "./smokingpipes-progressive-state-v1.mjs";
 import {
@@ -199,6 +202,8 @@ export async function runSmokingpipesCollectOnlyV2({
   processDetail = null,
   fetchOptions = {},
   deadline = null,
+  launchBrowserSession = launchSmokingpipesContext,
+  fetchCurrentList = fetchSmokingpipesCurrentList,
 } = {}) {
   const resolvedRuntimeRoot = path.resolve(runtimeRoot);
   const resolvedStateRoot = assertExternalStateRoot({
@@ -267,6 +272,13 @@ export async function runSmokingpipesCollectOnlyV2({
   };
   let snapshot = await readJson(paths.listSnapshot, null);
   let networkAccessed = false;
+  let sharedBrowserSession = null;
+  const closeSharedBrowserSession = async () => {
+    if (!sharedBrowserSession) return;
+    const session = sharedBrowserSession;
+    sharedBrowserSession = null;
+    await session.close();
+  };
 
   if (!snapshot) {
     cycle = await transitionCycle({
@@ -283,7 +295,15 @@ export async function runSmokingpipesCollectOnlyV2({
         snapshot = await readJsonFile(path.resolve(listInputPath));
       } else if (live) {
         networkAccessed = true;
-        snapshot = await fetchSmokingpipesCurrentList({
+        sharedBrowserSession = await launchBrowserSession({
+          root: resolvedRuntimeRoot,
+          browserChannel: "chrome",
+          browserProfile: "sp-chrome-v2",
+          profileLockPath: overrides.browserProfileLock,
+          runId: `v2-${cycleId}`,
+          mode: "smokingpipes-v2-daily",
+        });
+        snapshot = await fetchCurrentList({
           root: resolvedRuntimeRoot,
           runId: `v2-${cycleId}`,
           mode: "v2-collect-only",
@@ -306,6 +326,7 @@ export async function runSmokingpipesCollectOnlyV2({
           maxPages: SMOKINGPIPES_V2_LIST_MAX_PAGES,
           deadlineAtMs: deadline?.deadlineAtMs ?? null,
           nowMs: deadline?.nowMs,
+          browserSession: sharedBrowserSession,
         });
       } else {
         throw new Error("no list input supplied and live collection is disabled");
@@ -343,13 +364,18 @@ export async function runSmokingpipesCollectOnlyV2({
         },
       });
     } catch (error) {
+      await closeSharedBrowserSession().catch(() => {});
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
         phase: "retryable",
         reason: "list-collection-failed",
         patch: {
-          failure: { stage: "list", message: error.message, at: new Date().toISOString() },
+          failure: {
+            stage: error?.code === "BROWSER_NATIVE_CDP_FAILED" ? "browser-native-cdp-failed" : "list",
+            message: error.message,
+            at: new Date().toISOString(),
+          },
         },
       });
       return { status: "collection-retryable", cycle, networkAccessed, error: error.message };
@@ -379,6 +405,7 @@ export async function runSmokingpipesCollectOnlyV2({
       runId: `v2-${cycleId}`,
     });
     if (ingest.status !== "ingest-ready") {
+      await closeSharedBrowserSession().catch(() => {});
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
@@ -408,14 +435,34 @@ export async function runSmokingpipesCollectOnlyV2({
     deadlineAtMs: deadline?.deadlineAtMs ?? null,
     nowMs: deadline?.nowMs,
   };
-  const detailResult = await enrichSmokingpipesDetailsV2({
-    root: resolvedRuntimeRoot,
-    paths: v2Paths,
-    detailLimit: resolvedDetailLimit,
-    options: detailOptions,
-    processDetail,
-    onDetailSettled: ({ candidate }) => persistDetail({ stateRoot: resolvedStateRoot, candidate }),
-  });
+  let detailResult;
+  try {
+    detailResult = await enrichSmokingpipesDetailsV2({
+      root: resolvedRuntimeRoot,
+      paths: v2Paths,
+      detailLimit: resolvedDetailLimit,
+      options: detailOptions,
+      processDetail,
+      browserSession: sharedBrowserSession,
+      onDetailSettled: ({ candidate }) => persistDetail({ stateRoot: resolvedStateRoot, candidate }),
+    });
+  } catch (error) {
+    await closeSharedBrowserSession().catch(() => {});
+    if (error?.code === "BROWSER_NATIVE_CDP_FAILED") {
+      cycle = await transitionCycle({
+        stateRoot: resolvedStateRoot,
+        cycle,
+        phase: "retryable",
+        reason: "browser-native-cdp-failed",
+        patch: {
+          failure: { stage: "browser-native-cdp-failed", message: error.message, at: new Date().toISOString() },
+        },
+      });
+      return { status: "collection-retryable", cycle, networkAccessed, error: error.message };
+    }
+    throw error;
+  }
+  await closeSharedBrowserSession().catch(() => {});
   const stateRead = readProgressiveDailyState(paths.legacyProgressiveState);
   if (stateRead.status !== "passed") {
     throw new Error(`external progressive state is invalid: ${stateRead.errors.join("; ")}`);

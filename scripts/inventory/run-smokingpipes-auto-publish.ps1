@@ -100,7 +100,16 @@ try {
   $ErrorActionPreference = "Continue"
   Write-Output "SCHEDULER_STAGE node-start"
   # ===== BEGIN PROTECTED OPTIMIZATION: stream Node output in real time =====
-  & $nodeCommand.Source @arguments 2>&1 | ForEach-Object { Write-Output $_ }
+  # PowerShell 5.1 represents native stderr as ErrorRecord. Convert each
+  # record to text before forwarding so ordinary Node scheduler logs do not
+  # appear as red NativeCommandError records, while preserving $LASTEXITCODE.
+  & $nodeCommand.Source @arguments 2>&1 | ForEach-Object {
+    if ($_ -is [System.Management.Automation.ErrorRecord]) {
+      Write-Output ([string]$_.Exception.Message)
+    } else {
+      Write-Output ([string]$_)
+    }
+  }
   $nodeExitCode = $LASTEXITCODE
 } finally {
   $ErrorActionPreference = $previousErrorActionPreference

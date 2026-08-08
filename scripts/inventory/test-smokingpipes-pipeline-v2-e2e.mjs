@@ -320,6 +320,57 @@ async function main() {
       publicReady: true,
     });
 
+    // A live V2 Daily owns one native session for List and Detail. The
+    // Collector never falls back to a Playwright launch when native startup
+    // fails; it preserves retryable state with an explicit failure stage.
+    const nativeFailureStateRoot = path.join(temporaryRoot, "native-cdp-failure-state");
+    const nativeFailureResult = await runSmokingpipesCollectOnlyV2({
+      stateRoot: nativeFailureStateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-09",
+      live: true,
+      launchBrowserSession: async () => {
+        throw Object.assign(new Error("fixture CDP endpoint unavailable"), {
+          code: "BROWSER_NATIVE_CDP_FAILED",
+        });
+      },
+      fetchCurrentList: async () => {
+        throw new Error("native startup failure must not fetch the source");
+      },
+    });
+    assert.equal(nativeFailureResult.status, "collection-retryable");
+    assert.equal(nativeFailureResult.cycle.phase, "retryable");
+    assert.equal(nativeFailureResult.cycle.failure.stage, "browser-native-cdp-failed");
+
+    const sharedNativeStateRoot = path.join(temporaryRoot, "native-cdp-shared-state");
+    let sharedNativeLaunches = 0;
+    let sharedNativeCloses = 0;
+    let listNativeSession = null;
+    const sharedNativeSession = {
+      context: { pages: () => [] },
+      async close() { sharedNativeCloses += 1; },
+    };
+    const sharedNativeResult = await runSmokingpipesCollectOnlyV2({
+      stateRoot: sharedNativeStateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-10",
+      live: true,
+      detailLimit: 50,
+      launchBrowserSession: async () => {
+        sharedNativeLaunches += 1;
+        return sharedNativeSession;
+      },
+      fetchCurrentList: async ({ browserSession }) => {
+        listNativeSession = browserSession;
+        return readJson(listPath);
+      },
+      processDetail: detailProcessor,
+    });
+    assert.equal(sharedNativeResult.status, "ready-to-bundle");
+    assert.equal(sharedNativeLaunches, 1);
+    assert.equal(listNativeSession, sharedNativeSession);
+    assert.equal(sharedNativeCloses, 1);
+
     const detailStatistics = collectionSummary({
       candidates: [
         { sourceProductId: "new-complete", changeTypes: ["new-product"], detailStatus: "complete" },

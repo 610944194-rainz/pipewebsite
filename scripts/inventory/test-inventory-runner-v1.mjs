@@ -3838,6 +3838,119 @@ assert.equal(
 );
 await launchedChromeSession.close();
 
+// Smokingpipes V2 is deliberately a Native Chrome + CDP attachment. The
+// mock has no browser or external network dependency, but verifies the exact
+// child-process arguments, loopback-only endpoint, lock lifetime, and the
+// absence of a Playwright persistent-context launch.
+const nativeCdpCapture = {};
+let v2PersistentLaunchCalls = 0;
+let nativeCdpBrowserCloseCalls = 0;
+const nativeCdpContext = { pages: () => [] };
+const nativeChromeProcess = {
+  pid: 4242,
+  exitCode: 0,
+  killed: false,
+  once() {},
+  kill() { this.killed = true; },
+};
+const nativeCdpLockPath = path.join(
+  os.tmpdir(),
+  `smokingpipes-native-cdp-${process.pid}-${Date.now()}.lock`
+);
+const nativeCdpSession = await launchSmokingpipesContext({
+  root: launchLocalAppData,
+  browserProfile: "sp-chrome-v2",
+  localAppData: launchLocalAppData,
+  platform: "win32",
+  profileLockPath: nativeCdpLockPath,
+  runId: "native-cdp-test",
+  mode: "smokingpipes-v2-daily",
+  launchPersistentContext: async () => {
+    v2PersistentLaunchCalls += 1;
+    throw new Error("V2 must not launch a Playwright persistent context");
+  },
+  nativeChrome: {
+    chromeExecutablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    cdpPort: 48123,
+    spawn(executablePath, args, options) {
+      nativeCdpCapture.executablePath = executablePath;
+      nativeCdpCapture.args = args;
+      nativeCdpCapture.options = options;
+      return nativeChromeProcess;
+    },
+    async waitForCdp(endpoint) {
+      nativeCdpCapture.waitEndpoint = endpoint;
+      return { webSocketDebuggerUrl: "ws://127.0.0.1:48123/devtools/browser/mock" };
+    },
+    async connectOverCDP(endpoint) {
+      nativeCdpCapture.connectEndpoint = endpoint;
+      return {
+        contexts: () => [nativeCdpContext],
+        async close() { nativeCdpBrowserCloseCalls += 1; },
+      };
+    },
+  },
+});
+assert.equal(v2PersistentLaunchCalls, 0);
+assert.equal(nativeCdpCapture.executablePath, "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
+assert.deepEqual(nativeCdpCapture.args, [
+  "--remote-debugging-address=127.0.0.1",
+  "--remote-debugging-port=48123",
+  `--user-data-dir=${path.join(launchLocalAppData, "YandouBuy", "chrome-profile-sp-v2")}`,
+]);
+assert.equal(nativeCdpCapture.options.windowsHide, false);
+assert.equal(nativeCdpCapture.waitEndpoint, "http://127.0.0.1:48123");
+assert.equal(nativeCdpCapture.connectEndpoint, "http://127.0.0.1:48123");
+assert.equal(nativeCdpSession.context, nativeCdpContext);
+assert.equal(nativeCdpSession.browser.nativeChrome, true);
+assert.equal(nativeCdpSession.browser.cdpEndpoint, "http://127.0.0.1:48123");
+assert.equal(fs.existsSync(nativeCdpLockPath), true);
+await nativeCdpSession.close();
+assert.equal(nativeCdpBrowserCloseCalls, 1);
+assert.equal(fs.existsSync(nativeCdpLockPath), false);
+
+const nativeFailureLockPath = path.join(
+  os.tmpdir(),
+  `smokingpipes-native-cdp-failure-${process.pid}-${Date.now()}.lock`
+);
+await assert.rejects(
+  launchSmokingpipesContext({
+    root: launchLocalAppData,
+    browserProfile: "sp-chrome-v2",
+    localAppData: launchLocalAppData,
+    platform: "win32",
+    profileLockPath: nativeFailureLockPath,
+    nativeChrome: {
+      chromeExecutablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      spawn() { throw new Error("native chrome spawn failed"); },
+    },
+  }),
+  (error) => error?.code === "BROWSER_NATIVE_CDP_FAILED"
+);
+assert.equal(fs.existsSync(nativeFailureLockPath), false);
+
+const nativeTimeoutLockPath = path.join(
+  os.tmpdir(),
+  `smokingpipes-native-cdp-timeout-${process.pid}-${Date.now()}.lock`
+);
+await assert.rejects(
+  launchSmokingpipesContext({
+    root: launchLocalAppData,
+    browserProfile: "sp-chrome-v2",
+    localAppData: launchLocalAppData,
+    platform: "win32",
+    profileLockPath: nativeTimeoutLockPath,
+    nativeChrome: {
+      chromeExecutablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      cdpPort: 48124,
+      spawn() { return { pid: 4243, exitCode: 0, killed: false, once() {}, kill() {} }; },
+      async waitForCdp() { throw new Error("CDP endpoint timed out"); },
+    },
+  }),
+  (error) => error?.code === "BROWSER_NATIVE_CDP_FAILED"
+);
+assert.equal(fs.existsSync(nativeTimeoutLockPath), false);
+
 let recoveryClock = 0;
 let recoveryDetectionCalls = 0;
 const recoveryPage = {

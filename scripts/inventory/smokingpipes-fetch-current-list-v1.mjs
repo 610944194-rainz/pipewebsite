@@ -1074,7 +1074,8 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
     ? "false"
     : process.env.SMOKINGPIPES_HEADLESS || "true";
 
-  const browserSession = await launchSmokingpipesContext({
+  const ownsBrowserSession = !options.browserSession;
+  const browserSession = options.browserSession || await launchSmokingpipesContext({
     root: options.root,
     browserChannel: options.browserChannel,
     browserProfile: options.browserProfile,
@@ -1543,7 +1544,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
       }
     }
   } finally {
-    await browserSession.close();
+    if (ownsBrowserSession) await browserSession.close();
   }
 
   const detectedTotalPagesForSummary = detectedTotalPages || null;

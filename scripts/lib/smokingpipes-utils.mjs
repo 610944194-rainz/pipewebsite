@@ -1,4 +1,7 @@
+import { spawn } from "node:child_process";
 import fs from "node:fs";
+import http from "node:http";
+import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
@@ -9,6 +12,7 @@ import {
   buildSmokingpipesBrowserDescriptor,
   classifyBrowserProfileLaunchError,
   releaseBrowserProfileLock,
+  SP_CHROME_V2_PROFILE_NAME,
 } from "./smokingpipes-browser-profile-v1.mjs";
 
 export const SOURCE_SITE = "Smokingpipes";
@@ -860,6 +864,185 @@ export function resolveSmokingpipesBrowserLaunch(
   };
 }
 
+function sleepForNativeChrome(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function reserveLoopbackPort() {
+  const server = net.createServer();
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", resolve);
+  });
+  try {
+    const address = server.address();
+    if (!address || typeof address === "string" || !Number.isInteger(address.port)) {
+      throw new Error("could not reserve a loopback CDP port");
+    }
+    return address.port;
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+}
+
+function readCdpVersion(endpoint) {
+  return new Promise((resolve, reject) => {
+    const request = http.get(`${endpoint}/json/version`, {
+      timeout: 1500,
+      headers: { Accept: "application/json" },
+    }, (response) => {
+      let body = "";
+      response.setEncoding("utf8");
+      response.on("data", (chunk) => { body += chunk; });
+      response.on("end", () => {
+        if (response.statusCode !== 200) {
+          reject(new Error(`CDP endpoint returned HTTP ${response.statusCode}`));
+          return;
+        }
+        try {
+          resolve(JSON.parse(body));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    request.once("timeout", () => request.destroy(new Error("CDP endpoint timed out")));
+    request.once("error", reject);
+  });
+}
+
+async function waitForNativeChromeCdp(endpoint, options = {}) {
+  const timeoutMs = Math.max(1000, Number(options.timeoutMs) || 15000);
+  const pollMs = Math.max(25, Number(options.pollMs) || 200);
+  const nowMs = typeof options.nowMs === "function" ? options.nowMs : Date.now;
+  const sleep = typeof options.sleep === "function" ? options.sleep : sleepForNativeChrome;
+  const startedAt = nowMs();
+  let lastError = null;
+  while (nowMs() - startedAt < timeoutMs) {
+    try {
+      const version = await readCdpVersion(endpoint);
+      if (version?.webSocketDebuggerUrl) return version;
+      lastError = new Error("CDP endpoint did not return webSocketDebuggerUrl");
+    } catch (error) {
+      lastError = error;
+    }
+    await sleep(pollMs);
+  }
+  throw Object.assign(
+    new Error(`Native Chrome CDP endpoint was unavailable: ${endpoint}; ${lastError?.message || "timed out"}`),
+    { code: "BROWSER_NATIVE_CDP_FAILED", endpoint, cause: lastError }
+  );
+}
+
+function nativeChromeExecutablePath(options = {}) {
+  if (options.chromeExecutablePath) return String(options.chromeExecutablePath);
+  if ((options.platform || process.platform) === "win32") {
+    return "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+  }
+  throw new Error("Native Chrome CDP is supported only on Windows for Smokingpipes V2");
+}
+
+function nativeChromeFailure(error, endpoint = null) {
+  if (error?.code === "BROWSER_NATIVE_CDP_FAILED") return error;
+  return Object.assign(
+    new Error(`Native Chrome CDP session failed: ${error instanceof Error ? error.message : String(error)}`),
+    { code: "BROWSER_NATIVE_CDP_FAILED", endpoint, cause: error }
+  );
+}
+
+async function closeDedicatedNativeChrome(chromeProcess) {
+  if (!chromeProcess || chromeProcess.exitCode !== null || chromeProcess.killed) return;
+  await new Promise((resolve) => {
+    const timeout = setTimeout(resolve, 5000);
+    chromeProcess.once?.("exit", () => {
+      clearTimeout(timeout);
+      resolve();
+    });
+  });
+  if (chromeProcess.exitCode === null && !chromeProcess.killed) {
+    chromeProcess.kill?.();
+  }
+}
+
+async function launchNativeChromeCdpSession({
+  browserDescriptor,
+  userDataDir,
+  options,
+  profileLock,
+  userDataDirCreated,
+}) {
+  const native = options.nativeChrome || {};
+  const cdpPort = Number.isInteger(native.cdpPort)
+    ? native.cdpPort
+    : await (native.reservePort || reserveLoopbackPort)();
+  const endpoint = `http://127.0.0.1:${cdpPort}`;
+  const executablePath = nativeChromeExecutablePath({
+    chromeExecutablePath: native.chromeExecutablePath || options.chromeExecutablePath,
+    platform: options.platform,
+  });
+  const spawnChrome = native.spawn || spawn;
+  const connectOverCDP = native.connectOverCDP || chromium.connectOverCDP.bind(chromium);
+  const waitForCdp = native.waitForCdp || waitForNativeChromeCdp;
+  const chromeArgs = [
+    "--remote-debugging-address=127.0.0.1",
+    `--remote-debugging-port=${cdpPort}`,
+    `--user-data-dir=${userDataDir}`,
+  ];
+  let chromeProcess = null;
+  let browser = null;
+  try {
+    if (!native.spawn && !fs.existsSync(executablePath)) {
+      throw new Error(`system chrome.exe is missing: ${executablePath}`);
+    }
+    console.log(`Launching native Chrome for Smokingpipes V2: endpoint=${endpoint}; profile=${userDataDir}`);
+    chromeProcess = spawnChrome(executablePath, chromeArgs, {
+      windowsHide: false,
+      stdio: "ignore",
+    });
+    await waitForCdp(endpoint, {
+      timeoutMs: native.cdpTimeoutMs,
+      pollMs: native.cdpPollMs,
+      nowMs: native.nowMs,
+      sleep: native.sleep,
+    });
+    browser = await connectOverCDP(endpoint);
+    const context = browser.contexts()[0];
+    if (!context) throw new Error("Native Chrome CDP session has no default browser context");
+    let closed = false;
+    return {
+      context,
+      browser: {
+        ...browserDescriptor,
+        effectiveBrowserChannel: "chrome",
+        userDataDirCreated,
+        executablePath,
+        profileLockPath: profileLock?.lockPath || null,
+        staleProfileLockRecovered: profileLock?.staleLockRecovered || false,
+        nativeChrome: true,
+        cdpEndpoint: endpoint,
+        chromePid: Number(chromeProcess?.pid) || null,
+      },
+      profileLock,
+      async close() {
+        if (closed) return;
+        closed = true;
+        try {
+          // For a CDP attachment this closes the dedicated, caller-owned
+          // Chrome window; it never targets a user daily-browser process.
+          await browser.close().catch(() => {});
+          await closeDedicatedNativeChrome(chromeProcess);
+        } finally {
+          if (profileLock) releaseBrowserProfileLock(profileLock);
+        }
+      },
+    };
+  } catch (error) {
+    await browser?.close?.().catch(() => {});
+    await closeDedicatedNativeChrome(chromeProcess);
+    throw nativeChromeFailure(error, endpoint);
+  }
+}
+
 export async function launchSmokingpipesContext(options = {}) {
   const launchRoot = options.root || rootDir;
   const browserDescriptor = buildSmokingpipesBrowserDescriptor({
@@ -875,6 +1058,8 @@ export async function launchSmokingpipesContext(options = {}) {
   const userDataDir = browserDescriptor.profileDir;
   const userDataDirCreated = !fs.existsSync(userDataDir);
   fs.mkdirSync(userDataDir, { recursive: true });
+  const useNativeChromeCdp =
+    browserDescriptor.requestedBrowserProfile === SP_CHROME_V2_PROFILE_NAME;
 
   const baseOptions = {
     headless: browserDescriptor.headless,
@@ -922,6 +1107,27 @@ export async function launchSmokingpipesContext(options = {}) {
         options.profileLockOptions
       );
     }
+
+    // ===== BEGIN PROTECTED OPTIMIZATION: Smokingpipes Native Chrome CDP session =====
+    // V2 is intentionally attached to a normal, headful system Chrome through
+    // localhost CDP. Do not restore launchPersistentContext for this profile
+    // without explicit user authorization: real V2 verification proved that
+    // the Playwright-launched browser identity triggers strong verification.
+    if (useNativeChromeCdp) {
+      try {
+        return await launchNativeChromeCdpSession({
+          browserDescriptor,
+          userDataDir,
+          options,
+          profileLock,
+          userDataDirCreated,
+        });
+      } catch (error) {
+        lastError = error;
+        throw error;
+      }
+    }
+    // ===== END PROTECTED OPTIMIZATION =====
 
     for (const channel of channelCandidates) {
       try {

@@ -19,6 +19,7 @@ async function main() {
   const collector = await read("scripts/inventory/smokingpipes-collect-only-v2.mjs");
   const diff = await read("scripts/inventory/smokingpipes-diff-inventory-v1.mjs");
   const validator = await read("scripts/validate-public-product-indexes-v1.mjs");
+  const browserUtils = await read("scripts/lib/smokingpipes-utils.mjs");
 
   assert.match(entrypoint, /smokingpipes-auto-publish-v2\.mjs/);
   assert.match(entrypoint, /--state-root=/);
@@ -33,6 +34,8 @@ async function main() {
   assert.match(entrypoint, /\[ValidateRange\(1, 50\)\]/);
   assert.match(entrypoint, /ProgressiveDetailMax = 50/);
   assert.match(entrypoint, /--notify=true/);
+  assert.match(entrypoint, /System\.Management\.Automation\.ErrorRecord/);
+  assert.match(entrypoint, /Write-Output \(\[string\]\$_.Exception\.Message\)/);
   assert.doesNotMatch(entrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(entrypoint, /progressive-partial-apply/);
   assert.doesNotMatch(entrypoint, /smokingpipes-products\.json/);
@@ -96,6 +99,13 @@ async function main() {
   assert.match(collector, /deadlineAtMs: deadline\?\.deadlineAtMs/);
   assert.match(diff, /allowLegacyDuplicateSnapshotOverride = true/);
   assert.match(validator, /--structural-only=true/);
+  assert.match(browserUtils, /Smokingpipes Native Chrome CDP session/);
+  assert.match(browserUtils, /chromium\.connectOverCDP/);
+  assert.match(browserUtils, /--remote-debugging-address=127\.0\.0\.1/);
+  assert.match(browserUtils, /SP_CHROME_V2_PROFILE_NAME/);
+  assert.match(browserUtils, /BROWSER_NATIVE_CDP_FAILED/);
+  assert.match(collector, /sharedBrowserSession/);
+  assert.doesNotMatch(collector, /launchPersistentContext/);
 
   console.log("Smokingpipes auto-publish V2 policy tests passed");
 }
