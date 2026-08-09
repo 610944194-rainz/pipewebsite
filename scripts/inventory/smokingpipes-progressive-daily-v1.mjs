@@ -8,6 +8,9 @@ import {
   classifySmokingpipesBrandExclusion,
   isSmokingpipesExcludedBrand,
 } from "../lib/smokingpipes-brand-exclusions-v1.mjs";
+import {
+  isExplicitSmokingpipesOutOfStock,
+} from "./smokingpipes-diff-inventory-v1.mjs";
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -41,26 +44,13 @@ function isSold(product) {
   );
 }
 
-function isExplicitOutOfStock(item) {
-  const rawListStatus = text(item?.rawListStatus);
-  const rawText = text(item?.rawText);
-  return (
-    /\b(?:out[\s-]+of[\s-]+stock|sold(?:[\s-]+out)?|unavailable)\b/i.test(
-      rawListStatus
-    ) ||
-    /\b(?:out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable)\b/i.test(
-      rawText
-    )
-  );
-}
-
 export function classifySmokingpipesListNotPublic({
   item,
   firstOutOfStockOnlyPage = null,
 } = {}) {
   const missingPrice =
     item?.missingPrice === true || !numericPrice(item?.price);
-  const explicitOutOfStock = isExplicitOutOfStock(item);
+  const explicitOutOfStock = isExplicitSmokingpipesOutOfStock(item);
   const listPage = Number(item?.listPage);
   const tailStartPage = Number(firstOutOfStockOnlyPage);
   const inOutOfStockTail =
@@ -479,7 +469,7 @@ function makeCandidate({
     listNotPublicReason: listNotPublicExcluded
       ? listNotPublic.reason
       : null,
-    inventoryStatus: isExplicitOutOfStock(current)
+    inventoryStatus: isExplicitSmokingpipesOutOfStock(current)
       ? "sold"
       : "available",
     discoveredAt: now,
@@ -595,13 +585,14 @@ export function ingestProgressiveListSnapshot({
         changeTypes.push("price-change");
       }
       if (
-        isExplicitOutOfStock(current) &&
+        isExplicitSmokingpipesOutOfStock(current) &&
         !isSold(production)
       ) {
         changeTypes.push("explicit-out-of-stock");
       }
       if (
-        isSold(production) &&
+        text(production.inventoryStatus).toLowerCase() === "sold" &&
+        !isExplicitSmokingpipesOutOfStock(current) &&
         (!authoritativeReappearedIds ||
           authoritativeReappearedIds.has(id))
       ) {
@@ -648,7 +639,7 @@ export function ingestProgressiveListSnapshot({
       existing.listOutOfStockTail =
         listNotPublic.inOutOfStockTail;
       existing.inventoryStatus =
-        isExplicitOutOfStock(current)
+        isExplicitSmokingpipesOutOfStock(current)
           ? "sold"
           : "available";
       existing.lastSeenRunId = runId;

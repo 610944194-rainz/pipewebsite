@@ -45,6 +45,19 @@ function productId(item) {
   return sourceUrl.match(/[?&]product_id=(\d+)/i)?.[1] || "";
 }
 
+export function isExplicitSmokingpipesOutOfStock(item) {
+  const rawListStatus = normalizeText(item?.rawListStatus);
+  const rawText = normalizeText(item?.rawText);
+  return (
+    /\b(?:out[\s-]+of[\s-]+stock|sold(?:[\s-]+out)?|unavailable)\b/i.test(
+      rawListStatus
+    ) ||
+    /\b(?:out[\s-]+of[\s-]+stock|sold[\s-]+out|unavailable)\b/i.test(
+      rawText
+    )
+  );
+}
+
 function currentSuspiciousRecords(products) {
   const records = [];
   const duplicateIds = new Set(
@@ -312,7 +325,11 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     ? sortIds([...existingSoldIds].filter((id) => !currentIds.has(id)))
     : [];
   const reappearedIds = sortIds(
-    [...existingSoldIds].filter((id) => currentIds.has(id))
+    [...existingSoldIds].filter(
+      (id) =>
+        currentIds.has(id) &&
+        !isExplicitSmokingpipesOutOfStock(currentById.get(id))
+    )
   );
   const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
   const { allowLegacyDuplicateSnapshotOverride = true } = options;

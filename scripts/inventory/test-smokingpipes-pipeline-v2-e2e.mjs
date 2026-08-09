@@ -46,6 +46,9 @@ import {
   buildInventoryDiff,
 } from "./smokingpipes-diff-inventory-v1.mjs";
 import {
+  ingestProgressiveListSnapshot,
+} from "./smokingpipes-progressive-daily-v1.mjs";
+import {
   SP_CHROME_V2_PROFILE_NAME,
   buildSmokingpipesBrowserDescriptor,
 } from "../lib/smokingpipes-browser-profile-v1.mjs";
@@ -482,6 +485,84 @@ async function main() {
       null
     );
 
+    const oosRegressionId = "oos-regression";
+    const availableOosItem = listItem(oosRegressionId);
+    const explicitOosItem = {
+      ...availableOosItem,
+      rawListStatus: "SOLD OUT",
+      rawText: "SOLD OUT",
+    };
+    const soldProduction = {
+      ...structuredClone(template),
+      id: `smokingpipes-${oosRegressionId}`,
+      sourceProductId: oosRegressionId,
+      sourceUrl: availableOosItem.sourceUrl,
+      inventoryStatus: "sold",
+    };
+    const availableProduction = {
+      ...soldProduction,
+      inventoryStatus: "available",
+    };
+    const oosSummary = {
+      expectedPages: 1,
+      pagesScanned: 1,
+      fullExpectedRangeScanned: true,
+      captchaDetected: false,
+      verificationDetected: false,
+    };
+    const availableReappearedDiff = buildInventoryDiff(
+      { products: [availableOosItem], summary: oosSummary },
+      { products: [soldProduction] }
+    );
+    assert.deepEqual(availableReappearedDiff.reappearedIds, [oosRegressionId]);
+    const explicitOosDiff = buildInventoryDiff(
+      { products: [explicitOosItem], summary: oosSummary },
+      { products: [soldProduction] }
+    );
+    assert.deepEqual(explicitOosDiff.reappearedIds, []);
+    const reappearedState = ingestProgressiveListSnapshot({
+      state: createProgressiveDailyState({
+        dailyRunId: "oos-reappeared-available",
+        expectedPages: 1,
+        now: "2030-01-01T00:00:00.000Z",
+      }),
+      currentPayload: { products: [availableOosItem], summary: oosSummary },
+      diffPayload: availableReappearedDiff,
+      productionProducts: [soldProduction],
+      runId: "oos-reappeared-available",
+      now: "2030-01-01T00:00:00.000Z",
+    });
+    assert.ok(reappearedState.candidates[0].changeTypes.includes("reappeared"));
+    const firstExplicitOosState = ingestProgressiveListSnapshot({
+      state: createProgressiveDailyState({
+        dailyRunId: "oos-explicit-first",
+        expectedPages: 1,
+        now: "2030-01-01T00:00:00.000Z",
+      }),
+      currentPayload: { products: [explicitOosItem], summary: oosSummary },
+      diffPayload: buildInventoryDiff(
+        { products: [explicitOosItem], summary: oosSummary },
+        { products: [availableProduction] }
+      ),
+      productionProducts: [availableProduction],
+      runId: "oos-explicit-first",
+      now: "2030-01-01T00:00:00.000Z",
+    });
+    assert.ok(firstExplicitOosState.candidates[0].changeTypes.includes("explicit-out-of-stock"));
+    assert.equal(firstExplicitOosState.candidates[0].changeTypes.includes("reappeared"), false);
+    assert.equal(firstExplicitOosState.candidates[0].inventoryStatus, "sold");
+    const secondExplicitOosState = ingestProgressiveListSnapshot({
+      state: firstExplicitOosState,
+      currentPayload: { products: [explicitOosItem], summary: oosSummary },
+      diffPayload: explicitOosDiff,
+      productionProducts: [soldProduction],
+      runId: "oos-explicit-second",
+      now: "2030-01-01T01:00:00.000Z",
+    });
+    assert.ok(secondExplicitOosState.candidates[0].changeTypes.includes("explicit-out-of-stock"));
+    assert.equal(secondExplicitOosState.candidates[0].changeTypes.includes("reappeared"), false);
+    assert.equal(secondExplicitOosState.candidates[0].inventoryStatus, "sold");
+
     const cappedWithoutEndSnapshot = trustedSnapshot([listItem("capped-without-end")], {
       config: { maxPages: 200, requestedMaxPages: 200 },
       summary: {
@@ -908,6 +989,7 @@ async function main() {
       pendingDetailIds: [],
     };
     await writeCycle(stateRoot, publisherNoChangeCycle);
+    let noChangeNotificationCalls = 0;
     const publisherNoChange = await runSmokingpipesAutoPublishV2({
       stateRoot,
       runtimeRoot,
@@ -926,10 +1008,16 @@ async function main() {
         cycle: await readCycle(stateRoot, publisherNoChangeId),
       }),
       publisher: async () => ({ status: "no-change", bundleId: "publisher-no-change-bundle", publishedCount: 0 }),
+      notificationsEnabled: true,
+      notifier: async () => {
+        noChangeNotificationCalls += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
     });
     assert.equal(publisherNoChange.status, "no-change");
     assert.equal(publisherNoChange.cycle.phase, "done");
     assert.equal(publisherNoChange.publishedCount, 0);
+    assert.equal(noChangeNotificationCalls, 1);
     assert.equal(parseSmokingpipesPublisherResult(
       "SMOKINGPIPES_PUBLISHER_RESULT_JSON={\"status\":\"no-change\",\"bundleId\":\"fixture\"}"
     ).status, "no-change");
@@ -1145,6 +1233,70 @@ async function main() {
     assert.equal(notificationFailure.status, "manual-review-required");
     assert.equal(notificationFailure.notificationFailed, true);
     assert.match(notificationFailure.notificationReason, /fixture PushDeer failure/);
+    const sameDayNotificationStateRoot = path.join(temporaryRoot, "same-day-notification-state");
+    const sameDayNotificationCycle = createCycle({ cycleId: "2030-01-12" });
+    await writeCycle(sameDayNotificationStateRoot, sameDayNotificationCycle);
+    let sameDayNotificationCalls = 0;
+    const sameDayNotification = await runSmokingpipesAutoPublishV2({
+      stateRoot: sameDayNotificationStateRoot,
+      runtimeRoot,
+      cycleId: sameDayNotificationCycle.cycleId,
+      skipSync: true,
+      notificationsEnabled: true,
+      collector: async () => ({
+        status: "same-day-complete",
+        cycle: await readCycle(sameDayNotificationStateRoot, sameDayNotificationCycle.cycleId),
+        networkAccessed: false,
+      }),
+      notifier: async () => {
+        sameDayNotificationCalls += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
+    });
+    assert.equal(sameDayNotification.status, "same-day-complete");
+    assert.equal(sameDayNotificationCalls, 0);
+    const publishedNotificationStateRoot = path.join(temporaryRoot, "published-notification-state");
+    const publishedNotificationCycle = createCycle({ cycleId: "2030-01-13" });
+    publishedNotificationCycle.phase = "ready";
+    publishedNotificationCycle.collection = {
+      ...publishedNotificationCycle.collection,
+      observedCandidateCount: 1,
+      completedDetailIds: ["900000"],
+      pendingDetailIds: [],
+    };
+    await writeCycle(publishedNotificationStateRoot, publishedNotificationCycle);
+    let publishedNotificationCalls = 0;
+    const publishedNotification = await runSmokingpipesAutoPublishV2({
+      stateRoot: publishedNotificationStateRoot,
+      runtimeRoot,
+      cycleId: publishedNotificationCycle.cycleId,
+      skipSync: true,
+      notificationsEnabled: true,
+      collector: async () => ({
+        status: "ready-to-bundle",
+        cycle: await readCycle(publishedNotificationStateRoot, publishedNotificationCycle.cycleId),
+        networkAccessed: false,
+      }),
+      bundleBuilder: async () => ({
+        status: "bundle-ready",
+        bundleId: "published-notification-bundle",
+        bundleRoot: path.join(temporaryRoot, "published-notification-bundle"),
+        manifest: { actualAppliedCount: 1 },
+        cycle: await readCycle(publishedNotificationStateRoot, publishedNotificationCycle.cycleId),
+      }),
+      publisher: async () => ({
+        status: "published",
+        bundleId: "published-notification-bundle",
+        commitSha: "fixture-published-commit",
+        publishedCount: 1,
+      }),
+      notifier: async () => {
+        publishedNotificationCalls += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
+    });
+    assert.equal(publishedNotification.status, "published");
+    assert.equal(publishedNotificationCalls, 1);
     const detailMessage = buildSmokingpipesV2Notification({
       status: "enriching-details",
       cycleId: notificationCycle.cycleId,

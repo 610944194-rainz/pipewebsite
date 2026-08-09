@@ -298,7 +298,12 @@ export async function runSmokingpipesAutoPublishV2({
   if (!lock.acquired) return { status: lock.status, lock, networkAccessed: false };
   let notificationAttempted = false;
   const finalize = async (result) => {
-    if (!notificationsEnabled || preflightOnly || notificationAttempted) return result;
+    if (
+      !notificationsEnabled ||
+      preflightOnly ||
+      notificationAttempted ||
+      result?.status === "same-day-complete"
+    ) return result;
     notificationAttempted = true;
     try {
       const message = buildSmokingpipesV2Notification(result);
