@@ -24,6 +24,25 @@ function Assert-TrackedRuntimeClean {
   if ($dirty) { throw "runtime tracked worktree is not clean: $dirty" }
 }
 
+function Sync-FormalMainRuntime {
+  $branch = Invoke-Git -Arguments @("branch", "--show-current")
+  if ($branch -ne "main") {
+    throw "GQ scheduled runtime must run from the formal main worktree; actual branch=$branch"
+  }
+
+  Invoke-Git -Arguments @("fetch", "origin") | Out-Null
+  $head = Invoke-Git -Arguments @("rev-parse", "HEAD")
+  $originMain = Invoke-Git -Arguments @("rev-parse", "origin/main")
+  if ($head -eq $originMain) { return }
+
+  & git -C $RuntimeRoot merge-base --is-ancestor HEAD origin/main 2>$null
+  if ($LASTEXITCODE -ne 0) {
+    throw "formal main runtime is ahead of or diverged from origin/main; automatic GQ sync is blocked"
+  }
+  Invoke-Git -Arguments @("merge", "--ff-only", "origin/main") | Out-Null
+  Assert-TrackedRuntimeClean
+}
+
 if (-not (Test-Path -LiteralPath $Runner -PathType Leaf)) {
   throw "GQ runner is missing: $Runner"
 }
@@ -42,6 +61,7 @@ if ($ApplyProduction -and ($NoProductionWrite -or $PreflightOnly)) {
 # The Node runner acquires data/inventory/state/smokingpipes.lock, the existing
 # shared inventory owner lock, before touching source or generated data.
 Assert-TrackedRuntimeClean
+Sync-FormalMainRuntime
 $node = Get-Command node -CommandType Application -ErrorAction Stop
 $arguments = @($Runner, "--live")
 if ($ApplyProduction) {
