@@ -15,12 +15,13 @@ import {
   writeJsonAtomic,
 } from "./inventory-common-v1.mjs";
 
-const SAFETY_THRESHOLDS = {
+export const INVENTORY_SAFETY_THRESHOLDS = Object.freeze({
   minimumCurrentVsHistoricalAvailableRatio: 0.5,
   maximumDisappearedVsHistoricalAvailableRatio: 0.35,
   maximumNewVsExistingRatio: 0.25,
   maximumSuspiciousRatio: 0.05,
-};
+});
+const SAFETY_THRESHOLDS = INVENTORY_SAFETY_THRESHOLDS;
 
 export const LEGACY_DUPLICATE_SNAPSHOT_CONTRACT = Object.freeze({
   snapshotSha256:
@@ -58,7 +59,36 @@ export function isExplicitSmokingpipesOutOfStock(item) {
   );
 }
 
-function currentSuspiciousRecords(products) {
+function validCurrentPrice(item, allowedCurrencies) {
+  const amount = Number(
+    item?.priceAmount ?? item?.sourcePriceAmount ?? item?.price?.current?.amount
+  );
+  const currency = normalizeText(
+    item?.currency ??
+      item?.sourcePriceCurrency ??
+      item?.priceCurrency ??
+      item?.price?.current?.currency
+  ).toUpperCase();
+  if (Number.isFinite(amount) && amount > 0 && allowedCurrencies.has(currency)) {
+    return true;
+  }
+
+  const raw = normalizeText(item?.price ?? item?.priceRaw ?? item?.price?.current?.rawText);
+  const supportedMarkers = [...allowedCurrencies].map((code) =>
+    code === "USD" ? "(?:USD|\\$)" : code === "GBP" ? "(?:GBP|\\u00a3)" : code
+  );
+  return new RegExp(
+    `(?:${supportedMarkers.join("|")})\\s*[\\d,]+(?:\\.\\d{1,2})?`,
+    "i"
+  ).test(raw);
+}
+
+function currentSuspiciousRecords(products, options = {}) {
+  const allowedCurrencies = new Set(
+    (options.allowedCurrencies || ["USD"])
+      .map((value) => normalizeText(value).toUpperCase())
+      .filter(Boolean)
+  );
   const records = [];
   const duplicateIds = new Set(
     duplicateValues(products.map((item) => productId(item)))
@@ -82,8 +112,17 @@ function currentSuspiciousRecords(products) {
     }
     if (!normalizeText(item.title || item.rawTitle)) reasons.push("missing-title");
 
-    const price = normalizeText(item.price);
-    if (price && !/\$\s*[\d,]+(?:\.\d{1,2})?/.test(price)) {
+    const hasPrice = Boolean(
+      normalizeText(item?.price ?? item?.priceRaw ?? item?.price?.current?.rawText) ||
+        Number.isFinite(
+          Number(
+            item?.priceAmount ??
+              item?.sourcePriceAmount ??
+              item?.price?.current?.amount
+          )
+        )
+    );
+    if (hasPrice && !validCurrentPrice(item, allowedCurrencies)) {
       reasons.push("unrecognized-price");
     }
 
@@ -283,6 +322,7 @@ export async function updateLegacyDuplicateOverrideAudit({
 }
 
 export function buildInventoryDiff(currentPayload, existingPayload, options = {}) {
+  const source = normalizeText(options.source || currentPayload?.source || "smokingpipes");
   const currentProducts = arrayFromPayload(currentPayload, ["products"]);
   const existingProducts = arrayFromPayload(existingPayload, ["products"]);
   const currentById = new Map(
@@ -332,7 +372,9 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     )
   );
   const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
-  const { allowLegacyDuplicateSnapshotOverride = true } = options;
+  const {
+    allowLegacyDuplicateSnapshotOverride = source === "smokingpipes",
+  } = options;
   const legacyDuplicateOverride =
     allowLegacyDuplicateSnapshotOverride &&
     duplicateStats.classificationAvailable === false &&
@@ -343,7 +385,9 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
           authorizedSnapshotSha256: options.legacyDuplicateSnapshotSha256,
         })
       : null;
-  const suspiciousRecords = currentSuspiciousRecords(currentProducts);
+  const suspiciousRecords = currentSuspiciousRecords(currentProducts, {
+    allowedCurrencies: options.allowedCurrencies,
+  });
   const baseSuspiciousRecords = [...suspiciousRecords];
   const failedPages = currentPayload?.summary?.failedPages || [];
   const pagesScanned = Number(currentPayload?.summary?.pagesScanned || 0);
@@ -362,6 +406,10 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     expectedPages > 0 &&
     failedPages.length === 0 &&
     effectiveScannedPages >= expectedPages;
+  const emptyHistoricalBaseline =
+    options.allowEmptyHistoricalBaseline === true &&
+    existingIds.size === 0 &&
+    existingAvailableIds.size === 0;
   const currentVsHistoricalRatio = ratio(
     currentIds.size,
     existingAvailableIds.size
@@ -374,12 +422,15 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
   const captchaDetected =
     currentPayload?.summary?.captchaDetected === true ||
     (currentPayload?.summary?.captchaPages || []).length > 0;
+  const currentVsHistoricalSafetyFailed =
+    !emptyHistoricalBaseline &&
+    currentVsHistoricalRatio <
+      SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio;
   const otherSafetyFatal =
     captchaDetected ||
     !fullExpectedRangeScanned ||
     !soldByAbsenceAllowed ||
-    currentVsHistoricalRatio <
-      SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio ||
+    currentVsHistoricalSafetyFailed ||
     disappearedRatio >
       SAFETY_THRESHOLDS.maximumDisappearedVsHistoricalAvailableRatio ||
     newRatio > SAFETY_THRESHOLDS.maximumNewVsExistingRatio ||
@@ -444,8 +495,7 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     );
   }
   if (
-    currentVsHistoricalRatio <
-    SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio
+    currentVsHistoricalSafetyFailed
   ) {
     fatalWarnings.push(
       `Current list is ${(currentVsHistoricalRatio * 100).toFixed(
@@ -453,6 +503,11 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
       )}% of historical available inventory; minimum is ${
         SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio * 100
       }%.`
+    );
+  }
+  if (emptyHistoricalBaseline) {
+    warnings.push(
+      "Empty historical baseline accepted for this source's first complete, non-suspicious dry-run."
     );
   }
   if (
@@ -520,13 +575,13 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
   }
 
   return {
-    version: "smokingpipes-inventory-diff-dry-run-v1",
+    version: `${source}-inventory-diff-dry-run-v1`,
     generatedAt: new Date().toISOString(),
-    source: "smokingpipes",
+    source,
     mode: "dry-run",
-    inputs: {
-      currentList: "data/inventory/smokingpipes-current-list-dry-run.json",
-      existingProducts: "data/products/smokingpipes-products.json",
+    inputs: options.inputs || {
+      currentList: `data/inventory/${source}-current-list-dry-run.json`,
+      existingProducts: `data/products/${source}-products.json`,
     },
     thresholds: SAFETY_THRESHOLDS,
     coverage: {
@@ -544,7 +599,10 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
       disappearedApplyAllowed: soldByAbsenceAllowed,
       captchaDetected,
       captchaPages: currentPayload?.summary?.captchaPages || [],
-      currentVsHistoricalAvailableRatio: currentVsHistoricalRatio,
+      currentVsHistoricalAvailableRatio: emptyHistoricalBaseline
+        ? null
+        : currentVsHistoricalRatio,
+      emptyHistoricalBaseline,
     },
     counts: {
       currentAvailable: currentIds.size,

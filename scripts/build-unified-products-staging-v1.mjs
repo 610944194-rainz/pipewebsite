@@ -11,6 +11,12 @@ const SMOKINGPIPES_INPUT = path.join(
   "products",
   "smokingpipes-products.json"
 );
+const GQTOBACCOS_INPUT = path.join(
+  ROOT,
+  "data",
+  "products",
+  "gqtobaccos-products.json"
+);
 const BRAND_TAXONOMY_INPUT = path.join(
   ROOT,
   "data",
@@ -693,6 +699,18 @@ function getSmokingpipesMeasurements(product) {
   };
 }
 
+function getGqTobaccosMeasurements(product) {
+  const measurements = product.measurements || {};
+  return {
+    lengthMm: numberOrNull(measurements.lengthMm),
+    heightMm: numberOrNull(measurements.heightMm),
+    weightGrams: numberOrNull(measurements.weightGrams),
+    chamberDepthMm: numberOrNull(measurements.chamberDepthMm),
+    chamberDiameterMm: numberOrNull(measurements.chamberDiameterMm),
+    outsideDiameterMm: numberOrNull(measurements.outsideDiameterMm),
+  };
+}
+
 function makeSearch({ brand, title, keywords }) {
   return {
     brand: text(brand),
@@ -966,8 +984,136 @@ function mapSmokingpipesProduct(product) {
   };
 }
 
+function mapGqTobaccosInventory(product) {
+  const status = text(product.inventoryStatus).toLowerCase();
+  const eligible = product.publicIndexEligible === true;
+  const complete = product.detailComplete === true;
+  if (status === "available" && eligible && complete) {
+    return {
+      status: "available",
+      confidence: text(product.inventoryConfidence) || "complete-current-list",
+      listingEligible: true,
+      publicIndexEligible: true,
+      publiclySellable: true,
+      reason: text(product.publicEligibility?.reason) || "Current complete GQ list and required detail are present.",
+    };
+  }
+  if (status === "sold") {
+    return {
+      status: "sold",
+      confidence: text(product.inventoryConfidence) || "complete-current-list-disappearance",
+      listingEligible: complete && eligible,
+      publicIndexEligible: complete && eligible,
+      publiclySellable: false,
+      reason: text(product.publicEligibility?.reason) || "GQ product is retained as a sold reference after a complete list disappearance.",
+    };
+  }
+  return {
+    status: status || "unknown",
+    confidence: text(product.inventoryConfidence) || "unknown",
+    listingEligible: false,
+    publicIndexEligible: false,
+    publiclySellable: false,
+    reason: text(product.publicEligibility?.reason) || "GQ product is excluded until its current list and required detail are safe.",
+  };
+}
+
+function mapGqTobaccosProduct(product) {
+  const rawBrand = text(product.brand || product.rawBrand);
+  const sourceUrl = text(product.sourceUrl || product.canonicalUrl);
+  const brand = makeBrand({
+    source: "gqtobaccos",
+    sourceUrl,
+    rawName: rawBrand,
+    canonicalName: text(product.canonicalBrand) || rawBrand,
+    canonicalSlug: product.canonicalBrandSlug,
+    reviewStatus: "confirmed",
+    indexEligible: product.publicIndexEligible === true,
+  });
+  const shape = normalizeClassificationValue({ kind: "shape", value: product.shape });
+  const finish = applyClassificationExclusion("finish", normalizeClassificationValue({ kind: "finish", value: product.finish }));
+  const material = applyClassificationExclusion("bowlMaterial", normalizeClassificationValue({ kind: "bowlMaterial", value: product.material }));
+  const stemMaterial = applyClassificationExclusion("stemMaterial", normalizeClassificationValue({ kind: "stemMaterial", value: product.mouthpiece }));
+  const price = product.price || {};
+  const currentPrice = price.current || {};
+  const msrp = price.msrp || {};
+  const images = normalizeImages(
+    product.mainImageUrl || product.imageUrl || product.listImageUrl,
+    product.detailImages
+  );
+  const adapterWarnings = [];
+  if (!images.main) adapterWarnings.push("image:missing");
+  if (product.publicIndexEligible === true && product.detailComplete !== true) {
+    adapterWarnings.push("detail:missing-required");
+  }
+  if (!brand.indexEligible) adapterWarnings.push("brand:not-index-eligible");
+
+  return {
+    id: text(product.id) || `gqtobaccos-${text(product.sourceProductId)}`,
+    source: "gqtobaccos",
+    sourceProductId: text(product.sourceProductId),
+    sourceUrl,
+    entityType: text(product.entityType) || "offer",
+    displayName: text(product.displayNameZh || product.title || product.rawTitle),
+    displayNameEn: text(product.title || product.rawTitle),
+    displayNameZh: nullableText(product.displayNameZh),
+    rawTitle: text(product.rawTitle || product.title),
+    brand,
+    classification: {
+      shape: shape.name,
+      shapeSlug: shape.slug,
+      shapeZhName: shape.zhName,
+      finish: finish.name,
+      finishSlug: finish.slug,
+      finishZhName: finish.zhName,
+      bowlMaterial: material.name,
+      bowlMaterialSlug: material.slug,
+      bowlMaterialZhName: material.zhName,
+      stemMaterial: stemMaterial.name,
+      stemMaterialSlug: stemMaterial.slug,
+      stemMaterialZhName: stemMaterial.zhName,
+      filter: normalizePublicFilter(product.filter),
+      filterSizeMm: null,
+    },
+    condition: { raw: null, canonical: "unknown" },
+    inventory: mapGqTobaccosInventory(product),
+    price: {
+      currency: nullableText(currentPrice.currency || product.sourcePriceCurrency) || "GBP",
+      amount: numberOrNull(currentPrice.amount || product.sourcePriceGBP),
+      rawText: nullableText(currentPrice.rawText || product.priceRaw),
+      msrpAmount: numberOrNull(msrp.amount),
+      msrpRawText: nullableText(msrp.rawText),
+      internationalShippingAmount: numberOrNull(price.internationalShippingAmount),
+      internationalShippingCurrency: nullableText(price.internationalShippingCurrency),
+      siteDisplayAmount: null,
+      siteDisplayCurrency: null,
+      siteDisplayReady: false,
+    },
+    images,
+    measurements: getGqTobaccosMeasurements(product),
+    model: { canonicalModelKey: null, confidence: null },
+    search: makeSearch({
+      brand: brand.canonicalName,
+      title: product.title || product.rawTitle,
+      keywords: [
+        product.description,
+        product.material,
+        product.shape,
+        product.finish,
+        product.mouthpiece,
+        product.filter,
+      ],
+    }),
+    integration: {
+      legacyPipeCompatible: false,
+      legacyMissingFields: [],
+      adapterWarnings,
+    },
+  };
+}
+
 function sortUnifiedProducts(products) {
-  const sourceRank = { danish: 0, smokingpipes: 1 };
+  const sourceRank = { danish: 0, smokingpipes: 1, gqtobaccos: 2 };
   return [...products].sort((a, b) => {
     const rankDiff = (sourceRank[a.source] ?? 99) - (sourceRank[b.source] ?? 99);
     if (rankDiff) return rankDiff;
@@ -998,10 +1144,12 @@ function assertNoDuplicateIds(products) {
 export function buildUnifiedProductsFromInputs({
   danishProducts,
   smokingpipesProducts,
+  gqtobaccosProducts,
 }) {
   const unifiedProducts = sortUnifiedProducts([
     ...(danishProducts || []).map(mapDanishProduct),
     ...(smokingpipesProducts || []).map(mapSmokingpipesProduct),
+    ...(gqtobaccosProducts || []).map(mapGqTobaccosProduct),
   ]).map(applyPublicationOverride);
   assertNoDuplicateIds(unifiedProducts);
   return unifiedProducts;
@@ -1010,9 +1158,13 @@ export function buildUnifiedProductsFromInputs({
 function main() {
   const danishProducts = readJson(DANISH_INPUT);
   const smokingpipesProducts = readJson(SMOKINGPIPES_INPUT);
+  const gqtobaccosProducts = fs.existsSync(GQTOBACCOS_INPUT)
+    ? readJson(GQTOBACCOS_INPUT)
+    : [];
   const unifiedProducts = buildUnifiedProductsFromInputs({
     danishProducts,
     smokingpipesProducts,
+    gqtobaccosProducts,
   });
 
   const hash = atomicWriteJson(OUTPUT, unifiedProducts);

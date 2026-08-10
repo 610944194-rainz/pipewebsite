@@ -124,11 +124,41 @@ function parseUsdRate(text) {
   return null;
 }
 
+function parseGbpRate(text) {
+  const normalized = normalizeText(text);
+  const pound = "\\u82f1\\u9551";
+  const renminbi = "\\u4eba\\u6c11\\u5e01";
+  const directPatterns = [
+    new RegExp(`1\\s*${pound}\\s*\\u5bf9\\s*${renminbi}\\s*([0-9]+(?:\\.[0-9]+)?)\\s*\\u5143`, "i"),
+    new RegExp(`${pound}\\s*\\/\\s*${renminbi}[^\\d]{0,20}([0-9]+(?:\\.[0-9]+)?)`, "i"),
+    /GBP\s*\/\s*CNY[^\d]{0,20}([0-9]+(?:\.[0-9]+)?)/i,
+  ];
+
+  for (const pattern of directPatterns) {
+    const parsed = Number.parseFloat(normalized.match(pattern)?.[1] || "");
+    if (Number.isFinite(parsed) && parsed > 0) return Number(parsed.toFixed(4));
+  }
+
+  const hundredPatterns = [
+    new RegExp(`100\\s*${pound}[^\\d]{0,20}([0-9]+(?:\\.[0-9]+)?)\\s*${renminbi}`, "i"),
+    /100\s*GBP[^\d]{0,20}([0-9]+(?:\.[0-9]+)?)\s*CNY/i,
+  ];
+
+  for (const pattern of hundredPatterns) {
+    const parsed = Number.parseFloat(normalized.match(pattern)?.[1] || "");
+    if (Number.isFinite(parsed) && parsed > 0) {
+      return Number((parsed / 100).toFixed(4));
+    }
+  }
+
+  return null;
+}
+
 function createExchangeRatesFile({
   effectiveMonth,
   basisDate,
   sourceUrl,
-  usdRate,
+  rates,
 }) {
   return `export const customsExchangeRates = {
   effectiveMonth: "${effectiveMonth}",
@@ -138,7 +168,8 @@ function createExchangeRatesFile({
     "${sourceUrl}",
   updatedAt: "${formatDate(new Date())}",
   rates: {
-    USD: ${usdRate},
+    USD: ${rates.USD},
+    GBP: ${rates.GBP},
   },
 } as const;
 `;
@@ -168,10 +199,13 @@ async function tryUpdateExchangeRates() {
     try {
       console.log(`Trying customs exchange rate notice: ${dateText}`);
       const text = await fetchText(sourceUrl);
-      const usdRate = parseUsdRate(text);
+      const rates = {
+        USD: parseUsdRate(text),
+        GBP: parseGbpRate(text),
+      };
 
-      if (!usdRate) {
-        throw new Error("USD rate was not found in notice text.");
+      if (!rates.USD || !rates.GBP) {
+        throw new Error("USD and GBP rates were not both found in notice text.");
       }
 
       writeExchangeRatesFile(
@@ -179,11 +213,13 @@ async function tryUpdateExchangeRates() {
           effectiveMonth,
           basisDate: dateText,
           sourceUrl,
-          usdRate,
+          rates,
         })
       );
 
-      console.log(`Updated customs exchange rates: USD=${usdRate}`);
+      console.log(
+        `Updated customs exchange rates: USD=${rates.USD}, GBP=${rates.GBP}`
+      );
       return true;
     } catch (error) {
       console.warn(

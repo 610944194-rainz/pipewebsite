@@ -9,6 +9,7 @@ import {
 import {
   REFERENCE_PRICE_COMMON_CONFIG,
   addDomesticShippingCny,
+  calculateReferencePrice,
   calculateSmokingpipesReferencePrice,
 } from "../lib/pricing/reference-price.mjs";
 
@@ -123,9 +124,9 @@ const FIELD_CONTRACT_ROWS = [
   ["price.amount", "sourcePriceAmount", "yes", "yes", "copy positive source amount", "non-finite becomes null", "price ranges are not generated"],
   ["price.currency", "sourcePriceCurrency", "yes", "yes", "copy source currency", "empty becomes null", "not a filter"],
   ["price.msrpAmount", "msrpAmount", "yes", "yes", "copy MSRP amount", "non-finite becomes null", "not a filter"],
-  ["price.siteDisplayAmount", "siteDisplayAmount", "yes", "yes", "copy existing Danish display amount plus shared domestic shipping, then add service fee max(15%, CNY 200); derive Smokingpipes RMB reference from source USD, pricing config, exchange rate, plus shared domestic shipping", "non-finite becomes null", "not a filter"],
-  ["price.siteDisplayCurrency", "siteDisplayCurrency", "yes", "yes", "copy existing Danish display currency; set Smokingpipes to CNY when reference price is valid", "empty becomes null", "not a filter"],
-  ["price.siteDisplayReady", "siteDisplayReady", "yes", "yes", "copy existing Danish readiness; set Smokingpipes true only when reference price is valid", "missing becomes false", "not a filter"],
+  ["price.siteDisplayAmount", "siteDisplayAmount", "yes", "yes", "derive a source reference price only through the shared pricing calculator", "non-finite becomes null", "not a filter"],
+  ["price.siteDisplayCurrency", "siteDisplayCurrency", "yes", "yes", "set CNY only when the shared calculator has valid source price, shipping, and customs FX", "empty becomes null", "not a filter"],
+  ["price.siteDisplayReady", "siteDisplayReady", "yes", "yes", "true only when the shared calculator has a valid reference price", "missing becomes false", "not a filter"],
   ["inventory.status", "inventoryStatus", "yes", "yes", "copy status", "empty becomes null", "inventoryStatus filter includes available and sold"],
   ["inventory.publicIndexEligible", "publicIndexEligible", "yes", "yes", "copy public index eligibility", "missing becomes false", "controls reference visibility"],
   ["inventory.publiclySellable", "publiclySellable", "yes", "yes", "copy current sellability", "missing becomes false", "available-only recommendations and CTA"],
@@ -168,19 +169,20 @@ async function readExchangeRateMetadata(filePath) {
   const source = await fs.readFile(filePath, "utf8");
   const effectiveMonth = source.match(/effectiveMonth:\s*"([^"]+)"/)?.[1] || null;
   const basisDate = source.match(/basisDate:\s*"([^"]+)"/)?.[1] || null;
-  const usdRateText = source.match(/USD:\s*([0-9.]+)/)?.[1] || "";
-  const usdToCny = Number.parseFloat(usdRateText);
+  const rates = Object.fromEntries(
+    [...source.matchAll(/^\s*([A-Z]{3}):\s*([0-9.]+),?\s*$/gm)]
+      .map((match) => [match[1], Number.parseFloat(match[2])])
+      .filter(([, rate]) => Number.isFinite(rate) && rate > 0)
+  );
 
-  if (!effectiveMonth || !basisDate || !Number.isFinite(usdToCny) || usdToCny <= 0) {
-    throw new Error("Could not read USD exchange rate metadata.");
+  if (!effectiveMonth || !basisDate || !Number.isFinite(rates.USD) || rates.USD <= 0) {
+    throw new Error("Could not read required customs exchange rate metadata.");
   }
 
   return {
     effectiveMonth,
     basisDate,
-    rates: {
-      USD: usdToCny,
-    },
+    rates,
   };
 }
 
@@ -409,7 +411,7 @@ function normalizePublicProduct(product) {
   return normalizePublicReferencePrice(applyPublicBrandCanonicalization(product));
 }
 
-function publicPriceFieldsFromRow(row, pricingContext) {
+export function publicPriceFieldsFromRow(row, pricingContext) {
   const price = row.price || {};
   const sourcePriceAmount = finiteNumber(price.amount);
   const sourcePriceCurrency = cleanText(price.currency);
@@ -426,6 +428,27 @@ function publicPriceFieldsFromRow(row, pricingContext) {
     return {
       sourcePriceAmount,
       sourcePriceCurrency,
+      internationalShippingAmount: null,
+      msrpAmount: finiteNumber(price.msrpAmount),
+      siteDisplayAmount: reference.siteDisplayAmount,
+      siteDisplayCurrency: reference.siteDisplayCurrency,
+      siteDisplayReady: reference.siteDisplayReady,
+      sortPrice: reference.siteDisplayReady ? reference.siteDisplayAmount : null,
+    };
+  }
+
+  const internationalShippingAmount = finiteNumber(price.internationalShippingAmount);
+  const sourceToCny = pricingContext.exchangeRates.rates[sourcePriceCurrency || ""];
+  if (internationalShippingAmount !== null) {
+    const reference = calculateReferencePrice({
+      sourcePriceAmount,
+      sourceToCny,
+      internationalShippingAmount,
+    });
+    return {
+      sourcePriceAmount,
+      sourcePriceCurrency,
+      internationalShippingAmount,
       msrpAmount: finiteNumber(price.msrpAmount),
       siteDisplayAmount: reference.siteDisplayAmount,
       siteDisplayCurrency: reference.siteDisplayCurrency,
@@ -442,6 +465,7 @@ function publicPriceFieldsFromRow(row, pricingContext) {
   return {
     sourcePriceAmount,
     sourcePriceCurrency,
+    internationalShippingAmount: null,
     msrpAmount: finiteNumber(price.msrpAmount),
     siteDisplayAmount,
     siteDisplayCurrency: siteDisplayAmount !== null ? "CNY" : cleanText(price.siteDisplayCurrency),
@@ -911,19 +935,20 @@ function performanceForOutputs(stagingBytes, catalog, serializedFiles, detailSha
   };
 }
 
-function repriceExistingSmokingpipesProduct(
+function repriceExistingPublicProduct(
   product,
   exchangeRates,
   smokingpipesPricing
 ) {
-  if (requiredText(product?.source) !== "smokingpipes") return product;
-
-  const reference = calculateSmokingpipesReferencePrice({
-    sourcePriceAmount: finiteNumber(product.sourcePriceAmount),
-    brandName: cleanText(product.brandName),
-    usdToCny: exchangeRates.rates.USD,
-    pricingConfig: smokingpipesPricing,
-  });
+  let reference = null;
+  if (requiredText(product?.source) === "smokingpipes") {
+    reference = calculateSmokingpipesReferencePrice({
+      sourcePriceAmount: finiteNumber(product.sourcePriceAmount),
+      brandName: cleanText(product.brandName),
+      usdToCny: exchangeRates.rates.USD,
+      pricingConfig: smokingpipesPricing,
+    });
+  } else return product;
 
   return {
     ...product,
@@ -961,7 +986,7 @@ async function repriceExistingPublicProducts() {
     .filter((product) => requiredText(product.source) === "danish")
     .map((product) => JSON.stringify(product));
   const repricedCatalog = catalog.map((product) =>
-    repriceExistingSmokingpipesProduct(
+    repriceExistingPublicProduct(
       product,
       exchangeRates,
       smokingpipesPricing
@@ -1005,7 +1030,7 @@ async function repriceExistingPublicProducts() {
       if (requiredText(product.source) === "smokingpipes") {
         repricedDetailCount += 1;
       }
-      return repriceExistingSmokingpipesProduct(
+      return repriceExistingPublicProduct(
         product,
         exchangeRates,
         smokingpipesPricing
@@ -1064,6 +1089,11 @@ async function repriceExistingPublicProducts() {
     performance,
     pricing: {
       ...(manifest.pricing || {}),
+      customsExchangeRates: {
+        effectiveMonth: exchangeRates.effectiveMonth,
+        basisDate: exchangeRates.basisDate,
+        rates: exchangeRates.rates,
+      },
       smokingpipesReferencePricing: {
         ...(manifest.pricing?.smokingpipesReferencePricing || {}),
         exchangeRateEffectiveMonth: exchangeRates.effectiveMonth,
@@ -1084,7 +1114,7 @@ async function repriceExistingPublicProducts() {
     (product) => requiredText(product.source) === "smokingpipes"
   ).length;
   console.log(
-    `Existing public products repriced: ${repricedCatalogCount} Smokingpipes catalog records and ${repricedDetailCount} detail records; Danish records unchanged.`
+    `Existing public products repriced: ${repricedCatalogCount} source-priced catalog records and ${repricedDetailCount} detail records; Danish records unchanged.`
   );
 }
 
@@ -1221,6 +1251,11 @@ async function main() {
     fileSizes,
     fileHashScope: "Generated public-products files excluding manifest.json to avoid a self-hash cycle.",
     pricing: {
+      customsExchangeRates: {
+        effectiveMonth: exchangeRates.effectiveMonth,
+        basisDate: exchangeRates.basisDate,
+        rates: exchangeRates.rates,
+      },
       smokingpipesReferencePricing: {
         exchangeRateEffectiveMonth: exchangeRates.effectiveMonth,
         exchangeRateBasisDate: exchangeRates.basisDate,
@@ -1321,6 +1356,11 @@ async function main() {
       round4ValidationStatus: round4Validation?.status ?? null,
     },
     pricing: {
+      customsExchangeRates: {
+        effectiveMonth: exchangeRates.effectiveMonth,
+        basisDate: exchangeRates.basisDate,
+        rates: exchangeRates.rates,
+      },
       smokingpipesReferencePricing: {
         exchangeRateEffectiveMonth: exchangeRates.effectiveMonth,
         exchangeRateBasisDate: exchangeRates.basisDate,

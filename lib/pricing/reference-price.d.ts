@@ -26,7 +26,31 @@ export type SmokingpipesPricingConfig = {
 };
 
 export type ReferencePriceCommonConfig = {
+  taxFactor: number;
+  serviceFeeRate: number;
+  minServiceFeeCny: number;
   domesticShippingCny: number;
+};
+
+export type ReferencePriceInput = {
+  sourcePriceAmount: number | null;
+  sourceToCny: number | null;
+  internationalShippingAmount: number | null;
+  pricingConfig?: Partial<ReferencePriceCommonConfig> & {
+    importCostFactor?: number;
+  };
+};
+
+export type ReferencePriceResult = {
+  siteDisplayReady: boolean;
+  siteDisplayAmount: number | null;
+  siteDisplayCurrency: "CNY" | null;
+  importCostFactor: number | null;
+  taxableProductCostCny: number | null;
+  shippingCny: number | null;
+  baseCostCny: number | null;
+  serviceFeeCny: number | null;
+  domesticShippingCny: number | null;
 };
 
 export type DanishPipeShopReferencePriceInput = {
@@ -64,6 +88,9 @@ export function addDomesticShippingCny(
   referenceAmount: number | null,
   commonConfig?: ReferencePriceCommonConfig
 ): number | null;
+export function calculateReferencePrice(
+  input: ReferencePriceInput
+): ReferencePriceResult;
 export function calculateDanishPipeShopReferencePrice(
   input: DanishPipeShopReferencePriceInput
 ): number | null;
