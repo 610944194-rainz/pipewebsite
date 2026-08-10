@@ -12,6 +12,7 @@ import {
 } from "./inventory-runner-core-v1.mjs";
 import { buildInventoryDiff } from "./smokingpipes-diff-inventory-v1.mjs";
 import { calculateReferencePrice } from "../../lib/pricing/reference-price.mjs";
+import { sendGqDailyPushDeerNotification } from "./gqtobaccos-pushdeer-notification-v1.mjs";
 
 const SOURCE = "gqtobaccos";
 const SOURCE_ORIGIN = "https://www.gqtobaccos.com";
@@ -468,6 +469,7 @@ function createHttpSession({ fetchImpl = fetch, timeoutMs = 20_000, retries = 2 
               await sleep(250 * retryableAttempt);
               continue;
             }
+            if (response.status === 429) error.rateLimitRetries = rateLimitAttempt;
             throw error;
           }
           return {
@@ -900,6 +902,10 @@ export async function runGqDaily({
   writeArtifacts = true,
   useLock = true,
   applyProduction = false,
+  notify = false,
+  notificationDryRun = false,
+  notificationEnv = process.env,
+  notificationFetchImpl = globalThis.fetch,
 } = {}) {
   const runId = formatRunId();
   const inventoryPaths = getRunnerPaths(root);
@@ -943,6 +949,7 @@ export async function runGqDaily({
       source: SOURCE,
       mode: live ? "live" : "fixture",
       listComplete: current.summary?.fullExpectedRangeScanned === true,
+      list: current.summary,
       detailQueueComplete: detailResult.errors.length === 0,
       diff,
       queue: { ...queue.summary, failures: detailResult.errors.length },
@@ -972,8 +979,31 @@ export async function runGqDaily({
       result.productionWritten = true;
       if (writeArtifacts) await writeJsonAtomic(path.join(artifactsRoot, "report.json"), result);
     }
+    if (notify) {
+      result.notification = await sendGqDailyPushDeerNotification({
+        dailyResult: result,
+        dryRun: notificationDryRun,
+        env: notificationEnv,
+        fetchImpl: notificationFetchImpl,
+      });
+      if (writeArtifacts) await writeJsonAtomic(path.join(artifactsRoot, "report.json"), result);
+    }
     return result;
   } catch (error) {
+    let notification = null;
+    if (notify) {
+      notification = await sendGqDailyPushDeerNotification({
+        error,
+        dryRun: notificationDryRun,
+        env: notificationEnv,
+        fetchImpl: notificationFetchImpl,
+      }).catch((notificationError) => ({
+        notificationSent: false,
+        notificationSkipped: false,
+        notificationReason: notificationError?.message || String(notificationError),
+        channel: "PushDeer",
+      }));
+    }
     if (writeArtifacts) {
       await writeJsonAtomic(path.join(artifactsRoot, "failure.json"), {
         version: "gqtobaccos-daily-v1-failure",
@@ -984,6 +1014,7 @@ export async function runGqDaily({
         listProgress: error?.listProgress || null,
         allowPublish: false,
         productionWritten: false,
+        notification,
       }).catch(() => {});
     }
     throw error;
@@ -1014,16 +1045,33 @@ function isDirectExecution(importMetaUrl) {
 
 if (isDirectExecution(import.meta.url)) {
   const cli = parseCliOptions();
+  const testNotification = cli["test-notification"] === true;
+  if (testNotification && (cli.live === true || cli["apply-production"] === true || cli.fixture)) {
+    throw new Error("--test-notification cannot be combined with collection, fixture, or Production flags.");
+  }
+  if (testNotification) {
+    sendGqDailyPushDeerNotification({ testNotification: true })
+      .then((notification) => {
+        console.log(JSON.stringify({ version: "gqtobaccos-pushdeer-test-v1", notification }, null, 2));
+        if (!notification.notificationSent) process.exitCode = 1;
+      })
+      .catch((error) => {
+        console.error(error?.stack || error?.message || String(error));
+        process.exitCode = 1;
+      });
+  } else {
   const fixturePath = cli.fixture ? path.resolve(String(cli.fixture)) : null;
   const currentPayload = fixturePath ? readJsonIfExists(fixturePath, null) : null;
   runGqDaily({
     currentPayload,
     live: cli.live === true,
     applyProduction: cli["apply-production"] === true,
+    notify: cli.notify === true,
   })
     .then((result) => console.log(JSON.stringify(result, null, 2)))
     .catch((error) => {
       console.error(error?.stack || error?.message || String(error));
       process.exitCode = 1;
     });
+  }
 }

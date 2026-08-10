@@ -2,7 +2,8 @@ param(
   [switch]$NoProductionWrite,
   [switch]$NoPush,
   [switch]$PreflightOnly,
-  [switch]$ApplyProduction
+  [switch]$ApplyProduction,
+  [switch]$TestNotification
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,6 +27,14 @@ function Assert-TrackedRuntimeClean {
 if (-not (Test-Path -LiteralPath $Runner -PathType Leaf)) {
   throw "GQ runner is missing: $Runner"
 }
+if ($TestNotification) {
+  if ($ApplyProduction -or $NoProductionWrite -or $NoPush -or $PreflightOnly) {
+    throw "-TestNotification cannot be combined with Daily or Production switches."
+  }
+  $node = Get-Command node -CommandType Application -ErrorAction Stop
+  & $node.Source $Runner "--test-notification"
+  exit $LASTEXITCODE
+}
 if ($ApplyProduction -and ($NoProductionWrite -or $PreflightOnly)) {
   throw "-ApplyProduction cannot be combined with -NoProductionWrite or -PreflightOnly."
 }
@@ -35,7 +44,10 @@ if ($ApplyProduction -and ($NoProductionWrite -or $PreflightOnly)) {
 Assert-TrackedRuntimeClean
 $node = Get-Command node -CommandType Application -ErrorAction Stop
 $arguments = @($Runner, "--live")
-if ($ApplyProduction) { $arguments += "--apply-production" }
+if ($ApplyProduction) {
+  $arguments += "--apply-production"
+  $arguments += "--notify"
+}
 
 & $node.Source @arguments
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

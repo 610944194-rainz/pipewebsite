@@ -310,4 +310,18 @@ const runnerResult = await runGqDaily({
 assert.equal(runnerResult.productionWritten, false, "daily dry-run must not write Production");
 assert.equal(runnerResult.pricing.internationalShippingGBP, 20);
 
+const notificationFailureResult = await runGqDaily({
+  currentPayload: { ...currentPayload, products: parsed.products.filter((product) => !["101", "102"].includes(product.sourceProductId)) },
+  existingProducts: safeProducts,
+  detailsById,
+  writeArtifacts: false,
+  useLock: false,
+  notify: true,
+  notificationEnv: { PUSHDEER_KEY: "fixture-key" },
+  notificationFetchImpl: async () => ({ ok: false, status: 503 }),
+});
+assert.equal(notificationFailureResult.allowPublish, true, "notification delivery failure must not reverse a valid daily result");
+assert.equal(notificationFailureResult.notification.notificationSent, false);
+assert.equal(notificationFailureResult.notification.notificationReason, "PushDeer HTTP 503");
+
 console.log("GQ Tobaccos daily V1 fixture tests passed.");
