@@ -16,6 +16,8 @@ import {
   productsEquivalentForDiff,
   releaseDanishLock,
   runDanishDaily,
+  runDanishDailyWithStrongVerificationRetry,
+  isDanishStrongVerificationFailure,
   validateIncrementalDetailQueue,
 } from "./run-danish-daily-v1.mjs";
 import {
@@ -829,6 +831,62 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(merged.products.find((item) => item.id === 1).name, "fresh");
   assert.equal(merged.products.find((item) => item.id === 2).name, "retained");
   assert.equal(merged.retainedFromProduction, 1);
+}
+
+// Source-side verification errors alone get exactly two delayed whole-run retries.
+{
+  assert.equal(isDanishStrongVerificationFailure("collect-list-failed exitCode=1 manual-verification-timeout after 900 seconds"), true);
+  assert.equal(isDanishStrongVerificationFailure("robot-verification-still-present"), true);
+  assert.equal(isDanishStrongVerificationFailure("parser contract failure"), false);
+  assert.equal(isDanishStrongVerificationFailure("production gate failure"), false);
+  assert.equal(isDanishStrongVerificationFailure("git diverged"), false);
+
+  const attempts = [];
+  const waits = [];
+  let inventoryLockHeld = false;
+  const report = await runDanishDailyWithStrongVerificationRetry({ runId: "verification-fixture" }, {
+    runOnce: async (options, attempt) => {
+      inventoryLockHeld = true;
+      attempts.push(options.runId);
+      // Mirrors runDanishDaily: its finally block releases before the outer retry loop regains control.
+      inventoryLockHeld = false;
+      return { status: "failed", failureReason: "manual-verification-timeout", productionWritten: false };
+    },
+    wait: async (milliseconds) => {
+      assert.equal(inventoryLockHeld, false);
+      waits.push(milliseconds);
+    },
+  });
+  assert.deepEqual(attempts, ["verification-fixture-attempt-1", "verification-fixture-attempt-2", "verification-fixture-attempt-3"]);
+  assert.deepEqual(waits, [30 * 60 * 1000, 60 * 60 * 1000]);
+  assert.equal(report.status, "failed");
+  assert.equal(report.productionWritten, false);
+  assert.equal(report.strongVerificationRetry.attempt, 3);
+  assert.equal(report.strongVerificationRetry.final, true);
+
+  let successfulAttempts = 0;
+  const successfulWaits = [];
+  const success = await runDanishDailyWithStrongVerificationRetry({ runId: "verification-then-success" }, {
+    runOnce: async () => {
+      successfulAttempts += 1;
+      return successfulAttempts === 1
+        ? { status: "failed", failureReason: "robot-verification-still-present", productionWritten: false }
+        : { status: "daily-passed", failureReason: null, productionWritten: false };
+    },
+    wait: async (milliseconds) => successfulWaits.push(milliseconds),
+  });
+  assert.equal(successfulAttempts, 2);
+  assert.deepEqual(successfulWaits, [30 * 60 * 1000]);
+  assert.equal(success.status, "daily-passed");
+  assert.equal(success.strongVerificationRetry.final, true);
+
+  let ordinaryAttempts = 0;
+  const ordinary = await runDanishDailyWithStrongVerificationRetry({ runId: "ordinary-failure" }, {
+    runOnce: async () => ({ status: "failed", failureReason: "conversion-validation-failed parser contract", productionWritten: false, attempt: ++ordinaryAttempts }),
+    wait: async () => assert.fail("ordinary failures must not wait or retry"),
+  });
+  assert.equal(ordinaryAttempts, 1);
+  assert.equal(ordinary.strongVerificationRetry.retryable, false);
 }
 
 console.log("Danish daily v1 offline tests passed");

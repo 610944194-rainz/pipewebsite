@@ -42,6 +42,9 @@ $arguments = @(
 )
 if ($RunId) { $arguments += "--run-id=$RunId" }
 if ($RawRoot) { $arguments += "--raw-root=$RawRoot" }
+# The Node runner releases its inventory lock after each complete attempt, then
+# retries only its explicit strong-verification classification (30m, then 60m).
+if ($mode -in @("daily", "publish")) { $arguments += "--strong-verification-retry" }
 
 Write-Host "Danish daily mode: $mode"
 Write-Host "Danish daily runner: $nodeScript"
@@ -174,18 +177,34 @@ if ($mode -ne "dry-run") {
             $runIdValue = [string]$summary.runId
 
             if ($status -eq "failed") {
+                $strongRetry = $summary.strongVerificationRetry
+                $isFinalStrongVerification =
+                    $strongRetry -and
+                    [bool]$strongRetry.retryable -and
+                    [bool]$strongRetry.final
 
-                $title = "Danish｜日更失败"
-
-                $body = @(
-                    "RunId: $runIdValue"
-                    "状态: $status"
-                    "失败原因: $($summary.failureReason)"
-                    "Production 写入: $($summary.productionWritten)"
-                    "Build: $($summary.buildPassed)"
-                    "Commit: $($summary.commitExecuted)"
-                    "Push: $($summary.pushExecuted)"
-                ) -join "`n"
+                if ($isFinalStrongVerification) {
+                    $title = "Danish Daily ❌"
+                    $body = @(
+                        "原因：源站强验证"
+                        "尝试次数：$($strongRetry.attempt)"
+                        "Production：未修改"
+                        "状态：今日自动更新停止，等待下一次计划任务"
+                        "RunId: $runIdValue"
+                    ) -join "`n"
+                }
+                else {
+                    $title = "Danish｜日更失败"
+                    $body = @(
+                        "RunId: $runIdValue"
+                        "状态: $status"
+                        "失败原因: $($summary.failureReason)"
+                        "Production 写入: $($summary.productionWritten)"
+                        "Build: $($summary.buildPassed)"
+                        "Commit: $($summary.commitExecuted)"
+                        "Push: $($summary.pushExecuted)"
+                    ) -join "`n"
+                }
             }
             else {
 

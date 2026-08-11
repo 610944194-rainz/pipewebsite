@@ -40,6 +40,7 @@ const DEFAULT_RAW_ROOT = path.join(
   "data/raw/danish-full-refresh/danish-v18-list-20260715-02"
 );
 const DETAIL_QUEUE_MAX_RATIO = 0.25;
+const DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS = [30 * 60, 60 * 60];
 
 function compact(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -940,7 +941,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     timeZone: RUN_TIME_ZONE,
     startedAt: new Date().toISOString(),
     startedAtLocal: localRunTime(),
-    paths: { collectorScript, rawRoot, listPath, detailsPath, errorsPath, checkpointPath, listPatchPath, detailQueuePath, conversionInputPath, converterScript, convertedJsonPath, productionPath, backupRoot, logPath },
+    paths: { collectorScript, rawRoot, listPath, detailsPath, errorsPath, checkpointPath, listPatchPath, detailQueuePath, conversionInputPath, converterScript, convertedJsonPath, productionPath, backupRoot, logPath, summaryPath },
     stages: {},
     collection: null,
     conversion: null,
@@ -1241,9 +1242,63 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
   }
 }
 
+// The collector already fail-closes on these explicit source-side verification states.
+// Keep this narrowly scoped so parser, gate, Git, and data validation failures never retry.
+export function isDanishStrongVerificationFailure(reason) {
+  const value = compact(reason).toLowerCase();
+  return /(?:manual-verification-timeout|robot[-\s/]*(?:verification|challenge)[-\s\w]*(?:remained|still|page)|(?:just a moment|managed challenge|browser challenge|cloudflare|captcha|recaptcha|hcaptcha|access denied|\bblocked\b)|verification\s+(?:page|challenge).*(?:remained|still|timeout))/i.test(value);
+}
+
+export function nextDanishStrongVerificationRetry({ report, attempt, maxAttempts = 3 } = {}) {
+  const retryable = report?.status === "failed" && isDanishStrongVerificationFailure(report?.failureReason);
+  const delaySeconds = DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS[attempt - 1] ?? null;
+  return {
+    retryable,
+    shouldRetry: retryable && attempt < maxAttempts && Number.isFinite(delaySeconds),
+    delaySeconds,
+    attempt,
+    maxAttempts,
+  };
+}
+
+export async function runDanishDailyWithStrongVerificationRetry(options = {}, dependencies = {}) {
+  const maxAttempts = 3;
+  const wait = dependencies.wait || ((milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)));
+  const runOnce = dependencies.runOnce || ((attemptOptions) => runDanishDaily(attemptOptions, dependencies));
+  const baseRunId = compact(options.runId || `danish-daily-${localRunTimestamp()}`);
+  let finalReport = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    // Each retry gets a clean RunId and therefore a fresh List/Detail collection path.
+    const attemptOptions = {
+      ...options,
+      runId: `${baseRunId}-attempt-${attempt}`,
+      ...(attempt > 1 ? { rawRoot: undefined, runRoot: undefined, backupRoot: undefined, logPath: undefined } : {}),
+    };
+    const report = await runOnce(attemptOptions, attempt);
+    const retry = nextDanishStrongVerificationRetry({ report, attempt, maxAttempts });
+    report.strongVerificationRetry = {
+      ...retry,
+      delaysSeconds: DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS,
+      final: !retry.shouldRetry,
+    };
+    finalReport = report;
+
+    if (!retry.shouldRetry) {
+      if (report?.paths?.summaryPath) writeJson(report.paths.summaryPath, report);
+      return report;
+    }
+
+    // runDanishDaily resolves only after its finally block released the inventory lock.
+    await wait(retry.delaySeconds * 1000, { attempt, report });
+  }
+
+  return finalReport;
+}
+
 async function main() {
   const cli = parseArgs();
-  const report = await runDanishDaily({
+  const runnerOptions = {
     mode: resolveMode(cli),
     runId: cli["run-id"],
     rawRoot: cli["raw-root"],
@@ -1255,7 +1310,10 @@ async function main() {
     timeoutSeconds: cli["timeout-seconds"],
     checkpointEvery: cli["checkpoint-every"],
     minimumRatio: cli["minimum-ratio"],
-  });
+  };
+  const report = cli["strong-verification-retry"]
+    ? await runDanishDailyWithStrongVerificationRetry(runnerOptions)
+    : await runDanishDaily(runnerOptions);
   console.log(JSON.stringify(report, null, 2));
   if (report.status === "failed") process.exitCode = 1;
 }
