@@ -12,10 +12,20 @@ $Runner = Join-Path $PSScriptRoot "run-gqtobaccos-daily-v1.mjs"
 $PushDeerNotifier = Join-Path $PSScriptRoot "inventory-pushdeer-notifier-v1.mjs"
 
 function Invoke-Git {
-  param([string[]]$Arguments)
-  $output = @(& git -C $RuntimeRoot @Arguments 2>&1)
-  if ($LASTEXITCODE -ne 0) {
-    throw "git command failed: git -C '$RuntimeRoot' $($Arguments -join ' '); output=$($output | Out-String)"
+  param(
+    [string[]]$Arguments,
+    [int[]]$AllowedExitCodes = @(0)
+  )
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    $output = @(& git -C $RuntimeRoot @Arguments 2>&1)
+    $exitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($exitCode -notin $AllowedExitCodes) {
+    throw "git command failed: git -C '$RuntimeRoot' $($Arguments -join ' '); gitExitCode=$exitCode; stderr-tail=$($output | Select-Object -Last 20 | Out-String)"
   }
   return ($output | Out-String).Trim()
 }

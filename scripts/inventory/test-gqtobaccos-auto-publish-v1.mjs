@@ -10,6 +10,14 @@ const wrapper = await fs.readFile(
   "utf8"
 );
 
+assert.match(wrapper, /\[int\[\]\]\$AllowedExitCodes = @\(0\)/);
+assert.match(wrapper, /\$previousErrorActionPreference = \$ErrorActionPreference/);
+assert.match(wrapper, /\$ErrorActionPreference = "Continue"/);
+assert.match(wrapper, /\$exitCode = \$LASTEXITCODE/);
+assert.match(wrapper, /finally \{\s+\$ErrorActionPreference = \$previousErrorActionPreference/);
+assert.match(wrapper, /\$exitCode -notin \$AllowedExitCodes/);
+assert.match(wrapper, /gitExitCode=\$exitCode; stderr-tail=/);
+
 assert.match(wrapper, /function Invoke-GitFetchWithRetry/);
 assert.match(wrapper, /for \(\$attempt = 1; \$attempt -le 3; \$attempt\+\+\)/);
 assert.match(wrapper, /\$delaySeconds = if \(\$attempt -eq 1\) \{ 10 \} else \{ 30 \}/);
