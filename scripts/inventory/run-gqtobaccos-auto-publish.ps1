@@ -10,6 +10,14 @@ $ErrorActionPreference = "Stop"
 $RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $Runner = Join-Path $PSScriptRoot "run-gqtobaccos-daily-v1.mjs"
 $PushDeerNotifier = Join-Path $PSScriptRoot "inventory-pushdeer-notifier-v1.mjs"
+$PublicationPaths = @(
+  "data/products/gqtobaccos-products.json",
+  "data/products/unified-products-staging.json",
+  "data/generated/public-products",
+  "data/review/round5-public-index-build-v1.json",
+  "data/review/round5-public-index-build-v1.md",
+  "data/review/round5-public-index-field-contract-v1.md"
+)
 
 function Invoke-Git {
   param(
@@ -69,21 +77,37 @@ function Sync-FormalMainRuntime {
   Assert-TrackedRuntimeClean
 }
 
-function Send-GqStartupFailurePushDeer {
-  param([System.Management.Automation.ErrorRecord]$ErrorRecord)
+function Restore-GqPublicationPaths {
+  Invoke-Git -Arguments (@("restore", "--staged", "--worktree", "--") + $PublicationPaths) | Out-Null
+}
+
+function Send-GqFailurePushDeer {
+  param(
+    [ValidateSet("startup", "git-publication")][string]$FailureType,
+    [string]$Stage = "",
+    [string]$Reason
+  )
 
   try {
-    $reason = [string]$ErrorRecord.Exception.Message
-    $reasonBase64 = [System.Convert]::ToBase64String(
-      [System.Text.Encoding]::UTF8.GetBytes(($reason | ConvertTo-Json -Compress))
+    $payloadBase64 = [System.Convert]::ToBase64String(
+      [System.Text.Encoding]::UTF8.GetBytes((@{
+        failureType = $FailureType
+        stage = $Stage
+        reason = $Reason
+      } | ConvertTo-Json -Compress))
     )
     $notifierModuleUrl = [System.Uri]::new((Resolve-Path -LiteralPath $PushDeerNotifier).Path).AbsoluteUri
     $notifierScript = @'
 const { sendPushDeerNotification } = await import("NOTIFIER_MODULE_URL");
-const reason = JSON.parse(Buffer.from(process.argv[2], "base64").toString("utf8"));
+const payload = JSON.parse(Buffer.from(process.argv[2], "base64").toString("utf8"));
+const body = payload.failureType === "startup"
+  ? `\u72b6\u6001\uff1a\u542f\u52a8\u5931\u8d25\nProduction\uff1a\u672a\u4fee\u6539\n\u539f\u56e0\uff1a${payload.reason}`
+  : payload.stage === "push"
+    ? `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1apush\n\u672c\u5730 Commit\uff1a\u5df2\u521b\u5efa\norigin/main\uff1a\u672a\u66f4\u65b0\n\u539f\u56e0\uff1a${payload.reason}`
+    : `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1a${payload.stage}\nProduction\uff1a\u672c\u8f6e\u672c\u5730\u4fee\u6539\u5df2\u6062\u590d\uff0corigin/main \u672a\u66f4\u65b0\n\u539f\u56e0\uff1a${payload.reason}`;
 const message = {
   title: "\u70df\u6597\u6d3e\u5e93\u5b58\u65e5\u62a5\uff5cGQ Tobaccos \u274c",
-  body: `\u72b6\u6001\uff1a\u542f\u52a8\u5931\u8d25\nProduction\uff1a\u672a\u4fee\u6539\n\u539f\u56e0\uff1a${reason}`,
+  body,
 };
 const result = await sendPushDeerNotification(message);
 console.log(JSON.stringify({
@@ -98,12 +122,12 @@ console.log(JSON.stringify({
     )
     $notifierLauncher = 'await import(`data:text/javascript;base64,${process.argv[1]}`);'
     $notificationNode = Get-Command node -CommandType Application -ErrorAction Stop
-    & $notificationNode.Source "--input-type=module" "-e" $notifierLauncher $notifierScriptBase64 $reasonBase64
+    & $notificationNode.Source "--input-type=module" "-e" $notifierLauncher $notifierScriptBase64 $payloadBase64
     if ($LASTEXITCODE -ne 0) {
-      Write-Warning "GQ startup failure PushDeer notifier exited with code $LASTEXITCODE."
+      Write-Warning "GQ failure PushDeer notifier exited with code $LASTEXITCODE."
     }
   } catch {
-    Write-Warning "GQ startup failure PushDeer notification could not be sent: $($_.Exception.Message)"
+    Write-Warning "GQ failure PushDeer notification could not be sent: $($_.Exception.Message)"
   }
 }
 
@@ -132,7 +156,7 @@ try {
   Sync-FormalMainRuntime
   $node = Get-Command node -CommandType Application -ErrorAction Stop
 } catch {
-  Send-GqStartupFailurePushDeer -ErrorRecord $_
+  Send-GqFailurePushDeer -FailureType "startup" -Reason $_.Exception.Message
   Write-Error "GQ startup failed: $($_.Exception.Message)"
   exit 1
 }
@@ -162,21 +186,34 @@ if (-not $changed) {
   exit 0
 }
 
-Invoke-Git -Arguments @(
-  "add", "--",
-  "data/products/gqtobaccos-products.json",
-  "data/products/unified-products-staging.json",
-  "data/generated/public-products",
-  "data/review/round5-public-index-build-v1.json",
-  "data/review/round5-public-index-build-v1.md",
-  "data/review/round5-public-index-field-contract-v1.md"
-) | Out-Null
-Invoke-Git -Arguments @("commit", "-m", "chore(inventory): publish GQ Tobaccos daily update") | Out-Null
+$publicationStage = "add"
+try {
+  Invoke-Git -Arguments (@("add", "--") + $PublicationPaths) | Out-Null
+  $publicationStage = "commit"
+  Invoke-Git -Arguments @("commit", "-m", "chore(inventory): publish GQ Tobaccos daily update") | Out-Null
+} catch {
+  $publicationError = $_.Exception.Message
+  try {
+    Restore-GqPublicationPaths
+  } catch {
+    Write-Warning "GQ Git publication cleanup failed: $($_.Exception.Message)"
+  }
+  Send-GqFailurePushDeer -FailureType "git-publication" -Stage $publicationStage -Reason $publicationError
+  Write-Error "GQ Git publication failed during ${publicationStage}: $publicationError"
+  exit 1
+}
 
 if ($NoPush) {
   Write-Output "GQ V1 production commit created; push was explicitly disabled."
   exit 0
 }
 
-Invoke-Git -Arguments @("push", "origin", "HEAD") | Out-Null
+try {
+  Invoke-Git -Arguments @("push", "origin", "HEAD") | Out-Null
+} catch {
+  $publicationError = $_.Exception.Message
+  Send-GqFailurePushDeer -FailureType "git-publication" -Stage "push" -Reason $publicationError
+  Write-Error "GQ Git publication failed during push: $publicationError"
+  exit 1
+}
 Write-Output "GQ V1 production update committed and pushed."
