@@ -97,7 +97,7 @@ async function main() {
   assert.match(collector, /allowLegacyDuplicateSnapshotOverride: false/);
   assert.match(collector, /suspicious duplicate source product IDs/);
   assert.match(collector, /deadlineAtMs: deadline\?\.deadlineAtMs/);
-  assert.match(diff, /allowLegacyDuplicateSnapshotOverride = true/);
+  assert.match(diff, /allowLegacyDuplicateSnapshotOverride = source === "smokingpipes"/);
   assert.match(validator, /--structural-only=true/);
   assert.match(browserUtils, /Smokingpipes Native Chrome CDP session/);
   assert.match(browserUtils, /chromium\.connectOverCDP/);

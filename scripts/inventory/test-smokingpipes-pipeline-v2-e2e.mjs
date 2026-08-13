@@ -1535,7 +1535,7 @@ async function main() {
       generatorVersion: "runtime-fixture-is-deliberately-invalid",
     });
     execFileSync("git", ["clone", workspaceRoot, releaseCwdSource], { stdio: "ignore" });
-    git(releaseCwdSource, ["checkout", "-B", "main", "origin/main"]);
+    git(releaseCwdSource, ["checkout", "-B", "main", "HEAD"]);
     git(releaseCwdSource, ["config", "user.email", "fixture@example.invalid"]);
     git(releaseCwdSource, ["config", "user.name", "Fixture"]);
     const releaseCwdBaseSha = git(releaseCwdSource, ["rev-parse", "HEAD"]);

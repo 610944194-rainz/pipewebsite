@@ -184,9 +184,38 @@ function Get-NodeResultSummary {
   return [pscustomobject]@{ valid = $true; reason = ""; result = $result }
 }
 
+function Test-SmokingpipesSameDayComplete {
+  if ($CycleId -or $PreflightOnly -or $NoProductionWrite -or $NoLiveCollection) {
+    return $false
+  }
+
+  try {
+    $todayCycleId = [DateTime]::UtcNow.ToString("yyyy-MM-dd")
+    $latestPath = Join-Path $StateRoot "latest.json"
+    if (-not (Test-Path -LiteralPath $latestPath -PathType Leaf)) { return $false }
+
+    $latest = Get-Content -LiteralPath $latestPath -Raw | ConvertFrom-Json -ErrorAction Stop
+    if ([string]$latest.cycleId -ne $todayCycleId -or [string]$latest.phase -ne "done") { return $false }
+
+    $cyclePath = Join-Path (Join-Path (Join-Path $StateRoot "cycles") $todayCycleId) "cycle.json"
+    if (-not (Test-Path -LiteralPath $cyclePath -PathType Leaf)) { return $false }
+
+    $cycle = Get-Content -LiteralPath $cyclePath -Raw | ConvertFrom-Json -ErrorAction Stop
+    return [string]$cycle.cycleId -eq $todayCycleId -and [string]$cycle.phase -eq "done"
+  } catch {
+    return $false
+  }
+}
+
 Add-SchedulerStage -Stage "scheduled-entry" -Message "scheduler entry started"
 $exitCode = 1
 try {
+  if (Test-SmokingpipesSameDayComplete) {
+    Add-SchedulerStage -Stage "same-day-complete" -Message "today's Smokingpipes cycle is already terminal; skipping child process"
+    $script:run.status = "completed"
+    $script:run.exitCode = 0
+    $exitCode = 0
+  } else {
   Add-SchedulerStage -Stage "runtime-check" -Message "validating runtime and wrapper"
   $runtimeRoot = (Resolve-Path -LiteralPath $AutomationWorktree).Path
   $wrapper = Join-Path $runtimeRoot "scripts\inventory\run-smokingpipes-auto-publish.ps1"
@@ -251,6 +280,7 @@ try {
       }
       $exitCode = $script:run.exitCode
     }
+  }
   }
 } catch {
   $script:run.status = "failed"
