@@ -5490,6 +5490,160 @@
       "msrpRawText": "$250.00"
     },
     {
+      "id": "smokingpipes-596094",
+      "source": "smokingpipes",
+      "sourceProductId": "596094",
+      "brandName": "Missouri Meerschaum",
+      "brandSlug": "missouri-meerschaum",
+      "brandCountry": "United States",
+      "displayName": "Iconic Legend Straight (6mm) Tobacco Pipe",
+      "displayNameEn": "Iconic Legend Straight (6mm) Tobacco Pipe",
+      "rawTitle": "Iconic Legend Straight (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0116.1147.jpg",
+      "sourcePriceAmount": 9.96,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 10.37,
+      "siteDisplayAmount": 351.912032,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 31.75,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialZh": "玉米芯",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "missouri meerschaum",
+        "name": "iconic legend straight (6mm) tobacco pipe",
+        "price": 351.912032,
+        "sourceProductId": "596094"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0116.1147.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 142.49,
+        "heightMm": 45.72,
+        "weightGrams": 31.75,
+        "chamberDepthMm": 25.65,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 32
+      },
+      "model": {
+        "canonicalModelKey": "missouri-meerschaum__series-iconic-legend-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Iconic Legend Tobacco Pipe",
+      "year": null,
+      "productCode": "002-543-0116",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Missouri Meerschaum",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United States",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Corn Cob",
+          "labelZh": "玉米芯",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 142.49,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 25.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=596094",
+      "sourceOriginalText": "Iconic Legend Straight (6mm) Tobacco Pipe",
+      "priceRawText": "$9.96",
+      "msrpRawText": "$10.37"
+    },
+    {
       "id": "smokingpipes-646885",
       "source": "smokingpipes",
       "sourceProductId": "646885",
@@ -9670,10 +9824,10 @@
       "siteDisplayAmount": 2005.8414500000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "inventoryConfidence": "medium",
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,

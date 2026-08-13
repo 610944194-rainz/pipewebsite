@@ -1507,12 +1507,12 @@
       "brandName": "Brulor",
       "brandSlug": "brulor",
       "country": null,
-      "productCount": 56,
+      "productCount": 60,
       "sourceCounts": {
-        "smokingpipes": 56
+        "smokingpipes": 60
       },
       "inventoryStatusCounts": {
-        "available": 29,
+        "available": 33,
         "sold": 27
       },
       "productIds": [
@@ -1536,6 +1536,10 @@
         "smokingpipes-720285",
         "smokingpipes-720286",
         "smokingpipes-720287",
+        "smokingpipes-720288",
+        "smokingpipes-720289",
+        "smokingpipes-720290",
+        "smokingpipes-720291",
         "smokingpipes-720299",
         "smokingpipes-720301",
         "smokingpipes-720303",
@@ -2056,8 +2060,8 @@
         "smokingpipes": 87
       },
       "inventoryStatusCounts": {
-        "available": 156,
-        "sold": 86
+        "available": 153,
+        "sold": 89
       },
       "productIds": [
         "danish-569",
@@ -2422,17 +2426,18 @@
       "brandName": "David Huber",
       "brandSlug": "david-huber",
       "country": null,
-      "productCount": 3,
+      "productCount": 4,
       "sourceCounts": {
-        "smokingpipes": 3
+        "smokingpipes": 4
       },
       "inventoryStatusCounts": {
-        "available": 3
+        "available": 4
       },
       "productIds": [
         "smokingpipes-673337",
         "smokingpipes-688334",
-        "smokingpipes-737097"
+        "smokingpipes-737097",
+        "smokingpipes-737098"
       ]
     },
     {
@@ -2552,13 +2557,13 @@
       "brandName": "Dunhill",
       "brandSlug": "dunhill",
       "country": "United Kingdom",
-      "productCount": 262,
+      "productCount": 263,
       "sourceCounts": {
         "danish": 110,
-        "smokingpipes": 152
+        "smokingpipes": 153
       },
       "inventoryStatusCounts": {
-        "available": 206,
+        "available": 207,
         "sold": 56
       },
       "productIds": [
@@ -2818,6 +2823,7 @@
         "smokingpipes-732452",
         "smokingpipes-732468",
         "smokingpipes-732470",
+        "smokingpipes-732475",
         "smokingpipes-732479",
         "smokingpipes-732483",
         "smokingpipes-732486",
@@ -4619,13 +4625,13 @@
       "brandName": "Missouri Meerschaum",
       "brandSlug": "missouri-meerschaum",
       "country": "United States",
-      "productCount": 67,
+      "productCount": 68,
       "sourceCounts": {
         "danish": 20,
-        "smokingpipes": 47
+        "smokingpipes": 48
       },
       "inventoryStatusCounts": {
-        "available": 35,
+        "available": 36,
         "sold": 32
       },
       "productIds": [
@@ -4686,6 +4692,7 @@
         "smokingpipes-499031",
         "smokingpipes-501340",
         "smokingpipes-542925",
+        "smokingpipes-596094",
         "smokingpipes-610228",
         "smokingpipes-610229",
         "smokingpipes-669881",
@@ -6000,8 +6007,8 @@
         "smokingpipes": 2498
       },
       "inventoryStatusCounts": {
-        "available": 1482,
-        "sold": 1157
+        "available": 1483,
+        "sold": 1156
       },
       "productIds": [
         "danish-3096",
@@ -7046,6 +7053,7 @@
         "smokingpipes-725837",
         "smokingpipes-725844",
         "smokingpipes-725845",
+        "smokingpipes-725846",
         "smokingpipes-725847",
         "smokingpipes-725850",
         "smokingpipes-725851",
@@ -7363,7 +7371,6 @@
         "smokingpipes-729814",
         "smokingpipes-729815",
         "smokingpipes-729818",
-        "smokingpipes-729821",
         "smokingpipes-729830",
         "smokingpipes-729841",
         "smokingpipes-729845",
@@ -12264,8 +12271,8 @@
         "smokingpipes": 263
       },
       "inventoryStatusCounts": {
-        "available": 345,
-        "sold": 55
+        "available": 344,
+        "sold": 56
       },
       "productIds": [
         "danish-201",
@@ -12885,8 +12892,8 @@
         "smokingpipes": 50
       },
       "inventoryStatusCounts": {
-        "available": 41,
-        "sold": 9
+        "available": 40,
+        "sold": 10
       },
       "productIds": [
         "smokingpipes-676908",
@@ -13009,14 +13016,14 @@
       "brandName": "Winsløw",
       "brandSlug": "winslow",
       "country": "Denmark",
-      "productCount": 144,
+      "productCount": 145,
       "sourceCounts": {
         "danish": 10,
-        "smokingpipes": 134
+        "smokingpipes": 135
       },
       "inventoryStatusCounts": {
-        "available": 116,
-        "sold": 28
+        "available": 118,
+        "sold": 27
       },
       "productIds": [
         "danish-25119",
@@ -13088,6 +13095,7 @@
         "smokingpipes-717448",
         "smokingpipes-717452",
         "smokingpipes-717526",
+        "smokingpipes-717539",
         "smokingpipes-717617",
         "smokingpipes-731614",
         "smokingpipes-731615",
