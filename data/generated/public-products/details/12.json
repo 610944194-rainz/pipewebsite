@@ -7397,9 +7397,9 @@
       "siteDisplayAmount": 1053.0692,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -24019,6 +24019,166 @@
       "msrpRawText": "$285.00"
     },
     {
+      "id": "smokingpipes-735336",
+      "source": "smokingpipes",
+      "sourceProductId": "735336",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Metal Matte Black Tobacco Pipe",
+      "displayNameEn": "Compass Metal Matte Black Tobacco Pipe",
+      "rawTitle": "Compass Metal Matte Black Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23644.1771.jpg",
+      "sourcePriceAmount": 72,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 857.4884,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 36.29,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass metal matte black tobacco pipe",
+        "price": 857.4884,
+        "sourceProductId": "735336"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23644.1771.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 147.32,
+        "heightMm": 47.75,
+        "weightGrams": 36.29,
+        "chamberDepthMm": 32.51,
+        "chamberDiameterMm": 17.02,
+        "outsideDiameterMm": 34.29
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-metal-matte-black-tobacco__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Metal Matte Black Tobacco",
+      "year": null,
+      "productCode": "002-508-23644",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 147.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.29,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735336",
+      "sourceOriginalText": "Compass Metal Matte Black Tobacco Pipe",
+      "priceRawText": "$72.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-735355",
       "source": "smokingpipes",
       "sourceProductId": "735355",
@@ -25629,6 +25789,163 @@
       "msrpRawText": "$200.00"
     },
     {
+      "id": "smokingpipes-736245",
+      "source": "smokingpipes",
+      "sourceProductId": "736245",
+      "brandName": "Bruno Nuttens",
+      "brandSlug": "bruno-nuttens",
+      "brandCountry": null,
+      "displayName": "Heritage Sandblasted Bent Billiard (H2) (2026) Tobacco Pipe",
+      "displayNameEn": "Heritage Sandblasted Bent Billiard (H2) (2026) Tobacco Pipe",
+      "rawTitle": "Heritage Sandblasted Bent Billiard (H2) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0612.4749.jpg",
+      "sourcePriceAmount": 245,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2474.42045,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 37.19,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "bruno nuttens",
+        "name": "heritage sandblasted bent billiard (h2) (2026) tobacco pipe",
+        "price": 2474.42045,
+        "sourceProductId": "736245"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0612.4749.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0612_1.6454.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0612_2.4033.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0612_3.2858.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 146.3,
+        "heightMm": 50.8,
+        "weightGrams": 37.19,
+        "chamberDepthMm": 42.93,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 34.29
+      },
+      "model": {
+        "canonicalModelKey": "bruno-nuttens__model-h2__series-heritage-sandblasted-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Heritage Sandblasted Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-939-0612",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Bruno Nuttens",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 37.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=736245",
+      "sourceOriginalText": "Heritage Sandblasted Bent Billiard (H2) (2026) Tobacco Pipe",
+      "priceRawText": "$245.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736430",
       "source": "smokingpipes",
       "sourceProductId": "736430",
@@ -25790,6 +26107,169 @@
       "sourceOriginalText": "Deluxe System Sandblasted (XL5s) P-Lip Tobacco Pipe",
       "priceRawText": "$232.00",
       "msrpRawText": "$290.00"
+    },
+    {
+      "id": "smokingpipes-736476",
+      "source": "smokingpipes",
+      "sourceProductId": "736476",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "'Castello' Bent Apple (KKKK) (2026) Tobacco Pipe",
+      "displayNameEn": "'Castello' Bent Apple (KKKK) (2026) Tobacco Pipe",
+      "rawTitle": "'Castello' Bent Apple (KKKK) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6172.5094.jpg",
+      "sourcePriceAmount": 699,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7049.3134199999995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 88.45,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "'castello' bent apple (kkkk) (2026) tobacco pipe",
+        "price": 7049.3134199999995,
+        "sourceProductId": "736476"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6172.5094.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6172_1.8300.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6172_2.4916.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6172_3.7561.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 120.65,
+        "heightMm": 52.58,
+        "weightGrams": 88.45,
+        "chamberDepthMm": 42.67,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 49.53
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2026__series-castello-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Castello Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-386-6172",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 120.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 88.45,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.53,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736476",
+      "sourceOriginalText": "'Castello' Bent Apple (KKKK) (2026) Tobacco Pipe",
+      "priceRawText": "$699.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-736653",

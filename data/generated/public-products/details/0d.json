@@ -27889,6 +27889,166 @@
       "sourceOriginalText": "Newgrange Spigot (X105) Fishtail Tobacco Pipe",
       "priceRawText": "$260.00",
       "msrpRawText": "$325.00"
+    },
+    {
+      "id": "smokingpipes-738456",
+      "source": "smokingpipes",
+      "sourceProductId": "738456",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Bianca Rusticated (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Bianca Rusticated (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Bianca Rusticated (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112340.6872.jpg",
+      "sourcePriceAmount": 130,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 162.5,
+      "siteDisplayAmount": 1277.1722,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "bianca rusticated (111 ks) (6mm) tobacco pipe",
+        "price": 1277.1722,
+        "sourceProductId": "738456"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112340.6872.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 156.21,
+        "heightMm": 48.51,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 39.37,
+        "chamberDiameterMm": 21.34,
+        "outsideDiameterMm": 39.37
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-bianca-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Bianca Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112340",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 156.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=738456",
+      "sourceOriginalText": "Bianca Rusticated (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$130.00",
+      "msrpRawText": "$162.50"
     }
   ]
 }

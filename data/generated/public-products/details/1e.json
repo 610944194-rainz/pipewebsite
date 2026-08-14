@@ -13934,6 +13934,166 @@
       "msrpRawText": "$205.00"
     },
     {
+      "id": "smokingpipes-719205",
+      "source": "smokingpipes",
+      "sourceProductId": "719205",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "displayNameEn": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "rawTitle": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109556.2539.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1887.7595419999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "150th anniversary giancarlo rusticated (6mm) tobacco pipe",
+        "price": 1887.7595419999998,
+        "sourceProductId": "719205"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109556.2539.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 161.04,
+        "heightMm": 41.91,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.56,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 35.05
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-150th-anniversary-giancarlo-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "150th Anniversary Giancarlo Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-109556",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 161.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=719205",
+      "sourceOriginalText": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
+    },
+    {
       "id": "smokingpipes-719756",
       "source": "smokingpipes",
       "sourceProductId": "719756",
@@ -19836,6 +19996,169 @@
       "sourceOriginalText": "Killarney Red (120) Fishtail Tobacco Pipe",
       "priceRawText": "$136.00",
       "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-730414",
+      "source": "smokingpipes",
+      "sourceProductId": "730414",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Natural Spigot (701) Fishtail Tobacco Pipe",
+      "displayNameEn": "Natural Spigot (701) Fishtail Tobacco Pipe",
+      "rawTitle": "Natural Spigot (701) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145106.8298.jpg",
+      "sourcePriceAmount": 480,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 600,
+      "siteDisplayAmount": 4772.019479999999,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 31.18,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "natural spigot (701) fishtail tobacco pipe",
+        "price": 4772.019479999999,
+        "sourceProductId": "730414"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145106.8298.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145106_1.3658.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145106_2.2886.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-145106_3.4709.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 124.97,
+        "heightMm": 44.7,
+        "weightGrams": 31.18,
+        "chamberDepthMm": 34.29,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 30.23
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-701__series-natural-spigot-fishtail-tobacco-pipe__shape-poker",
+        "confidence": "high"
+      },
+      "series": "Natural Spigot Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-145106",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 124.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.18,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=730414",
+      "sourceOriginalText": "Natural Spigot (701) Fishtail Tobacco Pipe",
+      "priceRawText": "$480.00",
+      "msrpRawText": "$600.00"
     },
     {
       "id": "smokingpipes-730454",
@@ -27577,6 +27900,167 @@
       "sourceOriginalText": "House Pipe Oak Billiard P-Lip Tobacco Pipe",
       "priceRawText": "$320.00",
       "msrpRawText": "$400.00"
+    },
+    {
+      "id": "smokingpipes-738711",
+      "source": "smokingpipes",
+      "sourceProductId": "738711",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp (3070) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp (3070) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp (3070) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147864.1801.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 225,
+      "siteDisplayAmount": 1780.92353,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 28.35,
+      "shape": "Panel",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp (3070) fishtail tobacco pipe",
+        "price": 1780.92353,
+        "sourceProductId": "738711"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147864.1801.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147864_1.2384.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 143.26,
+        "heightMm": 32.51,
+        "weightGrams": 28.35,
+        "chamberDepthMm": 26.42,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 35.31
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-3070__series-irish-harp-fishtail-tobacco-pipe__shape-panel",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147864",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Panel",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 143.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 28.35,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 26.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738711",
+      "sourceOriginalText": "Irish Harp (3070) Fishtail Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$225.00"
     }
   ]
 }

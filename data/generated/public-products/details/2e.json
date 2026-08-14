@@ -11103,6 +11103,160 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-700940",
+      "source": "smokingpipes",
+      "sourceProductId": "700940",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Black Smooth MacArthur (with Extra Stem) Tobacco Pipe",
+      "displayNameEn": "Compass Black Smooth MacArthur (with Extra Stem) Tobacco Pipe",
+      "rawTitle": "Compass Black Smooth MacArthur (with Extra Stem) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22962.3323.jpg",
+      "sourcePriceAmount": 86,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 971.5772000000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 29.48,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass black smooth macarthur (with extra stem) tobacco pipe",
+        "price": 971.5772000000001,
+        "sourceProductId": "700940"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22962.3323.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.41,
+        "heightMm": 55.37,
+        "weightGrams": 29.48,
+        "chamberDepthMm": 31.5,
+        "chamberDiameterMm": 16.51,
+        "outsideDiameterMm": 30.28
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-black-macarthur-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Black Macarthur Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-22962",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 55.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 29.48,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 31.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.28,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=700940",
+      "sourceOriginalText": "Compass Black Smooth MacArthur (with Extra Stem) Tobacco Pipe",
+      "priceRawText": "$86.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-702028",
       "source": "smokingpipes",
       "sourceProductId": "702028",
@@ -22952,9 +23106,9 @@
       "siteDisplayAmount": 808.5932,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -25982,6 +26136,166 @@
       "sourceOriginalText": "Red Spigot (701) Fishtail Tobacco Pipe",
       "priceRawText": "$260.00",
       "msrpRawText": "$325.00"
+    },
+    {
+      "id": "smokingpipes-737465",
+      "source": "smokingpipes",
+      "sourceProductId": "737465",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Foresta Rusticated Brown (207) (6mm) Tobacco Pipe",
+      "displayNameEn": "Foresta Rusticated Brown (207) (6mm) Tobacco Pipe",
+      "rawTitle": "Foresta Rusticated Brown (207) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112220.1737.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1602.86351,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "foresta rusticated brown (207) (6mm) tobacco pipe",
+        "price": 1602.86351,
+        "sourceProductId": "737465"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112220.1737.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 144.02,
+        "heightMm": 42.42,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.56,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 40.13
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-207__series-foresta-brown-tobacco-pipe__shape-apple",
+        "confidence": "high"
+      },
+      "series": "Foresta Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112220",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 144.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737465",
+      "sourceOriginalText": "Foresta Rusticated Brown (207) (6mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
     },
     {
       "id": "smokingpipes-738382",

@@ -7008,9 +7008,9 @@
       "siteDisplayAmount": 1715.3224699999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10334,6 +10334,160 @@
       "sourceOriginalText": "Red Grain Freehand (1) Tobacco Pipe",
       "priceRawText": "$254.00",
       "msrpRawText": "$254.00"
+    },
+    {
+      "id": "smokingpipes-701084",
+      "source": "smokingpipes",
+      "sourceProductId": "701084",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Raw Tobacco Pipe",
+      "displayNameEn": "Compass Raw Tobacco Pipe",
+      "rawTitle": "Compass Raw Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23106.6984.jpg",
+      "sourcePriceAmount": 70,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 841.19,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 25.1,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass raw tobacco pipe",
+        "price": 841.19,
+        "sourceProductId": "701084"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23106.6984.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 124.12,
+        "heightMm": 44.75,
+        "weightGrams": 25.1,
+        "chamberDepthMm": 30.66,
+        "chamberDiameterMm": 16.79,
+        "outsideDiameterMm": 30.39
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-raw-tobacco-pipe__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Raw Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23106",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 124.12,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 25.1,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.66,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.79,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.39,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=701084",
+      "sourceOriginalText": "Compass Raw Tobacco Pipe",
+      "priceRawText": "$70.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-701991",
@@ -22981,6 +23135,167 @@
       "msrpRawText": "$215.00"
     },
     {
+      "id": "smokingpipes-735121",
+      "source": "smokingpipes",
+      "sourceProductId": "735121",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Sandblasted Baskerville P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Sandblasted Baskerville P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Sandblasted Baskerville P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146403.6865.jpg",
+      "sourcePriceAmount": 180,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 225,
+      "siteDisplayAmount": 1780.92353,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 62.37,
+      "shape": "Rhodesian",
+      "shapeZh": "牛头斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes sandblasted baskerville p-lip tobacco pipe",
+        "price": 1780.92353,
+        "sourceProductId": "735121"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146403.6865.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146403_1.9481.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.52,
+        "heightMm": 52.32,
+        "weightGrams": 62.37,
+        "chamberDepthMm": 43.69,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 39.62
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-sandblasted-baskerville-p-lip__shape-rhodesian",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Sandblasted Baskerville P Lip",
+      "year": null,
+      "productCode": "002-029-146403",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Rhodesian",
+          "labelZh": "牛头斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 62.37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735121",
+      "sourceOriginalText": "Sherlock Holmes Sandblasted Baskerville P-Lip Tobacco Pipe",
+      "priceRawText": "$180.00",
+      "msrpRawText": "$225.00"
+    },
+    {
       "id": "smokingpipes-735164",
       "source": "smokingpipes",
       "sourceProductId": "735164",
@@ -24436,6 +24751,163 @@
       "msrpRawText": "$240.00"
     },
     {
+      "id": "smokingpipes-736250",
+      "source": "smokingpipes",
+      "sourceProductId": "736250",
+      "brandName": "Bruno Nuttens",
+      "brandSlug": "bruno-nuttens",
+      "brandCountry": null,
+      "displayName": "Heritage Smooth Bent Apple (H3) (2026) Tobacco Pipe",
+      "displayNameEn": "Heritage Smooth Bent Apple (H3) (2026) Tobacco Pipe",
+      "rawTitle": "Heritage Smooth Bent Apple (H3) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0617.5680.jpg",
+      "sourcePriceAmount": 275,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2755.5678500000004,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 42.64,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "bruno nuttens",
+        "name": "heritage smooth bent apple (h3) (2026) tobacco pipe",
+        "price": 2755.5678500000004,
+        "sourceProductId": "736250"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0617.5680.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0617_1.6099.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0617_2.7847.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0617_3.6434.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.44,
+        "heightMm": 39.37,
+        "weightGrams": 42.64,
+        "chamberDepthMm": 31.75,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 40.89
+      },
+      "model": {
+        "canonicalModelKey": "bruno-nuttens__model-h3__series-heritage-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Heritage Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-939-0617",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Bruno Nuttens",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.64,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=736250",
+      "sourceOriginalText": "Heritage Smooth Bent Apple (H3) (2026) Tobacco Pipe",
+      "priceRawText": "$275.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736428",
       "source": "smokingpipes",
       "sourceProductId": "736428",
@@ -25884,6 +26356,166 @@
       "sourceOriginalText": "Foresta Smooth Natural (616 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$224.00",
       "msrpRawText": "$280.00"
+    },
+    {
+      "id": "smokingpipes-738476",
+      "source": "smokingpipes",
+      "sourceProductId": "738476",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "displayNameEn": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "rawTitle": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112360.1509.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1887.7595419999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "150th anniversary achille ii rusticated (6mm) tobacco pipe",
+        "price": 1887.7595419999998,
+        "sourceProductId": "738476"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112360.1509.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.46,
+        "heightMm": 42.93,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 36.07,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 35.56
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-150th-anniversary-achille-ii-tobacco__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "150th Anniversary Achille Ii Tobacco",
+      "year": null,
+      "productCode": "002-033-112360",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 42.93,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=738476",
+      "sourceOriginalText": "150th Anniversary Achille II Rusticated (6mm) Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
     }
   ]
 }

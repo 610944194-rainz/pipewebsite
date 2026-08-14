@@ -26109,6 +26109,163 @@
       "msrpRawText": "$700.00"
     },
     {
+      "id": "smokingpipes-735933",
+      "source": "smokingpipes",
+      "sourceProductId": "735933",
+      "brandName": "Duca",
+      "brandSlug": "duca",
+      "brandCountry": null,
+      "displayName": "Smooth Acorn with Ivorite (D) Tobacco Pipe",
+      "displayNameEn": "Smooth Acorn with Ivorite (D) Tobacco Pipe",
+      "rawTitle": "Smooth Acorn with Ivorite (D) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0773.4502.jpg",
+      "sourcePriceAmount": 1045,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 10291.8801,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 36.29,
+      "shape": "Acorn/Pear",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "duca",
+        "name": "smooth acorn with ivorite (d) tobacco pipe",
+        "price": 10291.8801,
+        "sourceProductId": "735933"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0773.4502.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0773_1.7528.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0773_2.8953.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-427-0773_3.9585.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 137.92,
+        "heightMm": 34.29,
+        "weightGrams": 36.29,
+        "chamberDepthMm": 30.48,
+        "chamberDiameterMm": 17.53,
+        "outsideDiameterMm": 46.74
+      },
+      "model": {
+        "canonicalModelKey": "duca__series-with-ivorite-tobacco-pipe__shape-acorn-pear",
+        "confidence": "medium"
+      },
+      "series": "With Ivorite Tobacco Pipe",
+      "year": null,
+      "productCode": "002-427-0773",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Duca",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Acorn/Pear",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 137.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.29,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 46.74,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/duca/moreinfo.cfm?product_id=735933",
+      "sourceOriginalText": "Smooth Acorn with Ivorite (D) Tobacco Pipe",
+      "priceRawText": "$1,045.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-735967",
       "source": "smokingpipes",
       "sourceProductId": "735967",
@@ -26751,6 +26908,334 @@
       "sourceOriginalText": "Porto Cervo Rusticated (207) (6mm) Tobacco Pipe",
       "priceRawText": "$156.00",
       "msrpRawText": "$195.00"
+    },
+    {
+      "id": "smokingpipes-736432",
+      "source": "smokingpipes",
+      "sourceProductId": "736432",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Pub Pipe Sandblasted P-Lip Tobacco Pipe",
+      "displayNameEn": "Pub Pipe Sandblasted P-Lip Tobacco Pipe",
+      "rawTitle": "Pub Pipe Sandblasted P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146827.9484.jpg",
+      "sourcePriceAmount": 208,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 260,
+      "siteDisplayAmount": 2030.2075579999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 93.55,
+      "shape": "Oom Paul",
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "pub pipe sandblasted p-lip tobacco pipe",
+        "price": 2030.2075579999998,
+        "sourceProductId": "736432"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146827.9484.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146827_1.9325.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146827_2.7620.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146827_3.1443.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.6,
+        "heightMm": 63.25,
+        "weightGrams": 93.55,
+        "chamberDepthMm": 49.78,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 40.39
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-pub-pipe-sandblasted-p-lip-tobacco__shape-oom-paul",
+        "confidence": "medium"
+      },
+      "series": "Pub Pipe Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-146827",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Oom Paul",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.6,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 63.25,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 93.55,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 49.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=736432",
+      "sourceOriginalText": "Pub Pipe Sandblasted P-Lip Tobacco Pipe",
+      "priceRawText": "$208.00",
+      "msrpRawText": "$260.00"
+    },
+    {
+      "id": "smokingpipes-736507",
+      "source": "smokingpipes",
+      "sourceProductId": "736507",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Collection Fiammata Billiard Sitter (KKKK) (2026) Tobacco Pipe",
+      "displayNameEn": "Collection Fiammata Billiard Sitter (KKKK) (2026) Tobacco Pipe",
+      "rawTitle": "Collection Fiammata Billiard Sitter (KKKK) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184.8836.jpg",
+      "sourcePriceAmount": 2284,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 21903.267719999996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 6,
+      "weightGrams": 58.97,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "collection fiammata billiard sitter (kkkk) (2026) tobacco pipe",
+        "price": 21903.267719999996,
+        "sourceProductId": "736507"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184.8836.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184_1.8235.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184_2.2771.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184_3.2155.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184_4.7917.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6184_5.2658.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.03,
+        "heightMm": 54.1,
+        "weightGrams": 58.97,
+        "chamberDepthMm": 43.18,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 40.13
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2026__series-collection-fiammata-sitter-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Collection Fiammata Sitter Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-386-6184",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 58.97,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736507",
+      "sourceOriginalText": "Collection Fiammata Billiard Sitter (KKKK) (2026) Tobacco Pipe",
+      "priceRawText": "$2,284.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-736769",
@@ -28196,6 +28681,328 @@
       "sourceOriginalText": "Sandblasted Army Granite Billiard (20) Tobacco Pipe",
       "priceRawText": "$117.00",
       "msrpRawText": "$130.00"
+    },
+    {
+      "id": "smokingpipes-738673",
+      "source": "smokingpipes",
+      "sourceProductId": "738673",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Standard Sandblasted (313) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Standard Sandblasted (313) P-Lip Tobacco Pipe",
+      "rawTitle": "System Standard Sandblasted (313) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147826.8093.jpg",
+      "sourcePriceAmount": 136,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 170,
+      "siteDisplayAmount": 1323.62264,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 45.36,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system standard sandblasted (313) p-lip tobacco pipe",
+        "price": 1323.62264,
+        "sourceProductId": "738673"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147826.8093.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147826_1.5404.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.52,
+        "heightMm": 44.2,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 36.07,
+        "chamberDiameterMm": 18.29,
+        "outsideDiameterMm": 31.75
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-313__series-system-standard-sandblasted-p-lip-tobacco__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Standard Sandblasted P Lip Tobacco",
+      "year": null,
+      "productCode": "002-029-147826",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738673",
+      "sourceOriginalText": "System Standard Sandblasted (313) P-Lip Tobacco Pipe",
+      "priceRawText": "$136.00",
+      "msrpRawText": "$170.00"
+    },
+    {
+      "id": "smokingpipes-738704",
+      "source": "smokingpipes",
+      "sourceProductId": "738704",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Junior Heritage Silver Mounted Lovat Fishtail Tobacco Pipe",
+      "displayNameEn": "Junior Heritage Silver Mounted Lovat Fishtail Tobacco Pipe",
+      "rawTitle": "Junior Heritage Silver Mounted Lovat Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147857.6063.jpg",
+      "sourcePriceAmount": 120,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 150,
+      "siteDisplayAmount": 1199.7548,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 19.84,
+      "shape": "Lovat",
+      "shapeZh": "罗瓦斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "junior heritage silver mounted lovat fishtail tobacco pipe",
+        "price": 1199.7548,
+        "sourceProductId": "738704"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147857.6063.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147857_1.2498.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 113.03,
+        "heightMm": 39.37,
+        "weightGrams": 19.84,
+        "chamberDepthMm": 32,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 31.24
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-junior-heritage-silver-mounted-fishtail__shape-lovat",
+        "confidence": "medium"
+      },
+      "series": "Junior Heritage Silver Mounted Fishtail",
+      "year": null,
+      "productCode": "002-029-147857",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Lovat",
+          "labelZh": "罗瓦斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 113.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 19.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 31.24,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738704",
+      "sourceOriginalText": "Junior Heritage Silver Mounted Lovat Fishtail Tobacco Pipe",
+      "priceRawText": "$120.00",
+      "msrpRawText": "$150.00"
     }
   ]
 }

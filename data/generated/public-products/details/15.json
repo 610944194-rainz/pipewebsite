@@ -15870,9 +15870,9 @@
       "siteDisplayAmount": 1277.1722,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -16974,6 +16974,166 @@
         }
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=719203",
+      "sourceOriginalText": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "priceRawText": "$192.00",
+      "msrpRawText": "$240.00"
+    },
+    {
+      "id": "smokingpipes-719206",
+      "source": "smokingpipes",
+      "sourceProductId": "719206",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "displayNameEn": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "rawTitle": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109557.3492.jpg",
+      "sourcePriceAmount": 192,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 240,
+      "siteDisplayAmount": 1887.7595419999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "150th anniversary giancarlo rusticated (6mm) tobacco pipe",
+        "price": 1887.7595419999998,
+        "sourceProductId": "719206"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-109557.3492.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 161.04,
+        "heightMm": 41.91,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 35.56,
+        "chamberDiameterMm": 18.8,
+        "outsideDiameterMm": 34.8
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-150th-anniversary-giancarlo-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "150th Anniversary Giancarlo Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-109557",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 161.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.8,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=719206",
       "sourceOriginalText": "150th Anniversary Giancarlo Rusticated (6mm) Tobacco Pipe",
       "priceRawText": "$192.00",
       "msrpRawText": "$240.00"
@@ -27524,6 +27684,167 @@
       "msrpRawText": "$290.00"
     },
     {
+      "id": "smokingpipes-735702",
+      "source": "smokingpipes",
+      "sourceProductId": "735702",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Bosco Smooth (101) (6mm) Tobacco Pipe",
+      "displayNameEn": "Bosco Smooth (101) (6mm) Tobacco Pipe",
+      "rawTitle": "Bosco Smooth (101) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112001.3658.jpg",
+      "sourcePriceAmount": 188,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 235,
+      "siteDisplayAmount": 1852.147538,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 53.86,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "bosco smooth (101) (6mm) tobacco pipe",
+        "price": 1852.147538,
+        "sourceProductId": "735702"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112001.3658.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112001_1.8691.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 145.8,
+        "heightMm": 50.8,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 42.67,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-101__series-bosco-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Bosco Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112001",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=735702",
+      "sourceOriginalText": "Bosco Smooth (101) (6mm) Tobacco Pipe",
+      "priceRawText": "$188.00",
+      "msrpRawText": "$235.00"
+    },
+    {
       "id": "smokingpipes-735767",
       "source": "smokingpipes",
       "sourceProductId": "735767",
@@ -29449,6 +29770,168 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-737627",
+      "source": "smokingpipes",
+      "sourceProductId": "737627",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Minuto Smooth (109) (6mm) Tobacco Pipe",
+      "displayNameEn": "Minuto Smooth (109) (6mm) Tobacco Pipe",
+      "rawTitle": "Minuto Smooth (109) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112248.3289.jpg",
+      "sourcePriceAmount": 118,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 147.5,
+      "siteDisplayAmount": 1184.2713199999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 3,
+      "weightGrams": 14.17,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "minuto smooth (109) (6mm) tobacco pipe",
+        "price": 1184.2713199999998,
+        "sourceProductId": "737627"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112248.3289.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112248_1.9584.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-89250_1.7506.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 111.25,
+        "heightMm": 31.5,
+        "weightGrams": 14.17,
+        "chamberDepthMm": 27.69,
+        "chamberDiameterMm": 16.26,
+        "outsideDiameterMm": 29.21
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-109__series-minuto-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Minuto Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112248",
+      "filterSizeMm": 6,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 111.25,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 31.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 14.17,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 27.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 29.21,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737627",
+      "sourceOriginalText": "Minuto Smooth (109) (6mm) Tobacco Pipe",
+      "priceRawText": "$118.00",
+      "msrpRawText": "$147.50"
+    },
+    {
       "id": "smokingpipes-737630",
       "source": "smokingpipes",
       "sourceProductId": "737630",
@@ -29768,6 +30251,167 @@
       "sourceOriginalText": "Dolomiti Rusticated (128) (6mm) Tobacco Pipe",
       "priceRawText": "$112.00",
       "msrpRawText": "$140.00"
+    },
+    {
+      "id": "smokingpipes-737685",
+      "source": "smokingpipes",
+      "sourceProductId": "737685",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Siena (316 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Siena (316 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Siena (316 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112306.8073.jpg",
+      "sourcePriceAmount": 154,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 192.5,
+      "siteDisplayAmount": 1462.97396,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 48.19,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "siena (316 ks) (6mm) tobacco pipe",
+        "price": 1462.97396,
+        "sourceProductId": "737685"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112306.8073.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112306_1.7503.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 149.86,
+        "heightMm": 51.05,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 32.77,
+        "chamberDiameterMm": 22.35,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-siena-tobacco-pipe__shape-bent-dublin",
+        "confidence": "medium"
+      },
+      "series": "Siena Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112306",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 149.86,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.77,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737685",
+      "sourceOriginalText": "Siena (316 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$154.00",
+      "msrpRawText": "$192.50"
     },
     {
       "id": "smokingpipes-737719",

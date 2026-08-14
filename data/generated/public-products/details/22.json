@@ -8335,9 +8335,9 @@
       "siteDisplayAmount": 971.5772000000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10404,6 +10404,160 @@
       "sourceOriginalText": "Trafalgar Ye Olde Wood (1816) (9mm) Tobacco Pipe",
       "priceRawText": "$236.00",
       "msrpRawText": "$295.00"
+    },
+    {
+      "id": "smokingpipes-700866",
+      "source": "smokingpipes",
+      "sourceProductId": "700866",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Brown Grain Smooth Matte MacArthur (with Extra Stem) Tobacco Pipe",
+      "displayNameEn": "Compass Brown Grain Smooth Matte MacArthur (with Extra Stem) Tobacco Pipe",
+      "rawTitle": "Compass Brown Grain Smooth Matte MacArthur (with Extra Stem) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22889.1722.jpg",
+      "sourcePriceAmount": 86,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 971.5772000000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 31.5,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass brown grain smooth matte macarthur (with extra stem) tobacco pipe",
+        "price": 971.5772000000001,
+        "sourceProductId": "700866"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-22889.1722.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 123.17,
+        "heightMm": 55.87,
+        "weightGrams": 31.5,
+        "chamberDepthMm": 30.81,
+        "chamberDiameterMm": 16.28,
+        "outsideDiameterMm": 30
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-brown-grain-matte-macarthur__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Brown Grain Matte Macarthur",
+      "year": null,
+      "productCode": "002-508-22889",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 123.17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 55.87,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.5,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.28,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=700866",
+      "sourceOriginalText": "Compass Brown Grain Smooth Matte MacArthur (with Extra Stem) Tobacco Pipe",
+      "priceRawText": "$86.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-702031",
@@ -23807,6 +23961,167 @@
       "sourceOriginalText": "Trafalgar Guinea Grain (1818) (9mm) (with Case) Tobacco Pipe",
       "priceRawText": "$344.00",
       "msrpRawText": "$430.00"
+    },
+    {
+      "id": "smokingpipes-735373",
+      "source": "smokingpipes",
+      "sourceProductId": "735373",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Copperhead Sandblasted Horn Tobacco Pipe",
+      "displayNameEn": "Copperhead Sandblasted Horn Tobacco Pipe",
+      "rawTitle": "Copperhead Sandblasted Horn Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23681.4916.jpg",
+      "sourcePriceAmount": 137.6,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 172,
+      "siteDisplayAmount": 1392.07592,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 44.45,
+      "shape": "Horn",
+      "shapeZh": "号角斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "copperhead sandblasted horn tobacco pipe",
+        "price": 1392.07592,
+        "sourceProductId": "735373"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23681.4916.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23681_1.4280.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 151.38,
+        "heightMm": 44.2,
+        "weightGrams": 44.45,
+        "chamberDepthMm": 32,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 39.88
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-copperhead-sandblasted-tobacco-pipe__shape-horn",
+        "confidence": "medium"
+      },
+      "series": "Copperhead Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-508-23681",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Horn",
+          "labelZh": "号角斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 151.38,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735373",
+      "sourceOriginalText": "Copperhead Sandblasted Horn Tobacco Pipe",
+      "priceRawText": "$137.60",
+      "msrpRawText": "$172.00"
     },
     {
       "id": "smokingpipes-735398",

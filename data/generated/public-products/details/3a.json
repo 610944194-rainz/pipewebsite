@@ -6800,9 +6800,9 @@
       "siteDisplayAmount": 710.8027999999999,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -10295,9 +10295,9 @@
       "siteDisplayAmount": 1230.72176,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -22593,6 +22593,166 @@
       "msrpRawText": "$275.00"
     },
     {
+      "id": "smokingpipes-737616",
+      "source": "smokingpipes",
+      "sourceProductId": "737616",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Dracula Rusticated (608) Fishtail Tobacco Pipe",
+      "displayNameEn": "Dracula Rusticated (608) Fishtail Tobacco Pipe",
+      "rawTitle": "Dracula Rusticated (608) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147292.8422.jpg",
+      "sourcePriceAmount": 132,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 165,
+      "siteDisplayAmount": 1292.65568,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 39.69,
+      "shape": "Pot",
+      "shapeZh": "罐式斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "dracula rusticated (608) fishtail tobacco pipe",
+        "price": 1292.65568,
+        "sourceProductId": "737616"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147292.8422.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.92,
+        "heightMm": 38.1,
+        "weightGrams": 39.69,
+        "chamberDepthMm": 33.02,
+        "chamberDiameterMm": 18.29,
+        "outsideDiameterMm": 36.83
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-608__series-dracula-fishtail-tobacco-pipe__shape-pot",
+        "confidence": "high"
+      },
+      "series": "Dracula Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147292",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Pot",
+          "labelZh": "罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.92,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 39.69,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=737616",
+      "sourceOriginalText": "Dracula Rusticated (608) Fishtail Tobacco Pipe",
+      "priceRawText": "$132.00",
+      "msrpRawText": "$165.00"
+    },
+    {
       "id": "smokingpipes-737772",
       "source": "smokingpipes",
       "sourceProductId": "737772",
@@ -23062,6 +23222,169 @@
       "sourceOriginalText": "Smooth Army Paneled Bent Apple (241) Tobacco Pipe",
       "priceRawText": "$157.50",
       "msrpRawText": "$175.00"
+    },
+    {
+      "id": "smokingpipes-738729",
+      "source": "smokingpipes",
+      "sourceProductId": "738729",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112367.5043.jpg",
+      "sourcePriceAmount": 224,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 280,
+      "siteDisplayAmount": 2172.655574,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 48.19,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "eleganza smooth natural (111 ks) (6mm) tobacco pipe",
+        "price": 2172.655574,
+        "sourceProductId": "738729"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112367.5043.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112367_1.4934.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112367_2.6100.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112367_3.4046.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 153.42,
+        "heightMm": 51.56,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 42.16,
+        "chamberDiameterMm": 22.35,
+        "outsideDiameterMm": 39.62
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-eleganza-natural-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "Eleganza Natural Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112367",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 153.42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39.62,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=738729",
+      "sourceOriginalText": "Eleganza Smooth Natural (111 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$224.00",
+      "msrpRawText": "$280.00"
     }
   ]
 }

@@ -6577,9 +6577,9 @@
       "siteDisplayAmount": 1462.15904,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -17272,6 +17272,169 @@
       "msrpRawText": "$275.00"
     },
     {
+      "id": "smokingpipes-728865",
+      "source": "smokingpipes",
+      "sourceProductId": "728865",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Sherlock Holmes Dark Smooth Professor P-Lip Tobacco Pipe",
+      "displayNameEn": "Sherlock Holmes Dark Smooth Professor P-Lip Tobacco Pipe",
+      "rawTitle": "Sherlock Holmes Dark Smooth Professor P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144559.7732.jpg",
+      "sourcePriceAmount": 228,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 285,
+      "siteDisplayAmount": 2208.267578,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 79.38,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "sherlock holmes dark smooth professor p-lip tobacco pipe",
+        "price": 2208.267578,
+        "sourceProductId": "728865"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144559.7732.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144559_1.8615.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144559_2.7836.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-144559_3.8615.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.91,
+        "heightMm": 56.39,
+        "weightGrams": 79.38,
+        "chamberDepthMm": 46.48,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 44.7
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-sherlock-holmes-dark-professor-p-lip__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Sherlock Holmes Dark Professor P Lip",
+      "year": null,
+      "productCode": "002-029-144559",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 56.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 79.38,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 46.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=728865",
+      "sourceOriginalText": "Sherlock Holmes Dark Smooth Professor P-Lip Tobacco Pipe",
+      "priceRawText": "$228.00",
+      "msrpRawText": "$285.00"
+    },
+    {
       "id": "smokingpipes-729043",
       "source": "smokingpipes",
       "sourceProductId": "729043",
@@ -20459,6 +20622,169 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-732565",
+      "source": "smokingpipes",
+      "sourceProductId": "732565",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Collection Bent Pot (KK) (2025) Tobacco Pipe",
+      "displayNameEn": "Collection Bent Pot (KK) (2025) Tobacco Pipe",
+      "rawTitle": "Collection Bent Pot (KK) (2025) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6136.9610.jpg",
+      "sourcePriceAmount": 806,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 8052.07248,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 43.09,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "collection bent pot (kk) (2025) tobacco pipe",
+        "price": 8052.07248,
+        "sourceProductId": "732565"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6136.9610.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6136_1.3110.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6136_2.1045.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6136_3.6185.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 124.46,
+        "heightMm": 41.15,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 32.51,
+        "chamberDiameterMm": 20.57,
+        "outsideDiameterMm": 38.86
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2025__series-collection-tobacco-pipe__shape-bent-pot",
+        "confidence": "high"
+      },
+      "series": "Collection Tobacco Pipe",
+      "year": 2025,
+      "productCode": "002-386-6136",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 124.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=732565",
+      "sourceOriginalText": "Collection Bent Pot (KK) (2025) Tobacco Pipe",
+      "priceRawText": "$806.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-732578",
       "source": "smokingpipes",
       "sourceProductId": "732578",
@@ -23043,6 +23369,163 @@
       "msrpRawText": "$600.00"
     },
     {
+      "id": "smokingpipes-736272",
+      "source": "smokingpipes",
+      "sourceProductId": "736272",
+      "brandName": "Bruno Nuttens",
+      "brandSlug": "bruno-nuttens",
+      "brandCountry": null,
+      "displayName": "Handmade Smooth Bent Dublin (AA) (2026) Tobacco Pipe",
+      "displayNameEn": "Handmade Smooth Bent Dublin (AA) (2026) Tobacco Pipe",
+      "rawTitle": "Handmade Smooth Bent Dublin (AA) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0634.5988.jpg",
+      "sourcePriceAmount": 615,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 6262.100700000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 38.1,
+      "shape": "Bent Dublin",
+      "shapeZh": "弯式都柏林斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "bruno nuttens",
+        "name": "handmade smooth bent dublin (aa) (2026) tobacco pipe",
+        "price": 6262.100700000001,
+        "sourceProductId": "736272"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0634.5988.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0634_1.9836.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0634_2.9986.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0634_3.7376.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 140.46,
+        "heightMm": 44.7,
+        "weightGrams": 38.1,
+        "chamberDepthMm": 41.15,
+        "chamberDiameterMm": 18.03,
+        "outsideDiameterMm": 41.66
+      },
+      "model": {
+        "canonicalModelKey": "bruno-nuttens__model-2026__series-handmade-tobacco-pipe__shape-bent-dublin",
+        "confidence": "high"
+      },
+      "series": "Handmade Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-939-0634",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Bruno Nuttens",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Dublin",
+          "labelZh": "弯式都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 140.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.7,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=736272",
+      "sourceOriginalText": "Handmade Smooth Bent Dublin (AA) (2026) Tobacco Pipe",
+      "priceRawText": "$615.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736475",
       "source": "smokingpipes",
       "sourceProductId": "736475",
@@ -24653,6 +25136,167 @@
       "sourceOriginalText": "Saint Nicholas 2026 (320 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$152.00",
       "msrpRawText": "$190.00"
+    },
+    {
+      "id": "smokingpipes-738727",
+      "source": "smokingpipes",
+      "sourceProductId": "738727",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112365.2687.jpg",
+      "sourcePriceAmount": 168,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 210,
+      "siteDisplayAmount": 1674.0875179999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 68.04,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "oceano smooth (616 ks) (6mm) tobacco pipe",
+        "price": 1674.0875179999998,
+        "sourceProductId": "738727"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112365.2687.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112365_1.1319.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.1,
+        "heightMm": 53.34,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 44.45,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 43.43
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-oceano-tobacco-pipe__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Oceano Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112365",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 53.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 44.45,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=738727",
+      "sourceOriginalText": "Oceano Smooth (616 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$168.00",
+      "msrpRawText": "$210.00"
     }
   ]
 }

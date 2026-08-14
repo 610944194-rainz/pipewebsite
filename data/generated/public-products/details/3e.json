@@ -7461,10 +7461,10 @@
       "siteDisplayAmount": 2018.4930829999998,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -22315,6 +22315,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-731487",
+      "source": "smokingpipes",
+      "sourceProductId": "731487",
+      "brandName": "Werner Mummert",
+      "brandSlug": "werner-mummert",
+      "brandCountry": null,
+      "displayName": "Sandblasted Bulldog Tobacco Pipe",
+      "displayNameEn": "Sandblasted Bulldog Tobacco Pipe",
+      "rawTitle": "Sandblasted Bulldog Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-560-0478.8604.jpg",
+      "sourcePriceAmount": 800,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7995.843000000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 34.02,
+      "shape": "Bulldog",
+      "shapeZh": "斗牛犬斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "werner mummert",
+        "name": "sandblasted bulldog tobacco pipe",
+        "price": 7995.843000000001,
+        "sourceProductId": "731487"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-560-0478.8604.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-560-0478_1.9142.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-560-0478_2.5846.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-560-0478_3.2400.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 132.59,
+        "heightMm": 41.15,
+        "weightGrams": 34.02,
+        "chamberDepthMm": 35.31,
+        "chamberDiameterMm": 17.53,
+        "outsideDiameterMm": 40.13
+      },
+      "model": {
+        "canonicalModelKey": "werner-mummert__series-sandblasted-tobacco-pipe__shape-bulldog",
+        "confidence": "medium"
+      },
+      "series": "Sandblasted Tobacco Pipe",
+      "year": null,
+      "productCode": "002-560-0478",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Werner Mummert",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bulldog",
+          "labelZh": "斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132.59,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 34.02,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 35.31,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.13,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/werner-mummert/moreinfo.cfm?product_id=731487",
+      "sourceOriginalText": "Sandblasted Bulldog Tobacco Pipe",
+      "priceRawText": "$800.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-731601",
       "source": "smokingpipes",
       "sourceProductId": "731601",
@@ -25013,6 +25170,167 @@
       "msrpRawText": "$189.00"
     },
     {
+      "id": "smokingpipes-735092",
+      "source": "smokingpipes",
+      "sourceProductId": "735092",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Speciality Smooth Nickel Mounted Barrel P-Lip Tobacco Pipe",
+      "displayNameEn": "Speciality Smooth Nickel Mounted Barrel P-Lip Tobacco Pipe",
+      "rawTitle": "Speciality Smooth Nickel Mounted Barrel P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146374.2906.jpg",
+      "sourcePriceAmount": 122,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 152.5,
+      "siteDisplayAmount": 1215.23828,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 25.51,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "speciality smooth nickel mounted barrel p-lip tobacco pipe",
+        "price": 1215.23828,
+        "sourceProductId": "735092"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146374.2906.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-146374_1.8912.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 141.73,
+        "heightMm": 41.4,
+        "weightGrams": 25.51,
+        "chamberDepthMm": 30.73,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 30.23
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-speciality-nickel-mounted-barrel-p-lip__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Speciality Nickel Mounted Barrel P Lip",
+      "year": null,
+      "productCode": "002-029-146374",
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 141.73,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.4,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 25.51,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.73,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.23,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=735092",
+      "sourceOriginalText": "Speciality Smooth Nickel Mounted Barrel P-Lip Tobacco Pipe",
+      "priceRawText": "$122.00",
+      "msrpRawText": "$152.50"
+    },
+    {
       "id": "smokingpipes-735110",
       "source": "smokingpipes",
       "sourceProductId": "735110",
@@ -25335,6 +25653,166 @@
       "sourceOriginalText": "Arcobaleno Smooth Blue (111 KS) (6mm) Tobacco Pipe",
       "priceRawText": "$150.00",
       "msrpRawText": "$187.50"
+    },
+    {
+      "id": "smokingpipes-735342",
+      "source": "smokingpipes",
+      "sourceProductId": "735342",
+      "brandName": "Nørding",
+      "brandSlug": "nording",
+      "brandCountry": "Denmark",
+      "displayName": "Compass Metal Matte Blue Tobacco Pipe",
+      "displayNameEn": "Compass Metal Matte Blue Tobacco Pipe",
+      "rawTitle": "Compass Metal Matte Blue Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23650.8211.jpg",
+      "sourcePriceAmount": 72,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 857.4884,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 36.29,
+      "shape": "Poker",
+      "shapeZh": "扑克斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "nørding",
+        "name": "compass metal matte blue tobacco pipe",
+        "price": 857.4884,
+        "sourceProductId": "735342"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23650.8211.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 146.81,
+        "heightMm": 47.5,
+        "weightGrams": 36.29,
+        "chamberDepthMm": 32.51,
+        "chamberDiameterMm": 16.76,
+        "outsideDiameterMm": 34.29
+      },
+      "model": {
+        "canonicalModelKey": "nording__series-compass-metal-matte-blue-tobacco__shape-poker",
+        "confidence": "medium"
+      },
+      "series": "Compass Metal Matte Blue Tobacco",
+      "year": null,
+      "productCode": "002-508-23650",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Nørding",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Poker",
+          "labelZh": "扑克斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36.29,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32.51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 16.76,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 34.29,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=735342",
+      "sourceOriginalText": "Compass Metal Matte Blue Tobacco Pipe",
+      "priceRawText": "$72.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-735421",
