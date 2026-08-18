@@ -25116,6 +25116,163 @@
       "msrpRawText": "$225.00"
     },
     {
+      "id": "smokingpipes-736825",
+      "source": "smokingpipes",
+      "sourceProductId": "736825",
+      "brandName": "Radice",
+      "brandSlug": "radice",
+      "brandCountry": null,
+      "displayName": "Rind Billiard (2026) Tobacco Pipe",
+      "displayNameEn": "Rind Billiard (2026) Tobacco Pipe",
+      "rawTitle": "Rind Billiard (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8666.8622.jpg",
+      "sourcePriceAmount": 270,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2708.70995,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 47.63,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "radice",
+        "name": "rind billiard (2026) tobacco pipe",
+        "price": 2708.70995,
+        "sourceProductId": "736825"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8666.8622.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8666_1.4898.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8666_2.6189.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8666_3.7355.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 133.6,
+        "heightMm": 50.04,
+        "weightGrams": 47.63,
+        "chamberDepthMm": 43.94,
+        "chamberDiameterMm": 19.56,
+        "outsideDiameterMm": 37.08
+      },
+      "model": {
+        "canonicalModelKey": "radice__model-2026__series-rind-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Rind Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-030-8666",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Radice",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 133.6,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.04,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 47.63,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 43.94,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.56,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.08,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=736825",
+      "sourceOriginalText": "Rind Billiard (2026) Tobacco Pipe",
+      "priceRawText": "$270.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736904",
       "source": "smokingpipes",
       "sourceProductId": "736904",
@@ -25599,6 +25756,330 @@
       "sourceOriginalText": "Junior Sandblasted Silver Mounted Squat Rhodesian Fishtail Tobacco Pipe",
       "priceRawText": "$108.00",
       "msrpRawText": "$135.00"
+    },
+    {
+      "id": "smokingpipes-738812",
+      "source": "smokingpipes",
+      "sourceProductId": "738812",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Irish Harp Sandblasted (264) Fishtail Tobacco Pipe",
+      "displayNameEn": "Irish Harp Sandblasted (264) Fishtail Tobacco Pipe",
+      "rawTitle": "Irish Harp Sandblasted (264) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147883.5766.jpg",
+      "sourcePriceAmount": 156,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 195,
+      "siteDisplayAmount": 1478.45744,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 34.02,
+      "shape": "Canadian",
+      "shapeZh": "加拿大斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "irish harp sandblasted (264) fishtail tobacco pipe",
+        "price": 1478.45744,
+        "sourceProductId": "738812"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147883.5766.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147883_1.1892.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 156.72,
+        "heightMm": 43.69,
+        "weightGrams": 34.02,
+        "chamberDepthMm": 38.1,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 33.02
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-264__series-irish-harp-sandblasted-fishtail-tobacco__shape-canadian",
+        "confidence": "high"
+      },
+      "series": "Irish Harp Sandblasted Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-147883",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Canadian",
+          "labelZh": "加拿大斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 156.72,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 34.02,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 38.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.02,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738812",
+      "sourceOriginalText": "Irish Harp Sandblasted (264) Fishtail Tobacco Pipe",
+      "priceRawText": "$156.00",
+      "msrpRawText": "$195.00"
+    },
+    {
+      "id": "smokingpipes-738874",
+      "source": "smokingpipes",
+      "sourceProductId": "738874",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Red Spigot (150) Fishtail Tobacco Pipe",
+      "displayNameEn": "Red Spigot (150) Fishtail Tobacco Pipe",
+      "rawTitle": "Red Spigot (150) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147913.6008.jpg",
+      "sourcePriceAmount": 260,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 325,
+      "siteDisplayAmount": 2493.16361,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 53.86,
+      "shape": "Bulldog",
+      "shapeZh": "斗牛犬斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "red spigot (150) fishtail tobacco pipe",
+        "price": 2493.16361,
+        "sourceProductId": "738874"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147913.6008.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147913_1.6198.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147913_2.2197.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147913_3.1472.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 156.21,
+        "heightMm": 46.99,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 41.4
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-150__series-red-spigot-fishtail-tobacco-pipe__shape-bulldog",
+        "confidence": "high"
+      },
+      "series": "Red Spigot Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147913",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bulldog",
+          "labelZh": "斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 156.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46.99,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.4,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738874",
+      "sourceOriginalText": "Red Spigot (150) Fishtail Tobacco Pipe",
+      "priceRawText": "$260.00",
+      "msrpRawText": "$325.00"
     }
   ]
 }

@@ -4992,10 +4992,10 @@
       "siteDisplayAmount": 1640.34983,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -20336,6 +20336,163 @@
       "sourceOriginalText": "Arcobaleno Rusticated Red (207) (6mm) Tobacco Pipe",
       "priceRawText": "$112.00",
       "msrpRawText": "$140.00"
+    },
+    {
+      "id": "smokingpipes-736154",
+      "source": "smokingpipes",
+      "sourceProductId": "736154",
+      "brandName": "Radice",
+      "brandSlug": "radice",
+      "brandCountry": null,
+      "displayName": "Underwood Pure Billiard (2026) Tobacco Pipe",
+      "displayNameEn": "Underwood Pure Billiard (2026) Tobacco Pipe",
+      "rawTitle": "Underwood Pure Billiard (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8617.2579.jpg",
+      "sourcePriceAmount": 415,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 4387.7847,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 52.16,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Carved",
+      "finishZh": "雕刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "radice",
+        "name": "underwood pure billiard (2026) tobacco pipe",
+        "price": 4387.7847,
+        "sourceProductId": "736154"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8617.2579.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8617_1.9672.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8617_2.9598.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8617_3.5300.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.52,
+        "heightMm": 50.8,
+        "weightGrams": 52.16,
+        "chamberDepthMm": 45.97,
+        "chamberDiameterMm": 19.81,
+        "outsideDiameterMm": 38.35
+      },
+      "model": {
+        "canonicalModelKey": "radice__model-2026__series-underwood-pure-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Underwood Pure Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-030-8617",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Radice",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Carved",
+          "labelZh": "雕刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 52.16,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.35,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=736154",
+      "sourceOriginalText": "Underwood Pure Billiard (2026) Tobacco Pipe",
+      "priceRawText": "$415.00",
+      "msrpRawText": null
     },
     {
       "id": "smokingpipes-736774",

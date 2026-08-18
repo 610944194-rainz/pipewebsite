@@ -12643,6 +12643,160 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-720123",
+      "source": "smokingpipes",
+      "sourceProductId": "720123",
+      "brandName": "Brulor",
+      "brandSlug": "brulor",
+      "brandCountry": null,
+      "displayName": "Smooth Billiard with Horn Tobacco Pipe",
+      "displayNameEn": "Smooth Billiard with Horn Tobacco Pipe",
+      "rawTitle": "Smooth Billiard with Horn Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-945-2923.7301.jpg",
+      "sourcePriceAmount": 65,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 800.444,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 31.02,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Strawberry Wood",
+      "bowlMaterialZh": "草莓木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "brulor",
+        "name": "smooth billiard with horn tobacco pipe",
+        "price": 800.444,
+        "sourceProductId": "720123"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-945-2923.7301.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.53,
+        "heightMm": 45.07,
+        "weightGrams": 31.02,
+        "chamberDepthMm": 39.98,
+        "chamberDiameterMm": 19.21,
+        "outsideDiameterMm": 33.37
+      },
+      "model": {
+        "canonicalModelKey": "brulor__series-with-tobacco-pipe__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "With Tobacco Pipe",
+      "year": null,
+      "productCode": "002-945-2923",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Brulor",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Strawberry Wood",
+          "labelZh": "草莓木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.02,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 39.98,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/Brulor/moreinfo.cfm?product_id=720123",
+      "sourceOriginalText": "Smooth Billiard with Horn Tobacco Pipe",
+      "priceRawText": "$65.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-720290",
       "source": "smokingpipes",
       "sourceProductId": "720290",
@@ -22405,6 +22559,167 @@
       "msrpRawText": "$200.00"
     },
     {
+      "id": "smokingpipes-733332",
+      "source": "smokingpipes",
+      "sourceProductId": "733332",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Dolomiti Smooth (320 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Dolomiti Smooth (320 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Dolomiti Smooth (320 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111330.9361.jpg",
+      "sourcePriceAmount": 160,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 200,
+      "siteDisplayAmount": 1602.86351,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 68.04,
+      "shape": "Author",
+      "shapeZh": "作家斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "dolomiti smooth (320 ks) (6mm) tobacco pipe",
+        "price": 1602.86351,
+        "sourceProductId": "733332"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111330.9361.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-111330_1.7960.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 136.65,
+        "heightMm": 41.91,
+        "weightGrams": 68.04,
+        "chamberDepthMm": 32,
+        "chamberDiameterMm": 23.37,
+        "outsideDiameterMm": 49.02
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-dolomiti-tobacco-pipe__shape-author",
+        "confidence": "medium"
+      },
+      "series": "Dolomiti Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-111330",
+      "filterSizeMm": 6,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Author",
+          "labelZh": "作家斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 136.65,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41.91,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 68.04,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.37,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 49.02,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=733332",
+      "sourceOriginalText": "Dolomiti Smooth (320 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$160.00",
+      "msrpRawText": "$200.00"
+    },
+    {
       "id": "smokingpipes-733643",
       "source": "smokingpipes",
       "sourceProductId": "733643",
@@ -26753,6 +27068,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-737255",
+      "source": "smokingpipes",
+      "sourceProductId": "737255",
+      "brandName": "Radice",
+      "brandSlug": "radice",
+      "brandCountry": null,
+      "displayName": "Silk Cut Brandy (2026) Tobacco Pipe",
+      "displayNameEn": "Silk Cut Brandy (2026) Tobacco Pipe",
+      "rawTitle": "Silk Cut Brandy (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8698.2844.jpg",
+      "sourcePriceAmount": 295,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2942.9994500000003,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 38.56,
+      "shape": "Brandy",
+      "shapeZh": "白兰地斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "radice",
+        "name": "silk cut brandy (2026) tobacco pipe",
+        "price": 2942.9994500000003,
+        "sourceProductId": "737255"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8698.2844.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8698_1.8682.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8698_2.4643.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8698_3.1216.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 131.57,
+        "heightMm": 44.2,
+        "weightGrams": 38.56,
+        "chamberDepthMm": 42.16,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 37.59
+      },
+      "model": {
+        "canonicalModelKey": "radice__model-2026__series-silk-cut-tobacco-pipe__shape-brandy",
+        "confidence": "high"
+      },
+      "series": "Silk Cut Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-030-8698",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Radice",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Brandy",
+          "labelZh": "白兰地斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 131.57,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44.2,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38.56,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37.59,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=737255",
+      "sourceOriginalText": "Silk Cut Brandy (2026) Tobacco Pipe",
+      "priceRawText": "$295.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-737386",
       "source": "smokingpipes",
       "sourceProductId": "737386",
@@ -27717,6 +28189,169 @@
       "sourceOriginalText": "Tre Smooth (105) Tobacco Pipe",
       "priceRawText": "$160.00",
       "msrpRawText": "$200.00"
+    },
+    {
+      "id": "smokingpipes-738506",
+      "source": "smokingpipes",
+      "sourceProductId": "738506",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "System Spigot Smooth (312) P-Lip Tobacco Pipe",
+      "displayNameEn": "System Spigot Smooth (312) P-Lip Tobacco Pipe",
+      "rawTitle": "System Spigot Smooth (312) P-Lip Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147779.1631.jpg",
+      "sourcePriceAmount": 260,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 325,
+      "siteDisplayAmount": 2493.16361,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 56.7,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "system spigot smooth (312) p-lip tobacco pipe",
+        "price": 2493.16361,
+        "sourceProductId": "738506"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147779.1631.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147779_1.5376.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147779_2.1597.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147779_3.5247.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 126.75,
+        "heightMm": 49.53,
+        "weightGrams": 56.7,
+        "chamberDepthMm": 41.15,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 36.32
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-312__series-system-spigot-p-lip-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "System Spigot P Lip Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147779",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 126.75,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 49.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 56.7,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738506",
+      "sourceOriginalText": "System Spigot Smooth (312) P-Lip Tobacco Pipe",
+      "priceRawText": "$260.00",
+      "msrpRawText": "$325.00"
     }
   ]
 }

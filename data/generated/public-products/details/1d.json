@@ -20476,6 +20476,328 @@
       "msrpRawText": "$275.00"
     },
     {
+      "id": "smokingpipes-732697",
+      "source": "smokingpipes",
+      "sourceProductId": "732697",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Egg Sitter (200) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Egg Sitter (200) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Egg Sitter (200) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3840.9589.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1630.97825,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 63.5,
+      "shape": "Bent Egg",
+      "shapeZh": "弯式蛋形斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent egg sitter (200) (9mm) tobacco pipe",
+        "price": 1630.97825,
+        "sourceProductId": "732697"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3840.9589.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3840_1.9181.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 155.19,
+        "heightMm": 52.58,
+        "weightGrams": 63.5,
+        "chamberDepthMm": 29.46,
+        "chamberDiameterMm": 19.05,
+        "outsideDiameterMm": 41.66
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-sitter-tobacco-pipe__shape-bent-egg",
+        "confidence": "high"
+      },
+      "series": "Crown Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3840",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Egg",
+          "labelZh": "弯式蛋形斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 155.19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.58,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 63.5,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.66,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=732697",
+      "sourceOriginalText": "Crown Smooth Bent Egg Sitter (200) (9mm) Tobacco Pipe",
+      "priceRawText": "$155.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-733023",
+      "source": "smokingpipes",
+      "sourceProductId": "733023",
+      "brandName": "Winsløw",
+      "brandSlug": "winslow",
+      "brandCountry": "Denmark",
+      "displayName": "Crown Smooth Bent Apple Sitter (200) (9mm) Tobacco Pipe",
+      "displayNameEn": "Crown Smooth Bent Apple Sitter (200) (9mm) Tobacco Pipe",
+      "rawTitle": "Crown Smooth Bent Apple Sitter (200) (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3862.3881.jpg",
+      "sourcePriceAmount": 155,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1630.97825,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 61.23,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "winsløw",
+        "name": "crown smooth bent apple sitter (200) (9mm) tobacco pipe",
+        "price": 1630.97825,
+        "sourceProductId": "733023"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3862.3881.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-036-3862_1.6778.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 148.34,
+        "heightMm": 47.5,
+        "weightGrams": 61.23,
+        "chamberDepthMm": 37.85,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 40.39
+      },
+      "model": {
+        "canonicalModelKey": "winslow__model-200__series-crown-sitter-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Crown Sitter Tobacco Pipe",
+      "year": null,
+      "productCode": "002-036-3862",
+      "filterSizeMm": 9,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Winsløw",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Denmark",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 148.34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47.5,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 61.23,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 37.85,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/winslow/moreinfo.cfm?product_id=733023",
+      "sourceOriginalText": "Crown Smooth Bent Apple Sitter (200) (9mm) Tobacco Pipe",
+      "priceRawText": "$155.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-733303",
       "source": "smokingpipes",
       "sourceProductId": "733303",

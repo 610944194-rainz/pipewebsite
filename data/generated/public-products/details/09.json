@@ -7621,10 +7621,10 @@
       "siteDisplayAmount": 2352.5899099999997,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 4,
@@ -27137,6 +27137,163 @@
       "msrpRawText": null
     },
     {
+      "id": "smokingpipes-736194",
+      "source": "smokingpipes",
+      "sourceProductId": "736194",
+      "brandName": "Radice",
+      "brandSlug": "radice",
+      "brandCountry": null,
+      "displayName": "Silk Cut Canadian (2026) Tobacco Pipe",
+      "displayNameEn": "Silk Cut Canadian (2026) Tobacco Pipe",
+      "rawTitle": "Silk Cut Canadian (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8635.9907.jpg",
+      "sourcePriceAmount": 295,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2942.9994500000003,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 31.75,
+      "shape": "Canadian",
+      "shapeZh": "加拿大斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "radice",
+        "name": "silk cut canadian (2026) tobacco pipe",
+        "price": 2942.9994500000003,
+        "sourceProductId": "736194"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8635.9907.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8635_1.5481.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8635_2.1815.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-030-8635_3.8232.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 154.69,
+        "heightMm": 50.8,
+        "weightGrams": 31.75,
+        "chamberDepthMm": 45.97,
+        "chamberDiameterMm": 18.54,
+        "outsideDiameterMm": 30.73
+      },
+      "model": {
+        "canonicalModelKey": "radice__model-2026__series-silk-cut-tobacco-pipe__shape-canadian",
+        "confidence": "high"
+      },
+      "series": "Silk Cut Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-030-8635",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Radice",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Canadian",
+          "labelZh": "加拿大斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 154.69,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50.8,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31.75,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 45.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18.54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 30.73,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=736194",
+      "sourceOriginalText": "Silk Cut Canadian (2026) Tobacco Pipe",
+      "priceRawText": "$295.00",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-736385",
       "source": "smokingpipes",
       "sourceProductId": "736385",
@@ -28587,6 +28744,167 @@
       "sourceOriginalText": "Nelson The Very Finest (1815) (9mm) Tobacco Pipe",
       "priceRawText": "$248.00",
       "msrpRawText": "$310.00"
+    },
+    {
+      "id": "smokingpipes-738887",
+      "source": "smokingpipes",
+      "sourceProductId": "738887",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147926.5661.jpg",
+      "sourcePriceAmount": 140,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 175,
+      "siteDisplayAmount": 1354.5896,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter heritage (xl90) fishtail (9mm) tobacco pipe",
+        "price": 1354.5896,
+        "sourceProductId": "738887"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147926.5661.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147926_1.2218.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.52,
+        "heightMm": 52.32,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-army-filter-heritage-fishtail-tobacco__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Army Filter Heritage Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-147926",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.52,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738887",
+      "sourceOriginalText": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$140.00",
+      "msrpRawText": "$175.00"
     }
   ]
 }

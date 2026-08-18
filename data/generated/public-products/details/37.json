@@ -7027,10 +7027,10 @@
       "siteDisplayAmount": 2052.69935,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -24723,6 +24723,167 @@
       "msrpRawText": "$170.00"
     },
     {
+      "id": "smokingpipes-737641",
+      "source": "smokingpipes",
+      "sourceProductId": "737641",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Oceano Smooth (316 KS) (6mm) Tobacco Pipe",
+      "displayNameEn": "Oceano Smooth (316 KS) (6mm) Tobacco Pipe",
+      "rawTitle": "Oceano Smooth (316 KS) (6mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112262.1203.jpg",
+      "sourcePriceAmount": 168,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 210,
+      "siteDisplayAmount": 1674.0875179999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 53.86,
+      "shape": "Bent Pot",
+      "shapeZh": "弯式罐式斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "oceano smooth (316 ks) (6mm) tobacco pipe",
+        "price": 1674.0875179999998,
+        "sourceProductId": "737641"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112262.1203.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112262_1.9789.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 151.64,
+        "heightMm": 40.89,
+        "weightGrams": 53.86,
+        "chamberDepthMm": 30.73,
+        "chamberDiameterMm": 23.11,
+        "outsideDiameterMm": 44.96
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-oceano-tobacco-pipe__shape-bent-pot",
+        "confidence": "medium"
+      },
+      "series": "Oceano Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112262",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Pot",
+          "labelZh": "弯式罐式斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 151.64,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 40.89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 53.86,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 30.73,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23.11,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=737641",
+      "sourceOriginalText": "Oceano Smooth (316 KS) (6mm) Tobacco Pipe",
+      "priceRawText": "$168.00",
+      "msrpRawText": "$210.00"
+    },
+    {
       "id": "smokingpipes-737713",
       "source": "smokingpipes",
       "sourceProductId": "737713",
@@ -25047,6 +25208,169 @@
       "msrpRawText": "$182.50"
     },
     {
+      "id": "smokingpipes-738379",
+      "source": "smokingpipes",
+      "sourceProductId": "738379",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Minuto Rusticated Brown (401) (6mm) Tobacco Pipe",
+      "displayNameEn": "Minuto Rusticated Brown (401) (6mm) Tobacco Pipe",
+      "rawTitle": "Minuto Rusticated Brown (401) (6mm) Tobacco Pipe",
+      "mainImage": "https://assets.smokingpipes.com/images/products/002-033-112315.3927.jpg",
+      "sourcePriceAmount": 118,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 147.5,
+      "siteDisplayAmount": 1184.2713199999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 19.84,
+      "shape": "Dublin",
+      "shapeZh": "都柏林斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "minuto rusticated brown (401) (6mm) tobacco pipe",
+        "price": 1184.2713199999998,
+        "sourceProductId": "738379"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://assets.smokingpipes.com/images/products/002-033-112315.3927.jpg",
+        "https://assets.smokingpipes.com/images/products/002-033-89250_1.7506.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-033-112315.3927.jpg",
+        "https://assets.smokingpipes.com/images/products-hr/002-033-89250_1.7506.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 113.03,
+        "heightMm": 32,
+        "weightGrams": 19.84,
+        "chamberDepthMm": 18.03,
+        "chamberDiameterMm": 17.78,
+        "outsideDiameterMm": 29.97
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__model-401__series-minuto-brown-tobacco-pipe__shape-dublin",
+        "confidence": "high"
+      },
+      "series": "Minuto Brown Tobacco Pipe",
+      "year": null,
+      "productCode": "002-033-112315",
+      "filterSizeMm": 6,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Dublin",
+          "labelZh": "都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 113.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 19.84,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 18.03,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 29.97,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=738379",
+      "sourceOriginalText": "Minuto Rusticated Brown (401) (6mm) Tobacco Pipe",
+      "priceRawText": "$118.00",
+      "msrpRawText": "$147.50"
+    },
+    {
       "id": "smokingpipes-738430",
       "source": "smokingpipes",
       "sourceProductId": "738430",
@@ -25200,6 +25524,167 @@
       "sourceOriginalText": "Sandblasted Army Granite Billiard (20) Tobacco Pipe",
       "priceRawText": "$117.00",
       "msrpRawText": "$130.00"
+    },
+    {
+      "id": "smokingpipes-738888",
+      "source": "smokingpipes",
+      "sourceProductId": "738888",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "displayNameEn": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "rawTitle": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147927.6173.jpg",
+      "sourcePriceAmount": 140,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 175,
+      "siteDisplayAmount": 1354.5896,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 2,
+      "weightGrams": 59.53,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "army filter heritage (xl90) fishtail (9mm) tobacco pipe",
+        "price": 1354.5896,
+        "sourceProductId": "738888"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147927.6173.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147927_1.2566.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 128.78,
+        "heightMm": 52.07,
+        "weightGrams": 59.53,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 20.83,
+        "outsideDiameterMm": 41.15
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-army-filter-heritage-fishtail-tobacco__shape-bent-billiard",
+        "confidence": "medium"
+      },
+      "series": "Army Filter Heritage Fishtail Tobacco",
+      "year": null,
+      "productCode": "002-029-147927",
+      "filterSizeMm": 9,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 128.78,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 52.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 59.53,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.15,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738888",
+      "sourceOriginalText": "Army Filter Heritage (XL90) Fishtail (9mm) Tobacco Pipe",
+      "priceRawText": "$140.00",
+      "msrpRawText": "$175.00"
     }
   ]
 }

@@ -14793,10 +14793,10 @@
       "siteDisplayAmount": 902.309,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -31858,6 +31858,492 @@
       "sourceOriginalText": "Irish Made Army Sandblasted (701) Fishtail Tobacco Pipe",
       "priceRawText": "$126.00",
       "msrpRawText": "$157.50"
+    },
+    {
+      "id": "smokingpipes-738539",
+      "source": "smokingpipes",
+      "sourceProductId": "738539",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Dracula Rusticated (230) Fishtail Tobacco Pipe",
+      "displayNameEn": "Dracula Rusticated (230) Fishtail Tobacco Pipe",
+      "rawTitle": "Dracula Rusticated (230) Fishtail Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147812.5041.jpg",
+      "sourcePriceAmount": 132,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 165,
+      "siteDisplayAmount": 1292.65568,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 1,
+      "weightGrams": 48.19,
+      "shape": "Bent Billiard",
+      "shapeZh": "弯式撞球斗",
+      "finish": "Rusticated",
+      "finishZh": "锈刻",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "dracula rusticated (230) fishtail tobacco pipe",
+        "price": 1292.65568,
+        "sourceProductId": "738539"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147812.5041.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 130.81,
+        "heightMm": 39.88,
+        "weightGrams": 48.19,
+        "chamberDepthMm": 29.97,
+        "chamberDiameterMm": 17.53,
+        "outsideDiameterMm": 33.53
+      },
+      "model": {
+        "canonicalModelKey": "peterson__model-230__series-dracula-fishtail-tobacco-pipe__shape-bent-billiard",
+        "confidence": "high"
+      },
+      "series": "Dracula Fishtail Tobacco Pipe",
+      "year": null,
+      "productCode": "002-029-147812",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Billiard",
+          "labelZh": "弯式撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rusticated",
+          "labelZh": "锈刻",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 130.81,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48.19,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 29.97,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17.53,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 33.53,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738539",
+      "sourceOriginalText": "Dracula Rusticated (230) Fishtail Tobacco Pipe",
+      "priceRawText": "$132.00",
+      "msrpRawText": "$165.00"
+    },
+    {
+      "id": "smokingpipes-738960",
+      "source": "smokingpipes",
+      "sourceProductId": "738960",
+      "brandName": "Dunhill",
+      "brandSlug": "dunhill",
+      "brandCountry": "United Kingdom",
+      "displayName": "Shell Briar with Silver (4303) (2016) Tobacco Pipe",
+      "displayNameEn": "Shell Briar with Silver (4303) (2016) Tobacco Pipe",
+      "rawTitle": "Shell Briar with Silver (4303) (2016) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8827.5140.jpg",
+      "sourcePriceAmount": 865,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 7389.033195,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 43.09,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "dunhill",
+        "name": "shell briar with silver (4303) (2016) tobacco pipe",
+        "price": 7389.033195,
+        "sourceProductId": "738960"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8827.5140.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8827_1.7897.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8827_2.9930.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8827_3.3357.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 166.62,
+        "heightMm": 45.47,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 40.39,
+        "chamberDiameterMm": 20.07,
+        "outsideDiameterMm": 36.58
+      },
+      "model": {
+        "canonicalModelKey": "dunhill__model-4303__series-shell-briar-with-silver-tobacco__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Shell Briar With Silver Tobacco",
+      "year": 2016,
+      "productCode": "002-015-8827",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Dunhill",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 166.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 45.47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 40.39,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.07,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36.58,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/dunhill/moreinfo.cfm?product_id=738960",
+      "sourceOriginalText": "Shell Briar with Silver (4303) (2016) Tobacco Pipe",
+      "priceRawText": "$865.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-738964",
+      "source": "smokingpipes",
+      "sourceProductId": "738964",
+      "brandName": "Dunhill",
+      "brandSlug": "dunhill",
+      "brandCountry": "United Kingdom",
+      "displayName": "Shell Briar (5113) (2025) Tobacco Pipe",
+      "displayNameEn": "Shell Briar (5113) (2025) Tobacco Pipe",
+      "rawTitle": "Shell Briar (5113) (2025) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8831.3223.jpg",
+      "sourcePriceAmount": 750,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 6472.961250000001,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 43.09,
+      "shape": "Bent Apple",
+      "shapeZh": "弯式苹果斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "dunhill",
+        "name": "shell briar (5113) (2025) tobacco pipe",
+        "price": 6472.961250000001,
+        "sourceProductId": "738964"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8831.3223.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8831_1.3830.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8831_2.2498.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-015-8831_3.2310.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 154.43,
+        "heightMm": 48.26,
+        "weightGrams": 43.09,
+        "chamberDepthMm": 42.67,
+        "chamberDiameterMm": 20.32,
+        "outsideDiameterMm": 38.86
+      },
+      "model": {
+        "canonicalModelKey": "dunhill__model-5113__series-shell-briar-tobacco-pipe__shape-bent-apple",
+        "confidence": "high"
+      },
+      "series": "Shell Briar Tobacco Pipe",
+      "year": 2025,
+      "productCode": "002-015-8831",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Dunhill",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "United Kingdom",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Apple",
+          "labelZh": "弯式苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 154.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 48.26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43.09,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.67,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20.32,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38.86,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/dunhill/moreinfo.cfm?product_id=738964",
+      "sourceOriginalText": "Shell Briar (5113) (2025) Tobacco Pipe",
+      "priceRawText": "$750.00",
+      "msrpRawText": null
     }
   ]
 }
