@@ -20,15 +20,22 @@ assert.match(wrapper, /finally \{\s+\$ErrorActionPreference = \$previousErrorAct
 assert.match(wrapper, /\$exitCode -notin \$AllowedExitCodes/);
 assert.match(wrapper, /gitExitCode=\$exitCode; stderr-tail=/);
 assert.match(wrapper, /\$PublicationPaths = @\(/);
+assert.doesNotMatch(wrapper, /round5-public-index/);
+assert.match(wrapper, /function Get-GqPublicationDirtyPaths/);
 assert.match(wrapper, /function Restore-GqPublicationPaths/);
 assert.match(wrapper, /"restore", "--staged", "--worktree", "--"/);
+assert.match(wrapper, /remainingDirtyCount=/);
+assert.match(wrapper, /Cleanup\\uff1a\\u6210\\u529f/);
+assert.match(wrapper, /Cleanup\\uff1a\\u5931\\u8d25/);
+assert.match(wrapper, /\$cleanupStatus = "success"/);
+assert.match(wrapper, /\$cleanupStatus = "failure"/);
 assert.match(wrapper, /\$publicationStage = "add"/);
 assert.match(wrapper, /Send-GqFailurePushDeer -FailureType "git-publication" -Stage \$publicationStage/);
 assert.match(wrapper, /\$publicationStage = "commit"/);
 assert.match(wrapper, /-Stage "push"/);
 assert.match(wrapper, /\\u9636\\u6bb5\\uff1apush/);
 assert.match(wrapper, /\\u672c\\u5730 Commit\\uff1a\\u5df2\\u521b\\u5efa/);
-assert.match(wrapper, /\\u672c\\u8f6e\\u672c\\u5730\\u4fee\\u6539\\u5df2\\u6062\\u590d/);
+assert.match(wrapper, /\\u672c\\u8f6e\\u672c\\u5730 publication \\u4fee\\u6539\\u5df2\\u6062\\u590d/);
 
 assert.match(wrapper, /function Invoke-GitFetchWithRetry/);
 assert.match(wrapper, /for \(\$attempt = 1; \$attempt -le 3; \$attempt\+\+\)/);
@@ -56,9 +63,6 @@ const publicationPaths = [
   "data/products/gqtobaccos-products.json",
   "data/products/unified-products-staging.json",
   "data/generated/public-products/fixture.json",
-  "data/review/round5-public-index-build-v1.json",
-  "data/review/round5-public-index-build-v1.md",
-  "data/review/round5-public-index-field-contract-v1.md",
 ];
 
 function git(cwd, args) {
@@ -82,10 +86,9 @@ async function createFixture() {
     path.join(seedRoot, "scripts", "inventory", "run-gqtobaccos-auto-publish.ps1")
   );
   const fixtureNotifier = path.join(seedRoot, "scripts", "inventory", "inventory-pushdeer-notifier-v1.mjs");
-  await fs.copyFile(path.join(root, "scripts", "inventory", "inventory-pushdeer-notifier-v1.mjs"), fixtureNotifier);
-  await fs.appendFile(
+  await fs.writeFile(
     fixtureNotifier,
-    '\nawait (await import("node:fs/promises")).writeFile(process.env.GQ_FIXTURE_NOTIFIER_MARKER, "called");\n',
+    'import fs from "node:fs/promises";\nexport async function sendPushDeerNotification(message) {\n  await fs.writeFile(process.env.GQ_FIXTURE_NOTIFIER_MARKER, JSON.stringify(message));\n  return { notificationSent: true, notificationSkipped: false, notificationReason: "fixture" };\n}\n',
     "utf8"
   );
   await writeFile(
@@ -110,7 +113,7 @@ async function createFixture() {
   return { temporaryRoot, originRoot, runtimeRoot };
 }
 
-function runWrapper({ runtimeRoot }) {
+function runWrapper({ runtimeRoot, pathPrefix = "" }) {
   return spawnSync(
     "powershell.exe",
     [
@@ -126,6 +129,7 @@ function runWrapper({ runtimeRoot }) {
       encoding: "utf8",
       env: {
         ...process.env,
+        PATH: pathPrefix ? `${pathPrefix};${process.env.PATH}` : process.env.PATH,
         GQ_FIXTURE_MUTATION_PATH: path.join(runtimeRoot, publicationPaths[0]),
         GQ_FIXTURE_NOTIFIER_MARKER: path.join(runtimeRoot, ".gq-notifier-called"),
         PUSHDEER_KEY: "",
@@ -149,7 +153,10 @@ try {
   const commitOutput = `${commitFailure.stdout}\n${commitFailure.stderr}`;
   assert.equal(commitFailure.status, 1, commitOutput);
   assert.match(commitOutput, /gitExitCode=\d+/);
-  assert.equal(await fs.readFile(path.join(fixture.runtimeRoot, ".gq-notifier-called"), "utf8"), "called");
+  const commitNotification = JSON.parse(await fs.readFile(path.join(fixture.runtimeRoot, ".gq-notifier-called"), "utf8"));
+  assert.match(commitNotification.body, /Cleanup：成功/);
+  assert.match(commitNotification.body, /gitExitCode=\d+/);
+  assert.match(commitNotification.body, /fixture commit failure/);
   assert.equal(git(fixture.runtimeRoot, ["rev-parse", "HEAD"]), baselineHead);
   assert.equal(git(fixture.runtimeRoot, ["status", "--porcelain", "--untracked-files=no"]), "");
   assert.equal(git(fixture.runtimeRoot, ["diff", "--cached", "--name-only"]), "");
@@ -163,12 +170,42 @@ try {
   const pushOutput = `${pushFailure.stdout}\n${pushFailure.stderr}`;
   assert.equal(pushFailure.status, 1, pushOutput);
   assert.match(pushOutput, /gitExitCode=\d+/);
-  assert.equal(await fs.readFile(path.join(fixture.runtimeRoot, ".gq-notifier-called"), "utf8"), "called");
+  const pushNotification = JSON.parse(await fs.readFile(path.join(fixture.runtimeRoot, ".gq-notifier-called"), "utf8"));
+  assert.match(pushNotification.body, /阶段：push/);
   assert.notEqual(git(fixture.runtimeRoot, ["rev-parse", "HEAD"]), baselineHead);
   assert.equal(git(fixture.runtimeRoot, ["status", "--porcelain", "--untracked-files=no"]), "");
   assert.equal(git(fixture.runtimeRoot, ["rev-parse", "origin/main"]), baselineHead);
 } finally {
   await fs.rm(fixture.temporaryRoot, { recursive: true, force: true });
+}
+
+const cleanupFailureFixture = await createFixture();
+try {
+  const hooksRoot = path.join(cleanupFailureFixture.runtimeRoot, ".githooks");
+  const gitShimRoot = path.join(cleanupFailureFixture.temporaryRoot, "git-shim");
+  await fs.mkdir(hooksRoot, { recursive: true });
+  await fs.mkdir(gitShimRoot, { recursive: true });
+  await writeFile(cleanupFailureFixture.runtimeRoot, ".githooks/pre-commit", "#!/bin/sh\necho fixture commit failure >&2\nexit 17\n");
+  await fs.chmod(path.join(hooksRoot, "pre-commit"), 0o755);
+  git(cleanupFailureFixture.runtimeRoot, ["config", "core.hooksPath", ".githooks"]);
+  const realGit = execFileSync("where.exe", ["git"], { encoding: "utf8" }).split(/\r?\n/).find(Boolean);
+  await fs.writeFile(
+    path.join(gitShimRoot, "git.cmd"),
+    `@echo off\r\nif /I "%3"=="restore" (\r\n  echo fixture cleanup failure 1>&2\r\n  exit /b 23\r\n)\r\n"${realGit}" %*\r\n`,
+    "utf8"
+  );
+
+  const cleanupFailure = runWrapper({ runtimeRoot: cleanupFailureFixture.runtimeRoot, pathPrefix: gitShimRoot });
+  const cleanupOutput = `${cleanupFailure.stdout}\n${cleanupFailure.stderr}`;
+  assert.equal(cleanupFailure.status, 1, cleanupOutput);
+  const cleanupNotification = JSON.parse(await fs.readFile(path.join(cleanupFailureFixture.runtimeRoot, ".gq-notifier-called"), "utf8"));
+  assert.match(cleanupNotification.body, /Cleanup：失败/);
+  assert.match(cleanupNotification.body, /剩余 Dirty：1/);
+  assert.match(cleanupNotification.body, /gitExitCode=23/);
+  assert.match(cleanupNotification.body, /fixture commit failure/);
+  assert.match(git(cleanupFailureFixture.runtimeRoot, ["status", "--porcelain", "--untracked-files=no"]), /^M  data\/products\/gqtobaccos-products\.json$/);
+} finally {
+  await fs.rm(cleanupFailureFixture.temporaryRoot, { recursive: true, force: true });
 }
 
 console.log("GQ Tobaccos auto-publish wrapper policy tests passed.");

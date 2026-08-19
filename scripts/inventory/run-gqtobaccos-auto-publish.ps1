@@ -13,10 +13,7 @@ $PushDeerNotifier = Join-Path $PSScriptRoot "inventory-pushdeer-notifier-v1.mjs"
 $PublicationPaths = @(
   "data/products/gqtobaccos-products.json",
   "data/products/unified-products-staging.json",
-  "data/generated/public-products",
-  "data/review/round5-public-index-build-v1.json",
-  "data/review/round5-public-index-build-v1.md",
-  "data/review/round5-public-index-field-contract-v1.md"
+  "data/generated/public-products"
 )
 
 function Invoke-Git {
@@ -77,15 +74,46 @@ function Sync-FormalMainRuntime {
   Assert-TrackedRuntimeClean
 }
 
+function Get-GqPublicationDirtyPaths {
+  $outputs = @(
+    (Invoke-Git -Arguments @("diff", "--name-only", "--")),
+    (Invoke-Git -Arguments @("diff", "--cached", "--name-only", "--"))
+  )
+  $publicationDirtyPaths = @()
+  foreach ($output in $outputs) {
+    if (-not $output) { continue }
+    foreach ($candidate in ($output -split "`r?`n")) {
+      if (-not $candidate) { continue }
+      foreach ($publicationPath in $PublicationPaths) {
+        if ($candidate -eq $publicationPath -or $candidate.StartsWith("$publicationPath/")) {
+          $publicationDirtyPaths += $candidate
+          break
+        }
+      }
+    }
+  }
+  return @($publicationDirtyPaths | Sort-Object -Unique)
+}
+
 function Restore-GqPublicationPaths {
-  Invoke-Git -Arguments (@("restore", "--staged", "--worktree", "--") + $PublicationPaths) | Out-Null
+  $dirtyPaths = @(Get-GqPublicationDirtyPaths)
+  if ($dirtyPaths.Count -eq 0) { return }
+
+  Invoke-Git -Arguments (@("restore", "--staged", "--worktree", "--") + $dirtyPaths) | Out-Null
+  $remainingDirtyPaths = @(Get-GqPublicationDirtyPaths)
+  if ($remainingDirtyPaths.Count -gt 0) {
+    throw "GQ publication cleanup incomplete: remainingDirtyCount=$($remainingDirtyPaths.Count); paths=$($remainingDirtyPaths -join ', ')"
+  }
 }
 
 function Send-GqFailurePushDeer {
   param(
     [ValidateSet("startup", "git-publication")][string]$FailureType,
     [string]$Stage = "",
-    [string]$Reason
+    [string]$Reason,
+    [ValidateSet("", "success", "failure")][string]$CleanupStatus = "",
+    [int]$RemainingDirtyCount = 0,
+    [string]$CleanupReason = ""
   )
 
   try {
@@ -94,6 +122,9 @@ function Send-GqFailurePushDeer {
         failureType = $FailureType
         stage = $Stage
         reason = $Reason
+        cleanupStatus = $CleanupStatus
+        remainingDirtyCount = $RemainingDirtyCount
+        cleanupReason = $CleanupReason
       } | ConvertTo-Json -Compress))
     )
     $notifierModuleUrl = [System.Uri]::new((Resolve-Path -LiteralPath $PushDeerNotifier).Path).AbsoluteUri
@@ -104,7 +135,9 @@ const body = payload.failureType === "startup"
   ? `\u72b6\u6001\uff1a\u542f\u52a8\u5931\u8d25\nProduction\uff1a\u672a\u4fee\u6539\n\u539f\u56e0\uff1a${payload.reason}`
   : payload.stage === "push"
     ? `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1apush\n\u672c\u5730 Commit\uff1a\u5df2\u521b\u5efa\norigin/main\uff1a\u672a\u66f4\u65b0\n\u539f\u56e0\uff1a${payload.reason}`
-    : `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1a${payload.stage}\nProduction\uff1a\u672c\u8f6e\u672c\u5730\u4fee\u6539\u5df2\u6062\u590d\uff0corigin/main \u672a\u66f4\u65b0\n\u539f\u56e0\uff1a${payload.reason}`;
+    : payload.cleanupStatus === "success"
+      ? `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1a${payload.stage}\nCleanup\uff1a\u6210\u529f\nProduction\uff1a\u672c\u8f6e\u672c\u5730 publication \u4fee\u6539\u5df2\u6062\u590d\norigin/main\uff1a\u672a\u66f4\u65b0\n\u539f\u56e0\uff1a${payload.reason}`
+      : `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1a${payload.stage}\nCleanup\uff1a\u5931\u8d25\n\u5269\u4f59 Dirty\uff1a${payload.remainingDirtyCount}\nCleanup\u539f\u56e0\uff1a${payload.cleanupReason}\n\u539f\u59cb\u539f\u56e0\uff1a${payload.reason}`;
 const message = {
   title: "\u70df\u6597\u6d3e\u5e93\u5b58\u65e5\u62a5\uff5cGQ Tobaccos \u274c",
   body,
@@ -193,12 +226,24 @@ try {
   Invoke-Git -Arguments @("commit", "-m", "chore(inventory): publish GQ Tobaccos daily update") | Out-Null
 } catch {
   $publicationError = $_.Exception.Message
+  $cleanupStatus = "success"
+  $cleanupReason = ""
+  $remainingDirtyCount = 0
   try {
     Restore-GqPublicationPaths
   } catch {
-    Write-Warning "GQ Git publication cleanup failed: $($_.Exception.Message)"
+    $cleanupStatus = "failure"
+    $cleanupReason = $_.Exception.Message
+    try {
+      $remainingDirtyPaths = @(Get-GqPublicationDirtyPaths)
+      $remainingDirtyCount = $remainingDirtyPaths.Count
+    } catch {
+      $cleanupReason = "$cleanupReason; remaining-dirty inspection failed: $($_.Exception.Message)"
+      $remainingDirtyCount = -1
+    }
+    Write-Warning "GQ Git publication cleanup failed: $cleanupReason"
   }
-  Send-GqFailurePushDeer -FailureType "git-publication" -Stage $publicationStage -Reason $publicationError
+  Send-GqFailurePushDeer -FailureType "git-publication" -Stage $publicationStage -Reason $publicationError -CleanupStatus $cleanupStatus -RemainingDirtyCount $remainingDirtyCount -CleanupReason $cleanupReason
   Write-Error "GQ Git publication failed during ${publicationStage}: $publicationError"
   exit 1
 }
