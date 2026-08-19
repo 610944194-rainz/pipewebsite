@@ -23106,9 +23106,9 @@
       "siteDisplayAmount": 808.5932,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -26296,6 +26296,169 @@
       "sourceOriginalText": "Foresta Rusticated Brown (207) (6mm) Tobacco Pipe",
       "priceRawText": "$160.00",
       "msrpRawText": "$200.00"
+    },
+    {
+      "id": "smokingpipes-738073",
+      "source": "smokingpipes",
+      "sourceProductId": "738073",
+      "brandName": "Peterson",
+      "brandSlug": "peterson",
+      "brandCountry": "Ireland",
+      "displayName": "Pipe of the Year 2026 Sandblasted P-Lip (369/1100) Tobacco Pipe",
+      "displayNameEn": "Pipe of the Year 2026 Sandblasted P-Lip (369/1100) Tobacco Pipe",
+      "rawTitle": "Pipe of the Year 2026 Sandblasted P-Lip (369/1100) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147661.9686.jpg",
+      "sourcePriceAmount": 212,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 265,
+      "siteDisplayAmount": 2065.8195619999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 45.36,
+      "shape": "Bulldog",
+      "shapeZh": "斗牛犬斗",
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialZh": "硫化橡胶",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson",
+        "name": "pipe of the year 2026 sandblasted p-lip (369/1100) tobacco pipe",
+        "price": 2065.8195619999997,
+        "sourceProductId": "738073"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147661.9686.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147661_1.3817.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147661_2.7771.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-147661_3.5405.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 150.62,
+        "heightMm": 39.88,
+        "weightGrams": 45.36,
+        "chamberDepthMm": 28.96,
+        "chamberDiameterMm": 22.1,
+        "outsideDiameterMm": 44.96
+      },
+      "model": {
+        "canonicalModelKey": "peterson__series-pipe-of-the-year-2026__shape-bulldog",
+        "confidence": "medium"
+      },
+      "series": "Pipe Of The Year 2026",
+      "year": 2026,
+      "productCode": "002-029-147661",
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Ireland",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bulldog",
+          "labelZh": "斗牛犬斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Vulcanite",
+          "labelZh": "硫化橡胶",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150.62,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 39.88,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45.36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 28.96,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22.1,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44.96,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=738073",
+      "sourceOriginalText": "Pipe of the Year 2026 Sandblasted P-Lip (369/1100) Tobacco Pipe",
+      "priceRawText": "$212.00",
+      "msrpRawText": "$265.00"
     },
     {
       "id": "smokingpipes-738382",
