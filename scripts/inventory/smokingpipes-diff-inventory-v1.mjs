@@ -33,6 +33,12 @@ export const LEGACY_DUPLICATE_SNAPSHOT_CONTRACT = Object.freeze({
   duplicateCount: 334,
 });
 export const DEFAULT_MAX_AUTO_APPLY = 2000;
+const SMOKINGPIPES_DUPLICATE_POLICY = Object.freeze({
+  smallDuplicateIds: 5,
+  smallDuplicateRatio: 0.001,
+  largeDuplicateIds: 50,
+  largeDuplicateRatio: 0.01,
+});
 
 function normalizeSha256(value) {
   const normalized = String(value || "").trim().toUpperCase();
@@ -199,6 +205,48 @@ function normalizeDuplicateStats(summary = {}) {
         suspiciousDuplicateIds: duplicateIds,
         classificationAvailable: false,
       };
+}
+
+function buildDuplicateHandling(summary, duplicateStats) {
+  const duplicateIds = Array.isArray(summary?.duplicateSourceProductIds)
+    ? [...new Set(summary.duplicateSourceProductIds.map(String).filter(Boolean))]
+    : [];
+  const suspiciousIds = duplicateStats.suspiciousDuplicateIds || [];
+  const safeIds = duplicateIds.filter((id) => !suspiciousIds.includes(id));
+  const total = Math.max(0, Number(summary?.productsExtracted || summary?.uniqueProducts || 0));
+  const duplicateRatio = ratio(suspiciousIds.length, total);
+  const large =
+    suspiciousIds.length > SMOKINGPIPES_DUPLICATE_POLICY.largeDuplicateIds ||
+    duplicateRatio > SMOKINGPIPES_DUPLICATE_POLICY.largeDuplicateRatio;
+  const small =
+    suspiciousIds.length <= SMOKINGPIPES_DUPLICATE_POLICY.smallDuplicateIds ||
+    duplicateRatio <= SMOKINGPIPES_DUPLICATE_POLICY.smallDuplicateRatio;
+  const isolatedIds =
+    duplicateStats.classificationAvailable === true && !large && small
+      ? suspiciousIds
+      : [];
+  const blockedIds = suspiciousIds.filter((id) => !isolatedIds.includes(id));
+  const record = (sourceProductId, duplicateType, action) => ({
+    sourceProductId,
+    duplicateType,
+    type: duplicateType,
+    action,
+    conflicts: [],
+  });
+  return {
+    total,
+    unique: Math.max(0, Number(summary?.uniqueProducts || 0)),
+    duplicateIds: duplicateIds.length,
+    duplicateRatio,
+    safeDuplicateCount: safeIds.length,
+    isolatedDuplicateCount: isolatedIds.length,
+    blockedDuplicateCount: blockedIds.length,
+    records: [
+      ...safeIds.map((id) => record(id, "safe", "deduplicated")),
+      ...isolatedIds.map((id) => record(id, "suspicious", "isolated")),
+      ...blockedIds.map((id) => record(id, "suspicious", "blocked")),
+    ],
+  };
 }
 
 export function evaluateLegacyDuplicateSnapshotOverride({
@@ -372,6 +420,10 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     )
   );
   const duplicateStats = normalizeDuplicateStats(currentPayload?.summary);
+  const duplicateHandling = buildDuplicateHandling(
+    currentPayload?.summary,
+    duplicateStats
+  );
   const {
     allowLegacyDuplicateSnapshotOverride = source === "smokingpipes",
   } = options;
@@ -445,7 +497,9 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
   }
   const duplicateIdsForSafety = legacyDuplicateOverride?.authorized
     ? []
-    : duplicateStats.suspiciousDuplicateIds;
+    : duplicateHandling.records
+      .filter((record) => record.action === "blocked")
+      .map((record) => record.sourceProductId);
   for (const duplicateId of duplicateIdsForSafety) {
     suspiciousRecords.push({
       sourceProductId: normalizeText(duplicateId),
@@ -487,6 +541,11 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
   if (duplicateStats.safeDuplicateCount > 0) {
     warnings.push(
       `${duplicateStats.safeDuplicateCount} duplicate sourceProductId records were classified as safe pagination overlap.`
+    );
+  }
+  if (duplicateHandling.isolatedDuplicateCount > 0) {
+    warnings.push(
+      `${duplicateHandling.isolatedDuplicateCount} suspicious duplicate sourceProductId records were isolated from duplicate analysis; the deduplicated List remains eligible for processing.`
     );
   }
   if (legacyDuplicateOverride?.authorized) {
@@ -620,6 +679,8 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
       duplicateIds: duplicateStats.totalDuplicateIds,
       safeDuplicates: duplicateStats.safeDuplicateCount,
       suspiciousDuplicates: duplicateStats.suspiciousDuplicateCount,
+      isolatedDuplicates: duplicateHandling.isolatedDuplicateCount,
+      blockedDuplicates: duplicateHandling.blockedDuplicateCount,
     },
     ratios: {
       newVsExisting: newRatio,
@@ -636,6 +697,7 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     suspiciousIds,
     suspiciousRecords,
     duplicateStats,
+    duplicateHandling,
     legacyDuplicateOverride,
     fatalWarnings,
     warnings,

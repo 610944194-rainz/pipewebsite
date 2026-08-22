@@ -135,6 +135,8 @@ export function buildSmokingpipesV2Notification(result = {}) {
   const quarantined = Array.isArray(collection.quarantinedDetailIds)
     ? collection.quarantinedDetailIds.length
     : 0;
+  const duplicateHandling =
+    result.duplicateHandling || collection.duplicateHandling || cycle.failure?.duplicateHandling || {};
   if (status === "enriching-details") {
     return {
       title: "Smokingpipes V2｜详情续跑",
@@ -157,7 +159,9 @@ export function buildSmokingpipesV2Notification(result = {}) {
       body: [
         `cycleId: ${cycleId}`,
         `bundleId: ${bundleId}`,
-        `实际发布数: ${number(result.publishedCount ?? result.bundleAppliedCount)}`,
+        `List: ${number(result.listTotal ?? duplicateHandling.total ?? observed)}`,
+        `Published: ${number(result.publishedCount ?? result.bundleAppliedCount)}`,
+        `Isolated: ${number(result.isolatedCount ?? duplicateHandling.isolatedDuplicateCount)}`,
         ...formatChangeTypeCounts(result, cycle),
         `commit: ${result.commitSha || "-"}`,
         "push: 成功",
@@ -183,6 +187,13 @@ export function buildSmokingpipesV2Notification(result = {}) {
       `计划发布数: ${number(result.readyChangeCount ?? cycle.bundle?.actualAppliedCount)}`,
       "实际发布数: 0",
       `失败阶段: ${failureStage}`,
+      ...(number(duplicateHandling.blockedDuplicateCount) > 0
+        ? [
+            "Duplicate gate blocked",
+            `duplicateIds: ${number(duplicateHandling.duplicateIds)}`,
+            `ratio: ${number(duplicateHandling.duplicateRatio)}`,
+          ]
+        : []),
       `错误尾部: ${errorTail(result.error || result.stderrTail || cycle.failure?.message) || "-"}`,
       "采集结果: 已保留",
       "Bundle: 已保留",

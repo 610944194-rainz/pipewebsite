@@ -101,13 +101,40 @@ export function trustedListReason(payload, diff = null) {
   ) {
     return "list snapshot has no trusted pagination total or normal end-of-list evidence";
   }
-  if (Number(diff?.counts?.suspiciousDuplicates || 0) > 0) {
+  const blockedDuplicates = Number(
+    diff?.duplicateHandling?.blockedDuplicateCount ??
+      diff?.counts?.blockedDuplicates ??
+      diff?.counts?.suspiciousDuplicates ??
+      0
+  );
+  if (blockedDuplicates > 0) {
     return "list diff contains suspicious duplicate source product IDs";
   }
   if ((diff?.fatalWarnings || []).length > 0) {
     return "list diff contains fatal warnings";
   }
   return null;
+}
+
+async function writeDuplicateHandlingAudit(paths, diff) {
+  const duplicateHandling = diff?.duplicateHandling;
+  if (!duplicateHandling) return;
+  try {
+    await writeJsonAtomic(path.join(paths.logs, "list-duplicate-audit.json"), {
+      schemaVersion: "smokingpipes-v2-list-duplicate-audit-v1",
+      generatedAt: new Date().toISOString(),
+      source: "smokingpipes",
+      total: duplicateHandling.total,
+      unique: duplicateHandling.unique,
+      safeDuplicateCount: duplicateHandling.safeDuplicateCount,
+      isolatedDuplicateCount: duplicateHandling.isolatedDuplicateCount,
+      blockedDuplicateCount: duplicateHandling.blockedDuplicateCount,
+      duplicateRatio: duplicateHandling.duplicateRatio,
+      records: duplicateHandling.records,
+    });
+  } catch (error) {
+    console.warn(`failed to write Smokingpipes V2 duplicate audit: ${error.message}`);
+  }
 }
 
 function isFalcon(candidate) {
@@ -272,6 +299,7 @@ export async function runSmokingpipesCollectOnlyV2({
   };
   let snapshot = await readJson(paths.listSnapshot, null);
   let networkAccessed = false;
+  let duplicateHandling = null;
   let sharedBrowserSession = null;
   const closeSharedBrowserSession = async () => {
     if (!sharedBrowserSession) return;
@@ -337,6 +365,8 @@ export async function runSmokingpipesCollectOnlyV2({
         // V2 never authorizes legacy unclassified duplicates by historical SHA.
         allowLegacyDuplicateSnapshotOverride: false,
       });
+      duplicateHandling = diff.duplicateHandling || null;
+      await writeDuplicateHandlingAudit(paths, diff);
       const trustFailure = trustedListReason(snapshot, diff);
       if (trustFailure) throw new Error(trustFailure);
       await writeJsonAtomic(paths.listSnapshot, snapshot);
@@ -357,6 +387,7 @@ export async function runSmokingpipesCollectOnlyV2({
         patch: {
           collection: {
             ...cycle.collection,
+            duplicateHandling,
             trustedSnapshot: {
               path: path.relative(resolvedStateRoot, paths.listSnapshot).replace(/\\/g, "/"),
             },
@@ -371,6 +402,10 @@ export async function runSmokingpipesCollectOnlyV2({
         phase: "retryable",
         reason: "list-collection-failed",
         patch: {
+          collection: {
+            ...cycle.collection,
+            duplicateHandling,
+          },
           failure: {
             stage: error?.code === "BROWSER_NATIVE_CDP_FAILED" ? "browser-native-cdp-failed" : "list",
             message: error.message,

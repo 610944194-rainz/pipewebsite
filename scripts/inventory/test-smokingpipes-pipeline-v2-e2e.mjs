@@ -442,9 +442,9 @@ async function main() {
     });
     assert.equal(trustedListReason(normalEndOfListSnapshot), null);
 
-    // V2 must not inherit V1's one-off duplicate snapshot SHA exception. A
-    // single unclassified duplicate remains a List-integrity blocker even for
-    // a very large snapshot, while classified safe pagination duplicates pass.
+    // V2 must not inherit V1's one-off duplicate snapshot SHA exception.
+    // Unclassified duplicates remain fail-closed; classified small anomalies
+    // are isolated while large anomalies remain fail-closed.
     const legacyDuplicateSnapshot = trustedSnapshot(
       Array.from({ length: 5000 }, (_, index) => listItem(`duplicate-${index}`)),
       { summary: { duplicateSourceProductIds: ["duplicate-1"] } }
@@ -465,24 +465,121 @@ async function main() {
       trustedListReason(legacyDuplicateSnapshot, v2DuplicateDiff),
       /suspicious duplicate source product IDs/
     );
-    const safePaginationDuplicateSnapshot = trustedSnapshot([listItem("safe-duplicate")], {
+
+    const duplicateFixtureProducts = Array.from(
+      { length: 5244 },
+      (_, index) => listItem(String(800000 + index))
+    );
+    const duplicateFixtureExisting = (products) => ({
+      products: products.map((product) => ({
+        source: "smokingpipes",
+        id: `smokingpipes-${product.sourceProductId}`,
+        sourceProductId: product.sourceProductId,
+        sourceUrl: product.sourceUrl,
+        inventoryStatus: "available",
+      })),
+    });
+    const duplicateFixtureDiff = (products, summary) =>
+      buildInventoryDiff(
+        trustedSnapshot(products, { summary }),
+        duplicateFixtureExisting(products),
+        { maxAutoApply: 10000, allowLegacyDuplicateSnapshotOverride: false }
+      );
+
+    const noDuplicateDiff = duplicateFixtureDiff(duplicateFixtureProducts, {
+      productsExtracted: 5244,
+      uniqueProducts: 5244,
+      duplicateSourceProductIds: [],
+      suspiciousDuplicateSourceProductIds: [],
+      duplicateStats: {
+        totalDuplicateIds: 0,
+        safeDuplicateCount: 0,
+        suspiciousDuplicateCount: 0,
+      },
+    });
+    assert.equal(noDuplicateDiff.allowApply, true);
+    assert.equal(noDuplicateDiff.duplicateHandling.isolatedDuplicateCount, 0);
+
+    const safePaginationDuplicateSnapshot = trustedSnapshot(duplicateFixtureProducts.slice(0, 5243), {
       summary: {
-        duplicateSourceProductIds: ["safe-duplicate"],
+        productsExtracted: 5244,
+        uniqueProducts: 5243,
+        duplicateSourceProductIds: ["800000"],
+        suspiciousDuplicateSourceProductIds: [],
         duplicateStats: {
           totalDuplicateIds: 1,
           safeDuplicateCount: 1,
           suspiciousDuplicateCount: 0,
-          safeDuplicateIds: ["safe-duplicate"],
           suspiciousDuplicateIds: [],
         },
       },
     });
+    const safePaginationDuplicateDiff = buildInventoryDiff(
+      safePaginationDuplicateSnapshot,
+      duplicateFixtureExisting(safePaginationDuplicateSnapshot.products),
+      { maxAutoApply: 10000, allowLegacyDuplicateSnapshotOverride: false }
+    );
+    assert.equal(safePaginationDuplicateDiff.allowApply, true);
+    assert.deepEqual(safePaginationDuplicateDiff.duplicateHandling.records, [
+      {
+        sourceProductId: "800000",
+        duplicateType: "safe",
+        type: "safe",
+        action: "deduplicated",
+        conflicts: [],
+      },
+    ]);
     assert.equal(
-      trustedListReason(safePaginationDuplicateSnapshot, {
-        counts: { suspiciousDuplicates: 0 },
-        fatalWarnings: [],
-      }),
+      trustedListReason(safePaginationDuplicateSnapshot, safePaginationDuplicateDiff),
       null
+    );
+
+    const smallSuspiciousDuplicateDiff = duplicateFixtureDiff(
+      duplicateFixtureProducts.slice(0, 5242),
+      {
+        productsExtracted: 5244,
+        uniqueProducts: 5242,
+        duplicateSourceProductIds: ["800000", "800001"],
+        suspiciousDuplicateSourceProductIds: ["800000", "800001"],
+        duplicateStats: {
+          totalDuplicateIds: 2,
+          safeDuplicateCount: 0,
+          suspiciousDuplicateCount: 2,
+        },
+      }
+    );
+    assert.equal(smallSuspiciousDuplicateDiff.allowApply, true);
+    assert.equal(smallSuspiciousDuplicateDiff.counts.isolatedDuplicates, 2);
+    assert.equal(smallSuspiciousDuplicateDiff.counts.blockedDuplicates, 0);
+    assert.equal(smallSuspiciousDuplicateDiff.duplicateHandling.unique, 5242);
+    assert.equal(trustedListReason({ products: duplicateFixtureProducts.slice(0, 5242), summary: {
+      expectedPages: 2, effectiveScannedPages: 2, detectedTotalPages: 2, detectionConfidence: "high",
+      fullExpectedRangeScanned: true, failedPages: [], captchaDetected: false, verificationDetected: false,
+    } }, smallSuspiciousDuplicateDiff), null);
+
+    const largeSuspiciousIds = Array.from({ length: 100 }, (_, index) => String(800000 + index));
+    const largeSuspiciousDuplicateDiff = duplicateFixtureDiff(
+      duplicateFixtureProducts.slice(0, 5144),
+      {
+        productsExtracted: 5244,
+        uniqueProducts: 5144,
+        duplicateSourceProductIds: largeSuspiciousIds,
+        suspiciousDuplicateSourceProductIds: largeSuspiciousIds,
+        duplicateStats: {
+          totalDuplicateIds: 100,
+          safeDuplicateCount: 0,
+          suspiciousDuplicateCount: 100,
+        },
+      }
+    );
+    assert.equal(largeSuspiciousDuplicateDiff.allowApply, false);
+    assert.equal(largeSuspiciousDuplicateDiff.counts.blockedDuplicates, 100);
+    assert.match(
+      trustedListReason({ products: duplicateFixtureProducts.slice(0, 5144), summary: {
+        expectedPages: 2, effectiveScannedPages: 2, detectedTotalPages: 2, detectionConfidence: "high",
+        fullExpectedRangeScanned: true, failedPages: [], captchaDetected: false, verificationDetected: false,
+      } }, largeSuspiciousDuplicateDiff),
+      /suspicious duplicate source product IDs/
     );
 
     const oosRegressionId = "oos-regression";
@@ -1314,6 +1411,13 @@ async function main() {
       cycleId: notificationCycle.cycleId,
       cycle: {
         ...notificationCycle,
+        collection: {
+          ...notificationCycle.collection,
+          duplicateHandling: {
+            total: 5244,
+            isolatedDuplicateCount: 2,
+          },
+        },
         bundle: {
           changeTypeCounts: {
             "new-product": 120,
@@ -1330,6 +1434,26 @@ async function main() {
     assert.match(publishedMessage, /下架: 649/);
     assert.match(publishedMessage, /恢复库存: 57/);
     assert.doesNotMatch(publishedMessage, /变更类型: \{\}/);
+    assert.match(publishedMessage, /List: 5244/);
+    assert.match(publishedMessage, /Isolated: 2/);
+    const duplicateGateBlockedMessage = buildSmokingpipesV2Notification({
+      status: "collection-retryable",
+      cycleId: notificationCycle.cycleId,
+      cycle: {
+        ...notificationCycle,
+        collection: {
+          ...notificationCycle.collection,
+          duplicateHandling: {
+            duplicateIds: 100,
+            duplicateRatio: 100 / 5244,
+            blockedDuplicateCount: 100,
+          },
+        },
+        failure: { stage: "list", message: "duplicate fixture" },
+      },
+    }).body;
+    assert.match(duplicateGateBlockedMessage, /Duplicate gate blocked/);
+    assert.match(duplicateGateBlockedMessage, /duplicateIds: 100/);
 
     // Publisher E2E: a bundle can own many output files while only the files
     // whose content changed are staged. The final V2 validator runs once,
