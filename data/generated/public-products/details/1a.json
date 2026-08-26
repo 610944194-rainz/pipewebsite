@@ -9054,10 +9054,10 @@
       "siteDisplayAmount": 1183.4564,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 1,
@@ -14414,6 +14414,169 @@
       "sourceOriginalText": "Dracula Smooth (120) Fishtail Tobacco Pipe",
       "priceRawText": "$172.00",
       "msrpRawText": "$210.00"
+    },
+    {
+      "id": "smokingpipes-714274",
+      "source": "smokingpipes",
+      "sourceProductId": "714274",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "150th Anniversary Achille II Smooth Brown (6mm) (52/75) Tobacco Pipe",
+      "displayNameEn": "150th Anniversary Achille II Smooth Brown (6mm) (52/75) Tobacco Pipe",
+      "rawTitle": "150th Anniversary Achille II Smooth Brown (6mm) (52/75) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-108829.8862.jpg",
+      "sourcePriceAmount": 600,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": 750,
+      "siteDisplayAmount": 5840.3796,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 42.52,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "150th anniversary achille ii smooth brown (6mm) (52/75) tobacco pipe",
+        "price": 5840.3796,
+        "sourceProductId": "714274"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-108829.8862.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-108829_1.8915.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-108829_2.5269.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-033-108829_3.8057.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 141.48,
+        "heightMm": 43.43,
+        "weightGrams": 42.52,
+        "chamberDepthMm": 36.83,
+        "chamberDiameterMm": 19.3,
+        "outsideDiameterMm": 35.05
+      },
+      "model": {
+        "canonicalModelKey": "savinelli__series-150th-anniversary-achille-ii-brown__shape-billiard",
+        "confidence": "medium"
+      },
+      "series": "150th Anniversary Achille Ii Brown",
+      "year": null,
+      "productCode": "002-033-108829",
+      "filterSizeMm": 6,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 141.48,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 43.43,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 42.52,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 36.83,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19.3,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 35.05,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=714274",
+      "sourceOriginalText": "150th Anniversary Achille II Smooth Brown (6mm) (52/75) Tobacco Pipe",
+      "priceRawText": "$600.00",
+      "msrpRawText": "$750.00"
     },
     {
       "id": "smokingpipes-715045",
