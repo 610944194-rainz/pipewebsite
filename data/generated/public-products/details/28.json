@@ -17269,9 +17269,9 @@
       "siteDisplayAmount": 808.5932,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -20141,6 +20141,169 @@
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/radice/moreinfo.cfm?product_id=736228",
       "sourceOriginalText": "Rind Billiard (GGG) (2026) Tobacco Pipe",
       "priceRawText": "$420.00",
+      "msrpRawText": null
+    },
+    {
+      "id": "smokingpipes-736310",
+      "source": "smokingpipes",
+      "sourceProductId": "736310",
+      "brandName": "Castello",
+      "brandSlug": "castello",
+      "brandCountry": "Italy",
+      "displayName": "Trademark Billiard (KKKK) (2026) Tobacco Pipe",
+      "displayNameEn": "Trademark Billiard (KKKK) (2026) Tobacco Pipe",
+      "rawTitle": "Trademark Billiard (KKKK) (2026) Tobacco Pipe",
+      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6157.7251.jpg",
+      "sourcePriceAmount": 618,
+      "sourcePriceCurrency": "USD",
+      "msrpAmount": null,
+      "siteDisplayAmount": 6290.21544,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "high",
+      "conditionType": "new",
+      "conditionLabel": "new",
+      "galleryCount": 4,
+      "weightGrams": 63.5,
+      "shape": "Billiard",
+      "shapeZh": "撞球斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "none",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "castello",
+        "name": "trademark billiard (kkkk) (2026) tobacco pipe",
+        "price": 6290.21544,
+        "sourceProductId": "736310"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6157.7251.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6157_1.1625.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6157_2.9521.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-386-6157_3.5485.jpg"
+      ],
+      "measurements": {
+        "lengthMm": 148.84,
+        "heightMm": 51.05,
+        "weightGrams": 63.5,
+        "chamberDepthMm": 42.16,
+        "chamberDiameterMm": 21.08,
+        "outsideDiameterMm": 41.4
+      },
+      "model": {
+        "canonicalModelKey": "castello__model-2026__series-trademark-tobacco-pipe__shape-billiard",
+        "confidence": "high"
+      },
+      "series": "Trademark Tobacco Pipe",
+      "year": 2026,
+      "productCode": "002-386-6157",
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Castello",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "new",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Billiard",
+          "labelZh": "撞球斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 148.84,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51.05,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 63.5,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42.16,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21.08,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 41.4,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.smokingpipes.com/pipes/new/castello/moreinfo.cfm?product_id=736310",
+      "sourceOriginalText": "Trademark Billiard (KKKK) (2026) Tobacco Pipe",
+      "priceRawText": "$618.00",
       "msrpRawText": null
     },
     {
