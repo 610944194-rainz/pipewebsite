@@ -788,8 +788,8 @@ function mapDanishProduct(product) {
       stemMaterial: stemMaterial.name,
       stemMaterialSlug: stemMaterial.slug,
       stemMaterialZhName: stemMaterial.zhName,
-      filter: null,
-      filterSizeMm: null,
+      filter: nullableText(product.filter || product.filterSpec),
+      filterSizeMm: numberOrNull(product.filterSizeMm),
     },
     condition: {
       raw: nullableText(product.conditionLabel || product.condition),

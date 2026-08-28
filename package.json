@@ -11,6 +11,8 @@
     "inventory:smokingpipes:diff": "node scripts/inventory/smokingpipes-diff-inventory-v1.mjs",
     "inventory:smokingpipes:dry-run": "node scripts/inventory/smokingpipes-update-dry-run-v1.mjs",
     "inventory:smokingpipes:validate": "node scripts/inventory/validate-inventory-update-v1.mjs",
+    "inventory:danish:daily:dry-run": "node scripts/inventory/run-danish-daily-v1.mjs --dry-run",
+    "inventory:danish:daily:test": "node scripts/inventory/test-danish-daily-v1.mjs",
     "update:exchange-rates": "node scripts/update-customs-exchange-rates.mjs",
     "start": "next start",
     "lint": "eslint"
