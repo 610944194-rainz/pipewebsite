@@ -4303,17 +4303,64 @@ async function main() {
   console.log(`DANISH_BROWSER_PROFILE=${browserProfilePath}`);
 
   const executablePath = getLocalBrowserExecutablePath();
-  collectorLog("browser-launch-start", { browserProfilePath, executablePath: executablePath || "playwright-default" });
-  const context = await chromium.launchPersistentContext(
+  if (!executablePath) {
+    throw new Error("danish-chrome-executable-not-found");
+  }
+
+  const cdpEndpoint = "http://127.0.0.1:9222";
+  const chromeArgs = [
+    "--remote-debugging-port=9222",
+    `--user-data-dir=${browserProfilePath}`,
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--window-size=1440,1000",
+    ...(scraperProxy ? [`--proxy-server=${scraperProxy}`] : []),
+    "about:blank",
+  ];
+
+  collectorLog("browser-launch-start", {
     browserProfilePath,
-    {
-      headless: false,
-      viewport: { width: 1440, height: 1000 },
-      ...(executablePath ? { executablePath } : {}),
-      ...(scraperProxy ? { proxy: { server: scraperProxy } } : {}),
+    executablePath,
+    cdpEndpoint,
+  });
+
+  const chromeProcess = spawn(executablePath, chromeArgs, {
+    stdio: "ignore",
+    windowsHide: false,
+  });
+
+  let browser = null;
+  let lastCdpError = null;
+
+  for (let attempt = 1; attempt <= 20; attempt += 1) {
+    try {
+      browser = await chromium.connectOverCDP(cdpEndpoint);
+      break;
+    } catch (error) {
+      lastCdpError = error;
+      await sleep(500);
     }
-  );
-  collectorLog("browser-launch-complete", { browserProfilePath });
+  }
+
+  if (!browser) {
+    chromeProcess.kill();
+    throw new Error(
+      `danish-chrome-cdp-connect-failed: ${normalizeText(lastCdpError?.message || lastCdpError)}`
+    );
+  }
+
+  const context = browser.contexts()[0];
+
+  if (!context) {
+    await browser.close().catch(() => {});
+    chromeProcess.kill();
+    throw new Error("danish-chrome-cdp-context-missing");
+  }
+
+  collectorLog("browser-launch-complete", {
+    browserProfilePath,
+    cdpEndpoint,
+  });
 
   const collectedAt = new Date().toISOString();
 
@@ -4427,7 +4474,10 @@ async function main() {
     console.log(`failCount=${payload.failCount}`);
     collectorLog("collector-complete", { mode: collectorMode, successCount: payload.successCount, failCount: payload.failCount, outputPath });
   } finally {
-    await context.close().catch(() => {});
+    await browser.close().catch(() => {});
+    if (!chromeProcess.killed) {
+      chromeProcess.kill();
+    }
   }
 }
 
