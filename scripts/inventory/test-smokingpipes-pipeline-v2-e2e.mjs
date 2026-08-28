@@ -83,6 +83,35 @@ function runPublisher(arguments_, { env = {}, cwd = workspaceRoot } = {}) {
   ], { encoding: "utf8", windowsHide: true, cwd, env: { ...process.env, ...env } });
 }
 
+async function createFetchRetryGitShim(root, failures) {
+  const shimRoot = path.join(root, "git-fetch-retry-shim");
+  const countPath = path.join(root, "fetch-attempts.txt");
+  const gitExecutable = execFileSync("where", ["git"], { encoding: "utf8" })
+    .split(/\r?\n/)
+    .map((entry) => entry.trim())
+    .find(Boolean);
+  assert.ok(gitExecutable, "git executable is required for the fetch retry fixture");
+  await fs.promises.mkdir(shimRoot, { recursive: true });
+  await fs.promises.writeFile(path.join(shimRoot, "git.cmd"), [
+    "@echo off",
+    "setlocal EnableExtensions EnableDelayedExpansion",
+    "set /a attempt=0",
+    "if exist \"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" set /p attempt=<\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\"",
+    "if /I \"%~3 %~4\"==\"fetch origin\" (",
+    "  set /a attempt+=1",
+    "  >\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" echo !attempt!",
+    `  if !attempt! LEQ ${failures} (`,
+    "    >&2 echo fixture fetch failure !attempt!",
+    "    exit /b 128",
+    "  )",
+    ")",
+    `\"${gitExecutable}\" %*`,
+    "exit /b %errorlevel%",
+    "",
+  ].join("\r\n"));
+  return { shimRoot, countPath };
+}
+
 function lastJson(stdout) {
   return parseSmokingpipesPublisherResult(`ordinary log\n${stdout}`);
 }
@@ -1641,6 +1670,80 @@ async function main() {
       (await fs.promises.readFile(subsetBuilderCountPath, "utf8")).trim().split(/\r?\n/),
       ["rebuilt"]
     );
+
+    // Release fetch uses the existing Invoke-Git path for every attempt. Two
+    // transient local failures must recover on the third attempt, while three
+    // failures preserve the Bundle and return the ordinary retryable result.
+    const fetchRetryRoot = path.join(temporaryRoot, "publisher-fetch-retry");
+    const fetchRetrySuccessRelease = path.join(fetchRetryRoot, "release-success");
+    const fetchRetryFailureRelease = path.join(fetchRetryRoot, "release-failure");
+    execFileSync("git", ["clone", subsetBare, fetchRetrySuccessRelease], { stdio: "ignore" });
+    git(fetchRetrySuccessRelease, ["config", "user.email", "fixture@example.invalid"]);
+    git(fetchRetrySuccessRelease, ["config", "user.name", "Fixture"]);
+    const fetchRetryOutputs = structuredClone(mismatchOutputs);
+    for (const file of changedFiles) fetchRetryOutputs[file] = { file, version: "fetch-retry-success" };
+    const fetchRetrySuccessBundle = path.join(fetchRetryRoot, "bundle-success");
+    await writeFixtureBundle(
+      fetchRetrySuccessBundle,
+      fetchRetryOutputs,
+      git(fetchRetrySuccessRelease, ["rev-parse", "origin/main"]),
+      "fetch-retry-success"
+    );
+    const fetchRetrySuccessShim = await createFetchRetryGitShim(
+      path.join(fetchRetryRoot, "success-shim"),
+      2
+    );
+    const fetchRetrySuccess = runPublisher([
+      "-StateRoot", subsetStateRoot,
+      "-CycleId", "2030-02-05",
+      "-BundleRoot", fetchRetrySuccessBundle,
+      "-ReleaseRoot", fetchRetrySuccessRelease,
+      "-RuntimeRoot", fakeRuntimeRoot,
+    ], { env: {
+      PATH: `${fetchRetrySuccessShim.shimRoot};${process.env.PATH}`,
+      SMOKINGPIPES_TEST_FETCH_COUNTER: fetchRetrySuccessShim.countPath,
+      SMOKINGPIPES_TEST_BUNDLE_ROOT: fetchRetrySuccessBundle,
+    } });
+    assert.equal(fetchRetrySuccess.status, 0, `${fetchRetrySuccess.stdout}\n${fetchRetrySuccess.stderr}`);
+    assert.equal(lastJson(fetchRetrySuccess.stdout).status, "published");
+    assert.equal((await fs.promises.readFile(fetchRetrySuccessShim.countPath, "utf8")).trim(), "3");
+    assert.equal(git(fetchRetrySuccessRelease, ["status", "--short"]), "");
+
+    execFileSync("git", ["clone", subsetBare, fetchRetryFailureRelease], { stdio: "ignore" });
+    git(fetchRetryFailureRelease, ["config", "user.email", "fixture@example.invalid"]);
+    git(fetchRetryFailureRelease, ["config", "user.name", "Fixture"]);
+    const fetchRetryFailureBundle = path.join(fetchRetryRoot, "bundle-failure");
+    await writeFixtureBundle(
+      fetchRetryFailureBundle,
+      fetchRetryOutputs,
+      git(fetchRetryFailureRelease, ["rev-parse", "origin/main"]),
+      "fetch-retry-failure"
+    );
+    const fetchRetryFailureShim = await createFetchRetryGitShim(
+      path.join(fetchRetryRoot, "failure-shim"),
+      3
+    );
+    const fetchRetryFailure = runPublisher([
+      "-StateRoot", subsetStateRoot,
+      "-CycleId", "2030-02-06",
+      "-BundleRoot", fetchRetryFailureBundle,
+      "-ReleaseRoot", fetchRetryFailureRelease,
+      "-RuntimeRoot", fakeRuntimeRoot,
+    ], { env: {
+      PATH: `${fetchRetryFailureShim.shimRoot};${process.env.PATH}`,
+      SMOKINGPIPES_TEST_FETCH_COUNTER: fetchRetryFailureShim.countPath,
+      SMOKINGPIPES_TEST_BUNDLE_ROOT: fetchRetryFailureBundle,
+    } });
+    assert.notEqual(fetchRetryFailure.status, 0);
+    const fetchRetryFailurePayload = lastJson(fetchRetryFailure.stdout);
+    assert.equal(fetchRetryFailurePayload.status, "release-retryable");
+    assert.equal(fetchRetryFailurePayload.failureStage, "release-retryable");
+    assert.equal(fetchRetryFailurePayload.sourceNetworkAccessed, false);
+    assert.match(fetchRetryFailurePayload.error, /gitExitCode=128/);
+    assert.match(fetchRetryFailurePayload.error, /fixture fetch failure 3/);
+    assert.equal((await fs.promises.readFile(fetchRetryFailureShim.countPath, "utf8")).trim(), "3");
+    assert.equal(fs.existsSync(fetchRetryFailureBundle), true);
+    assert.equal(git(fetchRetryFailureRelease, ["status", "--short"]), "");
 
     // The Publisher must run real project gates from ReleaseRoot.  This
     // reproduces the production defect by giving the caller Runtime a broken

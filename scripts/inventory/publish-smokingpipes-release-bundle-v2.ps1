@@ -37,6 +37,26 @@ function Invoke-Git {
   return ($output | Out-String).Trim()
 }
 
+function Invoke-ReleaseFetchWithRetry {
+  param(
+    [string]$Directory
+  )
+  $delays = @(10, 30)
+  $lastError = $null
+  for ($attempt = 1; $attempt -le 3; $attempt += 1) {
+    try {
+      return Invoke-Git -Directory $Directory -Arguments @("fetch", "origin")
+    } catch {
+      $lastError = $_
+      if ($attempt -eq 3) { break }
+      $delaySeconds = $delays[$attempt - 1]
+      Write-Warning "Smokingpipes release git fetch attempt $attempt of 3 failed; retrying in $delaySeconds seconds."
+      Start-Sleep -Seconds $delaySeconds
+    }
+  }
+  throw $lastError
+}
+
 function Write-PublisherResult {
   param(
     [string]$Status,
@@ -92,7 +112,7 @@ try {
   }
   $dirty = Invoke-Git -Directory $ReleaseRoot -Arguments @("status", "--porcelain", "--untracked-files=all")
   if ($dirty) { throw "release clone is not clean: $dirty" }
-  Invoke-Git -Directory $ReleaseRoot -Arguments @("fetch", "origin") | Out-Null
+  Invoke-ReleaseFetchWithRetry -Directory $ReleaseRoot | Out-Null
   $remoteMain = Invoke-Git -Directory $ReleaseRoot -Arguments @("rev-parse", "origin/main")
   $bundleMatchesRemoteMain = [string]$manifest.baseMainSha -eq [string]$remoteMain
   $head = Invoke-Git -Directory $ReleaseRoot -Arguments @("rev-parse", "HEAD")

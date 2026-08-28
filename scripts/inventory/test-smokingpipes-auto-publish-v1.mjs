@@ -91,13 +91,16 @@ async function main() {
   assert.match(publisher, /bundle-validator/);
   assert.match(publisher, /public-validator/);
   assert.match(publisher, /release-build/);
+  assert.match(publisher, /function Invoke-ReleaseFetchWithRetry/);
+  assert.match(publisher, /@\(10, 30\)/);
+  assert.match(publisher, /Invoke-Git -Directory \$Directory -Arguments @\("fetch", "origin"\)/);
   assert.doesNotMatch(publisher, /smokingpipes-release-state-v2\.mjs/);
   assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
   assert.match(orchestrator, /published\.failureStage \|\| published\.status/);
   assert.match(collector, /allowLegacyDuplicateSnapshotOverride: false/);
   assert.match(collector, /suspicious duplicate source product IDs/);
   assert.match(collector, /deadlineAtMs: deadline\?\.deadlineAtMs/);
-  assert.match(diff, /allowLegacyDuplicateSnapshotOverride = true/);
+  assert.match(diff, /allowLegacyDuplicateSnapshotOverride = source === "smokingpipes"/);
   assert.match(validator, /--structural-only=true/);
   assert.match(browserUtils, /Smokingpipes Native Chrome CDP session/);
   assert.match(browserUtils, /chromium\.connectOverCDP/);
