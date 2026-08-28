@@ -55,6 +55,53 @@ function Invoke-GitFetchWithRetry {
   }
 }
 
+function Invoke-GitPushWithRetry {
+  for ($attempt = 1; $attempt -le 3; $attempt++) {
+    try {
+      Invoke-Git -Arguments @("push", "origin", "HEAD") | Out-Null
+      return
+    } catch {
+      if ($attempt -eq 3) { throw }
+
+      $delaySeconds = if ($attempt -eq 1) { 10 } else { 30 }
+      Write-Warning "git push origin HEAD failed (attempt $attempt/3); retrying in $delaySeconds seconds."
+      Start-Sleep -Seconds $delaySeconds
+    }
+  }
+}
+
+function Test-GqPublicationPath {
+  param([string]$Path)
+
+  foreach ($publicationPath in $PublicationPaths) {
+    if ($Path -eq $publicationPath -or $Path.StartsWith("$publicationPath/")) {
+      return $true
+    }
+  }
+  return $false
+}
+
+function Get-GqRetainedPublicationCommit {
+  $dirty = Invoke-Git -Arguments @("status", "--porcelain", "--untracked-files=no")
+  if ($dirty) { return $null }
+
+  $branch = Invoke-Git -Arguments @("branch", "--show-current")
+  if ($branch -ne "main") { return $null }
+
+  $localOnlyCount = [int](Invoke-Git -Arguments @("rev-list", "--count", "origin/main..HEAD"))
+  if ($localOnlyCount -ne 1) { return $null }
+
+  $commit = Invoke-Git -Arguments @("rev-list", "--max-count=1", "origin/main..HEAD")
+  $subject = Invoke-Git -Arguments @("log", "-1", "--format=%s", $commit)
+  if ($subject -ne "chore(inventory): publish GQ Tobaccos daily update") { return $null }
+
+  $changedPaths = @((Invoke-Git -Arguments @("diff-tree", "--no-commit-id", "--name-only", "-r", $commit)) -split "`r?`n" | Where-Object { $_ })
+  if ($changedPaths.Count -eq 0) { return $null }
+  if (@($changedPaths | Where-Object { -not (Test-GqPublicationPath -Path $_) }).Count -gt 0) { return $null }
+
+  return $commit
+}
+
 function Sync-FormalMainRuntime {
   $branch = Invoke-Git -Arguments @("branch", "--show-current")
   if ($branch -ne "main") {
@@ -65,6 +112,21 @@ function Sync-FormalMainRuntime {
   $head = Invoke-Git -Arguments @("rev-parse", "HEAD")
   $originMain = Invoke-Git -Arguments @("rev-parse", "origin/main")
   if ($head -eq $originMain) { return }
+
+  $retainedCommit = Get-GqRetainedPublicationCommit
+  if ($retainedCommit) {
+    $retainedParent = Invoke-Git -Arguments @("rev-parse", "$retainedCommit^")
+    if ($originMain -eq $retainedParent) {
+      return "retained-commit-push-required"
+    }
+
+    & git -C $RuntimeRoot merge-base --is-ancestor $retainedParent origin/main 2>$null
+    if ($LASTEXITCODE -eq 0) {
+      Invoke-Git -Arguments @("reset", "--hard", "origin/main") | Out-Null
+      Assert-TrackedRuntimeClean
+      return "retained-commit-discarded"
+    }
+  }
 
   & git -C $RuntimeRoot merge-base --is-ancestor HEAD origin/main 2>$null
   if ($LASTEXITCODE -ne 0) {
@@ -186,12 +248,27 @@ try {
     throw "GQ runner is missing: $Runner"
   }
   Assert-TrackedRuntimeClean
-  Sync-FormalMainRuntime
-  $node = Get-Command node -CommandType Application -ErrorAction Stop
+  $syncResult = Sync-FormalMainRuntime
+  if ($syncResult -ne "retained-commit-push-required") {
+    $node = Get-Command node -CommandType Application -ErrorAction Stop
+  }
 } catch {
   Send-GqFailurePushDeer -FailureType "startup" -Reason $_.Exception.Message
   Write-Error "GQ startup failed: $($_.Exception.Message)"
   exit 1
+}
+
+if ($syncResult -eq "retained-commit-push-required") {
+  try {
+    Invoke-GitPushWithRetry
+  } catch {
+    $publicationError = $_.Exception.Message
+    Send-GqFailurePushDeer -FailureType "git-publication" -Stage "push" -Reason $publicationError
+    Write-Error "GQ retained publication commit push failed: $publicationError"
+    exit 1
+  }
+  Write-Output "GQ retained publication commit pushed; runner was not started."
+  exit 0
 }
 
 if ($PreflightOnly) {
@@ -254,7 +331,7 @@ if ($NoPush) {
 }
 
 try {
-  Invoke-Git -Arguments @("push", "origin", "HEAD") | Out-Null
+  Invoke-GitPushWithRetry
 } catch {
   $publicationError = $_.Exception.Message
   Send-GqFailurePushDeer -FailureType "git-publication" -Stage "push" -Reason $publicationError
