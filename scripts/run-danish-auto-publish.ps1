@@ -69,6 +69,64 @@ if ($RawRoot) { Write-Host "Raw root: $RawRoot" }
 # 未经明确授权，不得删除或回退此通知逻辑。
 # ============================================================
 
+function Invoke-DanishGitPreflight {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot
+    )
+
+    $runGit = {
+        param([string[]]$GitArguments)
+        $previousErrorActionPreference = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = "Continue"
+            $output = @(& git -C $RepositoryRoot @GitArguments 2>&1)
+        }
+        finally {
+            $ErrorActionPreference = $previousErrorActionPreference
+        }
+        return [pscustomobject]@{
+            ExitCode = $LASTEXITCODE
+            Output   = (($output | ForEach-Object { [string]$_ }) -join " ").Trim()
+        }
+    }
+
+    $branch = & $runGit @("branch", "--show-current")
+    if ($branch.ExitCode -ne 0) {
+        throw "git-preflight branch check failed: $($branch.Output)"
+    }
+    if ($branch.Output -ne "main") {
+        throw "git-preflight requires branch main; current branch: $($branch.Output)"
+    }
+
+    $status = & $runGit @("status", "--porcelain", "--untracked-files=no")
+    if ($status.ExitCode -ne 0) {
+        throw "git-preflight tracked status check failed: $($status.Output)"
+    }
+    if (-not [string]::IsNullOrWhiteSpace($status.Output)) {
+        throw "git-preflight blocked by tracked working tree changes: $($status.Output)"
+    }
+
+    $fetch = & $runGit @("fetch", "origin")
+    if ($fetch.ExitCode -ne 0) {
+        throw "git-preflight fetch origin failed: $($fetch.Output)"
+    }
+
+    $merge = & $runGit @("merge", "--ff-only", "origin/main")
+    if ($merge.ExitCode -ne 0) {
+        throw "git-preflight merge --ff-only origin/main failed: $($merge.Output)"
+    }
+
+    $head = & $runGit @("rev-parse", "HEAD")
+    $upstream = & $runGit @("rev-parse", "origin/main")
+    if ($head.ExitCode -ne 0 -or $upstream.ExitCode -ne 0) {
+        throw "git-preflight revision check failed: $($head.Output) $($upstream.Output)"
+    }
+    if ($head.Output -ne $upstream.Output) {
+        throw "git-preflight requires HEAD == origin/main after ff-only sync; HEAD=$($head.Output) origin/main=$($upstream.Output)"
+    }
+}
+
 function Get-DanishPushDeerKey {
     $names = @(
         "PUSHDEER_KEY",
@@ -143,6 +201,25 @@ function Send-DanishPushDeer {
             "Danish PushDeer failed, but daily result is preserved: " +
             $_.Exception.Message
         )
+    }
+}
+
+if ($mode -in @("daily", "publish")) {
+    try {
+        Invoke-DanishGitPreflight -RepositoryRoot $root
+        Write-Host "Danish Git preflight passed: HEAD == origin/main"
+    }
+    catch {
+        $preflightFailure = $_.Exception.Message
+        Write-Host "Danish Git preflight failed: $preflightFailure" -ForegroundColor Red
+        Send-DanishPushDeer `
+            -Title "Danish｜启动失败" `
+            -Body @(
+                "阶段: git-preflight"
+                "原因: $preflightFailure"
+                "Production 写入: false"
+            ) -join "`n"
+        exit 1
     }
 }
 
