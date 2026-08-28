@@ -1,3 +1,4 @@
+import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -2056,6 +2057,47 @@ function collectorLog(stage, value = null) {
   );
 }
 
+export function launchDanishVerificationBridge({
+  log = collectorLog,
+  exists = fs.existsSync,
+  spawnProcess = spawn,
+} = {}) {
+  const executable = normalizeText(process.env.DANISH_RPA_EXE);
+  const uuid = normalizeText(process.env.DANISH_RPA_UUID);
+
+  if (!executable || !uuid) {
+    log("danish-verification-bridge-warning", { reason: "missing-rpa-config" });
+    return false;
+  }
+  if (!exists(executable)) {
+    log("danish-verification-bridge-warning", { reason: "rpa-executable-not-found", executable });
+    return false;
+  }
+
+  try {
+    const child = spawnProcess(executable, [`shadowbot:Run?robot-uuid=${uuid}`], {
+      detached: true,
+      stdio: "ignore",
+      windowsHide: true,
+    });
+    child.once?.("error", (error) => {
+      log("danish-verification-bridge-warning", {
+        reason: "rpa-spawn-error",
+        error: normalizeText(error?.message || error),
+      });
+    });
+    child.unref?.();
+    log("danish-verification-bridge-launched", { executable });
+    return true;
+  } catch (error) {
+    log("danish-verification-bridge-warning", {
+      reason: "rpa-spawn-error",
+      error: normalizeText(error?.message || error),
+    });
+    return false;
+  }
+}
+
 async function inspectVerificationPage(tab) {
   if (tab.isClosed?.()) {
     throw new Error("manual-verification-page-closed");
@@ -2136,6 +2178,17 @@ export async function waitForManualVerificationRecovery(tab, options = {}) {
   let refreshedTarget = false;
 
   log("manual-verification-required", { targetUrl, timeoutSeconds: Math.round(timeoutMs / 1000), pollMs });
+  const initialState = await inspectVerificationPage(tab);
+  if (initialState.challenge && !initialState.navigating) {
+    try {
+      (options.launchVerificationBridge || launchDanishVerificationBridge)({ log });
+    } catch (error) {
+      log("danish-verification-bridge-warning", {
+        reason: "rpa-launch-threw",
+        error: normalizeText(error?.message || error),
+      });
+    }
+  }
   while (now() <= deadline) {
     const state = await inspectVerificationPage(tab);
     const normalPage = !state.challenge && state.danishHost && !/just a moment|verification|captcha/i.test(state.title);
