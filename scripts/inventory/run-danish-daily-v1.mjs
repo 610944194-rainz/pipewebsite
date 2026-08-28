@@ -41,6 +41,7 @@ const DEFAULT_RAW_ROOT = path.join(
 );
 const DETAIL_QUEUE_MAX_RATIO = 0.25;
 const DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS = [30 * 60, 60 * 60];
+const DANISH_GIT_PUSH_RETRY_DELAYS_MS = [10 * 1000, 30 * 1000];
 
 function compact(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -933,6 +934,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
   const collectorScript = path.join(root, "scripts/collect-danish-full-v18.mjs");
   const converterScript = path.join(root, "scripts/convert-danish-full-v18-to-products.mjs");
   const execute = dependencies.execute || executeCommand;
+  const sleep = dependencies.sleep || ((milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)));
   const log = createLogger(logPath);
   const report = {
     runId,
@@ -969,6 +971,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     buildPassed: false,
     commitExecuted: false,
     pushExecuted: false,
+    pushAttempts: 0,
     commitSkipped: false,
     pushSkipped: false,
     skipReason: null,
@@ -994,6 +997,23 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     log("stage-result", { stage, ...report.stages[stage] });
     if (!acceptedExitCodes.includes(result?.exitCode)) requireStage(result, stage);
     return result;
+  };
+  const pushWithRetry = async () => {
+    let finalError = null;
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      report.pushAttempts = attempt;
+      try {
+        await runStage("git-push", "git", ["push", "origin", "HEAD"]);
+        return;
+      } catch (error) {
+        finalError = error;
+        if (attempt === 3) throw finalError;
+        const delayMs = DANISH_GIT_PUSH_RETRY_DELAYS_MS[attempt - 1];
+        log("git-push-retry", { attempt, delayMs, error: compact(error?.message || error) });
+        await sleep(delayMs);
+      }
+    }
+    throw finalError;
   };
   try {
     fs.mkdirSync(runRoot, { recursive: true });
@@ -1221,7 +1241,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
       }
       await runStage("git-commit", "git", ["commit", "-m", `chore: update Danish daily inventory ${runId}`]);
       report.commitExecuted = true;
-      await runStage("git-push", "git", ["push", "origin", "HEAD"]);
+      await pushWithRetry();
       report.pushExecuted = true;
     }
     report.status = mode === "publish" ? "publish-passed" : "daily-passed";

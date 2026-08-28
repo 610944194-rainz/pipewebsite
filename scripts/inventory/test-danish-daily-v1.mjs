@@ -485,6 +485,8 @@ function createScenario(name, options = {}) {
     errors: rawProducts.filter((item) => item.detailError || item.error || item.success === false),
   });
   const calls = [];
+  const pushExitCodes = [...(options.pushExitCodes || [])];
+  const sleepDelays = [];
   const execute = async (request) => {
     calls.push(request.stage);
     if ((request.stage === "collect-list" || request.stage === "collect-details") && options.collectorOutput) {
@@ -492,6 +494,16 @@ function createScenario(name, options = {}) {
     }
     if (options.failStage === request.stage) {
       return { exitCode: options.failExitCode || 1, timedOut: false, stdout: "", stderr: `${request.stage} fixture failure` };
+    }
+    if (request.stage === "git-push" && pushExitCodes.length > 0) {
+      const exitCode = pushExitCodes.shift();
+      const attempt = calls.filter((stage) => stage === "git-push").length;
+      return {
+        exitCode,
+        timedOut: false,
+        stdout: "",
+        stderr: exitCode === 0 ? "" : `git-push fixture failure attempt ${attempt}`,
+      };
     }
     if (request.stage === "git-cached-diff") {
       return {
@@ -528,6 +540,8 @@ function createScenario(name, options = {}) {
     converted,
     calls,
     execute,
+    sleep: async (milliseconds) => { sleepDelays.push(milliseconds); },
+    sleepDelays,
   };
 }
 
@@ -561,7 +575,7 @@ async function runScenario(scenario, mode, extra = {}) {
     runId: path.basename(scenario.root),
     mode,
     ...extra,
-  }, { execute: scenario.execute });
+  }, { execute: scenario.execute, sleep: scenario.sleep });
 }
 
 // DryRun validates and converts, but leaves Production and every publishing stage untouched.
@@ -715,6 +729,33 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(report.commitSkipped, false);
   assert.equal(report.pushSkipped, false);
   assert.deepEqual(scenario.calls.slice(-6), ["build", "git-diff-check", "git-add", "git-cached-diff", "git-commit", "git-push"]);
+}
+
+// Transient publication failures retry only git push and eventually preserve a successful publication.
+{
+  const scenario = createScenario("publish-push-retry-success", { pushExitCodes: [1, 1, 0] });
+  const report = await runScenario(scenario, "publish");
+  assert.equal(report.status, "publish-passed");
+  assert.equal(report.commitExecuted, true);
+  assert.equal(report.pushExecuted, true);
+  assert.equal(report.pushAttempts, 3);
+  assert.deepEqual(scenario.sleepDelays, [10000, 30000]);
+  assert.equal(scenario.calls.filter((stage) => stage === "git-push").length, 3);
+  assert.equal(scenario.calls.filter((stage) => stage === "git-commit").length, 1);
+}
+
+// A final publication failure retains the completed local commit and reports the third Git error.
+{
+  const scenario = createScenario("publish-push-retry-failure", { pushExitCodes: [1, 1, 1] });
+  const report = await runScenario(scenario, "publish");
+  assert.equal(report.status, "failed");
+  assert.equal(report.commitExecuted, true);
+  assert.equal(report.pushExecuted, false);
+  assert.equal(report.pushAttempts, 3);
+  assert.deepEqual(scenario.sleepDelays, [10000, 30000]);
+  assert.equal(scenario.calls.filter((stage) => stage === "git-push").length, 3);
+  assert.equal(scenario.calls.filter((stage) => stage === "git-commit").length, 1);
+  assert.match(report.failureReason, /git-push fixture failure attempt 3/);
 }
 
 // An empty staged diff is a successful no-op, even when unrelated local files exist.
