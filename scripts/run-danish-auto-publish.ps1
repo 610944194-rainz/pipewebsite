@@ -35,6 +35,14 @@ if (-not (Test-Path -LiteralPath $nodeScript -PathType Leaf)) {
 }
 
 Set-Location -LiteralPath $root
+foreach ($environmentName in @("DANISH_RPA_EXE", "DANISH_RPA_UUID")) {
+  if (-not [Environment]::GetEnvironmentVariable($environmentName, "Process")) {
+    $userValue = [Environment]::GetEnvironmentVariable($environmentName, "User")
+    if ($userValue) {
+      [Environment]::SetEnvironmentVariable($environmentName, $userValue, "Process")
+    }
+  }
+}
 $arguments = @(
   $nodeScript,
   "--mode=$mode",
