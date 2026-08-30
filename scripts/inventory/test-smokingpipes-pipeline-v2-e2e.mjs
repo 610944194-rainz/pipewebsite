@@ -21,6 +21,8 @@ import {
 import {
   runSmokingpipesCollectOnlyV2,
   collectionSummary,
+  diffSafetyReason,
+  listIntegrityReason,
   SMOKINGPIPES_V2_DETAIL_PACING,
   SMOKINGPIPES_V2_LIST_MAX_PAGES,
   trustedListReason,
@@ -446,7 +448,116 @@ async function main() {
     });
     assert.equal(incompleteThreeResult.status, "collection-retryable");
     assert.equal(incompleteThreeResult.cycle.phase, "retryable");
+    const incompleteThreePaths = cyclePaths(stateRoot, "2030-01-06");
+    assert.equal(fs.existsSync(incompleteThreePaths.listSnapshot), false);
+    assert.equal(fs.existsSync(incompleteThreePaths.inventoryDiff), false);
+    assert.equal(fs.existsSync(incompleteThreePaths.listManifest), false);
     assert.equal(fs.existsSync(path.join(stateRoot, "cycles", "2030-01-06", "bundles")), false);
+
+    const captchaStateRoot = path.join(temporaryRoot, "captcha-list-state");
+    const captchaListPath = path.join(temporaryRoot, "captcha-list.json");
+    await writeJsonAtomic(captchaListPath, trustedSnapshot([listItem("captcha-list")], {
+      summary: { captchaDetected: true },
+    }));
+    const captchaResult = await runSmokingpipesCollectOnlyV2({
+      stateRoot: captchaStateRoot,
+      runtimeRoot,
+      cycleId: "2030-01-15",
+      listInputPath: captchaListPath,
+      processDetail: async () => {
+        throw new Error("CAPTCHA list must not process details");
+      },
+    });
+    const captchaPaths = cyclePaths(captchaStateRoot, "2030-01-15");
+    assert.equal(captchaResult.status, "collection-retryable");
+    assert.equal(captchaResult.cycle.failure.stage, "list");
+    assert.equal(fs.existsSync(captchaPaths.listSnapshot), false);
+    assert.equal(fs.existsSync(captchaPaths.inventoryDiff), false);
+    assert.equal(fs.existsSync(captchaPaths.listManifest), false);
+
+    const listDiffStateRoot = path.join(temporaryRoot, "retained-list-diff-state");
+    const listDiffRuntimeRoot = path.join(temporaryRoot, "retained-list-diff-runtime");
+    const listDiffProduction = Array.from({ length: 10 }, (_, index) => ({
+      ...structuredClone(template),
+      id: `smokingpipes-retained-list-baseline-${index}`,
+      sourceProductId: `retained-list-baseline-${index}`,
+      sourceUrl: `https://example.test/retained-list-baseline-${index}`,
+      inventoryStatus: "available",
+    }));
+    await writeJsonAtomic(
+      path.join(listDiffRuntimeRoot, "data", "products", "smokingpipes-products.json"),
+      listDiffProduction
+    );
+    const listDiffSnapshot = trustedSnapshot([listItem("retained-list-diff")]);
+    let listDiffFetches = 0;
+    let listDiffLaunches = 0;
+    let listDiffDetails = 0;
+    const listDiffFirst = await runSmokingpipesCollectOnlyV2({
+      stateRoot: listDiffStateRoot,
+      runtimeRoot: listDiffRuntimeRoot,
+      cycleId: "2030-01-16",
+      live: true,
+      launchBrowserSession: async () => {
+        listDiffLaunches += 1;
+        return { async close() {} };
+      },
+      fetchCurrentList: async () => {
+        listDiffFetches += 1;
+        return structuredClone(listDiffSnapshot);
+      },
+      processDetail: async () => {
+        listDiffDetails += 1;
+        throw new Error("list-diff must not process details");
+      },
+    });
+    const listDiffPaths = cyclePaths(listDiffStateRoot, "2030-01-16");
+    assert.equal(listDiffFirst.status, "collection-retryable");
+    assert.equal(listDiffFirst.cycle.phase, "retryable");
+    assert.equal(listDiffFirst.cycle.failure.stage, "list-diff");
+    assert.equal(listDiffFirst.networkAccessed, true);
+    assert.equal(listDiffFetches, 1);
+    assert.equal(listDiffLaunches, 1);
+    assert.equal(listDiffDetails, 0);
+    assert.equal(fs.existsSync(listDiffPaths.listSnapshot), true);
+    assert.equal(fs.existsSync(listDiffPaths.inventoryDiff), true);
+    assert.equal(fs.existsSync(listDiffPaths.listManifest), true);
+    assert.equal(fs.existsSync(listDiffPaths.legacyProgressiveState), false);
+    assert.equal(fs.existsSync(listDiffPaths.bundleRoot), false);
+    const retainedListDiff = await readJson(listDiffPaths.inventoryDiff);
+    assert.ok(retainedListDiff.fatalWarnings.length > 0);
+    assert.equal(listDiffFirst.cycle.failure.message, retainedListDiff.fatalWarnings[0]);
+    assert.deepEqual(listDiffFirst.cycle.failure.fatalWarnings, retainedListDiff.fatalWarnings);
+    assert.deepEqual(listDiffFirst.cycle.failure.applyBlockedReasons, retainedListDiff.applyBlockedReasons);
+    assert.equal(listIntegrityReason(listDiffSnapshot, retainedListDiff), null);
+    assert.equal(diffSafetyReason(retainedListDiff), retainedListDiff.fatalWarnings[0]);
+    assert.deepEqual(
+      await readJson(path.join(listDiffRuntimeRoot, "data", "products", "smokingpipes-products.json")),
+      listDiffProduction
+    );
+    const listDiffSecond = await runSmokingpipesCollectOnlyV2({
+      stateRoot: listDiffStateRoot,
+      runtimeRoot: listDiffRuntimeRoot,
+      cycleId: "2030-01-16",
+      live: true,
+      launchBrowserSession: async () => {
+        listDiffLaunches += 1;
+        throw new Error("retained list-diff must not launch Chrome");
+      },
+      fetchCurrentList: async () => {
+        listDiffFetches += 1;
+        throw new Error("retained list-diff must not fetch Smokingpipes");
+      },
+      processDetail: async () => {
+        listDiffDetails += 1;
+        throw new Error("retained list-diff must not process details");
+      },
+    });
+    assert.equal(listDiffSecond.status, "collection-retryable");
+    assert.equal(listDiffSecond.cycle.failure.stage, "list-diff");
+    assert.equal(listDiffSecond.networkAccessed, false);
+    assert.equal(listDiffFetches, 1);
+    assert.equal(listDiffLaunches, 1);
+    assert.equal(listDiffDetails, 0);
 
     const detectedPaginationSnapshot = trustedSnapshot([listItem("detected-pagination")], {
       summary: {
@@ -704,9 +815,9 @@ async function main() {
       trustedListReason(cappedWithoutEndSnapshot),
       /no trusted pagination total or normal end-of-list evidence/
     );
-    assert.match(
+    assert.equal(
       trustedListReason(detectedPaginationSnapshot, { fatalWarnings: ["fixture"] }),
-      /fatal warnings/
+      "fixture"
     );
     assert.equal(SMOKINGPIPES_V2_LIST_MAX_PAGES, 200);
     assert.deepEqual(SMOKINGPIPES_V2_DETAIL_PACING, {
@@ -1483,6 +1594,31 @@ async function main() {
     }).body;
     assert.match(duplicateGateBlockedMessage, /Duplicate gate blocked/);
     assert.match(duplicateGateBlockedMessage, /duplicateIds: 100/);
+    assert.match(duplicateGateBlockedMessage, /List: 未通过采集完整性检查/);
+    assert.match(duplicateGateBlockedMessage, /Bundle: 未生成/);
+    assert.doesNotMatch(duplicateGateBlockedMessage, /Bundle: 已保留/);
+    const retainedListDiffNotification = buildSmokingpipesV2Notification({
+      status: "collection-retryable",
+      cycleId: notificationCycle.cycleId,
+      cycle: {
+        ...notificationCycle,
+        phase: "retryable",
+        failure: {
+          stage: "list-diff",
+          message: "fallback list-diff fixture",
+          fatalWarnings: ["Current list is 20.00% of historical available inventory; minimum is 50%."],
+          applyBlockedReasons: ["fatal safety warnings are present"],
+        },
+      },
+    });
+    assert.match(retainedListDiffNotification.title, /Smokingpipes V2｜List 已保留 \/ Diff 待处理/);
+    const retainedListDiffMessage = retainedListDiffNotification.body;
+    assert.match(retainedListDiffMessage, /List: 已保留/);
+    assert.match(retainedListDiffMessage, /Diff: 已保留/);
+    assert.match(retainedListDiffMessage, /Bundle: 未生成/);
+    assert.match(retainedListDiffMessage, /Production: 未写入/);
+    assert.match(retainedListDiffMessage, /Current list is 20\.00% of historical available inventory/);
+    assert.match(retainedListDiffMessage, /下一窗口: 使用已保存 List\/Diff；不重新访问 Smokingpipes。/);
 
     // Publisher E2E: a bundle can own many output files while only the files
     // whose content changed are staged. The final V2 validator runs once,

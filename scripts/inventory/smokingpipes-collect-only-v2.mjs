@@ -79,7 +79,7 @@ function hasConfirmedNormalEndOfList(payload, summary) {
   return true;
 }
 
-export function trustedListReason(payload, diff = null) {
+export function listIntegrityReason(payload, diff = null) {
   const summary = payload?.summary || {};
   if (!items(payload).length) return "list snapshot is empty";
   if ((summary.failedPages || []).length) return "list snapshot contains failed pages";
@@ -110,10 +110,22 @@ export function trustedListReason(payload, diff = null) {
   if (blockedDuplicates > 0) {
     return "list diff contains suspicious duplicate source product IDs";
   }
-  if ((diff?.fatalWarnings || []).length > 0) {
-    return "list diff contains fatal warnings";
-  }
   return null;
+}
+
+export function diffSafetyReason(diff = null) {
+  const fatalWarnings = Array.isArray(diff?.fatalWarnings) ? diff.fatalWarnings : [];
+  if (fatalWarnings.length > 0) return String(fatalWarnings[0]);
+  const applyBlockedReasons = Array.isArray(diff?.applyBlockedReasons)
+    ? diff.applyBlockedReasons
+    : [];
+  if (applyBlockedReasons.length > 0) return String(applyBlockedReasons[0]);
+  if (diff?.allowApply === false) return "list diff safety blocked application";
+  return null;
+}
+
+export function trustedListReason(payload, diff = null) {
+  return listIntegrityReason(payload, diff) || diffSafetyReason(diff);
 }
 
 async function writeDuplicateHandlingAudit(paths, diff) {
@@ -367,8 +379,8 @@ export async function runSmokingpipesCollectOnlyV2({
       });
       duplicateHandling = diff.duplicateHandling || null;
       await writeDuplicateHandlingAudit(paths, diff);
-      const trustFailure = trustedListReason(snapshot, diff);
-      if (trustFailure) throw new Error(trustFailure);
+      const integrityFailure = listIntegrityReason(snapshot, diff);
+      if (integrityFailure) throw new Error(integrityFailure);
       await writeJsonAtomic(paths.listSnapshot, snapshot);
       await writeJsonAtomic(paths.inventoryDiff, diff);
       await writeJsonAtomic(paths.listManifest, {
@@ -379,6 +391,35 @@ export async function runSmokingpipesCollectOnlyV2({
         effectiveScannedPages: snapshot.summary?.effectiveScannedPages ?? null,
         fullExpectedRangeScanned: snapshot.summary?.fullExpectedRangeScanned === true,
       });
+      const diffSafetyFailure = diffSafetyReason(diff);
+      if (diffSafetyFailure) {
+        await closeSharedBrowserSession().catch(() => {});
+        cycle = await transitionCycle({
+          stateRoot: resolvedStateRoot,
+          cycle,
+          phase: "retryable",
+          reason: "list-diff-blocked",
+          patch: {
+            collection: {
+              ...cycle.collection,
+              duplicateHandling,
+              trustedSnapshot: {
+                path: path.relative(resolvedStateRoot, paths.listSnapshot).replace(/\\/g, "/"),
+              },
+            },
+            failure: {
+              stage: "list-diff",
+              message: diffSafetyFailure,
+              fatalWarnings: Array.isArray(diff.fatalWarnings) ? diff.fatalWarnings : [],
+              applyBlockedReasons: Array.isArray(diff.applyBlockedReasons)
+                ? diff.applyBlockedReasons
+                : [],
+              at: new Date().toISOString(),
+            },
+          },
+        });
+        return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
+      }
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
@@ -415,6 +456,32 @@ export async function runSmokingpipesCollectOnlyV2({
       });
       return { status: "collection-retryable", cycle, networkAccessed, error: error.message };
     }
+  }
+
+  if (snapshot && cycle.phase === "retryable" && cycle.failure?.stage === "list-diff") {
+    const existingDiff = await readJson(paths.inventoryDiff, null);
+    if (!existingDiff) {
+      return {
+        status: "collection-retryable",
+        cycle,
+        networkAccessed,
+        error: "retained list-diff is missing its inventory diff",
+      };
+    }
+    const integrityFailure = listIntegrityReason(snapshot, existingDiff);
+    if (integrityFailure) {
+      return { status: "collection-retryable", cycle, networkAccessed, error: integrityFailure };
+    }
+    const diffSafetyFailure = diffSafetyReason(existingDiff);
+    if (diffSafetyFailure) {
+      return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
+    }
+    cycle = await transitionCycle({
+      stateRoot: resolvedStateRoot,
+      cycle,
+      phase: "collecting",
+      reason: "retained-list-diff-now-allowed",
+    });
   }
 
   if (snapshot && cycle.phase === "retryable" && cycle.failure?.stage === "list") {

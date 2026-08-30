@@ -179,6 +179,40 @@ export function buildSmokingpipesV2Notification(result = {}) {
     };
   }
   const failureStage = String(cycle.failure?.stage || result.failureStage || status);
+  if (failureStage === "list-diff") {
+    return {
+      title: "Smokingpipes V2｜List 已保留 / Diff 待处理",
+      body: [
+        `cycleId: ${cycleId}`,
+        "List: 已保留",
+        "Diff: 已保留",
+        "Bundle: 未生成",
+        "Production: 未写入",
+        `错误: ${errorTail(cycle.failure?.fatalWarnings?.[0] || cycle.failure?.message) || "-"}`,
+        "下一窗口: 使用已保存 List/Diff；不重新访问 Smokingpipes。",
+      ].join("\n"),
+    };
+  }
+  if (failureStage === "list") {
+    return {
+      title: "Smokingpipes V2｜List 采集待重试",
+      body: [
+        `cycleId: ${cycleId}`,
+        "List: 未通过采集完整性检查",
+        "Bundle: 未生成",
+        "Production: 未写入",
+        ...(number(duplicateHandling.blockedDuplicateCount) > 0
+          ? [
+              "Duplicate gate blocked",
+              `duplicateIds: ${number(duplicateHandling.duplicateIds)}`,
+              `ratio: ${number(duplicateHandling.duplicateRatio)}`,
+            ]
+          : []),
+        `错误: ${errorTail(result.error || result.stderrTail || cycle.failure?.message) || "-"}`,
+        "下一窗口: 需要重新抓 List。",
+      ].join("\n"),
+    };
+  }
   return {
     title: "Smokingpipes V2｜Bundle/发布待重试",
     body: [
