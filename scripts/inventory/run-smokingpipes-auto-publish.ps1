@@ -11,12 +11,17 @@ param(
   [switch]$NoPush,
   [switch]$PreflightOnly,
   [switch]$NoLiveCollection,
+  [switch]$ApproveRetainedListDiff,
   [string]$CycleId = ""
 )
 
 $ErrorActionPreference = "Stop"
 $RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $Orchestrator = Join-Path $PSScriptRoot "smokingpipes-auto-publish-v2.mjs"
+
+if ($ApproveRetainedListDiff -and $CycleId -ne "2026-08-28") {
+  throw "-ApproveRetainedListDiff is only permitted with -CycleId 2026-08-28"
+}
 
 function Invoke-Git {
   param(
@@ -50,7 +55,6 @@ if (-not (Test-Path -LiteralPath $Orchestrator -PathType Leaf)) {
 if ([IO.Path]::GetFullPath($StateRoot).StartsWith([IO.Path]::GetFullPath($RuntimeRoot), [StringComparison]::OrdinalIgnoreCase)) {
   throw "StateRoot must be outside the runtime Git worktree"
 }
-
 # A scheduled process must never load Node modules before it has synchronized
 # the worktree. This keeps the orchestrator and publisher on one runtime SHA.
 Write-Output "SCHEDULER_STAGE runtime-check"
@@ -85,6 +89,7 @@ $arguments = @(
   "--expected-runtime-sha=$runtimeSha"
 )
 if ($CycleId) { $arguments += "--cycle-id=$CycleId" }
+if ($ApproveRetainedListDiff) { $arguments += "--approve-retained-list-diff=true" }
 if ($NoProductionWrite -or $PreflightOnly) { $arguments += "--no-publish=true" }
 if ($PreflightOnly) { $arguments += "--preflight-only=true" }
 if ($NoPush) { $arguments += "--no-push=true" }

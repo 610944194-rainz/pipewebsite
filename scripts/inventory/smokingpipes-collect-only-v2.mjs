@@ -128,6 +128,59 @@ export function trustedListReason(payload, diff = null) {
   return listIntegrityReason(payload, diff) || diffSafetyReason(diff);
 }
 
+const RETAINED_LIST_DIFF_APPROVAL_CYCLE_ID = "2026-08-28";
+const RETAINED_LIST_DIFF_APPROVAL_FATAL_WARNING =
+  "Disappeared candidates are 36.61% of historical available inventory; maximum is 35%.";
+const RETAINED_LIST_DIFF_APPROVAL_BLOCKED_REASON = "fatal safety warnings are present";
+const RETAINED_LIST_DIFF_APPROVAL_DISAPPEARED_RATIO = 0.36607852487680814;
+
+function matchesExactStrings(value, expected) {
+  return (
+    Array.isArray(value) &&
+    value.length === expected.length &&
+    value.every((item, index) => item === expected[index])
+  );
+}
+
+export function retainedListDiffApprovalReason({ cycleId, cycle, snapshot, diff } = {}) {
+  if (cycleId !== RETAINED_LIST_DIFF_APPROVAL_CYCLE_ID) {
+    return `explicit retained list-diff approval only permits cycle ${RETAINED_LIST_DIFF_APPROVAL_CYCLE_ID}`;
+  }
+  if (cycle?.cycleId !== RETAINED_LIST_DIFF_APPROVAL_CYCLE_ID) {
+    return "retained cycle does not match the explicit approval cycle";
+  }
+  if (cycle?.phase !== "retryable") return "retained cycle is not retryable";
+  if (cycle?.failure?.stage !== "list-diff") return "retained cycle is not blocked at list-diff";
+  if (!snapshot) return "retained list snapshot is missing";
+  if (!diff) return "retained inventory diff is missing";
+  const integrityFailure = listIntegrityReason(snapshot, diff);
+  if (integrityFailure) return integrityFailure;
+  if (
+    !matchesExactStrings(diff.fatalWarnings, [RETAINED_LIST_DIFF_APPROVAL_FATAL_WARNING])
+  ) {
+    return "retained fatal warnings do not match the explicit approval";
+  }
+  if (
+    !matchesExactStrings(diff.applyBlockedReasons, [RETAINED_LIST_DIFF_APPROVAL_BLOCKED_REASON])
+  ) {
+    return "retained apply-blocked reasons do not match the explicit approval";
+  }
+  const counts = diff.counts || {};
+  if (Number(counts.existingAvailable) !== 6291) return "retained existingAvailable does not match the explicit approval";
+  if (Number(counts.currentAvailable) !== 5081) return "retained currentAvailable does not match the explicit approval";
+  if (Number(counts.disappeared) !== 2303) return "retained disappeared count does not match the explicit approval";
+  if (Number(counts.suspicious) !== 0) return "retained suspicious count does not match the explicit approval";
+  if (Number(counts.blockedDuplicates) !== 0) return "retained blocked duplicate count does not match the explicit approval";
+  const disappearedRatio = Number(diff.ratios?.disappearedVsHistoricalAvailable);
+  if (
+    !Number.isFinite(disappearedRatio) ||
+    Math.abs(disappearedRatio - RETAINED_LIST_DIFF_APPROVAL_DISAPPEARED_RATIO) > 1e-12
+  ) {
+    return "retained disappeared ratio does not match the explicit approval";
+  }
+  return null;
+}
+
 async function writeDuplicateHandlingAudit(paths, diff) {
   const duplicateHandling = diff?.duplicateHandling;
   if (!duplicateHandling) return;
@@ -241,6 +294,7 @@ export async function runSmokingpipesCollectOnlyV2({
   processDetail = null,
   fetchOptions = {},
   deadline = null,
+  approveRetainedListDiff = false,
   launchBrowserSession = launchSmokingpipesContext,
   fetchCurrentList = fetchSmokingpipesCurrentList,
 } = {}) {
@@ -474,14 +528,41 @@ export async function runSmokingpipesCollectOnlyV2({
     }
     const diffSafetyFailure = diffSafetyReason(existingDiff);
     if (diffSafetyFailure) {
-      return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
+      if (approveRetainedListDiff === true) {
+        const approvalFailure = retainedListDiffApprovalReason({
+          cycleId,
+          cycle,
+          snapshot,
+          diff: existingDiff,
+        });
+        if (!approvalFailure) {
+          cycle = await transitionCycle({
+            stateRoot: resolvedStateRoot,
+            cycle,
+            phase: "collecting",
+            reason: "explicit-retained-list-diff-approval-20260828",
+            patch: { failure: null },
+          });
+        } else {
+          return {
+            status: "collection-retryable",
+            cycle,
+            networkAccessed,
+            error: `explicit retained list-diff approval rejected: ${approvalFailure}`,
+          };
+        }
+      } else {
+        return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
+      }
     }
-    cycle = await transitionCycle({
-      stateRoot: resolvedStateRoot,
-      cycle,
-      phase: "collecting",
-      reason: "retained-list-diff-now-allowed",
-    });
+    if (cycle.phase === "retryable") {
+      cycle = await transitionCycle({
+        stateRoot: resolvedStateRoot,
+        cycle,
+        phase: "collecting",
+        reason: "retained-list-diff-now-allowed",
+      });
+    }
   }
 
   if (snapshot && cycle.phase === "retryable" && cycle.failure?.stage === "list") {
@@ -647,6 +728,9 @@ async function main() {
     live: options.get("live") === true || options.get("live") === "true",
     detailLimit: options.get("detail-limit") || 50,
     maxAutoApply: options.get("max-auto-apply") || 2000,
+    approveRetainedListDiff:
+      options.get("approve-retained-list-diff") === true ||
+      options.get("approve-retained-list-diff") === "true",
   });
   console.log(JSON.stringify(result, null, 2));
 }

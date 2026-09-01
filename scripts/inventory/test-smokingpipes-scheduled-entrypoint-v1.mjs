@@ -120,6 +120,7 @@ assert.deepEqual(success.forwarded, {
   NoLiveCollection: true,
   CycleId: "2026-07-31",
 });
+assert.equal(success.forwarded.ApproveRetainedListDiff, undefined, "Scheduler must not forward retained-list approval");
 assert.equal(success.latest.status, "completed", JSON.stringify({ result: success.result, latest: success.latest }, null, 2));
 for (const stage of ["scheduled-entry", "runtime-check", "git-fetch", "git-fast-forward", "node-start", "collection", "release", "completed"]) {
   assert.ok(success.latest.stages.some((entry) => entry.stage === stage), `missing ${stage}`);
@@ -156,4 +157,5 @@ assert.match(entrySource, /Stop-OwnedProcessTree/);
 assert.match(entrySource, /DailyTimeoutSeconds/);
 assert.match(entrySource, /Send-SchedulerFailureNotification/);
 assert.match(entrySource, /SMOKINGPIPES_V2_RESULT_JSON/);
+assert.doesNotMatch(entrySource, /ApproveRetainedListDiff/);
 console.log("Smokingpipes scheduled entrypoint tests passed.");

@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -31,6 +33,18 @@ async function main() {
   assert.match(entrypoint, /--skip-sync=true/);
   assert.match(entrypoint, /--expected-runtime-sha=/);
   assert.match(entrypoint, /--timeout-seconds=\$DailyTimeoutSeconds/);
+  assert.match(entrypoint, /\[switch\]\$ApproveRetainedListDiff/);
+  assert.match(entrypoint, /-ApproveRetainedListDiff is only permitted with -CycleId 2026-08-28/);
+  assert.match(entrypoint, /--approve-retained-list-diff=true/);
+  const invalidApproval = spawnSync("powershell.exe", [
+    "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+    path.join(root, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1"),
+    "-StateRoot", path.join(os.tmpdir(), "smokingpipes-approval-fixture-state"),
+    "-CycleId", "2026-08-29",
+    "-ApproveRetainedListDiff",
+  ], { encoding: "utf8", windowsHide: true });
+  assert.notEqual(invalidApproval.status, 0);
+  assert.match(`${invalidApproval.stdout}\n${invalidApproval.stderr}`, /only permitted with -CycleId 2026-08-28/);
   assert.match(entrypoint, /\[ValidateRange\(1, 50\)\]/);
   assert.match(entrypoint, /ProgressiveDetailMax = 50/);
   assert.match(entrypoint, /--notify=true/);
@@ -41,6 +55,7 @@ async function main() {
   assert.doesNotMatch(entrypoint, /smokingpipes-products\.json/);
 
   assert.match(scheduledEntrypoint, /run-smokingpipes-auto-publish\.ps1/);
+  assert.doesNotMatch(scheduledEntrypoint, /ApproveRetainedListDiff/);
   assert.doesNotMatch(scheduledEntrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(scheduledEntrypoint, /progressive-partial-apply/);
   assert.doesNotMatch(scheduledEntrypoint, /smokingpipes-daily-invocation-guard-v1/);
@@ -98,6 +113,7 @@ async function main() {
   assert.match(orchestrator, /parseSmokingpipesPublisherResult/);
   assert.match(orchestrator, /published\.failureStage \|\| published\.status/);
   assert.match(collector, /allowLegacyDuplicateSnapshotOverride: false/);
+  assert.match(collector, /explicit-retained-list-diff-approval-20260828/);
   assert.match(collector, /suspicious duplicate source product IDs/);
   assert.match(collector, /deadlineAtMs: deadline\?\.deadlineAtMs/);
   assert.match(diff, /allowLegacyDuplicateSnapshotOverride = source === "smokingpipes"/);

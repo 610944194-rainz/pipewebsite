@@ -327,6 +327,7 @@ export async function runSmokingpipesAutoPublishV2({
   skipSync = false,
   expectedRuntimeSha = null,
   timeoutSeconds = 3600,
+  approveRetainedListDiff = false,
   nowMs = Date.now,
   notificationsEnabled = false,
   notifier = sendPushDeerNotification,
@@ -433,6 +434,7 @@ export async function runSmokingpipesAutoPublishV2({
       maxAutoApply,
       processDetail,
       deadline,
+      approveRetainedListDiff,
     });
     if (!["ready-to-bundle", "release-resume-required"].includes(collection.status)) {
       return finalize({
@@ -699,6 +701,9 @@ async function main() {
     skipSync: options.get("skip-sync") === true || options.get("skip-sync") === "true",
     expectedRuntimeSha: options.get("expected-runtime-sha") || null,
     timeoutSeconds: options.get("timeout-seconds") || 3600,
+    approveRetainedListDiff:
+      options.get("approve-retained-list-diff") === true ||
+      options.get("approve-retained-list-diff") === "true",
     notificationsEnabled: options.get("notify") === true || options.get("notify") === "true",
   });
   const summary = summarizeSmokingpipesV2CliResult(result);

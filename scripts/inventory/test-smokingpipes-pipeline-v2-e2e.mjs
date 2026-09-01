@@ -23,6 +23,7 @@ import {
   collectionSummary,
   diffSafetyReason,
   listIntegrityReason,
+  retainedListDiffApprovalReason,
   SMOKINGPIPES_V2_DETAIL_PACING,
   SMOKINGPIPES_V2_LIST_MAX_PAGES,
   trustedListReason,
@@ -558,6 +559,177 @@ async function main() {
     assert.equal(listDiffFetches, 1);
     assert.equal(listDiffLaunches, 1);
     assert.equal(listDiffDetails, 0);
+
+    const approvalRuntimeRoot = path.join(temporaryRoot, "retained-list-diff-approval-runtime");
+    await writeJsonAtomic(
+      path.join(approvalRuntimeRoot, "data", "products", "smokingpipes-products.json"),
+      []
+    );
+    const approvedWarning =
+      "Disappeared candidates are 36.61% of historical available inventory; maximum is 35%.";
+    const retainedApprovalSnapshot = (summary = {}) => trustedSnapshot([], {
+      summary: {
+        pagesScanned: 2,
+        ...summary,
+      },
+    });
+    const retainedApprovalDiff = (overrides = {}) => ({
+      allowApply: false,
+      fatalWarnings: [approvedWarning],
+      applyBlockedReasons: ["fatal safety warnings are present"],
+      coverage: {
+        expectedPages: 2,
+        pagesScanned: 2,
+        fullExpectedRangeScanned: true,
+      },
+      counts: {
+        existingAvailable: 6291,
+        currentAvailable: 5081,
+        disappeared: 2303,
+        suspicious: 0,
+        blockedDuplicates: 0,
+      },
+      ratios: {
+        disappearedVsHistoricalAvailable: 0.36607852487680814,
+      },
+      newIds: [],
+      reappearedIds: [],
+      disappearedIds: [],
+      ...overrides,
+    });
+    async function createRetainedListDiffApprovalFixture({
+      cycleId = "2026-08-28",
+      snapshot = retainedApprovalSnapshot(),
+      diff = retainedApprovalDiff(),
+    } = {}) {
+      const fixtureStateRoot = path.join(
+        temporaryRoot,
+        `retained-list-diff-approval-${cycleId}-${Math.random().toString(16).slice(2)}`
+      );
+      const fixturePaths = cyclePaths(fixtureStateRoot, cycleId);
+      await writeJsonAtomic(fixturePaths.listSnapshot, snapshot);
+      await writeJsonAtomic(fixturePaths.inventoryDiff, diff);
+      let fixtureCycle = (await loadOrCreateCycle({ stateRoot: fixtureStateRoot, cycleId })).cycle;
+      fixtureCycle = await transitionCycle({
+        stateRoot: fixtureStateRoot,
+        cycle: fixtureCycle,
+        phase: "retryable",
+        reason: "fixture-list-diff",
+        patch: {
+          collection: {
+            ...fixtureCycle.collection,
+            trustedSnapshot: { path: `cycles/${cycleId}/list/snapshot.json` },
+          },
+          failure: {
+            stage: "list-diff",
+            message: diff.fatalWarnings[0],
+            fatalWarnings: structuredClone(diff.fatalWarnings),
+            applyBlockedReasons: structuredClone(diff.applyBlockedReasons),
+          },
+        },
+      });
+      return { fixtureStateRoot, fixturePaths, fixtureCycle, snapshot, diff };
+    }
+    async function runRetainedListDiffApprovalFixture(fixture, approveRetainedListDiff) {
+      let fetches = 0;
+      let launches = 0;
+      const result = await runSmokingpipesCollectOnlyV2({
+        stateRoot: fixture.fixtureStateRoot,
+        runtimeRoot: approvalRuntimeRoot,
+        cycleId: fixture.fixtureCycle.cycleId,
+        live: true,
+        approveRetainedListDiff,
+        launchBrowserSession: async () => {
+          launches += 1;
+          throw new Error("retained approval must not launch List Chrome");
+        },
+        fetchCurrentList: async () => {
+          fetches += 1;
+          throw new Error("retained approval must not fetch Smokingpipes");
+        },
+        processDetail: async () => {
+          throw new Error("approved fixture has no detail candidates");
+        },
+      });
+      return { result, fetches, launches };
+    }
+
+    const noApprovalFixture = await createRetainedListDiffApprovalFixture();
+    const noApproval = await runRetainedListDiffApprovalFixture(noApprovalFixture, false);
+    assert.equal(noApproval.result.status, "collection-retryable");
+    assert.equal(noApproval.result.cycle.phase, "retryable");
+    assert.equal(noApproval.fetches, 0);
+    assert.equal(noApproval.launches, 0);
+
+    const rejectionCases = [
+      ["cycle", { cycleId: "2026-08-29" }],
+      ["fatal warning", { diff: retainedApprovalDiff({ fatalWarnings: ["different fatal warning"] }) }],
+      ["disappeared", { diff: retainedApprovalDiff({ counts: { existingAvailable: 6291, currentAvailable: 5081, disappeared: 2302, suspicious: 0, blockedDuplicates: 0 } }) }],
+      ["suspicious", { diff: retainedApprovalDiff({ counts: { existingAvailable: 6291, currentAvailable: 5081, disappeared: 2303, suspicious: 1, blockedDuplicates: 0 } }) }],
+      ["blocked duplicates", { diff: retainedApprovalDiff({ counts: { existingAvailable: 6291, currentAvailable: 5081, disappeared: 2303, suspicious: 0, blockedDuplicates: 1 } }) }],
+      ["list integrity", { snapshot: retainedApprovalSnapshot({ failedPages: [1] }) }],
+    ];
+    for (const [name, options] of rejectionCases) {
+      const fixture = await createRetainedListDiffApprovalFixture(options);
+      const rejected = await runRetainedListDiffApprovalFixture(fixture, true);
+      assert.equal(rejected.result.status, "collection-retryable", name);
+      assert.equal(rejected.result.cycle.phase, "retryable", name);
+      assert.equal(rejected.fetches, 0, name);
+      assert.equal(rejected.launches, 0, name);
+    }
+    for (const [name, diff] of [
+      ["apply-blocked reason", retainedApprovalDiff({ applyBlockedReasons: ["different blocked reason"] })],
+      ["disappeared ratio", retainedApprovalDiff({ ratios: { disappearedVsHistoricalAvailable: 0.36 } })],
+      ["missing snapshot", null],
+      ["missing diff", null],
+    ]) {
+      assert.notEqual(
+        retainedListDiffApprovalReason({
+          cycleId: "2026-08-28",
+          cycle: noApprovalFixture.fixtureCycle,
+          snapshot: name === "missing snapshot" ? null : noApprovalFixture.snapshot,
+          diff: name === "missing diff" ? null : diff,
+        }),
+        null,
+        name
+      );
+    }
+
+    const normalOtherCycleFixture = await createRetainedListDiffApprovalFixture({ cycleId: "2026-08-29" });
+    const normalOtherCycle = await runRetainedListDiffApprovalFixture(normalOtherCycleFixture, false);
+    assert.equal(normalOtherCycle.result.status, "collection-retryable");
+    assert.equal(normalOtherCycle.result.error, approvedWarning);
+
+    const approvedFixture = await createRetainedListDiffApprovalFixture();
+    const diffBeforeApproval = await fs.promises.readFile(approvedFixture.fixturePaths.inventoryDiff, "utf8");
+    const snapshotBeforeApproval = await fs.promises.readFile(approvedFixture.fixturePaths.listSnapshot, "utf8");
+    assert.equal(
+      retainedListDiffApprovalReason({
+        cycleId: approvedFixture.fixtureCycle.cycleId,
+        cycle: approvedFixture.fixtureCycle,
+        snapshot: approvedFixture.snapshot,
+        diff: approvedFixture.diff,
+      }),
+      null
+    );
+    const approved = await runRetainedListDiffApprovalFixture(approvedFixture, true);
+    assert.equal(approved.result.status, "ready-to-bundle");
+    assert.equal(approved.fetches, 0);
+    assert.equal(approved.launches, 0);
+    assert.ok(
+      approved.result.cycle.history.some(
+        (entry) => entry.phase === "collecting" && entry.reason === "explicit-retained-list-diff-approval-20260828"
+      )
+    );
+    assert.equal(approved.result.cycle.failure, null);
+    assert.equal(
+      await fs.promises.readFile(approvedFixture.fixturePaths.inventoryDiff, "utf8"),
+      diffBeforeApproval
+    );
+    assert.equal(
+      await fs.promises.readFile(approvedFixture.fixturePaths.listSnapshot, "utf8"),
+      snapshotBeforeApproval
+    );
 
     const detectedPaginationSnapshot = trustedSnapshot([listItem("detected-pagination")], {
       summary: {
