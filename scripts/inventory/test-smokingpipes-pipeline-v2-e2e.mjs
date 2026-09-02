@@ -1518,8 +1518,8 @@ async function main() {
     assert.equal(fs.existsSync(path.join(stateRoot, "cycles", "2026-08-01")), false);
     assert.equal(catchupSecond.cycle.collection.pendingDetailIds.length, 0);
 
-    // Terminal latest cycles start the current date, while manual review never
-    // silently advances to another cycle.
+    // A terminal cycle completed in Shanghai today remains the active no-op
+    // cycle; it must not create a second Daily from the UTC date alone.
     await writeCycle(stateRoot, {
       ...catchupSecond.cycle,
       phase: "published",
@@ -1530,8 +1530,9 @@ async function main() {
       stateRoot,
       now: new Date("2026-08-01T03:00:00.000Z"),
     });
-    assert.equal(terminalResolution.cycleId, "2026-08-01");
-    const tomorrow = await runSmokingpipesCollectOnlyV2({
+    assert.equal(terminalResolution.cycleId, catchupId);
+    assert.equal(terminalResolution.source, "same-day-terminal");
+    const sameDayTerminal = await runSmokingpipesCollectOnlyV2({
       stateRoot,
       runtimeRoot,
       now: new Date("2026-08-01T03:00:00.000Z"),
@@ -1539,7 +1540,115 @@ async function main() {
       detailLimit: 2,
       processDetail: detailProcessor,
     });
-    assert.equal(tomorrow.cycle.cycleId, "2026-08-01");
+    assert.equal(sameDayTerminal.status, "same-day-complete");
+    assert.equal(sameDayTerminal.cycle.cycleId, catchupId);
+
+    const historicalPublishedStateRoot = path.join(temporaryRoot, "historical-published-same-day-state");
+    const historicalPublishedCycle = createCycle({
+      cycleId: "2026-08-28",
+      now: "2026-08-28T00:00:00.000Z",
+    });
+    historicalPublishedCycle.phase = "done";
+    historicalPublishedCycle.updatedAt = "2026-09-02T08:33:00.000Z";
+    historicalPublishedCycle.release = {
+      bundleId: "historical-published-bundle",
+      commitSha: "historical-published-commit",
+      publishedAt: "2026-09-02T08:33:00.000Z",
+    };
+    historicalPublishedCycle.history.push({
+      at: historicalPublishedCycle.updatedAt,
+      phase: "done",
+      reason: "fixture-historical-published",
+    });
+    await writeCycle(historicalPublishedStateRoot, historicalPublishedCycle);
+    const historicalSameDayResolution = await resolveActiveSmokingpipesCycle({
+      stateRoot: historicalPublishedStateRoot,
+      now: new Date("2026-09-02T10:30:00.000Z"),
+    });
+    assert.equal(historicalSameDayResolution.cycleId, "2026-08-28");
+    assert.equal(historicalSameDayResolution.source, "same-day-terminal");
+    let historicalCollectorCalls = 0;
+    let historicalNotifierCalls = 0;
+    const historicalSameDay = await runSmokingpipesAutoPublishV2({
+      stateRoot: historicalPublishedStateRoot,
+      runtimeRoot,
+      now: new Date("2026-09-02T10:30:00.000Z"),
+      skipSync: true,
+      live: true,
+      notificationsEnabled: true,
+      collector: async () => {
+        historicalCollectorCalls += 1;
+        throw new Error("same-day terminal must not call the collector");
+      },
+      notifier: async () => {
+        historicalNotifierCalls += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
+    });
+    assert.equal(historicalSameDay.status, "same-day-complete");
+    assert.equal(historicalSameDay.networkAccessed, false);
+    assert.equal(historicalCollectorCalls, 0);
+    assert.equal(historicalNotifierCalls, 0);
+    assert.equal(smokingpipesV2ExitCode(historicalSameDay.status), 0);
+    assert.equal(fs.existsSync(path.join(historicalPublishedStateRoot, "cycles", "2026-09-02")), false);
+    const historicalNextDayResolution = await resolveActiveSmokingpipesCycle({
+      stateRoot: historicalPublishedStateRoot,
+      now: new Date("2026-09-03T02:30:00.000Z"),
+    });
+    assert.equal(historicalNextDayResolution.cycleId, "2026-09-03");
+    assert.equal(historicalNextDayResolution.source, "current-date");
+    assert.equal(historicalNextDayResolution.cycle, null);
+    const historicalNextDayRun = await runSmokingpipesCollectOnlyV2({
+      stateRoot: historicalPublishedStateRoot,
+      runtimeRoot,
+      now: new Date("2026-09-03T02:30:00.000Z"),
+      listInputPath: catchupListPath,
+      detailLimit: 2,
+      processDetail: detailProcessor,
+    });
+    assert.equal(historicalNextDayRun.cycle.cycleId, "2026-09-03");
+    assert.equal(historicalNextDayRun.networkAccessed, false);
+
+    const noChangeSameDayStateRoot = path.join(temporaryRoot, "no-change-same-day-state");
+    const noChangeSameDayCycle = createCycle({
+      cycleId: "2026-08-29",
+      now: "2026-08-29T00:00:00.000Z",
+    });
+    noChangeSameDayCycle.phase = "done";
+    noChangeSameDayCycle.updatedAt = "2026-09-02T13:00:00.000Z";
+    noChangeSameDayCycle.history.push({
+      at: noChangeSameDayCycle.updatedAt,
+      phase: "done",
+      reason: "fixture-no-change",
+    });
+    await writeCycle(noChangeSameDayStateRoot, noChangeSameDayCycle);
+    const noChangeSameDayResolution = await resolveActiveSmokingpipesCycle({
+      stateRoot: noChangeSameDayStateRoot,
+      now: new Date("2026-09-02T14:30:00.000Z"),
+    });
+    assert.equal(noChangeSameDayResolution.cycleId, "2026-08-29");
+    assert.equal(noChangeSameDayResolution.source, "same-day-terminal");
+    let noChangeCollectorCalls = 0;
+    let noChangeNotifierCalls = 0;
+    const noChangeSameDay = await runSmokingpipesAutoPublishV2({
+      stateRoot: noChangeSameDayStateRoot,
+      runtimeRoot,
+      now: new Date("2026-09-02T14:30:00.000Z"),
+      skipSync: true,
+      notificationsEnabled: true,
+      collector: async () => {
+        noChangeCollectorCalls += 1;
+        throw new Error("same-day no-change must not call the collector");
+      },
+      notifier: async () => {
+        noChangeNotifierCalls += 1;
+        return { notificationSent: true, notificationReason: "fixture-sent" };
+      },
+    });
+    assert.equal(noChangeSameDay.status, "same-day-complete");
+    assert.equal(noChangeSameDay.networkAccessed, false);
+    assert.equal(noChangeCollectorCalls, 0);
+    assert.equal(noChangeNotifierCalls, 0);
 
     const manualId = "2026-08-02";
     const manual = createCycle({ cycleId: manualId });

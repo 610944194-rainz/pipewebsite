@@ -422,6 +422,20 @@ export async function runSmokingpipesAutoPublishV2({
         networkAccessed: false,
       });
     }
+    if (activeCycle?.phase === "done") {
+      return finalize({
+        status: "same-day-complete",
+        cycleId: activeCycleId,
+        cycle: activeCycle,
+        runtimeSha,
+        observedCandidateCount: activeCycle.collection?.observedCandidateCount || 0,
+        readyChangeCount: 0,
+        pendingDetailCount: activeCycle.collection?.pendingDetailIds?.length || 0,
+        bundleAppliedCount: 0,
+        publishedCount: 0,
+        networkAccessed: false,
+      });
+    }
     console.error("SCHEDULER_STAGE collection");
     const collection = await collector({
       stateRoot,
