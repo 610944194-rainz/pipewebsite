@@ -216,7 +216,7 @@ console.log(JSON.stringify({
       [System.Text.Encoding]::UTF8.GetBytes($notifierScript)
     )
     $notifierLauncher = 'await import(`data:text/javascript;base64,${process.argv[1]}`);'
-    $notificationNode = Get-Command node -CommandType Application -ErrorAction Stop
+    $notificationNode = Get-Command node -CommandType Application -ErrorAction Stop | Select-Object -First 1
     & $notificationNode.Source "--input-type=module" "-e" $notifierLauncher $notifierScriptBase64 $payloadBase64
     if ($LASTEXITCODE -ne 0) {
       Write-Warning "GQ failure PushDeer notifier exited with code $LASTEXITCODE."
@@ -233,7 +233,7 @@ if ($TestNotification) {
   if ($ApplyProduction -or $NoProductionWrite -or $NoPush -or $PreflightOnly) {
     throw "-TestNotification cannot be combined with Daily or Production switches."
   }
-  $node = Get-Command node -CommandType Application -ErrorAction Stop
+  $node = Get-Command node -CommandType Application -ErrorAction Stop | Select-Object -First 1
   & $node.Source $Runner "--test-notification"
   exit $LASTEXITCODE
 }
@@ -250,7 +250,7 @@ try {
   Assert-TrackedRuntimeClean
   $syncResult = Sync-FormalMainRuntime
   if ($syncResult -ne "retained-commit-push-required") {
-    $node = Get-Command node -CommandType Application -ErrorAction Stop
+    $node = Get-Command node -CommandType Application -ErrorAction Stop | Select-Object -First 1
   }
 } catch {
   Send-GqFailurePushDeer -FailureType "startup" -Reason $_.Exception.Message
