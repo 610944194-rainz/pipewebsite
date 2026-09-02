@@ -137,6 +137,7 @@ import {
   extractDetailProduct,
   isNormalSmokingpipesDetail,
   launchSmokingpipesContext,
+  nativeChromeExecutablePath,
   resolveSmokingpipesBrowserLaunch,
   summarizeSmokingpipesListProducts,
   waitForSmokingpipesManualRecovery,
@@ -3908,6 +3909,101 @@ assert.equal(fs.existsSync(nativeCdpLockPath), true);
 await nativeCdpSession.close();
 assert.equal(nativeCdpBrowserCloseCalls, 1);
 assert.equal(fs.existsSync(nativeCdpLockPath), false);
+
+const linuxProfileRuntimeRoot = path.join(
+  os.tmpdir(),
+  "inventory-linux-native-profile-" + process.pid + "-" + Date.now()
+);
+const linuxResolvedProfile = resolveSmokingpipesBrowserProfile({
+  root: launchLocalAppData,
+  browserProfile: "sp-chrome-v2",
+  platform: "linux",
+  smokingpipesRuntimeDir: linuxProfileRuntimeRoot,
+});
+assert.equal(linuxResolvedProfile.profileSource, "linux-runtime-sp-chrome-v2");
+assert.equal(
+  linuxResolvedProfile.profileDir,
+  path.join(linuxProfileRuntimeRoot, "chrome-profile")
+);
+assert.equal(
+  nativeChromeExecutablePath({
+    platform: "linux",
+    chromeExecutablePath: "/usr/bin/google-chrome",
+  }),
+  "/usr/bin/google-chrome"
+);
+
+const linuxNativeCapture = {};
+const linuxNativeLockPath = path.join(
+  linuxProfileRuntimeRoot,
+  "chrome-profile.lock"
+);
+const linuxNativeSession = await launchSmokingpipesContext({
+  root: launchLocalAppData,
+  browserProfile: "sp-chrome-v2",
+  platform: "linux",
+  smokingpipesRuntimeDir: linuxProfileRuntimeRoot,
+  profileLockPath: linuxNativeLockPath,
+  runId: "linux-native-cdp-test",
+  display: ":99",
+  nativeChrome: {
+    chromeExecutablePath: "/usr/bin/google-chrome",
+    cdpPort: 48125,
+    spawn(executablePath, args) {
+      linuxNativeCapture.executablePath = executablePath;
+      linuxNativeCapture.args = args;
+      return {
+        pid: 4244,
+        exitCode: 0,
+        killed: false,
+        once() {},
+        kill() {},
+      };
+    },
+    async waitForCdp(endpoint) {
+      linuxNativeCapture.waitEndpoint = endpoint;
+      return {
+        webSocketDebuggerUrl: "ws://127.0.0.1:48125/devtools/browser/mock",
+      };
+    },
+    async connectOverCDP(endpoint) {
+      linuxNativeCapture.connectEndpoint = endpoint;
+      return {
+        contexts: () => [nativeCdpContext],
+        async close() {},
+      };
+    },
+  },
+});
+assert.equal(linuxNativeCapture.executablePath, "/usr/bin/google-chrome");
+assert.equal(linuxNativeCapture.waitEndpoint, "http://127.0.0.1:48125");
+assert.equal(linuxNativeCapture.connectEndpoint, "http://127.0.0.1:48125");
+assert.ok(linuxNativeCapture.args.includes("--remote-debugging-address=127.0.0.1"));
+assert.ok(linuxNativeCapture.args.includes("--no-first-run"));
+assert.ok(linuxNativeCapture.args.includes("--no-default-browser-check"));
+assert.ok(linuxNativeCapture.args.includes("--window-size=1440,1000"));
+assert.equal(
+  linuxNativeCapture.args.some((argument) => argument.includes("headless")),
+  false
+);
+await linuxNativeSession.close();
+assert.equal(fs.existsSync(linuxNativeLockPath), false);
+
+await assert.rejects(
+  launchSmokingpipesContext({
+    root: launchLocalAppData,
+    browserProfile: "sp-chrome-v2",
+    platform: "linux",
+    smokingpipesRuntimeDir: linuxProfileRuntimeRoot,
+    profileLockPath: path.join(linuxProfileRuntimeRoot, "missing-display.lock"),
+    nativeChrome: {
+      chromeExecutablePath: "/usr/bin/google-chrome",
+    },
+  }),
+  (error) =>
+    error?.code === "BROWSER_NATIVE_CDP_FAILED" &&
+    /requires a DISPLAY\/Xvfb session/.test(error.message)
+);
 
 const nativeFailureLockPath = path.join(
   os.tmpdir(),

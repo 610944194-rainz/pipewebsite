@@ -57,6 +57,7 @@ import {
 } from "../lib/smokingpipes-browser-profile-v1.mjs";
 
 const workspaceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+const powershellExecutable = process.platform === "win32" ? "powershell.exe" : "pwsh";
 
 async function readWorkspaceJson(relativeFile) {
   return JSON.parse(await fs.promises.readFile(path.join(workspaceRoot, relativeFile), "utf8"));
@@ -76,7 +77,7 @@ async function writeText(root, relativePath, contents) {
 }
 
 function runPublisher(arguments_, { env = {}, cwd = workspaceRoot } = {}) {
-  return spawnSync("powershell.exe", [
+  return spawnSync(powershellExecutable, [
     "-NoProfile",
     "-ExecutionPolicy",
     "Bypass",
@@ -89,29 +90,50 @@ function runPublisher(arguments_, { env = {}, cwd = workspaceRoot } = {}) {
 async function createFetchRetryGitShim(root, failures) {
   const shimRoot = path.join(root, "git-fetch-retry-shim");
   const countPath = path.join(root, "fetch-attempts.txt");
-  const gitExecutable = execFileSync("where", ["git"], { encoding: "utf8" })
+  const gitLookup = process.platform === "win32" ? "where" : "which";
+  const gitExecutable = execFileSync(gitLookup, ["git"], { encoding: "utf8" })
     .split(/\r?\n/)
     .map((entry) => entry.trim())
     .find(Boolean);
   assert.ok(gitExecutable, "git executable is required for the fetch retry fixture");
   await fs.promises.mkdir(shimRoot, { recursive: true });
-  await fs.promises.writeFile(path.join(shimRoot, "git.cmd"), [
-    "@echo off",
-    "setlocal EnableExtensions EnableDelayedExpansion",
-    "set /a attempt=0",
-    "if exist \"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" set /p attempt=<\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\"",
-    "if /I \"%~3 %~4\"==\"fetch origin\" (",
-    "  set /a attempt+=1",
-    "  >\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" echo !attempt!",
-    `  if !attempt! LEQ ${failures} (`,
-    "    >&2 echo fixture fetch failure !attempt!",
-    "    exit /b 128",
-    "  )",
-    ")",
-    `\"${gitExecutable}\" %*`,
-    "exit /b %errorlevel%",
-    "",
-  ].join("\r\n"));
+  if (process.platform === "win32") {
+    await fs.promises.writeFile(path.join(shimRoot, "git.cmd"), [
+      "@echo off",
+      "setlocal EnableExtensions EnableDelayedExpansion",
+      "set /a attempt=0",
+      "if exist \"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" set /p attempt=<\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\"",
+      "if /I \"%~3 %~4\"==\"fetch origin\" (",
+      "  set /a attempt+=1",
+      "  >\"%SMOKINGPIPES_TEST_FETCH_COUNTER%\" echo !attempt!",
+      `  if !attempt! LEQ ${failures} (`,
+      "    >&2 echo fixture fetch failure !attempt!",
+      "    exit /b 128",
+      "  )",
+      ")",
+      `\"${gitExecutable}\" %*`,
+      "exit /b %errorlevel%",
+      "",
+    ].join("\r\n"));
+  } else {
+    const shimPath = path.join(shimRoot, "git");
+    await fs.promises.writeFile(shimPath, [
+      "#!/usr/bin/env bash",
+      "set -euo pipefail",
+      "attempt=0",
+      "if [ -f \"$SMOKINGPIPES_TEST_FETCH_COUNTER\" ]; then attempt=$(cat \"$SMOKINGPIPES_TEST_FETCH_COUNTER\"); fi",
+      "if [ \"${3:-} ${4:-}\" = \"fetch origin\" ]; then",
+      "  attempt=$((attempt + 1))",
+      "  printf \"%s\\n\" \"$attempt\" > \"$SMOKINGPIPES_TEST_FETCH_COUNTER\"",
+      "  if [ \"$attempt\" -le " + failures + " ]; then",
+      "    echo \"fixture fetch failure $attempt\" >&2",
+      "    exit 128",
+      "  fi",
+      "fi",
+      "exec " + JSON.stringify(gitExecutable) + " \"$@\"",
+      "",
+    ].join("\n"), { mode: 0o755 });
+  }
   return { shimRoot, countPath };
 }
 
@@ -186,12 +208,17 @@ async function main() {
   const runtimeRoot = path.join(temporaryRoot, "runtime");
   const stateRoot = path.join(temporaryRoot, "state");
   try {
+    const linuxRuntimeRoot = path.join(temporaryRoot, "linux-smokingpipes-runtime");
     const dedicatedBrowser = buildSmokingpipesBrowserDescriptor({
       browserChannel: "chrome",
       browserProfile: SP_CHROME_V2_PROFILE_NAME,
       localAppData: path.join(temporaryRoot, "local-app-data"),
+      smokingpipesRuntimeDir: linuxRuntimeRoot,
     });
-    assert.equal(dedicatedBrowser.profileDir, path.join(temporaryRoot, "local-app-data", "YandouBuy", "chrome-profile-sp-v2"));
+    const expectedProfileDir = process.platform === "win32"
+      ? path.join(temporaryRoot, "local-app-data", "YandouBuy", "chrome-profile-sp-v2")
+      : path.join(linuxRuntimeRoot, "chrome-profile");
+    assert.equal(dedicatedBrowser.profileDir, expectedProfileDir);
     assert.equal(dedicatedBrowser.persistentContext, true);
     assert.equal(dedicatedBrowser.headless, false);
     assert.equal(/Google[\\/]Chrome[\\/]User Data/i.test(dedicatedBrowser.profileDir), false);
@@ -2117,7 +2144,7 @@ async function main() {
       "-ReleaseRoot", fetchRetrySuccessRelease,
       "-RuntimeRoot", fakeRuntimeRoot,
     ], { env: {
-      PATH: `${fetchRetrySuccessShim.shimRoot};${process.env.PATH}`,
+      PATH: `${fetchRetrySuccessShim.shimRoot}${path.delimiter}${process.env.PATH}`,
       SMOKINGPIPES_TEST_FETCH_COUNTER: fetchRetrySuccessShim.countPath,
       SMOKINGPIPES_TEST_BUNDLE_ROOT: fetchRetrySuccessBundle,
     } });
@@ -2147,7 +2174,7 @@ async function main() {
       "-ReleaseRoot", fetchRetryFailureRelease,
       "-RuntimeRoot", fakeRuntimeRoot,
     ], { env: {
-      PATH: `${fetchRetryFailureShim.shimRoot};${process.env.PATH}`,
+      PATH: `${fetchRetryFailureShim.shimRoot}${path.delimiter}${process.env.PATH}`,
       SMOKINGPIPES_TEST_FETCH_COUNTER: fetchRetryFailureShim.countPath,
       SMOKINGPIPES_TEST_BUNDLE_ROOT: fetchRetryFailureBundle,
     } });
@@ -2179,7 +2206,7 @@ async function main() {
       generatorVersion: "runtime-fixture-is-deliberately-invalid",
     });
     execFileSync("git", ["clone", workspaceRoot, releaseCwdSource], { stdio: "ignore" });
-    git(releaseCwdSource, ["checkout", "-B", "main", "origin/main"]);
+    git(releaseCwdSource, ["checkout", "-B", "main", "HEAD"]);
     git(releaseCwdSource, ["config", "user.email", "fixture@example.invalid"]);
     git(releaseCwdSource, ["config", "user.name", "Fixture"]);
     const releaseCwdBaseSha = git(releaseCwdSource, ["rev-parse", "HEAD"]);
@@ -2212,7 +2239,10 @@ async function main() {
     // Turbopack rejects a node_modules junction that points outside the
     // project root, so the successful Production-gate fixture installs from
     // the local cache in strict offline mode.
-    execFileSync("cmd.exe", ["/d", "/s", "/c", "npm.cmd ci --offline"], {
+    const npmCiCommand = process.platform === "win32"
+      ? { command: "cmd.exe", arguments_: ["/d", "/s", "/c", "npm.cmd ci --offline"] }
+      : { command: "npm", arguments_: ["ci", "--offline"] };
+    execFileSync(npmCiCommand.command, npmCiCommand.arguments_, {
       cwd: releaseCwdRelease,
       stdio: "ignore",
       windowsHide: true,
@@ -2220,7 +2250,7 @@ async function main() {
     await fs.promises.symlink(
       path.join(workspaceRoot, "node_modules"),
       path.join(releaseCwdInvalidRelease, "node_modules"),
-      "junction"
+      process.platform === "win32" ? "junction" : "dir"
     );
     const releaseCwdCycleId = "2030-03-01";
     const releaseCwdList = path.join(releaseCwdRoot, "list.json");

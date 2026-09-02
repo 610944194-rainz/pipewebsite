@@ -21,6 +21,20 @@ import {
   buildSmokingpipesReleaseBundleV2,
 } from "./smokingpipes-build-release-bundle-v2.mjs";
 
+function defaultSmokingpipesReleaseRoot() {
+  if (process.platform === "win32") {
+    return "C:\\Users\\NING MEI\\Desktop\\pipewebsite-smokingpipes-release";
+  }
+  return (
+    process.env.SMOKINGPIPES_RELEASE_ROOT ||
+    path.join(
+      process.env.SMOKINGPIPES_RUNTIME_ROOT ||
+        "/srv/yandoubuy/runtime/smokingpipes",
+      "release"
+    )
+  );
+}
+
 function git(runtimeRoot, arguments_, allowed = [0]) {
   const result = spawnSync("git", ["-C", runtimeRoot, ...arguments_], {
     encoding: "utf8",
@@ -299,7 +313,7 @@ async function invokePublisher({
   ];
   if (noPush) arguments_.push("-NoPush");
   if (pushRetryAttempt) arguments_.push("-PushRetryAttempt", String(pushRetryAttempt));
-  const result = spawnSync("powershell.exe", arguments_, {
+  const result = spawnSync(process.platform === "win32" ? "powershell.exe" : "pwsh", arguments_, {
     encoding: "utf8",
     windowsHide: true,
   });
@@ -314,7 +328,7 @@ async function invokePublisher({
 export async function runSmokingpipesAutoPublishV2({
   stateRoot,
   runtimeRoot = process.cwd(),
-  releaseRoot = "C:\\Users\\NING MEI\\Desktop\\pipewebsite-smokingpipes-release",
+  releaseRoot = defaultSmokingpipesReleaseRoot(),
   cycleId = null,
   now = new Date(),
   live = false,

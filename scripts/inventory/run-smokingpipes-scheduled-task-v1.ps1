@@ -1,7 +1,7 @@
 param(
-  [string]$AutomationWorktree = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run",
-  [string]$StateRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-state",
-  [string]$ReleaseRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release",
+  [string]$AutomationWorktree = "",
+  [string]$StateRoot = "",
+  [string]$ReleaseRoot = "",
   [ValidateRange(1, 200)]
   [int]$ProgressiveDetailMax = 50,
   [ValidateRange(1, 2000)]
@@ -17,10 +17,32 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$script:IsWindowsPlatform = [Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT
+if (-not $AutomationWorktree) {
+  $AutomationWorktree = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-run"
+  } else {
+    "/srv/yandoubuy/app"
+  }
+}
+if (-not $StateRoot) {
+  $StateRoot = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-state"
+  } else {
+    "/srv/yandoubuy/runtime/smokingpipes/state"
+  }
+}
+if (-not $ReleaseRoot) {
+  $ReleaseRoot = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release"
+  } else {
+    "/srv/yandoubuy/runtime/smokingpipes/release"
+  }
+}
 $script:notificationAttempted = $false
 $script:runId = "scheduler-" + (Get-Date -Format "yyyyMMdd-HHmmss")
 $script:startedAt = (Get-Date).ToString("o")
-$script:logRoot = Join-Path $StateRoot "logs\scheduler"
+$script:logRoot = Join-Path (Join-Path $StateRoot "logs") "scheduler"
 New-Item -ItemType Directory -Path $script:logRoot -Force | Out-Null
 $script:logPath = Join-Path $script:logRoot ("run-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".log")
 $script:jsonPath = [IO.Path]::ChangeExtension($script:logPath, ".json")
@@ -134,9 +156,32 @@ function Quote-PowerShellArgument {
   return '"' + ($Value -replace '"', '\"') + '"'
 }
 
+function Get-SmokingpipesPowerShellExecutable {
+  if ($script:IsWindowsPlatform) {
+    return Join-Path $PSHOME "powershell.exe"
+  }
+  $pwsh = Get-Command pwsh -CommandType Application -ErrorAction Stop | Select-Object -First 1
+  return $pwsh.Source
+}
+
 function Get-OwnedProcessTree {
   param([int]$RootPid)
-  $all = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue)
+  if ($script:IsWindowsPlatform) {
+    $all = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue)
+  } else {
+    $all = @(
+      & ps -eo pid=,ppid= |
+        ForEach-Object {
+          $parts = ($_ -split "\s+" | Where-Object { $_ })
+          if ($parts.Count -ge 2) {
+            [pscustomobject]@{
+              ProcessId = [int]$parts[0]
+              ParentProcessId = [int]$parts[1]
+            }
+          }
+        }
+    )
+  }
   $children = @{}
   foreach ($process in $all) {
     $parent = [int]$process.ParentProcessId
@@ -150,7 +195,9 @@ function Get-OwnedProcessTree {
     $pidValue = $stack.Pop()
     if ($ordered.Contains($pidValue)) { continue }
     $ordered.Add($pidValue)
-    foreach ($child in @($children[$pidValue])) { $stack.Push([int]$child) }
+    if ($children.ContainsKey($pidValue)) {
+      foreach ($child in $children[$pidValue]) { $stack.Push([int]$child) }
+    }
   }
   return @($ordered)
 }
@@ -189,7 +236,7 @@ $exitCode = 1
 try {
   Add-SchedulerStage -Stage "runtime-check" -Message "validating runtime and wrapper"
   $runtimeRoot = (Resolve-Path -LiteralPath $AutomationWorktree).Path
-  $wrapper = Join-Path $runtimeRoot "scripts\inventory\run-smokingpipes-auto-publish.ps1"
+  $wrapper = Join-Path (Join-Path (Join-Path $runtimeRoot "scripts") "inventory") "run-smokingpipes-auto-publish.ps1"
   if (-not (Test-Path -LiteralPath $wrapper -PathType Leaf)) { throw "Smokingpipes V2 scheduled wrapper is missing: $wrapper" }
   if ([IO.Path]::GetFullPath($StateRoot).StartsWith([IO.Path]::GetFullPath($runtimeRoot), [StringComparison]::OrdinalIgnoreCase)) { throw "StateRoot must be outside the runtime Git worktree" }
 
@@ -212,10 +259,36 @@ try {
   Add-SchedulerStage -Stage "git-fetch" -Message "delegated to V2 wrapper in owned child"
   Add-SchedulerStage -Stage "git-fast-forward" -Message "delegated to V2 wrapper in owned child"
   Add-SchedulerStage -Stage "node-start" -Message "starting owned V2 wrapper process"
-  $child = Start-Process -FilePath (Join-Path $PSHOME "powershell.exe") -ArgumentList ($childArgs -join " ") -WorkingDirectory $runtimeRoot -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath -WindowStyle Hidden -PassThru
+  $startProcess = @{
+    FilePath = (Get-SmokingpipesPowerShellExecutable)
+    ArgumentList = ($childArgs -join " ")
+    WorkingDirectory = $runtimeRoot
+    RedirectStandardOutput = $stdoutPath
+    RedirectStandardError = $stderrPath
+    PassThru = $true
+  }
+  if ($script:IsWindowsPlatform) { $startProcess.WindowStyle = "Hidden" }
+  $child = Start-Process @startProcess
   $script:run.ownedPid = $child.Id
   Save-SchedulerState
-  $exited = $child.WaitForExit($DailyTimeoutSeconds * 1000)
+  if ($script:IsWindowsPlatform) {
+    $exited = $child.WaitForExit($DailyTimeoutSeconds * 1000)
+  } else {
+    $deadline = [DateTime]::UtcNow.AddSeconds($DailyTimeoutSeconds)
+    $exited = $false
+    while ([DateTime]::UtcNow -lt $deadline) {
+      $child.Refresh()
+      if ($child.HasExited) {
+        $exited = $true
+        break
+      }
+      Start-Sleep -Milliseconds 100
+    }
+    if (-not $exited) {
+      $child.Refresh()
+      $exited = $child.HasExited
+    }
+  }
   if (-not $exited) {
     $ownedTree = Stop-OwnedProcessTree -RootPid $child.Id
     $script:run.ownedProcessTree = $ownedTree

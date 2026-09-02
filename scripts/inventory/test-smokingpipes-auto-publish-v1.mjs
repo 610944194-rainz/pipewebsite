@@ -7,6 +7,8 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+const powershellExecutable =
+  process.platform === "win32" ? "powershell.exe" : "pwsh";
 
 async function read(relativePath) {
   return fs.readFile(path.join(root, relativePath), "utf8");
@@ -22,6 +24,7 @@ async function main() {
   const diff = await read("scripts/inventory/smokingpipes-diff-inventory-v1.mjs");
   const validator = await read("scripts/validate-public-product-indexes-v1.mjs");
   const browserUtils = await read("scripts/lib/smokingpipes-utils.mjs");
+  const browserProfile = await read("scripts/lib/smokingpipes-browser-profile-v1.mjs");
 
   assert.match(entrypoint, /smokingpipes-auto-publish-v2\.mjs/);
   assert.match(entrypoint, /--state-root=/);
@@ -36,7 +39,7 @@ async function main() {
   assert.match(entrypoint, /\[switch\]\$ApproveRetainedListDiff/);
   assert.match(entrypoint, /-ApproveRetainedListDiff is only permitted with -CycleId 2026-08-28/);
   assert.match(entrypoint, /--approve-retained-list-diff=true/);
-  const invalidApproval = spawnSync("powershell.exe", [
+  const invalidApproval = spawnSync(powershellExecutable, [
     "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
     path.join(root, "scripts", "inventory", "run-smokingpipes-auto-publish.ps1"),
     "-StateRoot", path.join(os.tmpdir(), "smokingpipes-approval-fixture-state"),
@@ -49,12 +52,16 @@ async function main() {
   assert.match(entrypoint, /ProgressiveDetailMax = 50/);
   assert.match(entrypoint, /--notify=true/);
   assert.match(entrypoint, /System\.Management\.Automation\.ErrorRecord/);
+  assert.match(entrypoint, /\$script:IsWindowsPlatform/);
+  assert.match(entrypoint, /Get-Command node -CommandType Application -ErrorAction Stop \| Select-Object -First 1/);
   assert.match(entrypoint, /Write-Output \(\[string\]\$_.Exception\.Message\)/);
   assert.doesNotMatch(entrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(entrypoint, /progressive-partial-apply/);
   assert.doesNotMatch(entrypoint, /smokingpipes-products\.json/);
 
   assert.match(scheduledEntrypoint, /run-smokingpipes-auto-publish\.ps1/);
+  assert.match(scheduledEntrypoint, /Get-SmokingpipesPowerShellExecutable/);
+  assert.match(scheduledEntrypoint, /\$script:IsWindowsPlatform/);
   assert.doesNotMatch(scheduledEntrypoint, /ApproveRetainedListDiff/);
   assert.doesNotMatch(scheduledEntrypoint, /test-inventory-runner-v1\.mjs/);
   assert.doesNotMatch(scheduledEntrypoint, /progressive-partial-apply/);
@@ -85,6 +92,7 @@ async function main() {
   assert.doesNotMatch(orchestrator, /run-inventory-automation-v1\.mjs/);
 
   assert.match(publisher, /validate-smokingpipes-release-bundle-v2\.mjs/);
+  assert.match(publisher, /\$npmCommand = if \(\$script:IsWindowsPlatform\) \{ "npm\.cmd" \} else \{ "npm" \}/);
   assert.match(publisher, /validate-public-product-indexes-v1\.mjs/);
   assert.match(publisher, /--structural-only=true/);
   assert.match(publisher, /test-public-products-inventory-default-v1\.mjs/);
@@ -123,6 +131,12 @@ async function main() {
   assert.match(browserUtils, /--remote-debugging-address=127\.0\.0\.1/);
   assert.match(browserUtils, /SP_CHROME_V2_PROFILE_NAME/);
   assert.match(browserUtils, /BROWSER_NATIVE_CDP_FAILED/);
+  assert.match(browserUtils, /Smokingpipes V2 Linux native Chrome requires a DISPLAY\/Xvfb session/);
+  assert.match(browserUtils, /\/usr\/bin\/google-chrome/);
+  assert.match(browserUtils, /--remote-debugging-address=127\.0\.0\.1/);
+  assert.doesNotMatch(browserUtils, /--headless(?:=new)?/);
+  assert.match(browserProfile, /linux-runtime-sp-chrome-v2/);
+  assert.match(browserProfile, /\/srv\/yandoubuy\/runtime\/smokingpipes/);
   assert.match(collector, /sharedBrowserSession/);
   assert.doesNotMatch(collector, /launchPersistentContext/);
 

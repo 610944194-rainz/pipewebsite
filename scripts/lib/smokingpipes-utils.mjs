@@ -934,12 +934,27 @@ async function waitForNativeChromeCdp(endpoint, options = {}) {
   );
 }
 
-function nativeChromeExecutablePath(options = {}) {
+export function nativeChromeExecutablePath(options = {}) {
   if (options.chromeExecutablePath) return String(options.chromeExecutablePath);
-  if ((options.platform || process.platform) === "win32") {
+  const platform = options.platform || process.platform;
+  if (platform === "win32") {
     return "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
   }
-  throw new Error("Native Chrome CDP is supported only on Windows for Smokingpipes V2");
+  if (platform === "linux") {
+    const candidates = [
+      "/usr/bin/google-chrome",
+      "/usr/bin/google-chrome-stable",
+      "/opt/google/chrome/chrome",
+    ];
+    const installed = candidates.find((candidate) => fs.existsSync(candidate));
+    if (installed) return installed;
+    throw new Error(
+      `Native Google Chrome is missing for Smokingpipes V2; checked: ${candidates.join(", ")}`
+    );
+  }
+  throw new Error(
+    "Native Chrome CDP is supported only on Windows and Linux for Smokingpipes V2"
+  );
 }
 
 function nativeChromeFailure(error, endpoint = null) {
@@ -972,6 +987,16 @@ async function launchNativeChromeCdpSession({
   userDataDirCreated,
 }) {
   const native = options.nativeChrome || {};
+  const platform = options.platform || process.platform;
+  if (
+    platform === "linux" &&
+    !String(native.display || options.display || process.env.DISPLAY || "").trim()
+  ) {
+    throw Object.assign(
+      new Error("Smokingpipes V2 Linux native Chrome requires a DISPLAY/Xvfb session."),
+      { code: "BROWSER_NATIVE_DISPLAY_REQUIRED" }
+    );
+  }
   const cdpPort = Number.isInteger(native.cdpPort)
     ? native.cdpPort
     : await (native.reservePort || reserveLoopbackPort)();
@@ -987,12 +1012,15 @@ async function launchNativeChromeCdpSession({
     "--remote-debugging-address=127.0.0.1",
     `--remote-debugging-port=${cdpPort}`,
     `--user-data-dir=${userDataDir}`,
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--window-size=1440,1000",
   ];
   let chromeProcess = null;
   let browser = null;
   try {
     if (!native.spawn && !fs.existsSync(executablePath)) {
-      throw new Error(`system chrome.exe is missing: ${executablePath}`);
+      throw new Error(`native Google Chrome executable is missing: ${executablePath}`);
     }
     console.log(`Launching native Chrome for Smokingpipes V2: endpoint=${endpoint}; profile=${userDataDir}`);
     chromeProcess = spawnChrome(executablePath, chromeArgs, {
@@ -1053,9 +1081,11 @@ export async function launchSmokingpipesContext(options = {}) {
     localAppData: options.localAppData,
     environmentUserDataDir: options.environmentUserDataDir,
     platform: options.platform,
+    smokingpipesRuntimeDir: options.smokingpipesRuntimeDir,
     headless: options.headless,
   });
   const userDataDir = browserDescriptor.profileDir;
+  const browserPlatform = options.platform || process.platform;
   const userDataDirCreated = !fs.existsSync(userDataDir);
   fs.mkdirSync(userDataDir, { recursive: true });
   const useNativeChromeCdp =
@@ -1081,14 +1111,18 @@ export async function launchSmokingpipesContext(options = {}) {
   const launchPersistentContext =
     options.launchPersistentContext ||
     chromium.launchPersistentContext.bind(chromium);
-  const profileLockPath =
-    options.profileLockPath ||
-    path.join(
-      launchRoot,
-      "data",
-      "inventory",
-      "state",
-      "smokingpipes-chrome-profile.lock"
+  const profileLockPath = options.profileLockPath ||
+    (
+      browserPlatform === "linux" &&
+      browserDescriptor.requestedBrowserProfile === SP_CHROME_V2_PROFILE_NAME
+        ? path.join(path.dirname(userDataDir), "chrome-profile.lock")
+        : path.join(
+            launchRoot,
+            "data",
+            "inventory",
+            "state",
+            "smokingpipes-chrome-profile.lock"
+          )
     );
   let profileLock = null;
   let lastError = null;

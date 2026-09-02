@@ -5,14 +5,26 @@ param(
   [string]$CycleId,
   [Parameter(Mandatory = $true)]
   [string]$BundleRoot,
-  [string]$ReleaseRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release",
-  [string]$RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path,
+  [string]$ReleaseRoot = "",
+  [string]$RuntimeRoot = "",
   [switch]$NoPush,
   [ValidateRange(0, 1)]
   [int]$PushRetryAttempt = 0
 )
 
 $ErrorActionPreference = "Stop"
+$script:IsWindowsPlatform = [Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT
+if (-not $ReleaseRoot) {
+  $ReleaseRoot = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release"
+  } else {
+    "/srv/yandoubuy/runtime/smokingpipes/release"
+  }
+}
+if (-not $RuntimeRoot) {
+  $RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "../..")).Path
+}
+$npmCommand = if ($script:IsWindowsPlatform) { "npm.cmd" } else { "npm" }
 
 function Invoke-Git {
   param(
@@ -262,7 +274,7 @@ try {
       @("node", $projectValidator, "--structural-only=true"),
       @("node", $inventoryDefaultTest),
       @("git", "diff", "--check"),
-      @("npm.cmd", "run", "build")
+      @($npmCommand, "run", "build")
     )) {
       $program = $command[0]
       $arguments = @($command | Select-Object -Skip 1)
@@ -359,7 +371,7 @@ try {
     $failureStage = "bundle-validator"
   } elseif ($message -match "validate-public-product-indexes-v1\.mjs") {
     $failureStage = "public-validator"
-  } elseif ($message -match "npm\.cmd .* run build") {
+  } elseif ($message -match "npm(?:\.cmd)? .* run build") {
     $failureStage = "release-build"
   }
   [pscustomobject]@{

@@ -9,6 +9,12 @@ const entrySource = fs.readFileSync(
   path.join(projectRoot, "scripts", "inventory", "run-smokingpipes-scheduled-task-v1.ps1"),
   "utf8"
 );
+const powershellExecutable = process.platform === "win32" ? "powershell.exe" : "pwsh";
+const timeoutFixtureBody = process.platform === "win32"
+  ? `$child = Start-Process -FilePath ${powershellExecutable} -ArgumentList '-NoProfile -Command Start-Sleep -Seconds 30' -PassThru
+$child.Id | Set-Content -LiteralPath $env:CHILD_PID_PATH -Encoding ascii
+Start-Sleep -Seconds 30`
+  : "Start-Sleep -Seconds 30";
 
 function runFixture({ mode, timeout = 20 } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "smokingpipes-scheduled-entry-v1-"));
@@ -68,9 +74,7 @@ exit 0
     if (mode === "timeout") {
       fs.writeFileSync(path.join(inventory, "run-smokingpipes-auto-publish.ps1"), `
 param([Parameter(ValueFromRemainingArguments = $true)][object[]]$Remaining)
-$child = Start-Process -FilePath powershell.exe -ArgumentList '-NoProfile -Command Start-Sleep -Seconds 30' -PassThru
-$child.Id | Set-Content -LiteralPath $env:CHILD_PID_PATH -Encoding ascii
-Start-Sleep -Seconds 30
+${timeoutFixtureBody}
 `);
     }
     const entry = path.join(inventory, "run-smokingpipes-scheduled-task-v1.ps1");
@@ -86,7 +90,7 @@ Start-Sleep -Seconds 30
       "-NoProductionWrite", "-NoPush", "-PreflightOnly", "-NoLiveCollection", "-NotificationDryRun",
     ];
     const childPidPath = path.join(root, "owned-child.pid");
-    const result = spawnSync("powershell.exe", args, {
+    const result = spawnSync(powershellExecutable, args, {
       encoding: "utf8",
       timeout: timeout * 1000,
       env: { ...process.env, PUSHDEER_KEY: "fixture-key", FORWARDED_PATH: forwardedPath, CHILD_PID_PATH: childPidPath },
@@ -146,16 +150,22 @@ assert.equal(retryable.latest.status, "failed");
 assert.equal(retryable.latest.nodeResult.status, "release-retryable");
 assert.equal(retryable.latest.notification, null, "a Node-sent notification must not be duplicated by the scheduler");
 
-const timedOut = runFixture({ mode: "timeout", timeout: 10 });
-assert.equal(timedOut.result.status, 124, timedOut.result.stderr || timedOut.result.stdout);
+const timedOut = runFixture({ mode: "timeout", timeout: 25 });
+assert.equal(timedOut.result.status, 124, JSON.stringify({ status: timedOut.result.status, signal: timedOut.result.signal, error: timedOut.result.error?.message, stderr: timedOut.result.stderr, stdout: timedOut.result.stdout }));
 assert.equal(timedOut.latest.status, "timeout");
 assert.equal(timedOut.latest.exitCode, 124);
-assert.ok(Array.isArray(timedOut.latest.ownedProcessTree) && timedOut.latest.ownedProcessTree.length >= 1);
+const timedOutOwnedTree = Array.isArray(timedOut.latest.ownedProcessTree)
+  ? timedOut.latest.ownedProcessTree
+  : [timedOut.latest.ownedProcessTree];
+assert.ok(timedOutOwnedTree.length >= 1);
+assert.ok(!timedOutOwnedTree.includes(0), "owned process tree must not include PID 0");
 
 assert.match(entrySource, /Start-Process/);
 assert.match(entrySource, /Stop-OwnedProcessTree/);
 assert.match(entrySource, /DailyTimeoutSeconds/);
 assert.match(entrySource, /Send-SchedulerFailureNotification/);
 assert.match(entrySource, /SMOKINGPIPES_V2_RESULT_JSON/);
+assert.match(entrySource, /Get-SmokingpipesPowerShellExecutable/);
+assert.match(entrySource, /\$script:IsWindowsPlatform/);
 assert.doesNotMatch(entrySource, /ApproveRetainedListDiff/);
 console.log("Smokingpipes scheduled entrypoint tests passed.");

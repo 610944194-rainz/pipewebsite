@@ -5,6 +5,7 @@ import process from "node:process";
 
 export const SP_CHROME_PROFILE_NAME = "sp-chrome";
 export const SP_CHROME_V2_PROFILE_NAME = "sp-chrome-v2";
+export const SMOKINGPIPES_LINUX_RUNTIME_DIR = "/srv/yandoubuy/runtime/smokingpipes";
 
 function normalizedChannel(value) {
   const channel = String(value || "").trim().toLowerCase();
@@ -24,6 +25,14 @@ function defaultLocalAppData(platform, localAppData) {
     );
   }
   return path.join(os.homedir(), ".local", "share");
+}
+
+function linuxSmokingpipesRuntimeDir(value) {
+  return path.resolve(
+    value ||
+      process.env.SMOKINGPIPES_RUNTIME_DIR ||
+      SMOKINGPIPES_LINUX_RUNTIME_DIR
+  );
 }
 
 export function assertSafeSmokingpipesProfileDir({
@@ -60,6 +69,8 @@ export function resolveSmokingpipesBrowserProfile({
   environmentUserDataDir =
     process.env.SMOKINGPIPES_USER_DATA_DIR || "",
   platform = process.platform,
+  smokingpipesRuntimeDir =
+    process.env.SMOKINGPIPES_RUNTIME_DIR || "",
 } = {}) {
   const requestedBrowserChannel = normalizedChannel(browserChannel);
   const requestedBrowserProfile = browserProfile
@@ -91,12 +102,20 @@ export function resolveSmokingpipesBrowserProfile({
   // Smokingpipes V2 must remain on its clean persistent profile unless the user
   // explicitly authorizes a profile migration or a return to the legacy profile.
   } else if (requestedBrowserProfile === SP_CHROME_V2_PROFILE_NAME) {
-    profileDir = path.join(
-      defaultLocalAppData(platform, localAppData),
-      "YandouBuy",
-      "chrome-profile-sp-v2"
-    );
-    profileSource = "named-sp-chrome-v2";
+    if (platform === "linux") {
+      profileDir = path.join(
+        linuxSmokingpipesRuntimeDir(smokingpipesRuntimeDir),
+        "chrome-profile"
+      );
+      profileSource = "linux-runtime-sp-chrome-v2";
+    } else {
+      profileDir = path.join(
+        defaultLocalAppData(platform, localAppData),
+        "YandouBuy",
+        "chrome-profile-sp-v2"
+      );
+      profileSource = "named-sp-chrome-v2";
+    }
   } else if (requestedBrowserProfile === SP_CHROME_PROFILE_NAME) {
     profileDir = path.join(
       defaultLocalAppData(platform, localAppData),

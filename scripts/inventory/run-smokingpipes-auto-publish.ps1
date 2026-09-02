@@ -1,6 +1,6 @@
 param(
-  [string]$StateRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-state",
-  [string]$ReleaseRoot = "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release",
+  [string]$StateRoot = "",
+  [string]$ReleaseRoot = "",
   [ValidateRange(1, 50)]
   [int]$ProgressiveDetailMax = 50,
   [ValidateRange(1, 2000)]
@@ -16,7 +16,22 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$script:IsWindowsPlatform = [Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT
+if (-not $StateRoot) {
+  $StateRoot = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-state"
+  } else {
+    "/srv/yandoubuy/runtime/smokingpipes/state"
+  }
+}
+if (-not $ReleaseRoot) {
+  $ReleaseRoot = if ($script:IsWindowsPlatform) {
+    "C:\Users\NING MEI\Desktop\pipewebsite-smokingpipes-release"
+  } else {
+    "/srv/yandoubuy/runtime/smokingpipes/release"
+  }
+}
+$RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "../..")).Path
 $Orchestrator = Join-Path $PSScriptRoot "smokingpipes-auto-publish-v2.mjs"
 
 if ($ApproveRetainedListDiff -and $CycleId -ne "2026-08-28") {
@@ -73,7 +88,7 @@ if ($head -ne $remoteMain) {
 }
 Assert-TrackedRuntimeClean
 $runtimeSha = Invoke-Git -Arguments @("rev-parse", "HEAD")
-$nodeCommand = Get-Command node -CommandType Application -ErrorAction Stop
+$nodeCommand = Get-Command node -CommandType Application -ErrorAction Stop | Select-Object -First 1
 
 $arguments = @(
   $Orchestrator,
