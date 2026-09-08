@@ -874,7 +874,7 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(merged.retainedFromProduction, 1);
 }
 
-// Source-side verification errors alone get exactly two delayed whole-run retries.
+// Source-side verification exits retryable once; the next Scheduler window resumes it.
 {
   assert.equal(isDanishStrongVerificationFailure("collect-list-failed exitCode=1 manual-verification-timeout after 900 seconds"), true);
   assert.equal(isDanishStrongVerificationFailure("robot-verification-still-present"), true);
@@ -883,43 +883,23 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(isDanishStrongVerificationFailure("git diverged"), false);
 
   const attempts = [];
-  const waits = [];
   let inventoryLockHeld = false;
   const report = await runDanishDailyWithStrongVerificationRetry({ runId: "verification-fixture" }, {
-    runOnce: async (options, attempt) => {
+    runOnce: async (options) => {
       inventoryLockHeld = true;
       attempts.push(options.runId);
-      // Mirrors runDanishDaily: its finally block releases before the outer retry loop regains control.
       inventoryLockHeld = false;
       return { status: "failed", failureReason: "manual-verification-timeout", productionWritten: false };
     },
-    wait: async (milliseconds) => {
-      assert.equal(inventoryLockHeld, false);
-      waits.push(milliseconds);
-    },
+    wait: async () => assert.fail("strong verification must not sleep inside one Scheduler task"),
   });
-  assert.deepEqual(attempts, ["verification-fixture-attempt-1", "verification-fixture-attempt-2", "verification-fixture-attempt-3"]);
-  assert.deepEqual(waits, [30 * 60 * 1000, 60 * 60 * 1000]);
+  assert.equal(inventoryLockHeld, false);
+  assert.deepEqual(attempts, ["verification-fixture"]);
   assert.equal(report.status, "failed");
   assert.equal(report.productionWritten, false);
-  assert.equal(report.strongVerificationRetry.attempt, 3);
+  assert.equal(report.strongVerificationRetry.retryableExit, true);
+  assert.equal(report.strongVerificationRetry.resumeNextScheduler, true);
   assert.equal(report.strongVerificationRetry.final, true);
-
-  let successfulAttempts = 0;
-  const successfulWaits = [];
-  const success = await runDanishDailyWithStrongVerificationRetry({ runId: "verification-then-success" }, {
-    runOnce: async () => {
-      successfulAttempts += 1;
-      return successfulAttempts === 1
-        ? { status: "failed", failureReason: "robot-verification-still-present", productionWritten: false }
-        : { status: "daily-passed", failureReason: null, productionWritten: false };
-    },
-    wait: async (milliseconds) => successfulWaits.push(milliseconds),
-  });
-  assert.equal(successfulAttempts, 2);
-  assert.deepEqual(successfulWaits, [30 * 60 * 1000]);
-  assert.equal(success.status, "daily-passed");
-  assert.equal(success.strongVerificationRetry.final, true);
 
   let ordinaryAttempts = 0;
   const ordinary = await runDanishDailyWithStrongVerificationRetry({ runId: "ordinary-failure" }, {

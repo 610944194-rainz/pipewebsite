@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -54,6 +55,195 @@ const browserExecutableCandidates = [
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
+  }
+}
+
+const chromeOutputTailLimit = 12_000;
+const chromeCdpReadyTimeoutMs = 15_000;
+const initialNavigationTimeoutMs = 60_000;
+
+function processIsAlive(pid) {
+  if (!Number.isInteger(Number(pid)) || Number(pid) < 1) return false;
+  try {
+    process.kill(Number(pid), 0);
+    return true;
+  } catch (error) {
+    return error?.code === "EPERM";
+  }
+}
+
+function appendTail(current, chunk, limit = chromeOutputTailLimit) {
+  return `${current}${String(chunk || "")}`.slice(-limit);
+}
+
+async function terminateOwnedChromeProcessTree(chromeProcess) {
+  if (!Number.isInteger(Number(chromeProcess?.pid)) || Number(chromeProcess.pid) < 1) return false;
+  if (process.platform !== "win32") {
+    chromeProcess.kill?.();
+    return true;
+  }
+  return await new Promise((resolve) => {
+    let settled = false;
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
+      resolve(result);
+    };
+    const fallback = () => {
+      chromeProcess.kill?.();
+      finish(false);
+    };
+    let killer = null;
+    try {
+      killer = spawn("taskkill.exe", ["/PID", String(chromeProcess.pid), "/T", "/F"], {
+        windowsHide: true,
+        stdio: "ignore",
+      });
+    } catch {
+      fallback();
+      return;
+    }
+    const timeout = setTimeout(fallback, 10_000);
+    killer.once?.("error", () => {
+      clearTimeout(timeout);
+      fallback();
+    });
+    killer.once?.("close", (exitCode) => {
+      clearTimeout(timeout);
+      if (exitCode !== 0) {
+        fallback();
+        return;
+      }
+      finish(true);
+    });
+  });
+}
+
+function profileLockPath(profilePath) {
+  return path.join(profilePath, ".danish-v18-profile.lock");
+}
+
+export function acquireDanishBrowserProfileLock({
+  profilePath,
+  ownerToken = randomUUID(),
+  pid = process.pid,
+  now = new Date(),
+  isPidAlive = processIsAlive,
+} = {}) {
+  const lockPath = profileLockPath(profilePath);
+  ensureDir(profilePath);
+  let staleLockRecovered = false;
+
+  if (fs.existsSync(lockPath)) {
+    let current = null;
+    try { current = JSON.parse(fs.readFileSync(lockPath, "utf8")); } catch {}
+    if (current && isPidAlive(current.pid)) {
+      return { acquired: false, lockPath, current, staleLockRecovered };
+    }
+    fs.unlinkSync(lockPath);
+    staleLockRecovered = true;
+  }
+
+  const payload = { ownerToken, pid, startedAt: now.toISOString() };
+  const temporaryPath = `${lockPath}.${ownerToken}.tmp`;
+  fs.writeFileSync(temporaryPath, `${JSON.stringify(payload)}\n`, "utf8");
+  let linked = false;
+  try {
+    fs.linkSync(temporaryPath, lockPath);
+    linked = true;
+  } catch (error) {
+    if (error?.code !== "EEXIST") throw error;
+    let current = null;
+    try { current = JSON.parse(fs.readFileSync(lockPath, "utf8")); } catch {}
+    return { acquired: false, lockPath, current, staleLockRecovered };
+  }
+  finally {
+    try { if (fs.existsSync(temporaryPath)) fs.unlinkSync(temporaryPath); } catch {}
+  }
+  if (!linked) return { acquired: false, lockPath, current: null, staleLockRecovered };
+  return { acquired: true, lockPath, payload, staleLockRecovered };
+}
+
+export function releaseDanishBrowserProfileLock(lock) {
+  if (!lock?.acquired || !fs.existsSync(lock.lockPath)) return false;
+  let current = null;
+  try { current = JSON.parse(fs.readFileSync(lock.lockPath, "utf8")); } catch { return false; }
+  if (current?.ownerToken !== lock.payload?.ownerToken) return false;
+  fs.unlinkSync(lock.lockPath);
+  return true;
+}
+
+function readDevToolsActivePort(filePath) {
+  const [rawPort, browserPath] = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+  const port = Number(rawPort);
+  if (!Number.isInteger(port) || port < 1 || port > 65535 || !String(browserPath || "").startsWith("/devtools/browser/")) {
+    throw new Error("invalid-devtools-active-port");
+  }
+  return { port, browserPath: browserPath.trim(), endpoint: `http://127.0.0.1:${port}` };
+}
+
+export async function waitForOwnedDanishCdpEndpoint({
+  profilePath,
+  chromeProcess,
+  startedAtMs = Date.now(),
+  timeoutMs = chromeCdpReadyTimeoutMs,
+  sleepFn = sleep,
+  now = () => Date.now(),
+  stderrTail = () => "",
+} = {}) {
+  const activePortPath = path.join(profilePath, "DevToolsActivePort");
+  const deadline = now() + timeoutMs;
+  let lastError = null;
+
+  while (now() <= deadline) {
+    if (!chromeProcess?.pid || chromeProcess.killed || chromeProcess.exitCode !== null) {
+      throw new Error(`danish-chrome-exited-before-cdp-ready stderr=${normalizeText(stderrTail()).slice(-800)}`);
+    }
+    try {
+      const stat = fs.statSync(activePortPath);
+      if (stat.mtimeMs >= startedAtMs) return readDevToolsActivePort(activePortPath);
+    } catch (error) {
+      lastError = error;
+    }
+    await sleepFn(150);
+  }
+
+  throw new Error(`danish-chrome-cdp-ready-timeout ${normalizeText(lastError?.message || lastError)} stderr=${normalizeText(stderrTail()).slice(-800)}`);
+}
+
+function boundedPromise(promise, timeoutMs, label) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`${label}-timeout after ${Math.round(timeoutMs / 1000)} seconds`)), timeoutMs);
+    Promise.resolve(promise).then(
+      (value) => { clearTimeout(timer); resolve(value); },
+      (error) => { clearTimeout(timer); reject(error); }
+    );
+  });
+}
+
+async function initialNavigationDiagnostics(tab, stderrTail) {
+  const url = (() => { try { return tab.url(); } catch { return ""; } })();
+  const title = typeof tab.title === "function"
+    ? await boundedPromise(tab.title(), 2_000, "danish-initial-title-read").catch(() => "")
+    : "";
+  return { url, title: normalizeText(title), chromeStderr: normalizeText(stderrTail?.() || "").slice(-1200) };
+}
+
+export async function navigateInitialDanishList(tab, {
+  targetUrl,
+  timeoutMs = initialNavigationTimeoutMs,
+  log = collectorLog,
+  stderrTail = () => "",
+} = {}) {
+  log("initial-navigation-start", { url: targetUrl });
+  try {
+    await boundedPromise(tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: timeoutMs }), timeoutMs, "danish-initial-navigation");
+    log("initial-navigation-complete", { url: tab.url() });
+  } catch (error) {
+    const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
+    log("initial-navigation-failed", { ...diagnostics, error: normalizeText(error?.message || error) });
+    await tab.close?.().catch(() => {});
+    throw new Error(`danish-initial-navigation-failed url=${diagnostics.url || targetUrl} title=${diagnostics.title || "none"} stderr=${diagnostics.chromeStderr || "none"} reason=${normalizeText(error?.message || error)}`);
   }
 }
 
@@ -3211,7 +3401,7 @@ async function findNextListPageUrl(tab, currentUrl, visitedListUrls) {
 }
 
 
-async function discoverProducts(context) {
+async function discoverProducts(context, options = {}) {
   const tab = await context.newPage();
   const discovered = [];
   const seenProductUrls = new Set();
@@ -3259,13 +3449,10 @@ async function discoverProducts(context) {
     console.log(
       "Scanning Danish list: " + normalizedStartUrl
     );
-    collectorLog("initial-navigation-start", { url: normalizedStartUrl });
-
-    await tab.goto(normalizedStartUrl, {
-      waitUntil: "domcontentloaded",
-      timeout: 60000,
+    await navigateInitialDanishList(tab, {
+      targetUrl: normalizedStartUrl,
+      stderrTail: options.stderrTail,
     });
-    collectorLog("initial-navigation-complete", { url: tab.url() });
 
     await tab.waitForTimeout(1800);
 
@@ -4069,6 +4256,32 @@ function getProductErrors(products) {
     .filter(Boolean);
 }
 
+export function isDanishStrongVerificationFailure(error) {
+  return /(?:manual-verification-timeout|robot[-\s/]*(?:verification|challenge)[-\s\w]*(?:remained|still|page)|(?:just a moment|managed challenge|browser challenge|cloudflare|captcha|recaptcha|hcaptcha|access denied|\bblocked\b)|verification\s+(?:page|challenge).*(?:remained|still|timeout))/i.test(
+    normalizeText(error?.message || error)
+  );
+}
+
+function isFailedDetailRecord(product) {
+  return Boolean(product?.error || product?.detailError || product?.success === false);
+}
+
+function isRetryableDetailFailure(product) {
+  const reason = product?.error?.message || product?.detailError || product?.error || "";
+  return isDanishStrongVerificationFailure(reason) || /(?:target|page|browser|context).*(?:closed|crashed|disconnected)|(?:closed|crashed|disconnected).*(?:target|page|browser|context)/i.test(
+    normalizeText(reason)
+  );
+}
+
+export function splitResumableDetailRecords(products) {
+  const entries = Array.isArray(products) ? products : [];
+  return {
+    completed: entries.filter((product) => !isFailedDetailRecord(product)),
+    retryableFailures: entries.filter((product) => isFailedDetailRecord(product) && isRetryableDetailFailure(product)),
+    terminalFailures: entries.filter((product) => isFailedDetailRecord(product) && !isRetryableDetailFailure(product)),
+  };
+}
+
 function summarizeErrorReasons(errors) {
   return errors.reduce((acc, error) => {
     const key = normalizeText(error?.nameOfError || error?.message || "Unknown error");
@@ -4168,7 +4381,14 @@ function buildOutputPayload({ discoveredProducts, products, errors, collectedAt,
 
 function writeCollectorOutput(filePath, payload) {
   ensureDir(path.dirname(filePath));
-  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), "utf8");
+  const temporaryPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
+  try {
+    fs.writeFileSync(temporaryPath, JSON.stringify(payload, null, 2), "utf8");
+    JSON.parse(fs.readFileSync(temporaryPath, "utf8"));
+    fs.renameSync(temporaryPath, filePath);
+  } finally {
+    try { if (fs.existsSync(temporaryPath)) fs.unlinkSync(temporaryPath); } catch {}
+  }
 }
 
 
@@ -4307,64 +4527,65 @@ async function main() {
     throw new Error("danish-chrome-executable-not-found");
   }
 
-  const cdpEndpoint = "http://127.0.0.1:9222";
-  const chromeArgs = [
-    "--remote-debugging-port=9222",
-    `--user-data-dir=${browserProfilePath}`,
-    "--no-first-run",
-    "--no-default-browser-check",
-    "--window-size=1440,1000",
-    ...(scraperProxy ? [`--proxy-server=${scraperProxy}`] : []),
-    "about:blank",
-  ];
-
-  collectorLog("browser-launch-start", {
-    browserProfilePath,
-    executablePath,
-    cdpEndpoint,
-  });
-
-  const chromeProcess = spawn(executablePath, chromeArgs, {
-    stdio: "ignore",
-    windowsHide: false,
-  });
-
+  let profileLock = null;
+  let chromeProcess = null;
   let browser = null;
-  let lastCdpError = null;
-
-  for (let attempt = 1; attempt <= 20; attempt += 1) {
-    try {
-      browser = await chromium.connectOverCDP(cdpEndpoint);
-      break;
-    } catch (error) {
-      lastCdpError = error;
-      await sleep(500);
-    }
-  }
-
-  if (!browser) {
-    chromeProcess.kill();
-    throw new Error(
-      `danish-chrome-cdp-connect-failed: ${normalizeText(lastCdpError?.message || lastCdpError)}`
-    );
-  }
-
-  const context = browser.contexts()[0];
-
-  if (!context) {
-    await browser.close().catch(() => {});
-    chromeProcess.kill();
-    throw new Error("danish-chrome-cdp-context-missing");
-  }
-
-  collectorLog("browser-launch-complete", {
-    browserProfilePath,
-    cdpEndpoint,
-  });
-
-  const collectedAt = new Date().toISOString();
+  let chromeStdoutTail = "";
+  let chromeStderrTail = "";
 
   try {
+    profileLock = acquireDanishBrowserProfileLock({ profilePath: browserProfilePath });
+    if (!profileLock.acquired) {
+      throw new Error(`danish-browser-profile-locked pid=${profileLock.current?.pid || "unknown"}`);
+    }
+    const activePortPath = path.join(browserProfilePath, "DevToolsActivePort");
+    if (fs.existsSync(activePortPath)) fs.unlinkSync(activePortPath);
+
+    const chromeArgs = [
+      "--remote-debugging-port=0",
+      `--user-data-dir=${browserProfilePath}`,
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--window-size=1440,1000",
+      ...(scraperProxy ? [`--proxy-server=${scraperProxy}`] : []),
+      "about:blank",
+    ];
+    const launchedAtMs = Date.now();
+    collectorLog("browser-launch-start", {
+      browserProfilePath,
+      executablePath,
+      cdpPort: "ephemeral",
+      profileLockRecovered: profileLock.staleLockRecovered,
+    });
+
+    chromeProcess = spawn(executablePath, chromeArgs, {
+      stdio: ["ignore", "pipe", "pipe"],
+      windowsHide: false,
+    });
+    chromeProcess.stdout?.on("data", (chunk) => { chromeStdoutTail = appendTail(chromeStdoutTail, chunk); });
+    chromeProcess.stderr?.on("data", (chunk) => { chromeStderrTail = appendTail(chromeStderrTail, chunk); });
+
+    const cdp = await waitForOwnedDanishCdpEndpoint({
+      profilePath: browserProfilePath,
+      chromeProcess,
+      startedAtMs: launchedAtMs,
+      stderrTail: () => chromeStderrTail,
+    });
+    if (chromeProcess.killed || chromeProcess.exitCode !== null) {
+      throw new Error(`danish-chrome-exited-before-cdp-connect stderr=${normalizeText(chromeStderrTail).slice(-800)}`);
+    }
+    browser = await chromium.connectOverCDP(cdp.endpoint);
+    const context = browser.contexts()[0];
+    if (!context) throw new Error("danish-chrome-cdp-context-missing");
+
+    collectorLog("browser-launch-complete", {
+      browserProfilePath,
+      cdpEndpoint: cdp.endpoint,
+      chromePid: chromeProcess.pid,
+    });
+
+    const collectedAt = new Date().toISOString();
+
     let discoveredProducts = [];
 
     if (collectorMode === "details") {
@@ -4382,7 +4603,7 @@ async function main() {
         throw new Error("No product links found in DANISH_LIST_OUTPUT.");
       }
     } else {
-      discoveredProducts = await discoverProducts(context);
+      discoveredProducts = await discoverProducts(context, { stderrTail: () => chromeStderrTail });
       console.log(`Discovery complete: ${discoveredProducts.length} links.`);
       writeListOutput({ products: discoveredProducts, collectedAt });
 
@@ -4393,7 +4614,10 @@ async function main() {
     }
 
     const previousPayload = readJsonIfExists(outputPath);
-    const products = getPayloadProducts(previousPayload);
+    const previousProducts = getPayloadProducts(previousPayload);
+    const resumeRecords = splitResumableDetailRecords(previousProducts);
+    const failedPreviousProducts = resumeRecords.retryableFailures;
+    const products = previousProducts.filter((product) => !resumeRecords.retryableFailures.includes(product));
     const processedHrefs = new Set(
       products
         .map(getProductHref)
@@ -4403,7 +4627,7 @@ async function main() {
     const errors = getProductErrors(products);
     let processedThisRun = 0;
 
-    collectorLog("details-resume-state", { existingDetails: products.length, discoveredProducts: discoveredProducts.length });
+    collectorLog("details-resume-state", { existingDetails: products.length, retryingFailedDetails: failedPreviousProducts.length, terminalFailedDetails: resumeRecords.terminalFailures.length, discoveredProducts: discoveredProducts.length });
     collectorLog("details-collection-start", { pendingDetails: discoveredProducts.filter((product) => !processedHrefs.has(normalizeHrefForSet(product.href))).length });
     if (products.length > 0) {
       console.log(`Resume enabled: ${products.length} existing detail records loaded.`);
@@ -4425,6 +4649,23 @@ async function main() {
       } catch (error) {
         console.error(`Detail failed, continuing: ${product.href}`);
         console.error(error);
+
+        if (isDanishStrongVerificationFailure(error)) {
+          const checkpointPayload = writeDetailsOutput({
+            discoveredProducts,
+            products,
+            errors,
+            collectedAt,
+            checkpoint: true,
+          });
+          writeCheckpoint({ discoveredProducts, products, errors, collectedAt });
+          collectorLog("strong-verification-checkpoint", {
+            href: product.href,
+            successCount: checkpointPayload.successCount,
+            failCount: checkpointPayload.failCount,
+          });
+          throw error;
+        }
 
         const failedProduct = buildNormalizedFailedProduct(product, error);
         products.push(failedProduct);
@@ -4474,10 +4715,17 @@ async function main() {
     console.log(`failCount=${payload.failCount}`);
     collectorLog("collector-complete", { mode: collectorMode, successCount: payload.successCount, failCount: payload.failCount, outputPath });
   } finally {
-    await browser.close().catch(() => {});
-    if (!chromeProcess.killed) {
-      chromeProcess.kill();
+    if (browser) await boundedPromise(browser.close(), 10_000, "danish-browser-close").catch(() => {});
+    if (chromeProcess && !chromeProcess.killed && chromeProcess.exitCode === null) {
+      await terminateOwnedChromeProcessTree(chromeProcess);
     }
+    if (chromeStderrTail || chromeStdoutTail) {
+      collectorLog("browser-output-tail", {
+        stdout: normalizeText(chromeStdoutTail).slice(-1200),
+        stderr: normalizeText(chromeStderrTail).slice(-1200),
+      });
+    }
+    releaseDanishBrowserProfileLock(profileLock);
   }
 }
 

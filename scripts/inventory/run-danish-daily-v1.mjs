@@ -40,8 +40,8 @@ const DEFAULT_RAW_ROOT = path.join(
   "data/raw/danish-full-refresh/danish-v18-list-20260715-02"
 );
 const DETAIL_QUEUE_MAX_RATIO = 0.25;
-const DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS = [30 * 60, 60 * 60];
 const DANISH_GIT_PUSH_RETRY_DELAYS_MS = [10 * 1000, 30 * 1000];
+const DANISH_STRONG_VERIFICATION_RESUME_MAX_AGE_MS = 36 * 60 * 60 * 1000;
 
 function compact(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -111,6 +111,65 @@ function readJson(filePath) {
 function writeJson(filePath, value) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function hasTrustedDanishResumeList(summary) {
+  const rawRoot = path.resolve(summary.paths.rawRoot);
+  const listPath = path.resolve(summary.paths.listPath || path.join(rawRoot, "list.json"));
+  if (!listPath.startsWith(`${rawRoot}${path.sep}`)) return false;
+  const detailsPath = path.resolve(summary.paths.detailsPath || path.join(rawRoot, "details.json"));
+  if (!detailsPath.startsWith(`${rawRoot}${path.sep}`)) return false;
+  if (!fs.existsSync(listPath)) return !fs.existsSync(detailsPath);
+  try {
+    const list = readJson(listPath);
+    if (list?.integrityGate !== true || payloadProducts(list).length === 0) return false;
+    if (fs.existsSync(detailsPath)) payloadProducts(readJson(detailsPath));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function findDanishStrongVerificationResume({
+  root = ROOT,
+  now = Date.now(),
+  maxAgeMs = DANISH_STRONG_VERIFICATION_RESUME_MAX_AGE_MS,
+} = {}) {
+  const runsRoot = path.join(root, "data", "inventory", "danish-daily");
+  if (!fs.existsSync(runsRoot)) return null;
+  const candidates = [];
+  for (const entry of fs.readdirSync(runsRoot, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const summaryPath = path.join(runsRoot, entry.name, "run-summary.json");
+    try {
+      const summary = readJson(summaryPath);
+      const finishedAtMs = Date.parse(summary?.finishedAt || summary?.startedAt || "");
+      if (
+        summary?.status === "failed" &&
+        ["daily", "publish"].includes(summary?.mode) &&
+        summary?.strongVerificationRetry?.retryableExit === true &&
+        summary?.strongVerificationRetry?.resumeNextScheduler === true &&
+        isDanishStrongVerificationFailure(summary?.failureReason) &&
+        !summary?.productionWritten &&
+        !summary?.backupCreated &&
+        compact(summary?.runId) &&
+        compact(summary?.paths?.rawRoot) &&
+        Number.isFinite(finishedAtMs) &&
+        now >= finishedAtMs && now - finishedAtMs <= maxAgeMs &&
+        hasTrustedDanishResumeList(summary)
+      ) {
+        candidates.push({
+          runId: summary.runId,
+          rawRoot: summary.paths.rawRoot,
+          runRoot: path.dirname(summaryPath),
+          backupRoot: summary.paths.backupRoot,
+          finishedAt: summary.finishedAt || summary.startedAt || "",
+        });
+      }
+    } catch {}
+  }
+  candidates.sort((left, right) => Date.parse(right.finishedAt) - Date.parse(left.finishedAt));
+  return candidates[0] || null;
 }
 
 function atomicWriteJson(filePath, value) {
@@ -839,9 +898,63 @@ export function releaseDanishLock({ lockPath }) {
   return true;
 }
 
-async function executeCommand({ command, args, cwd, env, timeoutSeconds, onOutput }) {
+export async function terminateOwnedProcessTree(child, {
+  platform = process.platform,
+  spawnProcess = spawn,
+} = {}) {
+  if (!Number.isInteger(Number(child?.pid)) || Number(child.pid) < 1) return false;
+  if (platform !== "win32") {
+    child.kill?.();
+    return true;
+  }
+
   return await new Promise((resolve) => {
-    const child = spawn(command, args, {
+    let settled = false;
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
+      resolve(result);
+    };
+    let killer = null;
+    try {
+      killer = spawnProcess("taskkill.exe", ["/PID", String(child.pid), "/T", "/F"], {
+        windowsHide: true,
+        stdio: "ignore",
+      });
+    } catch {
+      child.kill?.();
+      finish(false);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      child.kill?.();
+      finish(false);
+    }, 10_000);
+    killer.once?.("error", () => {
+      clearTimeout(timeout);
+      child.kill?.();
+      finish(false);
+    });
+    killer.once?.("close", (exitCode) => {
+      clearTimeout(timeout);
+      if (exitCode !== 0) child.kill?.();
+      finish(exitCode === 0);
+    });
+  });
+}
+
+export async function executeCommand({
+  command,
+  args,
+  cwd,
+  env,
+  timeoutSeconds,
+  onOutput,
+  spawnProcess = spawn,
+  terminateProcessTree = terminateOwnedProcessTree,
+}) {
+  return await new Promise((resolve) => {
+    const child = spawnProcess(command, args, {
       cwd,
       env: { ...process.env, ...env },
       shell: false,
@@ -851,26 +964,29 @@ async function executeCommand({ command, args, cwd, env, timeoutSeconds, onOutpu
     let stdout = "";
     let stderr = "";
     let timedOut = false;
+    let termination = Promise.resolve(false);
     const timer = setTimeout(() => {
       timedOut = true;
-      child.kill();
+      termination = Promise.resolve(terminateProcessTree(child)).catch(() => false);
     }, timeoutSeconds * 1000);
-    child.stdout.on("data", (chunk) => {
+    child.stdout?.on("data", (chunk) => {
       const text = chunk.toString();
       stdout = (stdout + text).slice(-12000);
       onOutput?.("stdout", text);
     });
-    child.stderr.on("data", (chunk) => {
+    child.stderr?.on("data", (chunk) => {
       const text = chunk.toString();
       stderr = (stderr + text).slice(-12000);
       onOutput?.("stderr", text);
     });
-    child.on("error", (error) => {
+    child.on("error", async (error) => {
       clearTimeout(timer);
+      await termination;
       resolve({ exitCode: null, timedOut, stdout, stderr: `${stderr}\n${error.message}` });
     });
-    child.on("close", (exitCode) => {
+    child.on("close", async (exitCode) => {
       clearTimeout(timer);
+      await termination;
       resolve({ exitCode, timedOut, stdout, stderr });
     });
   });
@@ -1257,7 +1373,7 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     report.finishedAt = new Date().toISOString();
     report.finishedAtLocal = localRunTime();
     report.durationSeconds = Number(((Date.parse(report.finishedAt) - Date.parse(report.startedAt)) / 1000).toFixed(2));
-    writeJson(summaryPath, report);
+    atomicWriteJson(summaryPath, report);
     log("final", { status: report.status, allowPublish: report.allowPublish, productionWritten: report.productionWritten, buildPassed: report.buildPassed, commitExecuted: report.commitExecuted, pushExecuted: report.pushExecuted, commitSkipped: report.commitSkipped, pushSkipped: report.pushSkipped, skipReason: report.skipReason, failureReason: report.failureReason });
   }
 }
@@ -1269,51 +1385,32 @@ export function isDanishStrongVerificationFailure(reason) {
   return /(?:manual-verification-timeout|robot[-\s/]*(?:verification|challenge)[-\s\w]*(?:remained|still|page)|(?:just a moment|managed challenge|browser challenge|cloudflare|captcha|recaptcha|hcaptcha|access denied|\bblocked\b)|verification\s+(?:page|challenge).*(?:remained|still|timeout))/i.test(value);
 }
 
-export function nextDanishStrongVerificationRetry({ report, attempt, maxAttempts = 3 } = {}) {
+export function nextDanishStrongVerificationRetry({ report } = {}) {
   const retryable = report?.status === "failed" && isDanishStrongVerificationFailure(report?.failureReason);
-  const delaySeconds = DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS[attempt - 1] ?? null;
   return {
     retryable,
-    shouldRetry: retryable && attempt < maxAttempts && Number.isFinite(delaySeconds),
-    delaySeconds,
-    attempt,
-    maxAttempts,
+    shouldRetry: false,
+    retryableExit: retryable,
+    resumeNextScheduler: retryable,
   };
 }
 
 export async function runDanishDailyWithStrongVerificationRetry(options = {}, dependencies = {}) {
-  const maxAttempts = 3;
-  const wait = dependencies.wait || ((milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)));
   const runOnce = dependencies.runOnce || ((attemptOptions) => runDanishDaily(attemptOptions, dependencies));
-  const baseRunId = compact(options.runId || `danish-daily-${localRunTimestamp()}`);
-  let finalReport = null;
-
-  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-    // Each retry gets a clean RunId and therefore a fresh List/Detail collection path.
-    const attemptOptions = {
-      ...options,
-      runId: `${baseRunId}-attempt-${attempt}`,
-      ...(attempt > 1 ? { rawRoot: undefined, runRoot: undefined, backupRoot: undefined, logPath: undefined } : {}),
-    };
-    const report = await runOnce(attemptOptions, attempt);
-    const retry = nextDanishStrongVerificationRetry({ report, attempt, maxAttempts });
-    report.strongVerificationRetry = {
-      ...retry,
-      delaysSeconds: DANISH_STRONG_VERIFICATION_RETRY_DELAYS_SECONDS,
-      final: !retry.shouldRetry,
-    };
-    finalReport = report;
-
-    if (!retry.shouldRetry) {
-      if (report?.paths?.summaryPath) writeJson(report.paths.summaryPath, report);
-      return report;
-    }
-
-    // runDanishDaily resolves only after its finally block released the inventory lock.
-    await wait(retry.delaySeconds * 1000, { attempt, report });
-  }
-
-  return finalReport;
+  const canResume = !options.runId && !options.rawRoot && !options.runRoot;
+  const resume = canResume ? findDanishStrongVerificationResume({ root: options.root || ROOT }) : null;
+  const attemptOptions = resume
+    ? { ...options, runId: resume.runId, rawRoot: resume.rawRoot, runRoot: resume.runRoot, backupRoot: resume.backupRoot }
+    : options;
+  const report = await runOnce(attemptOptions, 1);
+  const retry = nextDanishStrongVerificationRetry({ report });
+  report.strongVerificationRetry = {
+    ...retry,
+    resumedRunId: resume?.runId || null,
+    final: true,
+  };
+  if (report?.paths?.summaryPath) atomicWriteJson(report.paths.summaryPath, report);
+  return report;
 }
 
 async function main() {
@@ -1335,7 +1432,7 @@ async function main() {
     ? await runDanishDailyWithStrongVerificationRetry(runnerOptions)
     : await runDanishDaily(runnerOptions);
   console.log(JSON.stringify(report, null, 2));
-  if (report.status === "failed") process.exitCode = 1;
+  if (report.status === "failed" || report?.strongVerificationRetry?.retryableExit) process.exitCode = 1;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
