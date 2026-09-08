@@ -2256,31 +2256,64 @@ export function launchDanishVerificationBridge({
   const uuid = normalizeText(process.env.DANISH_RPA_UUID);
 
   if (!executable || !uuid) {
-    log("danish-verification-bridge-warning", { reason: "missing-rpa-config" });
+    log("danish-verification-bridge-failed", { reason: "missing-rpa-config" });
     return false;
   }
   if (!exists(executable)) {
-    log("danish-verification-bridge-warning", { reason: "rpa-executable-not-found", executable });
+    log("danish-verification-bridge-failed", { reason: "rpa-executable-not-found", executable });
+    return false;
+  }
+
+  const cliExecutable = path.join(path.dirname(executable), "shadowbot.shell-cli.exe");
+  if (!exists(cliExecutable)) {
+    log("danish-verification-bridge-failed", {
+      reason: "rpa-cli-not-found",
+      cliExecutable,
+    });
     return false;
   }
 
   try {
-    const child = spawnProcess(executable, [`shadowbot:Run?robot-uuid=${uuid}`], {
+    log("danish-verification-bridge-mode", {
+      mode: "shell-cli-task-run",
+      cliExecutable,
+    });
+    const child = spawnProcess(cliExecutable, [
+      "console",
+      "task",
+      "run",
+      "--app-id",
+      uuid,
+      "--app-type",
+      "developed",
+      "--async",
+    ], {
       detached: true,
       stdio: "ignore",
       windowsHide: true,
     });
     child.once?.("error", (error) => {
-      log("danish-verification-bridge-warning", {
+      log("danish-verification-bridge-failed", {
         reason: "rpa-spawn-error",
         error: normalizeText(error?.message || error),
       });
     });
+    child.once?.("exit", (exitCode, signal) => {
+      if (exitCode === 0) return;
+      log("danish-verification-bridge-failed", {
+        reason: "rpa-cli-exit-nonzero",
+        exitCode,
+        signal: normalizeText(signal),
+      });
+    });
     child.unref?.();
-    log("danish-verification-bridge-launched", { executable });
+    log("danish-verification-bridge-triggered", {
+      mode: "shell-cli-task-run",
+      appId: uuid,
+    });
     return true;
   } catch (error) {
-    log("danish-verification-bridge-warning", {
+    log("danish-verification-bridge-failed", {
       reason: "rpa-spawn-error",
       error: normalizeText(error?.message || error),
     });

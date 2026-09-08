@@ -118,6 +118,34 @@ console.log("mock: V18 RPA launch failure remains fail closed");
   assert.equal(launchCount, 1);
 }
 
+console.log("mock: V18 bridge submits the published app through the Shell CLI");
+{
+  const oldExecutable = process.env.DANISH_RPA_EXE;
+  const oldUuid = process.env.DANISH_RPA_UUID;
+  process.env.DANISH_RPA_EXE = "C:\\fixture\\ShadowBot.exe";
+  process.env.DANISH_RPA_UUID = "fixture-uuid";
+  const bridgeEvents = [];
+  const spawned = [];
+  const child = {
+    once: () => child,
+    unref: () => {},
+  };
+  assert.equal(launchDanishVerificationBridge({
+    exists: () => true,
+    spawnProcess: (...args) => { spawned.push(args); return child; },
+    log: (stage, value) => bridgeEvents.push({ stage, value }),
+  }), true);
+  assert.deepEqual(spawned, [[
+    "C:\\fixture\\shadowbot.shell-cli.exe",
+    ["console", "task", "run", "--app-id", "fixture-uuid", "--app-type", "developed", "--async"],
+    { detached: true, stdio: "ignore", windowsHide: true },
+  ]]);
+  assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-mode"), true);
+  assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-triggered"), true);
+  if (oldExecutable === undefined) delete process.env.DANISH_RPA_EXE; else process.env.DANISH_RPA_EXE = oldExecutable;
+  if (oldUuid === undefined) delete process.env.DANISH_RPA_UUID; else process.env.DANISH_RPA_UUID = oldUuid;
+}
+
 console.log("mock: normal"); const normal = await collectLiveList(options("/normal"));
 assert.equal(normal.products.length, 1); assert.equal(normal.pages[0].kind, "success"); // A
 
