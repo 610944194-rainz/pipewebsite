@@ -6,7 +6,6 @@ import { spawnSync } from "node:child_process";
 import {
   acquireRunLock,
   formatRunId,
-  getRunnerPaths,
   releaseRunLock,
   writeJsonAtomic,
 } from "./inventory-runner-core-v1.mjs";
@@ -31,6 +30,10 @@ const COMPONENT_PATTERNS = [
   /\b(?:replacement\s+)?bowl(?:\s+only)?\b/i,
   /\b(?:replacement\s+)?mouthpiece(?:\s+only)?\b/i,
 ];
+
+export function getGqRunLockPath(root = process.cwd()) {
+  return path.join(root, "data", "inventory", "state", `${SOURCE}.lock`);
+}
 
 function normalizeText(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -908,12 +911,12 @@ export async function runGqDaily({
   notificationFetchImpl = globalThis.fetch,
 } = {}) {
   const runId = formatRunId();
-  const inventoryPaths = getRunnerPaths(root);
+  const lockPath = getGqRunLockPath(root);
   const artifactsRoot = path.join(root, "data", "audits", SOURCE, runId);
   const existingPath = path.join(root, "data", "products", `${SOURCE}-products.json`);
   let lock = null;
   try {
-    if (useLock) lock = acquireRunLock(inventoryPaths.lock, { runId, source: SOURCE, mode: live ? "live" : "fixture" });
+    if (useLock) lock = acquireRunLock(lockPath, { runId, source: SOURCE, mode: live ? "live" : "fixture" });
     const current = currentPayload || (live
       ? await collectGqCurrentList({ fetchImpl })
       : (() => { throw new Error("Offline mode requires currentPayload or a fixture passed by the caller."); })());

@@ -5,6 +5,7 @@ import path from "node:path";
 import {
   buildGqDetailQueue,
   collectGqCurrentList,
+  getGqRunLockPath,
   mergeGqCurrentList,
   parseGbpAmount,
   parseGqDetailPage,
@@ -299,6 +300,9 @@ const runnerSource = fs.readFileSync(path.join(process.cwd(), "scripts", "invent
 assert.match(runnerSource, /calculateReferencePrice/);
 assert.doesNotMatch(runnerSource, /calculateGq(?:Tobaccos)?ReferencePrice/);
 assert.match(runnerSource, /allowEmptyHistoricalBaseline:\s*true/);
+const gqLockPath = getGqRunLockPath(path.join(process.cwd(), "fixture-runtime"));
+assert.match(gqLockPath.replace(/\\/g, "/"), /data\/inventory\/state\/gqtobaccos\.lock$/);
+assert.doesNotMatch(gqLockPath, /smokingpipes/i);
 
 const runnerResult = await runGqDaily({
   currentPayload: { ...currentPayload, products: parsed.products.filter((product) => !["101", "102"].includes(product.sourceProductId)) },
