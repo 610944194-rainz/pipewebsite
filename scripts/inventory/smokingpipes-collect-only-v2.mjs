@@ -48,6 +48,7 @@ export const SMOKINGPIPES_V2_DETAIL_PACING = Object.freeze({
   detailBatchCooldownMinMs: 30000,
   detailBatchCooldownMaxMs: 60000,
 });
+const ACCEPTED_LIST_BASELINE_FILE = "smokingpipes-accepted-list-snapshot-v1.json";
 
 function hasTrustedPaginationTotal(summary) {
   const detectedTotalPages = Number(summary.detectedTotalPages);
@@ -126,6 +127,42 @@ export function diffSafetyReason(diff = null) {
 
 export function trustedListReason(payload, diff = null) {
   return listIntegrityReason(payload, diff) || diffSafetyReason(diff);
+}
+
+function acceptedListBaselinePath(stateRoot) {
+  return path.join(stateRoot, ACCEPTED_LIST_BASELINE_FILE);
+}
+
+async function readAcceptedListBaseline(stateRoot) {
+  const baseline = await readJson(acceptedListBaselinePath(stateRoot), null);
+  if (!baseline) return null;
+  const integrityFailure = listIntegrityReason(baseline);
+  if (integrityFailure) {
+    throw new Error(`accepted List baseline is invalid: ${integrityFailure}`);
+  }
+  return baseline;
+}
+
+async function promoteAcceptedListBaseline(stateRoot, snapshot) {
+  await writeJsonAtomic(acceptedListBaselinePath(stateRoot), snapshot);
+}
+
+async function buildV2InventoryDiff({
+  stateRoot,
+  snapshot,
+  productionProducts,
+  maxAutoApply,
+}) {
+  const acceptedListBaseline = await readAcceptedListBaseline(stateRoot);
+  return {
+    acceptedListBaseline,
+    diff: buildInventoryDiff(snapshot, productionProducts, {
+      maxAutoApply,
+      // V2 never authorizes legacy unclassified duplicates by historical SHA.
+      allowLegacyDuplicateSnapshotOverride: false,
+      acceptedListBaseline,
+    }),
+  };
 }
 
 const RETAINED_LIST_DIFF_APPROVAL_CYCLE_ID = "2026-08-28";
@@ -426,10 +463,11 @@ export async function runSmokingpipesCollectOnlyV2({
         throw new Error("no list input supplied and live collection is disabled");
       }
       const productionProducts = await readJsonFile(overrides.existingProducts);
-      const diff = buildInventoryDiff(snapshot, productionProducts, {
+      const { diff } = await buildV2InventoryDiff({
+        stateRoot: resolvedStateRoot,
+        snapshot,
+        productionProducts,
         maxAutoApply,
-        // V2 never authorizes legacy unclassified duplicates by historical SHA.
-        allowLegacyDuplicateSnapshotOverride: false,
       });
       duplicateHandling = diff.duplicateHandling || null;
       await writeDuplicateHandlingAudit(paths, diff);
@@ -474,6 +512,7 @@ export async function runSmokingpipesCollectOnlyV2({
         });
         return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
       }
+      await promoteAcceptedListBaseline(resolvedStateRoot, snapshot);
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,
         cycle,
@@ -522,11 +561,23 @@ export async function runSmokingpipesCollectOnlyV2({
         error: "retained list-diff is missing its inventory diff",
       };
     }
-    const integrityFailure = listIntegrityReason(snapshot, existingDiff);
+    let effectiveDiff = existingDiff;
+    const productionProducts = await readJsonFile(overrides.existingProducts);
+    const rebuilt = await buildV2InventoryDiff({
+      stateRoot: resolvedStateRoot,
+      snapshot,
+      productionProducts,
+      maxAutoApply,
+    });
+    if (rebuilt.acceptedListBaseline) {
+      effectiveDiff = rebuilt.diff;
+      await writeJsonAtomic(paths.inventoryDiff, effectiveDiff);
+    }
+    const integrityFailure = listIntegrityReason(snapshot, effectiveDiff);
     if (integrityFailure) {
       return { status: "collection-retryable", cycle, networkAccessed, error: integrityFailure };
     }
-    const diffSafetyFailure = diffSafetyReason(existingDiff);
+    const diffSafetyFailure = diffSafetyReason(effectiveDiff);
     if (diffSafetyFailure) {
       if (approveRetainedListDiff === true) {
         const approvalFailure = retainedListDiffApprovalReason({
@@ -555,6 +606,7 @@ export async function runSmokingpipesCollectOnlyV2({
         return { status: "collection-retryable", cycle, networkAccessed, error: diffSafetyFailure };
       }
     }
+    await promoteAcceptedListBaseline(resolvedStateRoot, snapshot);
     if (cycle.phase === "retryable") {
       cycle = await transitionCycle({
         stateRoot: resolvedStateRoot,

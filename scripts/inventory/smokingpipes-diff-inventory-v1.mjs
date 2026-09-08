@@ -398,6 +398,20 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
       .map(productId)
       .filter(Boolean)
   );
+  const acceptedListBaselineProducts = arrayFromPayload(
+    options.acceptedListBaseline,
+    ["products"]
+  );
+  const acceptedListBaselineIds = new Set(
+    acceptedListBaselineProducts.map(productId).filter(Boolean)
+  );
+  const hasAcceptedListBaseline = acceptedListBaselineIds.size > 0;
+  const historicalBaselineIds = hasAcceptedListBaseline
+    ? acceptedListBaselineIds
+    : existingAvailableIds;
+  const historicalBaselineLabel = hasAcceptedListBaseline
+    ? "accepted trusted List snapshot"
+    : "historical available inventory";
   const soldByAbsenceAllowed =
     currentPayload?.summary?.soldByAbsenceAllowed !== false &&
     currentPayload?.summary?.disappearedApplyAllowed !== false;
@@ -407,7 +421,7 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     [...currentIds].filter((id) => existingIds.has(id))
   );
   const disappearedIds = soldByAbsenceAllowed
-    ? sortIds([...existingAvailableIds].filter((id) => !currentIds.has(id)))
+    ? sortIds([...historicalBaselineIds].filter((id) => !currentIds.has(id)))
     : [];
   const unchangedSoldIds = soldByAbsenceAllowed
     ? sortIds([...existingSoldIds].filter((id) => !currentIds.has(id)))
@@ -464,11 +478,11 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     existingAvailableIds.size === 0;
   const currentVsHistoricalRatio = ratio(
     currentIds.size,
-    existingAvailableIds.size
+    historicalBaselineIds.size
   );
   const disappearedRatio = ratio(
     disappearedIds.length,
-    existingAvailableIds.size
+    historicalBaselineIds.size
   );
   const newRatio = ratio(newIds.length, existingIds.size);
   const captchaDetected =
@@ -559,7 +573,7 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     fatalWarnings.push(
       `Current list is ${(currentVsHistoricalRatio * 100).toFixed(
         2
-      )}% of historical available inventory; minimum is ${
+      )}% of ${historicalBaselineLabel}; minimum is ${
         SAFETY_THRESHOLDS.minimumCurrentVsHistoricalAvailableRatio * 100
       }%.`
     );
@@ -576,7 +590,7 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
     fatalWarnings.push(
       `Disappeared candidates are ${(disappearedRatio * 100).toFixed(
         2
-      )}% of historical available inventory; maximum is ${
+      )}% of ${historicalBaselineLabel}; maximum is ${
         SAFETY_THRESHOLDS.maximumDisappearedVsHistoricalAvailableRatio * 100
       }%.`
     );
@@ -662,12 +676,19 @@ export function buildInventoryDiff(currentPayload, existingPayload, options = {}
         ? null
         : currentVsHistoricalRatio,
       emptyHistoricalBaseline,
+      historicalBaseline: {
+        type: hasAcceptedListBaseline
+          ? "accepted-trusted-list-snapshot"
+          : "production-available",
+        count: historicalBaselineIds.size,
+      },
     },
     counts: {
       currentAvailable: currentIds.size,
       existing: existingIds.size,
       existingAvailable: existingAvailableIds.size,
       existingSold: existingSoldIds.size,
+      historicalBaseline: historicalBaselineIds.size,
       new: newIds.length,
       stillAvailable: stillAvailableIds.length,
       disappeared: disappearedIds.length,
