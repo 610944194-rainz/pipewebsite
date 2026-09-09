@@ -42,6 +42,9 @@ const DEFAULT_RAW_ROOT = path.join(
 const DETAIL_QUEUE_MAX_RATIO = 0.25;
 const DANISH_GIT_PUSH_RETRY_DELAYS_MS = [10 * 1000, 30 * 1000];
 const DANISH_STRONG_VERIFICATION_RESUME_MAX_AGE_MS = 36 * 60 * 60 * 1000;
+const DANISH_SERVER_DEFAULT_HOST = "47.242.180.224";
+const DANISH_SERVER_DEFAULT_INBOX = "/srv/yandoubuy/inbox/danish";
+const DANISH_SERVER_DEFAULT_PUBLISHER = "/srv/yandoubuy/bin/publish-source.sh";
 
 function compact(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -943,6 +946,74 @@ export async function terminateOwnedProcessTree(child, {
   });
 }
 
+function nonEmptyEnv(value, fallback = "") {
+  const normalized = compact(value);
+  return normalized || fallback;
+}
+
+function assertRemoteHost(value) {
+  if (!/^[A-Za-z0-9_.@:-]+$/.test(value)) throw new Error("danish-server-host-invalid");
+  return value;
+}
+
+function assertRemoteAbsolutePath(value, label) {
+  if (!/^\/[A-Za-z0-9._/-]+$/.test(value)) throw new Error(`${label}-invalid`);
+  return value.replace(/\/+$/, "");
+}
+
+function posixQuote(value) {
+  return `'${String(value).replace(/'/g, `'"'"'`)}'`;
+}
+
+export function resolveDanishServerDeliveryConfig(environment = process.env) {
+  return {
+    host: assertRemoteHost(nonEmptyEnv(environment.DANISH_SERVER_HOST, DANISH_SERVER_DEFAULT_HOST)),
+    inbox: assertRemoteAbsolutePath(nonEmptyEnv(environment.DANISH_SERVER_INBOX, DANISH_SERVER_DEFAULT_INBOX), "danish-server-inbox"),
+    publisher: assertRemoteAbsolutePath(nonEmptyEnv(environment.DANISH_SERVER_PUBLISHER, DANISH_SERVER_DEFAULT_PUBLISHER), "danish-server-publisher"),
+    scp: nonEmptyEnv(environment.DANISH_SERVER_SCP, "scp"),
+    ssh: nonEmptyEnv(environment.DANISH_SERVER_SSH, "ssh"),
+  };
+}
+
+export function writeDanishServerDeliveryFiles({ runRoot, candidateProducts, runId, allowPublish, now = new Date() }) {
+  if (!allowPublish) throw new Error("danish-server-delivery-requires-allow-publish");
+  if (!Array.isArray(candidateProducts) || candidateProducts.length === 0) {
+    throw new Error("danish-server-delivery-candidate-empty");
+  }
+  const deliveryRoot = path.join(runRoot, "server-delivery");
+  const productsPath = path.join(deliveryRoot, "danish-products.json");
+  const publishPath = path.join(deliveryRoot, "publish.json");
+  const publish = {
+    source: "danish",
+    runId: compact(runId),
+    createdAt: now.toISOString(),
+    productCount: candidateProducts.length,
+    allowPublish: true,
+  };
+  atomicWriteJson(productsPath, candidateProducts);
+  atomicWriteJson(publishPath, publish);
+  return { deliveryRoot, productsPath, publishPath, publish };
+}
+
+export function buildDanishServerDeliveryCommands({ config, productsPath, publishPath }) {
+  const productsTmp = `${config.inbox}/danish-products.json.tmp`;
+  const publishTmp = `${config.inbox}/publish.json.tmp`;
+  const activateCommand = [
+    "set -eu",
+    `test -d ${posixQuote(config.inbox)}`,
+    `test -f ${posixQuote(productsTmp)}`,
+    `test -f ${posixQuote(publishTmp)}`,
+    `mv ${posixQuote(productsTmp)} ${posixQuote(`${config.inbox}/danish-products.json`)}`,
+    `mv ${posixQuote(publishTmp)} ${posixQuote(`${config.inbox}/publish.json`)}`,
+  ].join("; ");
+  return {
+    uploadProducts: { command: config.scp, args: [productsPath, `${config.host}:${productsTmp}`] },
+    uploadPublish: { command: config.scp, args: [publishPath, `${config.host}:${publishTmp}`] },
+    activateInbox: { command: config.ssh, args: [config.host, activateCommand] },
+    publish: { command: config.ssh, args: [config.host, `sudo -- ${posixQuote(config.publisher)} danish`] },
+  };
+}
+
 export async function executeCommand({
   command,
   args,
@@ -1092,6 +1163,17 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
     pushSkipped: false,
     skipReason: null,
     allowPublish: false,
+    serverDelivery: {
+      status: "not-requested",
+      candidateWritten: false,
+      uploadAttempted: false,
+      inboxActivated: false,
+      publisherInvoked: false,
+      retryable: false,
+      productsPath: null,
+      publishPath: null,
+      host: null,
+    },
     failureReason: null,
   };
   let lock = null;
@@ -1326,6 +1408,50 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
       return report;
     }
 
+    if (mode === "publish") {
+      const deliveryFiles = writeDanishServerDeliveryFiles({
+        runRoot,
+        candidateProducts,
+        runId,
+        allowPublish: report.allowPublish,
+      });
+      const serverConfig = resolveDanishServerDeliveryConfig(options.environment || process.env);
+      const deliveryCommands = buildDanishServerDeliveryCommands({
+        config: serverConfig,
+        productsPath: deliveryFiles.productsPath,
+        publishPath: deliveryFiles.publishPath,
+      });
+      report.serverDelivery = {
+        status: "candidate-ready",
+        candidateWritten: true,
+        uploadAttempted: false,
+        inboxActivated: false,
+        publisherInvoked: false,
+        retryable: false,
+        productsPath: deliveryFiles.productsPath,
+        publishPath: deliveryFiles.publishPath,
+        host: serverConfig.host,
+      };
+      log("danish-server-delivery-candidate-ready", {
+        runId,
+        productCount: deliveryFiles.publish.productCount,
+        productsPath: deliveryFiles.productsPath,
+        publishPath: deliveryFiles.publishPath,
+        host: serverConfig.host,
+      });
+      report.serverDelivery.uploadAttempted = true;
+      await runStage("server-upload-products", deliveryCommands.uploadProducts.command, deliveryCommands.uploadProducts.args);
+      await runStage("server-upload-publish", deliveryCommands.uploadPublish.command, deliveryCommands.uploadPublish.args);
+      await runStage("server-activate-inbox", deliveryCommands.activateInbox.command, deliveryCommands.activateInbox.args);
+      report.serverDelivery.inboxActivated = true;
+      report.serverDelivery.publisherInvoked = true;
+      await runStage("server-publish", deliveryCommands.publish.command, deliveryCommands.publish.args);
+      report.serverDelivery.status = "published";
+      report.status = "publish-passed";
+      log("danish-server-delivery-published", { runId, host: serverConfig.host });
+      return report;
+    }
+
     fs.mkdirSync(backupRoot, { recursive: true });
     const backupPath = path.join(backupRoot, "danish-products.before.json");
     if (!fs.existsSync(backupPath)) fs.copyFileSync(productionPath, backupPath);
@@ -1340,29 +1466,13 @@ export async function runDanishDaily(options = {}, dependencies = {}) {
       await runStage("build", "cmd.exe", ["/d", "/s", "/c", "npm.cmd run build"]);
     report.buildPassed = true;
 
-    if (mode === "publish") {
-      await runStage("git-diff-check", "git", ["diff", "--check"]);
-      await runStage("git-add", "git", ["add", "--", "data/products/danish-products.json", "data/products/unified-products-staging.json", "data/generated/public-products"]);
-      const stagedDiff = await runStage("git-cached-diff", "git", ["diff", "--cached", "--quiet"], {}, [0, 1]);
-      if (stagedDiff.exitCode === 0) {
-        report.commitSkipped = true;
-        report.pushSkipped = true;
-        report.skipReason = "no-changes";
-        report.status = "publish-noop";
-        log("publish-noop", { reason: report.skipReason });
-        return report;
-      }
-      if (stagedDiff.exitCode !== 1) {
-        throw new Error(`git-cached-diff-failed exitCode=${stagedDiff.exitCode ?? "unknown"}`);
-      }
-      await runStage("git-commit", "git", ["commit", "-m", `chore: update Danish daily inventory ${runId}`]);
-      report.commitExecuted = true;
-      await pushWithRetry();
-      report.pushExecuted = true;
-    }
-    report.status = mode === "publish" ? "publish-passed" : "daily-passed";
+    report.status = "daily-passed";
     return report;
   } catch (error) {
+    if (report.serverDelivery?.candidateWritten && report.serverDelivery.status !== "published") {
+      report.serverDelivery.status = "failed-retryable";
+      report.serverDelivery.retryable = true;
+    }
     report.status = "failed";
     report.allowPublish = false;
     report.failureReason = compact(error?.message || error);

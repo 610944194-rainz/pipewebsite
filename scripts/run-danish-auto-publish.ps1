@@ -260,6 +260,8 @@ if ($mode -ne "dry-run") {
 
             $status = [string]$summary.status
             $runIdValue = [string]$summary.runId
+            $serverDelivery = $summary.serverDelivery
+            $serverDeliveryStatus = if ($serverDelivery) { [string]$serverDelivery.status } else { "not-requested" }
 
             if ($status -eq "failed") {
                 $strongRetry = $summary.strongVerificationRetry
@@ -288,13 +290,17 @@ if ($mode -ne "dry-run") {
                         "Build: $($summary.buildPassed)"
                         "Commit: $($summary.commitExecuted)"
                         "Push: $($summary.pushExecuted)"
+                        "Server Delivery: $serverDeliveryStatus"
                     ) -join "`n"
                 }
             }
             else {
 
-                if ($status -eq "publish-passed") {
-                    $title = "Danish｜发布成功"
+                if ($status -eq "publish-passed" -and $serverDeliveryStatus -eq "published") {
+                    $title = "Danish｜服务器发布成功"
+                }
+                elseif ($status -eq "publish-passed") {
+                    $title = "Danish｜发布完成"
                 }
                 elseif ($status -eq "publish-noop") {
                     $title = "Danish｜无需发布"
@@ -335,6 +341,7 @@ if ($mode -ne "dry-run") {
                     "Build: $($summary.buildPassed)"
                     "Commit: $($summary.commitExecuted)"
                     "Push: $($summary.pushExecuted)"
+                    "Server Delivery: $serverDeliveryStatus"
                 ) -join "`n"
             }
         }

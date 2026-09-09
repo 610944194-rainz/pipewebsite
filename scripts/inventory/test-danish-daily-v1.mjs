@@ -7,6 +7,7 @@ import {
   acquireDanishLock,
   applyDanishListPatch,
   buildDanishListPatch,
+  buildDanishServerDeliveryCommands,
   buildIncrementalDetailQueue,
   buildDifferenceSummary,
   evaluateDegradedFieldFallbacks,
@@ -15,10 +16,12 @@ import {
   nonPublicDanishComponentIds,
   productsEquivalentForDiff,
   releaseDanishLock,
+  resolveDanishServerDeliveryConfig,
   runDanishDaily,
   runDanishDailyWithStrongVerificationRetry,
   isDanishStrongVerificationFailure,
   validateIncrementalDetailQueue,
+  writeDanishServerDeliveryFiles,
 } from "./run-danish-daily-v1.mjs";
 import {
   ensureAgeLanguageGateHandled,
@@ -578,6 +581,39 @@ async function runScenario(scenario, mode, extra = {}) {
   }, { execute: scenario.execute, sleep: scenario.sleep });
 }
 
+// Server-delivery files are local atomic JSON outputs, and the upload order
+// always uses remote .tmp names before the single SSH activation command.
+{
+  const delivery = writeDanishServerDeliveryFiles({
+    runRoot: path.join(tempRoot, "server-delivery-files"),
+    candidateProducts: [makeProduct(1)],
+    runId: "delivery-fixture",
+    allowPublish: true,
+    now: new Date("2026-09-09T00:00:00.000Z"),
+  });
+  assert.equal(JSON.parse(fs.readFileSync(delivery.productsPath, "utf8")).length, 1);
+  assert.deepEqual(JSON.parse(fs.readFileSync(delivery.publishPath, "utf8")), {
+    source: "danish",
+    runId: "delivery-fixture",
+    createdAt: "2026-09-09T00:00:00.000Z",
+    productCount: 1,
+    allowPublish: true,
+  });
+  const config = resolveDanishServerDeliveryConfig({
+    DANISH_SERVER_HOST: "publisher-fixture",
+    DANISH_SERVER_INBOX: "/srv/fixture/inbox/danish",
+    DANISH_SERVER_PUBLISHER: "/srv/fixture/bin/publish-source.sh",
+    DANISH_SERVER_SCP: "fixture-scp",
+    DANISH_SERVER_SSH: "fixture-ssh",
+  });
+  const commands = buildDanishServerDeliveryCommands({ ...delivery, config });
+  assert.equal(commands.uploadProducts.command, "fixture-scp");
+  assert.match(commands.uploadProducts.args[1], /danish-products\.json\.tmp$/);
+  assert.match(commands.uploadPublish.args[1], /publish\.json\.tmp$/);
+  assert.match(commands.activateInbox.args[1], /mv .*danish-products\.json/);
+  assert.match(commands.publish.args[1], /publish-source\.sh.*danish/);
+}
+
 // DryRun validates and converts, but leaves Production and every publishing stage untouched.
 {
   const scenario = createScenario("dry-run");
@@ -707,87 +743,53 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.equal(report.pushExecuted, false);
 }
 
-// Build failure in Publish mode must prevent commit and push.
+// Publish sends only an atomically-written candidate to the server publisher;
+// Windows never writes Production, rebuilds, or performs Git publication itself.
 {
-  const scenario = createScenario("publish-build-failure", { failStage: "build" });
-  const report = await runScenario(scenario, "publish");
-  assert.equal(report.status, "failed");
-  assert.equal(report.commitExecuted, false);
-  assert.equal(report.pushExecuted, false);
-  assert.equal(scenario.calls.includes("git-commit"), false);
-  assert.equal(scenario.calls.includes("git-push"), false);
-}
-
-// Staged changes make the cached diff exit 1, so Publish reaches commit and push.
-{
-  const scenario = createScenario("publish-success");
+  const scenario = createScenario("publish-server-success");
+  const before = fs.readFileSync(scenario.productionPath, "utf8");
   const report = await runScenario(scenario, "publish");
   assert.equal(report.status, "publish-passed");
-  assert.equal(report.buildPassed, true);
-  assert.equal(report.commitExecuted, true);
-  assert.equal(report.pushExecuted, true);
-  assert.equal(report.commitSkipped, false);
-  assert.equal(report.pushSkipped, false);
-  assert.deepEqual(scenario.calls.slice(-6), ["build", "git-diff-check", "git-add", "git-cached-diff", "git-commit", "git-push"]);
-}
-
-// Transient publication failures retry only git push and eventually preserve a successful publication.
-{
-  const scenario = createScenario("publish-push-retry-success", { pushExitCodes: [1, 1, 0] });
-  const report = await runScenario(scenario, "publish");
-  assert.equal(report.status, "publish-passed");
-  assert.equal(report.commitExecuted, true);
-  assert.equal(report.pushExecuted, true);
-  assert.equal(report.pushAttempts, 3);
-  assert.deepEqual(scenario.sleepDelays, [10000, 30000]);
-  assert.equal(scenario.calls.filter((stage) => stage === "git-push").length, 3);
-  assert.equal(scenario.calls.filter((stage) => stage === "git-commit").length, 1);
-}
-
-// A final publication failure retains the completed local commit and reports the third Git error.
-{
-  const scenario = createScenario("publish-push-retry-failure", { pushExitCodes: [1, 1, 1] });
-  const report = await runScenario(scenario, "publish");
-  assert.equal(report.status, "failed");
-  assert.equal(report.commitExecuted, true);
-  assert.equal(report.pushExecuted, false);
-  assert.equal(report.pushAttempts, 3);
-  assert.deepEqual(scenario.sleepDelays, [10000, 30000]);
-  assert.equal(scenario.calls.filter((stage) => stage === "git-push").length, 3);
-  assert.equal(scenario.calls.filter((stage) => stage === "git-commit").length, 1);
-  assert.match(report.failureReason, /git-push fixture failure attempt 3/);
-}
-
-// An empty staged diff is a successful no-op, even when unrelated local files exist.
-{
-  const scenario = createScenario("publish-noop", { cachedDiffExitCode: 0 });
-  const unrelatedLocalPath = path.join(scenario.root, "raw", "untracked-local-note.txt");
-  fs.writeFileSync(unrelatedLocalPath, "preserve this local artifact", "utf8");
-  const report = await runScenario(scenario, "publish");
-  assert.equal(report.status, "publish-noop");
   assert.equal(report.allowPublish, true);
-  assert.equal(report.failureReason, null);
+  assert.equal(report.productionWritten, false);
+  assert.equal(report.backupCreated, false);
+  assert.equal(report.buildPassed, false);
   assert.equal(report.commitExecuted, false);
   assert.equal(report.pushExecuted, false);
-  assert.equal(report.commitSkipped, true);
-  assert.equal(report.pushSkipped, true);
-  assert.equal(report.skipReason, "no-changes");
+  assert.equal(report.serverDelivery.status, "published");
+  assert.equal(report.serverDelivery.candidateWritten, true);
+  assert.equal(report.serverDelivery.inboxActivated, true);
+  assert.equal(report.serverDelivery.publisherInvoked, true);
+  assert.deepEqual(JSON.parse(fs.readFileSync(report.serverDelivery.publishPath, "utf8")), {
+    source: "danish",
+    runId: "publish-server-success",
+    createdAt: JSON.parse(fs.readFileSync(report.serverDelivery.publishPath, "utf8")).createdAt,
+    productCount: 4,
+    allowPublish: true,
+  });
+  assert.equal(fs.readFileSync(scenario.productionPath, "utf8"), before);
+  assert.equal(scenario.calls.includes("rebuild-unified"), false);
+  assert.equal(scenario.calls.includes("build"), false);
   assert.equal(scenario.calls.includes("git-commit"), false);
   assert.equal(scenario.calls.includes("git-push"), false);
-  assert.deepEqual(scenario.calls.slice(-4), ["build", "git-diff-check", "git-add", "git-cached-diff"]);
+  assert.deepEqual(scenario.calls.slice(-4), ["server-upload-products", "server-upload-publish", "server-activate-inbox", "server-publish"]);
 }
 
-// Any cached-diff exit other than 0 or 1 is a real Git failure.
+// A failed upload is retryable at the Danish wrapper boundary and never touches
+// local Production or invokes the remote publisher.
 {
-  const scenario = createScenario("publish-cached-diff-failure", { cachedDiffExitCode: 2 });
+  const scenario = createScenario("publish-server-upload-failure", { failStage: "server-upload-products" });
+  const before = fs.readFileSync(scenario.productionPath, "utf8");
   const report = await runScenario(scenario, "publish");
   assert.equal(report.status, "failed");
-  assert.equal(report.allowPublish, false);
-  assert.match(report.failureReason, /git-cached-diff-failed exitCode=2/);
-  assert.equal(report.commitExecuted, false);
-  assert.equal(report.pushExecuted, false);
-  assert.equal(scenario.calls.includes("git-commit"), false);
-  assert.equal(scenario.calls.includes("git-push"), false);
+  assert.match(report.failureReason, /server-upload-products-failed/);
+  assert.equal(report.productionWritten, false);
+  assert.equal(report.serverDelivery.candidateWritten, true);
+  assert.equal(report.serverDelivery.status, "failed-retryable");
+  assert.equal(report.serverDelivery.retryable, true);
+  assert.equal(report.serverDelivery.publisherInvoked, false);
+  assert.equal(fs.readFileSync(scenario.productionPath, "utf8"), before);
+  assert.equal(scenario.calls.includes("server-publish"), false);
 }
 
 // A failed detail retains the existing Production record instead of deleting it.
