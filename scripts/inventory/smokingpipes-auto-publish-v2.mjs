@@ -192,6 +192,20 @@ export function buildSmokingpipesV2Notification(result = {}) {
       ].join("\n"),
     };
   }
+  if (status === "bundle-ready") {
+    return {
+      title: "Smokingpipes V2｜Bundle 已就绪",
+      body: [
+        `cycleId: ${cycleId}`,
+        `bundleId: ${bundleId}`,
+        `待发布变更数: ${number(result.readyChangeCount ?? cycle.bundle?.actualAppliedCount ?? result.bundleAppliedCount)}`,
+        "采集完成: 是",
+        "Bundle: 已生成",
+        "Production: 尚未发布",
+        "下一步: 等待正式发布。",
+      ].join("\n"),
+    };
+  }
   const failureStage = String(cycle.failure?.stage || result.failureStage || status);
   if (failureStage === "list-diff") {
     return {
