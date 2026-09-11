@@ -895,6 +895,34 @@ function runNode(root, script) {
   }
 }
 
+export async function applyGqProductionCandidate({ root = process.cwd(), candidatePath, reportPath = null } = {}) {
+  if (!candidatePath) throw new Error("GQ Production candidate path is required.");
+  const resolvedCandidatePath = path.resolve(root, candidatePath);
+  const resolvedReportPath = path.resolve(root, reportPath || path.join(path.dirname(resolvedCandidatePath), "report.json"));
+  const products = arrayFromPayload(readJsonIfExists(resolvedCandidatePath, null));
+  if (!products.length) throw new Error("GQ Production candidate is missing or empty.");
+  const report = readJsonIfExists(resolvedReportPath, null);
+  if (!report || report.allowPublish !== true || report.validation?.passed !== true || report.diff?.allowApply !== true) {
+    throw new Error("GQ Production candidate is not approved by the collected validation report.");
+  }
+  const lock = acquireRunLock(getGqRunLockPath(root), {
+    runId: `gqtobaccos-production-${Date.now()}`,
+    source: SOURCE,
+    mode: "production-candidate",
+  });
+  try {
+    const existingPath = path.join(root, "data", "products", `${SOURCE}-products.json`);
+    await writeJsonAtomic(existingPath, products);
+    runNode(root, "scripts/build-unified-products-staging-v1.mjs");
+    runNode(root, "scripts/build-public-product-indexes-v1.mjs");
+    const applied = { ...report, productionWritten: true };
+    await writeJsonAtomic(resolvedReportPath, applied);
+    return applied;
+  } finally {
+    releaseRunLock(lock);
+  }
+}
+
 export async function runGqDaily({
   root = process.cwd(),
   currentPayload = null,
@@ -906,10 +934,14 @@ export async function runGqDaily({
   useLock = true,
   applyProduction = false,
   notify = false,
+  notifyOnFailure = false,
   notificationDryRun = false,
   notificationEnv = process.env,
   notificationFetchImpl = globalThis.fetch,
 } = {}) {
+  if (applyProduction) {
+    throw new Error("GQ Production apply must run through the locked scheduled publisher candidate path.");
+  }
   const runId = formatRunId();
   const lockPath = getGqRunLockPath(root);
   const artifactsRoot = path.join(root, "data", "audits", SOURCE, runId);
@@ -974,15 +1006,7 @@ export async function runGqDaily({
       await writeJsonAtomic(path.join(artifactsRoot, "candidate-products.json"), products);
       await writeJsonAtomic(path.join(artifactsRoot, "report.json"), result);
     }
-    if (applyProduction) {
-      if (!allowPublish) throw new Error("GQ production write is blocked by the shared anomaly gate or required-detail validation.");
-      await writeJsonAtomic(existingPath, products);
-      runNode(root, "scripts/build-unified-products-staging-v1.mjs");
-      runNode(root, "scripts/build-public-product-indexes-v1.mjs");
-      result.productionWritten = true;
-      if (writeArtifacts) await writeJsonAtomic(path.join(artifactsRoot, "report.json"), result);
-    }
-    if (notify) {
+    if (notify || notifyOnFailure) {
       result.notification = await sendGqDailyPushDeerNotification({
         dailyResult: result,
         dryRun: notificationDryRun,
@@ -994,7 +1018,7 @@ export async function runGqDaily({
     return result;
   } catch (error) {
     let notification = null;
-    if (notify) {
+    if (notify || notifyOnFailure) {
       notification = await sendGqDailyPushDeerNotification({
         error,
         dryRun: notificationDryRun,
@@ -1049,10 +1073,29 @@ function isDirectExecution(importMetaUrl) {
 if (isDirectExecution(import.meta.url)) {
   const cli = parseCliOptions();
   const testNotification = cli["test-notification"] === true;
-  if (testNotification && (cli.live === true || cli["apply-production"] === true || cli.fixture)) {
+  const applyCandidatePath = cli["apply-candidate"] ? path.resolve(String(cli["apply-candidate"])) : null;
+  const reportPath = cli["notify-report"] ? path.resolve(String(cli["notify-report"])) : null;
+  if (testNotification && (cli.live === true || cli["apply-production"] === true || cli.fixture || applyCandidatePath || reportPath)) {
     throw new Error("--test-notification cannot be combined with collection, fixture, or Production flags.");
   }
-  if (testNotification) {
+  if (applyCandidatePath && reportPath) throw new Error("--apply-candidate and --notify-report cannot be combined.");
+  if (applyCandidatePath) {
+    applyGqProductionCandidate({ root: process.cwd(), candidatePath: applyCandidatePath })
+      .then((result) => console.log(JSON.stringify(result, null, 2)))
+      .catch((error) => {
+        console.error(error?.stack || error?.message || String(error));
+        process.exitCode = 1;
+      });
+  } else if (reportPath) {
+    const report = readJsonIfExists(reportPath, null);
+    if (!report) throw new Error(`GQ report is missing: ${reportPath}`);
+    sendGqDailyPushDeerNotification({ dailyResult: report })
+      .then((notification) => console.log(JSON.stringify(notification, null, 2)))
+      .catch((error) => {
+        console.error(error?.stack || error?.message || String(error));
+        process.exitCode = 1;
+      });
+  } else if (testNotification) {
     sendGqDailyPushDeerNotification({ testNotification: true })
       .then((notification) => {
         console.log(JSON.stringify({ version: "gqtobaccos-pushdeer-test-v1", notification }, null, 2));
@@ -1070,6 +1113,7 @@ if (isDirectExecution(import.meta.url)) {
     live: cli.live === true,
     applyProduction: cli["apply-production"] === true,
     notify: cli.notify === true,
+    notifyOnFailure: cli["notify-on-failure"] === true,
   })
     .then((result) => console.log(JSON.stringify(result, null, 2)))
     .catch((error) => {

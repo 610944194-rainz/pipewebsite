@@ -25,6 +25,8 @@ if (-not $RuntimeRoot) {
   $RuntimeRoot = (Resolve-Path (Join-Path $PSScriptRoot "../..")).Path
 }
 $npmCommand = if ($script:IsWindowsPlatform) { "npm.cmd" } else { "npm" }
+Import-Module (Join-Path $PSScriptRoot "../lib/production-publish-lock-v1.psm1") -Force
+$script:ProductionPublishLock = $null
 
 function Invoke-Git {
   param(
@@ -82,6 +84,10 @@ function Write-PublisherResult {
   )
   if (-not $FailureStage -and $Status -notin @("published", "no-change")) { $FailureStage = $Status }
   $result = [ordered]@{ status=$Status; failureStage=$FailureStage; bundleId=$BundleId; commitSha=$CommitSha; publishedCount=$PublishedCount; stagedFiles=@($StagedFiles); sourceNetworkAccessed=$false; error=$Error; exitCode=$ExitCode }
+  if ($script:ProductionPublishLock) {
+    Release-ProductionPublishLock -Lock $script:ProductionPublishLock
+    $script:ProductionPublishLock = $null
+  }
   Write-Output ("SMOKINGPIPES_PUBLISHER_RESULT_JSON=" + ($result | ConvertTo-Json -Compress -Depth 8))
   exit $ExitCode
 }
@@ -124,6 +130,11 @@ try {
   }
   $dirty = Invoke-Git -Directory $ReleaseRoot -Arguments @("status", "--porcelain", "--untracked-files=all")
   if ($dirty) { throw "release clone is not clean: $dirty" }
+  # The collector and Bundle builder run before this publisher.  The shared
+  # lock starts at the release/Git critical section so another source may
+  # continue collecting while only Production writes and Git publication are
+  # serialized.
+  $script:ProductionPublishLock = Acquire-ProductionPublishLock
   Invoke-ReleaseFetchWithRetry -Directory $ReleaseRoot | Out-Null
   $remoteMain = Invoke-Git -Directory $ReleaseRoot -Arguments @("rev-parse", "origin/main")
   $bundleMatchesRemoteMain = [string]$manifest.baseMainSha -eq [string]$remoteMain
@@ -373,6 +384,8 @@ try {
     $failureStage = "public-validator"
   } elseif ($message -match "npm(?:\.cmd)? .* run build") {
     $failureStage = "release-build"
+  } elseif ($message -match "publisher-lock-(?:timeout|acquire-failed)") {
+    $failureStage = "publisher-lock-timeout"
   }
   [pscustomobject]@{
     status = "release-retryable"
@@ -382,5 +395,9 @@ try {
     sourceNetworkAccessed = $false
     error = $message
   } | ConvertTo-Json -Depth 8
+  if ($script:ProductionPublishLock) {
+    Release-ProductionPublishLock -Lock $script:ProductionPublishLock
+    $script:ProductionPublishLock = $null
+  }
    Write-PublisherResult -Status "release-retryable" -FailureStage $failureStage -BundleId $bundleId -CommitSha $commitSha -Error $message -ExitCode 1
 }

@@ -29,9 +29,9 @@ assert.match(wrapper, /Cleanup\\uff1a\\u6210\\u529f/);
 assert.match(wrapper, /Cleanup\\uff1a\\u5931\\u8d25/);
 assert.match(wrapper, /\$cleanupStatus = "success"/);
 assert.match(wrapper, /\$cleanupStatus = "failure"/);
-assert.match(wrapper, /\$publicationStage = "add"/);
-assert.match(wrapper, /Send-GqFailurePushDeer -FailureType "git-publication" -Stage \$publicationStage/);
-assert.match(wrapper, /\$publicationStage = "commit"/);
+assert.match(wrapper, /\$script:PublicationStage = "add"/);
+assert.match(wrapper, /Send-GqFailurePushDeer -FailureType "git-publication" -Stage \$script:PublicationStage/);
+assert.match(wrapper, /\$script:PublicationStage = "commit"/);
 assert.match(wrapper, /-Stage "push"/);
 assert.match(wrapper, /\\u9636\\u6bb5\\uff1apush/);
 assert.match(wrapper, /\\u672c\\u5730 Commit\\uff1a\\u5df2\\u521b\\u5efa/);
@@ -45,6 +45,11 @@ assert.match(wrapper, /Invoke-GitFetchWithRetry/);
 assert.match(wrapper, /function Invoke-GitPushWithRetry/);
 assert.match(wrapper, /git push origin HEAD failed \(attempt \$attempt\/3\)/);
 assert.match(wrapper, /Invoke-GitPushWithRetry/);
+assert.match(wrapper, /production-publish-lock-v1\.psm1/);
+assert.match(wrapper, /Acquire-ProductionPublishLock/);
+assert.match(wrapper, /--apply-candidate=/);
+assert.match(wrapper, /--notify-report=/);
+assert.match(wrapper, /--notify-on-failure/);
 assert.match(wrapper, /function Get-GqRetainedPublicationCommit/);
 assert.match(wrapper, /"rev-list", "--count", "origin\/main\.\.HEAD"/);
 assert.match(wrapper, /chore\(inventory\): publish GQ Tobaccos daily update/);
@@ -91,6 +96,11 @@ async function createFixture() {
   const originRoot = path.join(temporaryRoot, "origin.git");
   const runtimeRoot = path.join(temporaryRoot, "runtime");
   await fs.mkdir(path.join(seedRoot, "scripts", "inventory"), { recursive: true });
+  await fs.mkdir(path.join(seedRoot, "scripts", "lib"), { recursive: true });
+  await fs.copyFile(
+    path.join(root, "scripts", "lib", "production-publish-lock-v1.psm1"),
+    path.join(seedRoot, "scripts", "lib", "production-publish-lock-v1.psm1")
+  );
   await fs.copyFile(
     path.join(root, "scripts", "inventory", "run-gqtobaccos-auto-publish.ps1"),
     path.join(seedRoot, "scripts", "inventory", "run-gqtobaccos-auto-publish.ps1")
@@ -104,8 +114,30 @@ async function createFixture() {
   await writeFile(
     seedRoot,
     "scripts/inventory/run-gqtobaccos-daily-v1.mjs",
-    'import fs from "node:fs";\nfs.writeFileSync(process.env.GQ_FIXTURE_MUTATION_PATH, "fixture mutation");\nfs.writeFileSync(process.env.GQ_FIXTURE_RUNNER_MARKER, "started");\n'
+    [
+      'import fs from "node:fs";',
+      'import path from "node:path";',
+      'const args = process.argv.slice(2);',
+      'const artifactRoot = path.join(process.cwd(), "data", "audits", "gqtobaccos", "fixture");',
+      'fs.mkdirSync(artifactRoot, { recursive: true });',
+      'if (args.some((value) => value === "--live")) {',
+      '  fs.writeFileSync(process.env.GQ_FIXTURE_RUNNER_MARKER, "started");',
+      '  fs.writeFileSync(path.join(artifactRoot, "candidate-products.json"), JSON.stringify([{ sourceProductId: "fixture" }]));',
+      '  fs.writeFileSync(path.join(artifactRoot, "report.json"), JSON.stringify({ allowPublish: true, validation: { passed: true }, diff: { allowApply: true }, artifactRoot: "data/audits/gqtobaccos/fixture" }));',
+      '  console.log(JSON.stringify({ allowPublish: true, artifactRoot: "data/audits/gqtobaccos/fixture" }));',
+      '} else if (args.some((value) => value.startsWith("--apply-candidate="))) {',
+      '  const candidatePath = args.find((value) => value.startsWith("--apply-candidate=")).slice("--apply-candidate=".length);',
+      '  fs.copyFileSync(candidatePath, process.env.GQ_FIXTURE_MUTATION_PATH);',
+      '  console.log(JSON.stringify({ productionWritten: true }));',
+      '} else if (args.some((value) => value.startsWith("--notify-report="))) {',
+      '  fs.writeFileSync(process.env.GQ_FIXTURE_NOTIFIER_MARKER, JSON.stringify({ title: "fixture success", body: "success" }));',
+      '  console.log(JSON.stringify({ notificationSent: true }));',
+      '}',
+      '',
+    ].join("\n")
   );
+  await writeFile(seedRoot, "scripts/build-unified-products-staging-v1.mjs", "");
+  await writeFile(seedRoot, "scripts/build-public-product-indexes-v1.mjs", "");
   for (const relativePath of publicationPaths) {
     await writeFile(seedRoot, relativePath, "baseline\n");
   }
@@ -226,7 +258,8 @@ try {
   assert.equal(await fs.readFile(pushCounter, "utf8"), "3");
   const pushNotification = JSON.parse(await fs.readFile(path.join(fixture.runtimeRoot, ".gq-notifier-called"), "utf8"));
   assert.match(pushNotification.body, /阶段：push/);
-  assert.notEqual(git(fixture.runtimeRoot, ["rev-parse", "HEAD"]), baselineHead);
+  assert.match(pushNotification.body, /Cleanup：成功/);
+  assert.equal(git(fixture.runtimeRoot, ["rev-parse", "HEAD"]), baselineHead, "push failure must not leave shared runtime ahead of origin/main");
   assert.equal(git(fixture.runtimeRoot, ["status", "--porcelain", "--untracked-files=no"]), "");
   assert.equal(git(fixture.runtimeRoot, ["rev-parse", "origin/main"]), baselineHead);
 } finally {

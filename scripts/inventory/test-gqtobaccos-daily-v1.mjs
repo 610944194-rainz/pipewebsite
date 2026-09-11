@@ -10,6 +10,7 @@ import {
   parseGbpAmount,
   parseGqDetailPage,
   parseGqListPage,
+  applyGqProductionCandidate,
   runGqDaily,
   validateGqCandidate,
 } from "./run-gqtobaccos-daily-v1.mjs";
@@ -327,5 +328,22 @@ const notificationFailureResult = await runGqDaily({
 assert.equal(notificationFailureResult.allowPublish, true, "notification delivery failure must not reverse a valid daily result");
 assert.equal(notificationFailureResult.notification.notificationSent, false);
 assert.equal(notificationFailureResult.notification.notificationReason, "PushDeer HTTP 503");
+
+const candidateRoot = fs.mkdtempSync(path.join(process.cwd(), ".gq-candidate-fixture-"));
+try {
+  fs.mkdirSync(path.join(candidateRoot, "data", "audits", "gqtobaccos", "run"), { recursive: true });
+  fs.mkdirSync(path.join(candidateRoot, "scripts"), { recursive: true });
+  fs.writeFileSync(path.join(candidateRoot, "scripts", "build-unified-products-staging-v1.mjs"), "process.exit(0);\n");
+  fs.writeFileSync(path.join(candidateRoot, "scripts", "build-public-product-indexes-v1.mjs"), "process.exit(0);\n");
+  const candidatePath = path.join(candidateRoot, "data", "audits", "gqtobaccos", "run", "candidate-products.json");
+  const reportPath = path.join(candidateRoot, "data", "audits", "gqtobaccos", "run", "report.json");
+  fs.writeFileSync(candidatePath, JSON.stringify([{ sourceProductId: "candidate-1" }]));
+  fs.writeFileSync(reportPath, JSON.stringify({ allowPublish: true, validation: { passed: true }, diff: { allowApply: true } }));
+  const applied = await applyGqProductionCandidate({ root: candidateRoot, candidatePath });
+  assert.equal(applied.productionWritten, true);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(candidateRoot, "data", "products", "gqtobaccos-products.json"), "utf8")), [{ sourceProductId: "candidate-1" }]);
+} finally {
+  fs.rmSync(candidateRoot, { recursive: true, force: true });
+}
 
 console.log("GQ Tobaccos daily V1 fixture tests passed.");
