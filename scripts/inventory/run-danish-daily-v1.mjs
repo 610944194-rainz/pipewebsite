@@ -1010,7 +1010,10 @@ export function buildDanishServerDeliveryCommands({ config, productsPath, publis
     uploadProducts: { command: config.scp, args: [productsPath, `${config.host}:${productsTmp}`] },
     uploadPublish: { command: config.scp, args: [publishPath, `${config.host}:${publishTmp}`] },
     activateInbox: { command: config.ssh, args: [config.host, activateCommand] },
-    publish: { command: config.ssh, args: [config.host, `sudo -- ${posixQuote(config.publisher)} danish`] },
+    // Run the publisher as the SSH user (admin).  The publisher itself uses
+    // sudo only for the final yandoubuy.service restart; Git fetch/commit/push
+    // must use admin's persistent GitHub SSH identity rather than root's HOME.
+    publish: { command: config.ssh, args: [config.host, `${posixQuote(config.publisher)} danish`] },
   };
 }
 

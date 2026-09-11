@@ -133,13 +133,16 @@ function readyListGateState(overrides = {}) {
   ];
   const { page, navigations } = verificationPage(states);
   const events = [];
+  let verificationBridgeCalls = 0;
   assert.equal(await ensureManualVerificationIfNeeded(page, {
     targetUrl: states[0].url,
     requireList: true,
     timeoutMs: 100,
     pollMs: 1,
+    launchVerificationBridge: () => { verificationBridgeCalls += 1; },
     log: (stage) => events.push(stage),
   }), true);
+  assert.equal(verificationBridgeCalls, 1);
   assert.deepEqual(navigations, [states[0].url]);
   assert.equal(events.includes("manual-verification-required"), true);
   assert.equal(events.includes("manual-verification-completed"), true);
@@ -160,6 +163,7 @@ function readyListGateState(overrides = {}) {
       pollMs: 5,
       now: () => clock,
       sleep: async (milliseconds) => { clock += milliseconds; },
+      launchVerificationBridge: () => {},
       log: () => {},
     }),
     /manual-verification-timeout/
@@ -616,6 +620,7 @@ async function runScenario(scenario, mode, extra = {}) {
   assert.match(commands.uploadPublish.args[1], /publish\.json\.tmp$/);
   assert.match(commands.activateInbox.args[1], /mv .*danish-products\.json/);
   assert.match(commands.publish.args[1], /publish-source\.sh.*danish/);
+  assert.doesNotMatch(commands.publish.args[1], /\bsudo\b/);
 }
 
 // DryRun validates and converts, but leaves Production and every publishing stage untouched.
