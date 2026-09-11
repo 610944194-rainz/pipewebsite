@@ -29,13 +29,52 @@ $mode = if ($Publish) {
 }
 
 $root = Split-Path -Parent $PSScriptRoot
+$launchLog = Join-Path $root "data\inventory\state\danish-scheduler-launch.log"
+$scriptPath = $PSCommandPath
+
+function Write-DanishSchedulerLaunchLog {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$EventName
+  )
+
+  try {
+    $launchDirectory = Split-Path -Parent $launchLog
+    New-Item -ItemType Directory -Path $launchDirectory -Force | Out-Null
+
+    $userName = $env:USERNAME
+    try {
+      $userName = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    }
+    catch {
+      # The environment fallback is sufficient for a diagnostic line.
+    }
+
+    $line = @(
+      (Get-Date).ToString("o")
+      "event=$EventName"
+      "pid=$PID"
+      "user=$userName"
+      "workingDirectory=$((Get-Location).Path)"
+      "scriptPath=$scriptPath"
+      "publish=$($Publish.IsPresent)"
+    ) -join " "
+
+    Add-Content -LiteralPath $launchLog -Value $line -Encoding UTF8
+  }
+  catch {
+    Write-Warning "Danish scheduler launch log failed: $($_.Exception.Message)"
+  }
+}
+
+Write-DanishSchedulerLaunchLog -EventName "wrapper-started"
 $nodeScript = Join-Path $root "scripts\inventory\run-danish-daily-v1.mjs"
 if (-not (Test-Path -LiteralPath $nodeScript -PathType Leaf)) {
   throw "Danish daily runner not found: $nodeScript"
 }
 
 Set-Location -LiteralPath $root
-foreach ($environmentName in @("DANISH_RPA_EXE", "DANISH_RPA_UUID")) {
+foreach ($environmentName in @("DANISH_RPA_EXE", "DANISH_RPA_UUID", "DANISH_SERVER_HOST")) {
   if (-not [Environment]::GetEnvironmentVariable($environmentName, "Process")) {
     $userValue = [Environment]::GetEnvironmentVariable($environmentName, "User")
     if ($userValue) {
@@ -225,6 +264,12 @@ if ($mode -in @("daily", "publish")) {
 
 $runStartedAt = Get-Date
 
+$nodeCommand = Get-Command node -ErrorAction SilentlyContinue
+if (-not $nodeCommand) {
+  Write-DanishSchedulerLaunchLog -EventName "node-start-failed"
+  throw "Node executable not found on PATH."
+}
+Write-DanishSchedulerLaunchLog -EventName "node-started"
 & node @arguments
 $nodeExitCode = $LASTEXITCODE
 

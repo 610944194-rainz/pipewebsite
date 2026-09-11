@@ -606,6 +606,10 @@ async function runScenario(scenario, mode, extra = {}) {
     DANISH_SERVER_SCP: "fixture-scp",
     DANISH_SERVER_SSH: "fixture-ssh",
   });
+  assert.equal(
+    resolveDanishServerDeliveryConfig({}).host,
+    "admin@47.242.180.224"
+  );
   const commands = buildDanishServerDeliveryCommands({ ...delivery, config });
   assert.equal(commands.uploadProducts.command, "fixture-scp");
   assert.match(commands.uploadProducts.args[1], /danish-products\.json\.tmp$/);

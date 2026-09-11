@@ -42,7 +42,7 @@ const DEFAULT_RAW_ROOT = path.join(
 const DETAIL_QUEUE_MAX_RATIO = 0.25;
 const DANISH_GIT_PUSH_RETRY_DELAYS_MS = [10 * 1000, 30 * 1000];
 const DANISH_STRONG_VERIFICATION_RESUME_MAX_AGE_MS = 36 * 60 * 60 * 1000;
-const DANISH_SERVER_DEFAULT_HOST = "47.242.180.224";
+const DANISH_SERVER_DEFAULT_HOST = "admin@47.242.180.224";
 const DANISH_SERVER_DEFAULT_INBOX = "/srv/yandoubuy/inbox/danish";
 const DANISH_SERVER_DEFAULT_PUBLISHER = "/srv/yandoubuy/bin/publish-source.sh";
 
