@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
+import net from "node:net";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
@@ -61,6 +62,34 @@ function ensureDir(dir) {
 const chromeOutputTailLimit = 12_000;
 const chromeCdpReadyTimeoutMs = 15_000;
 const initialNavigationTimeoutMs = 60_000;
+
+export async function allocateDanishCdpPort({ host = "127.0.0.1" } = {}) {
+  return await new Promise((resolve, reject) => {
+    const server = net.createServer();
+    let settled = false;
+    const finish = (error, port) => {
+      if (settled) return;
+      settled = true;
+      const complete = () => {
+        if (error) reject(error);
+        else resolve(port);
+      };
+      if (server.listening) server.close(complete);
+      else complete();
+    };
+
+    server.once("error", (error) => finish(error));
+    server.listen({ host, port: 0 }, () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? Number(address.port) : 0;
+      if (!Number.isInteger(port) || port < 1 || port > 65535) {
+        finish(new Error("danish-cdp-ephemeral-port-invalid"));
+        return;
+      }
+      finish(null, port);
+    });
+  });
+}
 
 function processIsAlive(pid) {
   if (!Number.isInteger(Number(pid)) || Number(pid) < 1) return false;
@@ -185,25 +214,60 @@ function readDevToolsActivePort(filePath) {
 export async function waitForOwnedDanishCdpEndpoint({
   profilePath,
   chromeProcess,
+  cdpPort = null,
   startedAtMs = Date.now(),
   timeoutMs = chromeCdpReadyTimeoutMs,
   sleepFn = sleep,
   now = () => Date.now(),
   stderrTail = () => "",
+  fetchFn = globalThis.fetch,
 } = {}) {
   const activePortPath = path.join(profilePath, "DevToolsActivePort");
   const deadline = now() + timeoutMs;
   let lastError = null;
 
   while (now() <= deadline) {
-    if (!chromeProcess?.pid || chromeProcess.killed || chromeProcess.exitCode !== null) {
-      throw new Error(`danish-chrome-exited-before-cdp-ready stderr=${normalizeText(stderrTail()).slice(-800)}`);
-    }
     try {
-      const stat = fs.statSync(activePortPath);
-      if (stat.mtimeMs >= startedAtMs) return readDevToolsActivePort(activePortPath);
+      if (Number.isInteger(Number(cdpPort)) && Number(cdpPort) > 0) {
+        if (typeof fetchFn !== "function") throw new Error("danish-cdp-fetch-unavailable");
+        const controller = new AbortController();
+        const abortTimer = setTimeout(() => controller.abort(), 1_000);
+        try {
+          const response = await fetchFn(`http://127.0.0.1:${Number(cdpPort)}/json/version`, {
+            signal: controller.signal,
+          });
+          if (!response?.ok) throw new Error(`danish-cdp-http-${response?.status || "error"}`);
+          const payload = await response.json();
+          const webSocketDebuggerUrl = String(payload?.webSocketDebuggerUrl || "");
+          const parsed = new URL(webSocketDebuggerUrl);
+          if (
+            parsed.protocol !== "ws:" ||
+            Number(parsed.port) !== Number(cdpPort) ||
+            !parsed.pathname.startsWith("/devtools/browser/")
+          ) {
+            throw new Error("invalid-danish-cdp-version-response");
+          }
+          return {
+            port: Number(cdpPort),
+            browserPath: parsed.pathname,
+            endpoint: `http://127.0.0.1:${Number(cdpPort)}`,
+          };
+        } finally {
+          clearTimeout(abortTimer);
+        }
+      } else {
+        const stat = fs.statSync(activePortPath);
+        if (stat.mtimeMs >= startedAtMs) return readDevToolsActivePort(activePortPath);
+      }
     } catch (error) {
       lastError = error;
+    }
+    if (
+      !chromeProcess?.pid ||
+      chromeProcess.killed ||
+      (chromeProcess.exitCode !== null && !Number.isInteger(Number(cdpPort)))
+    ) {
+      throw new Error(`danish-chrome-exited-before-cdp-ready stderr=${normalizeText(stderrTail()).slice(-800)}`);
     }
     await sleepFn(150);
   }
@@ -4573,9 +4637,10 @@ async function main() {
     }
     const activePortPath = path.join(browserProfilePath, "DevToolsActivePort");
     if (fs.existsSync(activePortPath)) fs.unlinkSync(activePortPath);
+    const cdpPort = await allocateDanishCdpPort();
 
     const chromeArgs = [
-      "--remote-debugging-port=0",
+      `--remote-debugging-port=${cdpPort}`,
       `--user-data-dir=${browserProfilePath}`,
       "--no-first-run",
       "--no-default-browser-check",
@@ -4587,7 +4652,7 @@ async function main() {
     collectorLog("browser-launch-start", {
       browserProfilePath,
       executablePath,
-      cdpPort: "ephemeral",
+      cdpPort,
       profileLockRecovered: profileLock.staleLockRecovered,
     });
 
@@ -4601,10 +4666,14 @@ async function main() {
     const cdp = await waitForOwnedDanishCdpEndpoint({
       profilePath: browserProfilePath,
       chromeProcess,
+      cdpPort,
       startedAtMs: launchedAtMs,
       stderrTail: () => chromeStderrTail,
     });
-    if (chromeProcess.killed || chromeProcess.exitCode !== null) {
+    if (
+      chromeProcess.killed ||
+      (chromeProcess.exitCode !== null && !Number.isInteger(Number(cdpPort)))
+    ) {
       throw new Error(`danish-chrome-exited-before-cdp-connect stderr=${normalizeText(chromeStderrTail).slice(-800)}`);
     }
     browser = await chromium.connectOverCDP(cdp.endpoint);
@@ -4749,7 +4818,7 @@ async function main() {
     collectorLog("collector-complete", { mode: collectorMode, successCount: payload.successCount, failCount: payload.failCount, outputPath });
   } finally {
     if (browser) await boundedPromise(browser.close(), 10_000, "danish-browser-close").catch(() => {});
-    if (chromeProcess && !chromeProcess.killed && chromeProcess.exitCode === null) {
+    if (chromeProcess && !chromeProcess.killed && Number.isInteger(Number(chromeProcess.pid))) {
       await terminateOwnedChromeProcessTree(chromeProcess);
     }
     if (chromeStderrTail || chromeStdoutTail) {

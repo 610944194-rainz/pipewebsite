@@ -5,6 +5,7 @@ import path from "node:path";
 
 import {
   acquireDanishBrowserProfileLock,
+  allocateDanishCdpPort,
   isDanishStrongVerificationFailure,
   navigateInitialDanishList,
   releaseDanishBrowserProfileLock,
@@ -80,6 +81,36 @@ fs.mkdirSync(profilePath, { recursive: true });
   });
   assert.equal(endpoint.endpoint, "http://127.0.0.1:45678");
   assert.equal(endpoint.browserPath, "/devtools/browser/current-round");
+}
+
+// Scheduled-task Chrome can expose CDP over its chosen port without writing DevToolsActivePort.
+{
+  const allocated = await allocateDanishCdpPort();
+  assert.ok(allocated > 0 && allocated <= 65535);
+  let requestedUrl = "";
+  let clock = 0;
+  let attempts = 0;
+  const endpoint = await waitForOwnedDanishCdpEndpoint({
+    profilePath,
+    chromeProcess: { pid: 201, killed: false, exitCode: 0 },
+    cdpPort: allocated,
+    timeoutMs: 100,
+    now: () => clock,
+    sleepFn: async () => { clock += 10; },
+    fetchFn: async (url) => {
+      attempts += 1;
+      requestedUrl = url;
+      if (attempts === 1) throw new Error("CDP endpoint is still starting");
+      return {
+        ok: true,
+        json: async () => ({ webSocketDebuggerUrl: `ws://127.0.0.1:${allocated}/devtools/browser/scheduler-round` }),
+      };
+    },
+  });
+  assert.equal(attempts, 2);
+  assert.equal(requestedUrl, `http://127.0.0.1:${allocated}/json/version`);
+  assert.equal(endpoint.endpoint, `http://127.0.0.1:${allocated}`);
+  assert.equal(endpoint.browserPath, "/devtools/browser/scheduler-round");
 }
 
 // A hung initial navigation closes its tab and fails in 60 seconds (shortened here for the fixture).
