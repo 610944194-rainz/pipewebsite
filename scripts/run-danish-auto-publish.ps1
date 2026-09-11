@@ -50,11 +50,20 @@ function Write-DanishSchedulerLaunchLog {
       # The environment fallback is sufficient for a diagnostic line.
     }
 
+    $sessionId = ""
+    try {
+      $sessionId = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+    }
+    catch {
+      # SessionId is diagnostic-only and must not block the wrapper.
+    }
+
     $line = @(
       (Get-Date).ToString("o")
       "event=$EventName"
       "pid=$PID"
       "user=$userName"
+      "sessionId=$sessionId"
       "workingDirectory=$((Get-Location).Path)"
       "scriptPath=$scriptPath"
       "publish=$($Publish.IsPresent)"
