@@ -86,19 +86,20 @@ console.log("mock: V18 blocked launches RPA once and keeps waiting for recovery"
 
 console.log("mock: V18 RPA launch failure remains fail closed");
 {
-  const oldExecutable = process.env.DANISH_RPA_EXE;
-  const oldUuid = process.env.DANISH_RPA_UUID;
-  process.env.DANISH_RPA_EXE = "C:\\fixture\\ShadowBot.exe";
-  process.env.DANISH_RPA_UUID = "fixture-uuid";
+  const oldHotkey = process.env.DANISH_RPA_HOTKEY;
+  process.env.DANISH_RPA_HOTKEY = "Ctrl+Shift+Alt+9";
   const bridgeEvents = [];
   assert.equal(launchDanishVerificationBridge({
-    exists: () => true,
-    spawnProcess: () => { throw new Error("fixture spawn failed"); },
+    spawnProcess: () => { throw new Error("fixture SendKeys failed"); },
     log: (stage, value) => bridgeEvents.push({ stage, value }),
   }), false);
-  assert.equal(bridgeEvents.at(-1).value.reason, "rpa-spawn-error");
-  if (oldExecutable === undefined) delete process.env.DANISH_RPA_EXE; else process.env.DANISH_RPA_EXE = oldExecutable;
-  if (oldUuid === undefined) delete process.env.DANISH_RPA_UUID; else process.env.DANISH_RPA_UUID = oldUuid;
+  assert.equal(bridgeEvents.at(-1).value.reason, "hotkey-send-error");
+  assert.equal(launchDanishVerificationBridge({
+    spawnProcess: () => ({ status: 1, stdout: "", stderr: "fixture process failure" }),
+    log: (stage, value) => bridgeEvents.push({ stage, value }),
+  }), false);
+  assert.equal(bridgeEvents.at(-1).value.reason, "hotkey-send-failed");
+  if (oldHotkey === undefined) delete process.env.DANISH_RPA_HOTKEY; else process.env.DANISH_RPA_HOTKEY = oldHotkey;
 
   let clock = 0;
   let launchCount = 0;
@@ -118,32 +119,26 @@ console.log("mock: V18 RPA launch failure remains fail closed");
   assert.equal(launchCount, 1);
 }
 
-console.log("mock: V18 bridge submits the published app through the Shell CLI");
+console.log("mock: V18 bridge sends the configured ShadowBot hotkey");
 {
-  const oldExecutable = process.env.DANISH_RPA_EXE;
-  const oldUuid = process.env.DANISH_RPA_UUID;
-  process.env.DANISH_RPA_EXE = "C:\\fixture\\ShadowBot.exe";
-  process.env.DANISH_RPA_UUID = "fixture-uuid";
+  const oldHotkey = process.env.DANISH_RPA_HOTKEY;
+  process.env.DANISH_RPA_HOTKEY = "Ctrl+Shift+Alt+9";
   const bridgeEvents = [];
   const spawned = [];
-  const child = {
-    once: () => child,
-    unref: () => {},
-  };
   assert.equal(launchDanishVerificationBridge({
-    exists: () => true,
-    spawnProcess: (...args) => { spawned.push(args); return child; },
+    spawnProcess: (...args) => { spawned.push(args); return { status: 0, stdout: "", stderr: "" }; },
     log: (stage, value) => bridgeEvents.push({ stage, value }),
   }), true);
-  assert.deepEqual(spawned, [[
-    "C:\\fixture\\shadowbot.shell-cli.exe",
-    ["console", "task", "run", "--app-id", "fixture-uuid", "--app-type", "developed", "--async"],
-    { detached: true, stdio: "ignore", windowsHide: true },
-  ]]);
+  assert.equal(spawned.length, 1);
+  assert.equal(spawned[0][0], "powershell.exe");
+  assert.deepEqual(spawned[0][1].slice(0, 6), ["-NoLogo", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command"]);
+  assert.match(spawned[0][1][6], /SendKeys\('\^\+%9'\)/);
+  assert.doesNotMatch(JSON.stringify(spawned), /console|task|run|shadowbot\.shell-cli/i);
+  assert.deepEqual(spawned[0][2], { windowsHide: true, encoding: "utf8" });
   assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-mode"), true);
   assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-triggered"), true);
-  if (oldExecutable === undefined) delete process.env.DANISH_RPA_EXE; else process.env.DANISH_RPA_EXE = oldExecutable;
-  if (oldUuid === undefined) delete process.env.DANISH_RPA_UUID; else process.env.DANISH_RPA_UUID = oldUuid;
+  assert.equal(bridgeEvents.find(({ stage }) => stage === "danish-verification-bridge-mode").value.mode, "hotkey-trigger");
+  if (oldHotkey === undefined) delete process.env.DANISH_RPA_HOTKEY; else process.env.DANISH_RPA_HOTKEY = oldHotkey;
 }
 
 console.log("mock: normal"); const normal = await collectLiveList(options("/normal"));

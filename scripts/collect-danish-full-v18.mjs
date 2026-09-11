@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import net from "node:net";
@@ -2313,72 +2313,69 @@ function collectorLog(stage, value = null) {
 
 export function launchDanishVerificationBridge({
   log = collectorLog,
-  exists = fs.existsSync,
-  spawnProcess = spawn,
+  spawnProcess = spawnSync,
 } = {}) {
-  const executable = normalizeText(process.env.DANISH_RPA_EXE);
-  const uuid = normalizeText(process.env.DANISH_RPA_UUID);
-
-  if (!executable || !uuid) {
-    log("danish-verification-bridge-failed", { reason: "missing-rpa-config" });
+  const hotkey = normalizeText(process.env.DANISH_RPA_HOTKEY) || "Ctrl+Shift+Alt+9";
+  const tokens = hotkey.split("+").map((token) => token.trim()).filter(Boolean);
+  const key = tokens.pop();
+  const modifiers = new Set(tokens.map((token) => token.toLowerCase()));
+  if (!key || key.length !== 1 || !/^[a-z0-9]$/i.test(key) ||
+      [...modifiers].some((token) => !["ctrl", "control", "shift", "alt"].includes(token))) {
+    log("danish-verification-bridge-failed", { reason: "invalid-rpa-hotkey", hotkey });
     return false;
   }
-  if (!exists(executable)) {
-    log("danish-verification-bridge-failed", { reason: "rpa-executable-not-found", executable });
-    return false;
-  }
-
-  const cliExecutable = path.join(path.dirname(executable), "shadowbot.shell-cli.exe");
-  if (!exists(cliExecutable)) {
-    log("danish-verification-bridge-failed", {
-      reason: "rpa-cli-not-found",
-      cliExecutable,
-    });
-    return false;
-  }
+  const sendKeys = [
+    modifiers.has("ctrl") || modifiers.has("control") ? "^" : "",
+    modifiers.has("shift") ? "+" : "",
+    modifiers.has("alt") ? "%" : "",
+    key,
+  ].join("");
+  const escapedSendKeys = sendKeys.replaceAll("'", "''");
+  const command = `$ErrorActionPreference='Stop'; $shell=New-Object -ComObject WScript.Shell; $shell.SendKeys('${escapedSendKeys}')`;
 
   try {
     log("danish-verification-bridge-mode", {
-      mode: "shell-cli-task-run",
-      cliExecutable,
+      mode: "hotkey-trigger",
+      hotkey,
     });
-    const child = spawnProcess(cliExecutable, [
-      "console",
-      "task",
-      "run",
-      "--app-id",
-      uuid,
-      "--app-type",
-      "developed",
-      "--async",
+    const result = spawnProcess("powershell.exe", [
+      "-NoLogo",
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-Command",
+      command,
     ], {
-      detached: true,
-      stdio: "ignore",
       windowsHide: true,
+      encoding: "utf8",
     });
-    child.once?.("error", (error) => {
+    if (result?.error) {
       log("danish-verification-bridge-failed", {
-        reason: "rpa-spawn-error",
-        error: normalizeText(error?.message || error),
+        reason: "hotkey-send-error",
+        hotkey,
+        error: normalizeText(result.error?.message || result.error),
       });
-    });
-    child.once?.("exit", (exitCode, signal) => {
-      if (exitCode === 0) return;
+      return false;
+    }
+    if (result?.status !== 0) {
       log("danish-verification-bridge-failed", {
-        reason: "rpa-cli-exit-nonzero",
-        exitCode,
-        signal: normalizeText(signal),
+        reason: "hotkey-send-failed",
+        hotkey,
+        exitCode: result?.status ?? null,
+        error: normalizeText(result?.stderr || result?.stdout),
       });
-    });
-    child.unref?.();
+      return false;
+    }
     log("danish-verification-bridge-triggered", {
-      mode: "shell-cli-task-run",
-      appId: uuid,
+      mode: "hotkey-trigger",
+      hotkey,
     });
     return true;
   } catch (error) {
     log("danish-verification-bridge-failed", {
-      reason: "rpa-spawn-error",
+      reason: "hotkey-send-error",
+      hotkey,
       error: normalizeText(error?.message || error),
     });
     return false;
