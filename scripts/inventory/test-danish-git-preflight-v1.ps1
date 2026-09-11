@@ -78,6 +78,17 @@ try {
 
     Invoke-DanishGitPreflight -RepositoryRoot $currentRoot
 
+    Invoke-FixtureGit -RepositoryRoot $currentRoot -GitArguments @("remote", "set-url", "origin", "file:///fixture-fetch-unavailable") | Out-Null
+    $degraded = Invoke-DanishGitPreflight -RepositoryRoot $currentRoot -FetchRetryDelays @(0, 0)
+    if (-not $degraded.gitSyncDegraded) {
+        throw "Trusted clean cached main did not enter degraded mode"
+    }
+    if ($degraded.cachedOriginMain -ne (Invoke-FixtureGit -RepositoryRoot $currentRoot -GitArguments @("rev-parse", "origin/main"))) {
+        throw "Degraded preflight did not preserve cached origin/main"
+    }
+
+    Invoke-FixtureGit -RepositoryRoot $currentRoot -GitArguments @("remote", "set-url", "origin", $originRoot) | Out-Null
+
     Invoke-FixtureGit -RepositoryRoot $fixtureRoot -GitArguments @("clone", $originRoot, $updaterRoot) | Out-Null
     Invoke-FixtureGit -RepositoryRoot $updaterRoot -GitArguments @("config", "user.email", "fixture@example.test") | Out-Null
     Invoke-FixtureGit -RepositoryRoot $updaterRoot -GitArguments @("config", "user.name", "Fixture") | Out-Null
@@ -104,6 +115,9 @@ try {
     Invoke-FixtureGit -RepositoryRoot $updaterRoot -GitArguments @("commit", "-m", "fixture: remote divergence") | Out-Null
     Invoke-FixtureGit -RepositoryRoot $updaterRoot -GitArguments @("push", "origin", "main") | Out-Null
     Assert-PreflightBlocked -RepositoryRoot $divergedRoot -ExpectedPattern "merge --ff-only origin/main failed"
+
+    Invoke-FixtureGit -RepositoryRoot $divergedRoot -GitArguments @("remote", "set-url", "origin", "file:///fixture-fetch-unavailable") | Out-Null
+    Assert-PreflightBlocked -RepositoryRoot $divergedRoot -ExpectedPattern "cached main is unsafe"
 
     Write-Output "Danish Git preflight fixture tests passed"
 }

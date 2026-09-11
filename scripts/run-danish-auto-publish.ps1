@@ -120,7 +120,8 @@ if ($RawRoot) { Write-Host "Raw root: $RawRoot" }
 function Invoke-DanishGitPreflight {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$RepositoryRoot
+        [string]$RepositoryRoot,
+        [int[]]$FetchRetryDelays = @(2, 5)
     )
 
     $runGit = {
@@ -155,9 +156,41 @@ function Invoke-DanishGitPreflight {
         throw "git-preflight blocked by tracked working tree changes: $($status.Output)"
     }
 
-    $fetch = & $runGit @("fetch", "origin")
-    if ($fetch.ExitCode -ne 0) {
-        throw "git-preflight fetch origin failed: $($fetch.Output)"
+    $fetch = $null
+    $fetchSucceeded = $false
+    for ($attempt = 1; $attempt -le 3; $attempt += 1) {
+        $fetch = & $runGit @("fetch", "origin")
+        if ($fetch.ExitCode -eq 0) {
+            $fetchSucceeded = $true
+            break
+        }
+        if ($attempt -lt 3) {
+            $delaySeconds = if ($FetchRetryDelays.Count -ge $attempt) { $FetchRetryDelays[$attempt - 1] } else { 2 }
+            if ($delaySeconds -gt 0) {
+                Start-Sleep -Seconds $delaySeconds
+            }
+        }
+    }
+
+    if (-not $fetchSucceeded) {
+        $cachedHead = & $runGit @("rev-parse", "HEAD")
+        $cachedOrigin = & $runGit @("rev-parse", "origin/main")
+        if ($cachedHead.ExitCode -ne 0 -or $cachedOrigin.ExitCode -ne 0) {
+            throw "git-preflight fetch origin failed and cached main is unavailable: $($fetch.Output)"
+        }
+
+        $cachedRelation = & $runGit @("merge-base", "--is-ancestor", "HEAD", "origin/main")
+        if ($cachedRelation.ExitCode -ne 0) {
+            throw "git-preflight fetch origin failed and cached main is unsafe (ahead or diverged): $($fetch.Output)"
+        }
+
+        return [pscustomobject]@{
+            gitSyncDegraded = $true
+            gitFetchAttempts = 3
+            gitFetchError = $fetch.Output
+            head = $cachedHead.Output
+            cachedOriginMain = $cachedOrigin.Output
+        }
     }
 
     $merge = & $runGit @("merge", "--ff-only", "origin/main")
@@ -172,6 +205,14 @@ function Invoke-DanishGitPreflight {
     }
     if ($head.Output -ne $upstream.Output) {
         throw "git-preflight requires HEAD == origin/main after ff-only sync; HEAD=$($head.Output) origin/main=$($upstream.Output)"
+    }
+
+    return [pscustomobject]@{
+        gitSyncDegraded = $false
+        gitFetchAttempts = 1
+        gitFetchError = ""
+        head = $head.Output
+        cachedOriginMain = $upstream.Output
     }
 }
 
@@ -253,9 +294,18 @@ function Send-DanishPushDeer {
 }
 
 if ($mode -in @("daily", "publish")) {
+    $gitSyncDegraded = $false
+    $gitSyncDegradedReason = ""
     try {
-        Invoke-DanishGitPreflight -RepositoryRoot $root
-        Write-Host "Danish Git preflight passed: HEAD == origin/main"
+        $gitPreflight = Invoke-DanishGitPreflight -RepositoryRoot $root
+        $gitSyncDegraded = [bool]$gitPreflight.gitSyncDegraded
+        if ($gitSyncDegraded) {
+            $gitSyncDegradedReason = [string]$gitPreflight.gitFetchError
+            Write-Warning "Danish Git preflight degraded: GitHub fetch unavailable; using trusted cached origin/main."
+        }
+        else {
+            Write-Host "Danish Git preflight passed: HEAD == origin/main"
+        }
     }
     catch {
         $preflightFailure = $_.Exception.Message
@@ -316,6 +366,12 @@ if ($mode -ne "dry-run") {
             $runIdValue = [string]$summary.runId
             $serverDelivery = $summary.serverDelivery
             $serverDeliveryStatus = if ($serverDelivery) { [string]$serverDelivery.status } else { "not-requested" }
+            $gitSyncStatus = if ($gitSyncDegraded) {
+                "gitSyncDegraded=true (GitHub fetch unavailable; cached main used)"
+            }
+            else {
+                "gitSyncDegraded=false"
+            }
 
             if ($status -eq "failed") {
                 $strongRetry = $summary.strongVerificationRetry
@@ -345,6 +401,7 @@ if ($mode -ne "dry-run") {
                         "Commit: $($summary.commitExecuted)"
                         "Push: $($summary.pushExecuted)"
                         "Server Delivery: $serverDeliveryStatus"
+                        $gitSyncStatus
                     ) -join "`n"
                 }
             }
@@ -396,6 +453,7 @@ if ($mode -ne "dry-run") {
                     "Commit: $($summary.commitExecuted)"
                     "Push: $($summary.pushExecuted)"
                     "Server Delivery: $serverDeliveryStatus"
+                    $gitSyncStatus
                 ) -join "`n"
             }
         }
