@@ -1,5 +1,7 @@
 param([int]$VirtualKey = 57, [switch]$Control, [switch]$Shift, [switch]$Alt)
 $ErrorActionPreference = 'Stop'
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding = [Console]::OutputEncoding
 $appId = 'da862615-e45a-4878-bd1a-2f74b7b0e30d'
 $shellProcess = Get-Process ShadowBot.Shell -ErrorAction Stop | Where-Object { $_.SessionId -eq (Get-Process -Id $PID).SessionId } | Select-Object -First 1
 if (-not $shellProcess) { throw 'ShadowBot is not running in the Danish session' }
