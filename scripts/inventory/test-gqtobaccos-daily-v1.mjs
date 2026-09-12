@@ -315,6 +315,25 @@ const runnerResult = await runGqDaily({
 assert.equal(runnerResult.productionWritten, false, "daily dry-run must not write Production");
 assert.equal(runnerResult.pricing.internationalShippingGBP, 20);
 
+let failureOnlyCalls = 0;
+const failureOnlyResult = await runGqDaily({
+  currentPayload: { ...currentPayload, products: parsed.products.filter((product) => !["101", "102"].includes(product.sourceProductId)) },
+  existingProducts: safeProducts, detailsById, writeArtifacts: false, useLock: false,
+  notifyOnFailure: true,
+  notificationEnv: { PUSHDEER_KEY: "fixture-key" },
+  notificationFetchImpl: async () => { failureOnlyCalls++; return { ok: true, status: 200 }; },
+});
+assert.equal(failureOnlyResult.allowPublish, true);
+assert.equal(failureOnlyCalls, 0, "successful collection must not announce publication");
+await assert.rejects(runGqDaily({
+  currentPayload: { ...currentPayload, get products() { throw new Error("fixture collection failure"); } },
+  existingProducts: safeProducts, writeArtifacts: false, useLock: false,
+  notifyOnFailure: true,
+  notificationEnv: { PUSHDEER_KEY: "fixture-key" },
+  notificationFetchImpl: async () => { failureOnlyCalls++; return { ok: true, status: 200 }; },
+}));
+assert.equal(failureOnlyCalls, 1, "collection exception must still notify");
+
 const notificationFailureResult = await runGqDaily({
   currentPayload: { ...currentPayload, products: parsed.products.filter((product) => !["101", "102"].includes(product.sourceProductId)) },
   existingProducts: safeProducts,

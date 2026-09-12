@@ -128,6 +128,7 @@ async function createFixture() {
       '} else if (args.some((value) => value.startsWith("--apply-candidate="))) {',
       '  const candidatePath = args.find((value) => value.startsWith("--apply-candidate=")).slice("--apply-candidate=".length);',
       '  fs.copyFileSync(candidatePath, process.env.GQ_FIXTURE_MUTATION_PATH);',
+      '  if (fs.existsSync(".gq-apply-fail")) throw new Error("fixture apply failure");',
       '  console.log(JSON.stringify({ productionWritten: true }));',
       '} else if (args.some((value) => value.startsWith("--notify-report="))) {',
       '  fs.writeFileSync(process.env.GQ_FIXTURE_NOTIFIER_MARKER, JSON.stringify({ title: "fixture success", body: "success" }));',
@@ -223,6 +224,21 @@ async function advanceOrigin(fixture) {
   git(advanceRoot, ["commit", "-m", "fixture remote advance"]);
   git(advanceRoot, ["push", "origin", "main"]);
   return git(advanceRoot, ["rev-parse", "HEAD"]);
+}
+
+const applyFailureFixture = await createFixture();
+try {
+  await writeFile(applyFailureFixture.runtimeRoot, ".gq-apply-fail", "fail");
+  const result = runWrapper(applyFailureFixture);
+  assert.equal(result.status, 1, result.stdout + result.stderr);
+  const message = JSON.parse(await fs.readFile(path.join(applyFailureFixture.runtimeRoot, ".gq-notifier-called"), "utf8"));
+  assert.match(message.body, /fixture apply failure/);
+  assert.match(message.body, /Cleanup：成功/);
+  assert.match(message.body, /Remaining Dirty: 0/);
+  assert.doesNotMatch(message.body, /Cleanup原因/);
+  assert.equal(git(applyFailureFixture.runtimeRoot, ["status", "--porcelain", "--untracked-files=no"]), "");
+} finally {
+  await fs.rm(applyFailureFixture.temporaryRoot, { recursive: true, force: true });
 }
 
 const fixture = await createFixture();

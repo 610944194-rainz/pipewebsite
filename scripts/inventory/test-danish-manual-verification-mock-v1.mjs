@@ -114,7 +114,7 @@ console.log("mock: V18 RPA launch failure remains fail closed");
       launchVerificationBridge: () => { launchCount += 1; return false; },
       log: () => {},
     }),
-    /manual-verification-timeout/
+    /danish-verification-bridge-not-confirmed/
   );
   assert.equal(launchCount, 1);
 }
@@ -126,17 +126,23 @@ console.log("mock: V18 bridge sends the configured ShadowBot hotkey");
   const bridgeEvents = [];
   const spawned = [];
   assert.equal(launchDanishVerificationBridge({
-    spawnProcess: (...args) => { spawned.push(args); return { status: 0, stdout: "", stderr: "" }; },
+    spawnProcess: (...args) => { spawned.push(args); return { status: 0, stdout: '{"taskId":"fixture","statusName":"running"}', stderr: "" }; },
     log: (stage, value) => bridgeEvents.push({ stage, value }),
   }), true);
   assert.equal(spawned.length, 1);
   assert.equal(spawned[0][0], "powershell.exe");
-  assert.deepEqual(spawned[0][1].slice(0, 6), ["-NoLogo", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command"]);
-  assert.match(spawned[0][1][6], /SendKeys\('\^\+%9'\)/);
-  assert.doesNotMatch(JSON.stringify(spawned), /console|task|run|shadowbot\.shell-cli/i);
+  assert.deepEqual(spawned[0][1].slice(0, 6), ["-NoLogo", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File"]);
+  assert.match(spawned[0][1][6], /send-danish-verification-hotkey-v1\.ps1$/);
+  assert.deepEqual(spawned[0][1].slice(7), ["-VirtualKey", "57", "-Control", "-Shift", "-Alt"]);
+  const helper = fs.readFileSync(spawned[0][1][6], "utf8");
+  assert.match(helper, /SendInput/);
+  assert.match(helper, /console task history/);
+  assert.match(helper, /taskId -notin \$before/);
+  assert.doesNotMatch(helper, /console task run|SendKeys/);
   assert.deepEqual(spawned[0][2], { windowsHide: true, encoding: "utf8" });
   assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-mode"), true);
   assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-bridge-triggered"), true);
+  assert.equal(bridgeEvents.some(({ stage }) => stage === "danish-verification-task-confirmed"), true);
   assert.equal(bridgeEvents.find(({ stage }) => stage === "danish-verification-bridge-mode").value.mode, "hotkey-trigger");
   if (oldHotkey === undefined) delete process.env.DANISH_RPA_HOTKEY; else process.env.DANISH_RPA_HOTKEY = oldHotkey;
 }

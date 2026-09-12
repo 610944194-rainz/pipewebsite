@@ -246,7 +246,7 @@ const body = payload.failureType === "startup"
       : `\u72b6\u6001\uff1aGit \u53d1\u5e03\u5931\u8d25\n\u9636\u6bb5\uff1a${payload.stage}\nCleanup\uff1a\u5931\u8d25\n\u5269\u4f59 Dirty\uff1a${payload.remainingDirtyCount}\nCleanup\u539f\u56e0\uff1a${payload.cleanupReason}\n\u539f\u59cb\u539f\u56e0\uff1a${payload.reason}`;
 const message = {
   title: "\u70df\u6597\u6d3e\u5e93\u5b58\u65e5\u62a5\uff5cGQ Tobaccos \u274c",
-  body,
+  body: payload.cleanupStatus === "success" ? `${body}\nRemaining Dirty: ${payload.remainingDirtyCount}` : body,
 };
 const result = await sendPushDeerNotification(message);
 console.log(JSON.stringify({
@@ -385,11 +385,23 @@ try {
 } catch {
   $publicationError = $_.Exception.Message
   $failureStage = if ($publicationError -match "publisher-lock-(?:timeout|acquire-failed)") { "publisher-lock-timeout" } else { $script:PublicationStage }
+  $cleanupStatus = "success"
+  $cleanupReason = ""
+  $remainingDirtyCount = -1
   if (-not $script:PublicationCommitSha) {
-    try { Restore-GqPublicationPaths } catch { Write-Warning "GQ publication rollback failed: $($_.Exception.Message)" }
+    try {
+      Restore-GqPublicationPaths
+      $remainingDirty = Invoke-Git -Arguments @("status", "--porcelain", "--untracked-files=no")
+      $remainingDirtyCount = @($remainingDirty -split "`r?`n" | Where-Object { $_ }).Count
+      if ($remainingDirtyCount -gt 0) { throw "tracked worktree still dirty: $remainingDirty" }
+    } catch {
+      $cleanupStatus = "failure"
+      $cleanupReason = $_.Exception.Message
+      Write-Warning "GQ publication rollback failed: $cleanupReason"
+    }
   }
   Release-GqProductionPublishLock
-  Send-GqFailurePushDeer -FailureType "git-publication" -Stage $failureStage -Reason $publicationError
+  Send-GqFailurePushDeer -FailureType "git-publication" -Stage $failureStage -Reason $publicationError -CleanupStatus $cleanupStatus -RemainingDirtyCount $remainingDirtyCount -CleanupReason $cleanupReason
   Write-Error "GQ Production apply failed: $publicationError"
   exit 1
 }

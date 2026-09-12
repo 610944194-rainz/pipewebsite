@@ -1006,7 +1006,7 @@ export async function runGqDaily({
       await writeJsonAtomic(path.join(artifactsRoot, "candidate-products.json"), products);
       await writeJsonAtomic(path.join(artifactsRoot, "report.json"), result);
     }
-    if (notify || notifyOnFailure) {
+    if (notify || (notifyOnFailure && !allowPublish)) {
       result.notification = await sendGqDailyPushDeerNotification({
         dailyResult: result,
         dryRun: notificationDryRun,

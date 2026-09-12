@@ -2324,14 +2324,11 @@ export function launchDanishVerificationBridge({
     log("danish-verification-bridge-failed", { reason: "invalid-rpa-hotkey", hotkey });
     return false;
   }
-  const sendKeys = [
-    modifiers.has("ctrl") || modifiers.has("control") ? "^" : "",
-    modifiers.has("shift") ? "+" : "",
-    modifiers.has("alt") ? "%" : "",
-    key,
-  ].join("");
-  const escapedSendKeys = sendKeys.replaceAll("'", "''");
-  const command = `$ErrorActionPreference='Stop'; $shell=New-Object -ComObject WScript.Shell; $shell.SendKeys('${escapedSendKeys}')`;
+  const helper = path.join(process.cwd(), "scripts", "lib", "send-danish-verification-hotkey-v1.ps1");
+  const hotkeyArgs = ["-VirtualKey", String(key.toUpperCase().charCodeAt(0))];
+  if (modifiers.has("ctrl") || modifiers.has("control")) hotkeyArgs.push("-Control");
+  if (modifiers.has("shift")) hotkeyArgs.push("-Shift");
+  if (modifiers.has("alt")) hotkeyArgs.push("-Alt");
 
   try {
     log("danish-verification-bridge-mode", {
@@ -2344,8 +2341,9 @@ export function launchDanishVerificationBridge({
       "-NonInteractive",
       "-ExecutionPolicy",
       "Bypass",
-      "-Command",
-      command,
+      "-File",
+      helper,
+      ...hotkeyArgs,
     ], {
       windowsHide: true,
       encoding: "utf8",
@@ -2371,6 +2369,7 @@ export function launchDanishVerificationBridge({
       mode: "hotkey-trigger",
       hotkey,
     });
+    log("danish-verification-task-confirmed", JSON.parse(result.stdout));
     return true;
   } catch (error) {
     log("danish-verification-bridge-failed", {
@@ -2464,14 +2463,8 @@ export async function waitForManualVerificationRecovery(tab, options = {}) {
   log("manual-verification-required", { targetUrl, timeoutSeconds: Math.round(timeoutMs / 1000), pollMs });
   const initialState = await inspectVerificationPage(tab);
   if (initialState.challenge && !initialState.navigating) {
-    try {
-      (options.launchVerificationBridge || launchDanishVerificationBridge)({ log });
-    } catch (error) {
-      log("danish-verification-bridge-warning", {
-        reason: "rpa-launch-threw",
-        error: normalizeText(error?.message || error),
-      });
-    }
+    const launched = (options.launchVerificationBridge || launchDanishVerificationBridge)({ log });
+    if (launched === false) throw new Error("danish-verification-bridge-not-confirmed");
   }
   while (now() <= deadline) {
     const state = await inspectVerificationPage(tab);

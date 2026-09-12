@@ -57,7 +57,8 @@ function replaceFileWithRetry(tmpPath, filePath, attempts = 20, delayMs = 750) {
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
       if (fs.existsSync(filePath)) {
-        fs.chmodSync(filePath, 0o666);
+        // Only Windows needs the readonly attribute cleared before replacement.
+        if (process.platform === "win32") fs.chmodSync(filePath, 0o666);
         fs.unlinkSync(filePath);
       }
       fs.renameSync(tmpPath, filePath);
