@@ -35,7 +35,8 @@ $scriptPath = $PSCommandPath
 function Write-DanishSchedulerLaunchLog {
   param(
     [Parameter(Mandatory = $true)]
-    [string]$EventName
+    [string]$EventName,
+    [string]$Details = ""
   )
 
   try {
@@ -67,6 +68,7 @@ function Write-DanishSchedulerLaunchLog {
       "workingDirectory=$((Get-Location).Path)"
       "scriptPath=$scriptPath"
       "publish=$($Publish.IsPresent)"
+      $Details
     ) -join " "
 
     Add-Content -LiteralPath $launchLog -Value $line -Encoding UTF8
@@ -216,6 +218,70 @@ function Invoke-DanishGitPreflight {
     }
 }
 
+function Test-DanishShadowBotReady {
+    param([string]$CliPath, [int]$TimeoutMilliseconds)
+    $process = New-Object System.Diagnostics.Process
+    try {
+        $process.StartInfo.FileName = $CliPath
+        $process.StartInfo.Arguments = "console task history --page-size 1"
+        $process.StartInfo.UseShellExecute = $false
+        $process.StartInfo.CreateNoWindow = $true
+        $process.StartInfo.RedirectStandardOutput = $true
+        $process.StartInfo.RedirectStandardError = $true
+        if (-not $process.Start()) { return $false }
+        $stdout = $process.StandardOutput.ReadToEndAsync()
+        $stderr = $process.StandardError.ReadToEndAsync()
+        if (-not $process.WaitForExit($TimeoutMilliseconds)) { return $false }
+        if ($process.ExitCode -ne 0 -or -not $stdout.IsCompleted) { return $false }
+        $result = $stdout.Result | ConvertFrom-Json -ErrorAction Stop
+        return ($result.ok -eq $true -and $null -ne $result.apiCode -and $result.apiCode -eq 0)
+    }
+    catch { return $false }
+    finally {
+        # Only the read-only CLI process created above is owned here.
+        try { if (-not $process.HasExited) { $process.Kill() } } catch { }
+        $process.Dispose()
+    }
+}
+
+function Ensure-ShadowBotReady {
+    param([ValidateRange(1, 90)][int]$TimeoutSeconds = 90)
+    $currentSession = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+    $clock = [System.Diagnostics.Stopwatch]::StartNew()
+    $launcher = $env:DANISH_RPA_EXE
+    if ([string]::IsNullOrWhiteSpace($launcher)) { $launcher = 'E:\ShadowBot\ShadowBot.exe' }
+    $shells = @(Get-Process -Name ShadowBot.Shell -ErrorAction SilentlyContinue |
+        Where-Object { $_.SessionId -eq $currentSession })
+    if ($shells.Count -eq 0) {
+        if (-not (Test-Path -LiteralPath $launcher -PathType Leaf) -or
+            [IO.Path]::GetFileName($launcher) -ine 'ShadowBot.exe') {
+            throw 'ShadowBot not ready: official launcher unavailable'
+        }
+        Start-Process -FilePath $launcher -WindowStyle Hidden -ErrorAction Stop | Out-Null
+        Write-DanishSchedulerLaunchLog -EventName 'shadowbot-bootstrap-started'
+    }
+    while ($clock.Elapsed.TotalSeconds -lt $TimeoutSeconds) {
+        $shells = @(Get-Process -Name ShadowBot.Shell -ErrorAction SilentlyContinue |
+            Where-Object { $_.SessionId -eq $currentSession })
+        foreach ($shell in $shells) {
+            if (-not $shell.Path) { continue }
+            $cli = Join-Path (Split-Path -Parent $shell.Path) 'shadowbot.shell-cli.exe'
+            $remaining = [int](1000 * $TimeoutSeconds - $clock.Elapsed.TotalMilliseconds)
+            if ($remaining -le 0) { break }
+            if ((Test-Path -LiteralPath $cli -PathType Leaf) -and
+                (Test-DanishShadowBotReady -CliPath $cli -TimeoutMilliseconds ([Math]::Min(5000, $remaining)))) {
+                if ($clock.Elapsed.TotalSeconds -ge $TimeoutSeconds) { break }
+                $seconds = [Math]::Round($clock.Elapsed.TotalSeconds, 2)
+                Write-DanishSchedulerLaunchLog -EventName 'shadowbot-ready' -Details "shellPid=$($shell.Id) shellSessionId=$currentSession readySeconds=$seconds"
+                return [pscustomobject]@{ Ready = $true; Launcher = $launcher; ShellPid = $shell.Id; SessionId = $currentSession; ReadySeconds = $seconds }
+            }
+        }
+        $remaining = [int](1000 * $TimeoutSeconds - $clock.Elapsed.TotalMilliseconds)
+        if ($remaining -gt 0) { Start-Sleep -Milliseconds ([Math]::Min(500, $remaining)) }
+    }
+    throw 'ShadowBot not ready'
+}
+
 function Get-DanishPushDeerKey {
     $names = @(
         "PUSHDEER_KEY",
@@ -317,6 +383,19 @@ if ($mode -in @("daily", "publish")) {
                 "原因: $preflightFailure"
                 "Production 写入: false"
             ) -join "`n"
+        exit 1
+    }
+}
+
+if ($mode -in @("daily", "publish", "collect-only")) {
+    try {
+        $shadowBotReady = Ensure-ShadowBotReady
+        Write-Host "ShadowBot ready: pid=$($shadowBotReady.ShellPid) sessionId=$($shadowBotReady.SessionId) readySeconds=$($shadowBotReady.ReadySeconds)"
+    }
+    catch {
+        Write-DanishSchedulerLaunchLog -EventName 'shadowbot-preflight-failed'
+        Write-Warning "ShadowBot not ready; Danish collector was not started."
+        Send-DanishPushDeer -Title "Danish｜启动失败" -Body "阶段: shadowbot-preflight`n原因: ShadowBot not ready`nProduction 写入: false"
         exit 1
     }
 }
