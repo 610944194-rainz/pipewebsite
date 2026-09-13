@@ -68,13 +68,13 @@
     "data/generated/public-products/details/3e.json",
     "data/generated/public-products/details/3f.json"
   ],
-  "detailRecordCount": 13079,
+  "detailRecordCount": 13078,
   "detailShardCount": 64,
-  "excludedProductCount": 373,
+  "excludedProductCount": 372,
   "fileHashes": {
-    "data/generated/public-products/brands.json": "45C8EB90315B0CE88B76D9B5679ABCBB8485E8DCA7C0F97414118FB296DBA59F",
-    "data/generated/public-products/catalog.json": "86D0776D63A099CE8DA5DCFCCCEC0C017BE8210CE0D55654659C7ED502EA9137",
-    "data/generated/public-products/detail-lookup.json": "5FD7CA2068DF394FC2DD767287B87C9D3563E5C8EA2AD3BDC469AC2D63FEABF6",
+    "data/generated/public-products/brands.json": "D7DB938CB2879500159DB899F6029844F154B78D6573793A634B7408C140E476",
+    "data/generated/public-products/catalog.json": "11B0D755F3B0376E4C79A909860885E81C228B0BDC7BC721C045DFFDD542D03F",
+    "data/generated/public-products/detail-lookup.json": "EEE8443F8BB2503B9216CC9E94806FEC3D0ABBD1C11352B2ECBFF970EABE2D9C",
     "data/generated/public-products/details/00.json": "15BB80C76B1FC0FFF57EF04075825F7FBF05B6600A0BE730CB78F64089DADC0C",
     "data/generated/public-products/details/0a.json": "DD7F524E4955A7031AFC6B0A9C2501032B7E385596B705AD6F8AFEB03C19629F",
     "data/generated/public-products/details/0b.json": "41C31CA573C03D8D48FF7844D6E44340F1B9F897D7803179152A4120774A76CE",
@@ -99,9 +99,9 @@
     "data/generated/public-products/details/03.json": "FEE31569E166FCE109735B92B334A32919F77BFAFDE7813CAED2BEED7B69B1C7",
     "data/generated/public-products/details/3a.json": "60F9F4E4236847E37D7D5ACDE7869E170101B0CB91852F76E93AFA3405D4A525",
     "data/generated/public-products/details/3b.json": "1C87ADC67D519BF350C14E2647AF35BA5474A67CE0BEABFD2FE6CA188859847D",
-    "data/generated/public-products/details/3c.json": "1672C31365E6A52ABA5112852C27573CA6E42F83C7B2EBCA3D147EE521A71BFD",
+    "data/generated/public-products/details/3c.json": "38872E24158FABE4B4EACF91A383AB963EFB39FE8816159E2E59B6E4A3DDD42B",
     "data/generated/public-products/details/3d.json": "F1ED18F8F08EDC017E813C0BFC9861501D2F526EF4EF13C5EE5F4C2C735157EC",
-    "data/generated/public-products/details/3e.json": "951F7E6B0D0618222866829643C6D761E9F9F171EA426DDD6D8C5A41275A0394",
+    "data/generated/public-products/details/3e.json": "C46860614973167E09BC4723C790A313082A6C6E02819B4A9F15A102A252BF70",
     "data/generated/public-products/details/3f.json": "CA62A82C2266A475CF2F95C01198065133C24456838C40B8F7ECB7B0F2ED7E22",
     "data/generated/public-products/details/04.json": "41FFA20A00ED6A9EC680685C92A238FFF8FC30BBB5ADE781D64370510989D739",
     "data/generated/public-products/details/05.json": "553D5055DD6DA4F30D33C98EDDF60A0FE0E4C1D8D22C62B27D78F80F113B1F4D",
@@ -133,19 +133,19 @@
     "data/generated/public-products/details/31.json": "DC6B465D61A93B987E5BEF9CAC9D5F439312EA100938C1397FA6CAF1790FBFA5",
     "data/generated/public-products/details/32.json": "8201F7FED7A91AAE96179D72941D6BF56E69278A774530E47CC7F9A67979371A",
     "data/generated/public-products/details/33.json": "5D2228F1341124699F9E260905618A526AEE3A7271545D013500ECFEE7B64FA8",
-    "data/generated/public-products/details/34.json": "A9F6F8CA0C2FAEC7D9E891AA05C63BB38F802C1D3DB0FD7797F141C8A6F7F125",
+    "data/generated/public-products/details/34.json": "EFEA3DAA938326978ABF57A51F234A249BF7F4865DE79940A3832EFA15B82D73",
     "data/generated/public-products/details/35.json": "C8E4A94AD6170CA4ED6782ADA2882D31D8688ED43BEB9C054AB33885795B2C50",
     "data/generated/public-products/details/36.json": "71E31A55C7B3632D51E9CBC980999EC3675CA33EEE9999C29716756150B9FB74",
     "data/generated/public-products/details/37.json": "DCC3FFFB7C31BE338E6A2770BF7D9764C6147CAA6B393B86E1F2D689261187E9",
     "data/generated/public-products/details/38.json": "BD3C4A36B7F4B5B862B72AB82E8735C5FA84624866EF7060449F25A400DFA34C",
     "data/generated/public-products/details/39.json": "8A6AE9B13D242AF6BF8218C269D4B5D77428E7A9E047AFE58AE1460AD67F035A",
-    "data/generated/public-products/filters.json": "F1C3E32B9589D52E19C9D95024FDDA21F9CFDEB871FDC58F14C32216A2CCA044"
+    "data/generated/public-products/filters.json": "3E8ED3156449EC1DF3F14DE5682264539E8BDB06352B11BC1025495D74CD9238"
   },
   "fileHashScope": "Generated public-products files excluding manifest.json to avoid a self-hash cycle.",
   "fileSizes": {
-    "data/generated/public-products/brands.json": 303116,
-    "data/generated/public-products/catalog.json": 15970669,
-    "data/generated/public-products/detail-lookup.json": 1128378,
+    "data/generated/public-products/brands.json": 303092,
+    "data/generated/public-products/catalog.json": 15969411,
+    "data/generated/public-products/detail-lookup.json": 1128296,
     "data/generated/public-products/details/00.json": 498642,
     "data/generated/public-products/details/0a.json": 669294,
     "data/generated/public-products/details/0b.json": 575002,
@@ -170,9 +170,9 @@
     "data/generated/public-products/details/03.json": 519447,
     "data/generated/public-products/details/3a.json": 557791,
     "data/generated/public-products/details/3b.json": 669128,
-    "data/generated/public-products/details/3c.json": 692468,
+    "data/generated/public-products/details/3c.json": 689121,
     "data/generated/public-products/details/3d.json": 548349,
-    "data/generated/public-products/details/3e.json": 655037,
+    "data/generated/public-products/details/3e.json": 655047,
     "data/generated/public-products/details/3f.json": 635592,
     "data/generated/public-products/details/04.json": 674926,
     "data/generated/public-products/details/05.json": 643182,
@@ -204,13 +204,13 @@
     "data/generated/public-products/details/31.json": 594738,
     "data/generated/public-products/details/32.json": 682609,
     "data/generated/public-products/details/33.json": 599580,
-    "data/generated/public-products/details/34.json": 605851,
+    "data/generated/public-products/details/34.json": 605861,
     "data/generated/public-products/details/35.json": 641430,
     "data/generated/public-products/details/36.json": 661304,
     "data/generated/public-products/details/37.json": 594421,
     "data/generated/public-products/details/38.json": 696106,
     "data/generated/public-products/details/39.json": 640937,
-    "data/generated/public-products/filters.json": 28124
+    "data/generated/public-products/filters.json": 28024
   },
   "filtersFile": "data/generated/public-products/filters.json",
   "generatorVersion": "round5-public-product-indexes-v1",
@@ -239,21 +239,21 @@
   "inputHashes": {
     "exchangeRates": "0F2D190C732972CC8F68D404FC07B01AD7A938624EF8E24E121B0B9F8B7859F9",
     "smokingpipesPricing": "933EDF8DDABF1F57747E7F7F582CF80540A1B37D1B4DFA8DA6D7148777154A64",
-    "staging": "3E509276D93ED242E11C37173E70B78150116B76A82E0D0FC97863DFE46438DB"
+    "staging": "9EF70C05DD66C7D0C926C8BB05EF3E69972A816F4380CC7DDFCCD71641B1BE71"
   },
   "inventoryStatusCounts": {
-    "available": 8970,
-    "sold": 4109
+    "available": 8968,
+    "sold": 4110
   },
   "lookupFile": "data/generated/public-products/detail-lookup.json",
   "performance": {
-    "brandsBytes": 303116,
+    "brandsBytes": 303092,
     "budgetBasis": "expected-catalog-count-x-average-record-limit",
     "catalogAverageRecordBytes": 1221.09,
-    "catalogBytes": 15970669,
+    "catalogBytes": 15969411,
     "catalogMaxRecordBytes": 1541,
-    "catalogReductionRatio": 0.677421,
-    "catalogToStagingRatio": 0.322579,
+    "catalogReductionRatio": 0.677391,
+    "catalogToStagingRatio": 0.322609,
     "detailMaxShardBytes": 724494,
     "detailMaxShardRecordCount": 240,
     "detailMinShardRecordCount": 166,
@@ -312,7 +312,7 @@
       "03": 172,
       "3a": 185,
       "3b": 222,
-      "3c": 228,
+      "3c": 227,
       "3d": 182,
       "3e": 217,
       "3f": 211,
@@ -348,7 +348,7 @@
       "31": 594738,
       "32": 682609,
       "33": 599580,
-      "34": 605851,
+      "34": 605861,
       "35": 641430,
       "36": 661304,
       "37": 594421,
@@ -378,9 +378,9 @@
       "03": 519447,
       "3a": 557791,
       "3b": 669128,
-      "3c": 692468,
+      "3c": 689121,
       "3d": 548349,
-      "3e": 655037,
+      "3e": 655047,
       "3f": 635592,
       "04": 674926,
       "05": 643182,
@@ -389,11 +389,11 @@
       "08": 582045,
       "09": 674884
     },
-    "detailTotalBytes": 39459506,
-    "effectiveCatalogMaxBytes": 17002700,
-    "filtersBytes": 28124,
-    "lookupBytes": 1128378,
-    "stagingBytes": 49509388
+    "detailTotalBytes": 39456179,
+    "effectiveCatalogMaxBytes": 17001400,
+    "filtersBytes": 28024,
+    "lookupBytes": 1128296,
+    "stagingBytes": 49500875
   },
   "performanceBudgets": {
     "absoluteCapConfigured": false,
@@ -404,8 +404,8 @@
     "catalogMaxRecordBytes": 4000,
     "configuredAbsoluteCatalogMaxBytes": null,
     "detailShardMaxBytes": 3145728,
-    "effectiveCatalogMaxBytes": 17002700,
-    "expectedCatalogCount": 13079,
+    "effectiveCatalogMaxBytes": 17001400,
+    "expectedCatalogCount": 13078,
     "filtersMaxBytes": 1048576,
     "lookupMaxBytes": 2097152
   },
@@ -426,11 +426,11 @@
       "usdToCny": 6.791
     }
   },
-  "publicProductCount": 13079,
+  "publicProductCount": 13078,
   "schemaVersion": 1,
   "sourceCounts": {
     "danish": 2815,
-    "gqtobaccos": 238,
+    "gqtobaccos": 237,
     "smokingpipes": 10026
   }
 }
