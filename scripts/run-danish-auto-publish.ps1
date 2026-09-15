@@ -4,6 +4,7 @@ param(
   [switch]$CollectOnly,
   [switch]$Daily,
   [switch]$Publish,
+  [switch]$ShadowBotPreflightOnly,
   [ValidateRange(30, 86400)]
   [int]$DailyTimeoutSeconds = 14400,
   [string]$RunId = "",
@@ -12,7 +13,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$selectedModes = @($DryRun, $CollectOnly, $Daily, $Publish).Where({ $_ }).Count
+$selectedModes = @($DryRun, $CollectOnly, $Daily, $Publish, $ShadowBotPreflightOnly).Where({ $_ }).Count
 if ($selectedModes -gt 1) {
   throw "Select only one mode: -DryRun, -CollectOnly, -Daily, or -Publish."
 }
@@ -218,8 +219,46 @@ function Invoke-DanishGitPreflight {
     }
 }
 
+function Write-DanishHealthDiagnostic {
+    param($Diagnostic, [switch]$Final)
+    try {
+        $reason = "$($Diagnostic.reason)|$($Diagnostic.exceptionType)"
+        $now = [DateTime]::UtcNow
+        if ($Final -or $Diagnostic.ready -or $Diagnostic.attempt -eq 1 -or
+            $reason -ne $script:healthLastReason -or -not $script:healthLastLogged -or
+            ($now - $script:healthLastLogged).TotalSeconds -ge 10) {
+            $eventName = if ($Diagnostic.ready) { 'shadowbot-health-attempt-success' } else { 'shadowbot-health-attempt-failed' }
+            $Diagnostic.final = [bool]$Final
+            Write-DanishSchedulerLaunchLog -EventName $eventName -Details ($Diagnostic | ConvertTo-Json -Compress -Depth 4)
+            $script:healthLastLogged = $now
+            $script:healthLastReason = $reason
+        }
+    } catch { Write-Warning 'ShadowBot health diagnostic logging failed.' }
+}
+
+function Protect-DanishHealthText {
+    param([string]$Text)
+    # CLI output may contain credentials. Drop sensitive lines, retain bounded diagnostics.
+    $safe = ($Text -split '[\r\n]+' | ForEach-Object {
+        if ($_ -match '(?i)token|cookie|authorization|bearer|password|secret|pushkey|https?://[^/\s]+@') { '[redacted sensitive line]' } else { $_ }
+    }) -join ' '
+    return $safe.Substring(0, [Math]::Min(1500, $safe.Length))
+}
+
 function Test-DanishShadowBotReady {
-    param([string]$CliPath, [int]$TimeoutMilliseconds)
+    param([string]$CliPath, [int]$TimeoutMilliseconds, [int]$Attempt = 1, $Shell)
+    $timer = [Diagnostics.Stopwatch]::StartNew()
+    $diagnostic = [ordered]@{
+        attempt = $Attempt; timestamp = (Get-Date).ToString('o'); wrapperPid = $PID
+        sessionId = [Diagnostics.Process]::GetCurrentProcess().SessionId
+        shellPid = $Shell.Id; shellSessionId = $Shell.SessionId; shellPath = $Shell.Path
+        cliPath = $CliPath; started = $false; cliPid = $null; timeoutMilliseconds = $TimeoutMilliseconds
+        elapsedMilliseconds = 0; waitForExit = $null; exitCode = $null
+        stdoutLength = $null; stdoutBytes = $null; stderr = $null; stdoutIsCompleted = $null
+        stderrIsCompleted = $null; stderrLength = $null; 'probable-root-cause' = $null
+        jsonParse = 'not-attempted'; ok = $null; apiCode = $null
+        exceptionType = $null; exceptionMessage = $null; reason = 'start-failed'; ready = $false; final = $false
+    }
     $process = New-Object System.Diagnostics.Process
     try {
         $process.StartInfo.FileName = $CliPath
@@ -228,16 +267,55 @@ function Test-DanishShadowBotReady {
         $process.StartInfo.CreateNoWindow = $true
         $process.StartInfo.RedirectStandardOutput = $true
         $process.StartInfo.RedirectStandardError = $true
-        if (-not $process.Start()) { return $false }
+        $diagnostic.started = $process.Start()
+        if (-not $diagnostic.started) { return $false }
+        $diagnostic.cliPid = $process.Id
         $stdout = $process.StandardOutput.ReadToEndAsync()
         $stderr = $process.StandardError.ReadToEndAsync()
-        if (-not $process.WaitForExit($TimeoutMilliseconds)) { return $false }
-        if ($process.ExitCode -ne 0 -or -not $stdout.IsCompleted) { return $false }
+        $diagnostic.waitForExit = $process.WaitForExit($TimeoutMilliseconds)
+        $diagnostic.stderrIsCompleted = $stderr.IsCompleted
+        if (-not $diagnostic.waitForExit) {
+            $diagnostic.stdoutIsCompleted = $stdout.IsCompleted
+            $diagnostic.reason = 'cli-timeout'; return $false
+        }
+        $diagnostic.exitCode = $process.ExitCode
+        $diagnostic.stdoutIsCompleted = $stdout.IsCompleted
+        if ($process.ExitCode -ne 0 -or -not $diagnostic.stdoutIsCompleted) {
+            $diagnostic.reason = if ($process.ExitCode -ne 0) { 'cli-exit-nonzero' } else { 'stdout-incomplete' }
+            if ($process.ExitCode -eq 0 -and -not $diagnostic.stdoutIsCompleted) {
+                $diagnostic['probable-root-cause'] = 'async-output-race'
+            }
+            return $false
+        }
+        $diagnostic.jsonParse = 'failure'
+        $diagnostic.reason = 'json-parse-failed'
         $result = $stdout.Result | ConvertFrom-Json -ErrorAction Stop
-        return ($result.ok -eq $true -and $null -ne $result.apiCode -and $result.apiCode -eq 0)
+        $diagnostic.jsonParse = 'success'
+        $diagnostic.ok = $result.ok
+        $diagnostic.apiCode = $result.apiCode
+        $diagnostic.ready = ($result.ok -eq $true -and $null -ne $result.apiCode -and $result.apiCode -eq 0)
+        $diagnostic.reason = if ($diagnostic.ready) { 'ready' } else { 'api-not-ready' }
+        return $diagnostic.ready
     }
-    catch { return $false }
+    catch {
+        $diagnostic.exceptionType = $_.Exception.GetType().FullName
+        $diagnostic.exceptionMessage = Protect-DanishHealthText $_.Exception.Message
+        return $false
+    }
     finally {
+        $diagnostic.elapsedMilliseconds = [Math]::Round($timer.Elapsed.TotalMilliseconds)
+        try {
+            if ($stdout -and $stdout.Status -eq 'RanToCompletion') {
+                $diagnostic.stdoutLength = $stdout.Result.Length
+                $diagnostic.stdoutBytes = [Text.Encoding]::UTF8.GetByteCount($stdout.Result)
+            }
+            if ($stderr -and $stderr.Status -eq 'RanToCompletion') {
+                $diagnostic.stderrLength = $stderr.Result.Length
+                $diagnostic.stderr = Protect-DanishHealthText $stderr.Result
+            }
+        } catch { }
+        $script:healthLastDiagnostic = $diagnostic
+        Write-DanishHealthDiagnostic $diagnostic
         # Only the read-only CLI process created above is owned here.
         try { if (-not $process.HasExited) { $process.Kill() } } catch { }
         $process.Dispose()
@@ -247,6 +325,20 @@ function Test-DanishShadowBotReady {
 function Ensure-ShadowBotReady {
     param([ValidateRange(1, 90)][int]$TimeoutSeconds = 90)
     $currentSession = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+    $script:healthLastDiagnostic = $null
+    $script:healthLastLogged = $null
+    $script:healthLastReason = $null
+    $attempt = 0
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+    $context = [ordered]@{
+        USERNAME = $env:USERNAME; USERPROFILE = $env:USERPROFILE; LOCALAPPDATA = $env:LOCALAPPDATA
+        APPDATA = $env:APPDATA; TEMP = $env:TEMP; TMP = $env:TMP; SESSIONNAME = $env:SESSIONNAME
+        directory = (Get-Location).Path; powerShellVersion = $PSVersionTable.PSVersion.ToString()
+        is64BitProcess = [Environment]::Is64BitProcess; is64BitOperatingSystem = [Environment]::Is64BitOperatingSystem
+        elevated = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    }
+    Write-DanishSchedulerLaunchLog -EventName 'shadowbot-preflight-context' -Details ($context | ConvertTo-Json -Compress)
     $clock = [System.Diagnostics.Stopwatch]::StartNew()
     $launcher = $env:DANISH_RPA_EXE
     if ([string]::IsNullOrWhiteSpace($launcher)) { $launcher = 'E:\ShadowBot\ShadowBot.exe' }
@@ -268,8 +360,9 @@ function Ensure-ShadowBotReady {
             $cli = Join-Path (Split-Path -Parent $shell.Path) 'shadowbot.shell-cli.exe'
             $remaining = [int](1000 * $TimeoutSeconds - $clock.Elapsed.TotalMilliseconds)
             if ($remaining -le 0) { break }
+            $attempt++
             if ((Test-Path -LiteralPath $cli -PathType Leaf) -and
-                (Test-DanishShadowBotReady -CliPath $cli -TimeoutMilliseconds ([Math]::Min(5000, $remaining)))) {
+                (Test-DanishShadowBotReady -CliPath $cli -TimeoutMilliseconds ([Math]::Min(5000, $remaining)) -Attempt $attempt -Shell $shell)) {
                 if ($clock.Elapsed.TotalSeconds -ge $TimeoutSeconds) { break }
                 $seconds = [Math]::Round($clock.Elapsed.TotalSeconds, 2)
                 Write-DanishSchedulerLaunchLog -EventName 'shadowbot-ready' -Details "shellPid=$($shell.Id) shellSessionId=$currentSession readySeconds=$seconds"
@@ -279,6 +372,8 @@ function Ensure-ShadowBotReady {
         $remaining = [int](1000 * $TimeoutSeconds - $clock.Elapsed.TotalMilliseconds)
         if ($remaining -gt 0) { Start-Sleep -Milliseconds ([Math]::Min(500, $remaining)) }
     }
+    if ($script:healthLastDiagnostic) { Write-DanishHealthDiagnostic $script:healthLastDiagnostic -Final }
+    else { Write-DanishSchedulerLaunchLog -EventName 'shadowbot-health-attempt-failed' -Details 'final=true reason=no-query-possible (same-session Shell path or CLI unavailable)' }
     throw 'ShadowBot not ready'
 }
 
@@ -357,6 +452,11 @@ function Send-DanishPushDeer {
             $_.Exception.Message
         )
     }
+}
+
+if ($ShadowBotPreflightOnly) {
+    try { Ensure-ShadowBotReady | ConvertTo-Json -Compress; exit 0 }
+    catch { Write-Warning "ShadowBot preflight-only failed; see launch log."; exit 1 }
 }
 
 if ($mode -in @("daily", "publish")) {
