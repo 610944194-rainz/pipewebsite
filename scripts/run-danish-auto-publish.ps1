@@ -267,6 +267,9 @@ function Test-DanishShadowBotReady {
         $process.StartInfo.CreateNoWindow = $true
         $process.StartInfo.RedirectStandardOutput = $true
         $process.StartInfo.RedirectStandardError = $true
+        $utf8 = [System.Text.UTF8Encoding]::new($false)
+        $process.StartInfo.StandardOutputEncoding = $utf8
+        $process.StartInfo.StandardErrorEncoding = $utf8
         $diagnostic.started = $process.Start()
         if (-not $diagnostic.started) { return $false }
         $diagnostic.cliPid = $process.Id

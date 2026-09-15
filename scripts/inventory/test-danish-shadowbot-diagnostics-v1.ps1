@@ -14,7 +14,7 @@ function New-Object {
     if ($TypeName -ne 'System.Diagnostics.Process') { throw 'Unexpected object' }
     $stream = [pscustomobject]@{}
     $stream | Add-Member ScriptMethod ReadToEndAsync { return [pscustomobject]@{ IsCompleted = ($script:case -ne 'incomplete'); Status = 'RanToCompletion'; Result = $script:payload } }
-    $p = [pscustomobject]@{ StartInfo = [pscustomobject]@{FileName='';Arguments='';UseShellExecute=$true;CreateNoWindow=$false;RedirectStandardOutput=$false;RedirectStandardError=$false}; Id=123; ExitCode=0; HasExited=$true; StandardOutput=$stream; StandardError=$stream }
+    $p = [pscustomobject]@{ StartInfo = [pscustomobject]@{FileName='';Arguments='';UseShellExecute=$true;CreateNoWindow=$false;RedirectStandardOutput=$false;RedirectStandardError=$false;StandardOutputEncoding=$null;StandardErrorEncoding=$null}; Id=123; ExitCode=0; HasExited=$true; StandardOutput=$stream; StandardError=$stream }
     $p | Add-Member ScriptMethod Start { if ($script:case -eq 'spawn-error') { throw 'fixture token=secret' }; return $true }
     $p | Add-Member ScriptMethod WaitForExit { param($milliseconds) return ($script:case -ne 'timeout') }
     $p | Add-Member ScriptMethod Dispose { }
