@@ -92,7 +92,7 @@ fs.mkdirSync(profilePath, { recursive: true });
   let attempts = 0;
   const endpoint = await waitForOwnedDanishCdpEndpoint({
     profilePath,
-    chromeProcess: { pid: 201, killed: false, exitCode: 0 },
+    chromeProcess: { pid: 201, killed: false, exitCode: null },
     cdpPort: allocated,
     timeoutMs: 100,
     now: () => clock,
@@ -111,6 +111,20 @@ fs.mkdirSync(profilePath, { recursive: true });
   assert.equal(requestedUrl, `http://127.0.0.1:${allocated}/json/version`);
   assert.equal(endpoint.endpoint, `http://127.0.0.1:${allocated}`);
   assert.equal(endpoint.browserPath, "/devtools/browser/scheduler-round");
+}
+
+// An integer CDP port must never suppress owned-child exit detection, even with a working endpoint.
+for (const child of [
+  { pid: 202, killed: false, exitCode: 0, signalCode: null },
+  { pid: 203, killed: true, exitCode: null, signalCode: 'SIGTERM' },
+]) {
+  let fetched = false;
+  await assert.rejects(() => waitForOwnedDanishCdpEndpoint({
+    profilePath, chromeProcess: child, cdpPort: 61001,
+    stderrTail: () => 'fixture-tail',
+    fetchFn: async () => { fetched = true; throw new Error('must not fetch'); },
+  }), /danish-chrome-exited-before-cdp-ready pid=20[23] exitCode=.*signalCode=.*cdpPort=61001 stderr=fixture-tail/);
+  assert.equal(fetched, false);
 }
 
 // A hung initial navigation closes its tab and fails in 60 seconds (shortened here for the fixture).

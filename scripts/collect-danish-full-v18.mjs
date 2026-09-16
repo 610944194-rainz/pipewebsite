@@ -225,8 +225,14 @@ export async function waitForOwnedDanishCdpEndpoint({
   const activePortPath = path.join(profilePath, "DevToolsActivePort");
   const deadline = now() + timeoutMs;
   let lastError = null;
+  const assertOwnedAlive = () => {
+    if (!chromeProcess?.pid || chromeProcess.killed === true || chromeProcess.exitCode !== null) {
+      throw new Error(`danish-chrome-exited-before-cdp-ready pid=${chromeProcess?.pid} exitCode=${chromeProcess?.exitCode} signalCode=${chromeProcess?.signalCode} cdpPort=${cdpPort} stderr=${normalizeText(stderrTail()).slice(-800)}`);
+    }
+  };
 
   while (now() <= deadline) {
+    assertOwnedAlive();
     try {
       if (Number.isInteger(Number(cdpPort)) && Number(cdpPort) > 0) {
         if (typeof fetchFn !== "function") throw new Error("danish-cdp-fetch-unavailable");
@@ -247,6 +253,7 @@ export async function waitForOwnedDanishCdpEndpoint({
           ) {
             throw new Error("invalid-danish-cdp-version-response");
           }
+          assertOwnedAlive();
           return {
             port: Number(cdpPort),
             browserPath: parsed.pathname,
@@ -257,18 +264,12 @@ export async function waitForOwnedDanishCdpEndpoint({
         }
       } else {
         const stat = fs.statSync(activePortPath);
-        if (stat.mtimeMs >= startedAtMs) return readDevToolsActivePort(activePortPath);
+        if (stat.mtimeMs >= startedAtMs) { assertOwnedAlive(); return readDevToolsActivePort(activePortPath); }
       }
     } catch (error) {
       lastError = error;
     }
-    if (
-      !chromeProcess?.pid ||
-      chromeProcess.killed ||
-      (chromeProcess.exitCode !== null && !Number.isInteger(Number(cdpPort)))
-    ) {
-      throw new Error(`danish-chrome-exited-before-cdp-ready stderr=${normalizeText(stderrTail()).slice(-800)}`);
-    }
+    assertOwnedAlive();
     await sleepFn(150);
   }
 
@@ -4565,7 +4566,7 @@ function writeCheckpoint({ discoveredProducts, products, errors, collectedAt }) 
   collectorLog("checkpoint-written", { path: partialOutputPath, successCount: payload.successCount, failCount: payload.failCount });
 }
 
-async function main() {
+export async function main({ browserOnly = false } = {}) {
   ensureDir(path.dirname(outputPath));
   ensureDir(path.dirname(listOutputPath));
   ensureDir(path.dirname(errorsOutputPath));
@@ -4639,16 +4640,16 @@ async function main() {
       "about:blank",
     ];
     const launchedAtMs = Date.now();
-    collectorLog("browser-launch-start", {
-      browserProfilePath,
-      executablePath,
-      cdpPort,
-      profileLockRecovered: profileLock.staleLockRecovered,
-    });
-
     chromeProcess = spawn(executablePath, chromeArgs, {
       stdio: ["ignore", "pipe", "pipe"],
       windowsHide: false,
+    });
+    collectorLog("browser-launch-start", {
+      pid: chromeProcess.pid, browserProfilePath, executablePath, cdpPort,
+      profileLockRecovered: profileLock.staleLockRecovered,
+    });
+    chromeProcess.once("exit", (exitCode, signalCode) => {
+      collectorLog("browser-child-exit", { pid: chromeProcess.pid, exitCode, signalCode, timestamp: new Date().toISOString() });
     });
     chromeProcess.stdout?.on("data", (chunk) => { chromeStdoutTail = appendTail(chromeStdoutTail, chunk); });
     chromeProcess.stderr?.on("data", (chunk) => { chromeStderrTail = appendTail(chromeStderrTail, chunk); });
@@ -4662,9 +4663,9 @@ async function main() {
     });
     if (
       chromeProcess.killed ||
-      (chromeProcess.exitCode !== null && !Number.isInteger(Number(cdpPort)))
+      chromeProcess.exitCode !== null
     ) {
-      throw new Error(`danish-chrome-exited-before-cdp-connect stderr=${normalizeText(chromeStderrTail).slice(-800)}`);
+      throw new Error(`danish-chrome-exited-before-cdp-connect pid=${chromeProcess.pid} exitCode=${chromeProcess.exitCode} signalCode=${chromeProcess.signalCode} cdpPort=${cdpPort} stderr=${normalizeText(chromeStderrTail).slice(-800)}`);
     }
     browser = await chromium.connectOverCDP(cdp.endpoint);
     const context = browser.contexts()[0];
@@ -4675,6 +4676,8 @@ async function main() {
       cdpEndpoint: cdp.endpoint,
       chromePid: chromeProcess.pid,
     });
+    // Offline lifecycle acceptance: the exact production launch/cleanup, without discovery or output writes.
+    if (browserOnly) return { ready: true, pid: chromeProcess.pid, cdpPort };
 
     const collectedAt = new Date().toISOString();
 
@@ -4818,6 +4821,7 @@ async function main() {
       });
     }
     releaseDanishBrowserProfileLock(profileLock);
+    collectorLog("browser-cleanup-complete", { pid: chromeProcess?.pid ?? null, exitCode: chromeProcess?.exitCode ?? null, signalCode: chromeProcess?.signalCode ?? null, ownedPidAlive: processIsAlive(chromeProcess?.pid) });
   }
 }
 
