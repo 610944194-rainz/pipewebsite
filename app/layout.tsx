@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import VisitTracker from "./components/analytics/VisitTracker";
 
 export const metadata: Metadata = {
   title: "烟斗派 YandouBuy｜烟斗器具库存、品牌资料与人工选品",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full antialiased">
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col"><VisitTracker />{children}</body>
     </html>
   );
 }
