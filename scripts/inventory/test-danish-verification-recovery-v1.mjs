@@ -87,12 +87,31 @@ console.log("Danish detail navigation handoff focused tests passed");
 
 for (const succeeds of [true, false]) {
   let calls = 0;
+  let navigationListener, settled = false;
   const url = "https://www.danishpipeshop.com/l/-zh/Pipes1";
+  const frame = { url: () => "about:blank" };
   const page = { url: () => calls > 1 && succeeds ? url : "about:blank", title: async () => `Loading ${url}`,
-    close: async () => {}, goto: async () => { if (++calls === 1 || !succeeds) throw new Error("net::ERR_ABORTED"); } };
+    mainFrame: () => frame, on: (_event, listener) => { navigationListener = listener; },
+    off: () => { navigationListener = null; }, waitForLoadState: async () => { assert.equal(settled, true); },
+    close: async () => {}, goto: async () => {
+      if (++calls === 1) {
+        setTimeout(() => { settled = true; navigationListener(frame); }, 10);
+        throw new Error("net::ERR_ABORTED");
+      }
+      assert.equal(settled, true, "retry must wait for extension blank reload commit");
+      if (!succeeds) throw new Error("net::ERR_ABORTED");
+    } };
   const run = () => navigateInitialDanishList(page, { targetUrl: url, timeoutMs: 1000, log: () => {} });
   if (succeeds) await run(); else await assert.rejects(run(), /danish-initial-navigation-failed/);
   assert.equal(calls, 2, "initial interrupted navigation retry is bounded to one");
+  assert.equal(navigationListener, null, "navigation listener released on success and failure");
+}
+{
+  let calls = 0;
+  const page = { url: () => "about:blank", title: async () => "", on: () => {}, off: () => {},
+    goto: async () => { calls++; throw new Error("net::ERR_ABORTED"); }, close: async () => {} };
+  await assert.rejects(navigateInitialDanishList(page, { targetUrl: "https://www.danishpipeshop.com/", timeoutMs: 30, log: () => {} }), /danish-startup-blank-reload/);
+  assert.equal(calls, 1, "without an observed reload commit there is no blind retry");
 }
 console.log("Danish initial interrupted navigation focused tests passed");
 

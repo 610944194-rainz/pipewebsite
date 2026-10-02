@@ -302,6 +302,16 @@ export async function navigateInitialDanishList(tab, {
 } = {}) {
   log("initial-navigation-start", { url: targetUrl });
   const deadline = Date.now() + timeoutMs;
+  let blankCommitted = false;
+  let resolveBlankCommit;
+  const blankCommit = new Promise((resolve) => { resolveBlankCommit = resolve; });
+  const onFrameNavigated = (frame) => {
+    if (frame === tab.mainFrame?.() && frame.url() === "about:blank") {
+      blankCommitted = true;
+      resolveBlankCommit();
+    }
+  };
+  tab.on?.("framenavigated", onFrameNavigated);
   try {
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
@@ -310,17 +320,25 @@ export async function navigateInitialDanishList(tab, {
         break;
       } catch (error) {
         const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
-        if (attempt !== 1 || !String(error.message).includes("ERR_ABORTED") ||
-            diagnostics.url !== "about:blank" || diagnostics.title !== `Loading ${targetUrl}` || Date.now() >= deadline) throw error;
+        if (attempt !== 1 || !/ERR_ABORTED|interrupted by another navigation to .about:blank/.test(String(error.message)) ||
+            diagnostics.url !== "about:blank" || Date.now() >= deadline) throw error;
         log("initial-navigation-interrupted-retry", { attempt, ...diagnostics });
+        // ShadowBot extension onEnabled reloads the startup blank tab. Do not race
+        // that in-flight reload with another goto; require its actual commit first.
+        await boundedPromise(blankCommit, Math.max(1, Math.min(5000, deadline - Date.now())), "danish-startup-blank-reload");
+        await boundedPromise(tab.waitForLoadState("domcontentloaded"), Math.max(1, deadline - Date.now()), "danish-startup-blank-ready");
+        log("initial-navigation-blank-reload-settled", { blankCommitted, url: tab.url() });
       }
     }
+    if (tab.url() === "about:blank") throw new Error("danish-initial-navigation-still-blank");
     log("initial-navigation-complete", { url: tab.url() });
   } catch (error) {
     const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
     log("initial-navigation-failed", { ...diagnostics, error: normalizeText(error?.message || error) });
     await tab.close?.().catch(() => {});
     throw new Error(`danish-initial-navigation-failed url=${diagnostics.url || targetUrl} title=${diagnostics.title || "none"} stderr=${diagnostics.chromeStderr || "none"} reason=${normalizeText(error?.message || error)}`);
+  } finally {
+    tab.off?.("framenavigated", onFrameNavigated);
   }
 }
 
