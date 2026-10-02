@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { ensureManualVerificationIfNeeded, waitForManualVerificationRecovery, navigateDanishDetail } from "../collect-danish-full-v18.mjs";
+import { ensureManualVerificationIfNeeded, waitForManualVerificationRecovery, navigateDanishDetail, navigateInitialDanishList } from "../collect-danish-full-v18.mjs";
 
 async function scenario(solveOnAttempt) {
   let time = 0, launches = 0, foreground = 0;
@@ -84,3 +84,14 @@ console.log("Danish verification recovery focused tests passed (first/second/thi
   await assert.rejects(navigateDanishDetail(page, "https://www.danishpipeshop.com/d/test.html"), /network failed/);
 }
 console.log("Danish detail navigation handoff focused tests passed");
+
+for (const succeeds of [true, false]) {
+  let calls = 0;
+  const url = "https://www.danishpipeshop.com/l/-zh/Pipes1";
+  const page = { url: () => calls > 1 && succeeds ? url : "about:blank", title: async () => `Loading ${url}`,
+    close: async () => {}, goto: async () => { if (++calls === 1 || !succeeds) throw new Error("net::ERR_ABORTED"); } };
+  const run = () => navigateInitialDanishList(page, { targetUrl: url, timeoutMs: 1000, log: () => {} });
+  if (succeeds) await run(); else await assert.rejects(run(), /danish-initial-navigation-failed/);
+  assert.equal(calls, 2, "initial interrupted navigation retry is bounded to one");
+}
+console.log("Danish initial interrupted navigation focused tests passed");

@@ -29,7 +29,7 @@ function Read-History {
 if ($TaskId) {
   $task = Read-History | Where-Object { $_.taskId -eq $TaskId } | Select-Object -First 1
   if (-not $task) { throw 'ShadowBot Danish task not found' }
-  @{ taskId = $task.taskId; status = $task.status; error = $task.error } | ConvertTo-Json -Compress
+  @{ taskId = $task.taskId; status = $task.statusName; statusCode = $task.status; error = $task.error } | ConvertTo-Json -Compress
   exit 0
 }
 $before = @(Read-History | ForEach-Object { $_.taskId })

@@ -301,8 +301,20 @@ export async function navigateInitialDanishList(tab, {
   stderrTail = () => "",
 } = {}) {
   log("initial-navigation-start", { url: targetUrl });
+  const deadline = Date.now() + timeoutMs;
   try {
-    await boundedPromise(tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: timeoutMs }), timeoutMs, "danish-initial-navigation");
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const remaining = Math.max(1, deadline - Date.now());
+        await boundedPromise(tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: remaining }), remaining, "danish-initial-navigation");
+        break;
+      } catch (error) {
+        const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
+        if (attempt !== 1 || !String(error.message).includes("ERR_ABORTED") ||
+            diagnostics.url !== "about:blank" || diagnostics.title !== `Loading ${targetUrl}` || Date.now() >= deadline) throw error;
+        log("initial-navigation-interrupted-retry", { attempt, ...diagnostics });
+      }
+    }
     log("initial-navigation-complete", { url: tab.url() });
   } catch (error) {
     const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
