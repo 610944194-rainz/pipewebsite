@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { ensureManualVerificationIfNeeded, waitForManualVerificationRecovery, navigateDanishDetail, navigateInitialDanishList } from "../collect-danish-full-v18.mjs";
+import { ensureManualVerificationIfNeeded, waitForManualVerificationRecovery, navigateDanishDetail, navigateInitialDanishList, getDanishCollectorTab } from "../collect-danish-full-v18.mjs";
 
 async function scenario(solveOnAttempt) {
   let time = 0, launches = 0, foreground = 0;
@@ -95,3 +95,19 @@ for (const succeeds of [true, false]) {
   assert.equal(calls, 2, "initial interrupted navigation retry is bounded to one");
 }
 console.log("Danish initial interrupted navigation focused tests passed");
+
+{
+  let newPages = 0;
+  let url = "about:blank";
+  const page = { isClosed: () => false, url: () => url };
+  const context = { pages: () => [page], newPage: async () => { newPages++; throw new Error("unexpected newPage"); } };
+  assert.equal(await getDanishCollectorTab(context, { log: () => {} }), page);
+  url = "https://www.danishpipeshop.com/d/test.html";
+  assert.equal(await getDanishCollectorTab(context, { log: () => {} }), page, "sequential details reuse the initialized owned tab");
+  assert.equal(newPages, 0);
+}
+{
+  const context = { pages: () => [], newPage: () => new Promise(() => {}) };
+  await assert.rejects(getDanishCollectorTab(context, { timeoutMs: 20, log: () => {} }), /danish-collector-tab-failed/);
+}
+console.log("Danish owned tab reuse focused tests passed");

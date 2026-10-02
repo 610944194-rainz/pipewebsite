@@ -3553,8 +3553,24 @@ async function findNextListPageUrl(tab, currentUrl, visitedListUrls) {
 }
 
 
+const collectorTabs = new WeakMap();
+
+export async function getDanishCollectorTab(context, { timeoutMs = 10000, log = collectorLog } = {}) {
+  const previous = collectorTabs.get(context);
+  if (previous && !previous.isClosed()) return previous;
+  let tab = context.pages().find((page) => !page.isClosed() && page.url() === "about:blank");
+  const reused = Boolean(tab);
+  if (!tab) {
+    try { tab = await boundedPromise(context.newPage(), timeoutMs, "danish-collector-tab"); }
+    catch (error) { throw new Error(`danish-collector-tab-failed ${error.message}`); }
+  }
+  collectorTabs.set(context, tab);
+  log("collector-tab-ready", { reusedOwnedBlankTab: reused, url: tab.url() });
+  return tab;
+}
+
 async function discoverProducts(context, options = {}) {
-  const tab = await context.newPage();
+  const tab = await getDanishCollectorTab(context);
   const discovered = [];
   const seenProductUrls = new Set();
   const visitedListUrls = new Set();
@@ -4089,9 +4105,9 @@ export async function navigateDanishDetail(tab, targetUrl, {
 }
 
 async function collectDetail(context, product, index) {
-  const tab = await context.newPage();
+  // Details are sequential; retain the owned initialized tab until browser cleanup.
+  const tab = await getDanishCollectorTab(context);
 
-  try {
     console.log(`Collecting detail ${index + 1}: ${product.name || product.href}`);
     await navigateDanishDetail(tab, product.href);
     await tab.waitForTimeout(2200);
@@ -4278,9 +4294,6 @@ async function collectDetail(context, product, index) {
       },
       },
     });
-  } finally {
-    await tab.close().catch(() => {});
-  }
 }
 
 function buildFailedProduct(product, error) {
@@ -4835,7 +4848,7 @@ export async function main({ browserOnly = false } = {}) {
         console.error(`Detail failed, continuing: ${product.href}`);
         console.error(error);
 
-        if (isDanishStrongVerificationFailure(error) || String(error?.message).startsWith("danish-detail-navigation-failed")) {
+        if (isDanishStrongVerificationFailure(error) || /^danish-(?:detail-navigation|collector-tab)-failed/.test(String(error?.message))) {
           const checkpointPayload = writeDetailsOutput({
             discoveredProducts,
             products,
