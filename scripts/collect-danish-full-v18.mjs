@@ -294,6 +294,28 @@ async function initialNavigationDiagnostics(tab, stderrTail) {
   return { url, title: normalizeText(title), chromeStderr: normalizeText(stderrTail?.() || "").slice(-1200) };
 }
 
+function trackDanishStartupBlankReload(tab) {
+  let resolveBlankCommit;
+  const blankCommit = new Promise((resolve) => { resolveBlankCommit = resolve; });
+  const onFrameNavigated = (frame) => {
+    if (frame === tab.mainFrame?.() && frame.url() === "about:blank") {
+      resolveBlankCommit();
+    }
+  };
+  tab.on?.("framenavigated", onFrameNavigated);
+  return {
+    async wait(deadline) {
+      await boundedPromise(blankCommit, Math.max(1, Math.min(5000, deadline - Date.now())), "danish-startup-blank-reload");
+      await boundedPromise(tab.waitForLoadState("domcontentloaded"), Math.max(1, deadline - Date.now()), "danish-startup-blank-ready");
+    },
+    dispose() { tab.off?.("framenavigated", onFrameNavigated); },
+  };
+}
+
+function isDanishStartupBlankInterruption(tab, error) {
+  return tab.url() === "about:blank" && /ERR_ABORTED|interrupted by another navigation to .about:blank/.test(String(error?.message));
+}
+
 export async function navigateInitialDanishList(tab, {
   targetUrl,
   timeoutMs = initialNavigationTimeoutMs,
@@ -302,16 +324,7 @@ export async function navigateInitialDanishList(tab, {
 } = {}) {
   log("initial-navigation-start", { url: targetUrl });
   const deadline = Date.now() + timeoutMs;
-  let blankCommitted = false;
-  let resolveBlankCommit;
-  const blankCommit = new Promise((resolve) => { resolveBlankCommit = resolve; });
-  const onFrameNavigated = (frame) => {
-    if (frame === tab.mainFrame?.() && frame.url() === "about:blank") {
-      blankCommitted = true;
-      resolveBlankCommit();
-    }
-  };
-  tab.on?.("framenavigated", onFrameNavigated);
+  const blankReload = trackDanishStartupBlankReload(tab);
   try {
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
@@ -320,14 +333,12 @@ export async function navigateInitialDanishList(tab, {
         break;
       } catch (error) {
         const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
-        if (attempt !== 1 || !/ERR_ABORTED|interrupted by another navigation to .about:blank/.test(String(error.message)) ||
-            diagnostics.url !== "about:blank" || Date.now() >= deadline) throw error;
+        if (attempt !== 1 || !isDanishStartupBlankInterruption(tab, error) || Date.now() >= deadline) throw error;
         log("initial-navigation-interrupted-retry", { attempt, ...diagnostics });
         // ShadowBot extension onEnabled reloads the startup blank tab. Do not race
         // that in-flight reload with another goto; require its actual commit first.
-        await boundedPromise(blankCommit, Math.max(1, Math.min(5000, deadline - Date.now())), "danish-startup-blank-reload");
-        await boundedPromise(tab.waitForLoadState("domcontentloaded"), Math.max(1, deadline - Date.now()), "danish-startup-blank-ready");
-        log("initial-navigation-blank-reload-settled", { blankCommitted, url: tab.url() });
+        await blankReload.wait(deadline);
+        log("initial-navigation-blank-reload-settled", { blankCommitted: true, url: tab.url() });
       }
     }
     if (tab.url() === "about:blank") throw new Error("danish-initial-navigation-still-blank");
@@ -338,7 +349,7 @@ export async function navigateInitialDanishList(tab, {
     await tab.close?.().catch(() => {});
     throw new Error(`danish-initial-navigation-failed url=${diagnostics.url || targetUrl} title=${diagnostics.title || "none"} stderr=${diagnostics.chromeStderr || "none"} reason=${normalizeText(error?.message || error)}`);
   } finally {
-    tab.off?.("framenavigated", onFrameNavigated);
+    blankReload.dispose();
   }
 }
 
@@ -4097,9 +4108,13 @@ export async function navigateDanishDetail(tab, targetUrl, {
   timeoutMs = 60000, pollMs = 300, log = collectorLog,
 } = {}) {
   let stopped = false;
+  let startupRetried = false;
+  const deadline = Date.now() + timeoutMs;
+  const blankReload = trackDanishStartupBlankReload(tab);
   // Consume both outcomes even when recovery takes over before goto settles.
-  const navigation = tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: timeoutMs })
+  const startNavigation = () => tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: Math.max(1, deadline - Date.now()) })
     .then(() => ({ pending: false }), (error) => ({ pending: false, error }));
+  let navigation = startNavigation();
   const inspect = () => boundedPromise(inspectVerificationPage(tab), Math.min(2000, timeoutMs), "danish-detail-navigation-inspection");
   const handoff = (state) => {
     log("detail-navigation-verification-handoff", { targetUrl, url: state.url, title: state.title });
@@ -4112,13 +4127,23 @@ export async function navigateDanishDetail(tab, targetUrl, {
         if (!outcome.pending && !outcome.error) return { verification: false };
         const state = await inspect();
         if (state.challenge && !state.navigating) return handoff(state);
-        if (outcome.error) throw outcome.error;
+        if (outcome.error) {
+          if (!startupRetried && isDanishStartupBlankInterruption(tab, outcome.error)) {
+            startupRetried = true;
+            await blankReload.wait(deadline);
+            log("detail-navigation-blank-reload-settled", { targetUrl, url: tab.url() });
+            navigation = startNavigation();
+            continue;
+          }
+          throw outcome.error;
+        }
       }
     })(), timeoutMs, "danish-detail-navigation");
   } catch (error) {
     throw new Error(`danish-detail-navigation-failed url=${tab.url()} reason=${error.message}`);
   } finally {
     stopped = true;
+    blankReload.dispose();
   }
 }
 

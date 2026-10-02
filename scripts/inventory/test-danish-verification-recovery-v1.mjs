@@ -115,6 +115,32 @@ for (const succeeds of [true, false]) {
 }
 console.log("Danish initial interrupted navigation focused tests passed");
 
+for (const succeeds of [true, false]) {
+  let calls = 0, listener, settled = false, currentUrl = "about:blank";
+  const url = "https://www.danishpipeshop.com/d/test.html";
+  const frame = { url: () => "about:blank" };
+  const page = { url: () => currentUrl, mainFrame: () => frame,
+    on: (_event, fn) => { listener = fn; }, off: () => { listener = null; },
+    waitForLoadState: async () => { assert.equal(settled, true); },
+    evaluate: async () => ({ challenge: false, title: "" }),
+    goto: async () => {
+      if (++calls === 1) {
+        setTimeout(() => { settled = true; listener(frame); }, 10);
+        throw new Error("net::ERR_ABORTED");
+      }
+      assert.equal(settled, true);
+      if (!succeeds) throw new Error("net::ERR_ABORTED");
+      currentUrl = url;
+    },
+  };
+  const run = () => navigateDanishDetail(page, url, { timeoutMs: 100, pollMs: 1, log: () => {} });
+  if (succeeds) assert.equal((await run()).verification, false);
+  else await assert.rejects(run(), /danish-detail-navigation-failed/);
+  assert.equal(calls, 2);
+  assert.equal(listener, null);
+}
+console.log("Danish detail startup blank reload focused tests passed");
+
 {
   let newPages = 0;
   let url = "about:blank";
