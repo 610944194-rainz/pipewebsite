@@ -4047,15 +4047,41 @@ async function discoverProducts(context, options = {}) {
   }
 }
 
+export async function navigateDanishDetail(tab, targetUrl, {
+  timeoutMs = 60000, pollMs = 300, log = collectorLog,
+} = {}) {
+  let stopped = false;
+  // Consume both outcomes even when recovery takes over before goto settles.
+  const navigation = tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: timeoutMs })
+    .then(() => ({ pending: false }), (error) => ({ pending: false, error }));
+  const inspect = () => boundedPromise(inspectVerificationPage(tab), Math.min(2000, timeoutMs), "danish-detail-navigation-inspection");
+  const handoff = (state) => {
+    log("detail-navigation-verification-handoff", { targetUrl, url: state.url, title: state.title });
+    return { verification: true };
+  };
+  try {
+    return await boundedPromise((async () => {
+      while (!stopped) {
+        const outcome = await Promise.race([navigation, new Promise((resolve) => setTimeout(() => resolve({ pending: true }), pollMs))]);
+        if (!outcome.pending && !outcome.error) return { verification: false };
+        const state = await inspect();
+        if (state.challenge && !state.navigating) return handoff(state);
+        if (outcome.error) throw outcome.error;
+      }
+    })(), timeoutMs, "danish-detail-navigation");
+  } catch (error) {
+    throw new Error(`danish-detail-navigation-failed url=${tab.url()} reason=${error.message}`);
+  } finally {
+    stopped = true;
+  }
+}
+
 async function collectDetail(context, product, index) {
   const tab = await context.newPage();
 
   try {
     console.log(`Collecting detail ${index + 1}: ${product.name || product.href}`);
-    await tab.goto(product.href, {
-      waitUntil: "domcontentloaded",
-      timeout: 60000,
-    });
+    await navigateDanishDetail(tab, product.href);
     await tab.waitForTimeout(2200);
 
     if (!(await ensureManualVerificationIfNeeded(tab, { targetUrl: product.href, requireList: false }))) {
@@ -4797,7 +4823,7 @@ export async function main({ browserOnly = false } = {}) {
         console.error(`Detail failed, continuing: ${product.href}`);
         console.error(error);
 
-        if (isDanishStrongVerificationFailure(error)) {
+        if (isDanishStrongVerificationFailure(error) || String(error?.message).startsWith("danish-detail-navigation-failed")) {
           const checkpointPayload = writeDetailsOutput({
             discoveredProducts,
             products,
