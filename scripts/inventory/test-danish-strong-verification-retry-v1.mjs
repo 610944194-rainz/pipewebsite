@@ -10,6 +10,7 @@ import {
 } from "./run-danish-daily-v1.mjs";
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "danish-strong-verification-retry-"));
+const recent = Date.now() - 60000;
 const priorRunId = "danish-daily-prior";
 const priorRawRoot = path.join(tempRoot, "data", "raw", "danish-full-refresh", priorRunId);
 const priorRunRoot = path.join(tempRoot, "data", "inventory", "danish-daily", priorRunId);
@@ -20,7 +21,7 @@ fs.writeFileSync(path.join(priorRunRoot, "run-summary.json"), `${JSON.stringify(
   mode: "publish",
   status: "failed",
   failureReason: "manual-verification-timeout after 900 seconds",
-  finishedAt: "2026-09-08T01:00:00.000Z",
+  finishedAt: new Date(recent).toISOString(),
   productionWritten: false,
   backupCreated: false,
   strongVerificationRetry: { retryableExit: true, resumeNextScheduler: true },
@@ -33,7 +34,7 @@ assert.equal(findDanishStrongVerificationResume({ root: tempRoot }).runId, prior
 assert.equal(
   findDanishStrongVerificationResume({
     root: tempRoot,
-    now: Date.parse("2026-09-10T13:00:00.000Z"),
+    now: recent + 3 * 86400000,
   }),
   null,
   "over-age retryable runs must not be reused"
@@ -51,7 +52,7 @@ assert.equal(
     mode: "publish",
     status: "failed",
     failureReason: "manual-verification-timeout",
-    finishedAt: "2026-09-08T02:00:00.000Z",
+    finishedAt: new Date(recent + 1000).toISOString(),
     productionWritten: false,
     backupCreated: false,
     strongVerificationRetry: { retryableExit: true, resumeNextScheduler: true },
@@ -60,22 +61,28 @@ assert.equal(
   assert.equal(findDanishStrongVerificationResume({ root: tempRoot }).runId, priorRunId);
 }
 
-// A strong verification failure exits once, leaves the next attempt to Scheduler, and never sleeps in-process.
+// Exactly one same-run resume follows manual timeout, after locks are released.
 {
   const attempts = [];
-  const report = await runDanishDailyWithStrongVerificationRetry({ root: tempRoot }, {
+  const report = await runDanishDailyWithStrongVerificationRetry({ root: tempRoot, mode: "publish" }, {
     runOnce: async (options) => {
       attempts.push(options);
       return {
+        runId: priorRunId,
         status: "failed",
         failureReason: "manual-verification-timeout",
         productionWritten: false,
-        paths: { summaryPath: path.join(tempRoot, "strong-verification-summary.json") },
+        paths: { rawRoot: priorRawRoot, summaryPath: path.join(tempRoot, "strong-verification-summary.json") },
       };
     },
-    wait: async () => assert.fail("strong verification must not sleep or retry in one Scheduler task"),
+    wait: async (ms) => {
+      assert.equal(ms, 10000);
+      assert.equal(fs.existsSync(path.join(tempRoot, "data/inventory/state/danish-daily.lock")), false);
+    },
   });
-  assert.equal(attempts.length, 1);
+  assert.equal(attempts.length, 2);
+  assert.equal(attempts[1].runId, priorRunId);
+  assert.equal(attempts[1].rawRoot, priorRawRoot);
   assert.equal(attempts[0].runId, priorRunId);
   assert.equal(attempts[0].rawRoot, priorRawRoot);
   assert.equal(report.status, "failed");
@@ -83,6 +90,31 @@ assert.equal(
   assert.equal(report.strongVerificationRetry.retryableExit, true);
   assert.equal(report.strongVerificationRetry.resumeNextScheduler, true);
   assert.equal(report.strongVerificationRetry.resumedRunId, priorRunId);
+}
+
+for (const reason of ["CAPTCHA blocked", "validation failed", "Git failed", "Production gate failed", "manual-verification-timeout timedOut=true"]) {
+  let count = 0;
+  await runDanishDailyWithStrongVerificationRetry({ root: tempRoot, mode: "publish", runId: "no-same-day-retry" }, {
+    runOnce: async () => { count++; return { status: "failed", runId: "no-same-day-retry", failureReason: reason,
+      productionWritten: false, paths: { rawRoot: priorRawRoot, summaryPath: path.join(tempRoot, "other-summary.json") } }; },
+    wait: async () => assert.fail("non-timeout errors must not same-day retry"),
+  });
+  assert.equal(count, 1);
+}
+
+{
+  let count = 0;
+  const report = await runDanishDailyWithStrongVerificationRetry({ root: tempRoot, mode: "publish", runId: "resume-success" }, {
+    runOnce: async (options) => {
+      count++;
+      assert.equal(options.runId, "resume-success");
+      return { status: count === 1 ? "failed" : "publish-passed", runId: options.runId, failureReason: count === 1 ? "manual-verification-timeout" : "",
+        productionWritten: false, paths: { rawRoot: priorRawRoot, summaryPath: path.join(tempRoot, "resume-success.json") } };
+    }, wait: async () => {},
+  });
+  assert.equal(count, 2);
+  assert.equal(report.status, "publish-passed");
+  assert.equal(report.strongVerificationRetry.retryableExit, false);
 }
 
 // Deterministic failures stay non-retryable and run only once.

@@ -2348,6 +2348,7 @@ export function launchDanishVerificationBridge({
     ], {
       windowsHide: true,
       encoding: "utf8",
+      timeout: 30000,
     });
     if (result?.error) {
       log("danish-verification-bridge-failed", {
@@ -2380,6 +2381,14 @@ export function launchDanishVerificationBridge({
     });
     return false;
   }
+}
+
+function readDanishVerificationTask(taskId) {
+  const result = spawnSync("powershell.exe", ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File",
+    path.join(process.cwd(), "scripts/lib/send-danish-verification-hotkey-v1.ps1"), "-TaskId", taskId],
+  { windowsHide: true, encoding: "utf8", timeout: 15000 });
+  if (result.error || result.status !== 0) throw new Error("ShadowBot task status query failed");
+  return JSON.parse(result.stdout);
 }
 
 async function inspectVerificationPage(tab) {
@@ -2458,23 +2467,64 @@ export async function waitForManualVerificationRecovery(tab, options = {}) {
   const now = options.now || (() => Date.now());
   const sleep = options.sleep || ((milliseconds) => tab.waitForTimeout(milliseconds));
   const log = options.log || collectorLog;
-  const deadline = now() + timeoutMs;
+  const startedAt = now();
+  const budgets = options.attemptTimeoutsMs || [120000, 120000, 180000];
+  const deadline = startedAt + Math.min(timeoutMs, budgets.slice(0, 3).reduce((sum, value) => sum + value, 0));
   let refreshedTarget = false;
+  let attempt = 0;
+  let attemptDeadline = startedAt;
+  let task = null;
+  let launchConfirmed = false;
+  let lastTaskCheck = 0;
+  let challengeBefore = false;
+  const taskReader = options.readVerificationTask || readDanishVerificationTask;
+  const attemptLog = (state) => ({ attempt, taskId: task?.taskId || null, launchConfirmed, taskStatus: task?.status || null,
+    challengeBefore, challengeAfter: state.challenge, url: state.url, title: state.title, elapsedSeconds: Math.round((now() - startedAt) / 1000) });
 
   log("manual-verification-required", { targetUrl, timeoutSeconds: Math.round(timeoutMs / 1000), pollMs });
-  const initialState = await inspectVerificationPage(tab);
-  if (initialState.challenge && !initialState.navigating) {
-    const launched = (options.launchVerificationBridge || launchDanishVerificationBridge)({ log });
-    if (launched === false) throw new Error("danish-verification-bridge-not-confirmed");
-  }
-  while (now() <= deadline) {
+  while (now() < deadline) {
     const state = await inspectVerificationPage(tab);
     const normalPage = !state.challenge && state.danishHost && !/just a moment|verification|captcha/i.test(state.title);
     const listReady = !requireList || (state.hasListContainer && state.listItemCount > 0);
     if (normalPage && listReady) {
+      if (task?.taskId) {
+        try { task = { ...task, ...await taskReader(task.taskId) }; }
+        catch (error) { log("danish-verification-task-status-unavailable", { attempt, taskId: task.taskId, reason: normalizeText(error.message) }); }
+      }
+      log("manual-verification-attempt-result", { ...attemptLog(state), recovered: true });
       log("manual-verification-completed", { url: state.url, title: state.title, listItemCount: state.listItemCount });
       if (requireList) log("normal-list-page-ready", { url: state.url, listItemCount: state.listItemCount });
       return state;
+    }
+    if (task?.taskId && now() - lastTaskCheck >= 10000 && !/completed|faulted|failed|stopped|cancelled/i.test(task.status || "")) {
+      lastTaskCheck = now();
+      try {
+        const currentTask = await taskReader(task.taskId);
+        task = { ...task, ...currentTask };
+        log("danish-verification-task-status", { ...attemptLog(state), error: currentTask?.error || null });
+      } catch (error) {
+        log("danish-verification-task-status-unavailable", { attempt, taskId: task.taskId, reason: normalizeText(error.message) });
+      }
+    }
+    if (state.challenge && !state.navigating && now() >= attemptDeadline) {
+      if (attempt) log("manual-verification-attempt-result", { ...attemptLog(state), recovered: false });
+      if (attempt >= Math.min(3, budgets.length)) break;
+      // Activate the owned page, never a guessed foreground Chrome or another profile.
+      if (tab.bringToFront) await tab.bringToFront();
+      const confirmedState = await inspectVerificationPage(tab);
+      if (!confirmedState.challenge || confirmedState.navigating) continue;
+      attempt += 1;
+      challengeBefore = true;
+      task = null;
+      const launched = (options.launchVerificationBridge || launchDanishVerificationBridge)({ log: (event, value) => {
+        if (event === "danish-verification-task-confirmed") task = value;
+        log(event, value);
+      } });
+      if (launched === false) throw new Error("danish-verification-bridge-not-confirmed");
+      launchConfirmed = launched === true;
+      attemptDeadline = Math.min(deadline, now() + budgets[attempt - 1]);
+      log("manual-verification-attempt-start", { ...attemptLog(confirmedState), launchConfirmed: launched === true });
+      continue;
     }
     if (normalPage && !refreshedTarget) {
       refreshedTarget = true;
@@ -2485,9 +2535,11 @@ export async function waitForManualVerificationRecovery(tab, options = {}) {
       });
       continue;
     }
-    await sleep(Math.min(pollMs, Math.max(100, deadline - now())));
+    await sleep(Math.min(pollMs, Math.max(1, deadline - now()), attemptDeadline > now() ? attemptDeadline - now() : pollMs));
   }
-  throw new Error(`manual-verification-timeout after ${Math.round(timeoutMs / 1000)} seconds`);
+  const finalState = await inspectVerificationPage(tab);
+  log("manual-verification-timeout", { ...attemptLog(finalState), recovered: false });
+  throw new Error(`manual-verification-timeout after ${Math.round((now() - startedAt) / 1000)} seconds attempts=${attempt}`);
 }
 
 export async function ensureManualVerificationIfNeeded(tab, options = {}) {

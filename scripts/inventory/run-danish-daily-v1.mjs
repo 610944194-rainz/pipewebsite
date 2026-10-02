@@ -1068,7 +1068,9 @@ export async function executeCommand({
 
 function requireStage(result, stage) {
   if (result?.exitCode !== 0 || result?.timedOut) {
-    throw new Error(`${stage}-failed exitCode=${result?.exitCode ?? "null"} timedOut=${Boolean(result?.timedOut)} ${compact(result?.stderr).slice(-600)}`);
+    // Preserve the explicit collector classification even when a long stack truncates its message.
+    const classification = /\bmanual-verification-timeout\b/.test(result?.stderr || "") ? "manual-verification-timeout " : "";
+    throw new Error(`${stage}-failed exitCode=${result?.exitCode ?? "null"} timedOut=${Boolean(result?.timedOut)} ${classification}${compact(result?.stderr).slice(-600)}`);
   }
 }
 
@@ -1515,11 +1517,30 @@ export async function runDanishDailyWithStrongVerificationRetry(options = {}, de
   const attemptOptions = resume
     ? { ...options, runId: resume.runId, rawRoot: resume.rawRoot, runRoot: resume.runRoot, backupRoot: resume.backupRoot }
     : options;
-  const report = await runOnce(attemptOptions, 1);
+  let report = await runOnce(attemptOptions, 1);
+  let sameDayRetried = false;
+  const root = options.root || ROOT;
+  const unlocked = () => !fs.existsSync(options.lockPath || path.join(root, "data/inventory/state/danish-daily.lock")) &&
+    !fs.existsSync(path.join(process.env.DANISH_BROWSER_PROFILE || path.join(root, "data/runtime/danish-browser-profile"), ".danish-v18-profile.lock"));
+  if (report.status === "failed" && /\bmanual-verification-timeout\b/.test(report.failureReason || "") &&
+      ["daily", "publish"].includes(options.mode) && report.productionWritten === false && !report.backupCreated &&
+      !report.serverDelivery?.candidateWritten && !/timedOut=true/.test(report.failureReason || "") &&
+      report.runId && report.paths?.rawRoot && report.paths?.summaryPath && unlocked()) {
+    report.strongVerificationRetry = { retryableExit: true, resumeNextScheduler: true, sameDayRetryPending: true };
+    atomicWriteJson(report.paths.summaryPath, report);
+    const wait = dependencies.wait || ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
+    await wait(10000); // runOnce has returned only after child cleanup and finally lock release.
+    if (unlocked()) {
+      sameDayRetried = true;
+      report = await runOnce({ ...attemptOptions, runId: report.runId, rawRoot: report.paths.rawRoot,
+        runRoot: path.dirname(report.paths.summaryPath), backupRoot: report.paths.backupRoot }, 2);
+    }
+  }
   const retry = nextDanishStrongVerificationRetry({ report });
   report.strongVerificationRetry = {
     ...retry,
     resumedRunId: resume?.runId || null,
+    sameDayRetried,
     final: true,
   };
   if (report?.paths?.summaryPath) atomicWriteJson(report.paths.summaryPath, report);

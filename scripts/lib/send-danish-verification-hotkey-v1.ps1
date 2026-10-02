@@ -1,4 +1,4 @@
-param([int]$VirtualKey = 57, [switch]$Control, [switch]$Shift, [switch]$Alt, [switch]$TestOnly)
+param([int]$VirtualKey = 57, [switch]$Control, [switch]$Shift, [switch]$Alt, [switch]$TestOnly, [string]$TaskId)
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 $OutputEncoding = [Console]::OutputEncoding
@@ -7,9 +7,30 @@ $shellProcess = Get-Process ShadowBot.Shell -ErrorAction Stop | Where-Object { $
 if (-not $shellProcess) { throw 'ShadowBot is not running in the Danish session' }
 $cli = Join-Path (Split-Path $shellProcess.Path) 'shadowbot.shell-cli.exe'
 function Read-History {
-  $result = (& $cli console task history --page-size 50 | Out-String | ConvertFrom-Json)
-  if ($LASTEXITCODE -ne 0 -or -not $result.ok) { throw 'ShadowBot history query failed' }
+  $process = New-Object System.Diagnostics.Process
+  $process.StartInfo.FileName = $cli
+  $process.StartInfo.Arguments = 'console task history --page-size 50'
+  $process.StartInfo.UseShellExecute = $false
+  $process.StartInfo.CreateNoWindow = $true
+  $process.StartInfo.RedirectStandardOutput = $true
+  $process.StartInfo.RedirectStandardError = $true
+  $process.StartInfo.StandardOutputEncoding = New-Object System.Text.UTF8Encoding($false)
+  $process.StartInfo.StandardErrorEncoding = New-Object System.Text.UTF8Encoding($false)
+  try {
+    [void]$process.Start()
+    $stdout = $process.StandardOutput.ReadToEndAsync()
+    $stderr = $process.StandardError.ReadToEndAsync()
+    if (-not $process.WaitForExit(10000)) { $process.Kill(); throw 'ShadowBot history query timeout' }
+    $result = $stdout.GetAwaiter().GetResult() | ConvertFrom-Json
+    if ($process.ExitCode -ne 0 -or -not $result.ok) { throw 'ShadowBot history query failed' }
+  } finally { $process.Dispose() }
   return @($result.data.items | Where-Object { $_.appId -eq $appId })
+}
+if ($TaskId) {
+  $task = Read-History | Where-Object { $_.taskId -eq $TaskId } | Select-Object -First 1
+  if (-not $task) { throw 'ShadowBot Danish task not found' }
+  @{ taskId = $task.taskId; status = $task.status; error = $task.error } | ConvertTo-Json -Compress
+  exit 0
 }
 $before = @(Read-History | ForEach-Object { $_.taskId })
 Add-Type -TypeDefinition @'
