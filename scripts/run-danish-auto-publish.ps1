@@ -5,6 +5,7 @@ param(
   [switch]$Daily,
   [switch]$Publish,
   [switch]$ShadowBotPreflightOnly,
+  [switch]$ShutdownAfterRun,
   [ValidateRange(30, 86400)]
   [int]$DailyTimeoutSeconds = 14400,
   [string]$RunId = "",
@@ -80,6 +81,46 @@ function Write-DanishSchedulerLaunchLog {
 }
 
 Write-DanishSchedulerLaunchLog -EventName "wrapper-started"
+
+function Invoke-DanishScheduledShutdown {
+  param(
+    [bool]$Enabled,
+    [bool]$PublishMode,
+    [int]$RunExitCode,
+    [string]$RepositoryRoot,
+    [scriptblock]$PathExists = { param($Path) Test-Path -LiteralPath $Path },
+    [scriptblock]$HasActiveProcess = {
+      param($Root)
+      $collector = Join-Path $Root 'scripts\collect-danish-full-v18.mjs'
+      $profile = Join-Path $Root 'data\runtime\danish-browser-profile'
+      return [bool]@(Get-CimInstance Win32_Process -Filter "Name='node.exe' OR Name='chrome.exe'" -ErrorAction Stop |
+        Where-Object { $_.CommandLine -and ($_.CommandLine.Contains($collector) -or $_.CommandLine.Contains($profile)) }).Count
+    },
+    [scriptblock]$ExecuteShutdown = {
+      # /t > 0 implicitly forces application termination. Never use it or /f.
+      & "$env:SystemRoot\System32\shutdown.exe" /s /t 0
+      return $LASTEXITCODE
+    }
+  )
+  if (-not $Enabled -or -not $PublishMode) { return $false }
+  foreach ($relativePath in @('data\inventory\state\danish-daily.lock', 'data\runtime\danish-browser-profile\.danish-v18-profile.lock')) {
+    if (& $PathExists (Join-Path $RepositoryRoot $relativePath)) {
+      Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=lock-present path=$relativePath runExitCode=$RunExitCode"
+      return $false
+    }
+  }
+  if (& $HasActiveProcess $RepositoryRoot) {
+    Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=danish-process-active runExitCode=$RunExitCode"
+    return $false
+  }
+  Write-DanishSchedulerLaunchLog -EventName 'shutdown-requested' -Details "runExitCode=$RunExitCode forced=false"
+  $shutdownExitCode = & $ExecuteShutdown
+  if ($shutdownExitCode -ne 0) { throw "Danish shutdown request failed: exitCode=$shutdownExitCode" }
+  return $true
+}
+
+$nodeExitCode = 1
+try {
 $nodeScript = Join-Path $root "scripts\inventory\run-danish-daily-v1.mjs"
 if (-not (Test-Path -LiteralPath $nodeScript -PathType Leaf)) {
   throw "Danish daily runner not found: $nodeScript"
@@ -665,4 +706,19 @@ if ($mode -ne "dry-run") {
         -Body $body
 }
 
+} catch {
+    $nodeExitCode = 1
+    Write-DanishSchedulerLaunchLog -EventName 'wrapper-failed' -Details $_.Exception.Message
+    Write-Warning "Danish wrapper failed: $($_.Exception.Message)"
+    if (Get-Command Send-DanishPushDeer -ErrorAction SilentlyContinue) {
+        Send-DanishPushDeer -Title 'Danish｜启动失败' -Body "阶段: wrapper`n原因: $($_.Exception.Message)`nNode ExitCode: 1"
+    }
+} finally {
+    try {
+        Invoke-DanishScheduledShutdown -Enabled $ShutdownAfterRun.IsPresent -PublishMode ($Publish.IsPresent -and -not $ShadowBotPreflightOnly) -RunExitCode $nodeExitCode -RepositoryRoot $root | Out-Null
+    } catch {
+        Write-DanishSchedulerLaunchLog -EventName 'shutdown-failed' -Details $_.Exception.Message
+        Write-Warning "Danish completed but shutdown was not requested: $($_.Exception.Message)"
+    }
+}
 exit $nodeExitCode
