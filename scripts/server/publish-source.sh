@@ -25,6 +25,21 @@ PRODUCT_PATH="${APP_DIR}/data/products/danish-products.json"
 PUBLISH_PATH="${INBOX_DIR}/publish.json"
 INBOX_PRODUCT_PATH="${INBOX_DIR}/danish-products.json"
 
+# Each attempt is a separate shell: its EXIT trap rolls back and releases flock
+# before the next attempt reloads/revalidates the same inbox on the new baseline.
+if [[ "${2:-}" != "--single-attempt" ]]; then
+  for attempt in 1 2 3; do
+    set +e
+    bash "$0" danish --single-attempt
+    result=$?
+    set -e
+    if [[ "$result" -eq 0 ]]; then exit 0; fi
+    if [[ "$result" -ne 75 || "$attempt" -eq 3 ]]; then exit "$result"; fi
+    echo "publish-source: retrying on latest baseline attempt=$((attempt + 1))/3" >&2
+    sleep 2
+  done
+fi
+
 base_head=""
 rollback_required=0
 published=0
@@ -160,7 +175,28 @@ if git -C "$APP_DIR" diff --cached --quiet; then
   exit 0
 fi
 git -C "$APP_DIR" commit -m "chore(inventory): publish Danish daily ${RUN_ID}"
-git -C "$APP_DIR" push origin main
+if push_output="$(git -C "$APP_DIR" push origin main 2>&1)"; then
+  printf '%s\n' "$push_output"
+else
+  push_code=$?
+  printf '%s\n' "$push_output" >&2
+  # Fetch must succeed before distinguishing accepted-but-disconnected from a
+  # concurrent remote publication. Never rebase generated files or force push.
+  git -C "$APP_DIR" fetch origin
+  if git -C "$APP_DIR" merge-base --is-ancestor HEAD origin/main; then
+    echo "publish-source: remote already contains Danish commit"
+  elif [[ "$(git -C "$APP_DIR" rev-parse origin/main)" != "$base_head" ]] &&
+       git -C "$APP_DIR" merge-base --is-ancestor "$base_head" origin/main; then
+    if ! git -C "$APP_DIR" diff --quiet "$base_head" origin/main -- data/products/danish-products.json; then
+      echo "publish-source: newer Danish baseline; refusing stale candidate retry" >&2
+      exit 76
+    fi
+    echo "publish-source: retryable upstream-advanced; rebuild against latest main" >&2
+    exit 75
+  else
+    exit "$push_code"
+  fi
+fi
 published=1
 rollback_required=0
 

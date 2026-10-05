@@ -85,4 +85,65 @@ test -f "${INBOX_DIR}/publish.json"
 test -f "${INBOX_DIR}/danish-products.json"
 test -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)"
 
-echo "Danish server publisher V1 fixture tests passed."
+# Advance the remote during rebuild, exactly like a concurrent featured/SP push.
+RACER_DIR="${TMP_ROOT}/racer"
+git clone -q -b main "$REMOTE_DIR" "$RACER_DIR"
+git -C "$RACER_DIR" config user.name 'Concurrent fixture'
+git -C "$RACER_DIR" config user.email 'concurrent@example.invalid'
+cat > "${APP_DIR}/scripts/build-public-product-indexes-v1.mjs" <<'NODE'
+import fs from 'node:fs';
+import path from 'node:path';
+import { execFileSync } from 'node:child_process';
+const mode = process.env.PUBLISHER_FIXTURE_ADVANCE;
+const marker = process.env.PUBLISHER_FIXTURE_MARKER;
+if (mode && (mode === 'always' || !fs.existsSync(marker))) {
+  const root = process.env.PUBLISHER_FIXTURE_RACER;
+  const git = (...args) => execFileSync('git', ['-C', root, ...args], {stdio:'pipe'});
+  git('pull', '--ff-only', 'origin', 'main');
+  const file = mode === 'danish' ? 'data/products/danish-products.json' : 'featured-fixture.txt';
+  fs.writeFileSync(path.join(root, file), mode === 'danish'
+    ? JSON.stringify([{id:'1001',sourceProductId:'1001',source:'The Danish Pipe Shop',name:'newer remote Danish'}])
+    : String(Date.now()));
+  git('add', '--', file); git('commit', '-m', 'concurrent fixture'); git('push', 'origin', 'main');
+  fs.writeFileSync(marker, 'advanced');
+}
+NODE
+git -C "$APP_DIR" add -- scripts/build-public-product-indexes-v1.mjs
+git -C "$APP_DIR" commit -qm 'fixture concurrent writer hook'
+git -C "$APP_DIR" push -q origin main
+export PUBLISHER_FIXTURE_RACER="$RACER_DIR"
+
+write_inbox 'retry on refreshed baseline'
+export PUBLISHER_FIXTURE_MARKER="${TMP_ROOT}/race-once"
+PUBLISHER_FIXTURE_ADVANCE=unrelated run_publisher
+test -f "${APP_DIR}/featured-fixture.txt"
+grep -q 'retry on refreshed baseline' "${APP_DIR}/data/products/danish-products.json"
+test "$(git -C "$APP_DIR" rev-parse HEAD)" = "$(git -C "$APP_DIR" rev-parse origin/main)"
+test -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)"
+
+# Repeated advancement is bounded; no permanent loop or stale Danish overwrite.
+write_inbox 'bounded retry candidate'
+export PUBLISHER_FIXTURE_MARKER="${TMP_ROOT}/race-always"
+before_count="$(git --git-dir="$REMOTE_DIR" rev-list --count main)"
+set +e
+PUBLISHER_FIXTURE_ADVANCE=always run_publisher
+result=$?
+set -e
+test "$result" -eq 75
+after_count="$(git --git-dir="$REMOTE_DIR" rev-list --count main)"
+test "$((after_count - before_count))" -eq 3
+test -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)"
+test -f "${INBOX_DIR}/publish.json"
+
+write_inbox 'must not overwrite newer Danish'
+export PUBLISHER_FIXTURE_MARKER="${TMP_ROOT}/race-danish"
+set +e
+PUBLISHER_FIXTURE_ADVANCE=danish run_publisher
+result=$?
+set -e
+test "$result" -eq 76
+test -f "${INBOX_DIR}/publish.json"
+test -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)"
+git --git-dir="$REMOTE_DIR" show main:data/products/danish-products.json | grep -q 'newer remote Danish'
+
+echo "Danish server publisher V1 fixture tests passed (concurrent push / bounded retry / newer source protection)."
