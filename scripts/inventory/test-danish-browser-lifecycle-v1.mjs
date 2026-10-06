@@ -167,6 +167,57 @@ for (const child of [
   assert.deepEqual(events, ["initial-navigation-start", "initial-navigation-complete"]);
 }
 
+// Only a confirmed same-origin CAPTCHA redirect retains the tab for recovery.
+for (const confirmed of [true, false]) {
+  let closed = false;
+  const events = [];
+  const tab = {
+    url: () => "https://www.danishpipeshop.com/captcha2.aspx?url=list",
+    title: async () => "CAPTCHA",
+    goto: async () => { throw new Error("Navigation is interrupted by another navigation"); },
+    waitForLoadState: async () => {},
+    evaluate: async () => ({ challenge: confirmed, title: "CAPTCHA" }),
+    close: async () => { closed = true; },
+  };
+  const run = () => navigateInitialDanishList(tab, {
+    targetUrl: "https://www.danishpipeshop.com/l/-zh/Pipes1",
+    log: (event) => events.push(event),
+  });
+  if (confirmed) {
+    await run();
+    assert.equal(closed, false);
+    assert.equal(events.at(-1), "initial-navigation-verification-redirect");
+    assert.equal(events.includes("initial-navigation-complete"), false);
+  } else {
+    await assert.rejects(run, /danish-initial-navigation-failed/);
+    assert.equal(closed, true);
+  }
+}
+// A same-target extension reload settles without another goto or declaring List ready.
+{
+  let navigations = 0;
+  const url = "https://www.danishpipeshop.com/l/-zh/Pipes1";
+  const events = [];
+  await navigateInitialDanishList({
+    url: () => url, title: async () => "Pipes",
+    goto: async () => { navigations++; throw new Error("interrupted by another navigation"); },
+    waitForLoadState: async () => {},
+    evaluate: async () => ({ challenge: false, title: "Pipes" }),
+  }, { targetUrl: url, log: (event) => events.push(event) });
+  assert.equal(navigations, 1);
+  assert.ok(events.includes("initial-navigation-target-reload-settled"));
+}
+// A stuck close still reaches the owned-browser finally cleanup.
+{
+  const started = Date.now();
+  await assert.rejects(() => navigateInitialDanishList({
+    url: () => "about:blank", title: async () => "blank",
+    goto: async () => { throw new Error("fixture navigation failure"); },
+    close: () => new Promise(() => {}),
+  }, { targetUrl: "https://www.danishpipeshop.com/l/-zh/Pipes1", log: () => {} }), /danish-initial-navigation-failed/);
+  assert.ok(Date.now() - started < 4000);
+}
+
 // Daily-stage timeout uses taskkill /T /F for the owned Windows process tree.
 {
   const calls = [];

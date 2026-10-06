@@ -211,6 +211,36 @@ function readyListGateState(overrides = {}) {
   assert.equal(calls.loadStates.length, 1);
 }
 
+// Automatic gate handling never waits for human input, including failed clicks.
+{
+  const gate = readyListGateState({ gatePresent: true, chinesePresent: true, englishPresent: true });
+  const { page, calls } = ageLanguageGatePage([gate]);
+  let closed = false;
+  page.close = async () => { closed = true; };
+  await assert.rejects(() => ensureAgeLanguageGateHandled(page, { selectionReadyTimeoutMs: 0 }), /age-language-auto-selection-failed/);
+  assert.equal(calls.clicks.length, 2);
+  assert.equal(calls.waits.length, 0);
+  assert.equal(closed, true);
+}
+// A stuck CDP click cannot suspend the collector until its four-hour timeout.
+{
+  const gate = readyListGateState({ gatePresent: true, chinesePresent: true });
+  const { page } = ageLanguageGatePage([gate]);
+  let closed = false;
+  page.close = async () => { closed = true; };
+  page.getByText = () => ({ first: () => ({ count: () => new Promise(() => {}) }) });
+  await assert.rejects(() => ensureAgeLanguageGateHandled(page, { timeoutMs: 20 }), /age-language-auto-selection-timeout/);
+  assert.equal(closed, true);
+}
+// An English-only gate is still automatically dismissed and validated.
+{
+  const gate = readyListGateState({ gatePresent: true, englishPresent: true });
+  const { page, calls } = ageLanguageGatePage([gate, gate, gate, readyListGateState(), readyListGateState()]);
+  const result = await ensureAgeLanguageGateHandled(page);
+  assert.equal(result.automatic, true);
+  assert.deepEqual(calls.clicks, ["CLICK HERE TO CHOOSE ENGLISH"]);
+}
+
 // A real evaluate failure is not classified as navigation and must be thrown immediately.
 {
   const { page, calls } = ageLanguageGatePage([

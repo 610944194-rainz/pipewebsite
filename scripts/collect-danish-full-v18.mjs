@@ -333,6 +333,32 @@ export async function navigateInitialDanishList(tab, {
         break;
       } catch (error) {
         const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
+        // A real site CAPTCHA redirect is not a failed List or a successful List.
+        // Retain this tab so the caller's existing verification recovery can run.
+        let captchaRedirect = false;
+        let targetReload = false;
+        try {
+          const current = new URL(tab.url());
+          const target = new URL(targetUrl);
+          captchaRedirect = current.origin === target.origin &&
+            /^\/captcha\d*\.aspx$/i.test(current.pathname) &&
+            /interrupted by another navigation|ERR_ABORTED/.test(String(error?.message));
+          targetReload = current.href === target.href &&
+            /interrupted by another navigation/.test(String(error?.message));
+        } catch {}
+        if ((captchaRedirect || targetReload) && Date.now() < deadline) {
+          const remaining = Math.max(1, deadline - Date.now());
+          await boundedPromise(tab.waitForLoadState("domcontentloaded", { timeout: remaining }), remaining, "danish-initial-verification-settle");
+          const verification = await boundedPromise(inspectVerificationPage(tab), Math.min(5000, Math.max(1, deadline - Date.now())), "danish-initial-verification-inspect");
+          if (verification.challenge && !verification.navigating) {
+            log("initial-navigation-verification-redirect", { url: verification.url, title: verification.title });
+            return;
+          }
+          if (targetReload && !verification.navigating && tab.url() === targetUrl) {
+            log("initial-navigation-target-reload-settled", { url: tab.url() });
+            break;
+          }
+        }
         if (attempt !== 1 || !isDanishStartupBlankInterruption(tab, error) || Date.now() >= deadline) throw error;
         log("initial-navigation-interrupted-retry", { attempt, ...diagnostics });
         // ShadowBot extension onEnabled reloads the startup blank tab. Do not race
@@ -346,7 +372,7 @@ export async function navigateInitialDanishList(tab, {
   } catch (error) {
     const diagnostics = await initialNavigationDiagnostics(tab, stderrTail);
     log("initial-navigation-failed", { ...diagnostics, error: normalizeText(error?.message || error) });
-    await tab.close?.().catch(() => {});
+    await boundedPromise(Promise.resolve().then(() => tab.close?.()), 2000, "danish-initial-tab-close").catch(() => {});
     throw new Error(`danish-initial-navigation-failed url=${diagnostics.url || targetUrl} title=${diagnostics.title || "none"} stderr=${diagnostics.chromeStderr || "none"} reason=${normalizeText(error?.message || error)}`);
   } finally {
     blankReload.dispose();
@@ -2698,7 +2724,7 @@ export async function inspectAgeLanguageGateSafely(
     }
 
     try {
-      return await inspectAgeLanguageGate(tab);
+      return await boundedPromise(inspectAgeLanguageGate(tab), 5000, "age-language-inspect");
     } catch (error) {
       if (!isAgeLanguageNavigationRace(error)) {
         throw error;
@@ -2724,16 +2750,17 @@ export async function inspectAgeLanguageGateSafely(
 
 async function clickExactAgeLanguageOption(tab, text) {
   const exactLocator = tab.getByText(text, { exact: true }).first();
-  const locatorCount = await exactLocator.count().catch(() => 0);
+  const locatorCount = await boundedPromise(exactLocator.count(), 5000, "age-language-locator-count");
 
   if (locatorCount > 0) {
-    const visible = await exactLocator.isVisible().catch(() => false);
+    const visible = await boundedPromise(exactLocator.isVisible(), 5000, "age-language-locator-visible");
 
     if (visible) {
       try {
-        await exactLocator.click({
+        await boundedPromise(exactLocator.click({
           timeout: 5000,
-        });
+          noWaitAfter: true,
+        }), 6000, "age-language-click");
 
         return {
           clicked: true,
@@ -2746,7 +2773,7 @@ async function clickExactAgeLanguageOption(tab, text) {
     }
   }
 
-  return await tab.evaluate((targetText) => {
+  return await boundedPromise(tab.evaluate((targetText) => {
     function normalize(text) {
       return String(text || "").replace(/\s+/g, " ").trim();
     }
@@ -2847,7 +2874,7 @@ async function clickExactAgeLanguageOption(tab, text) {
       width: rect.width,
       height: rect.height,
     };
-  }, text);
+  }, text), 5000, "age-language-dom-click");
 }
 
 async function waitForAgeLanguageGateDismissal(
@@ -2893,18 +2920,27 @@ async function waitForAgeLanguageGateDismissal(
   };
 }
 
-async function waitForManualAgeLanguageSelection(tab, { requireList }) {
-  collectorLog("manual-age-language-required", { timeoutSeconds: manualVerificationTimeoutSeconds });
-  return await waitForAgeLanguageGateDismissal(tab, {
-    requireList,
-    timeoutMs: manualVerificationTimeoutSeconds * 1000,
-  });
+export async function ensureAgeLanguageGateHandled(
+  tab,
+  options = {}
+) {
+  // This is an ordinary site preference gate, not CAPTCHA recovery. Never ask
+  // unattended jobs for manual input or allow a stuck CDP operation to hang.
+  try {
+    return await boundedPromise(handleAgeLanguageGateAutomatically(tab, options),
+      options.timeoutMs ?? 45000, "age-language-auto-selection");
+  } catch (error) {
+    collectorLog("age-language-auto-selection-failed", { url: tab.url?.(), reason: String(error?.message || error) });
+    await boundedPromise(Promise.resolve().then(() => tab.close()), 2000, "age-language-close").catch(() => {});
+    throw error;
+  }
 }
 
-export async function ensureAgeLanguageGateHandled(
+async function handleAgeLanguageGateAutomatically(
   tab,
   {
     requireList = true,
+    selectionReadyTimeoutMs = 15000,
   } = {}
 ) {
   let state = await inspectAgeLanguageGateSafely(tab);
@@ -2970,7 +3006,7 @@ export async function ensureAgeLanguageGateHandled(
 
     const readyResult = await waitForAgeLanguageGateDismissal(tab, {
       requireList,
-      timeoutMs: Math.min(pageReadyTimeoutMs, 15000),
+      timeoutMs: Math.min(pageReadyTimeoutMs, selectionReadyTimeoutMs),
     });
 
     if (readyResult.ready) {
@@ -2990,61 +3026,7 @@ export async function ensureAgeLanguageGateHandled(
     );
   }
 
-  console.log(
-    "[WAIT] automatic age/language selection failed"
-  );
-  console.log(
-    "browser remains open for " +
-    languageFallbackSeconds +
-    " seconds before manual confirmation"
-  );
-
-  /*
-   * Give the browser a short period before prompting, so a delayed
-   * website transition can complete without unnecessary interaction.
-   */
-  await tab.waitForTimeout(languageFallbackSeconds * 1000);
-
-  state = await inspectAgeLanguageGateSafely(tab);
-
-  if (!state.gatePresent) {
-    const delayedReadyResult = await waitForAgeLanguageGateDismissal(tab, {
-      requireList,
-      timeoutMs: pageReadyTimeoutMs,
-    });
-
-    if (delayedReadyResult.ready) {
-      console.log(
-        "[PASS] Danish age/language gate completed after delayed transition"
-      );
-
-      return {
-        detected: true,
-        selectedText: "",
-        automatic: true,
-        clickMethod: "delayed-transition",
-      };
-    }
-  }
-
-  const manualReadyResult = await waitForManualAgeLanguageSelection(tab, { requireList });
-
-  if (!manualReadyResult.ready) {
-    throw new Error(
-      "Danish age/language gate was not dismissed after automatic and manual attempts."
-    );
-  }
-
-  console.log(
-    "[PASS] Danish age/language gate completed manually"
-  );
-
-  return {
-    detected: true,
-    selectedText: "",
-    automatic: false,
-    clickMethod: "manual",
-  };
+  throw new Error("age-language-auto-selection-failed: Chinese/English options did not produce a ready page");
 }
 
 async function getListProgress(tab) {
@@ -4100,7 +4082,7 @@ async function discoverProducts(context, options = {}) {
 
     return discovered.slice(0, targetCount);
   } finally {
-    await tab.close().catch(() => {});
+    await boundedPromise(Promise.resolve().then(() => tab.close()), 2000, "danish-list-tab-close").catch(() => {});
   }
 }
 
