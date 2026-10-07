@@ -88,6 +88,8 @@ function Invoke-DanishScheduledShutdown {
     [bool]$PublishMode,
     [int]$RunExitCode,
     [string]$RepositoryRoot,
+    [int]$DelaySeconds = 120,
+    [scriptblock]$Wait = { param($Seconds) Start-Sleep -Seconds $Seconds },
     [scriptblock]$PathExists = { param($Path) Test-Path -LiteralPath $Path },
     [scriptblock]$HasActiveProcess = {
       param($Root)
@@ -103,15 +105,27 @@ function Invoke-DanishScheduledShutdown {
     }
   )
   if (-not $Enabled -or -not $PublishMode) { return $false }
-  foreach ($relativePath in @('data\inventory\state\danish-daily.lock', 'data\runtime\danish-browser-profile\.danish-v18-profile.lock')) {
-    if (& $PathExists (Join-Path $RepositoryRoot $relativePath)) {
-      Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=lock-present path=$relativePath runExitCode=$RunExitCode"
+  if ($RunExitCode -ne 0) {
+    Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=run-failed runExitCode=$RunExitCode"
+    return $false
+  }
+  # Delay in PowerShell, not shutdown.exe /t > 0 (which implies forced close).
+  # Check again after the delay so another Danish run cannot be interrupted.
+  foreach ($pass in @(0, 1)) {
+    foreach ($relativePath in @('data\inventory\state\danish-daily.lock', 'data\runtime\danish-browser-profile\.danish-v18-profile.lock')) {
+      if (& $PathExists (Join-Path $RepositoryRoot $relativePath)) {
+        Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=lock-present path=$relativePath runExitCode=$RunExitCode"
+        return $false
+      }
+    }
+    if (& $HasActiveProcess $RepositoryRoot) {
+      Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=danish-process-active runExitCode=$RunExitCode"
       return $false
     }
-  }
-  if (& $HasActiveProcess $RepositoryRoot) {
-    Write-DanishSchedulerLaunchLog -EventName 'shutdown-skipped' -Details "reason=danish-process-active runExitCode=$RunExitCode"
-    return $false
+    if ($pass -eq 0) {
+      Write-DanishSchedulerLaunchLog -EventName 'shutdown-delay-started' -Details "runExitCode=$RunExitCode delaySeconds=$DelaySeconds forced=false"
+      & $Wait $DelaySeconds
+    }
   }
   Write-DanishSchedulerLaunchLog -EventName 'shutdown-requested' -Details "runExitCode=$RunExitCode forced=false"
   $shutdownExitCode = & $ExecuteShutdown

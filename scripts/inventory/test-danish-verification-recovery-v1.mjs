@@ -83,6 +83,30 @@ console.log("Danish verification recovery focused tests passed (first/second/thi
     evaluate: async () => ({ challenge: false, title: "" }) };
   await assert.rejects(navigateDanishDetail(page, "https://www.danishpipeshop.com/d/test.html"), /network failed/);
 }
+// A slow probe (> 2 seconds) is not a failed product navigation. There is only
+// one probe in flight, and goto completion wins even if that probe never returns.
+{
+  let probes = 0;
+  const events = [];
+  const url = "https://www.danishpipeshop.com/d/test.html";
+  const result = await navigateDanishDetail({
+    url: () => url,
+    goto: () => new Promise((resolve) => setTimeout(resolve, 2300)),
+    evaluate: () => { probes++; return new Promise(() => {}); },
+  }, url, { timeoutMs: 4000, pollMs: 1, log: (event) => events.push(event) });
+  assert.equal(result.verification, false);
+  assert.equal(probes, 1);
+  assert.ok(events.includes("detail-navigation-inspection-pending"));
+}
+// A truly stuck navigation + probe still fails at the overall deadline.
+{
+  let probes = 0;
+  await assert.rejects(navigateDanishDetail({
+    url: () => "about:blank", goto: () => new Promise(() => {}),
+    evaluate: () => { probes++; return new Promise(() => {}); },
+  }, "https://www.danishpipeshop.com/d/test.html", { timeoutMs: 50, pollMs: 1, log: () => {} }), /danish-detail-navigation-timeout/);
+  assert.equal(probes, 1);
+}
 console.log("Danish detail navigation handoff focused tests passed");
 
 for (const succeeds of [true, false]) {

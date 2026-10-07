@@ -4097,7 +4097,27 @@ export async function navigateDanishDetail(tab, targetUrl, {
   const startNavigation = () => tab.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: Math.max(1, deadline - Date.now()) })
     .then(() => ({ pending: false }), (error) => ({ pending: false, error }));
   let navigation = startNavigation();
-  const inspect = () => boundedPromise(inspectVerificationPage(tab), Math.min(2000, timeoutMs), "danish-detail-navigation-inspection");
+  let pendingInspection = null;
+  const inspect = async (outcome) => {
+    // CDP evaluation may stall while a document is being replaced. Keep only
+    // one evaluation in flight; a successful goto must not wait on that probe.
+    pendingInspection ||= inspectVerificationPage(tab).then(
+      (state) => ({ state }), (error) => ({ inspectionError: error })
+    );
+    const candidates = [pendingInspection];
+    if (!outcome.error) candidates.push(navigation.then((result) => ({ navigation: result })));
+    try {
+      const result = await boundedPromise(Promise.race(candidates),
+        Math.max(1, Math.min(2000, deadline - Date.now())), "danish-detail-navigation-inspection");
+      if (result.state || result.inspectionError) pendingInspection = null;
+      if (result.inspectionError) throw result.inspectionError;
+      return result;
+    } catch (error) {
+      if (!String(error?.message).startsWith("danish-detail-navigation-inspection-timeout")) throw error;
+      log("detail-navigation-inspection-pending", { targetUrl, url: tab.url() });
+      return { inspectionPending: true };
+    }
+  };
   const handoff = (state) => {
     log("detail-navigation-verification-handoff", { targetUrl, url: state.url, title: state.title });
     return { verification: true };
@@ -4107,7 +4127,14 @@ export async function navigateDanishDetail(tab, targetUrl, {
       while (!stopped) {
         const outcome = await Promise.race([navigation, new Promise((resolve) => setTimeout(() => resolve({ pending: true }), pollMs))]);
         if (!outcome.pending && !outcome.error) return { verification: false };
-        const state = await inspect();
+        const probe = await inspect(outcome);
+        if (stopped) return;
+        if (probe.navigation) {
+          if (!probe.navigation.error) return { verification: false };
+          continue;
+        }
+        if (probe.inspectionPending) continue;
+        const state = probe.state;
         if (state.challenge && !state.navigating) return handoff(state);
         if (outcome.error) {
           if (!startupRetried && isDanishStartupBlankInterruption(tab, outcome.error)) {
