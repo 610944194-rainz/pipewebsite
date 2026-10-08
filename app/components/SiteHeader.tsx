@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import MemberEntry from "./members/MemberEntry";
 
 type IconProps = { className?: string };
 type SiteHeaderProps = { className?: string; variant?: "default" | "dark" };
@@ -12,6 +13,7 @@ const navigation = [
   { title: "海外烟斗", label: "Overseas Inventory", href: "/products" },
   { title: "国内斗师", label: "Domestic Makers", href: "/domestic-makers" },
   { title: "品牌精选", label: "Brands", href: "/brands" },
+  { title: "斗草百科", label: "Encyclopedia", href: "/tobacco-encyclopedia/index.html" },
   { title: "选品服务", label: "Service", href: "/service" },
 ] as const;
 
@@ -99,10 +101,14 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
                 </Link>
               );
             })}
+            <MemberEntry dark={variant === "dark"} />
             <Link href="/request" className={`ml-3 border px-4 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${variant === "dark" ? "border-[rgba(213,166,81,0.36)] text-[#e4c18d] hover:bg-[#e4c18d] hover:text-[#24160f]" : "border-[var(--coffee-dark)] text-[var(--coffee-dark)] hover:bg-[var(--coffee-dark)] hover:text-white"}`}>
               提交找斗需求
             </Link>
           </nav>
+          <Link href="/account" aria-label="打开我的账号" className="col-start-3 inline-flex h-11 w-11 items-center justify-center justify-self-end lg:hidden">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5"><circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" stroke="currentColor" strokeWidth="1.5" /></svg>
+          </Link>
         </div>
       </header>
 
@@ -139,6 +145,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
             </nav>
 
             <div className="mt-8 border-t border-[rgba(222,212,200,0.72)] pt-5">
+              <div className="mb-3"><MemberEntry onNavigate={closeMenu} /></div>
               <Link href="/request" onClick={() => setOpenPath(null)} className="flex h-[46px] items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] text-[14px] font-medium text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
                 提交找斗需求
               </Link>

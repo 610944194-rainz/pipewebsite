@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FavoriteButton from "@/app/components/members/FavoriteButton";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import { displayBrandCopy } from "@/lib/branding";
@@ -186,6 +187,7 @@ export default async function DomesticProductDetailPage({ params }: PageProps) {
                 >
                   发起人工咨询
                 </Link>
+                <FavoriteButton productId={product.id} kind="domestic" />
                 {maker && (
                   <Link
                     href={`/domestic-makers/${maker.slug}`}
