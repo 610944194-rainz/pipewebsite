@@ -4,8 +4,8 @@ import type { PublicCatalogProduct } from "./types";
 import {
   getPublicCatalog,
   getPublicCatalogMap,
-  getPublicRecentNewProducts,
 } from "./server";
+import { getPublicRecentNewProductBatches } from "./update-history";
 
 export const DAILY_UPDATES_TIME_ZONE = "Asia/Shanghai";
 
@@ -90,30 +90,41 @@ function formatShanghaiDate(value: Date | string) {
 }
 
 /**
- * The formal `recent-new.json` payload is written only from the daily
- * public-ready-new set. Its generatedAt value belongs to that public batch,
- * rather than to the filesystem or frontend build.
+ * Select all public-ready batches for today in Shanghai, then yesterday only.
+ * Resolve against the current catalog before deciding whether to fall back.
  */
 export function getDailyProductUpdates(
   now: Date = new Date()
 ): DailyProductUpdates | null {
-  const payload = getPublicRecentNewProducts();
-  if (!payload?.products?.length) return null;
-
   const requestedDate = formatShanghaiDate(now);
-  const displayedDate = formatShanghaiDate(payload.generatedAt);
-  if (!requestedDate || !displayedDate) return null;
+  if (!requestedDate) return null;
+  const previousDate = new Date(
+    new Date(`${requestedDate}T00:00:00Z`).getTime() - 86_400_000
+  ).toISOString().slice(0, 10);
+  const batches = getPublicRecentNewProductBatches(previousDate);
 
-  const resolved = resolveDailyProducts(payload.products);
+  for (const displayedDate of [requestedDate, previousDate]) {
+    const dailyBatches = batches.filter(
+      (batch) => formatShanghaiDate(batch.generatedAt) === displayedDate
+    );
+    const records = dailyBatches.flatMap((batch) => batch.products);
+    if (!records.length) continue;
+    const resolved = resolveDailyProducts(records);
+    if (!resolved.products.length) continue;
 
-  return {
-    requestedDate,
-    displayedDate,
-    generatedAt: payload.generatedAt,
-    isFallback: requestedDate !== displayedDate,
-    sourceRecordCount: payload.products.length,
-    duplicateRecordCount: resolved.duplicateRecordCount,
-    unresolvedRecordCount: resolved.unresolvedRecordCount,
-    products: resolved.products,
-  };
+    return {
+      requestedDate,
+      displayedDate,
+      generatedAt: dailyBatches.reduce((latest, batch) =>
+        new Date(batch.generatedAt) > new Date(latest) ? batch.generatedAt : latest,
+        dailyBatches[0].generatedAt
+      ),
+      isFallback: requestedDate !== displayedDate,
+      sourceRecordCount: records.length,
+      duplicateRecordCount: resolved.duplicateRecordCount,
+      unresolvedRecordCount: resolved.unresolvedRecordCount,
+      products: resolved.products,
+    };
+  }
+  return null;
 }
