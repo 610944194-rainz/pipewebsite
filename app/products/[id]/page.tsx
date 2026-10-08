@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FavoriteButton from "@/app/components/members/FavoriteButton";
 import { notFound, redirect } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
@@ -427,6 +428,7 @@ export default async function ProductDetailPage({
                 <ChatIcon className="mr-2 h-[17px] w-[17px] text-[var(--brass)]" />
                 咨询这只斗
               </Link>
+              <FavoriteButton productId={product.id} kind="overseas" />
               <p className="mt-3 text-left text-[11px] font-normal leading-[1.6] text-[var(--text-secondary)]">
                 当前展示价格已包含税费、服务费及国际邮费。
               </p>
