@@ -3,9 +3,9 @@ import { requireAdmin } from "@/lib/members/admin";
 import { memberJson, memberFailure, checkMemberWrite, readMemberBody } from "@/lib/members/http";
 import { getMemberConfig, getMemberStore, privateBucket, limitMemberAttempt } from "@/lib/members/store.mjs";
 import { validatePassword, MemberError } from "@/lib/members/policy.mjs";
-import { validateText, manageMember, moderateComment, resolveReport } from "@/lib/members/community-store.mjs";
+import { adminMfaRequired, adminGrantUntil, validateText, manageMember, moderateComment, resolveReport } from "@/lib/members/community-store.mjs";
 import { storedBlend } from "@/lib/members/catalog";
-import { adminFactorStatus, beginAdminFactor, confirmAdminFactor, verifyAdminFactor, rotateAdminRecovery } from "@/lib/members/admin-security.mjs";
+import { adminFactorStatus, beginAdminFactor, confirmAdminFactor, verifyAdminFactor, verifyAdminPassword, rotateAdminRecovery } from "@/lib/members/admin-security.mjs";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -19,7 +19,7 @@ export async function GET(request: Request, context: Context) {
     const { member, actor, role } = await requireAdmin(request.headers, action !== "me");
     const db = getMemberStore(), url = new URL(request.url);
     if (["members", "audit"].includes(action) && !memberRoles.includes(role)) throw new MemberError("FORBIDDEN", "你没有会员管理权限。", 403);
-    if (action === "me") return memberJson({ name: member.user.name, role, ...adminFactorStatus(db, actor), grantUntil: db.prepare("SELECT expires_at FROM member_admin_grants WHERE session_id=? AND factor_verified=1").get(actor.sessionId)?.expires_at || 0 });
+    if (action === "me") return memberJson({ name: member.user.name, role, ...adminFactorStatus(db, actor), grantUntil: adminGrantUntil(db, actor) });
     const page = Math.min(10000, Math.max(1, Number.parseInt(url.searchParams.get("page") || "1", 10) || 1)), offset = (page - 1) * 20;
     const query = (url.searchParams.get("q") || "").trim().slice(0, 100), status = url.searchParams.get("status") || "";
     if (action === "members") {
@@ -50,12 +50,14 @@ export async function POST(request: Request, context: Context) {
     const body = await readMemberBody(request), db = getMemberStore();
     const securityAction = ["reauth", "factor/setup", "factor/confirm", "factor/recovery"].includes(action);
     const { member, actor, role } = await requireAdmin(request.headers, !securityAction || action === "factor/recovery");
+    if (action.startsWith("factor/") && !adminMfaRequired()) throw new MemberError("FACTOR_DISABLED", "验证器功能暂未启用。", 409);
     if (action === "members" && !memberRoles.includes(role)) throw new MemberError("FORBIDDEN", "你没有会员管理权限。", 403);
     if (securityAction) {
       limitMemberAttempt(db, privateBucket(`admin-reauth:${actor.id}`), 5, 300);
       const password = typeof body.password === "string" && body.password.length <= 128 ? body.password : "";
       const account = db.prepare('SELECT password FROM account WHERE "userId"=? AND "providerId"=\'credential\'').get(actor.id);
       if (!account || typeof account.password !== "string" || !await verifyPassword({ hash: account.password, password })) throw new MemberError("INVALID_PASSWORD", "管理员密码不正确。", 401);
+      if (action === "reauth" && !adminMfaRequired()) return memberJson(verifyAdminPassword(db, actor, account.password));
       const secret = getMemberConfig().secret;
       if (action === "factor/setup") return memberJson(beginAdminFactor(db, actor, secret, member.user.email, Date.now(), account.password));
       if (action === "factor/confirm") return memberJson(await confirmAdminFactor(db, actor, secret, body.code, account.password));

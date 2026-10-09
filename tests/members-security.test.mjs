@@ -5,12 +5,13 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { base32 } from "@better-auth/utils/base32";
 import { openMemberStore } from "../lib/members/store.mjs";
-import { initializeCommunity, adminActor } from "../lib/members/community-store.mjs";
-import { initializeAdminSecurity, beginAdminFactor, confirmAdminFactor, verifyAdminFactor, rotateAdminRecovery, createAdminOTP } from "../lib/members/admin-security.mjs";
+import { initializeCommunity, adminActor, adminGrantUntil } from "../lib/members/community-store.mjs";
+import { initializeAdminSecurity, beginAdminFactor, confirmAdminFactor, verifyAdminFactor, verifyAdminPassword, adminFactorStatus, rotateAdminRecovery, createAdminOTP } from "../lib/members/admin-security.mjs";
 import { backupMembers, restoreMembers } from "../lib/members/backup.mjs";
 import { DatabaseSync } from "node:sqlite";
 
 const secret = "synthetic-auth-secret-at-least-32-characters", actor = { id: "owner", sessionId: "session" };
+process.env.MEMBERS_ADMIN_MFA_ENABLED = "true";
 function fixture() {
   const dir = mkdtempSync(join(tmpdir(), "members-security-")), db = openMemberStore(join(dir, "source.sqlite"));
   initializeCommunity(db); initializeAdminSecurity(db);
@@ -31,6 +32,40 @@ async function enabled(db) {
 test("RFC4226 HOTP reference vector via existing auth library", async () => {
   const otp = await createAdminOTP(Buffer.from("12345678901234567890"));
   for (const [step, expected] of ["755224", "287082", "359152", "969429", "338314"].entries()) assert.equal(await otp.hotp(step), expected);
+});
+
+test("password-only grants require current password, active staff session and expiry; re-enabling MFA rejects password grants", async () => {
+  const { db } = fixture();
+  process.env.MEMBERS_ADMIN_MFA_ENABLED = "false";
+  try {
+    assert.equal(adminFactorStatus(db, actor).mfaRequired, false);
+    assert.throws(() => adminActor(db, actor), e => e.code === "REAUTH_REQUIRED");
+    assert.throws(() => verifyAdminPassword(db, actor, "wronghash"), e => e.code === "REAUTH_REQUIRED");
+    const unlocked = verifyAdminPassword(db, actor, "passwordhash");
+    assert.equal(adminActor(db, actor).role, "owner");
+    assert.equal(adminGrantUntil(db, actor), unlocked.grantUntil);
+    assert.equal(db.prepare("SELECT factor_verified FROM member_admin_grants").get().factor_verified, 0);
+    assert.equal(adminGrantUntil(db, actor, unlocked.grantUntil), 0);
+    assert.throws(() => adminActor(db, { ...actor, sessionId: "another" }), e => e.status === 403);
+    assert.throws(() => beginAdminFactor(db, actor, secret, "owner@example.test"), e => e.code === "FACTOR_DISABLED");
+    await assert.rejects(confirmAdminFactor(db, actor, secret, "123456", "passwordhash"), e => e.code === "FACTOR_DISABLED");
+    await assert.rejects(verifyAdminFactor(db, actor, secret, "123456", null, "passwordhash"), e => e.code === "FACTOR_DISABLED");
+    assert.throws(() => rotateAdminRecovery(db, actor, secret, "passwordhash"), e => e.code === "FACTOR_DISABLED");
+    process.env.MEMBERS_ADMIN_MFA_ENABLED = "true";
+    assert.throws(() => verifyAdminPassword(db, actor, "passwordhash"), e => e.code === "FACTOR_REQUIRED");
+    assert.throws(() => adminActor(db, actor), e => e.code === "REAUTH_REQUIRED");
+    await enabled(db);
+    assert.equal(adminActor(db, actor).role, "owner");
+    process.env.MEMBERS_ADMIN_MFA_ENABLED = "false";
+    db.prepare("UPDATE member_profiles SET role='member' WHERE user_id='owner'").run();
+    assert.throws(() => verifyAdminPassword(db, actor, "passwordhash"), e => e.status === 403);
+    db.prepare("UPDATE member_profiles SET role='owner',status='banned' WHERE user_id='owner'").run();
+    assert.throws(() => adminActor(db, actor), e => e.status === 403);
+    db.prepare("UPDATE member_profiles SET status='active' WHERE user_id='owner'").run();
+    db.prepare("DELETE FROM session").run();
+    assert.throws(() => verifyAdminPassword(db, actor, "passwordhash"), e => e.status === 403);
+    assert.ok(!JSON.stringify(db.prepare("SELECT * FROM member_audit").all()).includes("passwordhash"));
+  } finally { process.env.MEMBERS_ADMIN_MFA_ENABLED = "true"; db.close(); }
 });
 test("old password-only grants rejected; encrypted enrollment bound to session and expiry", async () => {
   const { db } = fixture();

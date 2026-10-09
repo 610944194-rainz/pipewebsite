@@ -10,8 +10,8 @@ const statuses: Record<string, string> = { member: "普通会员", moderator: "�
 
 export default function AdminDashboard({ role, name }: { role: string; name: string }) {
   const [section, setSection] = useState<Section>(role === "moderator" ? "comments" : "members"), [rows, setRows] = useState<Row[]>([]), [page, setPage] = useState(1), [total, setTotal] = useState(0), [query, setQuery] = useState(""), [search, setSearch] = useState(""), [status, setStatus] = useState(""), [revision, setRevision] = useState(0), [password, setPassword] = useState(""), [grantUntil, setGrantUntil] = useState(0), [busy, setBusy] = useState(false), [error, setError] = useState(""), [notice, setNotice] = useState(""), [loading, setLoading] = useState(true);
-  const [factorEnabled, setFactorEnabled] = useState<boolean | null>(null), [code, setCode] = useState(""), [useRecovery, setUseRecovery] = useState(false), [setupKey, setSetupKey] = useState(""), [recoveryCodes, setRecoveryCodes] = useState<string[]>([]);
-  useEffect(() => { let live = true; memberRequest<{ grantUntil: number; enabled: boolean }>("/api/member-admin/me").then((data) => { if (live) { setFactorEnabled(data.enabled); setGrantUntil(data.grantUntil > Date.now() ? data.grantUntil : 0); } }).catch((cause) => { if (live) setError(cause.message); }); return () => { live = false; }; }, []);
+  const [mfaRequired, setMfaRequired] = useState<boolean | null>(null), [factorEnabled, setFactorEnabled] = useState<boolean | null>(null), [code, setCode] = useState(""), [useRecovery, setUseRecovery] = useState(false), [setupKey, setSetupKey] = useState(""), [recoveryCodes, setRecoveryCodes] = useState<string[]>([]);
+  useEffect(() => { let live = true; memberRequest<{ grantUntil: number; enabled: boolean; mfaRequired: boolean }>("/api/member-admin/me").then((data) => { if (live) { setMfaRequired(data.mfaRequired); setFactorEnabled(data.enabled); setGrantUntil(data.grantUntil > Date.now() ? data.grantUntil : 0); } }).catch((cause) => { if (live) setError(cause.message); }); return () => { live = false; }; }, []);
   useEffect(() => { if (!grantUntil) return; const timer = setInterval(() => { if (Date.now() >= grantUntil) setGrantUntil(0); }, 1000); return () => clearInterval(timer); }, [grantUntil]);
   useEffect(() => {
     if (!grantUntil) return;
@@ -32,11 +32,11 @@ export default function AdminDashboard({ role, name }: { role: string; name: str
     <form className={styles.form} onSubmit={async (event) => {
       event.preventDefault(); setBusy(true); setError("");
       try {
-        if (!factorEnabled && !setupKey) {
+        if (mfaRequired && !factorEnabled && !setupKey) {
           const data = await memberRequest<{ setupKey: string }>("/api/member-admin/factor/setup", { password }); setSetupKey(data.setupKey); setNotice("请在验证器中手动添加账号，再输入当前验证码完成设置。");
         } else {
-          const data = await memberRequest<{ grantUntil: number; recoveryCodes?: string[] }>(setupKey ? "/api/member-admin/factor/confirm" : "/api/member-admin/reauth", { password, code: useRecovery ? undefined : code, recoveryCode: useRecovery ? code : undefined });
-          setGrantUntil(data.grantUntil); setFactorEnabled(true); setSetupKey(""); setCode(""); setRecoveryCodes(data.recoveryCodes || []); setNotice("管理访问已解锁，有效期 5 分钟。");
+          const data = await memberRequest<{ grantUntil: number; recoveryCodes?: string[] }>(mfaRequired && setupKey ? "/api/member-admin/factor/confirm" : "/api/member-admin/reauth", mfaRequired ? { password, code: useRecovery ? undefined : code, recoveryCode: useRecovery ? code : undefined } : { password });
+          setGrantUntil(data.grantUntil); setFactorEnabled(Boolean(mfaRequired)); setSetupKey(""); setCode(""); setRecoveryCodes(data.recoveryCodes || []); setNotice("管理访问已解锁，有效期 5 分钟。");
         }
         setPassword("");
       } catch (cause) { setError(cause instanceof Error ? cause.message : "验证失败。"); } finally { setBusy(false); }
@@ -44,10 +44,10 @@ export default function AdminDashboard({ role, name }: { role: string; name: str
     {setupKey ? <p className={styles.small}>验证器账号：烟斗派；密钥：<code style={{ overflowWrap: "anywhere" }}>{setupKey}</code>。选择基于时间、6 位数字、30 秒。设置 10 分钟内有效，请再次输入密码及验证码。</p> : null}
     {factorEnabled || setupKey ? <label className={styles.label}>{useRecovery ? "一次性恢复码" : "验证器验证码"}<input className={styles.input} autoComplete="one-time-code" inputMode={useRecovery ? "text" : "numeric"} required value={code} maxLength={useRecovery ? 20 : 6} pattern={useRecovery ? "[a-f0-9]{20}" : "[0-9]{6}"} onChange={(event) => setCode(event.target.value.trim())} /></label> : null}
     {factorEnabled ? <label className={styles.small}><input type="checkbox" checked={useRecovery} onChange={(event) => { setUseRecovery(event.target.checked); setCode(""); }} /> 使用恢复码</label> : null}
-    <button className={styles.secondary} disabled={busy || factorEnabled === null}>{setupKey ? "确认启用验证器" : factorEnabled ? "解锁管理访问" : "设置管理员验证器"}</button></form>
+    <button className={styles.secondary} disabled={busy || mfaRequired === null}>{!mfaRequired ? "验证密码并进入后台" : setupKey ? "确认启用验证器" : factorEnabled ? "解锁管理访问" : "设置管理员验证器"}</button></form>
     {recoveryCodes.length ? <div className={styles.adminCard}><p>请将以下恢复码保存到密码管理器，每个仅能使用一次，关闭后不再显示。不要发送到聊天或截图。</p><pre style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{recoveryCodes.join("\n")}</pre><button className={styles.secondary} onClick={() => setRecoveryCodes([])}>已私密保存，关闭</button></div> : null}
-    {grantUntil ? <button className={styles.secondary} disabled={busy} onClick={async () => { setBusy(true); setError(""); try { const data = await memberRequest<{ recoveryCodes: string[] }>("/api/member-admin/factor/recovery", { password }); setRecoveryCodes(data.recoveryCodes); setPassword(""); setNotice("旧恢复码已失效，请保存新恢复码。"); } catch (cause) { setError(cause instanceof Error ? cause.message : "操作失败。"); } finally { setBusy(false); } }}>重新输入上方密码后更换恢复码</button> : null}
-    <p className={`${styles.small} ${styles.adminNotice}`}>{grantUntil ? "管理访问已解锁。" : "会员资料、留言和管理操作均需先验证密码和验证器。"}</p>
+    {mfaRequired && grantUntil ? <button className={styles.secondary} disabled={busy} onClick={async () => { setBusy(true); setError(""); try { const data = await memberRequest<{ recoveryCodes: string[] }>("/api/member-admin/factor/recovery", { password }); setRecoveryCodes(data.recoveryCodes); setPassword(""); setNotice("旧恢复码已失效，请保存新恢复码。"); } catch (cause) { setError(cause instanceof Error ? cause.message : "操作失败。"); } finally { setBusy(false); } }}>重新输入上方密码后更换恢复码</button> : null}
+    <p className={`${styles.small} ${styles.adminNotice}`}>{grantUntil ? "管理访问已解锁。" : mfaRequired ? "会员资料、留言和管理操作均需先验证密码和验证器。" : "请输入当前账号密码，进入会员与留言管理。"}</p>
     {error ? <p className={styles.error} role="alert">{error}</p> : null}{notice ? <p className={styles.notice} role="status">{notice}</p> : null}
     {grantUntil ? <><nav className={styles.tabs}>{tabs.map(([key, label]) => <button key={key} className={section === key ? styles.link : ""} aria-pressed={section === key} onClick={() => { setSection(key); setPage(1); setStatus(""); setSearch(""); setQuery(""); setError(""); setLoading(true); }}>{label}</button>)}</nav>
     {section !== "audit" ? <form className={styles.row} onSubmit={(event) => { event.preventDefault(); setSearch(query); setPage(1); setLoading(true); setRevision((n) => n + 1); }}>
