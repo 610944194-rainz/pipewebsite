@@ -12127,10 +12127,10 @@
       "siteDisplayAmount": 1444.2308,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "full-list-present",
+      "publiclySellable": false,
+      "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
       "galleryCount": 2,
@@ -34435,10 +34435,10 @@
       "displayNameEn": "Carved Dragon Claw Holding Lattice Egg and Dragon (with Case) Tobacco Pipe",
       "rawTitle": "Carved Dragon Claw Holding Lattice Egg and Dragon (with Case) Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-574-13394.9073.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 355.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 395,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 3509.98004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -34468,7 +34468,7 @@
       "sortKeys": {
         "brand": "akb",
         "name": "carved dragon claw holding lattice egg and dragon (with case) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 3509.98004,
         "sourceProductId": "740089"
       },
       "displayNameZh": null,
@@ -34576,7 +34576,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=740089",
       "sourceOriginalText": "Carved Dragon Claw Holding Lattice Egg and Dragon (with Case) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$355.50",
       "msrpRawText": "$395.00"
     },
     {
@@ -35666,10 +35666,10 @@
       "displayNameEn": "Eleganza Rusticated Dark Brown (310 KS) (6mm) Tobacco Pipe",
       "rawTitle": "Eleganza Rusticated Dark Brown (310 KS) (6mm) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-033-112601.6369.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 160,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 200,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1602.86351,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -35699,7 +35699,7 @@
       "sortKeys": {
         "brand": "savinelli",
         "name": "eleganza rusticated dark brown (310 ks) (6mm) tobacco pipe",
-        "price": 1238.4635,
+        "price": 1602.86351,
         "sourceProductId": "742194"
       },
       "displayNameZh": null,
@@ -35806,7 +35806,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/savinelli/moreinfo.cfm?product_id=742194",
       "sourceOriginalText": "Eleganza Rusticated Dark Brown (310 KS) (6mm) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$160.00",
       "msrpRawText": "$200.00"
     },
     {
@@ -37046,10 +37046,10 @@
       "displayNameEn": "Kildare Silver Mounted (3070) P-Lip Tobacco Pipe",
       "rawTitle": "Kildare Silver Mounted (3070) P-Lip Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-149341.2691.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 180,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1780.92353,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -37079,7 +37079,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "kildare silver mounted (3070) p-lip tobacco pipe",
-        "price": 1238.4635,
+        "price": 1780.92353,
         "sourceProductId": "744401"
       },
       "displayNameZh": null,
@@ -37187,7 +37187,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=744401",
       "sourceOriginalText": "Kildare Silver Mounted (3070) P-Lip Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
     }
   ]

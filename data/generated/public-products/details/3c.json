@@ -13587,9 +13587,9 @@
       "siteDisplayAmount": 3281.0323406,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -16448,9 +16448,9 @@
       "siteDisplayAmount": 380.189756,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -16911,9 +16911,9 @@
       "siteDisplayAmount": 998.46956,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -34790,10 +34790,10 @@
       "displayNameEn": "Smooth Bent Billiard (Club) Tobacco Pipe",
       "rawTitle": "Smooth Bent Billiard (Club) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-008-1026.6218.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 350,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 3458.4363500000004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -34823,7 +34823,7 @@
       "sortKeys": {
         "brand": "musico",
         "name": "smooth bent billiard (club) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 3458.4363500000004,
         "sourceProductId": "737469"
       },
       "displayNameZh": null,
@@ -34927,7 +34927,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/musico/moreinfo.cfm?product_id=737469",
       "sourceOriginalText": "Smooth Bent Billiard (Club) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$350.00",
       "msrpRawText": null
     },
     {
@@ -37006,10 +37006,10 @@
       "displayNameEn": "Smooth Freehand Sitter (with Case) Tobacco Pipe",
       "rawTitle": "Smooth Freehand Sitter (with Case) Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-574-13400.4693.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 427.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 475,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 4504.9294500000005,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -37039,7 +37039,7 @@
       "sortKeys": {
         "brand": "akb",
         "name": "smooth freehand sitter (with case) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 4504.9294500000005,
         "sourceProductId": "740095"
       },
       "displayNameZh": null,
@@ -37147,7 +37147,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=740095",
       "sourceOriginalText": "Smooth Freehand Sitter (with Case) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$427.50",
       "msrpRawText": "$475.00"
     },
     {
@@ -37628,10 +37628,10 @@
       "displayNameEn": "Vintage Sandblasted (347) Tobacco Pipe",
       "rawTitle": "Vintage Sandblasted (347) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-598-21382.7596.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 100,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 1085.6660000000002,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -37661,7 +37661,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "vintage sandblasted (347) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 1085.6660000000002,
         "sourceProductId": "740506"
       },
       "displayNameZh": null,
@@ -37769,7 +37769,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Ropp/moreinfo.cfm?product_id=740506",
       "sourceOriginalText": "Vintage Sandblasted (347) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$100.00",
       "msrpRawText": null
     },
     {
@@ -38095,10 +38095,10 @@
       "displayNameEn": "Bing Sandblasted (B2) (2026) Tobacco Pipe",
       "rawTitle": "Bing Sandblasted (B2) (2026) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0648.3954.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 245,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 2474.42045,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -38128,7 +38128,7 @@
       "sortKeys": {
         "brand": "bruno nuttens",
         "name": "bing sandblasted (b2) (2026) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 2474.42045,
         "sourceProductId": "741165"
       },
       "displayNameZh": null,
@@ -38232,7 +38232,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=741165",
       "sourceOriginalText": "Bing Sandblasted (B2) (2026) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$245.00",
       "msrpRawText": null
     },
     {
@@ -39014,10 +39014,10 @@
       "displayNameEn": "Classic Smooth Paneled Bent Brandy (B) Tobacco Pipe",
       "rawTitle": "Classic Smooth Paneled Bent Brandy (B) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23817.4279.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 259.2,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 324,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 2607.4968859999994,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -39047,7 +39047,7 @@
       "sortKeys": {
         "brand": "nørding",
         "name": "classic smooth paneled bent brandy (b) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 2607.4968859999994,
         "sourceProductId": "742515"
       },
       "displayNameZh": null,
@@ -39157,7 +39157,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=742515",
       "sourceOriginalText": "Classic Smooth Paneled Bent Brandy (B) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$259.20",
       "msrpRawText": "$324.00"
     },
     {

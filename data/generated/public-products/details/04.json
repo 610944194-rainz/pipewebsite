@@ -10929,9 +10929,9 @@
       "siteDisplayAmount": 3201.3739106000003,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -36303,10 +36303,10 @@
       "displayNameEn": "Heritage Smooth Canadian (H3) (2026) Tobacco Pipe",
       "rawTitle": "Heritage Smooth Canadian (H3) (2026) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0671.3204.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 275,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 2755.5678500000004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -36336,7 +36336,7 @@
       "sortKeys": {
         "brand": "bruno nuttens",
         "name": "heritage smooth canadian (h3) (2026) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 2755.5678500000004,
         "sourceProductId": "741254"
       },
       "displayNameZh": null,
@@ -36440,7 +36440,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=741254",
       "sourceOriginalText": "Heritage Smooth Canadian (H3) (2026) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$275.00",
       "msrpRawText": null
     },
     {
@@ -37538,10 +37538,10 @@
       "displayNameEn": "Red Grain Freehand (1) Tobacco Pipe",
       "rawTitle": "Red Grain Freehand (1) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-508-23929.6568.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 222.4,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 278,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 2262.622742,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -37571,7 +37571,7 @@
       "sortKeys": {
         "brand": "nørding",
         "name": "red grain freehand (1) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 2262.622742,
         "sourceProductId": "742766"
       },
       "displayNameZh": null,
@@ -37681,7 +37681,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Nording/moreinfo.cfm?product_id=742766",
       "sourceOriginalText": "Red Grain Freehand (1) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$222.40",
       "msrpRawText": "$278.00"
     },
     {
@@ -37695,10 +37695,10 @@
       "displayNameEn": "Irish Harp (264) Fishtail Tobacco Pipe",
       "rawTitle": "Irish Harp (264) Fishtail Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148580.6862.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 180,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1780.92353,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -37728,7 +37728,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "irish harp (264) fishtail tobacco pipe",
-        "price": 1238.4635,
+        "price": 1780.92353,
         "sourceProductId": "743089"
       },
       "displayNameZh": null,
@@ -37836,7 +37836,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=743089",
       "sourceOriginalText": "Irish Harp (264) Fishtail Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
     },
     {
@@ -38162,10 +38162,10 @@
       "displayNameEn": "Sherlock Holmes Sandblasted Lestrade P-Lip Tobacco Pipe",
       "rawTitle": "Sherlock Holmes Sandblasted Lestrade P-Lip Tobacco Pipe",
       "mainImage": "https://assets.smokingpipes.com/images/products/002-029-149153.7807.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 180,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1780.92353,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -38195,7 +38195,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "sherlock holmes sandblasted lestrade p-lip tobacco pipe",
-        "price": 1238.4635,
+        "price": 1780.92353,
         "sourceProductId": "744046"
       },
       "displayNameZh": null,
@@ -38305,7 +38305,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=744046",
       "sourceOriginalText": "Sherlock Holmes Sandblasted Lestrade P-Lip Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
     }
   ]

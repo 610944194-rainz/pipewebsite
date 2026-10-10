@@ -16788,9 +16788,9 @@
       "siteDisplayAmount": 1168.78784,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "sold",
+      "inventoryStatus": "available",
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -24565,10 +24565,10 @@
       "displayNameEn": "Carved Sultan Tobacco Pipe",
       "rawTitle": "Carved Sultan Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-574-13169.5534.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 75,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 881.936,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -24598,7 +24598,7 @@
       "sortKeys": {
         "brand": "akb",
         "name": "carved sultan tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 881.936,
         "sourceProductId": "731620"
       },
       "displayNameZh": null,
@@ -24700,7 +24700,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/AKB/moreinfo.cfm?product_id=731620",
       "sourceOriginalText": "Carved Sultan Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$75.00",
       "msrpRawText": null
     },
     {
@@ -32841,10 +32841,10 @@
       "displayNameEn": "Vintage Sandblasted (275) Tobacco Pipe",
       "rawTitle": "Vintage Sandblasted (275) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-598-21486.4707.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 100,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 1085.6660000000002,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -32874,7 +32874,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "vintage sandblasted (275) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 1085.6660000000002,
         "sourceProductId": "740610"
       },
       "displayNameZh": null,
@@ -32982,7 +32982,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Ropp/moreinfo.cfm?product_id=740610",
       "sourceOriginalText": "Vintage Sandblasted (275) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$100.00",
       "msrpRawText": null
     },
     {

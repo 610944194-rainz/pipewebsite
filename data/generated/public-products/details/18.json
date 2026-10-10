@@ -7652,9 +7652,9 @@
       "siteDisplayAmount": 1902.75407,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -31258,10 +31258,10 @@
       "displayNameEn": "Handmade Sandblasted Dublin (AA) (2026) Tobacco Pipe",
       "rawTitle": "Handmade Sandblasted Dublin (AA) (2026) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0638.6538.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 700,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 7058.685,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -31291,7 +31291,7 @@
       "sortKeys": {
         "brand": "bruno nuttens",
         "name": "handmade sandblasted dublin (aa) (2026) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 7058.685,
         "sourceProductId": "741108"
       },
       "displayNameZh": null,
@@ -31395,7 +31395,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=741108",
       "sourceOriginalText": "Handmade Sandblasted Dublin (AA) (2026) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$700.00",
       "msrpRawText": null
     },
     {

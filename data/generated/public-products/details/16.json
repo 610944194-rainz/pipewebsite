@@ -1618,9 +1618,9 @@
       "siteDisplayAmount": 4437.85,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "source-status",
       "conditionType": "new",
       "conditionLabel": "新斗",
@@ -8066,9 +8066,9 @@
       "siteDisplayAmount": 1426,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "source-status",
       "conditionType": "new",
       "conditionLabel": "新斗",
@@ -10881,9 +10881,9 @@
       "siteDisplayAmount": 1150.8596,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
-      "inventoryStatus": "available",
+      "inventoryStatus": "sold",
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "inventoryConfidence": "high",
       "conditionType": "new",
       "conditionLabel": "new",
@@ -36089,10 +36089,10 @@
       "displayNameEn": "Vintage Smooth (364) Tobacco Pipe",
       "rawTitle": "Vintage Smooth (364) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-598-21261.8093.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 122.5,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 1269.0230000000001,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -36122,7 +36122,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "vintage smooth (364) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 1269.0230000000001,
         "sourceProductId": "740381"
       },
       "displayNameZh": null,
@@ -36230,7 +36230,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Ropp/moreinfo.cfm?product_id=740381",
       "sourceOriginalText": "Vintage Smooth (364) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$122.50",
       "msrpRawText": null
     },
     {
@@ -36399,10 +36399,10 @@
       "displayNameEn": "Vintage Sandblasted (428B) Tobacco Pipe",
       "rawTitle": "Vintage Sandblasted (428B) Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-598-21512.1957.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 100,
       "sourcePriceCurrency": "USD",
       "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
+      "siteDisplayAmount": 1085.6660000000002,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -36432,7 +36432,7 @@
       "sortKeys": {
         "brand": "ropp",
         "name": "vintage sandblasted (428b) tobacco pipe",
-        "price": 1289.3960000000002,
+        "price": 1085.6660000000002,
         "sourceProductId": "740636"
       },
       "displayNameZh": null,
@@ -36540,7 +36540,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/Ropp/moreinfo.cfm?product_id=740636",
       "sourceOriginalText": "Vintage Sandblasted (428B) Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$100.00",
       "msrpRawText": null
     },
     {
@@ -39330,10 +39330,10 @@
       "displayNameEn": "Sherlock Holmes Sandblasted Baker Street P-Lip Tobacco Pipe",
       "rawTitle": "Sherlock Holmes Sandblasted Baker Street P-Lip Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-149134.7149.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 180,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1780.92353,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -39363,7 +39363,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "sherlock holmes sandblasted baker street p-lip tobacco pipe",
-        "price": 1238.4635,
+        "price": 1780.92353,
         "sourceProductId": "744027"
       },
       "displayNameZh": null,
@@ -39471,7 +39471,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=744027",
       "sourceOriginalText": "Sherlock Holmes Sandblasted Baker Street P-Lip Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
     },
     {
@@ -39485,10 +39485,10 @@
       "displayNameEn": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
       "rawTitle": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
       "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-149141.3467.jpg",
-      "sourcePriceAmount": 125,
+      "sourcePriceAmount": 180,
       "sourcePriceCurrency": "USD",
       "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
+      "siteDisplayAmount": 1780.92353,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true,
       "inventoryStatus": "available",
@@ -39518,7 +39518,7 @@
       "sortKeys": {
         "brand": "peterson",
         "name": "sherlock holmes sandblasted deerstalker p-lip tobacco pipe",
-        "price": 1238.4635,
+        "price": 1780.92353,
         "sourceProductId": "744034"
       },
       "displayNameZh": null,
@@ -39626,7 +39626,7 @@
       ],
       "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=744034",
       "sourceOriginalText": "Sherlock Holmes Sandblasted Deerstalker P-Lip Tobacco Pipe",
-      "priceRawText": "$125",
+      "priceRawText": "$180.00",
       "msrpRawText": "$225.00"
     }
   ]
