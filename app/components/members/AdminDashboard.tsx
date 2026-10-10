@@ -2,20 +2,27 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { memberRequest } from "@/lib/members/client";
+import AnalyticsOverview from "@/app/components/analytics/AnalyticsOverview";
+import type { AnalyticsStats } from "@/lib/analytics/types";
 import styles from "./members.module.css";
 
 type Row = { id: string; name?: string; email?: string; role?: string; muted?: number; status?: string; identityStatus?: string; identityChannel?: string; createdAt: string; content?: string; author?: string; blendTitle?: string; reason?: string; href?: string; kind?: string; resolution?: string; action?: string; actor?: string; targetId?: string; details?: string; commentId?: string };
-type Section = "members" | "comments" | "reports" | "audit";
+type Section = "members" | "comments" | "reports" | "audit" | "analytics";
 const statuses: Record<string, string> = { member: "普通会员", moderator: "留言管理员", site_admin: "网站管理员", owner: "站长", active: "正常", banned: "已封禁", pending: "待审核", published: "已公开", rejected: "未通过", hidden: "已隐藏", unrecorded: "未记录核验", verified: "站方已核验", open: "待处理", resolved: "已处理" };
 
-export default function AdminDashboard({ role, name }: { role: string; name: string }) {
-  const [section, setSection] = useState<Section>(role === "moderator" ? "comments" : "members"), [rows, setRows] = useState<Row[]>([]), [page, setPage] = useState(1), [total, setTotal] = useState(0), [query, setQuery] = useState(""), [search, setSearch] = useState(""), [status, setStatus] = useState(""), [revision, setRevision] = useState(0), [password, setPassword] = useState(""), [grantUntil, setGrantUntil] = useState(0), [busy, setBusy] = useState(false), [error, setError] = useState(""), [notice, setNotice] = useState(""), [loading, setLoading] = useState(true);
+export default function AdminDashboard({ role, name, initialSection }: { role: string; name: string; initialSection?: string }) {
+  const [section, setSection] = useState<Section>(role === "moderator" ? "comments" : initialSection === "analytics" ? "analytics" : "members"), [rows, setRows] = useState<Row[]>([]), [page, setPage] = useState(1), [total, setTotal] = useState(0), [query, setQuery] = useState(""), [search, setSearch] = useState(""), [status, setStatus] = useState(""), [revision, setRevision] = useState(0), [password, setPassword] = useState(""), [grantUntil, setGrantUntil] = useState(0), [busy, setBusy] = useState(false), [error, setError] = useState(""), [notice, setNotice] = useState(""), [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] = useState<{ stats: AnalyticsStats; updatedAt: string } | null>(null);
   const [mfaRequired, setMfaRequired] = useState<boolean | null>(null), [factorEnabled, setFactorEnabled] = useState<boolean | null>(null), [code, setCode] = useState(""), [useRecovery, setUseRecovery] = useState(false), [setupKey, setSetupKey] = useState(""), [recoveryCodes, setRecoveryCodes] = useState<string[]>([]);
   useEffect(() => { let live = true; memberRequest<{ grantUntil: number; enabled: boolean; mfaRequired: boolean }>("/api/member-admin/me").then((data) => { if (live) { setMfaRequired(data.mfaRequired); setFactorEnabled(data.enabled); setGrantUntil(data.grantUntil > Date.now() ? data.grantUntil : 0); } }).catch((cause) => { if (live) setError(cause.message); }); return () => { live = false; }; }, []);
   useEffect(() => { if (!grantUntil) return; const timer = setInterval(() => { if (Date.now() >= grantUntil) setGrantUntil(0); }, 1000); return () => clearInterval(timer); }, [grantUntil]);
   useEffect(() => {
     if (!grantUntil) return;
     let live = true;
+    if (section === "analytics") {
+      memberRequest<{ stats: AnalyticsStats; updatedAt: string }>("/api/member-admin/analytics").then((data) => { if (live) { setAnalytics(data); setLoading(false); } }).catch((cause) => { if (live) { setAnalytics(null); setError(cause.message); setLoading(false); if (cause.message.includes("验证管理员密码")) setGrantUntil(0); } });
+      return () => { live = false; };
+    }
     const params = new URLSearchParams({ page: String(page), q: search, status });
     memberRequest<{ rows: Row[]; total: number }>(`/api/member-admin/${section}?${params}`).then((data) => { if (live) { setRows(data.rows); setTotal(data.total); setLoading(false); } }).catch((cause) => { if (live) { setError(cause.message); setLoading(false); } });
     return () => { live = false; };
@@ -26,9 +33,9 @@ export default function AdminDashboard({ role, name }: { role: string; name: str
     catch (cause) { const message = cause instanceof Error ? cause.message : "操作失败。"; setError(message); if (message.includes("验证管理员密码")) { setGrantUntil(0); setRows([]); } throw cause; }
     finally { setBusy(false); }
   }
-  const tabs: [Section, string][] = role === "moderator" ? [["comments", "留言管理"], ["reports", "举报 / 申诉"]] : [["members", "会员管理"], ["comments", "留言管理"], ["reports", "举报 / 申诉"], ["audit", "管理日志"]];
+  const tabs: [Section, string][] = role === "moderator" ? [["comments", "留言管理"], ["reports", "举报 / 申诉"]] : [["members", "会员管理"], ["comments", "留言管理"], ["analytics", "浏览统计"], ["reports", "举报 / 申诉"], ["audit", "管理日志"]];
   return <>
-    <h2 className={styles.title}>会员与留言管理</h2><p className={styles.subtitle}>{name} · {statuses[role]}　<Link className={styles.link} href="/account">返回账号</Link></p>
+    <h2 className={styles.title}>网站管理后台</h2><p className={styles.subtitle}>{name} · {statuses[role]}　<Link className={styles.link} href="/account">返回账号</Link></p>
     <form className={styles.form} onSubmit={async (event) => {
       event.preventDefault(); setBusy(true); setError("");
       try {
@@ -47,9 +54,10 @@ export default function AdminDashboard({ role, name }: { role: string; name: str
     <button className={styles.secondary} disabled={busy || mfaRequired === null}>{!mfaRequired ? "验证密码并进入后台" : setupKey ? "确认启用验证器" : factorEnabled ? "解锁管理访问" : "设置管理员验证器"}</button></form>
     {recoveryCodes.length ? <div className={styles.adminCard}><p>请将以下恢复码保存到密码管理器，每个仅能使用一次，关闭后不再显示。不要发送到聊天或截图。</p><pre style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{recoveryCodes.join("\n")}</pre><button className={styles.secondary} onClick={() => setRecoveryCodes([])}>已私密保存，关闭</button></div> : null}
     {mfaRequired && grantUntil ? <button className={styles.secondary} disabled={busy} onClick={async () => { setBusy(true); setError(""); try { const data = await memberRequest<{ recoveryCodes: string[] }>("/api/member-admin/factor/recovery", { password }); setRecoveryCodes(data.recoveryCodes); setPassword(""); setNotice("旧恢复码已失效，请保存新恢复码。"); } catch (cause) { setError(cause instanceof Error ? cause.message : "操作失败。"); } finally { setBusy(false); } }}>重新输入上方密码后更换恢复码</button> : null}
-    <p className={`${styles.small} ${styles.adminNotice}`}>{grantUntil ? "管理访问已解锁。" : mfaRequired ? "会员资料、留言和管理操作均需先验证密码和验证器。" : "请输入当前账号密码，进入会员与留言管理。"}</p>
+    <p className={`${styles.small} ${styles.adminNotice}`}>{grantUntil ? "管理访问已解锁。" : mfaRequired ? "后台数据和管理操作均需先验证密码和验证器。" : "请输入当前账号密码，进入网站管理后台。"}</p>
     {error ? <p className={styles.error} role="alert">{error}</p> : null}{notice ? <p className={styles.notice} role="status">{notice}</p> : null}
     {grantUntil ? <><nav className={styles.tabs}>{tabs.map(([key, label]) => <button key={key} className={section === key ? styles.link : ""} aria-pressed={section === key} onClick={() => { setSection(key); setPage(1); setStatus(""); setSearch(""); setQuery(""); setError(""); setLoading(true); }}>{label}</button>)}</nav>
+    {section === "analytics" ? <><div className={styles.row}><button className={styles.secondary} disabled={loading} onClick={() => { setError(""); setLoading(true); setRevision((n) => n + 1); }}>刷新统计</button></div>{loading ? <p>正在读取浏览统计…</p> : analytics ? <AnalyticsOverview stats={analytics.stats} updatedAt={analytics.updatedAt} /> : <p className={styles.small}>统计未加载，请点击刷新统计重试。</p>}</> : <>
     {section !== "audit" ? <form className={styles.row} onSubmit={(event) => { event.preventDefault(); setSearch(query); setPage(1); setLoading(true); setRevision((n) => n + 1); }}>
       {section !== "reports" ? <input className={styles.input} style={{ maxWidth: 280 }} value={query} onChange={(event) => setQuery(event.target.value)} aria-label={section === "members" ? "搜索昵称或邮箱" : "搜索留言或昵称"} placeholder={section === "members" ? "搜索昵称或邮箱" : "搜索留言或昵称"} /> : null}
       <select className={styles.input} style={{ maxWidth: 160 }} value={status} onChange={(event) => { setStatus(event.target.value); setPage(1); setLoading(true); }} aria-label="筛选状态"><option value="">全部状态</option>{(section === "members" ? ["active", "banned"] : section === "comments" ? ["pending", "published", "rejected", "hidden"] : ["open", "resolved"]).map((value) => <option value={value} key={value}>{statuses[value]}</option>)}</select><button className={styles.secondary}>查询</button>
@@ -60,7 +68,7 @@ export default function AdminDashboard({ role, name }: { role: string; name: str
       {section === "reports" ? <><h3>{row.kind === "appeal" ? "留言申诉" : "留言举报"} · {statuses[row.status || ""]}</h3><p className={styles.small}>提交者：{row.author} · 留言编号：{row.commentId}</p><p className={styles.commentText}>{row.reason}</p><p className={styles.commentText}>原留言：{row.content || "已删除"}</p>{row.resolution ? <p className={styles.small}>处理结果：{row.resolution}</p> : null}<ResolutionAction row={row} disabled={busy || !grantUntil || row.status === "resolved"} perform={perform} /></> : null}
       {section === "audit" ? <><h3>{row.action}</h3><p className={styles.small}>{row.actor} · {new Date(row.createdAt).toLocaleString("zh-CN")}</p><p className={styles.small}>对象编号：{row.targetId}</p><p className={styles.commentText}>{row.reason}</p><p className={styles.small}>{row.details === "{}" ? "" : row.details}</p></> : null}
     </article>)}</div>}
-    <div className={styles.pagination}><button className={styles.secondary} disabled={page <= 1} onClick={() => { setPage((n) => n - 1); setLoading(true); }}>上一页</button><span>{page} / {Math.max(1, Math.ceil(total / 20))} 页 · {total} 条</span><button className={styles.secondary} disabled={page * 20 >= total} onClick={() => { setPage((n) => n + 1); setLoading(true); }}>下一页</button></div></> : null}
+    <div className={styles.pagination}><button className={styles.secondary} disabled={page <= 1} onClick={() => { setPage((n) => n - 1); setLoading(true); }}>上一页</button><span>{page} / {Math.max(1, Math.ceil(total / 20))} 页 · {total} 条</span><button className={styles.secondary} disabled={page * 20 >= total} onClick={() => { setPage((n) => n + 1); setLoading(true); }}>下一页</button></div></>}</> : null}
   </>;
 }
 

@@ -52,7 +52,23 @@
 .adminCard h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
 .adminCard .input { max-width: 280px; }
 .adminNotice { margin: 14px 0; }
+.analyticsTitle { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+.analyticsGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.analyticsCard { padding: 16px; border: 1px solid var(--border); background: #fffdfa; min-width: 0; }
+.analyticsValue { color: var(--coffee-dark); font-size: 28px; margin-top: 10px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.analyticsChart { display: flex; align-items: flex-end; height: 144px; gap: 4px; margin: 20px 0 8px; }
+.analyticsBar { flex: 1; min-width: 0; background: #488068; border-radius: 2px 2px 0 0; }
+.analyticsDetails { margin-top: 20px; font-size: 13px; }
+.analyticsDetails summary { cursor: pointer; color: var(--coffee); }
+.analyticsTableWrap { max-height: 280px; overflow: auto; margin-top: 12px; }
+.analyticsTable { width: 100%; border-collapse: collapse; font-size: 12px; }
+.analyticsTable th, .analyticsTable td { padding: 10px 4px; text-align: right; border-bottom: 1px solid var(--border); }
+.analyticsTable th:first-child, .analyticsTable td:first-child { text-align: left; }
+.analyticsPages { display: grid; gap: 12px; font-size: 13px; }
+.analyticsPages li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; }
+.analyticsPages li span:nth-child(2) { overflow-wrap: anywhere; }
 @media (max-width: 760px) {
+  .analyticsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .main { padding: 28px 16px 48px; }
   .container, .wide { grid-template-columns: 1fr; gap: 20px; max-width: 480px; }
   .intro { padding: 0 4px 10px; }

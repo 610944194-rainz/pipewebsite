@@ -6,6 +6,7 @@ import { validatePassword, MemberError } from "@/lib/members/policy.mjs";
 import { adminMfaRequired, adminGrantUntil, validateText, manageMember, moderateComment, resolveReport } from "@/lib/members/community-store.mjs";
 import { storedBlend } from "@/lib/members/catalog";
 import { adminFactorStatus, beginAdminFactor, confirmAdminFactor, verifyAdminFactor, verifyAdminPassword, rotateAdminRecovery } from "@/lib/members/admin-security.mjs";
+import { readStats } from "@/lib/analytics/store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -15,11 +16,15 @@ const memberRoles = ["owner", "site_admin"];
 export async function GET(request: Request, context: Context) {
   try {
     const action = (await context.params).action.join("/");
-    if (!["me", "members", "comments", "reports", "audit"].includes(action)) return memberJson({ message: "页面不存在。" }, 404);
+    if (!["me", "members", "comments", "reports", "audit", "analytics"].includes(action)) return memberJson({ message: "页面不存在。" }, 404);
     const { member, actor, role } = await requireAdmin(request.headers, action !== "me");
     const db = getMemberStore(), url = new URL(request.url);
-    if (["members", "audit"].includes(action) && !memberRoles.includes(role)) throw new MemberError("FORBIDDEN", "你没有会员管理权限。", 403);
+    if (["members", "audit", "analytics"].includes(action) && !memberRoles.includes(role)) throw new MemberError("FORBIDDEN", "你没有此项后台管理权限。", 403);
     if (action === "me") return memberJson({ name: member.user.name, role, ...adminFactorStatus(db, actor), grantUntil: adminGrantUntil(db, actor) });
+    if (action === "analytics") {
+      try { return memberJson({ stats: await readStats(), updatedAt: new Date().toISOString() }); }
+      catch { throw new MemberError("ANALYTICS_UNAVAILABLE", "浏览统计暂不可用，请稍后刷新。", 503); }
+    }
     const page = Math.min(10000, Math.max(1, Number.parseInt(url.searchParams.get("page") || "1", 10) || 1)), offset = (page - 1) * 20;
     const query = (url.searchParams.get("q") || "").trim().slice(0, 100), status = url.searchParams.get("status") || "";
     if (action === "members") {
