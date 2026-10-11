@@ -1,55 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T03:04:31.554Z",
+  "generatedAt": "2026-10-11T03:03:40.190Z",
   "source": "smokingpipes",
-  "products": [
-    {
-      "id": "smokingpipes-740199",
-      "source": "smokingpipes",
-      "sourceProductId": "740199",
-      "brandName": "Unknown",
-      "brandSlug": null,
-      "brandCountry": null,
-      "displayName": "Sandblasted Bent Dublin with Silver (S2) (2026) Tobacco Pipe",
-      "displayNameEn": "Sandblasted Bent Dublin with Silver (S2) (2026) Tobacco Pipe",
-      "rawTitle": "Sandblasted Bent Dublin with Silver (S2) (2026) Tobacco Pipe",
-      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-1057-0019.7284.jpg",
-      "sourcePriceAmount": 125,
-      "sourcePriceCurrency": "USD",
-      "msrpAmount": null,
-      "siteDisplayAmount": 1289.3960000000002,
-      "siteDisplayCurrency": "CNY",
-      "siteDisplayReady": true,
-      "inventoryStatus": "available",
-      "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
-      "conditionType": "new",
-      "conditionLabel": "new",
-      "galleryCount": 4,
-      "weightGrams": 29.94,
-      "shape": "Bent Dublin",
-      "shapeZh": "弯式都柏林斗",
-      "finish": "Sandblast",
-      "finishZh": "喷砂",
-      "bowlMaterial": "Briar",
-      "bowlMaterialZh": "石楠木",
-      "stemMaterial": "Vulcanite",
-      "stemMaterialZh": "硫化橡胶",
-      "filter": "none",
-      "filterEligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      },
-      "sortKeys": {
-        "brand": "unknown",
-        "name": "sandblasted bent dublin with silver (s2) (2026) tobacco pipe",
-        "price": 1289.3960000000002,
-        "sourceProductId": "740199"
-      }
-    }
-  ]
+  "products": []
 }
