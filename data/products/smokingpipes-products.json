@@ -6683,15 +6683,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "United States",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -9797,15 +9797,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Germany",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -107905,16 +107905,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -125735,16 +125735,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -136503,15 +136503,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -221017,17 +221017,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-491-10579.2905.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-491-10579.2905.jpg",
@@ -248145,17 +248147,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Other",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-599-7328.8287.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-599-7328.8287.jpg",
@@ -283636,17 +283640,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Other",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-599-7510.1657.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-599-7510.1657.jpg",
@@ -514594,17 +514600,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-599-8358.3044.jpg",
     "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-599-8358.3044.jpg",
@@ -557700,15 +557708,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -726196,17 +726204,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-029-140259.9686.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-029-140259.9686.jpg",
@@ -743467,17 +743477,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-029-139989.9070.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-029-139989.9070.jpg",
@@ -747431,15 +747443,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -747821,15 +747833,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -1965663,16 +1965675,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -1968614,18 +1968626,20 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": [],
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ],
       "warnings": [],
       "soldEvidence": [],
       "availableEvidence": [
@@ -2047021,6 +2047035,229 @@
         "updatedAt": "",
         "rawMsrp": "$200.00",
         "rawPrice": "$160.00",
+        "rawOriginalPrice": "",
+        "listRawText": ""
+      }
+    }
+  },
+  {
+    "schemaVersion": 2,
+    "entityType": "offer",
+    "id": "smokingpipes-738397",
+    "source": "smokingpipes",
+    "sourceSite": "Smokingpipes",
+    "sourceProductId": "738397",
+    "productCode": "888-366-0345",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/david-huber/moreinfo.cfm?product_id=738397",
+    "sourceListUrl": "",
+    "listPage": null,
+    "listPosition": null,
+    "conditionType": "new",
+    "rawBrand": "David Huber",
+    "brandMapped": true,
+    "sourceScopedBrandMappingApplied": false,
+    "sourceScopedBrandMappingClassification": "",
+    "brand": "David Huber",
+    "canonicalBrand": "David Huber",
+    "canonicalBrandSlug": "david-huber",
+    "canonicalBrandZh": "",
+    "canonicalBrandCountry": "",
+    "brandReviewStatus": "confirmed",
+    "brandIndexEligible": true,
+    "listingEligible": true,
+    "filterEligible": true,
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": ""
+    },
+    "brandReviewNotes": [
+      "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+      "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+      "Chinese display name is not confirmed by local brand library."
+    ],
+    "rawTitle": "Strawberry Volcanos Box Set Tobacco Pipe",
+    "fullTitle": "Strawberry Volcanos Box Set Tobacco Pipe",
+    "displayNameEn": "Strawberry Volcanos Box Set Tobacco Pipe",
+    "displayNameZh": null,
+    "displayNameZhStatus": "not-generated",
+    "rawShape": "Volcano",
+    "shapeMapped": true,
+    "shape": "Volcano",
+    "canonicalShape": "Volcano",
+    "canonicalShapeSlug": "volcano",
+    "canonicalShapeZh": "火山斗",
+    "shapeZhName": "火山斗",
+    "bendType": "unknown",
+    "shapeReviewStatus": "confirmed",
+    "rawFinish": "Sandblast",
+    "finishMapped": true,
+    "finish": "Sandblast",
+    "canonicalFinish": "Sandblast",
+    "canonicalFinishSlug": "sandblast",
+    "canonicalFinishZh": "喷砂",
+    "finishReviewStatus": "confirmed",
+    "rawMaterial": "Briar",
+    "materialMapped": true,
+    "material": "Briar",
+    "canonicalMaterial": "Briar",
+    "canonicalMaterialSlug": "briar",
+    "canonicalMaterialZh": "石楠木",
+    "materialReviewStatus": "confirmed",
+    "rawStemMaterial": "Vulcanite",
+    "stemMaterialMapped": true,
+    "stemMaterial": "Vulcanite",
+    "canonicalStemMaterial": "Vulcanite",
+    "canonicalStemMaterialSlug": "vulcanite",
+    "canonicalStemMaterialZh": "硫化橡胶",
+    "stemMaterialReviewStatus": "confirmed",
+    "rawFilter": "None",
+    "canonicalFilter": "none",
+    "filterSizeMm": null,
+    "filterReviewStatus": "confirmed",
+    "price": {
+      "current": {
+        "rawText": "$125",
+        "currency": "USD",
+        "amount": 125,
+        "parseStatus": "parsed"
+      },
+      "original": {
+        "rawText": "",
+        "currency": "USD",
+        "amount": null,
+        "parseStatus": "empty"
+      },
+      "msrp": {
+        "rawText": "",
+        "currency": "USD",
+        "amount": null,
+        "parseStatus": "empty"
+      },
+      "listPrice": {
+        "rawText": "$2,125.00",
+        "currency": "USD",
+        "amount": 2125,
+        "parseStatus": "parsed"
+      },
+      "rawDiscountText": "",
+      "rawRmbText": "",
+      "calculationStatus": "not-calculated",
+      "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
+    },
+    "rawCountry": "United States",
+    "inventoryStatus": "available",
+    "inventoryConfidence": "high",
+    "includedInActiveListRange": true,
+    "rawListStatus": "",
+    "rawDetailStatus": "available",
+    "inventoryReviewReasons": [],
+    "inventoryWarnings": [],
+    "inventoryEvidence": {
+      "includedInActiveListRange": true,
+      "rawListStatus": "",
+      "rawDetailStatus": "available",
+      "reasons": [],
+      "warnings": [],
+      "soldEvidence": [
+        "weak/global-text-match"
+      ],
+      "availableEvidence": [
+        "detail-price-present",
+        "add-to-cart-present",
+        "quantity-input-present",
+        "cart-form-present",
+        "current-list-available"
+      ],
+      "rawStatusSource": "available-evidence-overrides-weak-global-sold-text"
+    },
+    "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153.5441.jpg",
+    "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153.5441.jpg",
+    "detailImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153.5441.jpg",
+    "galleryImages": [
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153.5441.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_1.3724.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_2.1019.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_3.5009.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_4.3048.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_5.2655.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_6.1832.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_7.9326.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_8.6728.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153_9.4648.jpg"
+    ],
+    "galleryCount": 10,
+    "listImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-755-0153.5441.jpg",
+    "usedListImageFallback": false,
+    "imageSourceStrategy": "detail-main-gallery",
+    "mainImageIncludedInGallery": true,
+    "rawGalleryCount": 10,
+    "lengthText": "5.99 in. Weight: 2.2 oz",
+    "weightText": "2.48 oz./70.31 g.",
+    "heightText": "",
+    "chamberDepthText": "1.40 in./35.56 mm.",
+    "chamberDiameterText": "0.80 in. Chamber Depth: 1.38 in.",
+    "outsideDiameterText": "1.71 in. Bowl Height: 2.36 in.",
+    "measurements": {
+      "lengthMm": null,
+      "weightGrams": 70.31,
+      "heightMm": null,
+      "chamberDepthMm": 35.56,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "rawModel": "",
+    "rawSeries": "Strawberry Volcanos Box Set Tobacco",
+    "rawShapeNumber": "",
+    "canonicalModelKey": "david-huber__series-strawberry-volcanos-box-set-tobacco__shape-volcano",
+    "canonicalModelKeyComponents": [
+      "david-huber",
+      "series-strawberry-volcanos-box-set-tobacco",
+      "shape-volcano"
+    ],
+    "canonicalModelKeyConfidence": "medium",
+    "modelEntityId": null,
+    "specsText": [
+      "Length: 5.99 in. Weight: 2.2 oz",
+      "Weight: 2.48 oz./70.31 g.",
+      "Chamber Depth: 1.40 in./35.56 mm.",
+      "Chamber Diameter: 0.80 in. Chamber Depth: 1.38 in.",
+      "Outside Diameter: 1.71 in. Bowl Height: 2.36 in.",
+      "Stem Material: Vulcanite",
+      "Filter: None",
+      "Shape: Volcano",
+      "Finish: Sandblast",
+      "Material: Briar",
+      "Country: United States"
+    ],
+    "description": "",
+    "sourceSpecific": {
+      "smokingpipes": {
+        "rawStatus": "available",
+        "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+        "statusEvidence": {
+          "status": "available",
+          "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+          "soldEvidence": [
+            "weak/global-text-match"
+          ],
+          "availableEvidence": [
+            "detail-price-present",
+            "add-to-cart-present",
+            "quantity-input-present",
+            "cart-form-present",
+            "current-list-available"
+          ],
+          "warning": "sold status has available evidence; treating sold signal as weak."
+        },
+        "verificationBlocked": false,
+        "excludedSimilarImageCount": 23,
+        "updatedAt": "",
+        "rawMsrp": "",
+        "rawPrice": "$125",
         "rawOriginalPrice": "",
         "listRawText": ""
       }
@@ -2178668,6 +2178905,223 @@
       "Filter: None",
       "Shape: Churchwarden",
       "Finish: Rusticated",
+      "Material: Briar",
+      "Country: Italy"
+    ],
+    "description": "",
+    "sourceSpecific": {
+      "smokingpipes": {
+        "rawStatus": "available",
+        "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+        "statusEvidence": {
+          "status": "available",
+          "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+          "soldEvidence": [
+            "weak/global-text-match"
+          ],
+          "availableEvidence": [
+            "detail-price-present",
+            "add-to-cart-present",
+            "quantity-input-present",
+            "cart-form-present",
+            "current-list-available"
+          ],
+          "warning": "sold status has available evidence; treating sold signal as weak."
+        },
+        "verificationBlocked": false,
+        "excludedSimilarImageCount": 23,
+        "updatedAt": "",
+        "rawMsrp": "",
+        "rawPrice": "$125",
+        "rawOriginalPrice": "",
+        "listRawText": ""
+      }
+    }
+  },
+  {
+    "schemaVersion": 2,
+    "entityType": "offer",
+    "id": "smokingpipes-740175",
+    "source": "smokingpipes",
+    "sourceSite": "Smokingpipes",
+    "sourceProductId": "740175",
+    "productCode": "888-366-0345",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/valbruna/moreinfo.cfm?product_id=740175",
+    "sourceListUrl": "",
+    "listPage": null,
+    "listPosition": null,
+    "conditionType": "new",
+    "rawBrand": "Valbruna",
+    "brandMapped": true,
+    "sourceScopedBrandMappingApplied": false,
+    "sourceScopedBrandMappingClassification": "",
+    "brand": "Valbruna",
+    "canonicalBrand": "Valbruna",
+    "canonicalBrandSlug": "valbruna",
+    "canonicalBrandZh": "",
+    "canonicalBrandCountry": "",
+    "brandReviewStatus": "confirmed",
+    "brandIndexEligible": true,
+    "listingEligible": true,
+    "filterEligible": true,
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": ""
+    },
+    "brandReviewNotes": [
+      "Brand country is not confirmed by local brand library; product country values are kept only in evidence.",
+      "Canonical brand is currently the cleaned source value; human review needed before merging aliases.",
+      "Chinese display name is not confirmed by local brand library."
+    ],
+    "rawTitle": "Sandblasted Cherrywood with Silver (Calypso) Tobacco Pipe",
+    "fullTitle": "Sandblasted Cherrywood with Silver (Calypso) Tobacco Pipe",
+    "displayNameEn": "Sandblasted Cherrywood with Silver (Calypso) Tobacco Pipe",
+    "displayNameZh": null,
+    "displayNameZhStatus": "not-generated",
+    "rawShape": "Poker",
+    "shapeMapped": true,
+    "shape": "Poker",
+    "canonicalShape": "Poker",
+    "canonicalShapeSlug": "poker",
+    "canonicalShapeZh": "扑克斗",
+    "shapeZhName": "扑克斗",
+    "bendType": "unknown",
+    "shapeReviewStatus": "confirmed",
+    "rawFinish": "Sandblast",
+    "finishMapped": true,
+    "finish": "Sandblast",
+    "canonicalFinish": "Sandblast",
+    "canonicalFinishSlug": "sandblast",
+    "canonicalFinishZh": "喷砂",
+    "finishReviewStatus": "confirmed",
+    "rawMaterial": "Briar",
+    "materialMapped": true,
+    "material": "Briar",
+    "canonicalMaterial": "Briar",
+    "canonicalMaterialSlug": "briar",
+    "canonicalMaterialZh": "石楠木",
+    "materialReviewStatus": "confirmed",
+    "rawStemMaterial": "Acrylic",
+    "stemMaterialMapped": true,
+    "stemMaterial": "Acrylic",
+    "canonicalStemMaterial": "Acrylic",
+    "canonicalStemMaterialSlug": "acrylic",
+    "canonicalStemMaterialZh": "亚克力",
+    "stemMaterialReviewStatus": "confirmed",
+    "rawFilter": "None",
+    "canonicalFilter": "none",
+    "filterSizeMm": null,
+    "filterReviewStatus": "confirmed",
+    "price": {
+      "current": {
+        "rawText": "$125",
+        "currency": "USD",
+        "amount": 125,
+        "parseStatus": "parsed"
+      },
+      "original": {
+        "rawText": "",
+        "currency": "USD",
+        "amount": null,
+        "parseStatus": "empty"
+      },
+      "msrp": {
+        "rawText": "",
+        "currency": "USD",
+        "amount": null,
+        "parseStatus": "empty"
+      },
+      "listPrice": {
+        "rawText": "$370.00",
+        "currency": "USD",
+        "amount": 370,
+        "parseStatus": "parsed"
+      },
+      "rawDiscountText": "",
+      "rawRmbText": "",
+      "calculationStatus": "not-calculated",
+      "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
+    },
+    "rawCountry": "Italy",
+    "inventoryStatus": "available",
+    "inventoryConfidence": "high",
+    "includedInActiveListRange": true,
+    "rawListStatus": "",
+    "rawDetailStatus": "available",
+    "inventoryReviewReasons": [],
+    "inventoryWarnings": [],
+    "inventoryEvidence": {
+      "includedInActiveListRange": true,
+      "rawListStatus": "",
+      "rawDetailStatus": "available",
+      "reasons": [],
+      "warnings": [],
+      "soldEvidence": [
+        "weak/global-text-match"
+      ],
+      "availableEvidence": [
+        "detail-price-present",
+        "add-to-cart-present",
+        "quantity-input-present",
+        "cart-form-present",
+        "current-list-available"
+      ],
+      "rawStatusSource": "available-evidence-overrides-weak-global-sold-text"
+    },
+    "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099.4298.jpg",
+    "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099.4298.jpg",
+    "detailImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099.4298.jpg",
+    "galleryImages": [
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099.4298.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099_1.8998.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099_2.4506.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099_3.7975.jpg"
+    ],
+    "galleryCount": 4,
+    "listImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-1051-0099.4298.jpg",
+    "usedListImageFallback": false,
+    "imageSourceStrategy": "detail-main-gallery",
+    "mainImageIncludedInGallery": true,
+    "rawGalleryCount": 4,
+    "lengthText": "6.09 in./154.69 mm.",
+    "weightText": "2.75 oz./78.02 g.",
+    "heightText": "",
+    "chamberDepthText": "1.98 in./50.29 mm.",
+    "chamberDiameterText": "0.77 in./19.56 mm.",
+    "outsideDiameterText": "1.69 in./42.93 mm.",
+    "measurements": {
+      "lengthMm": 154.69,
+      "weightGrams": 78.02,
+      "heightMm": null,
+      "chamberDepthMm": 50.29,
+      "chamberDiameterMm": 19.56,
+      "outsideDiameterMm": 42.93
+    },
+    "rawModel": "",
+    "rawSeries": "Sandblasted Cherrywood with Silver Tobacco",
+    "rawShapeNumber": "",
+    "canonicalModelKey": "valbruna__series-sandblasted-cherrywood-with-silver-tobacco__shape-poker",
+    "canonicalModelKeyComponents": [
+      "valbruna",
+      "series-sandblasted-cherrywood-with-silver-tobacco",
+      "shape-poker"
+    ],
+    "canonicalModelKeyConfidence": "medium",
+    "modelEntityId": null,
+    "specsText": [
+      "Length: 6.09 in./154.69 mm.",
+      "Weight: 2.75 oz./78.02 g.",
+      "Chamber Depth: 1.98 in./50.29 mm.",
+      "Chamber Diameter: 0.77 in./19.56 mm.",
+      "Outside Diameter: 1.69 in./42.93 mm.",
+      "Stem Material: Acrylic",
+      "Filter: None",
+      "Shape: Poker",
+      "Finish: Sandblast",
       "Material: Briar",
       "Country: Italy"
     ],
