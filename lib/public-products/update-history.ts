@@ -32,10 +32,19 @@ function uniqueBatches(batches: PublicRecentNewProductsFile[]) {
  * without modifying inventory data or the publication pipeline.
  */
 export function getPublicRecentNewProductBatches(previousDate: string) {
-  const root = process.cwd();
+  const recentNewPath = path.join(process.cwd(), RECENT_NEW_PATH);
+  let root = process.cwd();
+  try {
+    // Application releases link their data directory to the publisher checkout.
+    // Read history in that real checkout, rather than the Git-less build folder.
+    const publicProductsRoot = fs.realpathSync(path.dirname(recentNewPath));
+    root = path.resolve(publicProductsRoot, "..", "..", "..");
+  } catch {
+    // Ordinary checkouts still use their working directory if data is absent.
+  }
   const batches: PublicRecentNewProductsFile[] = [];
   try {
-    const current = parseBatch(fs.readFileSync(path.join(root, RECENT_NEW_PATH), "utf8"));
+    const current = parseBatch(fs.readFileSync(recentNewPath, "utf8"));
     if (current) batches.push(current);
   } catch {
     // A missing current index must not prevent the previous day's fallback.

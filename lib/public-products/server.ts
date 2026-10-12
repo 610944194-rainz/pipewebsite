@@ -44,6 +44,7 @@ let lookupCache: PublicLookupFile | null = null;
 let featuredCache: PublicFeaturedProductsFile | null | undefined;
 let recentNewCache: PublicRecentNewProductsFile | null | undefined;
 const detailShardCache = new Map<string, PublicDetailProduct[]>();
+const publicFileVersions = new Map<string, string>();
 
 function readJson<T>(filePath: string): T {
   return JSON.parse(fs.readFileSync(filePath, "utf8")) as T;
@@ -53,6 +54,34 @@ function dataFile(...segments: string[]) {
   return path.join(PUBLIC_PRODUCTS_ROOT, ...segments);
 }
 
+/** Public data can be replaced while an isolated application build keeps running. */
+function refreshPublicFile(...segments: string[]) {
+  const filePath = dataFile(...segments);
+  let version = "missing";
+  try {
+    const file = fs.statSync(filePath, { bigint: true });
+    version = `${file.ino}:${file.size}:${file.mtimeNs}:${file.ctimeNs}`;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+  const previousVersion = publicFileVersions.get(filePath);
+  publicFileVersions.set(filePath, version);
+  if (previousVersion === undefined || previousVersion === version) return;
+
+  // Invalidate derived maps as well as arrays: otherwise new IDs still resolve
+  // against an earlier catalog or detail lookup after a successful publication.
+  catalogCache = null;
+  catalogMapCache = null;
+  filtersCache = null;
+  brandsCache = null;
+  brandMapCache = null;
+  brandSeriesMapCache = null;
+  lookupCache = null;
+  featuredCache = undefined;
+  recentNewCache = undefined;
+  detailShardCache.clear();
+}
+
 function assertShard(shard: string) {
   if (!/^(?:[0-2][0-9a-f]|3[0-9a-f])$/.test(shard)) {
     throw new Error(`Invalid detail shard: ${shard}`);
@@ -60,6 +89,7 @@ function assertShard(shard: string) {
 }
 
 export function getPublicCatalog(): PublicCatalogProduct[] {
+  refreshPublicFile("catalog.json");
   if (!catalogCache) {
     catalogCache = readJson<CatalogFile>(dataFile("catalog.json")).products.map(
       withSafeDisplayName
@@ -70,6 +100,7 @@ export function getPublicCatalog(): PublicCatalogProduct[] {
 }
 
 export function getPublicCatalogMap() {
+  refreshPublicFile("catalog.json");
   if (!catalogMapCache) {
     catalogMapCache = new Map(
       getPublicCatalog().map((product) => [product.id, product])
@@ -80,6 +111,7 @@ export function getPublicCatalogMap() {
 }
 
 export function getPublicFilters(): PublicFilters {
+  refreshPublicFile("filters.json");
   if (!filtersCache) {
     filtersCache = readJson<PublicFilters>(dataFile("filters.json"));
   }
@@ -88,6 +120,7 @@ export function getPublicFilters(): PublicFilters {
 }
 
 export function getPublicBrands(): PublicBrandIndexEntry[] {
+  refreshPublicFile("brands.json");
   if (!brandsCache) {
     brandsCache = readJson<PublicBrandIndexFile>(dataFile("brands.json")).brands;
   }
@@ -96,6 +129,7 @@ export function getPublicBrands(): PublicBrandIndexEntry[] {
 }
 
 export function getPublicBrandMap() {
+  refreshPublicFile("brands.json");
   if (!brandMapCache) {
     brandMapCache = new Map<string, PublicBrandIndexEntry>();
 
@@ -108,6 +142,7 @@ export function getPublicBrandMap() {
 }
 
 export function getPublicBrandSeriesOptions(brandSlug: string) {
+  refreshPublicFile("series.json");
   if (!brandSeriesMapCache) {
     const seriesFile = readJson<PublicBrandSeriesIndexFile>(
       dataFile("series.json")
@@ -121,6 +156,7 @@ export function getPublicBrandSeriesOptions(brandSlug: string) {
 }
 
 export function getPublicLookup(): PublicLookupFile {
+  refreshPublicFile("detail-lookup.json");
   if (!lookupCache) {
     lookupCache = readJson<PublicLookupFile>(dataFile("detail-lookup.json"));
   }
@@ -129,6 +165,7 @@ export function getPublicLookup(): PublicLookupFile {
 }
 
 export function getPublicRecentNewProducts(): PublicRecentNewProductsFile | null {
+  refreshPublicFile("recent-new.json");
   if (recentNewCache !== undefined) return recentNewCache;
 
   const recentNewPath = dataFile("recent-new.json");
@@ -146,6 +183,7 @@ export function getPublicRecentNewProducts(): PublicRecentNewProductsFile | null
 
 export function readPublicDetailShard(shard: string): PublicDetailProduct[] {
   assertShard(shard);
+  refreshPublicFile("details", `${shard}.json`);
 
   if (!detailShardCache.has(shard)) {
     const shardFile = readJson<PublicDetailShardFile>(
@@ -244,6 +282,7 @@ function getFallbackFeaturedProducts() {
 }
 
 function getPublicFeaturedIndex(): PublicFeaturedProductsFile | null {
+  refreshPublicFile("featured.json");
   if (featuredCache !== undefined) return featuredCache;
 
   const featuredPath = dataFile("featured.json");
