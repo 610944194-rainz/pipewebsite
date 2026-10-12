@@ -15,6 +15,7 @@ import HomeEditorialSections, {
   type HomeFeaturedMaker,
 } from "./components/home/HomeEditorialSections";
 import HomeHero from "./components/home/HomeHero";
+import HomeMobileEntries from "./components/home/HomeMobileEntries";
 import type { HomeRailProduct } from "./components/home/HomeProductRail";
 
 const featuredBrandSlugs = [
@@ -142,11 +143,15 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
   const makers = getFeaturedMakers();
 
   return (
-    <main className="min-h-screen bg-[var(--page-background)] text-[var(--text-primary)]">
-      <SiteHeader />
-      <div className="mx-auto max-w-[1200px]">
-        <HomeHero />
+    <main data-home-reference className="min-h-screen bg-[#faf8f4] text-[var(--text-primary)] lg:bg-[var(--page-background)]">
+      <style>{`@media(max-width:1023px){body:has(main[data-home-reference]){min-width:0}}`}</style>
+      <div className="hidden lg:contents">
+        <SiteHeader />
+        <div className="mx-auto max-w-[1200px]">
+          <HomeHero />
+        </div>
       </div>
+      <HomeMobileEntries />
       <HomeEditorialSections
         weeklyProducts={weeklyProducts}
         todayProducts={todayProducts}

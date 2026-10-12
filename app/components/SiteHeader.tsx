@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import MemberEntry from "./members/MemberEntry";
 
 type IconProps = { className?: string };
-type SiteHeaderProps = { className?: string; variant?: "default" | "dark" };
+type SiteHeaderProps = { className?: string; variant?: "default" | "dark" | "reference" };
 
 const navigation = [
   { title: "首页", label: "Home", href: "/" },
@@ -60,8 +60,16 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
 
   return (
     <>
-      <header className={`sticky top-0 z-40 border-b backdrop-blur-sm ${variant === "dark" ? "border-[rgba(213,166,81,0.12)] bg-[#2a180e]/96 text-[#f4eee7]" : "border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96"} ${className}`}>
-        <div className="relative mx-auto grid h-11 max-w-[1200px] grid-cols-[44px_minmax(0,1fr)_44px] items-center px-4 sm:px-6 lg:flex lg:h-11 lg:px-10">
+      <header className={`${variant === "reference" ? "relative border-white/20 bg-black/25 text-white" : `sticky top-0 backdrop-blur-sm ${variant === "dark" ? "border-[rgba(213,166,81,0.12)] bg-[#2a180e]/96 text-[#f4eee7]" : "border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96"}`} z-40 border-b ${className}`}>
+        <div className={`relative mx-auto max-w-[1200px] items-center ${variant === "reference" ? "flex h-[44px] justify-between pl-5 pr-3 sm:h-[60px] sm:px-5" : "grid h-11 grid-cols-[44px_minmax(0,1fr)_44px] px-4 sm:px-6 lg:flex lg:h-11 lg:px-10"}`}>
+          {variant === "reference" ? <>
+            <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="leading-none text-white"><span className="block text-[20px] font-semibold tracking-[0.11em] sm:text-[27px]">烟斗派</span><span className="mt-1 block text-[6px] tracking-[0.28em] sm:text-[8px]">YANDOUBUY</span></Link>
+            <div className="flex items-center sm:gap-4">
+              <MemberEntry compact />
+              <button ref={menuButtonRef} type="button" aria-label="打开菜单" aria-controls="site-mobile-menu" aria-expanded={open} onClick={() => setOpenPath(pathname)} className="inline-flex h-11 w-11 items-center justify-center"><MenuIcon className="h-[26px] w-[26px]" /></button>
+            </div>
+          </> : <>
+
           <button
             ref={menuButtonRef}
             type="button"
@@ -85,8 +93,9 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
           <nav aria-label="主导航" className="ml-auto hidden items-center gap-1 lg:flex">
             {navigation.map((item) => {
               const active = isActivePath(pathname, item.href);
+                const NavigationLink = item.href === "/tobacco-encyclopedia/index.html" ? "a" : Link;
               return (
-                <Link
+                <NavigationLink
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
@@ -98,7 +107,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
                 >
                   {item.title}
                   <span aria-hidden="true" className={`absolute inset-x-3 bottom-0 h-px bg-[var(--brass)] transition-transform motion-reduce:transition-none ${active ? "scale-x-100" : "scale-x-0"}`} />
-                </Link>
+                </NavigationLink>
               );
             })}
             <MemberEntry dark={variant === "dark"} />
@@ -109,6 +118,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
           <Link href="/account" aria-label="打开我的账号" className="col-start-3 inline-flex h-11 w-11 items-center justify-center justify-self-end lg:hidden">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5"><circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" stroke="currentColor" strokeWidth="1.5" /></svg>
           </Link>
+          </>}
         </div>
       </header>
 
@@ -126,8 +136,9 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
             <nav aria-label="移动端主导航" className="mt-2">
               {navigation.map((item) => {
                 const active = isActivePath(pathname, item.href);
+                const NavigationLink = item.href === "/tobacco-encyclopedia/index.html" ? "a" : Link;
                 return (
-                  <Link
+                  <NavigationLink
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpenPath(null)}
@@ -139,7 +150,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
                       <span className="mt-1 block text-[10px] font-normal leading-[1.4] tracking-[0.12em] text-[var(--text-secondary)]">{item.label}</span>
                     </span>
                     <span aria-hidden="true" className={`h-6 w-px ${active ? "bg-[var(--brass)]" : "bg-transparent"}`} />
-                  </Link>
+                  </NavigationLink>
                 );
               })}
             </nav>
