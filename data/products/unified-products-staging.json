@@ -1876907,8 +1876907,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1877763,8 +1877763,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1882512,8 +1882512,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1884959,121 +1884959,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-16739",
-    "source": "gqtobaccos",
-    "sourceProductId": "16739",
-    "sourceUrl": "https://www.gqtobaccos.com/tobacco-pipes/chacom-monza-black-no-851-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Chacom - Monza Black - No 851 - 9mm Filter Pipe",
-    "displayNameEn": "Chacom - Monza Black - No 851 - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Chacom - Monza Black - No 851 - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Chacom",
-      "canonicalName": "Chacom",
-      "slug": "chacom",
-      "zhName": "查科姆",
-      "country": "France",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Billiard",
-      "shapeSlug": "bent-billiard",
-      "shapeZhName": "弯式撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/16739/74524/chacom_monza_noir_851_pipe_1__92673__14805__83733.1728567797.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/16739/74524/chacom_monza_noir_851_pipe_1__92673__14805__83733.1728567797.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/16739/74524/chacom_monza_noir_851_pipe_1__92673__14805__83733.1728567797.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/16739/74525/chacom_monza_851_black_pipe_3__37209__17703__69933.1728567797.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/16739/74526/chacom_monza_black_3_851__98420__62471__48852.1728567797.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 144,
-      "heightMm": 55,
-      "weightGrams": 52,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 40
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Chacom",
-      "title": "Chacom - Monza Black - No 851 - 9mm Filter Pipe",
-      "keywords": [
-        "The Chacom Monza range combines traditntal French shapes with an air-cooled aluminum ferrule, all the pipes in this range take a 9mm filter. Chacom History Chacom are one of the most historically important pipe makers still in business today. As early as 1825 the Comoy family was producing smoking pipes from Boxwood, long before the discovery of Briar wood. Henry Chacom is born in 1850, just 6 years before the discovery of briar and St Claude becoming the home and centre of the briar pipe world. While in a Swiss prisoner of war camp (1870) Henry meets up with his cousins (the Chapius family) and the plan to open a pipe factory if and when they are released. On their return to France, the Comoy & Chapius families open their factory is opened. With the popularity of there pipes in London, Henry takes machinery and skilled craftsmen to the UK. The Comoy factory was supplied with pre cut bowls and other raw material from St Claude. After the &ldquo;Great War&rdquo; the St Claude factory is renamed is &ldquo;CHAPUIS COMOY & Cie&rdquo;.Following the death of Henri in 1924, the company (London & St Claude factories) is taken over by Paul & Adrian Comoy with help from Emile & Louis Chapius. By 1928 the London Chacom factory had begun completely making pipes in London and the supplies from St Claude were no longer required. Rather than closing the original factory the company was renamed Comoy (a combination of both names) in 1928. Shapes, ranges and grading remained the same between the two factories and Chacom was only sold in France, Switzerland and Belguim. After the financial crash in the late 1920s, Chacom went in to joint venture with a number of other pipe makers, forming La Bruyere one of the worlds biggest ever pipe companies. La Bruyere employed over 450 workers, producing 100,000&rsquo;s of pipes annually for the world markets. In 1945 at the end of the Second World War, Chacom got its independence again and began working on more modern designs with some of St Claude&rsquo;s more skilled artisan carvers. Various name changes and wrangling with the owners didn&rsquo;t stop Chacom from becoming on of the biggest names in France, Belguim, Japan, Germany, Scandinavia and America. Innovations in shape and finishes continued from the 1970&rsquo;s to this day. Most notably was Pierre Morel who had initially worked on the Chacom Gran Cru, Naja and Fluer de Bruyere handmade ranges and eventually became the companies head pipe maker. Still to this day Chacom are known for their traditional manufacturing techniques, with a very contempory look and feel them. Pipe Details Pipe Material : Briar Shape : Bent Billiard Finish : Smooth Colour : Black Mouthpiece : Acrylic Filter : 9mm Dimensions Pipe Length : 144 mm Pipe Height : 55 mm Pipe Width : 40 mm Chamber Width : 20 mm Weight : 52 grams",
-        "Briar",
-        "Bent Billiard",
-        "Smooth",
-        "Acrylic",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1896900,6 +1896785,119 @@
     }
   },
   {
+    "id": "gqtobaccos-23436",
+    "source": "gqtobaccos",
+    "sourceProductId": "23436",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/basket-pipe-stonehaven-smooth-or-rustic/",
+    "entityType": "offer",
+    "displayName": "Basket Pipe - Stonehaven (Smooth or Rustic)",
+    "displayNameEn": "Basket Pipe - Stonehaven (Smooth or Rustic)",
+    "displayNameZh": null,
+    "rawTitle": "Basket Pipe - Stonehaven (Smooth or Rustic)",
+    "brand": {
+      "rawName": "Basket Pipes",
+      "canonicalName": "Basket Pipes",
+      "slug": "basket-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Lovat",
+      "shapeSlug": "lovat",
+      "shapeZhName": "罗瓦斗",
+      "finish": "Smooth or Rusticated",
+      "finishSlug": "smooth-or-rusticated",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vulcanite (Fishtail)",
+      "stemMaterialSlug": "vulcanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 9.99,
+      "rawText": "GBP 9.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23436/87243/_MG_4377__03025__49156__86561.1728570014.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23436/87243/_MG_4377__03025__49156__86561.1728570014.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/23436/87243/_MG_4377__03025__49156__86561.1728570014.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 108,
+      "heightMm": 44,
+      "weightGrams": 24,
+      "chamberDepthMm": 34,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 30
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Basket Pipes",
+      "title": "Basket Pipe - Stonehaven (Smooth or Rustic)",
+      "keywords": [
+        "The Stonehaven is a small Lovat shaped briar pipe and its low price makes it ideal as a starter pipe. Due to its small size this little lovat is ideal to stick in your pocket for the day, at hand when you want a quick smoke. While these pipes might not be cut from stunning looking briar, or turned by one of the world&rsquo;s finest carvers. It still offers the cool and dry smoking experience found with briar and for a low price. These will not win any awards for the quality, but with a little care, will last for years in the right hands. Finished in either smooth or rusticated, with a dark brown stain and vulcanite mouthpieces. Pipe Details Pipe Material : Briar Shape : Lovat Finish : Smooth or Rusticated Colour : Brown Mouthpiece : Vulcanite (Fishtail) Filter : None Dimensions Pipe Length : 108mm Pipe Height : 44mm Pipe Width : 30mm Chamber Width : 17mm Chamber Depth : 34mm Pipe Weight : 24grams",
+        "Briar",
+        "Lovat",
+        "Smooth or Rusticated",
+        "Vulcanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-23912",
     "source": "gqtobaccos",
     "sourceProductId": "23912",
@@ -1901802,119 +1901800,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25289",
-    "source": "gqtobaccos",
-    "sourceProductId": "25289",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-siena-207-straight-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Siena 207 - Straight 9mm Filter Pipe",
-    "displayNameEn": "Savinelli - Siena 207 - Straight 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Siena 207 - Straight 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 110.99,
-      "rawText": "GBP 110.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25289/90370/esogihesrg__66720.1771341479.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25289/90370/esogihesrg__66720.1771341479.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25289/90370/esogihesrg__66720.1771341479.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 143,
-      "heightMm": 43,
-      "weightGrams": 40,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 40
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Siena 207 - Straight 9mm Filter Pipe",
-      "keywords": [
-        "Like all pipes from the Siena range, briar with interesting grain is selected and given a light stain. Fitted with an acrylic mouthpiece what makes use of the 9mm filter. The Kingsize offering of the 141, takes the classic billiard and packs it out in the hefty/chunky format. Thanks to the light finish, still maintains a sleek look and feel. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Acrylic (Fishtail) Filter : 9mm Dimensions Pipe Length : 143mm Pipe Height : 43mm Pipe Width : 40mm Chamber Width : 20mm Pipe Weight : 40grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
