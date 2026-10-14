@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import MemberEntry from "./members/MemberEntry";
+import HomeImage from "./home/HomeImage";
 
 type IconProps = { className?: string };
 type SiteHeaderProps = { className?: string; variant?: "default" | "dark" | "reference" };
@@ -28,6 +29,7 @@ function isActivePath(pathname: string, href: string) {
 export default function SiteHeader({ className = "", variant = "default" }: SiteHeaderProps) {
   const [openPath, setOpenPath] = useState<string | null>(null);
   const pathname = usePathname();
+  const navigationPrefetch = pathname === "/" ? false : undefined;
   const open = openPath === pathname;
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -63,7 +65,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
       <header className={`${variant === "reference" ? "relative border-white/20 bg-black/25 text-white" : `sticky top-0 backdrop-blur-sm ${variant === "dark" ? "border-[rgba(213,166,81,0.12)] bg-[#2a180e]/96 text-[#f4eee7]" : "border-[rgba(222,212,200,0.46)] bg-[var(--surface)]/96"}`} z-40 border-b ${className}`}>
         <div className={`relative mx-auto max-w-[1200px] items-center ${variant === "reference" ? "flex h-[44px] justify-between pl-5 pr-3 sm:h-[60px] sm:px-5" : "grid h-11 grid-cols-[44px_minmax(0,1fr)_44px] px-4 sm:px-6 lg:flex lg:h-11 lg:px-10"}`}>
           {variant === "reference" ? <>
-            <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="leading-none text-white"><span className="block text-[20px] font-semibold tracking-[0.11em] sm:text-[27px]">烟斗派</span><span className="mt-1 block text-[6px] tracking-[0.28em] sm:text-[8px]">YANDOUBUY</span></Link>
+            <Link prefetch={navigationPrefetch} href="/" aria-label="烟斗派 YandouBuy 首页" className="leading-none text-white"><span className="block text-[20px] font-semibold tracking-[0.11em] sm:text-[27px]">烟斗派</span><span className="mt-1 block text-[6px] tracking-[0.28em] sm:text-[8px]">YANDOUBUY</span></Link>
             <div className="flex items-center sm:gap-4">
               <MemberEntry compact />
               <button ref={menuButtonRef} type="button" aria-label="打开菜单" aria-controls="site-mobile-menu" aria-expanded={open} onClick={() => setOpenPath(pathname)} className="inline-flex h-11 w-11 items-center justify-center"><MenuIcon className="h-[26px] w-[26px]" /></button>
@@ -82,9 +84,12 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
             <MenuIcon className="h-[21px] w-[21px]" />
           </button>
 
-          <Link href="/" aria-label="烟斗派 YandouBuy 首页" className="absolute left-[50vw] flex min-w-0 -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0 lg:justify-start">
-            <img
+          <Link prefetch={navigationPrefetch} href="/" aria-label="烟斗派 YandouBuy 首页" className="absolute left-[50vw] flex min-w-0 -translate-x-1/2 items-center justify-center lg:static lg:translate-x-0 lg:justify-start">
+            <HomeImage
               src={variant === "dark" ? "/pics/yandoubuy-logo-header-warm-white.png" : "/pics/yandoubuy-logo-header.png"}
+              media={pathname === "/" ? "(min-width: 1024px)" : undefined}
+              sizes="(min-width: 1024px) 190px, 150px"
+              loading="eager"
               alt="烟斗派 YandouBuy"
               className={`block h-auto w-[150px] max-w-full translate-y-[2px] object-contain lg:w-[190px] lg:translate-y-0 ${variant === "dark" ? "" : "mix-blend-multiply"}`}
             />
@@ -98,6 +103,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
                 <NavigationLink
                   key={item.href}
                   href={item.href}
+                  {...(item.href === "/tobacco-encyclopedia/index.html" ? {} : { prefetch: navigationPrefetch })}
                   aria-current={active ? "page" : undefined}
                   className={`relative px-3 py-2 text-[13px] font-normal transition-colors motion-reduce:transition-none ${
                     active
@@ -111,11 +117,11 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
               );
             })}
             <MemberEntry dark={variant === "dark"} />
-            <Link href="/request" className={`ml-3 border px-4 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${variant === "dark" ? "border-[rgba(213,166,81,0.36)] text-[#e4c18d] hover:bg-[#e4c18d] hover:text-[#24160f]" : "border-[var(--coffee-dark)] text-[var(--coffee-dark)] hover:bg-[var(--coffee-dark)] hover:text-white"}`}>
+            <Link prefetch={navigationPrefetch} href="/request" className={`ml-3 border px-4 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${variant === "dark" ? "border-[rgba(213,166,81,0.36)] text-[#e4c18d] hover:bg-[#e4c18d] hover:text-[#24160f]" : "border-[var(--coffee-dark)] text-[var(--coffee-dark)] hover:bg-[var(--coffee-dark)] hover:text-white"}`}>
               提交找斗需求
             </Link>
           </nav>
-          <Link href="/account" aria-label="打开我的账号" className="col-start-3 inline-flex h-11 w-11 items-center justify-center justify-self-end lg:hidden">
+          <Link prefetch={navigationPrefetch} href="/account" aria-label="打开我的账号" className="col-start-3 inline-flex h-11 w-11 items-center justify-center justify-self-end lg:hidden">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5"><circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" stroke="currentColor" strokeWidth="1.5" /></svg>
           </Link>
           </>}
@@ -141,6 +147,7 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
                   <NavigationLink
                     key={item.href}
                     href={item.href}
+                    {...(item.href === "/tobacco-encyclopedia/index.html" ? {} : { prefetch: navigationPrefetch })}
                     onClick={() => setOpenPath(null)}
                     aria-current={active ? "page" : undefined}
                     className="flex h-16 items-center justify-between border-b border-[rgba(222,212,200,0.58)]"
@@ -157,10 +164,10 @@ export default function SiteHeader({ className = "", variant = "default" }: Site
 
             <div className="mt-8 border-t border-[rgba(222,212,200,0.72)] pt-5">
               <div className="mb-3"><MemberEntry onNavigate={closeMenu} /></div>
-              <Link href="/request" onClick={() => setOpenPath(null)} className="flex h-[46px] items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] text-[14px] font-medium text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
+              <Link prefetch={navigationPrefetch} href="/request" onClick={() => setOpenPath(null)} className="flex h-[46px] items-center justify-center rounded-[4px] bg-[var(--coffee-dark)] text-[14px] font-medium text-[#f4eee7] transition-colors hover:bg-[var(--coffee)] motion-reduce:transition-none">
                 提交找斗需求
               </Link>
-              <Link href="/cooperate" onClick={() => setOpenPath(null)} className="mt-2.5 flex h-[42px] items-center justify-center text-[13px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+              <Link prefetch={navigationPrefetch} href="/cooperate" onClick={() => setOpenPath(null)} className="mt-2.5 flex h-[42px] items-center justify-center text-[13px] font-normal text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
                 合作入驻
               </Link>
             </div>

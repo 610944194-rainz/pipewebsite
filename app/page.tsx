@@ -16,6 +16,7 @@ import HomeEditorialSections, {
 } from "./components/home/HomeEditorialSections";
 import HomeHero from "./components/home/HomeHero";
 import HomeMobileEntries from "./components/home/HomeMobileEntries";
+import HomeImageLoading from "./components/home/HomeImageLoading";
 import type { HomeRailProduct } from "./components/home/HomeProductRail";
 
 const featuredBrandSlugs = [
@@ -144,6 +145,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
 
   return (
     <main data-home-reference className="min-h-screen bg-[#faf8f4] text-[var(--text-primary)] lg:bg-[var(--page-background)]">
+      <HomeImageLoading>
       <style>{`@media(max-width:1023px){body:has(main[data-home-reference]){min-width:0}}`}</style>
       <div className="hidden lg:contents">
         <SiteHeader />
@@ -160,6 +162,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
         makersDemo
       />
       <SiteFooter />
+      </HomeImageLoading>
     </main>
   );
 }

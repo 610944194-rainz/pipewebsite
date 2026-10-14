@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buildProductsHref } from "@/lib/public-products/url";
 import HomeProductRail, { type HomeRailProduct } from "./HomeProductRail";
+import HomeImage from "./HomeImage";
 
 export type HomeFeaturedBrand = {
   slug: string;
@@ -52,13 +53,14 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
         <SectionHeader title="国内斗师精选" href={makersDemo ? "/domestic-makers?demo=1" : "/domestic-makers"} />
         {makersDemo ? <div className="home-rail -mx-4 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
           {makers.map((maker) => (
-            <Link
+            <Link prefetch={false}
               key={maker.slug}
               href={`/domestic-makers/${maker.slug}?demo=1`}
               className="group relative aspect-[3/2] w-[80vw] shrink-0 snap-start overflow-hidden rounded-[7px] bg-[var(--coffee-dark)] sm:h-[230px] sm:w-auto sm:aspect-auto"
             >
-              {maker.image ? <img
+              {maker.image ? <HomeImage
                 src={maker.image}
+                sizes="(min-width: 1024px) 360px, (min-width: 640px) 33vw, 80vw"
                 alt={`展示样例：${maker.displayName}制斗场景`}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
                 style={{ objectPosition: maker.objectPosition }}
@@ -73,21 +75,22 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
               </div>
             </Link>
           ))}
-        </div> : <Link href="/domestic-makers" className="mt-3 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal text-[var(--coffee)]">浏览斗师 / 工作室目录<ArrowIcon className="ml-2 h-3 w-3" /></Link>}
+        </div> : <Link prefetch={false} href="/domestic-makers" className="mt-3 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal text-[var(--coffee)]">浏览斗师 / 工作室目录<ArrowIcon className="ml-2 h-3 w-3" /></Link>}
       </section>
 
       <section className="mt-9 lg:mt-12">
         <SectionHeader title="品牌精选" href="/brands" />
         <div className="home-rail -mx-4 mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-5 sm:gap-5 sm:overflow-visible sm:px-0">
           {brands.map((brand) => (
-            <Link
+            <Link prefetch={false}
               key={brand.slug}
               href={`/brands/${brand.slug}`}
               className="flex h-[78px] w-[118px] shrink-0 snap-start flex-col items-center justify-center text-center sm:w-auto"
             >
               <span className="flex h-[50px] w-full items-center justify-center">
-                <img
+                <HomeImage
                   src={brand.logoSrc}
+                  sizes="110px"
                   alt={`${brand.name} Logo`}
                   className="h-auto w-auto object-contain"
                   style={{
@@ -108,8 +111,8 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
         <SectionHeader title="各国烟斗速览" href="/products" />
         <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
           {collectionCards.map((item) => (
-            <Link key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[8px] bg-[var(--coffee-dark)]">
-              <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none" />
+            <Link prefetch={false} key={item.title} href={item.href} className="group relative aspect-[0.78/1] overflow-hidden rounded-[8px] bg-[var(--coffee-dark)]">
+              <HomeImage src={item.image} alt="" sizes="(min-width: 1200px) 270px, (min-width: 640px) 25vw, 50vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)]">
                 <h3 className="text-[15px] font-medium leading-[1.35]">{item.title}</h3>
@@ -127,8 +130,8 @@ export default function HomeEditorialSections({ weeklyProducts, todayProducts, b
 
       <section className="mt-8 lg:mt-12">
         <SectionHeader title="烟斗指南" href="/service" />
-        <Link href="/service" className="group relative mt-3 block aspect-[2/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[3/1]">
-          <img src="/pics/guide-beginner.jpg" alt="烟斗入门指南" className="absolute inset-0 h-full w-full origin-left scale-[2.8] object-cover object-left transition-transform duration-500 sm:scale-[3] motion-reduce:transition-none" />
+        <Link prefetch={false} href="/service" className="group relative mt-3 block aspect-[2/1] overflow-hidden rounded-[10px] bg-[var(--coffee-dark)] sm:aspect-[3/1]">
+          <HomeImage src="/pics/guide-beginner.jpg" alt="烟斗入门指南" sizes="(min-width: 1024px) 1920px, 1200px" className="absolute inset-0 h-full w-full origin-left scale-[2.8] object-cover object-left transition-transform duration-500 sm:scale-[3] motion-reduce:transition-none" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,8,5,0.78)_0%,rgba(13,8,5,0.40)_52%,rgba(13,8,5,0.02)_80%)]" />
           <div className="absolute inset-y-0 left-0 flex max-w-[320px] flex-col justify-center p-5 text-[#f4eee7] [text-shadow:0_1px_2px_rgba(0,0,0,0.22)] sm:p-7">
             <h3 className="text-[18px] font-medium leading-[1.4]">了解烟斗，从这里开始</h3>
@@ -154,7 +157,7 @@ function SectionHeader({ title, href }: { title: string; href: string }) {
   return (
     <div className="flex items-center justify-between gap-4">
       <h2 className="text-[17px] font-medium leading-[1.4] tracking-[0.01em] text-[var(--text-primary)] sm:text-[19px]">{title}</h2>
-      <Link href={href} className="inline-flex items-center text-[12px] font-normal leading-[1.4] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
+      <Link prefetch={false} href={href} className="inline-flex items-center text-[12px] font-normal leading-[1.4] text-[var(--text-secondary)] transition-colors hover:text-[var(--coffee)] motion-reduce:transition-none">
         查看全部<ArrowIcon className="ml-1.5 h-3 w-3" />
       </Link>
     </div>

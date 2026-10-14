@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ProductCardImage from "@/components/products/ProductCardImage";
+import { useFixedHomeImagesReady } from "./HomeImageLoading";
 import {
   productAnchorId,
   productReturnNavigationKey,
@@ -50,6 +51,7 @@ function saveReturnPosition(productId: string) {
 
 export default function HomeProductRail({ products, variant }: HomeProductRailProps) {
   const compact = variant === "today";
+  const imagesReady = useFixedHomeImagesReady();
 
   return (
     <div
@@ -57,8 +59,8 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
         compact ? "flex-nowrap" : "sm:grid sm:grid-cols-4 sm:overflow-visible"
       }`}
     >
-      {products.map((product, index) => (
-        <Link
+      {products.map((product) => (
+        <Link prefetch={false}
           key={product.id}
           id={productAnchorId(product.id)}
           href={productHref(product.id)}
@@ -68,15 +70,15 @@ export default function HomeProductRail({ products, variant }: HomeProductRailPr
           }`}
         >
           <article className="flex h-full flex-col">
-            <ProductCardImage
+            {imagesReady ? <ProductCardImage
               imageUrl={product.image}
               alt={product.name}
               brandName={product.brand}
-              loading={index < 3 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
+              loading="eager"
+              fetchPriority="low"
               className={compact ? "h-[110px] sm:h-[118px]" : "h-[125px] sm:h-[146px]"}
               imageClassName={compact ? "p-2" : "p-2.5"}
-            />
+            /> : <div aria-hidden="true" className={`bg-white ${compact ? "h-[110px] sm:h-[118px]" : "h-[125px] sm:h-[146px]"}`} />}
 
             <div className="flex flex-1 flex-col p-2.5">
               <p className={`line-clamp-1 font-normal uppercase text-[var(--brass)] ${compact ? "text-[11px] tracking-[0.06em]" : "text-[9px] tracking-[0.1em]"}`}>{product.brand}</p>

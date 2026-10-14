@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import HomeImage, { HomeImagePreload } from "./HomeImage";
 
 const slides = [
   {
@@ -144,6 +145,7 @@ export default function HomeHero() {
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchCancel}
     >
+      <HomeImagePreload src={slides[0].image} sizes="(min-width: 1200px) 1200px, 100vw" media="(min-width: 1024px)" />
       {slides.map((slide, index) => (
         <div
           key={slide.href}
@@ -154,9 +156,13 @@ export default function HomeHero() {
               : "pointer-events-none opacity-0"
           }`}
         >
-          <img
+          <HomeImage
             src={slide.image}
             alt=""
+            media="(min-width: 1024px)"
+            sizes="(min-width: 1200px) 1200px, 100vw"
+            loading="eager"
+            fetchPriority={index === 0 ? "high" : "low"}
             className={`absolute inset-0 h-full w-full object-cover ${slide.position}`}
             draggable={false}
           />
@@ -179,7 +185,7 @@ export default function HomeHero() {
                 {slide.description}
               </p>
 
-              <Link
+              <Link prefetch={false}
                 href={slide.href}
                 className="mt-5 inline-flex items-center border-b border-[var(--brass)] pb-1 text-[12px] font-normal leading-[1.4] text-[#e4c18d] transition-colors hover:text-[#f4eee7] motion-reduce:transition-none"
               >

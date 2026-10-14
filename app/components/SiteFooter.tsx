@@ -1,3 +1,5 @@
+import HomeImage from "./home/HomeImage";
+
 type SiteFooterProps = {
   variant?: "default" | "dark";
 };
@@ -10,8 +12,9 @@ export default function SiteFooter({ variant = "default" }: SiteFooterProps) {
       <div className={dark ? "mx-auto max-w-[1200px] px-4 py-7 sm:px-6 lg:px-10" : "mx-auto max-w-[1200px] px-4 pb-7 pt-6 sm:px-6 lg:px-10 lg:pb-8 lg:pt-8"}>
         <div className={dark ? undefined : "lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16"}>
           <div>
-            <img
+            <HomeImage
               src="/pics/yandoubuy-logo-header.png"
+              sizes={dark ? "96px" : "158px"}
               alt="烟斗派 YandouBuy"
               className={dark ? "h-auto w-[96px] object-contain object-left brightness-0 invert sepia" : "h-auto w-[158px] object-contain object-left mix-blend-multiply"}
             />
