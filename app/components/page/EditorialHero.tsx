@@ -3,7 +3,7 @@ type EditorialHeroProps = {
   imageAlt?: string;
   eyebrow: string;
   title: string;
-  description: string;
+  description?: string;
   meta?: string;
   imagePosition?: string;
 };
@@ -33,9 +33,11 @@ export default function EditorialHero({
         <h1 className="mt-2 text-[18px] font-medium leading-[1.28] tracking-[-0.018em] text-[#f4eee7] sm:text-[20px] lg:text-[24px]">
           {title}
         </h1>
-        <p className="mt-2 max-w-[390px] text-[11px] font-normal leading-[1.6] text-[rgba(244,238,231,0.8)] sm:text-[11.5px] lg:text-[12px]">
-          {description}
-        </p>
+        {description ? (
+          <p className="mt-2 max-w-[390px] text-[11px] font-normal leading-[1.6] text-[rgba(244,238,231,0.8)] sm:text-[11.5px] lg:text-[12px]">
+            {description}
+          </p>
+        ) : null}
         {meta ? (
           <p className="mt-3 text-[10.5px] font-medium leading-[1.4] text-[var(--brass)] sm:text-[11px]">
             {meta}

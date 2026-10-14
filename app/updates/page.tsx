@@ -37,9 +37,6 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
         <PageBackBar />
         <section className="mx-auto max-w-[1240px] px-4 pb-10 pt-1 sm:px-6 lg:px-10">
           <h1 className="text-[22px] font-medium leading-[1.35]">今日更新</h1>
-          <p className="mt-3 text-[13px] leading-[1.65] text-[var(--text-secondary)]">
-            今日及昨日暂无可展示的更新产品。
-          </p>
         </section>
         <SiteFooter />
       </main>
@@ -68,7 +65,6 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
           imageSrc="/pics/overseas-head.png"
           eyebrow="DAILY UPDATES"
           title="今日更新"
-          description="当天有更新时展示当天产品，暂无更新时展示前一天产品。"
           imagePosition="62% 58%"
         />
 
@@ -82,10 +78,6 @@ export default async function UpdatesPage({ searchParams }: PageProps) {
           >
             今日更新
           </h2>
-          <p className="mt-2 text-[13px] leading-[1.65] text-[var(--text-secondary)]">
-            {selection.isFallback ? "今日暂无更新，展示昨日产品" : "展示今日更新产品"}
-            {` · ${selection.displayedDate}（北京时间） · ${selection.products.length} 件`}
-          </p>
         </section>
 
         <section className="mt-5" aria-label="今日更新商品目录">
