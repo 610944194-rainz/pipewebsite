@@ -2,6 +2,23 @@
   "schemaVersion": 1,
   "brands": [
     {
+      "brandName": "9mm Filter Pipes",
+      "brandSlug": "9mm-filter-pipes",
+      "country": null,
+      "productCount": 3,
+      "sourceCounts": {
+        "gqtobaccos": 3
+      },
+      "inventoryStatusCounts": {
+        "available": 3
+      },
+      "productIds": [
+        "gqtobaccos-20964",
+        "gqtobaccos-21001",
+        "gqtobaccos-22370"
+      ]
+    },
+    {
       "brandName": "Abe Herbaugh",
       "brandSlug": "abe-herbaugh",
       "country": null,
@@ -492,6 +509,38 @@
       ]
     },
     {
+      "brandName": "Alfred Dunhill (White Spot)",
+      "brandSlug": "alfred-dunhill-white-spot",
+      "country": null,
+      "productCount": 18,
+      "sourceCounts": {
+        "gqtobaccos": 18
+      },
+      "inventoryStatusCounts": {
+        "available": 18
+      },
+      "productIds": [
+        "gqtobaccos-15473",
+        "gqtobaccos-17111",
+        "gqtobaccos-17112",
+        "gqtobaccos-17800",
+        "gqtobaccos-18312",
+        "gqtobaccos-18682",
+        "gqtobaccos-18684",
+        "gqtobaccos-19880",
+        "gqtobaccos-19966",
+        "gqtobaccos-20887",
+        "gqtobaccos-21219",
+        "gqtobaccos-21220",
+        "gqtobaccos-21289",
+        "gqtobaccos-22214",
+        "gqtobaccos-22256",
+        "gqtobaccos-22259",
+        "gqtobaccos-22424",
+        "gqtobaccos-23941"
+      ]
+    },
+    {
       "brandName": "Andreas Bauer",
       "brandSlug": "andreas-bauer",
       "country": null,
@@ -764,19 +813,22 @@
       "brandName": "Barling",
       "brandSlug": "barling",
       "country": "United Kingdom",
-      "productCount": 360,
+      "productCount": 362,
       "sourceCounts": {
         "danish": 3,
+        "gqtobaccos": 2,
         "smokingpipes": 357
       },
       "inventoryStatusCounts": {
-        "available": 304,
+        "available": 306,
         "sold": 56
       },
       "productIds": [
         "danish-33869",
         "danish-33870",
         "danish-34667",
+        "gqtobaccos-20601",
+        "gqtobaccos-20942",
         "smokingpipes-577945",
         "smokingpipes-594137",
         "smokingpipes-622774",
@@ -1137,6 +1189,21 @@
       ]
     },
     {
+      "brandName": "Basket Pipes",
+      "brandSlug": "basket-pipes",
+      "country": null,
+      "productCount": 1,
+      "sourceCounts": {
+        "gqtobaccos": 1
+      },
+      "inventoryStatusCounts": {
+        "available": 1
+      },
+      "productIds": [
+        "gqtobaccos-23912"
+      ]
+    },
+    {
       "brandName": "Bay Denmark",
       "brandSlug": "bay-denmark",
       "country": "Denmark",
@@ -1365,6 +1432,22 @@
         "danish-36680",
         "danish-36681",
         "danish-36682"
+      ]
+    },
+    {
+      "brandName": "Big Ben",
+      "brandSlug": "big-ben",
+      "country": null,
+      "productCount": 2,
+      "sourceCounts": {
+        "gqtobaccos": 2
+      },
+      "inventoryStatusCounts": {
+        "available": 2
+      },
+      "productIds": [
+        "gqtobaccos-21663",
+        "gqtobaccos-24470"
       ]
     },
     {
@@ -2499,14 +2582,15 @@
       "brandName": "Chacom",
       "brandSlug": "chacom",
       "country": "France",
-      "productCount": 270,
+      "productCount": 272,
       "sourceCounts": {
         "danish": 173,
+        "gqtobaccos": 2,
         "smokingpipes": 97
       },
       "inventoryStatusCounts": {
-        "available": 185,
-        "sold": 85
+        "available": 186,
+        "sold": 86
       },
       "productIds": [
         "danish-569",
@@ -2682,6 +2766,8 @@
         "danish-37842",
         "danish-37843",
         "danish-37844",
+        "gqtobaccos-16739",
+        "gqtobaccos-25163",
         "smokingpipes-675984",
         "smokingpipes-675987",
         "smokingpipes-675988",
@@ -3011,6 +3097,22 @@
       "productIds": [
         "danish-587",
         "danish-9752"
+      ]
+    },
+    {
+      "brandName": "Dr Plumb",
+      "brandSlug": "dr-plumb",
+      "country": null,
+      "productCount": 2,
+      "sourceCounts": {
+        "gqtobaccos": 2
+      },
+      "inventoryStatusCounts": {
+        "available": 2
+      },
+      "productIds": [
+        "gqtobaccos-25257",
+        "gqtobaccos-25259"
       ]
     },
     {
@@ -3957,15 +4059,18 @@
       "brandName": "Genod",
       "brandSlug": "genod",
       "country": null,
-      "productCount": 86,
+      "productCount": 88,
       "sourceCounts": {
+        "gqtobaccos": 2,
         "smokingpipes": 86
       },
       "inventoryStatusCounts": {
-        "available": 73,
+        "available": 75,
         "sold": 13
       },
       "productIds": [
+        "gqtobaccos-25338",
+        "gqtobaccos-25343",
         "smokingpipes-670054",
         "smokingpipes-670056",
         "smokingpipes-710062",
@@ -4842,6 +4947,31 @@
         "smokingpipes-735852",
         "smokingpipes-742489",
         "smokingpipes-742494"
+      ]
+    },
+    {
+      "brandName": "John Brumfit",
+      "brandSlug": "john-brumfit",
+      "country": null,
+      "productCount": 11,
+      "sourceCounts": {
+        "gqtobaccos": 11
+      },
+      "inventoryStatusCounts": {
+        "available": 11
+      },
+      "productIds": [
+        "gqtobaccos-13776",
+        "gqtobaccos-13777",
+        "gqtobaccos-14075",
+        "gqtobaccos-14076",
+        "gqtobaccos-14367",
+        "gqtobaccos-14369",
+        "gqtobaccos-14370",
+        "gqtobaccos-14371",
+        "gqtobaccos-14372",
+        "gqtobaccos-14373",
+        "gqtobaccos-14374"
       ]
     },
     {
@@ -5729,6 +5859,51 @@
       ]
     },
     {
+      "brandName": "MM Corn Cobs",
+      "brandSlug": "mm-corn-cobs",
+      "country": null,
+      "productCount": 31,
+      "sourceCounts": {
+        "gqtobaccos": 31
+      },
+      "inventoryStatusCounts": {
+        "available": 31
+      },
+      "productIds": [
+        "gqtobaccos-13595",
+        "gqtobaccos-13596",
+        "gqtobaccos-13749",
+        "gqtobaccos-13751",
+        "gqtobaccos-13752",
+        "gqtobaccos-13753",
+        "gqtobaccos-13755",
+        "gqtobaccos-13801",
+        "gqtobaccos-13802",
+        "gqtobaccos-13880",
+        "gqtobaccos-13881",
+        "gqtobaccos-13882",
+        "gqtobaccos-13883",
+        "gqtobaccos-13884",
+        "gqtobaccos-14042",
+        "gqtobaccos-14043",
+        "gqtobaccos-14045",
+        "gqtobaccos-14046",
+        "gqtobaccos-14223",
+        "gqtobaccos-15292",
+        "gqtobaccos-15693",
+        "gqtobaccos-15694",
+        "gqtobaccos-15695",
+        "gqtobaccos-19602",
+        "gqtobaccos-19603",
+        "gqtobaccos-19607",
+        "gqtobaccos-20663",
+        "gqtobaccos-20665",
+        "gqtobaccos-20666",
+        "gqtobaccos-25622",
+        "gqtobaccos-25623"
+      ]
+    },
+    {
       "brandName": "Molina",
       "brandSlug": "molina",
       "country": "Italy",
@@ -5952,6 +6127,29 @@
       ]
     },
     {
+      "brandName": "Morgan Pipes",
+      "brandSlug": "morgan-pipes",
+      "country": null,
+      "productCount": 9,
+      "sourceCounts": {
+        "gqtobaccos": 9
+      },
+      "inventoryStatusCounts": {
+        "available": 9
+      },
+      "productIds": [
+        "gqtobaccos-24707",
+        "gqtobaccos-25794",
+        "gqtobaccos-25795",
+        "gqtobaccos-25796",
+        "gqtobaccos-25797",
+        "gqtobaccos-25798",
+        "gqtobaccos-25799",
+        "gqtobaccos-25800",
+        "gqtobaccos-25801"
+      ]
+    },
+    {
       "brandName": "Mr. Andersen",
       "brandSlug": "mr-andersen",
       "country": "Denmark",
@@ -6090,13 +6288,14 @@
       "brandName": "Neerup",
       "brandSlug": "neerup",
       "country": "Denmark",
-      "productCount": 107,
+      "productCount": 117,
       "sourceCounts": {
         "danish": 105,
+        "gqtobaccos": 10,
         "smokingpipes": 2
       },
       "inventoryStatusCounts": {
-        "available": 61,
+        "available": 71,
         "sold": 46
       },
       "productIds": [
@@ -6205,6 +6404,16 @@
         "danish-37961",
         "danish-37962",
         "danish-37963",
+        "gqtobaccos-22784",
+        "gqtobaccos-22785",
+        "gqtobaccos-22790",
+        "gqtobaccos-22799",
+        "gqtobaccos-25014",
+        "gqtobaccos-25015",
+        "gqtobaccos-25016",
+        "gqtobaccos-25017",
+        "gqtobaccos-25030",
+        "gqtobaccos-25032",
         "smokingpipes-568541",
         "smokingpipes-609955"
       ]
@@ -6213,13 +6422,14 @@
       "brandName": "Nørding",
       "brandSlug": "nording",
       "country": "Denmark",
-      "productCount": 895,
+      "productCount": 897,
       "sourceCounts": {
         "danish": 443,
+        "gqtobaccos": 2,
         "smokingpipes": 452
       },
       "inventoryStatusCounts": {
-        "available": 620,
+        "available": 622,
         "sold": 275
       },
       "productIds": [
@@ -6666,6 +6876,8 @@
         "danish-37888",
         "danish-37889",
         "danish-37909",
+        "gqtobaccos-22093",
+        "gqtobaccos-22094",
         "smokingpipes-420647",
         "smokingpipes-420651",
         "smokingpipes-505019",
@@ -7118,6 +7330,26 @@
         "smokingpipes-742879",
         "smokingpipes-742880",
         "smokingpipes-742881"
+      ]
+    },
+    {
+      "brandName": "Northern Briars",
+      "brandSlug": "northern-briars",
+      "country": null,
+      "productCount": 6,
+      "sourceCounts": {
+        "gqtobaccos": 6
+      },
+      "inventoryStatusCounts": {
+        "available": 6
+      },
+      "productIds": [
+        "gqtobaccos-25379",
+        "gqtobaccos-25422",
+        "gqtobaccos-25423",
+        "gqtobaccos-25427",
+        "gqtobaccos-25735",
+        "gqtobaccos-25736"
       ]
     },
     {
@@ -11572,6 +11804,50 @@
       ]
     },
     {
+      "brandName": "Peterson Pipes",
+      "brandSlug": "peterson-pipes",
+      "country": null,
+      "productCount": 30,
+      "sourceCounts": {
+        "gqtobaccos": 30
+      },
+      "inventoryStatusCounts": {
+        "available": 30
+      },
+      "productIds": [
+        "gqtobaccos-14365",
+        "gqtobaccos-14905",
+        "gqtobaccos-17279",
+        "gqtobaccos-17281",
+        "gqtobaccos-18059",
+        "gqtobaccos-19461",
+        "gqtobaccos-21378",
+        "gqtobaccos-21379",
+        "gqtobaccos-21387",
+        "gqtobaccos-21397",
+        "gqtobaccos-22362",
+        "gqtobaccos-22858",
+        "gqtobaccos-22864",
+        "gqtobaccos-22866",
+        "gqtobaccos-22867",
+        "gqtobaccos-22903",
+        "gqtobaccos-22906",
+        "gqtobaccos-24239",
+        "gqtobaccos-24395",
+        "gqtobaccos-24396",
+        "gqtobaccos-24462",
+        "gqtobaccos-24758",
+        "gqtobaccos-24933",
+        "gqtobaccos-24946",
+        "gqtobaccos-25232",
+        "gqtobaccos-25360",
+        "gqtobaccos-25630",
+        "gqtobaccos-25644",
+        "gqtobaccos-25810",
+        "gqtobaccos-25811"
+      ]
+    },
+    {
       "brandName": "Pipe-Dan",
       "brandSlug": "pipe-dan",
       "country": null,
@@ -11618,6 +11894,21 @@
       },
       "productIds": [
         "danish-37144"
+      ]
+    },
+    {
+      "brandName": "Pipes Under £50",
+      "brandSlug": "pipes-under-50",
+      "country": null,
+      "productCount": 1,
+      "sourceCounts": {
+        "gqtobaccos": 1
+      },
+      "inventoryStatusCounts": {
+        "available": 1
+      },
+      "productIds": [
+        "gqtobaccos-14077"
       ]
     },
     {
@@ -11886,13 +12177,14 @@
       "brandName": "Rattray's",
       "brandSlug": "rattrays",
       "country": "Scotland",
-      "productCount": 390,
+      "productCount": 406,
       "sourceCounts": {
         "danish": 101,
+        "gqtobaccos": 16,
         "smokingpipes": 289
       },
       "inventoryStatusCounts": {
-        "available": 306,
+        "available": 322,
         "sold": 84
       },
       "productIds": [
@@ -11997,6 +12289,22 @@
         "danish-33010",
         "danish-37587",
         "danish-37588",
+        "gqtobaccos-15287",
+        "gqtobaccos-17395",
+        "gqtobaccos-21573",
+        "gqtobaccos-21849",
+        "gqtobaccos-21850",
+        "gqtobaccos-21851",
+        "gqtobaccos-21853",
+        "gqtobaccos-23965",
+        "gqtobaccos-24613",
+        "gqtobaccos-24628",
+        "gqtobaccos-24632",
+        "gqtobaccos-24633",
+        "gqtobaccos-24634",
+        "gqtobaccos-24638",
+        "gqtobaccos-24641",
+        "gqtobaccos-24643",
         "smokingpipes-676139",
         "smokingpipes-676140",
         "smokingpipes-676142",
@@ -12859,14 +13167,15 @@
       "brandName": "Savinelli",
       "brandSlug": "savinelli",
       "country": "Italy",
-      "productCount": 2485,
+      "productCount": 2555,
       "sourceCounts": {
         "danish": 291,
+        "gqtobaccos": 70,
         "smokingpipes": 2194
       },
       "inventoryStatusCounts": {
-        "available": 1666,
-        "sold": 819
+        "available": 1735,
+        "sold": 820
       },
       "productIds": [
         "danish-1164",
@@ -13160,6 +13469,76 @@
         "danish-37873",
         "danish-37899",
         "danish-37900",
+        "gqtobaccos-13635",
+        "gqtobaccos-13636",
+        "gqtobaccos-14560",
+        "gqtobaccos-15059",
+        "gqtobaccos-15060",
+        "gqtobaccos-15061",
+        "gqtobaccos-15082",
+        "gqtobaccos-15083",
+        "gqtobaccos-15117",
+        "gqtobaccos-15122",
+        "gqtobaccos-15134",
+        "gqtobaccos-15135",
+        "gqtobaccos-15329",
+        "gqtobaccos-16116",
+        "gqtobaccos-16130",
+        "gqtobaccos-17561",
+        "gqtobaccos-17580",
+        "gqtobaccos-17658",
+        "gqtobaccos-17660",
+        "gqtobaccos-17676",
+        "gqtobaccos-18704",
+        "gqtobaccos-18705",
+        "gqtobaccos-19907",
+        "gqtobaccos-19909",
+        "gqtobaccos-20446",
+        "gqtobaccos-20458",
+        "gqtobaccos-20459",
+        "gqtobaccos-20460",
+        "gqtobaccos-20461",
+        "gqtobaccos-21302",
+        "gqtobaccos-21349",
+        "gqtobaccos-21353",
+        "gqtobaccos-21354",
+        "gqtobaccos-21358",
+        "gqtobaccos-21790",
+        "gqtobaccos-22496",
+        "gqtobaccos-23012",
+        "gqtobaccos-23013",
+        "gqtobaccos-23017",
+        "gqtobaccos-23019",
+        "gqtobaccos-23022",
+        "gqtobaccos-23025",
+        "gqtobaccos-23026",
+        "gqtobaccos-24180",
+        "gqtobaccos-24187",
+        "gqtobaccos-24651",
+        "gqtobaccos-24986",
+        "gqtobaccos-24987",
+        "gqtobaccos-24988",
+        "gqtobaccos-24989",
+        "gqtobaccos-24990",
+        "gqtobaccos-24998",
+        "gqtobaccos-25070",
+        "gqtobaccos-25286",
+        "gqtobaccos-25289",
+        "gqtobaccos-25292",
+        "gqtobaccos-25293",
+        "gqtobaccos-25294",
+        "gqtobaccos-25295",
+        "gqtobaccos-25724",
+        "gqtobaccos-25732",
+        "gqtobaccos-25776",
+        "gqtobaccos-25778",
+        "gqtobaccos-25779",
+        "gqtobaccos-25780",
+        "gqtobaccos-25783",
+        "gqtobaccos-25812",
+        "gqtobaccos-25813",
+        "gqtobaccos-25814",
+        "gqtobaccos-25815",
         "smokingpipes-655134",
         "smokingpipes-655493",
         "smokingpipes-655494",
@@ -15394,15 +15773,19 @@
       "brandName": "Ser Jacopo",
       "brandSlug": "ser-jacopo",
       "country": null,
-      "productCount": 92,
+      "productCount": 95,
       "sourceCounts": {
+        "gqtobaccos": 3,
         "smokingpipes": 92
       },
       "inventoryStatusCounts": {
-        "available": 68,
+        "available": 71,
         "sold": 24
       },
       "productIds": [
+        "gqtobaccos-21006",
+        "gqtobaccos-21010",
+        "gqtobaccos-21015",
         "smokingpipes-544349",
         "smokingpipes-555994",
         "smokingpipes-556009",

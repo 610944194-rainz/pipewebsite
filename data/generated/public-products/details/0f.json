@@ -5520,6 +5520,627 @@
       "msrpRawText": null
     },
     {
+      "id": "gqtobaccos-13801",
+      "source": "gqtobaccos",
+      "sourceProductId": "13801",
+      "brandName": "MM Corn Cobs",
+      "brandSlug": "mm-corn-cobs",
+      "brandCountry": null,
+      "displayName": "Missouri Meerschaum - Mini Cob (Varnished)",
+      "displayNameEn": "Missouri Meerschaum - Mini Cob (Varnished)",
+      "rawTitle": "Missouri Meerschaum - Mini Cob (Varnished)",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13801/66936/IMG_1981__21326__63285__96264.1728566844.JPG?c=2",
+      "sourcePriceAmount": 3.75,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 452.55555,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 5,
+      "weightGrams": 12,
+      "shape": "Barrel",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialZh": "玉米芯",
+      "stemMaterial": "Tapered with Fishtail (Plastic)",
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "mm corn cobs",
+        "name": "missouri meerschaum - mini cob (varnished)",
+        "price": 452.55555,
+        "sourceProductId": "13801"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13801/66936/IMG_1981__21326__63285__96264.1728566844.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13801/66936/IMG_1981__21326__63285__96264.1728566844.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13801/66937/IMG_1982__79986__09644__20271.1728566844.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13801/66938/IMG_1983__88579__63375__68162.1728566844.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13801/66939/IMG_1984__18934__20350__07675.1728566844.JPG?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 89,
+        "heightMm": 29,
+        "weightGrams": 12,
+        "chamberDepthMm": 27,
+        "chamberDiameterMm": 15,
+        "outsideDiameterMm": 25
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "MM Corn Cobs",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Barrel",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Corn Cob",
+          "labelZh": "玉米芯",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Tapered with Fishtail (Plastic)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 89,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 29,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 12,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 27,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 15,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 25,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/missouri-meerschaum-mini-corn-cob-varnished-pipe/",
+      "sourceOriginalText": "Missouri Meerschaum - Mini Cob (Varnished)",
+      "priceRawText": "GBP 3.75",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-14076",
+      "source": "gqtobaccos",
+      "sourceProductId": "14076",
+      "brandName": "John Brumfit",
+      "brandSlug": "john-brumfit",
+      "brandCountry": null,
+      "displayName": "John Brumfit - Great British Classics \" Prince\"",
+      "displayNameEn": "John Brumfit - Great British Classics \" Prince\"",
+      "rawTitle": "John Brumfit - Great British Classics \" Prince\"",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67894/John_Brumfit_Prince_1__90735__43158__61520.1728566995.JPG?c=2",
+      "sourcePriceAmount": 42.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 880.2982332,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 6,
+      "weightGrams": 36,
+      "shape": "Prince",
+      "shapeZh": "王子斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "john brumfit",
+        "name": "john brumfit - great british classics \" prince\"",
+        "price": 880.2982332,
+        "sourceProductId": "14076"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67894/John_Brumfit_Prince_1__90735__43158__61520.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14076/67894/John_Brumfit_Prince_1__90735__43158__61520.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67895/John_Brumfit_Prince_3__20127__25531__09536.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67896/John_Brumfit_Prince_2__69738__99473__42753.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67897/John_Brumfit_Prince_4__37494__08647__24713.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14076/67898/John_Brumfit_Prince_6__39378__51633__17034.1728566995.JPG?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 145,
+        "heightMm": 35,
+        "weightGrams": 36,
+        "chamberDepthMm": 26,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 40
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "John Brumfit",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Prince",
+          "labelZh": "王子斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Tapered (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 145,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 35,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 26,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-prince/",
+      "sourceOriginalText": "John Brumfit - Great British Classics \" Prince\"",
+      "priceRawText": "GBP 42.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-23025",
+      "source": "gqtobaccos",
+      "sourceProductId": "23025",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Camouflage Smooth - 616 Pipe - 6mm Filter",
+      "displayNameEn": "Savinelli - Camouflage Smooth - 616 Pipe - 6mm Filter",
+      "rawTitle": "Savinelli - Camouflage Smooth - 616 Pipe - 6mm Filter",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23025/86566/sgpml__95187__56701__58992.1728569810.jpg?c=2",
+      "sourcePriceAmount": 86.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1359.9281532,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 64,
+      "shape": "Bent Author",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - camouflage smooth - 616 pipe - 6mm filter",
+        "price": 1359.9281532,
+        "sourceProductId": "23025"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23025/86566/sgpml__95187__56701__58992.1728569810.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/23025/86566/sgpml__95187__56701__58992.1728569810.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 151,
+        "heightMm": 54,
+        "weightGrams": 64,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 22,
+        "outsideDiameterMm": 44
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Bent Author",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 151,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 54,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 64,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 22,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 44,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-camouflage-smooth-616-pipe-6mm-filter/",
+      "sourceOriginalText": "Savinelli - Camouflage Smooth - 616 Pipe - 6mm Filter",
+      "priceRawText": "GBP 86.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-24987",
+      "source": "gqtobaccos",
+      "sourceProductId": "24987",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Pannocchia - Rusticated - 628 - 6mm Filter",
+      "displayNameEn": "Savinelli - Pannocchia - Rusticated - 628 - 6mm Filter",
+      "rawTitle": "Savinelli - Pannocchia - Rusticated - 628 - 6mm Filter",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24987/89837/ehvesvhio__04915.1759847114.jpg?c=2",
+      "sourcePriceAmount": 94.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": 124.99,
+      "siteDisplayAmount": 1447.1335931999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 49,
+      "shape": null,
+      "shapeZh": null,
+      "finish": "Natural",
+      "finishZh": "自然色",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "6mm Balsa",
+      "filterEligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - pannocchia - rusticated - 628 - 6mm filter",
+        "price": 1447.1335931999997,
+        "sourceProductId": "24987"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24987/89837/ehvesvhio__04915.1759847114.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24987/89837/ehvesvhio__04915.1759847114.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 13,
+        "heightMm": 51,
+        "weightGrams": 49,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 19,
+        "outsideDiameterMm": 40
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Natural",
+          "labelZh": "自然色",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm Balsa",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 13,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 49,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pannocchia-rusticated-628-6mm-filter/",
+      "sourceOriginalText": "Savinelli - Pannocchia - Rusticated - 628 - 6mm Filter",
+      "priceRawText": "GBP 94.99",
+      "msrpRawText": "GBP 124.99"
+    },
+    {
       "id": "smokingpipes-344791",
       "source": "smokingpipes",
       "sourceProductId": "344791",

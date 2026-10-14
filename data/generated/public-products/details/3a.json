@@ -5639,6 +5639,683 @@
       "msrpRawText": null
     },
     {
+      "id": "gqtobaccos-13753",
+      "source": "gqtobaccos",
+      "sourceProductId": "13753",
+      "brandName": "MM Corn Cobs",
+      "brandSlug": "mm-corn-cobs",
+      "brandCountry": null,
+      "displayName": "Missouri Meerschaum - Country Gentlemen (Straight)",
+      "displayNameEn": "Missouri Meerschaum - Country Gentlemen (Straight)",
+      "rawTitle": "Missouri Meerschaum - Country Gentlemen (Straight)",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
+      "sourcePriceAmount": 13.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 564.1785132,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 5,
+      "weightGrams": 31,
+      "shape": "Barrel",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialZh": "玉米芯",
+      "stemMaterial": "Tapered with Fishtail (Plastic)",
+      "stemMaterialZh": null,
+      "filter": "6mm (medico)",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "mm corn cobs",
+        "name": "missouri meerschaum - country gentlemen (straight)",
+        "price": 564.1785132,
+        "sourceProductId": "13753"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66753/MM_Corn_Cob_Country_Gentleman_Straight_4__52525__39908__36050.1728566815.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66754/MM_Corn_Cob_Country_Gentleman_Straight_1__79492__92786__60910.1728566815.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66755/MM_Corn_Cob_Country_Gentleman_Straight_2__68775__60186__61331.1728566815.JPG?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 150,
+        "heightMm": 50,
+        "weightGrams": 31,
+        "chamberDepthMm": 42,
+        "chamberDiameterMm": 18,
+        "outsideDiameterMm": 37
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "MM Corn Cobs",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Barrel",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Corn Cob",
+          "labelZh": "玉米芯",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Tapered with Fishtail (Plastic)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm (medico)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 50,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 31,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 42,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 37,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/missouri-meerschaum-country-gentleman-straight/",
+      "sourceOriginalText": "Missouri Meerschaum - Country Gentlemen (Straight)",
+      "priceRawText": "GBP 13.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-18059",
+      "source": "gqtobaccos",
+      "sourceProductId": "18059",
+      "brandName": "Peterson Pipes",
+      "brandSlug": "peterson-pipes",
+      "brandCountry": null,
+      "displayName": "Peterson - Derry Rustic 06 - 9mm Filter Straight Billiard Pipe",
+      "displayNameEn": "Peterson - Derry Rustic 06 - 9mm Filter Straight Billiard Pipe",
+      "rawTitle": "Peterson - Derry Rustic 06 - 9mm Filter Straight Billiard Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18059/77432/derry_06_1__01327__05091__77530.1728568172.jpg?c=2",
+      "sourcePriceAmount": 78.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1272.7227131999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 3,
+      "weightGrams": 37,
+      "shape": "Straight",
+      "shapeZh": null,
+      "finish": "Rustic",
+      "finishZh": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialZh": null,
+      "filter": "9mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson pipes",
+        "name": "peterson - derry rustic 06 - 9mm filter straight billiard pipe",
+        "price": 1272.7227131999998,
+        "sourceProductId": "18059"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18059/77432/derry_06_1__01327__05091__77530.1728568172.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18059/77432/derry_06_1__01327__05091__77530.1728568172.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18059/77433/derry_06_2__67464__52818__58680.1728568172.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 154,
+        "heightMm": 47,
+        "weightGrams": 37,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 36
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson Pipes",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Straight",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rustic",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Fishtail",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "9mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 154,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 37,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-derry-rustic-06-9mm-filter-straight-billiard-pipe/",
+      "sourceOriginalText": "Peterson - Derry Rustic 06 - 9mm Filter Straight Billiard Pipe",
+      "priceRawText": "GBP 78.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-21397",
+      "source": "gqtobaccos",
+      "sourceProductId": "21397",
+      "brandName": "Peterson Pipes",
+      "brandSlug": "peterson-pipes",
+      "brandCountry": null,
+      "displayName": "Peterson - Deluxe Classic Terracotta 606 - P-Lip Pipe",
+      "displayNameEn": "Peterson - Deluxe Classic Terracotta 606 - P-Lip Pipe",
+      "rawTitle": "Peterson - Deluxe Classic Terracotta 606 - P-Lip Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21397/83714/deluxe_ter_606__60782__81257__70109.1728569279.jpg?c=2",
+      "sourcePriceAmount": 144.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": 160,
+      "siteDisplayAmount": 2056.4927321799996,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 3,
+      "weightGrams": 48,
+      "shape": null,
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "none",
+      "filterEligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson pipes",
+        "name": "peterson - deluxe classic terracotta 606 - p-lip pipe",
+        "price": 2056.4927321799996,
+        "sourceProductId": "21397"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21397/83714/deluxe_ter_606__60782__81257__70109.1728569279.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/21397/83714/deluxe_ter_606__60782__81257__70109.1728569279.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21397/83715/deluxe_ter_606_2__49056__67023__46764.1728569279.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 152,
+        "heightMm": 41,
+        "weightGrams": 48,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 19,
+        "outsideDiameterMm": 40
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson Pipes",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "none",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 152,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 48,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 19,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-deluxe-classic-terracotta-606-p-lip-pipe/",
+      "sourceOriginalText": "Peterson - Deluxe Classic Terracotta 606 - P-Lip Pipe",
+      "priceRawText": "GBP 144.99",
+      "msrpRawText": "GBP 160.00"
+    },
+    {
+      "id": "gqtobaccos-22424",
+      "source": "gqtobaccos",
+      "sourceProductId": "22424",
+      "brandName": "Alfred Dunhill (White Spot)",
+      "brandSlug": "alfred-dunhill-white-spot",
+      "brandCountry": null,
+      "displayName": "Alfred Dunhill - 'The Happy prince' Christmas Pipe 2023 - Cumberland Pipe Set - 170/300",
+      "displayNameEn": "Alfred Dunhill - 'The Happy prince' Christmas Pipe 2023 - Cumberland Pipe Set - 170/300",
+      "rawTitle": "Alfred Dunhill - 'The Happy prince' Christmas Pipe 2023 - Cumberland Pipe Set - 170/300",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85442/pesrhkj__42030__83902__28155.1728569605.jpg?c=2",
+      "sourcePriceAmount": 1994.95,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 25247.1880009,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 7,
+      "weightGrams": null,
+      "shape": null,
+      "shapeZh": null,
+      "finish": null,
+      "finishZh": null,
+      "bowlMaterial": null,
+      "bowlMaterialZh": null,
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": null,
+      "filterEligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      },
+      "sortKeys": {
+        "brand": "alfred dunhill (white spot)",
+        "name": "alfred dunhill - 'the happy prince' christmas pipe 2023 - cumberland pipe set - 170/300",
+        "price": 25247.1880009,
+        "sourceProductId": "22424"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85442/pesrhkj__42030__83902__28155.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/22424/85442/pesrhkj__42030__83902__28155.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85443/segj__54335__87443__55742.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85444/lzbdkefh__87456__77639__40617.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85445/skehrg__76158__44538__51374.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85446/kdfhlg__99674__58546__17770.1728569605.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22424/85447/lsekghi__26967__98653__03874.1728569605.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": null,
+        "heightMm": null,
+        "weightGrams": null,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": null,
+        "outsideDiameterMm": null
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": 2023,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": null,
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Alfred Dunhill (White Spot)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/alfred-dunhill-the-happy-prince-christmas-pipe-2023-cumberland-pipe-set-170-300/",
+      "sourceOriginalText": "Alfred Dunhill - 'The Happy prince' Christmas Pipe 2023 - Cumberland Pipe Set - 170/300",
+      "priceRawText": "GBP 1,994.95",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-25798",
+      "source": "gqtobaccos",
+      "sourceProductId": "25798",
+      "brandName": "Morgan Pipes",
+      "brandSlug": "morgan-pipes",
+      "brandCountry": null,
+      "displayName": "Morgan Pipes - Pipsqueak - Pipe",
+      "displayNameEn": "Morgan Pipes - Pipsqueak - Pipe",
+      "rawTitle": "Morgan Pipes - Pipsqueak - Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25798/91352/morgan_bones_pipe_squeak___13912.1789927508.jpg?c=2",
+      "sourcePriceAmount": 44.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 902.0995932,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 36,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": null,
+      "finishZh": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "morgan pipes",
+        "name": "morgan pipes - pipsqueak - pipe",
+        "price": 902.0995932,
+        "sourceProductId": "25798"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25798/91352/morgan_bones_pipe_squeak___13912.1789927508.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25798/91352/morgan_bones_pipe_squeak___13912.1789927508.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 120,
+        "heightMm": 41,
+        "weightGrams": 36,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 40
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Morgan Pipes",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 120,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 36,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/morgan-pipes-pipsqueak-pipe/",
+      "sourceOriginalText": "Morgan Pipes - Pipsqueak - Pipe",
+      "priceRawText": "GBP 44.99",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-344779",
       "source": "smokingpipes",
       "sourceProductId": "344779",

@@ -1116,6 +1116,18 @@ async function main() {
       path.join(legacyBaselineRoot, "data", "products", "danish-products.json"),
       []
     );
+    await writeJsonAtomic(
+      path.join(legacyBaselineRoot, "data", "products", "gqtobaccos-products.json"),
+      [{
+        id: "gqtobaccos-retained", source: "gqtobaccos", sourceProductId: "retained",
+        sourceUrl: "https://example.test/gq-retained", title: "Retained Corn Cob",
+        rawTitle: "Retained Corn Cob", brand: "MM Corn Cobs", entityType: "offer",
+        inventoryStatus: "available", publicIndexEligible: true, publiclySellable: true,
+        publicEligibility: { publicIndexEligible: true }, detailComplete: true,
+        mainImageUrl: "https://example.test/gq.jpg", detailImages: ["https://example.test/gq.jpg"],
+        sourcePriceGBP: 10, sourcePriceCurrency: "GBP", shape: "Billiard", material: "Corn Cob",
+      }]
+    );
     const built = await buildSmokingpipesReleaseBundleV2({
       stateRoot,
       cycleId: "2030-01-01",
@@ -1125,6 +1137,10 @@ async function main() {
       maxAutoApply: 2000,
     });
     assert.equal(built.status, "bundle-ready");
+    const retainedCatalog = await readJson(path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "catalog.json"));
+    const retainedLookup = await readJson(path.join(built.bundleRoot, "outputs", "data", "generated", "public-products", "detail-lookup.json"));
+    assert.equal(retainedCatalog.products.some((product) => product.id === "gqtobaccos-retained"), true);
+    assert.ok(retainedLookup.byId["gqtobaccos-retained"]);
     const validation = await validateSmokingpipesReleaseBundleV2({
       bundleRoot: built.bundleRoot,
       baselineRoot: legacyBaselineRoot,
@@ -1143,6 +1159,10 @@ async function main() {
     assert.ok(Array.isArray(built.manifest.outputFiles));
     assert.ok(built.manifest.outputFiles.includes("data/products/unified-products-staging.json"));
     assert.equal(outputProducts.some((product) => /falcon/i.test(String(product.brand || product.brandName || ""))), false);
+    if (process.argv.includes("--bundle-sources-only")) {
+      console.log("PASS Smokingpipes bundle retains GQ catalog and detail lookup; bundle validation passed");
+      return;
+    }
     // An innocuous formatting-only byte change is not a publishing gate. The
     // final validator evaluates the rebuilt product structure and diff, not a
     // SHA authorization token.

@@ -1,4 +1,4 @@
-export type PublicSource = "danish" | "smokingpipes";
+export type PublicSource = "danish" | "smokingpipes" | "gqtobaccos";
 
 export type PublicInventoryStatus = "available" | "sold";
 

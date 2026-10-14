@@ -21,6 +21,7 @@ const COUNTRY_ZH: Record<string, string> = {
 };
 
 export function sourceLabel(source: PublicCatalogProduct["source"]) {
+  if (source === "gqtobaccos") return "GQ Tobaccos";
   return source === "danish" ? "Danish Pipe Shop" : "Smokingpipes";
 }
 

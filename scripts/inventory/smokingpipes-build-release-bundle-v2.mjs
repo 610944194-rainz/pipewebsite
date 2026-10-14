@@ -159,6 +159,9 @@ async function readBaseline({ runtimeRoot, baseMainSha, baselineRoot }) {
     return {
       smokingpipesProducts: await read("data/products/smokingpipes-products.json"),
       danishProducts: await read("data/products/danish-products.json"),
+      gqtobaccosProducts: fs.existsSync(path.join(baselineRoot, "data/products/gqtobaccos-products.json"))
+        ? await read("data/products/gqtobaccos-products.json")
+        : [],
     };
   }
   return {
@@ -172,6 +175,11 @@ async function readBaseline({ runtimeRoot, baseMainSha, baselineRoot }) {
       ref: baseMainSha,
       relativePath: "data/products/danish-products.json",
     }),
+    gqtobaccosProducts: execFileSync("git", [
+      "-C", runtimeRoot, "ls-tree", baseMainSha, "--", "data/products/gqtobaccos-products.json",
+    ], { encoding: "utf8" }).trim()
+      ? readJsonAtGitRef({ runtimeRoot, ref: baseMainSha, relativePath: "data/products/gqtobaccos-products.json" })
+      : [],
   };
 }
 
@@ -248,6 +256,7 @@ export async function buildSmokingpipesReleaseBundleV2({
   const unifiedProducts = buildUnifiedProductsFromInputs({
     danishProducts: baseline.danishProducts,
     smokingpipesProducts: candidate.products,
+    gqtobaccosProducts: baseline.gqtobaccosProducts,
   });
   const pricingContext = await loadPublicProductsPricingContext();
   const publicCandidate = buildPublicProductsFullCandidate(unifiedProducts, pricingContext);

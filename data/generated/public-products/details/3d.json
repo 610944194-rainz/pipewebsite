@@ -6604,6 +6604,560 @@
       "msrpRawText": null
     },
     {
+      "id": "gqtobaccos-14043",
+      "source": "gqtobaccos",
+      "sourceProductId": "14043",
+      "brandName": "MM Corn Cobs",
+      "brandSlug": "mm-corn-cobs",
+      "brandCountry": null,
+      "displayName": "Missouri Meerschaum - General (Straight)",
+      "displayNameEn": "Missouri Meerschaum - General (Straight)",
+      "rawTitle": "Missouri Meerschaum - General (Straight)",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
+      "sourcePriceAmount": 14.49,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 569.6288532,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 5,
+      "weightGrams": 63,
+      "shape": "Chimney",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialZh": "玉米芯",
+      "stemMaterial": "Tapered with Fishtail (Plastic)",
+      "stemMaterialZh": null,
+      "filter": "6mm (not included)",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "mm corn cobs",
+        "name": "missouri meerschaum - general (straight)",
+        "price": 569.6288532,
+        "sourceProductId": "14043"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67771/MM_Corn_Cob_General_4__14840__87700__07019.1728566976.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67772/MM_Corn_Cob_General_3__55029__60895__80719.1728566976.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67773/MM_Corn_Cob_General_1__72382__67024__77386.1728566976.JPG?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 146,
+        "heightMm": 74,
+        "weightGrams": 63,
+        "chamberDepthMm": 50,
+        "chamberDiameterMm": 21,
+        "outsideDiameterMm": 38
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "MM Corn Cobs",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Chimney",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Corn Cob",
+          "labelZh": "玉米芯",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Tapered with Fishtail (Plastic)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm (not included)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 74,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 63,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 50,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 21,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 38,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-general-curved/",
+      "sourceOriginalText": "Missouri Meerschaum - General (Straight)",
+      "priceRawText": "GBP 14.49",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-15083",
+      "source": "gqtobaccos",
+      "sourceProductId": "15083",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Dry System 621 Rustic (6mm Filter)",
+      "displayNameEn": "Savinelli - Dry System 621 Rustic (6mm Filter)",
+      "rawTitle": "Savinelli - Dry System 621 Rustic (6mm Filter)",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
+      "sourcePriceAmount": 87.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1370.8288332,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 5,
+      "weightGrams": 46,
+      "shape": "Straight",
+      "shapeZh": null,
+      "finish": "Rustic",
+      "finishZh": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialZh": "亚克力",
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - dry system 621 rustic (6mm filter)",
+        "price": 1370.8288332,
+        "sourceProductId": "15083"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70545/stem__19397__69096__04166.1728567317.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70546/dry_system_621_rustic_photo_3__64559__45141__05093.1728567317.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70547/dry_system_621_rustic_photo_2__29861__01233__45595.1728567317.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 125,
+        "heightMm": 47,
+        "weightGrams": 46,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": null
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Straight",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rustic",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic",
+          "labelZh": "亚克力",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 125,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 47,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 46,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-dry-system-621-rustic-6mm-filter/",
+      "sourceOriginalText": "Savinelli - Dry System 621 Rustic (6mm Filter)",
+      "priceRawText": "GBP 87.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-24180",
+      "source": "gqtobaccos",
+      "sourceProductId": "24180",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Dune Rustic Natural 920 - 9mm Filter Pipe",
+      "displayNameEn": "Savinelli - Dune Rustic Natural 920 - 9mm Filter Pipe",
+      "rawTitle": "Savinelli - Dune Rustic Natural 920 - 9mm Filter Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24180/88510/fmjfju__94219.1736439606.jpg?c=2",
+      "sourcePriceAmount": 172.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 2407.49462818,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": null,
+      "shape": null,
+      "shapeZh": null,
+      "finish": null,
+      "finishZh": null,
+      "bowlMaterial": null,
+      "bowlMaterialZh": null,
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": null,
+      "filterEligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - dune rustic natural 920 - 9mm filter pipe",
+        "price": 2407.49462818,
+        "sourceProductId": "24180"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24180/88510/fmjfju__94219.1736439606.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24180/88510/fmjfju__94219.1736439606.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": null,
+        "heightMm": null,
+        "weightGrams": null,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": null,
+        "outsideDiameterMm": null
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": null,
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-dune-rustic-natural-920-9mm-filter-pipe/",
+      "sourceOriginalText": "Savinelli - Dune Rustic Natural 920 - 9mm Filter Pipe",
+      "priceRawText": "GBP 172.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-25732",
+      "source": "gqtobaccos",
+      "sourceProductId": "25732",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Pannocchia - Rusticated - 601 - 6mm Filter",
+      "displayNameEn": "Savinelli - Pannocchia - Rusticated - 601 - 6mm Filter",
+      "rawTitle": "Savinelli - Pannocchia - Rusticated - 601 - 6mm Filter",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25732/91231/__55677.1786106390.jpg?c=2",
+      "sourcePriceAmount": 94.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": 124.99,
+      "siteDisplayAmount": 1447.1335931999997,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 41,
+      "shape": null,
+      "shapeZh": null,
+      "finish": "Natural",
+      "finishZh": "自然色",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "6mm Balsa",
+      "filterEligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - pannocchia - rusticated - 601 - 6mm filter",
+        "price": 1447.1335931999997,
+        "sourceProductId": "25732"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25732/91231/__55677.1786106390.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25732/91231/__55677.1786106390.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 132,
+        "heightMm": 46,
+        "weightGrams": 41,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 18,
+        "outsideDiameterMm": 36
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Natural",
+          "labelZh": "自然色",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm Balsa",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 132,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 46,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 41,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 18,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 36,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pannocchia-rusticated-601-6mm-filter/",
+      "sourceOriginalText": "Savinelli - Pannocchia - Rusticated - 601 - 6mm Filter",
+      "priceRawText": "GBP 94.99",
+      "msrpRawText": "GBP 124.99"
+    },
+    {
       "id": "smokingpipes-520857",
       "source": "smokingpipes",
       "sourceProductId": "520857",

@@ -4836,6 +4836,752 @@
       "msrpRawText": null
     },
     {
+      "id": "gqtobaccos-14077",
+      "source": "gqtobaccos",
+      "sourceProductId": "14077",
+      "brandName": "Pipes Under £50",
+      "brandSlug": "pipes-under-50",
+      "brandCountry": null,
+      "displayName": "John Brumfit - Great British Classics \" Apple\"",
+      "displayNameEn": "John Brumfit - Great British Classics \" Apple\"",
+      "rawTitle": "John Brumfit - Great British Classics \" Apple\"",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67899/John_Brumfit_Apple_1__80145__14480__41828.1728566995.JPG?c=2",
+      "sourcePriceAmount": 42.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 880.2982332,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 6,
+      "weightGrams": 45,
+      "shape": "Apple",
+      "shapeZh": "苹果斗",
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "pipes under £50",
+        "name": "john brumfit - great british classics \" apple\"",
+        "price": 880.2982332,
+        "sourceProductId": "14077"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67899/John_Brumfit_Apple_1__80145__14480__41828.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14077/67899/John_Brumfit_Apple_1__80145__14480__41828.1728566995.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67900/John_Brumfit_Apple_3__80632__37980__02450.1728566996.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67901/John_Brumfit_Apple_2__16621__58645__78437.1728566996.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67902/John_Brumfit_Apple_4__73806__71694__57031.1728566996.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14077/67903/John_Brumfit_Apple_6__73666__02872__84163.1728566996.JPG?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 150,
+        "heightMm": 44,
+        "weightGrams": 45,
+        "chamberDepthMm": 34,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 40
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Pipes Under £50",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Apple",
+          "labelZh": "苹果斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Tapered (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 44,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 45,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDepthMm",
+          "value": 34,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 40,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-apple/",
+      "sourceOriginalText": "John Brumfit - Great British Classics \" Apple\"",
+      "priceRawText": "GBP 42.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-18682",
+      "source": "gqtobaccos",
+      "sourceProductId": "18682",
+      "brandName": "Alfred Dunhill (White Spot)",
+      "brandSlug": "alfred-dunhill-white-spot",
+      "brandCountry": null,
+      "displayName": "Alfred Dunhill - Cumberland - 6 105 - Group 6 - Dublin - White Spot",
+      "displayNameEn": "Alfred Dunhill - Cumberland - 6 105 - Group 6 - Dublin - White Spot",
+      "rawTitle": "Alfred Dunhill - Cumberland - 6 105 - Group 6 - Dublin - White Spot",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18682/78745/dunhill_cumberland_6_105_pipe_1__61997__47895__37082.1728568344.jpg?c=2",
+      "sourcePriceAmount": 524.95,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 6819.5884609,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 4,
+      "weightGrams": 66,
+      "shape": "Dublin",
+      "shapeZh": "都柏林斗",
+      "finish": "Rustic",
+      "finishZh": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "alfred dunhill (white spot)",
+        "name": "alfred dunhill - cumberland - 6 105 - group 6 - dublin - white spot",
+        "price": 6819.5884609,
+        "sourceProductId": "18682"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18682/78745/dunhill_cumberland_6_105_pipe_1__61997__47895__37082.1728568344.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18682/78745/dunhill_cumberland_6_105_pipe_1__61997__47895__37082.1728568344.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18682/78746/dunhill_cumberland_6_105_pipe_3__93763__45379__01952.1728568344.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18682/78747/dunhill_cumberland_6_105_pipe_2__47799__67449__52205.1728568344.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 164,
+        "heightMm": 55,
+        "weightGrams": 66,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 23,
+        "outsideDiameterMm": 43
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "heavy",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Alfred Dunhill (White Spot)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Dublin",
+          "labelZh": "都柏林斗",
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Rustic",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Fishtail",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 164,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 55,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 66,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 23,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 43,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/alfred-dunhill-cumberland-6-105-group-6-dublin-white-spot/",
+      "sourceOriginalText": "Alfred Dunhill - Cumberland - 6 105 - Group 6 - Dublin - White Spot",
+      "priceRawText": "GBP 524.95",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-21790",
+      "source": "gqtobaccos",
+      "sourceProductId": "21790",
+      "brandName": "Savinelli",
+      "brandSlug": "savinelli",
+      "brandCountry": "Italy",
+      "displayName": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
+      "displayNameEn": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
+      "rawTitle": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2",
+      "sourcePriceAmount": 89.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": 124.99,
+      "siteDisplayAmount": 1392.6301932,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 43,
+      "shape": null,
+      "shapeZh": null,
+      "finish": "Sandblast",
+      "finishZh": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Acrylic (Fishtail)",
+      "stemMaterialZh": null,
+      "filter": "6mm",
+      "filterEligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "savinelli",
+        "name": "savinelli - monsieur - 111 - sandblast - 6mm filter",
+        "price": 1392.6301932,
+        "sourceProductId": "21790"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 150,
+        "heightMm": 51,
+        "weightGrams": 43,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 39
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Savinelli",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "country",
+          "value": "Italy",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Sandblast",
+          "labelZh": "喷砂",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Acrylic (Fishtail)",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "6mm",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 150,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 51,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 43,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 39,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-monsieur-111-sandblast-6mm-filter/",
+      "sourceOriginalText": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
+      "priceRawText": "GBP 89.99",
+      "msrpRawText": "GBP 124.99"
+    },
+    {
+      "id": "gqtobaccos-22864",
+      "source": "gqtobaccos",
+      "sourceProductId": "22864",
+      "brandName": "Peterson Pipes",
+      "brandSlug": "peterson-pipes",
+      "brandCountry": null,
+      "displayName": "Peterson - Junior Sandblast - Canted Apple - Silver Mounted Fishtail Pipe",
+      "displayNameEn": "Peterson - Junior Sandblast - Canted Apple - Silver Mounted Fishtail Pipe",
+      "rawTitle": "Peterson - Junior Sandblast - Canted Apple - Silver Mounted Fishtail Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22864/86302/slfkhswfdfovesv__72577__13317__92697.1728569759.jpg?c=2",
+      "sourcePriceAmount": 66.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1141.9145531999998,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 3,
+      "weightGrams": 23,
+      "shape": "Straight",
+      "shapeZh": null,
+      "finish": null,
+      "finishZh": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "peterson pipes",
+        "name": "peterson - junior sandblast - canted apple - silver mounted fishtail pipe",
+        "price": 1141.9145531999998,
+        "sourceProductId": "22864"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22864/86302/slfkhswfdfovesv__72577__13317__92697.1728569759.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/22864/86302/slfkhswfdfovesv__72577__13317__92697.1728569759.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22864/86303/__28134__88499__98493.1728569759.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 146,
+        "heightMm": 36,
+        "weightGrams": 23,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 17,
+        "outsideDiameterMm": 32
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "light",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Peterson Pipes",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Straight",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "stemMaterial",
+          "value": "Fishtail",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 146,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 36,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 23,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 17,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-junior-sandblast-canted-apple-silver-mounted-fishtail-pipe/",
+      "sourceOriginalText": "Peterson - Junior Sandblast - Canted Apple - Silver Mounted Fishtail Pipe",
+      "priceRawText": "GBP 66.99",
+      "msrpRawText": null
+    },
+    {
+      "id": "gqtobaccos-25338",
+      "source": "gqtobaccos",
+      "sourceProductId": "25338",
+      "brandName": "Genod",
+      "brandSlug": "genod",
+      "brandCountry": null,
+      "displayName": "Genod - Brule- Gueule - Natural Briar Pipe",
+      "displayNameEn": "Genod - Brule- Gueule - Natural Briar Pipe",
+      "rawTitle": "Genod - Brule- Gueule - Natural Briar Pipe",
+      "mainImage": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2",
+      "sourcePriceAmount": 60.99,
+      "sourcePriceCurrency": "GBP",
+      "msrpAmount": null,
+      "siteDisplayAmount": 1076.5104732,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true,
+      "inventoryStatus": "available",
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "inventoryConfidence": "complete-current-list",
+      "conditionType": "unknown",
+      "conditionLabel": null,
+      "galleryCount": 2,
+      "weightGrams": 38,
+      "shape": "Semi Bent",
+      "shapeZh": null,
+      "finish": "Smooth",
+      "finishZh": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialZh": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialZh": null,
+      "filter": "None",
+      "filterEligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      },
+      "sortKeys": {
+        "brand": "genod",
+        "name": "genod - brule- gueule - natural briar pipe",
+        "price": 1076.5104732,
+        "sourceProductId": "25338"
+      },
+      "displayNameZh": null,
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2"
+      ],
+      "measurements": {
+        "lengthMm": 106,
+        "heightMm": 41,
+        "weightGrams": 38,
+        "chamberDepthMm": null,
+        "chamberDiameterMm": 20,
+        "outsideDiameterMm": 32
+      },
+      "model": {
+        "canonicalModelKey": null,
+        "confidence": null
+      },
+      "series": null,
+      "year": null,
+      "productCode": null,
+      "filterSizeMm": null,
+      "weightRange": "medium",
+      "description": null,
+      "normalizedSpecs": [
+        {
+          "key": "brand",
+          "value": "Genod",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "condition",
+          "value": "unknown",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "shape",
+          "value": "Semi Bent",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "finish",
+          "value": "Smooth",
+          "labelZh": "光面",
+          "unit": null
+        },
+        {
+          "key": "bowlMaterial",
+          "value": "Briar",
+          "labelZh": "石楠木",
+          "unit": null
+        },
+        {
+          "key": "filter",
+          "value": "None",
+          "labelZh": null,
+          "unit": null
+        },
+        {
+          "key": "lengthMm",
+          "value": 106,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "heightMm",
+          "value": 41,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "weightGrams",
+          "value": 38,
+          "labelZh": null,
+          "unit": "g"
+        },
+        {
+          "key": "chamberDiameterMm",
+          "value": 20,
+          "labelZh": null,
+          "unit": "mm"
+        },
+        {
+          "key": "outsideDiameterMm",
+          "value": 32,
+          "labelZh": null,
+          "unit": "mm"
+        }
+      ],
+      "sourceUrl": "https://www.gqtobaccos.com/pipes/genod-brule-gueule-natural-briar-pipe/",
+      "sourceOriginalText": "Genod - Brule- Gueule - Natural Briar Pipe",
+      "priceRawText": "GBP 60.99",
+      "msrpRawText": null
+    },
+    {
       "id": "smokingpipes-237663",
       "source": "smokingpipes",
       "sourceProductId": "237663",
