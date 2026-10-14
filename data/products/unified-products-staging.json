@@ -181467,12 +181467,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -181532,11 +181532,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -267005,12 +267005,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -267070,11 +267070,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -353844,12 +353844,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -353908,11 +353908,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362255,6 +362255,838 @@
       "legacyMissingFields": [],
       "adapterWarnings": [
         "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-37996",
+    "source": "danish",
+    "sourceProductId": "37996",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-i37996.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, 2026, Devil Anse, Bio-Colour, 9 mm.",
+    "displayNameEn": "Dagner Pipes, 2026, Devil Anse, Bio-Colour, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, 2026, Devil Anse, Bio-Colour, 9 mm.",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Devil Anse",
+      "shapeSlug": "devil-anse",
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 118.71,
+      "rawText": "$ 118,71",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 867,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198293-w500-h206.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198293-w500-h206.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198294-w500-h201.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198295-w500-h178.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198296-w500-h181.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198297-w500-h233.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Bio-Colour-9-mm-The-Danish-Pipe-Shop-img-198298-w500-h678.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 117,
+      "heightMm": 41,
+      "weightGrams": 35,
+      "chamberDepthMm": 27,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 37
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, 2026, Devil Anse, Bio-Colour, 9 mm.",
+      "keywords": [
+        "DABICFS",
+        "新斗",
+        "Devil Anse",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-37997",
+    "source": "danish",
+    "sourceProductId": "37997",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-i37997.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, 2026, Devil Anse, Green Sand, 9 mm.",
+    "displayNameEn": "Dagner Pipes, 2026, Devil Anse, Green Sand, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, 2026, Devil Anse, Green Sand, 9 mm.",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Devil Anse",
+      "shapeSlug": "devil-anse",
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198287-w500-h200.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198287-w500-h200.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198288-w500-h199.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198289-w500-h181.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198290-w500-h177.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198291-w500-h252.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Devil-Anse-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198292-w500-h678.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 117,
+      "heightMm": 41,
+      "weightGrams": 38,
+      "chamberDepthMm": 27,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 37
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, 2026, Devil Anse, Green Sand, 9 mm.",
+      "keywords": [
+        "DAGSFS",
+        "新斗",
+        "Devil Anse",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-37998",
+    "source": "danish",
+    "sourceProductId": "37998",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-i37998.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, 2026, CWA Devil Anse, Brown Sand",
+    "displayNameEn": "Dagner Pipes, 2026, CWA Devil Anse, Brown Sand",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, 2026, CWA Devil Anse, Brown Sand",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Devil Anse",
+      "shapeSlug": "devil-anse",
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198277-w500-h235.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198277-w500-h235.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198278-w500-h227.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198279-w500-h195.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198280-w500-h210.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-CWA-Devil-Anse-Brown-Sand-The-Danish-Pipe-Shop-img-198281-w500-h788.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 99,
+      "heightMm": 39,
+      "weightGrams": 25,
+      "chamberDepthMm": 26,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, 2026, CWA Devil Anse, Brown Sand",
+      "keywords": [
+        "DABSOM",
+        "新斗",
+        "Devil Anse",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-37999",
+    "source": "danish",
+    "sourceProductId": "37999",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-i37999.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, 2026, Nose-Warmer Poker, Brown Sand",
+    "displayNameEn": "Dagner Pipes, 2026, Nose-Warmer Poker, Brown Sand",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, 2026, Nose-Warmer Poker, Brown Sand",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Poker",
+      "shapeSlug": "poker",
+      "shapeZhName": "扑克斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198282-w500-h280.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198282-w500-h280.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198283-w500-h286.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198284-w500-h226.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198285-w500-h216.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-2026-Nose-Warmer-Poker-Brown-Sand-The-Danish-Pipe-Shop-img-198286-w500-h788.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 90,
+      "heightMm": 48,
+      "weightGrams": 32,
+      "chamberDepthMm": 32,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 30
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, 2026, Nose-Warmer Poker, Brown Sand",
+      "keywords": [
+        "POBSOM",
+        "新斗",
+        "Poker",
+        "扑克斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38000",
+    "source": "danish",
+    "sourceProductId": "38000",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-i38000.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198273-w500-h259.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198273-w500-h259.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198274-w500-h99.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198275-w500-h280.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198276-w500-h177.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-The-Danish-Pipe-Shop-img-198265-w500-h678.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 111,
+      "heightMm": 76,
+      "weightGrams": 18,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 11,
+      "outsideDiameterMm": 18
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+      "keywords": [
+        "BLPGSFS 2026, 9 mm",
+        "新斗",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38001",
+    "source": "danish",
+    "sourceProductId": "38001",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-i38001.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198303-w500-h308.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198303-w500-h308.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198304-w500-h95.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198305-w500-h100.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198306-w500-h305.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-The-Danish-Pipe-Shop-img-198271-w500-h678.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 106,
+      "heightMm": 76,
+      "weightGrams": 14,
+      "chamberDepthMm": 32,
+      "chamberDiameterMm": 11,
+      "outsideDiameterMm": 15
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+      "keywords": [
+        "BLPGS 2026",
+        "新斗",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38002",
+    "source": "danish",
+    "sourceProductId": "38002",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-i38002.html",
+    "entityType": "offer",
+    "displayName": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+    "displayNameZh": null,
+    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+    "brand": {
+      "rawName": "Dagner Pipes",
+      "canonicalName": "Dagner Pipes",
+      "slug": "dagner-pipes",
+      "zhName": "达格纳",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198299-w500-h280.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198299-w500-h280.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198300-w500-h106.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198301-w500-h105.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198302-w500-h288.jpg",
+        "https://www.danishpipeshop.com/img/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-The-Danish-Pipe-Shop-img-198272-w500-h678.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 106,
+      "heightMm": 76,
+      "weightGrams": 13,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 11,
+      "outsideDiameterMm": 15
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Dagner Pipes",
+      "title": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+      "keywords": [
+        "BLPBSOM, 2026",
+        "新斗",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Dagner Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null"
       ]
     },
     "publication": {
