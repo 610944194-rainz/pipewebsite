@@ -1,0 +1,10 @@
+import type { PublicCatalogProduct } from "./public-products/types";
+import type { ProductBrandZhSource, ProductDisplayNameQuality } from "./product-display-name";
+type ProductInput = Pick<PublicCatalogProduct, "id"> & Partial<PublicCatalogProduct> & { displayNameZh?: string | null };
+type NameResult = { title: string; quality: ProductDisplayNameQuality; warnings: string[]; brandNameZh: string | null; brandZhSource: ProductBrandZhSource };
+type HistoricalEntry = { id: string; displayTitle: string; safeDisplayNameZh: string | null; subtitleOriginalName: string | null; quality: ProductDisplayNameQuality; warnings: string[]; brandZhSource: ProductBrandZhSource };
+type NameContext = { names: Map<string, HistoricalEntry>; brands: Map<string, { name: string; zh: string | null; aliases: string[] }> };
+export function loadProductNameContext(): NameContext;
+export function getProductBrandZh(product: ProductInput, context?: NameContext): string | null;
+export function resolveProductName(product: ProductInput, context?: NameContext): NameResult;
+export function withResolvedProductName<T extends ProductInput>(product: T, context?: NameContext): T & { displayName: string; brandNameZh: string | null; displayNameQuality: ProductDisplayNameQuality };

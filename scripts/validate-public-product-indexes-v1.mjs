@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
+import { getProductBrandZh } from "../lib/product-name-resolver.mjs";
 import {
   evaluatePublicIndexPerformanceBudgets,
   PUBLIC_INDEX_PERFORMANCE_BUDGETS,
@@ -45,6 +46,8 @@ const CATALOG_ALLOWLIST = new Set([
   "source",
   "sourceProductId",
   "brandName",
+  "brandNameZh",
+  "displayNameQuality",
   "brandSlug",
   "brandCountry",
   "displayName",
@@ -550,6 +553,9 @@ async function main() {
         errors.push(`Smokingpipes needs-review product entered catalog: ${product.id}`);
       }
     }
+    if (!["ready", "candidate", "fallback-original"].includes(product.displayNameQuality)) errors.push(`Product has no Chinese resolution status: ${product.id}`);
+    if (!requiredText(product.displayName)) errors.push(`Product has empty resolved title: ${product.id}`);
+    if (product.brandNameZh !== getProductBrandZh(product)) errors.push(`Product missed confirmed brand Chinese name: ${product.id}`);
     for (const key of Object.keys(product)) {
       if (!CATALOG_ALLOWLIST.has(key)) errors.push(`Catalog contains non-allowlisted field ${key} on ${product.id}`);
     }

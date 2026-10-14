@@ -86,7 +86,7 @@ function InventoryProductCard({
 
           <div className="px-0.5 pt-2.5">
             <p className="line-clamp-1 text-[9.5px] font-normal uppercase leading-[1.3] tracking-[0.11em] text-[var(--brass)]">
-              {product.brandName || sourceLabel(product.source)}
+              {product.brandNameZh || product.brandName || sourceLabel(product.source)}
             </p>
             <h3 className="mt-[5px] line-clamp-2 text-[11.5px] font-normal leading-[1.45] text-[var(--text-primary)] sm:text-[12.5px]">
               {name}

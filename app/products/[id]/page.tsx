@@ -161,7 +161,7 @@ function normalizedSpecValue(spec: PublicDetailSpec) {
 
 function basicSpecRows(product: PublicDetailProduct): SpecRow[] {
   const rows: Array<{ label: string; value: unknown }> = [
-    { label: "品牌", value: product.brandName },
+    { label: "品牌", value: product.brandNameZh || product.brandName },
     { label: "国家 / 地区", value: countryLabel(product.brandCountry) },
     { label: "斗型", value: shapeDisplayLabel(product.shape, product.shapeZh) },
     {
@@ -383,7 +383,7 @@ export default async function ProductDetailPage({
                 href={`/brands/${brandSlug}`}
                 className="inline-flex flex-col text-[11px] font-medium uppercase leading-[1.3] tracking-[0.16em] text-[var(--brass)] transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brass)] [font-family:inherit]"
               >
-                {product.brandName || "海外烟斗"}
+                {product.brandNameZh || product.brandName || "海外烟斗"}
                 <span className="mt-2 h-px w-7 bg-[var(--brass)]" aria-hidden="true" />
               </Link>
             ) : (

@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import path from "node:path";
+import { withResolvedProductName } from "../lib/product-name-resolver.mjs";
 import {
   evaluatePublicIndexPerformanceBudgets,
   PUBLIC_INDEX_PERFORMANCE_BUDGETS,
@@ -75,6 +76,8 @@ const CATALOG_ALLOWLIST = [
   "source",
   "sourceProductId",
   "brandName",
+  "brandNameZh",
+  "displayNameQuality",
   "brandSlug",
   "brandCountry",
   "displayName",
@@ -480,7 +483,7 @@ function catalogFromRow(row, pricingContext) {
   const measurements = row.measurements || {};
   const priceFields = publicPriceFieldsFromRow(row, pricingContext);
   const weightGrams = finiteNumber(measurements.weightGrams);
-  return normalizePublicProduct({
+  return withResolvedProductName(normalizePublicProduct({
     id: requiredText(row.id),
     source: requiredText(row.source),
     sourceProductId: requiredText(row.sourceProductId),
@@ -527,7 +530,7 @@ function catalogFromRow(row, pricingContext) {
       price: priceFields.sortPrice,
       sourceProductId: requiredText(row.sourceProductId),
     },
-  });
+  }));
 }
 
 function deriveShard(id) {
@@ -608,7 +611,7 @@ function detailFromRow(row, catalogProduct) {
   const weightGrams = finiteNumber(row.measurements?.weightGrams);
   return {
     ...catalogProduct,
-    displayNameZh: cleanText(row.displayNameZh),
+    displayNameZh: catalogProduct.displayNameQuality === "fallback-original" ? null : catalogProduct.displayName,
     gallery,
     measurements: measurementsFromRow(row),
     model: {

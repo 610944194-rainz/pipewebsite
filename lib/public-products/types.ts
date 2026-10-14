@@ -33,6 +33,7 @@ export type PublicCatalogProduct = {
   source: PublicSource;
   sourceProductId: string;
   brandName: string | null;
+  brandNameZh?: string | null;
   brandSlug: string | null;
   brandCountry: string | null;
   displayName: string | null;

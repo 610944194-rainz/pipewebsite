@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { getProductBrandZh } from "../../lib/product-name-resolver.mjs";
 import {
   readJson,
   writeJsonAtomic,
@@ -148,6 +149,8 @@ export async function validateSmokingpipesReleaseBundleV2({
     if (falcon.length) blockers.push(`Falcon products leaked into bundle outputs: ${falcon.length}`);
     const unifiedIds = new Set(unified.map((product) => text(product.id)));
     for (const product of catalog.products) {
+      if (!["ready", "candidate", "fallback-original"].includes(product.displayNameQuality) || !text(product.displayName)) blockers.push(`catalog product has no resolved Chinese title status: ${text(product.id)}`);
+      if (product.brandNameZh !== getProductBrandZh(product)) blockers.push(`catalog product missed confirmed Chinese brand: ${text(product.id)}`);
       if (!unifiedIds.has(text(product.id))) {
         blockers.push(`catalog product is missing from unified staging: ${text(product.id)}`);
       }
