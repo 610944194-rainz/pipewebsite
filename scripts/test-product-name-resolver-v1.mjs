@@ -43,3 +43,26 @@ const after = catalog.map(x => withResolvedProductName(x));
 const averageBytes = after.reduce((sum,x)=>sum+Buffer.byteLength(JSON.stringify(x)),0)/after.length;
 console.log(JSON.stringify({status:"passed", historicalTitlesPreserved:existing.length, sample:resolved, averageRecordBytes:averageBytes}, null, 2));
 assert.ok(averageBytes <= 1300, "Chinese fields must stay within the existing catalog performance budget");
+
+// Exercise the actual V2 publisher validator: a raw-only product must not pass.
+const { validateSmokingpipesReleaseBundleV2 } = await import("./inventory/validate-smokingpipes-release-bundle-v2.mjs");
+const os = await import("node:os");
+const path = await import("node:path");
+const temp = fs.mkdtempSync(path.join(os.tmpdir(), "product-name-publish-gate-"));
+function put(file, value) { const target = path.join(temp,file); fs.mkdirSync(path.dirname(target),{recursive:true}); fs.writeFileSync(target,JSON.stringify(value)); }
+const outputs = ["data/products/smokingpipes-products.json","data/products/unified-products-staging.json","data/generated/public-products/catalog.json","data/generated/public-products/detail-lookup.json","data/generated/public-products/manifest.json"];
+put("manifest.json", {schemaVersion:"smokingpipes-release-bundle-v2",selectedIds:["724599"],actualAppliedCount:1,maxAutoApply:1,changeTypeCounts:{"new-product":1},featuredExcluded:true,outputFiles:outputs});
+put("summary.json", {});
+put("changes.json", [{sourceProductId:"724599",changeType:"new-product"}]);
+put("outputs/"+outputs[0], [{sourceProductId:"724599",brand:"Peterson"}]);
+put("outputs/"+outputs[1], [{id:renamed.id}]);
+put("outputs/"+outputs[3], {byId:{[renamed.id]:"00"}});
+put("outputs/"+outputs[4], {});
+put("outputs/"+outputs[2], {products:candidate.catalog.products});
+assert.equal((await validateSmokingpipesReleaseBundleV2({bundleRoot:temp,writeReport:false})).valid,true);
+put("outputs/"+outputs[2], {products:[renamed]});
+const invalid = await validateSmokingpipesReleaseBundleV2({bundleRoot:temp,writeReport:false});
+assert.equal(invalid.valid,false);
+assert.ok(invalid.blockers.some(x=>x.includes("resolved Chinese title status")));
+assert.ok(invalid.blockers.some(x=>x.includes("confirmed Chinese brand")));
+console.log("V2 publication gate rejects products without Chinese resolution: passed");
