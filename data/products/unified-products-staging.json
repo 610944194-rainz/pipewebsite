@@ -1878525,113 +1878525,6 @@
     }
   },
   {
-    "id": "gqtobaccos-13673",
-    "source": "gqtobaccos",
-    "sourceProductId": "13673",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-bowls-dublin-smooth/",
-    "entityType": "excluded-brand",
-    "displayName": "Falcon Bowls - Dublin (Smooth)",
-    "displayNameEn": "Falcon Bowls - Dublin (Smooth)",
-    "displayNameZh": null,
-    "rawTitle": "Falcon Bowls - Dublin (Smooth)",
-    "brand": {
-      "rawName": "Falcon Pipes",
-      "canonicalName": "Falcon Pipes",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 21.99,
-      "rawText": "GBP 21.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13673/66547/_MG_5055__96579__43826__81093.1728566778.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13673/66547/_MG_5055__96579__43826__81093.1728566778.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Falcon Pipes",
-      "title": "Falcon Bowls - Dublin (Smooth)",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    }
-  },
-  {
     "id": "gqtobaccos-13680",
     "source": "gqtobaccos",
     "sourceProductId": "13680",
@@ -1879360,113 +1879253,6 @@
     "search": {
       "brand": "Falcon Pipes",
       "title": "Falcon Bowls - Bulldog (Hunter)",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    }
-  },
-  {
-    "id": "gqtobaccos-13700",
-    "source": "gqtobaccos",
-    "sourceProductId": "13700",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-bowls-billiard-hunter/",
-    "entityType": "excluded-brand",
-    "displayName": "Falcon Bowls - Billiard (Hunter)",
-    "displayNameEn": "Falcon Bowls - Billiard (Hunter)",
-    "displayNameZh": null,
-    "rawTitle": "Falcon Bowls - Billiard (Hunter)",
-    "brand": {
-      "rawName": "Falcon Pipes",
-      "canonicalName": "Falcon Pipes",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 26.99,
-      "rawText": "GBP 26.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13700/66593/_MG_4751__41804__64081__21165.1728566789.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13700/66593/_MG_4751__41804__64081__21165.1728566789.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Falcon Pipes",
-      "title": "Falcon Bowls - Billiard (Hunter)",
       "keywords": []
     },
     "integration": {
@@ -1883962,8 +1883748,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1884176,8 +1883962,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1888616,11 +1888402,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1888670,7 +1888456,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1889402,11 +1889188,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1889462,7 +1889248,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1894945,11 +1894731,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1895004,7 +1894790,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1900276,11 +1900062,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1900334,7 +1900120,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1904749,11 +1904535,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1904803,7 +1904589,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1906403,11 +1906189,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1906460,7 +1906246,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
