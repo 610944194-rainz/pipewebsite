@@ -1,0 +1,146 @@
+[
+  {
+    "reason": "same_chinese_name",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "canonical:566",
+        "brand": "Peterson",
+        "name": "De Luxe Mixture",
+        "zh": "豪华调配"
+      },
+      {
+        "id": "blendv3:b69d45247e9b23f6",
+        "brand": "Peterson",
+        "name": "Luxury Blend",
+        "zh": "豪华调配"
+      }
+    ]
+  },
+  {
+    "reason": "same_chinese_name",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "blendv3:ccd0f5e2ba7d120c",
+        "brand": "Mac Baren",
+        "name": "Three Nuns Bells",
+        "zh": "三尼姑"
+      },
+      {
+        "id": "blendv3:bf8dc6e4386e3d75",
+        "brand": "Mac Baren",
+        "name": "non nicer",
+        "zh": "三尼姑"
+      }
+    ]
+  },
+  {
+    "reason": "same_description",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "canonical:430",
+        "brand": "Gladora",
+        "name": "Pesse Canoe Latakia Flake 20",
+        "zh": "佩斯独木舟拉塔基亚20"
+      },
+      {
+        "id": "canonical:431",
+        "brand": "Gladora",
+        "name": "Pesse Canoe Latakia Flake 40",
+        "zh": "佩斯独木舟拉塔基亚40"
+      }
+    ]
+  },
+  {
+    "reason": "same_description",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "blendv3:17583d7615054a48",
+        "brand": "Dan Tobacco",
+        "name": "Ocean Liner Series American Line",
+        "zh": "远洋客轮系列美国航线"
+      },
+      {
+        "id": "blendv3:cdcbb5b088c246c4",
+        "brand": "Dan Tobacco",
+        "name": "Ocean Liner Series Flake & Cavendish",
+        "zh": "远洋客轮系列切片与卡文迪什"
+      }
+    ]
+  },
+  {
+    "reason": "same_description",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "blendv3:e6777fb38e80a78c",
+        "brand": "Mac Baren",
+        "name": "Meine Mischung Braun",
+        "zh": "我的调配棕色"
+      },
+      {
+        "id": "blendv3:e3acad1d93f2c972",
+        "brand": "Mac Baren",
+        "name": "Meine Mischung Sweet Caribbean",
+        "zh": "我的调配甜蜜加勒比"
+      }
+    ]
+  },
+  {
+    "reason": "same_description",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "blendv3:6bd0bc99c4602868",
+        "brand": "Mac Baren",
+        "name": "Mixture Scottish Blend Limited Heritage Edition Handblended Black",
+        "zh": "苏格兰调配传承限量版手工调配黑版"
+      },
+      {
+        "id": "blendv3:210fc6733fbefce8",
+        "brand": "Mac Baren",
+        "name": "Mixture Scottish Blend Limited Heritage Edition Handblended Red",
+        "zh": "苏格兰调配传承限量版手工调配红版"
+      },
+      {
+        "id": "blendv3:c371dcd9994cf3e2",
+        "brand": "Mac Baren",
+        "name": "Mixture Scottish Blend Limited Heritage Edition Handblended Yellow",
+        "zh": "苏格兰调配传承限量版手工调配黄版"
+      }
+    ]
+  },
+  {
+    "reason": "same_description",
+    "status": "review_only_not_proven_duplicate",
+    "members": [
+      {
+        "id": "blendv3:cac8ee07df314e81",
+        "brand": "Vauen",
+        "name": "PipooCherry-Flavour",
+        "zh": "皮普樱桃味"
+      },
+      {
+        "id": "blendv3:a5988de77fa084c8",
+        "brand": "Vauen",
+        "name": "PipooChoco-Flavour",
+        "zh": "皮普巧克力味"
+      },
+      {
+        "id": "blendv3:e84cc65a1ef9ab26",
+        "brand": "Vauen",
+        "name": "PipooNeutral-Flavour",
+        "zh": "皮普原味"
+      },
+      {
+        "id": "blendv3:7acf1428f80d4571",
+        "brand": "Vauen",
+        "name": "PipooVanilla-Flavour",
+        "zh": "皮普香草味"
+      }
+    ]
+  }
+]
