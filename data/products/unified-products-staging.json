@@ -371132,12 +371132,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -371201,11 +371201,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -414418,7 +414418,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -431840,12 +431840,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -431908,11 +431908,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -440691,7 +440691,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -446328,12 +446328,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -446396,11 +446396,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -495757,12 +495757,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -495827,11 +495827,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -668904,12 +668904,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "needs-review",
-      "confidence": "conflicting-signals",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
-      "reason": "Detail page says sold while the product remains in the active list range."
+      "reason": "Detail inventory status conflicts with the complete current-list snapshot."
     },
     "price": {
       "currency": "USD",
@@ -668970,9 +668970,7 @@
         "comment",
         "detail"
       ],
-      "adapterWarnings": [
-        "inventory:needs-review"
-      ]
+      "adapterWarnings": []
     },
     "publication": {
       "status": "excluded",
@@ -668982,7 +668980,7 @@
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Detail page says sold while the product remains in the active list range."
+      "reason": "Detail inventory status conflicts with the complete current-list snapshot."
     }
   },
   {
@@ -698157,12 +698155,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -698227,11 +698225,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -704716,12 +704714,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -704786,11 +704784,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -969639,12 +969637,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -969709,11 +969707,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -1645935,8 +1645933,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 420.75,
+      "rawText": "$420.75",
       "msrpAmount": 495,
       "msrpRawText": "$495.00",
       "siteDisplayAmount": null,
@@ -1646564,8 +1646562,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 420.75,
+      "rawText": "$420.75",
       "msrpAmount": 495,
       "msrpRawText": "$495.00",
       "siteDisplayAmount": null,
@@ -1716598,12 +1716596,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -1716670,11 +1716668,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
