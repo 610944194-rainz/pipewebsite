@@ -21,14 +21,6 @@ type PaginationItem = number | "ellipsis";
 const PAGE_SIZE = 12;
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-const CURATED_LOGO_ASSETS: Record<string, string> = {
-  peterson: "/brands/featured/peterson-logo-1600x800.png",
-  savinelli: "/brands/featured/savinelli-logo-1600x800.png",
-  stanwell: "/brands/featured/stanwell-logo-1600x800.png",
-  dunhill: "/brands/featured/dunhill-logo-1600x800.png",
-  chacom: "/brands/featured/chacom-logo-1600x800.png",
-};
-
 function priorityRank(priority?: string) {
   const normalizedPriority = String(priority || "").toLowerCase();
   if (normalizedPriority === "high") return 0;
@@ -73,7 +65,6 @@ function brandLogoUrl(brand: PublicBrandProfile) {
     record.logo,
     record.imageUrl,
     record.logoImage,
-    CURATED_LOGO_ASSETS[brand.slug],
   ];
   const logo = candidates.find((item) => typeof item === "string" && item.trim());
   return typeof logo === "string" ? logo : "";
@@ -267,7 +258,7 @@ function BrandDirectoryItem({ brand }: { brand: PublicBrandProfile }) {
         aria-label={`查看 ${displayName} 品牌档案`}
         className="grid min-h-[120px] grid-cols-[84px_minmax(0,1fr)_52px] items-center gap-x-3.5 py-[18px] transition-colors hover:text-[var(--coffee)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--brass)] md:min-h-[132px] md:grid-cols-[84px_minmax(0,1fr)_58px] md:py-[18px]"
       >
-        <div className={`flex h-[84px] w-[84px] items-center justify-center overflow-hidden rounded-[5px] border md:h-[84px] md:w-[84px] ${logoUrl ? "border-[rgba(132,111,91,0.16)] bg-white" : "border-[rgba(132,111,91,0.1)] bg-[#faf7f1]"}`}>
+        <div style={logoUrl && brand.logoBackground === "dark" ? { backgroundColor: "#2a211c" } : undefined} className={`flex h-[84px] w-[84px] items-center justify-center overflow-hidden rounded-[5px] border md:h-[84px] md:w-[84px] ${logoUrl ? "border-[rgba(132,111,91,0.16)] bg-white" : "border-[rgba(132,111,91,0.1)] bg-[#faf7f1]"}`}>
           {logoUrl ? (
             <img src={logoUrl} alt={`${displayName} Logo`} className="h-full w-full object-contain p-2.5" loading="lazy" />
           ) : (

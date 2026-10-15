@@ -1,5 +1,7 @@
 import "server-only";
 
+import brandLogoCatalog from "./brand-logos.json";
+
 import {
   createFallbackBrand,
   getBrandByName,
@@ -12,6 +14,7 @@ import { getPublicBrands } from "./server";
 import type { PublicBrandIndexEntry } from "./types";
 
 export type PublicBrandProfile = PipeBrand & {
+  logoBackground: "white" | "dark";
   publicBrand: PublicBrandIndexEntry;
   productCount: number;
   productIds: string[];
@@ -19,6 +22,21 @@ export type PublicBrandProfile = PipeBrand & {
   inventoryStatusCounts: Record<string, number>;
   publicCountry: string | null;
 };
+
+type BrandLogo = { path: string; background: string };
+const verifiedLogos: Record<string, BrandLogo> = brandLogoCatalog.logos;
+const logoAliases: Record<string, string> = brandLogoCatalog.aliases;
+const existingLogos: Record<string, BrandLogo> = Object.fromEntries(
+  ["peterson", "savinelli", "stanwell", "dunhill", "chacom"].map((slug) => [
+    slug, { path: `/brands/featured/${slug}-logo-1600x800.png`, background: "white" as const },
+  ])
+);
+
+// Keep curated identities outside generated inventory so source refreshes preserve them.
+function getBrandLogo(slug: string) {
+  const canonicalSlug = logoAliases[slug] || slug;
+  return verifiedLogos[canonicalSlug] || existingLogos[canonicalSlug];
+}
 
 function uniqueText(values: string[]) {
   return Array.from(new Set(values.map((value) => value.trim()).filter(Boolean)));
@@ -83,11 +101,14 @@ function makePublicBrandProfile(entry: PublicBrandIndexEntry): PublicBrandProfil
     getBrandByName(entry.brandName);
   const fallbackBrand = createFallbackBrand(entry.brandName, slug);
   const canonicalName = brandMeta?.name || entry.brandName;
+  const logo = getBrandLogo(entry.brandSlug || brandMeta?.slug || fallbackBrand.slug);
 
   return {
     ...fallbackBrand,
     ...(brandMeta ?? {}),
     name: canonicalName,
+    logoUrl: logo?.path || brandMeta?.logoUrl,
+    logoBackground: logo?.background === "dark" ? "dark" : "white",
     slug: entry.brandSlug || brandMeta?.slug || fallbackBrand.slug,
     aliases: uniqueText([
       ...fallbackBrand.aliases,

@@ -31,14 +31,6 @@ type BrandFact = {
 
 const RELATED_STOCK_PAGE_SIZE = 12;
 
-const CURATED_LOGO_ASSETS: Record<string, string> = {
-  peterson: "/brands/featured/peterson-logo-1600x800.png",
-  savinelli: "/brands/featured/savinelli-logo-1600x800.png",
-  stanwell: "/brands/featured/stanwell-logo-1600x800.png",
-  dunhill: "/brands/featured/dunhill-logo-1600x800.png",
-  chacom: "/brands/featured/chacom-logo-1600x800.png",
-};
-
 const EDITORIAL_HERO_ASSETS: Record<string, string> = {
   peterson: "/pics/peterson-brand-head.png",
 };
@@ -116,7 +108,6 @@ function brandLogoUrl(brand: PublicBrandProfile) {
     record.logoUrl,
     record.logo,
     record.logoImage,
-    CURATED_LOGO_ASSETS[brand.slug],
   ];
   const value = candidates.find(
     (item) => typeof item === "string" && item.trim()
@@ -227,11 +218,13 @@ function BrandHero({
 
       <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-end px-4 pb-7 sm:px-6 sm:pb-8 md:px-10 md:pb-12 lg:px-10">
         {logoUrl ? (
-          <img
-            src={logoUrl}
-            alt={`${displayName} logo`}
-            className="mb-3 h-11 max-w-[176px] object-contain object-left brightness-0 invert md:h-14 md:max-w-[240px]"
-          />
+          <div className="mb-3 flex h-16 w-fit max-w-[200px] items-center rounded-[5px] px-4 py-2 md:h-20 md:max-w-[260px]" style={{ backgroundColor: brand.logoBackground === "dark" ? "#2a211c" : "#fff" }}>
+            <img
+              src={logoUrl}
+              alt={`${displayName} logo`}
+              className="h-full w-auto max-w-full object-contain"
+            />
+          </div>
         ) : (
           <p className="mb-3 max-w-[260px] text-[25px] font-medium leading-[1.1] tracking-[0.02em] text-[#f4eee7] md:text-[36px]">
             {displayName}
