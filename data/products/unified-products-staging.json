@@ -1300,6 +1300,243 @@
     }
   },
   {
+    "id": "danish-223",
+    "source": "danish",
+    "sourceProductId": "223",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-i223.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "displayNameEn": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Egg",
+      "shapeSlug": "bent-egg",
+      "shapeZhName": "弯式蛋形斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 186.82,
+      "rawText": "$ 186,82",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1364,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-66130-w500-h193.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-66130-w500-h193.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-66131-w500-h193.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-66132-w500-h182.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-66133-w500-h180.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 46,
+      "weightGrams": 51,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+      "keywords": [
+        "2000003753",
+        "新斗",
+        "Bent Egg",
+        "弯式蛋形斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-224",
+    "source": "danish",
+    "sourceProductId": "224",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-i224.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 124, Canted Egg, Smooth, 9 mm.",
+    "displayNameEn": "Stanwell, Revival 124, Canted Egg, Smooth, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 124, Canted Egg, Smooth, 9 mm.",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Egg",
+      "shapeSlug": "bent-egg",
+      "shapeZhName": "弯式蛋形斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 199.31,
+      "rawText": "$ 199,31",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1455,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-33726-w500-h203.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-33726-w500-h203.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-33727-w500-h191.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-33728-w500-h185.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-33729-w500-h169.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 151,
+      "heightMm": 47,
+      "weightGrams": 50,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 124, Canted Egg, Smooth, 9 mm.",
+      "keywords": [
+        "124, Smooth",
+        "新斗",
+        "Bent Egg",
+        "弯式蛋形斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-232",
     "source": "danish",
     "sourceProductId": "232",
@@ -25293,6 +25530,243 @@
     }
   },
   {
+    "id": "danish-13495",
+    "source": "danish",
+    "sourceProductId": "13495",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-230-Blowfish-Brushed-9mm-i13495.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 230, Blowfish, Brushed, 9mm",
+    "displayNameEn": "Stanwell, Revival 230, Blowfish, Brushed, 9mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 230, Blowfish, Brushed, 9mm",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": "Brushed",
+      "finishSlug": "brushed",
+      "finishZhName": "拉丝",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 161.82,
+      "rawText": "$ 161,82",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1181,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brushed-9mm-The-Danish-Pipe-Shop-img-66969-w500-h228.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brushed-9mm-The-Danish-Pipe-Shop-img-66969-w500-h228.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brushed-9mm-The-Danish-Pipe-Shop-img-66970-w500-h245.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brushed-9mm-The-Danish-Pipe-Shop-img-66971-w500-h199.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brushed-9mm-The-Danish-Pipe-Shop-img-66972-w500-h201.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 65,
+      "weightGrams": 63,
+      "chamberDepthMm": 45,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 43
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 230, Blowfish, Brushed, 9mm",
+      "keywords": [
+        "2000003773",
+        "新斗",
+        "Blowfish",
+        "河豚斗",
+        "Brushed",
+        "拉丝",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-13496",
+    "source": "danish",
+    "sourceProductId": "13496",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-230-Blowfish-Brown-9mm-i13496.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 230, Blowfish, Brown, 9mm",
+    "displayNameEn": "Stanwell, Revival 230, Blowfish, Brown, 9mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 230, Blowfish, Brown, 9mm",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 168.7,
+      "rawText": "$ 168,70",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1232,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brown-9mm-The-Danish-Pipe-Shop-img-95190-w500-h219.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brown-9mm-The-Danish-Pipe-Shop-img-95190-w500-h219.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brown-9mm-The-Danish-Pipe-Shop-img-95191-w500-h218.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brown-9mm-The-Danish-Pipe-Shop-img-95192-w500-h167.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-230-Blowfish-Brown-9mm-The-Danish-Pipe-Shop-img-95193-w500-h176.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 55,
+      "weightGrams": 60,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 42
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 230, Blowfish, Brown, 9mm",
+      "keywords": [
+        "2000003771",
+        "新斗",
+        "Blowfish",
+        "河豚斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-13564",
     "source": "danish",
     "sourceProductId": "13564",
@@ -36723,6 +37197,126 @@
       "legacyMissingFields": [],
       "adapterWarnings": [
         "shape:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-20676",
+    "source": "danish",
+    "sourceProductId": "20676",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-i20676.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 168, Facet Egg, Sand, 9 mm",
+    "displayNameEn": "Stanwell, Revival 168, Facet Egg, Sand, 9 mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 168, Facet Egg, Sand, 9 mm",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Egg",
+      "shapeSlug": "bent-egg",
+      "shapeZhName": "弯式蛋形斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 186.82,
+      "rawText": "$ 186,82",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1364,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102568-w500-h190.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102568-w500-h190.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102569-w500-h190.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102570-w500-h191.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102571-w500-h181.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102572-w500-h407.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-102573-w500-h468.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 52,
+      "weightGrams": 57,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 168, Facet Egg, Sand, 9 mm",
+      "keywords": [
+        "168, Sand",
+        "新斗",
+        "Bent Egg",
+        "弯式蛋形斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
         "bowlMaterial:null"
       ]
     },
@@ -354198,12 +354792,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -354262,11 +354856,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -354316,12 +354910,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -354380,11 +354974,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -357769,12 +358363,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -357833,11 +358427,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362749,10 +363343,10 @@
     "sourceProductId": "38000",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-9-mm-i38000.html",
     "entityType": "offer",
-    "displayName": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
-    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+    "displayName": "Dagner Pipes, Gentlemens Blunt, Green Sand, 9 mm",
+    "displayNameEn": "Dagner Pipes, Gentlemens Blunt, Green Sand, 9 mm",
     "displayNameZh": null,
-    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+    "rawTitle": "Dagner Pipes, Gentlemens Blunt, Green Sand, 9 mm",
     "brand": {
       "rawName": "Dagner Pipes",
       "canonicalName": "Dagner Pipes",
@@ -362831,7 +363425,7 @@
     },
     "search": {
       "brand": "Dagner Pipes",
-      "title": "Dagner Pipes, Gentlemen's Blunt, Green Sand, 9 mm",
+      "title": "Dagner Pipes, Gentlemens Blunt, Green Sand, 9 mm",
       "keywords": [
         "BLPGSFS 2026, 9 mm",
         "新斗",
@@ -362868,10 +363462,10 @@
     "sourceProductId": "38001",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Green-Sand-i38001.html",
     "entityType": "offer",
-    "displayName": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
-    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+    "displayName": "Dagner Pipes, Gentlemens Blunt, Green Sand",
+    "displayNameEn": "Dagner Pipes, Gentlemens Blunt, Green Sand",
     "displayNameZh": null,
-    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+    "rawTitle": "Dagner Pipes, Gentlemens Blunt, Green Sand",
     "brand": {
       "rawName": "Dagner Pipes",
       "canonicalName": "Dagner Pipes",
@@ -362950,7 +363544,7 @@
     },
     "search": {
       "brand": "Dagner Pipes",
-      "title": "Dagner Pipes, Gentlemen's Blunt, Green Sand",
+      "title": "Dagner Pipes, Gentlemens Blunt, Green Sand",
       "keywords": [
         "BLPGS 2026",
         "新斗",
@@ -362987,10 +363581,10 @@
     "sourceProductId": "38002",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Dagner-Pipes-Gentlemens-Blunt-Brown-Sand-i38002.html",
     "entityType": "offer",
-    "displayName": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
-    "displayNameEn": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+    "displayName": "Dagner Pipes, Gentlemens Blunt, Brown Sand",
+    "displayNameEn": "Dagner Pipes, Gentlemens Blunt, Brown Sand",
     "displayNameZh": null,
-    "rawTitle": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+    "rawTitle": "Dagner Pipes, Gentlemens Blunt, Brown Sand",
     "brand": {
       "rawName": "Dagner Pipes",
       "canonicalName": "Dagner Pipes",
@@ -363069,7 +363663,7 @@
     },
     "search": {
       "brand": "Dagner Pipes",
-      "title": "Dagner Pipes, Gentlemen's Blunt, Brown Sand",
+      "title": "Dagner Pipes, Gentlemens Blunt, Brown Sand",
       "keywords": [
         "BLPBSOM, 2026",
         "新斗",
@@ -363087,6 +363681,1078 @@
       "adapterWarnings": [
         "shape:null",
         "finish:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38005",
+    "source": "danish",
+    "sourceProductId": "38005",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-i38005.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "displayNameEn": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Egg",
+      "shapeSlug": "bent-egg",
+      "shapeZhName": "弯式蛋形斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 186.82,
+      "rawText": "$ 186,82",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1364,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-198315-w500-h166.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-198315-w500-h166.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-198312-w500-h168.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-198313-w500-h167.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-124-Canted-Egg-Sand-9-mm-The-Danish-Pipe-Shop-img-198314-w500-h155.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 46,
+      "weightGrams": 51,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 124, Canted Egg, Sand, 9 mm.",
+      "keywords": [
+        "124, Brushed",
+        "新斗",
+        "Bent Egg",
+        "弯式蛋形斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38006",
+    "source": "danish",
+    "sourceProductId": "38006",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-i38006.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, Revival 168, Facet Egg, Smooth, 9 mm",
+    "displayNameEn": "Stanwell, Revival 168, Facet Egg, Smooth, 9 mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Revival 168, Facet Egg, Smooth, 9 mm",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Egg",
+      "shapeSlug": "bent-egg",
+      "shapeZhName": "弯式蛋形斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 168.7,
+      "rawText": "$ 168,70",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1232,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198316-w500-h190.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198316-w500-h190.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198317-w500-h184.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198318-w500-h182.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198319-w500-h172.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198320-w500-h237.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Revival-168-Facet-Egg-Smooth-9-mm-The-Danish-Pipe-Shop-img-198321-w500-h438.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 52,
+      "weightGrams": 58,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, Revival 168, Facet Egg, Smooth, 9 mm",
+      "keywords": [
+        "168, Light Brown",
+        "新斗",
+        "Bent Egg",
+        "弯式蛋形斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38007",
+    "source": "danish",
+    "sourceProductId": "38007",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-11-Pot-Unsmoked-i38007.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Pot",
+      "shapeSlug": "pot",
+      "shapeZhName": "罐式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 156.2,
+      "rawText": "$ 156,20",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1140,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198338-w500-h178.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198338-w500-h178.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198339-w500-h178.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198340-w500-h209.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198341-w500-h196.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198342-w500-h519.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 128,
+      "heightMm": 41,
+      "weightGrams": 56,
+      "chamberDepthMm": 30,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 47
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
+      "keywords": [
+        "est15537",
+        "Estate 未使用",
+        "Pot",
+        "罐式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38008",
+    "source": "danish",
+    "sourceProductId": "38008",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-88-Billard-Unsmoked-i38008.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 168.7,
+      "rawText": "$ 168,70",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1232,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198343-w500-h207.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198343-w500-h207.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198344-w500-h212.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198345-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198346-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198347-w500-h179.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198348-w500-h405.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 127,
+      "heightMm": 50,
+      "weightGrams": 51,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+      "keywords": [
+        "est15538",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38009",
+    "source": "danish",
+    "sourceProductId": "38009",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-88-Billard-Unsmoked-i38009.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198349-w500-h217.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198349-w500-h217.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198350-w500-h214.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198351-w500-h184.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198352-w500-h162.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198353-w500-h349.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 124,
+      "heightMm": 51,
+      "weightGrams": 50,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+      "keywords": [
+        "est15539",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38010",
+    "source": "danish",
+    "sourceProductId": "38010",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-i38010.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 156.2,
+      "rawText": "$ 156,20",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1140,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198354-w500-h238.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198354-w500-h238.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198355-w500-h243.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198356-w500-h196.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198357-w500-h215.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198358-w500-h383.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198359-w500-h479.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 123,
+      "heightMm": 54,
+      "weightGrams": 68,
+      "chamberDepthMm": 43,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 47
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
+      "keywords": [
+        "est15540",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38016",
+    "source": "danish",
+    "sourceProductId": "38016",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Golden-Danish-63-Unsmoked-i38016.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Golden Danish 63, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Golden Danish 63, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Golden Danish 63, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198322-w500-h183.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198322-w500-h183.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198323-w500-h182.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198324-w500-h166.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198325-w500-h163.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Golden-Danish-63-Unsmoked-The-Danish-Pipe-Shop-img-198326-w500-h369.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 44,
+      "weightGrams": 46,
+      "chamberDepthMm": 34,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Golden Danish 63, Unsmoked",
+      "keywords": [
+        "est15546",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38017",
+    "source": "danish",
+    "sourceProductId": "38017",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Vario-63-Unsmoked-i38017.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Vario 63, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Vario 63, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Vario 63, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 118.71,
+      "rawText": "$ 118,71",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 867,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198327-w500-h194.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198327-w500-h194.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198328-w500-h203.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198329-w500-h162.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198330-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-63-Unsmoked-The-Danish-Pipe-Shop-img-198331-w500-h375.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 51,
+      "weightGrams": 50,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Vario 63, Unsmoked",
+      "keywords": [
+        "est15547",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38018",
+    "source": "danish",
+    "sourceProductId": "38018",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Bent-Apple-Unsmoked-i38018.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Bent Apple, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Bent Apple, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Bent Apple, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Apple",
+      "shapeSlug": "bent-apple",
+      "shapeZhName": "弯式苹果斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 187.44,
+      "rawText": "$ 187,44",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1368,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198332-w500-h246.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198332-w500-h246.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198333-w500-h249.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198334-w500-h187.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198335-w500-h182.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198336-w500-h292.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198337-w500-h321.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 130,
+      "heightMm": 41,
+      "weightGrams": 48,
+      "chamberDepthMm": 33,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Bent Apple, Unsmoked",
+      "keywords": [
+        "est15548",
+        "Estate 未使用",
+        "Bent Apple",
+        "弯式苹果斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
       ]
     },
     "publication": {
