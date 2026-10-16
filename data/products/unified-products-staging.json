@@ -115311,12 +115311,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -115378,11 +115378,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -308157,12 +308157,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -308223,11 +308223,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -311257,10 +311257,10 @@
     "sourceProductId": "37490",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Terracotta-63-Freehand-NB-Max-3-items-Per-customer-order-i37490.html",
     "entityType": "offer",
-    "displayName": "Stanwell, København, Terracotta 63, Freehand",
-    "displayNameEn": "Stanwell, København, Terracotta 63, Freehand",
+    "displayName": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
+    "displayNameEn": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
     "displayNameZh": null,
-    "rawTitle": "Stanwell, København, Terracotta 63, Freehand",
+    "rawTitle": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
     "brand": {
       "rawName": "Stanwell",
       "canonicalName": "Stanwell",
@@ -311298,12 +311298,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -311340,7 +311340,7 @@
     },
     "search": {
       "brand": "Stanwell",
-      "title": "Stanwell, København, Terracotta 63, Freehand",
+      "title": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
       "keywords": [
         "17938",
         "新斗",
@@ -311350,7 +311350,7 @@
         "石楠木",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Stanwell"
       ]
     },
@@ -311365,11 +311365,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -321913,12 +321913,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -321977,11 +321977,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -333418,12 +333418,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -333481,11 +333481,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": false,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -338735,12 +338735,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -338799,11 +338799,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -364099,12 +364099,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -364149,7 +364149,7 @@
         "撞球斗",
         "Acrylic",
         "亚克力",
-        "可购买",
+        "已售",
         "Stanwell"
       ]
     },
@@ -364165,11 +364165,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -364219,12 +364219,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -364268,7 +364268,7 @@
         "撞球斗",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Stanwell"
       ]
     },
@@ -364284,11 +364284,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -364411,6 +364411,596 @@
     }
   },
   {
+    "id": "danish-38011",
+    "source": "danish",
+    "sourceProductId": "38011",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-Sandblasted-i38011.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+    "displayNameEn": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 137.46,
+      "rawText": "$ 137,46",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1003,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198360-w500-h256.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198360-w500-h256.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198361-w500-h266.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198362-w500-h217.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-The-Danish-Pipe-Shop-img-198363-w500-h220.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 123,
+      "heightMm": 54,
+      "weightGrams": 70,
+      "chamberDepthMm": 44,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 48
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+      "keywords": [
+        "est15541",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38012",
+    "source": "danish",
+    "sourceProductId": "38012",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-88-Billard-Unsmoked-Sandblasted-i38012.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+    "displayNameEn": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 137.46,
+      "rawText": "$ 137,46",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1003,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198364-w500-h226.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198364-w500-h226.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198365-w500-h230.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198366-w500-h185.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198367-w500-h178.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 126,
+      "heightMm": 51,
+      "weightGrams": 52,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+      "keywords": [
+        "est15542",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38013",
+    "source": "danish",
+    "sourceProductId": "38013",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-11-Pot-Unsmoked-Sandblasted-i38013.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+    "displayNameEn": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Pot",
+      "shapeSlug": "pot",
+      "shapeZhName": "罐式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 137.46,
+      "rawText": "$ 137,46",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1003,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198368-w500-h195.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198368-w500-h195.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198369-w500-h202.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198370-w500-h212.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Shorty-11-Pot-Unsmoked-The-Danish-Pipe-Shop-img-198371-w500-h213.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 129,
+      "heightMm": 43,
+      "weightGrams": 65,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 48
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+      "keywords": [
+        "est15543",
+        "Estate 未使用",
+        "Pot",
+        "罐式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38014",
+    "source": "danish",
+    "sourceProductId": "38014",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Bent-Dublin-Unsmoked-i38014.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Bent Dublin, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Bent Dublin, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Bent Dublin, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Dublin",
+      "shapeSlug": "bent-dublin",
+      "shapeZhName": "弯式都柏林斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 149.95,
+      "rawText": "$ 149,95",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1095,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Dublin-Unsmoked-The-Danish-Pipe-Shop-img-198380-w500-h206.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Dublin-Unsmoked-The-Danish-Pipe-Shop-img-198380-w500-h206.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Dublin-Unsmoked-The-Danish-Pipe-Shop-img-198381-w500-h209.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Dublin-Unsmoked-The-Danish-Pipe-Shop-img-198382-w500-h178.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Bent-Dublin-Unsmoked-The-Danish-Pipe-Shop-img-198383-w500-h193.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 129,
+      "heightMm": 50,
+      "weightGrams": 44,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Bent Dublin, Unsmoked",
+      "keywords": [
+        "est15544",
+        "Estate 未使用",
+        "Bent Dublin",
+        "弯式都柏林斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38015",
+    "source": "danish",
+    "sourceProductId": "38015",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Brushed-Billard-Unsmoked-i38015.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Brushed, Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Brushed, Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Brushed, Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Brushed",
+      "finishSlug": "brushed",
+      "finishZhName": "拉丝",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 111.84,
+      "rawText": "$ 111,84",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 816,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Brushed-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198384-w500-h211.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Brushed-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198384-w500-h211.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Brushed-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198385-w500-h199.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Brushed-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198386-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Brushed-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198387-w500-h157.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 150,
+      "heightMm": 54,
+      "weightGrams": 58,
+      "chamberDepthMm": 44,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 42
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Brushed, Billard, Unsmoked",
+      "keywords": [
+        "est15545",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Brushed",
+        "拉丝",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-38016",
     "source": "danish",
     "sourceProductId": "38016",
@@ -364457,12 +365047,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -364504,7 +365094,7 @@
         "Estate 未使用",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Stanwell"
       ]
     },
@@ -364521,11 +365111,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -364741,6 +365331,1536 @@
         "Estate 未使用",
         "Bent Apple",
         "弯式苹果斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38019",
+    "source": "danish",
+    "sourceProductId": "38019",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-i38019.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Vario 83, B. Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Vario 83, B. Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Vario 83, B. Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 99.97,
+      "rawText": "$ 99,97",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 730,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198388-w500-h288.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198388-w500-h288.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198392-w500-h290.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198390-w500-h161.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Vario-83-B-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198391-w500-h159.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 142,
+      "heightMm": 48,
+      "weightGrams": 45,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Vario 83, B. Billard, Unsmoked",
+      "keywords": [
+        "est15549",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38020",
+    "source": "danish",
+    "sourceProductId": "38020",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38020.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 168.7,
+      "rawText": "$ 168,70",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1232,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198397-w500-h310.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198397-w500-h310.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198394-w500-h313.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198398-w500-h317.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198395-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198396-w500-h177.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 140,
+      "heightMm": 49,
+      "weightGrams": 60,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 43
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15550",
+        "Estate 未使用",
+        "Vulcanite",
+        "硫化橡胶",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38021",
+    "source": "danish",
+    "sourceProductId": "38021",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38021.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198399-w500-h163.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198399-w500-h163.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198400-w500-h170.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198401-w500-h146.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198402-w500-h128.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 162,
+      "heightMm": 51,
+      "weightGrams": 52,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15551",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38022",
+    "source": "danish",
+    "sourceProductId": "38022",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38022.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198403-w500-h168.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198403-w500-h168.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198404-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198405-w500-h150.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198406-w500-h134.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 162,
+      "heightMm": 51,
+      "weightGrams": 54,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15552",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38023",
+    "source": "danish",
+    "sourceProductId": "38023",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38023.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198407-w500-h161.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198407-w500-h161.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198408-w500-h168.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198409-w500-h157.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198410-w500-h188.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 290,
+      "heightMm": 49,
+      "weightGrams": 50,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15553",
+        "Estate 未使用",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38024",
+    "source": "danish",
+    "sourceProductId": "38024",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38024.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198411-w500-h290.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198411-w500-h290.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198412-w500-h295.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198413-w500-h170.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198414-w500-h179.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 142,
+      "heightMm": 49,
+      "weightGrams": 56,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15554",
+        "Estate 未使用",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38025",
+    "source": "danish",
+    "sourceProductId": "38025",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38025.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198415-w500-h315.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198415-w500-h315.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198416-w500-h322.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198417-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198418-w500-h175.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 139,
+      "heightMm": 48,
+      "weightGrams": 53,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 43
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15555",
+        "Estate 未使用",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38026",
+    "source": "danish",
+    "sourceProductId": "38026",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38026.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198419-w500-h173.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198419-w500-h173.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198420-w500-h171.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198421-w500-h146.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198422-w500-h159.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 157,
+      "heightMm": 50,
+      "weightGrams": 44,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 37
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15556",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38027",
+    "source": "danish",
+    "sourceProductId": "38027",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38027.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 124.96,
+      "rawText": "$ 124,96",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 912,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198423-w500-h175.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198423-w500-h175.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198424-w500-h182.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198425-w500-h155.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198426-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198427-w500-h403.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 155,
+      "heightMm": 52,
+      "weightGrams": 43,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15557",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38028",
+    "source": "danish",
+    "sourceProductId": "38028",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-H-C-Andersen-Unsmoked-i38028.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameEn": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, H. C Andersen, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 168.7,
+      "rawText": "$ 168,70",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1232,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198428-w500-h167.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198428-w500-h167.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198429-w500-h170.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198430-w500-h155.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198431-w500-h138.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198432-w500-h175.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-H-C-Andersen-Unsmoked-The-Danish-Pipe-Shop-img-198433-w500-h391.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 162,
+      "heightMm": 51,
+      "weightGrams": 51,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, H. C Andersen, Unsmoked",
+      "keywords": [
+        "est15558",
+        "Estate 未使用",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38029",
+    "source": "danish",
+    "sourceProductId": "38029",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Authentic-88-Billard-Unsmoked-i38029.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Authentic 88, Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Authentic 88, Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Authentic 88, Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 106.22,
+      "rawText": "$ 106,22",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 775,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198434-w500-h200.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198434-w500-h200.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198435-w500-h187.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198436-w500-h160.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-88-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198437-w500-h151.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 51,
+      "weightGrams": 54,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Authentic 88, Billard, Unsmoked",
+      "keywords": [
+        "est15559",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38030",
+    "source": "danish",
+    "sourceProductId": "38030",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Authentic-15-Apple-Unsmoked-i38030.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Authentic 15, Apple, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Authentic 15, Apple, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Authentic 15, Apple, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Apple",
+      "shapeSlug": "apple",
+      "shapeZhName": "苹果斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 106.22,
+      "rawText": "$ 106,22",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 775,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-15-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198438-w500-h293.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-15-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198438-w500-h293.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-15-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198439-w500-h298.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-15-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198440-w500-h204.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Authentic-15-Apple-Unsmoked-The-Danish-Pipe-Shop-img-198441-w500-h207.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 140,
+      "heightMm": 50,
+      "weightGrams": 76,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 50
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Authentic 15, Apple, Unsmoked",
+      "keywords": [
+        "est15560",
+        "Estate 未使用",
+        "Apple",
+        "苹果斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38031",
+    "source": "danish",
+    "sourceProductId": "38031",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Tulip-Billard-Unsmoked-i38031.html",
+    "entityType": "offer",
+    "displayName": "Estate Stanwell, Tulip-Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Tulip-Billard, Unsmoked",
+    "displayNameZh": null,
+    "rawTitle": "Estate Stanwell, Tulip-Billard, Unsmoked",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 93.72,
+      "rawText": "$ 93,72",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 684,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198442-w500-h179.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198442-w500-h179.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198443-w500-h177.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198444-w500-h145.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198445-w500-h136.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Stanwell-Tulip-Billard-Unsmoked-The-Danish-Pipe-Shop-img-198446-w500-h379.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 49,
+      "weightGrams": 39,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 35
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Estate Stanwell, Tulip-Billard, Unsmoked",
+      "keywords": [
+        "est15561",
+        "Estate 未使用",
+        "Billiard",
+        "撞球斗",
         "Acrylic",
         "亚克力",
         "可购买",
