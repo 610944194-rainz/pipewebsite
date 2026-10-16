@@ -1904504,8 +1904504,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1905360,8 +1905360,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1905467,8 +1905467,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1909681,8 +1909681,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1914289,114 +1914289,6 @@
     }
   },
   {
-    "id": "gqtobaccos-19461",
-    "source": "gqtobaccos",
-    "sourceProductId": "19461",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-heritage-system-standard-313-smooth-p-lip/",
-    "entityType": "offer",
-    "displayName": "Peterson - Heritage System Standard - 313 smooth - P-Lip",
-    "displayNameEn": "Peterson - Heritage System Standard - 313 smooth - P-Lip",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Heritage System Standard - 313 smooth - P-Lip",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19461/80466/heritage_313__27501__79857__32623.1728568563.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19461/80466/heritage_313__27501__79857__32623.1728568563.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/19461/80466/heritage_313__27501__79857__32623.1728568563.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Heritage System Standard - 313 smooth - P-Lip",
-      "keywords": [
-        "The System Standard stamp first appeared in 1945, but the entry-level design has been a staple in our catalogues since Charles Peterson secured his final patent in 1898. Designed to provide a cooler, drier smoke, each pipe features a deep reservoir within the shank to collect excess moisture; a graduated bore mouthpiece that funnels the smoke and allows moisture to collect within the reservoir; a sturdy nickel military mount, which allows the pipe to be broken down and cleaned without damage or warping; and our patented P-Lip bit, which draws the smoke upward, thus reducing tongue bite. While the P-Lip bit is the traditional choice, we also offer System Standard pipes with fishtail stems. Available here in the rich ruby stain of the Heritage finish."
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-19602",
     "source": "gqtobaccos",
     "sourceProductId": "19602",
@@ -1915068,120 +1914960,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-19966",
-    "source": "gqtobaccos",
-    "sourceProductId": "19966",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/alfred-dunhill-amber-flame-two-flame-billiard-white-spot-pipe/",
-    "entityType": "offer",
-    "displayName": "Alfred Dunhill - Amber Flame - Two Flame Billiard - White Spot Pipe",
-    "displayNameEn": "Alfred Dunhill - Amber Flame - Two Flame Billiard - White Spot Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Alfred Dunhill - Amber Flame - Two Flame Billiard - White Spot Pipe",
-    "brand": {
-      "rawName": "Alfred Dunhill (White Spot)",
-      "canonicalName": "Alfred Dunhill (White Spot)",
-      "slug": "alfred-dunhill-white-spot",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Smooth (Amber Root)",
-      "finishSlug": "smooth-amber-root",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Fishtail",
-      "stemMaterialSlug": "fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 1114.99,
-      "rawText": "GBP 1,114.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19966/81413/dunhill_2_flame_pipe_1__94832__47259__29384.1728568829.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19966/81413/dunhill_2_flame_pipe_1__94832__47259__29384.1728568829.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/19966/81413/dunhill_2_flame_pipe_1__94832__47259__29384.1728568829.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19966/81414/dunhilll_2_flame_pipe_3__44123__85778__95850.1728568829.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/19966/81415/dunhill_2_flame_pipe_2__24868__10798__98135.1728568829.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 148,
-      "heightMm": 50,
-      "weightGrams": 50,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 40
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Alfred Dunhill (White Spot)",
-      "title": "Alfred Dunhill - Amber Flame - Two Flame Billiard - White Spot Pipe",
-      "keywords": [
-        "Arguably the worlds best pipes and definitely the most desirable. Pipes don't get better than Alfred Dunhill's White Spot. Created from the best raw materials available and finished to the highest quality, you can be assured to find no flaws in these pipes they really are perfection. The Alfred Dunhill started in 1912 and with exceptional craftsmanship and quality products soon became the best in the world and to this day nothing changes. The Amber Flame finish is one of the most desirable of Alfred Dunhill's range. These use the finest briars with the most stunning grains. Such pieces of briar are incredible rare. They are then finished with an Amber stain and a black mouthpiece Pipe Details Pipe Material : Briar Finish : Smooth (Amber Root) Colour : Brown Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 148 mm Bowl Height : 50 mm Pipe Width : 40 mm Chamber Width : 20 mm Pipe Weight : 50 grams",
-        "Briar",
-        "Smooth (Amber Root)",
-        "Fishtail",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1917457,11 +1917235,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1917518,7 +1917296,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1920611,119 +1920389,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-22256",
-    "source": "gqtobaccos",
-    "sourceProductId": "22256",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/alfred-dunhill-shell-briar-5-113-group-5-white-spot-pipe/",
-    "entityType": "offer",
-    "displayName": "Alfred Dunhill - Shell Briar - 5 113 - Group 5 - White Spot Pipe",
-    "displayNameEn": "Alfred Dunhill - Shell Briar - 5 113 - Group 5 - White Spot Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Alfred Dunhill - Shell Briar - 5 113 - Group 5 - White Spot Pipe",
-    "brand": {
-      "rawName": "Alfred Dunhill (White Spot)",
-      "canonicalName": "Alfred Dunhill (White Spot)",
-      "slug": "alfred-dunhill-white-spot",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Sandblast",
-      "finishSlug": "sandblast",
-      "finishZhName": "喷砂",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Fishtail",
-      "stemMaterialSlug": "fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 404.95,
-      "rawText": "GBP 404.95",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22256/85146/aihgw__85093__17193__64192.1728569551.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22256/85146/aihgw__85093__17193__64192.1728569551.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/22256/85146/aihgw__85093__17193__64192.1728569551.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22256/85147/apeoghj__55965__75527__92855.1728569551.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 149,
-      "heightMm": 49,
-      "weightGrams": 41,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Alfred Dunhill (White Spot)",
-      "title": "Alfred Dunhill - Shell Briar - 5 113 - Group 5 - White Spot Pipe",
-      "keywords": [
-        "Here we have a stunning Dunhill White Spot Pot Pipe, the pipe does seem quite long for a group 3 which makes it great value! This pipe is in the shell briar finish but it has a smooth top which in my opinion really finishes this pipe off. Arguably the worlds best pipes and definitely the most desirable. Pipes don't get better than Alfred Dunhill's White Spot. Created from the best raw materials available and finished to the highest quality, you can be assured to find no flaws in these pipes they really are perfection. The Alfred Dunhill started in 1912 and with exceptional craftsmanship and quality products soon became the best in the world and to this day nothing changes. This pipe here is the Shell Briar finish which is a rustic almost black finish The pipe Pictured is the pipe that you will receive This is a size 5 Dunhill which is a large size Pipe Details Pipe Material : Briar Finish : Sandblast Colour : Brown / Black Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 149 mm Bowl Height : 49 mm Pipe Width : 38 mm Chamber Width : 20 mm Pipe Weight : 41 grams",
-        "Briar",
-        "Sandblast",
-        "Fishtail",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1925949,118 +1925614,6 @@
     }
   },
   {
-    "id": "gqtobaccos-24634",
-    "source": "gqtobaccos",
-    "sourceProductId": "24634",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/rattrays-newcastle-sandblast-178-pipe/",
-    "entityType": "offer",
-    "displayName": "Rattrays - Newcastle Sandblast 178 - 9mm Filter Pipe",
-    "displayNameEn": "Rattrays - Newcastle Sandblast 178 - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Rattrays - Newcastle Sandblast 178 - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Rattrays",
-      "canonicalName": "Rattray's",
-      "slug": "rattrays",
-      "zhName": "拉特雷",
-      "country": "Scotland",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 95.99,
-      "rawText": "GBP 95.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24634/89276/oigsvgknld__82982.1750692406.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24634/89276/oigsvgknld__82982.1750692406.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24634/89276/oigsvgknld__82982.1750692406.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 150,
-      "heightMm": 60,
-      "weightGrams": 55,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 48
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Rattray's",
-      "title": "Rattrays - Newcastle Sandblast 178 - 9mm Filter Pipe",
-      "keywords": [
-        "Newcastle upon Tyne, known for its historic architecture and vibrant culture, combines industrial charm with timeless elegance. This is exactly the character captured by our Rattray&rsquo;s Newcastle Series. The design is simple, yet powerful through the substantial metal application. Pipe Details Pipe Material : Briar Finish : Smooth Mouthpiece : Acrylic (Fishtail) Filter : 9mm Dimensions Pipe Length : 150mm Pipe Height : 60 mm Pipe Width : 48 mm Chamber Width : 20 mm Pipe Weight : 55grams",
-        "Briar",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-24638",
     "source": "gqtobaccos",
     "sourceProductId": "24638",
@@ -1930422,114 +1929975,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25622",
-    "source": "gqtobaccos",
-    "sourceProductId": "25622",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-country-gentlemen-curved-natural-corn-cob-pipe/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - Country Gentlemen (Curved) Natural Corn Cob Pipe",
-    "displayNameEn": "Missouri Meerschaum - Country Gentlemen (Curved) Natural Corn Cob Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Country Gentlemen (Curved) Natural Corn Cob Pipe",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 13.99,
-      "rawText": "GBP 13.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25622/91011/Natural-Country-Gentleman-Bent__52374.1780821041.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25622/91011/Natural-Country-Gentleman-Bent__52374.1780821041.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25622/91011/Natural-Country-Gentleman-Bent__52374.1780821041.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": 57.22,
-      "weightGrams": null,
-      "chamberDepthMm": 38.11,
-      "chamberDiameterMm": 19.05,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Country Gentlemen (Curved) Natural Corn Cob Pipe",
-      "keywords": [
-        "Missouri Meerschaum Natural Country Gentleman Corn Cob Pipe The Missouri Meerschaum Natural Country Gentleman is one of the most recognisable and best-loved corn cob pipes in the world. Renowned for its generous bowl size, cool smoking characteristics, and timeless American craftsmanship, it's an excellent choice for pipe smokers who enjoy longer, more relaxed smoking sessions. Featuring an impressive extra-large barrel-shaped bowl , the Country Gentleman offers ample chamber capacity, allowing your favourite pipe tobaccos to develop their flavours fully over an extended smoke. Crafted from genuine Missouri-grown corn cobs, this pipe delivers the cool, dry smoking experience that has made Missouri Meerschaum a favourite among pipe enthusiasts for generations. The bowl incorporates a hardwood insert in the base , enhancing durability while maintaining the traditional construction that has defined Missouri Meerschaum pipes for over 150 years. Compatible with 6mm pipe filters , the Country Gentleman provides an even smoother and more comfortable smoking experience. Available with either a straight or bent stem , the Natural Country Gentleman combines practicality, comfort, and classic styling. Its lightweight construction makes it easy to enjoy for extended periods, while its rustic appearance embodies the authentic charm of traditional corn cob pipes. As each pipe is crafted from natural corn cobs, minor imperfections or small chips around the rim may occasionally be present. These are completely normal and do not affect performance in any way. In fact, they add to the unique character and individuality of every pipe. Key Features: Genuine Missouri Meerschaum corn cob pipe Extra-large barrel-shaped bowl Hardwood insert in the base of the bowl Compatible with 6mm pipe filters Available with straight or bent stem Cool, dry smoking characteristics Lightweight and comfortable design Ideal for longer smoking sessions Made in the USA Approximate Dimensions: Straight Length: 152.4mm (6\") Bent Length: 146.05mm (5.75\") Bowl Height: 57.2mm (2.25\") Chamber Diameter: 19.05mm (0.75\") Chamber Depth: 38.1mm (1.5\") Combining generous capacity, classic styling, and exceptional value, the Missouri Meerschaum Natural Country Gentleman remains one of the finest corn cob pipes available for both new and experienced pipe smokers alike. *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight."
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25623",
     "source": "gqtobaccos",
     "sourceProductId": "25623",
@@ -1930797,11 +1930242,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1930856,7 +1930301,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1932069,117 +1931514,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25783",
-    "source": "gqtobaccos",
-    "sourceProductId": "25783",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-saint-nicholas-2026-310-6mm-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Saint Nicholas 2026 - 310 - 6mm Pipe",
-    "displayNameEn": "Savinelli - Saint Nicholas 2026 - 310 - 6mm Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Saint Nicholas 2026 - 310 - 6mm Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "310 KS Poker",
-      "shapeSlug": "310-ks-poker",
-      "shapeZhName": null,
-      "finish": "Brown Rusticated",
-      "finishSlug": "brown-rusticated",
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 96.99,
-      "rawText": "GBP 96.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25783/91336/savinelli_st_nicholas_310_pipe_1__44406.1789567216.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25783/91336/savinelli_st_nicholas_310_pipe_1__44406.1789567216.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25783/91336/savinelli_st_nicholas_310_pipe_1__44406.1789567216.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": 48,
-      "weightGrams": 44,
-      "chamberDepthMm": 38,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Saint Nicholas 2026 - 310 - 6mm Pipe",
-      "keywords": [
-        "Savinelli St. Nicholas 2026 310 KS 6mm Pipe The Savinelli St. Nicholas 2026 310 KS combines one of Savinelli's most recognisable Poker shapes with the festive styling of its annual St. Nicholas collection. Made in Italy, the 310 KS has a bold, distinctive profile and the practical advantage of a flat-bottomed bowl, allowing the pipe to sit upright when placed on a level surface. The 310 KS is Savinelli's King Size semi-bent Poker , featuring a substantial cylindrical bowl, compact shank and gently curved stem. The bowl has a slight forward cant, while its broad proportions give the pipe a satisfyingly solid feel without becoming excessively large. For the 2026 St. Nicholas edition, Savinelli has given the briar a handsome brown rusticated finish . The textured surface adds plenty of character and is complemented by a red acrylic accent band framed by two slim aluminium rings , introducing the traditional festive colouring associated with the collection. Completing the design is the striking pearlescent green acrylic stem . The combination of warm brown briar, red detailing and shimmering green acrylic gives the pipe an unmistakably seasonal appearance whilst still retaining the classic character of the 310 KS Poker. Designed for a 6mm filter , the St. Nicholas 2026 310 KS is a great choice for smokers looking for a substantial yet practical pipe, while its annual seasonal finish also makes it particularly appealing to Savinelli collectors. Dimensions & Details Shape: 310 KS Poker Size: King Size Profile: Semi-Bent Length: 145mm Bowl Height: 48mm Outside Bowl Diameter: 36mm Chamber Diameter: 20mm Chamber Depth: 38mm Weight: 44g Finish: Brown Rusticated Stem: Pearlescent Green Acrylic Filter: 6mm Country of Manufacture: Italy",
-        "310 KS Poker",
-        "Brown Rusticated",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1933722,6 +1933056,902 @@
         "Straight Billiard",
         "Saddle Ebonite (Vulcanite) (Fishtail)",
         "6mm Balsa Filters"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25820",
+    "source": "gqtobaccos",
+    "sourceProductId": "25820",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-regal-rox-cut-gr4-poker-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Regal Rox Cut (Gr4) - Poker Pipe",
+    "displayNameEn": "Northern Briars - Regal Rox Cut (Gr4) - Poker Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Regal Rox Cut (Gr4) - Poker Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 154.99,
+      "rawText": "GBP 154.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25820/91391/sfdluhgduer__92219.1792155167.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25820/91391/sfdluhgduer__92219.1792155167.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25820/91391/sfdluhgduer__92219.1792155167.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25820/91390/shttsrhsrt__64138.1792155167.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 144,
+      "heightMm": 56,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Regal Rox Cut (Gr4) - Poker Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 144h mm Bowl Height : 56 mm Pipe Width : 40 mm Chamber Width : 21 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25821",
+    "source": "gqtobaccos",
+    "sourceProductId": "25821",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-regal-gr4-panelled-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Regal (Gr4) - Panelled Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Regal (Gr4) - Panelled Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Regal (Gr4) - Panelled Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 172.99,
+      "rawText": "GBP 172.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25821/91392/cdkycfktd__44519.1792155637.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25821/91392/cdkycfktd__44519.1792155637.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25821/91392/cdkycfktd__44519.1792155637.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25821/91393/rgoighwaio__69787.1792155637.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 152,
+      "heightMm": 53,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 22,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Regal (Gr4) - Panelled Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 152 mm Bowl Height : 53 mm Pipe Width : 38 mm Chamber Width : 22 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25822",
+    "source": "gqtobaccos",
+    "sourceProductId": "25822",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr4-bulldog-silver-band-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Premier (Gr4) - Bulldog Silver Band Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Premier (Gr4) - Bulldog Silver Band Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Premier (Gr4) - Bulldog Silver Band Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 278.99,
+      "rawText": "GBP 278.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25822/91394/dzs.kjvbdjfkv__62945.1792156206.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25822/91394/dzs.kjvbdjfkv__62945.1792156206.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25822/91394/dzs.kjvbdjfkv__62945.1792156206.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25822/91395/dfjvbdskfio__24551.1792156206.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 150,
+      "heightMm": 45,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 22,
+      "outsideDiameterMm": 42
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Premier (Gr4) - Bulldog Silver Band Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 150 mm Bowl Height : 45 mm Pipe Width : 42 mm Chamber Width : 22 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25823",
+    "source": "gqtobaccos",
+    "sourceProductId": "25823",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr4-oval-facet-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 207.99,
+      "rawText": "GBP 207.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91397/eihrapga__44248.1792156550.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 150,
+      "heightMm": 51,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 150 mm Bowl Height : 51 mm Pipe Width : 44 mm Chamber Width : 20 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25824",
+    "source": "gqtobaccos",
+    "sourceProductId": "25824",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-regal-gr5-panelled-1-4-bent-facet-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Regal (Gr5) - Panelled 1/4 Bent Facet Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Regal (Gr5) - Panelled 1/4 Bent Facet Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Regal (Gr5) - Panelled 1/4 Bent Facet Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 172.99,
+      "rawText": "GBP 172.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25824/91399/hiwegerw__32754.1792157292.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25824/91399/hiwegerw__32754.1792157292.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25824/91399/hiwegerw__32754.1792157292.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25824/91398/dghgeh__50735.1792157292.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 55,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 50
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Regal (Gr5) - Panelled 1/4 Bent Facet Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 154mm Bowl Height : 55 mm Pipe Width :50 mm Chamber Width : 21 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25825",
+    "source": "gqtobaccos",
+    "sourceProductId": "25825",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-rox-cut-regal-gr4-panelled-square-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
+    "displayNameEn": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 154.99,
+      "rawText": "GBP 154.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91401/osergoeghoeagr__26227.1792157824.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 57,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 22,
+      "outsideDiameterMm": 37
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 154mm Bowl Height : 57 mm Pipe Width :37 mm Chamber Width : 22 mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25827",
+    "source": "gqtobaccos",
+    "sourceProductId": "25827",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-regal-gr4-rhodesian-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Regal (Gr4) - Rhodesian Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Regal (Gr4) - Rhodesian Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Regal (Gr4) - Rhodesian Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 172.99,
+      "rawText": "GBP 172.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25827/91405/sjdghousdgsg__26846.1792158063.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25827/91405/sjdghousdgsg__26846.1792158063.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25827/91405/sjdghousdgsg__26846.1792158063.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25827/91404/ibjdgoireg__22399.1792158063.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 150,
+      "heightMm": 41,
+      "weightGrams": 70,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 49
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Regal (Gr4) - Rhodesian Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 150mm Bowl Height : 41 mm Pipe Width :49 mm Chamber Width : 20mm Pipe Weight : 70 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25829",
+    "source": "gqtobaccos",
+    "sourceProductId": "25829",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr3-apple-pipe/",
+    "entityType": "offer",
+    "displayName": "Northern Briars - Bruyere Premier (Gr3) - Apple Pipe",
+    "displayNameEn": "Northern Briars - Bruyere Premier (Gr3) - Apple Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Northern Briars - Bruyere Premier (Gr3) - Apple Pipe",
+    "brand": {
+      "rawName": "Northern Briars",
+      "canonicalName": "Northern Briars",
+      "slug": "northern-briars",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vuclanite (Fishtail)",
+      "stemMaterialSlug": "vuclanite-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 207.99,
+      "rawText": "GBP 207.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25829/91409/__07204.1792158408.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25829/91409/__07204.1792158408.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25829/91409/__07204.1792158408.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25829/91408/dzoguhdgf__61333.1792158408.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 46,
+      "weightGrams": 65,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Northern Briars",
+      "title": "Northern Briars - Bruyere Premier (Gr3) - Apple Pipe",
+      "keywords": [
+        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 149 mm Bowl Height : 46 mm Pipe Width : 40 mm Chamber Width : 19 mm Pipe Weight : 65 grams",
+        "Briar",
+        "Vuclanite (Fishtail)",
+        "None"
       ]
     },
     "integration": {
