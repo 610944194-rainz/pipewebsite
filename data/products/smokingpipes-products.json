@@ -5470,15 +5470,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "United States",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -10994,15 +10994,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Germany",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -118171,15 +118171,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -244407,16 +244407,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -246801,15 +246801,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Other",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -277442,17 +277442,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Other",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-599-7468.8916.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-599-7468.8916.jpg",
@@ -279205,15 +279207,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Other",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -337235,15 +337237,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -500094,9 +500096,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$86.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 86,
         "parseStatus": "parsed"
       },
       "original": {
@@ -500302,9 +500304,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$86.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 86,
         "parseStatus": "parsed"
       },
       "original": {
@@ -502145,9 +502147,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$86.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 86,
         "parseStatus": "parsed"
       },
       "original": {
@@ -503352,9 +503354,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$86.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 86,
         "parseStatus": "parsed"
       },
       "original": {
@@ -505788,9 +505790,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$88.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 88,
         "parseStatus": "parsed"
       },
       "original": {
@@ -533991,15 +533993,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -732695,18 +732697,20 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": [],
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ],
       "warnings": [],
       "soldEvidence": [],
       "availableEvidence": [
@@ -744580,17 +744584,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-029-139824.4539.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-029-139824.4539.jpg",
@@ -748120,16 +748126,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -756009,15 +756015,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -817786,9 +817792,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$225.60",
         "currency": "USD",
-        "amount": 125,
+        "amount": 225.6,
         "parseStatus": "parsed"
       },
       "original": {
@@ -948590,9 +948596,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$75.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1114675,9 +1114681,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$325.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 325,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1115310,9 +1115316,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$325.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 325,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1333849,9 +1333855,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$585.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 585,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1350783,9 +1350789,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1360458,9 +1360464,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$515.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 515,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1361505,9 +1361511,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$500.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 500,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1388854,9 +1388860,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$191.25",
         "currency": "USD",
-        "amount": 125,
+        "amount": 191.25,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1437344,9 +1437350,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.75",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148.75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1437555,9 +1437561,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.75",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148.75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1437766,9 +1437772,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.75",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148.75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1454705,9 +1454711,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$75.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1738508,9 +1738514,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$150.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 150,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1855418,9 +1855424,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$208.25",
         "currency": "USD",
-        "amount": 125,
+        "amount": 208.25,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1880655,9 +1880661,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$156.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 156,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1945352,9 +1945358,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$150.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 150,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1955425,9 +1955431,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1993154,9 +1993160,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$146.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 146,
         "parseStatus": "parsed"
       },
       "original": {
@@ -1993582,9 +1993588,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$146.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 146,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2128912,9 +2128918,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$800.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 800,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2129338,9 +2129344,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$600.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 600,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2138884,9 +2138890,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$162.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 162,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2139911,9 +2139917,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$175.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 175.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2176626,9 +2176632,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$180.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 180,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2178111,9 +2178117,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$202.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 202.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2178537,9 +2178543,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$202.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 202.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2179608,9 +2179614,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$225.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 225,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2183465,9 +2183471,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$225.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 225,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2187307,9 +2187313,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$270.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 270,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2202616,9 +2202622,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$625.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 625,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2210484,9 +2210490,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2210695,9 +2210701,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2212604,9 +2212610,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2212819,9 +2212825,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2215787,9 +2215793,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2216424,9 +2216430,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2217479,9 +2217485,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2217690,9 +2217696,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2219390,9 +2219396,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$110.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 110,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2222567,9 +2222573,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$110.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 110,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2222781,9 +2222787,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$110.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 110,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2224271,9 +2224277,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$110.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 110,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2225751,9 +2225757,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2228088,9 +2228094,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2230425,9 +2230431,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2231273,9 +2231279,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2231910,9 +2231916,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2232125,9 +2232131,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2234460,9 +2234466,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2235313,9 +2235319,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2237005,9 +2237011,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2237219,9 +2237225,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2238495,9 +2238501,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2240177,9 +2240183,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$100.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 100,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2240391,9 +2240397,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$122.50",
         "currency": "USD",
-        "amount": 125,
+        "amount": 122.5,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2267609,9 +2267615,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$118.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 118,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2302312,6 +2302318,220 @@
   {
     "schemaVersion": 2,
     "entityType": "offer",
+    "id": "smokingpipes-741686",
+    "source": "smokingpipes",
+    "sourceSite": "Smokingpipes",
+    "sourceProductId": "741686",
+    "productCode": "888-366-0345",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=741686",
+    "sourceListUrl": "",
+    "listPage": null,
+    "listPosition": null,
+    "conditionType": "new",
+    "rawBrand": "Peterson",
+    "brandMapped": true,
+    "sourceScopedBrandMappingApplied": false,
+    "sourceScopedBrandMappingClassification": "",
+    "brand": "Peterson",
+    "canonicalBrand": "Peterson",
+    "canonicalBrandSlug": "peterson",
+    "canonicalBrandZh": "彼得森",
+    "canonicalBrandCountry": "Ireland",
+    "brandReviewStatus": "confirmed",
+    "brandIndexEligible": true,
+    "listingEligible": true,
+    "filterEligible": true,
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": ""
+    },
+    "brandReviewNotes": [
+      "High-frequency brand mapping passed round 2 closure review."
+    ],
+    "rawTitle": "Kildare Silver Mounted (444) P-Lip Tobacco Pipe",
+    "fullTitle": "Kildare Silver Mounted (444) P-Lip Tobacco Pipe",
+    "displayNameEn": "Kildare Silver Mounted (444) P-Lip Tobacco Pipe",
+    "displayNameZh": null,
+    "displayNameZhStatus": "not-generated",
+    "rawShape": "Panel",
+    "shapeMapped": true,
+    "shape": "Panel",
+    "canonicalShape": "Panel",
+    "canonicalShapeSlug": "panel",
+    "canonicalShapeZh": "",
+    "shapeZhName": "",
+    "bendType": "unknown",
+    "shapeReviewStatus": "confirmed",
+    "rawFinish": "Smooth",
+    "finishMapped": true,
+    "finish": "Smooth",
+    "canonicalFinish": "Smooth",
+    "canonicalFinishSlug": "smooth",
+    "canonicalFinishZh": "光面",
+    "finishReviewStatus": "confirmed",
+    "rawMaterial": "Briar",
+    "materialMapped": true,
+    "material": "Briar",
+    "canonicalMaterial": "Briar",
+    "canonicalMaterialSlug": "briar",
+    "canonicalMaterialZh": "石楠木",
+    "materialReviewStatus": "confirmed",
+    "rawStemMaterial": "Vulcanite",
+    "stemMaterialMapped": true,
+    "stemMaterial": "Vulcanite",
+    "canonicalStemMaterial": "Vulcanite",
+    "canonicalStemMaterialSlug": "vulcanite",
+    "canonicalStemMaterialZh": "硫化橡胶",
+    "stemMaterialReviewStatus": "confirmed",
+    "rawFilter": "None",
+    "canonicalFilter": "none",
+    "filterSizeMm": null,
+    "filterReviewStatus": "confirmed",
+    "price": {
+      "current": {
+        "rawText": "$125",
+        "currency": "USD",
+        "amount": 125,
+        "parseStatus": "parsed"
+      },
+      "original": {
+        "rawText": "",
+        "currency": "USD",
+        "amount": null,
+        "parseStatus": "empty"
+      },
+      "msrp": {
+        "rawText": "$225.00",
+        "currency": "USD",
+        "amount": 225,
+        "parseStatus": "parsed"
+      },
+      "listPrice": {
+        "rawText": "$180.00",
+        "currency": "USD",
+        "amount": 180,
+        "parseStatus": "parsed"
+      },
+      "rawDiscountText": "",
+      "rawRmbText": "",
+      "calculationStatus": "not-calculated",
+      "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
+    },
+    "rawCountry": "Ireland",
+    "inventoryStatus": "available",
+    "inventoryConfidence": "high",
+    "includedInActiveListRange": true,
+    "rawListStatus": "",
+    "rawDetailStatus": "available",
+    "inventoryReviewReasons": [],
+    "inventoryWarnings": [],
+    "inventoryEvidence": {
+      "includedInActiveListRange": true,
+      "rawListStatus": "",
+      "rawDetailStatus": "available",
+      "reasons": [],
+      "warnings": [],
+      "soldEvidence": [
+        "weak/global-text-match"
+      ],
+      "availableEvidence": [
+        "detail-price-present",
+        "add-to-cart-present",
+        "quantity-input-present",
+        "cart-form-present",
+        "current-list-available"
+      ],
+      "rawStatusSource": "available-evidence-overrides-weak-global-sold-text"
+    },
+    "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
+    "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
+    "detailImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
+    "galleryImages": [
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
+      "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340_1.7739.jpg"
+    ],
+    "galleryCount": 2,
+    "listImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
+    "usedListImageFallback": false,
+    "imageSourceStrategy": "detail-main-gallery",
+    "mainImageIncludedInGallery": true,
+    "rawGalleryCount": 2,
+    "lengthText": "5.85 in./148.59 mm.",
+    "weightText": "1.40 oz./39.69 g.",
+    "heightText": "",
+    "chamberDepthText": "1.55 in./39.37 mm.",
+    "chamberDiameterText": "0.82 in./20.83 mm.",
+    "outsideDiameterText": "1.47 in./37.34 mm.",
+    "measurements": {
+      "lengthMm": 148.59,
+      "weightGrams": 39.69,
+      "heightMm": null,
+      "chamberDepthMm": 39.37,
+      "chamberDiameterMm": 20.83,
+      "outsideDiameterMm": 37.34
+    },
+    "rawModel": "444",
+    "rawSeries": "Kildare Silver Mounted P-Lip Tobacco",
+    "rawShapeNumber": "444",
+    "canonicalModelKey": "peterson__model-444__series-kildare-silver-mounted-p-lip-tobacco__shape-panel",
+    "canonicalModelKeyComponents": [
+      "peterson",
+      "model-444",
+      "series-kildare-silver-mounted-p-lip-tobacco",
+      "shape-panel"
+    ],
+    "canonicalModelKeyConfidence": "high",
+    "modelEntityId": null,
+    "specsText": [
+      "Length: 5.85 in./148.59 mm.",
+      "Weight: 1.40 oz./39.69 g.",
+      "Chamber Depth: 1.55 in./39.37 mm.",
+      "Chamber Diameter: 0.82 in./20.83 mm.",
+      "Outside Diameter: 1.47 in./37.34 mm.",
+      "Stem Material: Vulcanite",
+      "Filter: None",
+      "Shape: Panel",
+      "Finish: Smooth",
+      "Material: Briar",
+      "Country: Ireland"
+    ],
+    "description": "",
+    "sourceSpecific": {
+      "smokingpipes": {
+        "rawStatus": "available",
+        "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+        "statusEvidence": {
+          "status": "available",
+          "rawStatusSource": "available-evidence-overrides-weak-global-sold-text",
+          "soldEvidence": [
+            "weak/global-text-match"
+          ],
+          "availableEvidence": [
+            "detail-price-present",
+            "add-to-cart-present",
+            "quantity-input-present",
+            "cart-form-present",
+            "current-list-available"
+          ],
+          "warning": "sold status has available evidence; treating sold signal as weak."
+        },
+        "verificationBlocked": false,
+        "excludedSimilarImageCount": 23,
+        "updatedAt": "",
+        "rawMsrp": "$225.00",
+        "rawPrice": "$125",
+        "rawOriginalPrice": "",
+        "listRawText": ""
+      }
+    }
+  },
+  {
+    "schemaVersion": 2,
+    "entityType": "offer",
     "id": "smokingpipes-741687",
     "source": "smokingpipes",
     "sourceSite": "Smokingpipes",
@@ -2334782,9 +2335002,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$700.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 700,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2334993,9 +2335213,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$700.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 700,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2335204,9 +2335424,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$700.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 700,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2335415,9 +2335635,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$700.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 700,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2335837,9 +2336057,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$1,300.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 1300,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2336259,9 +2336479,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$1,300.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 1300,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2345131,9 +2345351,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$227.20",
         "currency": "USD",
-        "amount": 125,
+        "amount": 227.2,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2359236,9 +2359456,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2370031,9 +2370251,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$84.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 84,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2371517,9 +2371737,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$96.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 96,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2371725,9 +2371945,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$96.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 96,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2371933,9 +2372153,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$96.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 96,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2372566,9 +2372786,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$284.80",
         "currency": "USD",
-        "amount": 125,
+        "amount": 284.8,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2375726,9 +2375946,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$252.80",
         "currency": "USD",
-        "amount": 125,
+        "amount": 252.8,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2377844,9 +2378064,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$324.80",
         "currency": "USD",
-        "amount": 125,
+        "amount": 324.8,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2378056,9 +2378276,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$324.80",
         "currency": "USD",
-        "amount": 125,
+        "amount": 324.8,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2390939,9 +2391159,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$72.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 72,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2391355,9 +2391575,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$72.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 72,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2393032,9 +2393252,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$137.60",
         "currency": "USD",
-        "amount": 125,
+        "amount": 137.6,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2394728,9 +2394948,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$222.40",
         "currency": "USD",
-        "amount": 125,
+        "amount": 222.4,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2395156,9 +2395376,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$457.60",
         "currency": "USD",
-        "amount": 125,
+        "amount": 457.6,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2396444,9 +2396664,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$222.40",
         "currency": "USD",
-        "amount": 125,
+        "amount": 222.4,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2396656,9 +2396876,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$222.40",
         "currency": "USD",
-        "amount": 125,
+        "amount": 222.4,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2418270,9 +2418490,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$199.75",
         "currency": "USD",
-        "amount": 125,
+        "amount": 199.75,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2418482,9 +2418702,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$225.25",
         "currency": "USD",
-        "amount": 125,
+        "amount": 225.25,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2418696,9 +2418916,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$242.25",
         "currency": "USD",
-        "amount": 125,
+        "amount": 242.25,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2418910,9 +2419130,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$242.25",
         "currency": "USD",
-        "amount": 125,
+        "amount": 242.25,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2461985,9 +2462205,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$1,800.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 1800,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2471689,9 +2471909,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$256.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 256,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2471900,9 +2472120,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$256.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 256,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2476989,9 +2477209,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2481223,9 +2481443,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$284.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 284,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2487114,9 +2487334,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$360.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 360,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2487326,9 +2487546,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$224.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 224,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2491126,9 +2491346,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$172.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 172,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2497668,9 +2497888,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$325.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 325,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2497877,9 +2498097,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$325.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 325,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2498086,9 +2498306,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$275.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 275,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2498295,9 +2498515,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$275.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 275,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2498504,9 +2498724,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$375.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 375,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2498713,9 +2498933,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$375.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 375,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2498926,9 +2499146,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$375.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 375,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2499137,9 +2499357,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$260.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 260,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2499561,9 +2499781,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$180.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 180,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2499771,9 +2499991,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$146.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 146,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2499980,9 +2500200,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$120.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 120,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2500189,9 +2500409,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$120.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 120,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2500398,9 +2500618,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$120.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 120,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2500607,9 +2500827,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$148.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 148,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2500817,9 +2501037,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$156.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 156,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2501026,9 +2501246,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$228.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 228,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2501242,9 +2501462,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$228.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 228,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2501458,9 +2501678,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$228.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 228,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2501674,9 +2501894,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$176.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 176,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2501883,9 +2502103,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$176.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 176,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2502092,9 +2502312,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$176.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 176,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2502301,9 +2502521,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$176.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 176,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2502510,9 +2502730,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$176.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 176,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2502719,9 +2502939,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$112.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 112,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2502931,9 +2503151,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$130.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 130,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2503144,9 +2503364,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$130.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 130,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2503356,9 +2503576,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2503570,9 +2503790,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2503784,9 +2504004,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$112.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 112,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2503993,9 +2504213,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2504206,9 +2504426,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2504837,9 +2505057,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$116.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 116,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2505046,9 +2505266,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$116.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 116,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2505255,9 +2505475,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$154.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 154,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2505464,9 +2505684,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$154.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 154,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2505673,9 +2505893,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$224.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 224,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2505884,9 +2506104,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2506093,9 +2506313,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$150.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 150,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2506301,9 +2506521,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$150.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 150,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2506510,9 +2506730,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$224.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 224,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2506935,9 +2507155,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$174.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 174,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2507148,9 +2507368,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$174.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 174,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2507361,9 +2507581,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$174.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 174,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2507574,9 +2507794,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$118.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 118,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2507784,9 +2508004,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$140.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 140,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2507997,9 +2508217,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$208.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 208,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2508209,9 +2508429,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$208.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 208,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2508421,9 +2508641,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$188.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 188,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2508630,9 +2508850,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$188.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 188,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2508839,9 +2509059,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$188.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 188,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2509048,9 +2509268,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$160.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 160,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2509261,9 +2509481,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$208.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 208,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2509473,9 +2509693,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$208.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 208,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2509685,9 +2509905,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2509900,9 +2510120,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2510115,9 +2510335,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2510330,9 +2510550,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2510545,9 +2510765,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2510756,9 +2510976,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$236.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 236,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2510967,9 +2511187,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$264.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 264,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2511177,9 +2511397,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2511387,9 +2511607,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2511597,9 +2511817,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2511807,9 +2512027,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2512227,9 +2512447,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2512437,9 +2512657,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$164.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 164,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2512647,9 +2512867,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$696.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 696,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2512859,9 +2513079,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$200.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 200,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2513074,9 +2513294,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$200.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 200,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2513289,9 +2513509,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$172.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 172,
         "parseStatus": "parsed"
       },
       "original": {
@@ -2513501,9 +2513721,9 @@
     "filterReviewStatus": "confirmed",
     "price": {
       "current": {
-        "rawText": "$125",
+        "rawText": "$172.00",
         "currency": "USD",
-        "amount": 125,
+        "amount": 172,
         "parseStatus": "parsed"
       },
       "original": {
