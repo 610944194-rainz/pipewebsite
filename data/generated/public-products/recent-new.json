@@ -1,57 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-17T03:04:40.129Z",
+  "generatedAt": "2026-10-18T03:04:19.160Z",
   "source": "smokingpipes",
-  "products": [
-    {
-      "id": "smokingpipes-741686",
-      "source": "smokingpipes",
-      "sourceProductId": "741686",
-      "brandName": "Peterson",
-      "brandSlug": "peterson",
-      "brandCountry": "Ireland",
-      "displayName": "彼得森 Kildare Silver Mounted (444) P-Lip",
-      "displayNameEn": "Kildare Silver Mounted (444) P-Lip Tobacco Pipe",
-      "rawTitle": "Kildare Silver Mounted (444) P-Lip Tobacco Pipe",
-      "mainImage": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148340.7415.jpg",
-      "sourcePriceAmount": 125,
-      "sourcePriceCurrency": "USD",
-      "msrpAmount": 225,
-      "siteDisplayAmount": 1238.4635,
-      "siteDisplayCurrency": "CNY",
-      "siteDisplayReady": true,
-      "inventoryStatus": "available",
-      "publicIndexEligible": true,
-      "publiclySellable": true,
-      "inventoryConfidence": "high",
-      "conditionType": "new",
-      "conditionLabel": "new",
-      "galleryCount": 2,
-      "weightGrams": 39.69,
-      "shape": "Panel",
-      "shapeZh": null,
-      "finish": "Smooth",
-      "finishZh": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialZh": "石楠木",
-      "stemMaterial": "Vulcanite",
-      "stemMaterialZh": "硫化橡胶",
-      "filter": "none",
-      "filterEligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      },
-      "sortKeys": {
-        "brand": "peterson",
-        "name": "kildare silver mounted (444) p-lip tobacco pipe",
-        "price": 1238.4635,
-        "sourceProductId": "741686"
-      },
-      "brandNameZh": "彼得森",
-      "displayNameQuality": "candidate"
-    }
-  ]
+  "products": []
 }
