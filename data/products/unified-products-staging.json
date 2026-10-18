@@ -1904734,8 +1904734,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1906153,11 +1906153,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1906215,7 +1906215,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1927234,11 +1927234,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1927294,7 +1927294,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1928024,11 +1928024,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1928083,7 +1928083,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1929655,114 +1929655,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25623",
-    "source": "gqtobaccos",
-    "sourceProductId": "25623",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-country-gentlemen-straight-natural-corn-cob-pipe/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - Country Gentlemen (Straight) Natural Corn Cob Pipe",
-    "displayNameEn": "Missouri Meerschaum - Country Gentlemen (Straight) Natural Corn Cob Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Country Gentlemen (Straight) Natural Corn Cob Pipe",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 13.99,
-      "rawText": "GBP 13.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25623/91012/Natural-Country-Gentleman-Straight__89399.1780821116.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25623/91012/Natural-Country-Gentleman-Straight__89399.1780821116.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25623/91012/Natural-Country-Gentleman-Straight__89399.1780821116.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": 57.22,
-      "weightGrams": null,
-      "chamberDepthMm": 38.11,
-      "chamberDiameterMm": 19.05,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Country Gentlemen (Straight) Natural Corn Cob Pipe",
-      "keywords": [
-        "Missouri Meerschaum Natural Country Gentleman Corn Cob Pipe The Missouri Meerschaum Natural Country Gentleman is one of the most recognisable and best-loved corn cob pipes in the world. Renowned for its generous bowl size, cool smoking characteristics, and timeless American craftsmanship, it's an excellent choice for pipe smokers who enjoy longer, more relaxed smoking sessions. Featuring an impressive extra-large barrel-shaped bowl , the Country Gentleman offers ample chamber capacity, allowing your favourite pipe tobaccos to develop their flavours fully over an extended smoke. Crafted from genuine Missouri-grown corn cobs, this pipe delivers the cool, dry smoking experience that has made Missouri Meerschaum a favourite among pipe enthusiasts for generations. The bowl incorporates a hardwood insert in the base , enhancing durability while maintaining the traditional construction that has defined Missouri Meerschaum pipes for over 150 years. Compatible with 6mm pipe filters , the Country Gentleman provides an even smoother and more comfortable smoking experience. Available with either a straight or bent stem , the Natural Country Gentleman combines practicality, comfort, and classic styling. Its lightweight construction makes it easy to enjoy for extended periods, while its rustic appearance embodies the authentic charm of traditional corn cob pipes. As each pipe is crafted from natural corn cobs, minor imperfections or small chips around the rim may occasionally be present. These are completely normal and do not affect performance in any way. In fact, they add to the unique character and individuality of every pipe. Key Features: Genuine Missouri Meerschaum corn cob pipe Extra-large barrel-shaped bowl Hardwood insert in the base of the bowl Compatible with 6mm pipe filters Available with straight or bent stem Cool, dry smoking characteristics Lightweight and comfortable design Ideal for longer smoking sessions Made in the USA Approximate Dimensions: Straight Length: 152.4mm (6\") Bent Length: 146.05mm (5.75\") Bowl Height: 57.2mm (2.25\") Chamber Diameter: 19.05mm (0.75\") Chamber Depth: 38.1mm (1.5\") Combining generous capacity, classic styling, and exceptional value, the Missouri Meerschaum Natural Country Gentleman remains one of the finest corn cob pipes available for both new and experienced pipe smokers alike. *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight."
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
