@@ -1906845,113 +1906845,6 @@
     }
   },
   {
-    "id": "gqtobaccos-13682",
-    "source": "gqtobaccos",
-    "sourceProductId": "13682",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-stem-bent-dental-bit/",
-    "entityType": "excluded-brand",
-    "displayName": "Falcon \"Classic\" Stem - Bent (Dental Bit)",
-    "displayNameEn": "Falcon \"Classic\" Stem - Bent (Dental Bit)",
-    "displayNameZh": null,
-    "rawTitle": "Falcon \"Classic\" Stem - Bent (Dental Bit)",
-    "brand": {
-      "rawName": "Falcon Pipes",
-      "canonicalName": "Falcon Pipes",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 23.99,
-      "rawText": "GBP 23.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13682/66559/_MG_4452__43909__55649__20464.1728566782.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13682/66559/_MG_4452__43909__55649__20464.1728566782.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Falcon Pipes",
-      "title": "Falcon \"Classic\" Stem - Bent (Dental Bit)",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    }
-  },
-  {
     "id": "gqtobaccos-13683",
     "source": "gqtobaccos",
     "sourceProductId": "13683",
@@ -1907426,8 +1907319,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1907466,6 +1907359,113 @@
     "search": {
       "brand": "Falcon Pipes",
       "title": "Falcon Bowls - Genoa (Hunter)",
+      "keywords": []
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "brand:not-index-eligible"
+      ]
+    },
+    "publication": {
+      "status": "excluded",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "brandIndexEligible": false,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    }
+  },
+  {
+    "id": "gqtobaccos-13704",
+    "source": "gqtobaccos",
+    "sourceProductId": "13704",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-stem-bent-standard-bit/",
+    "entityType": "excluded-brand",
+    "displayName": "Falcon \"Classic\" Stem - Bent (Standard Bit)",
+    "displayNameEn": "Falcon \"Classic\" Stem - Bent (Standard Bit)",
+    "displayNameZh": null,
+    "rawTitle": "Falcon \"Classic\" Stem - Bent (Standard Bit)",
+    "brand": {
+      "rawName": "Falcon Pipes",
+      "canonicalName": "Falcon Pipes",
+      "slug": null,
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": false
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 23.99,
+      "rawText": "GBP 23.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13704/66597/_MG_4728__07448__72809__62853.1728566790.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13704/66597/_MG_4728__07448__72809__62853.1728566790.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Falcon Pipes",
+      "title": "Falcon \"Classic\" Stem - Bent (Standard Bit)",
       "keywords": []
     },
     "integration": {
@@ -1908257,122 +1908257,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-13753",
-    "source": "gqtobaccos",
-    "sourceProductId": "13753",
-    "sourceUrl": "https://www.gqtobaccos.com/missouri-meerschaum-country-gentleman-straight/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - Country Gentlemen (Straight)",
-    "displayNameEn": "Missouri Meerschaum - Country Gentlemen (Straight)",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Country Gentlemen (Straight)",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Barrel",
-      "shapeSlug": "barrel",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Corn Cob",
-      "bowlMaterialSlug": "corn-cob",
-      "bowlMaterialZhName": "玉米芯",
-      "stemMaterial": "Tapered with Fishtail (Plastic)",
-      "stemMaterialSlug": "tapered-with-fishtail-plastic",
-      "stemMaterialZhName": null,
-      "filter": "6mm (medico)",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 13.99,
-      "rawText": "GBP 13.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13753/66752/MM_Corn_Cob_Country_Gentleman_Straight_3__19741__87114__41473.1728566815.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66753/MM_Corn_Cob_Country_Gentleman_Straight_4__52525__39908__36050.1728566815.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66754/MM_Corn_Cob_Country_Gentleman_Straight_1__79492__92786__60910.1728566815.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13753/66755/MM_Corn_Cob_Country_Gentleman_Straight_2__68775__60186__61331.1728566815.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 150,
-      "heightMm": 50,
-      "weightGrams": 31,
-      "chamberDepthMm": 42,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": 37
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Country Gentlemen (Straight)",
-      "keywords": [
-        "The Country Gentleman boasts a barrel bowl with a smooth black and natural look. This fairly large pipes houses a generous chamber, filled with a hardwood plug at the base. The straight black stem houses an optional 6mm (included), but can also be used without the filter. A very popular shape in the Missouri Meerschaum range. Corn cobs have a slightly bad reputation, they are seen as the disposable pipe. A cheap alternative to briar and therefore inferior too, but thats not fair at all. The Missouri Meerschaum pipes are made by hand, using specifically bread corn. The porous husk allows for a dryer smoke, absorbing the moisture and like Clay & Meerschaum smokes very cool. Unlike Briar and other wooden pipes, a carbon cake is not required. The first few smokes have a sweet, nutty taste but after that the pipe holds no background flavours and always gives a pure taste to the tobacco. Many blenders (our self's included) use Missouri Meerschaum Corn Cob pipes to sample blends, for the neutral taste. Read our Interview with Bob \"Knightdor\" Carter (MM Corn Cob Advocate) Pipe Details Pipe Material : Corn Cob Shape : Barrel Finish : Smooth Colour : Black Mouthpiece : Tapered with Fishtail (Plastic) Filter : 6mm (medico) Dimensions Pipe Length : 150mm Pipe Height : 50mm Pipe Width : 37mm Chamber Width : 18mm Chamber Depth : 42mm Weight : 31grams *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight.",
-        "Corn Cob",
-        "Barrel",
-        "Smooth",
-        "Tapered with Fishtail (Plastic)",
-        "6mm (medico)"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1911070,11 +1910954,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1911130,7 +1911014,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1917755,11 +1917639,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1917810,7 +1917694,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1925836,11 +1925720,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1925896,7 +1925780,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1929345,120 +1929229,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25015",
-    "source": "gqtobaccos",
-    "sourceProductId": "25015",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/neerup-classic-series-gr-2-sandblast-dublin-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Neerup - Classic Series - Gr 2 - Sandblast Dublin - 9mm Filter Pipe",
-    "displayNameEn": "Neerup - Classic Series - Gr 2 - Sandblast Dublin - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Neerup - Classic Series - Gr 2 - Sandblast Dublin - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Neerup",
-      "canonicalName": "Neerup",
-      "slug": "neerup",
-      "zhName": "尼鲁普",
-      "country": "Denmark",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 105.99,
-      "rawText": "GBP 105.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25015/89888/__46199.1760022862.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25015/89888/__46199.1760022862.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25015/89888/__46199.1760022862.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25015/89889/iuwgvliue__64920.1760022862.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 137,
-      "heightMm": 53,
-      "weightGrams": 52,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 47
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Neerup",
-      "title": "Neerup - Classic Series - Gr 2 - Sandblast Dublin - 9mm Filter Pipe",
-      "keywords": [
-        "Peder Jeppsen is the mastmind behind Neerup pipes, he started carving pipes as soon as he left school in 1977. Iniitally he worked with Karl Erik Ottendahl and after that he worked for almost 18 years with Erik Nording. In 2002 he set up his own workshop and started his own brand of pipes, Neerup. The Neerup workshop is in Denmark in a small villiage named Lejre, just half an hour&rsquo;s drive from Copenhagen. Lejre is famous for its beautiful landscape and for the many fascinating remains of Vikings and Stone Age settlements. Neerup pipes are made to the highest of quality and all have a Danish flare about them. All the Jeppesen pipes are one offs and the one you see in the pictures is the one you get. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 137mm Pipe Height :53 mm Pipe Width : 47 mm Chamber Width : 22mm Pipe Weight : 52grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Acrylic",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25016",
     "source": "gqtobaccos",
     "sourceProductId": "25016",
@@ -1930128,119 +1929898,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25232",
-    "source": "gqtobaccos",
-    "sourceProductId": "25232",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-87-donegal-rocky-rustic-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - 87 - Donegal Rocky - Rustic Pipe",
-    "displayNameEn": "Peterson - 87 - Donegal Rocky - Rustic Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - 87 - Donegal Rocky - Rustic Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight",
-      "shapeSlug": "straight",
-      "shapeZhName": null,
-      "finish": "Rustic",
-      "finishSlug": "rustic",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Fishtail",
-      "stemMaterialSlug": "fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 78.99,
-      "rawText": "GBP 78.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25232/90268/osghsgr__61999.1769700774.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25232/90268/osghsgr__61999.1769700774.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25232/90268/osghsgr__61999.1769700774.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 143,
-      "heightMm": 44,
-      "weightGrams": 43,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - 87 - Donegal Rocky - Rustic Pipe",
-      "keywords": [
-        "The Peterson Donegal Rocky Pipes are a fantastic range and one of the best selling lines of Peterson's. They have a rustic red/black finish with a nice Nickel band and a fishtail stem. A cracking smoke at a great price! Not to be missed!! Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown/Red/Black Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 143mm Bowl Height : 44 mm Pipe Width : 38 mm Chamber Width : 19mm Pipe Weight : 43 grams",
-        "Briar",
-        "Straight",
-        "Rustic",
-        "Fishtail",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
