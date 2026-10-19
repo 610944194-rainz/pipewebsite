@@ -25704,11 +25704,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 168.7,
-      "rawText": "$ 168,70",
+      "amount": 199.31,
+      "rawText": "$ 199,31",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 1232,
+      "siteDisplayAmount": 1455,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -39777,12 +39777,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -39842,11 +39842,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -86654,12 +86654,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -86721,11 +86721,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -118855,12 +118855,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -118921,11 +118921,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -146371,12 +146371,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -146440,11 +146440,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -152540,12 +152540,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -152607,11 +152607,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -209658,12 +209658,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -209724,11 +209724,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -259097,12 +259097,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -259161,11 +259161,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -261942,12 +261942,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -262009,11 +262009,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -283156,12 +283156,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -283222,11 +283222,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -295341,12 +295341,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -295407,11 +295407,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -311257,10 +311257,10 @@
     "sourceProductId": "37490",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Terracotta-63-Freehand-NB-Max-3-items-Per-customer-order-i37490.html",
     "entityType": "offer",
-    "displayName": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
-    "displayNameEn": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
+    "displayName": "Stanwell, København, Terracotta 63, Freehand",
+    "displayNameEn": "Stanwell, København, Terracotta 63, Freehand",
     "displayNameZh": null,
-    "rawTitle": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
+    "rawTitle": "Stanwell, København, Terracotta 63, Freehand",
     "brand": {
       "rawName": "Stanwell",
       "canonicalName": "Stanwell",
@@ -311340,7 +311340,7 @@
     },
     "search": {
       "brand": "Stanwell",
-      "title": "Stanwell, København, Terracotta 63, Freehand - 每位顾客/每笔订单限购3件。",
+      "title": "Stanwell, København, Terracotta 63, Freehand",
       "keywords": [
         "17938",
         "新斗",
@@ -316324,12 +316324,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -316388,11 +316388,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -345380,12 +345380,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -345444,11 +345444,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -346701,12 +346701,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -346768,11 +346768,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -347781,12 +347781,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -347845,11 +347845,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -347899,12 +347899,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -347964,11 +347964,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -357772,12 +357772,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -357836,11 +357836,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -359796,12 +359796,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -359862,11 +359862,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362310,12 +362310,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -362376,11 +362376,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362550,12 +362550,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -362616,11 +362616,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -363868,11 +363868,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 168.7,
-      "rawText": "$ 168,70",
+      "amount": 231.18,
+      "rawText": "$ 231,18",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 1232,
+      "siteDisplayAmount": 1688,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -363980,12 +363980,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -364045,11 +364045,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -364219,12 +364219,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -364284,11 +364284,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -364416,10 +364416,10 @@
     "sourceProductId": "38011",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-185-Balloon-Unsmoked-Sandblasted-i38011.html",
     "entityType": "offer",
-    "displayName": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
-    "displayNameEn": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+    "displayName": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
     "displayNameZh": null,
-    "rawTitle": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+    "rawTitle": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
     "brand": {
       "rawName": "Stanwell",
       "canonicalName": "Stanwell",
@@ -364497,7 +364497,7 @@
     },
     "search": {
       "brand": "Stanwell",
-      "title": "Estate Stanwell, Shorty 185, Balloon, Unsmoked - Sandblasted",
+      "title": "Estate Stanwell, Shorty 185, Balloon, Unsmoked",
       "keywords": [
         "est15541",
         "Estate 未使用",
@@ -364533,10 +364533,10 @@
     "sourceProductId": "38012",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-88-Billard-Unsmoked-Sandblasted-i38012.html",
     "entityType": "offer",
-    "displayName": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
-    "displayNameEn": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+    "displayName": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
     "displayNameZh": null,
-    "rawTitle": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+    "rawTitle": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
     "brand": {
       "rawName": "Stanwell",
       "canonicalName": "Stanwell",
@@ -364614,7 +364614,7 @@
     },
     "search": {
       "brand": "Stanwell",
-      "title": "Estate Stanwell, Shorty 88, Billard, Unsmoked - Sandblasted",
+      "title": "Estate Stanwell, Shorty 88, Billard, Unsmoked",
       "keywords": [
         "est15542",
         "Estate 未使用",
@@ -364651,10 +364651,10 @@
     "sourceProductId": "38013",
     "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Stanwell-Shorty-11-Pot-Unsmoked-Sandblasted-i38013.html",
     "entityType": "offer",
-    "displayName": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
-    "displayNameEn": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+    "displayName": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
+    "displayNameEn": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
     "displayNameZh": null,
-    "rawTitle": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+    "rawTitle": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
     "brand": {
       "rawName": "Stanwell",
       "canonicalName": "Stanwell",
@@ -364732,7 +364732,7 @@
     },
     "search": {
       "brand": "Stanwell",
-      "title": "Estate Stanwell, Shorty 11, Pot, Unsmoked - Sandblasted",
+      "title": "Estate Stanwell, Shorty 11, Pot, Unsmoked",
       "keywords": [
         "est15543",
         "Estate 未使用",
@@ -365047,12 +365047,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -365111,11 +365111,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -365165,12 +365165,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -365229,11 +365229,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -365283,12 +365283,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -365349,11 +365349,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -366814,12 +366814,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -366861,6 +366861,2165 @@
         "Estate 未使用",
         "Billiard",
         "撞球斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38032",
+    "source": "danish",
+    "sourceProductId": "38032",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Bent-Brandy-w-Brass-i38032.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Bent Brandy w. Brass",
+    "displayNameEn": "Peter Heding, Bent Brandy w. Brass",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Bent Brandy w. Brass",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Brandy",
+      "shapeSlug": "bent-brandy",
+      "shapeZhName": "弯式白兰地斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 804.12,
+      "rawText": "$ 804,12",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 5870,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198447-w500-h327.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198447-w500-h327.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198448-w500-h297.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198449-w500-h219.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198450-w500-h240.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198451-w500-h270.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Bent-Brandy-w-Brass-The-Danish-Pipe-Shop-img-198452-w500-h362.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 120,
+      "heightMm": 40,
+      "weightGrams": 65,
+      "chamberDepthMm": 34,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 47
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Bent Brandy w. Brass",
+      "keywords": [
+        "ph294",
+        "新斗",
+        "Bent Brandy",
+        "弯式白兰地斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38033",
+    "source": "danish",
+    "sourceProductId": "38033",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Squat-Tomato-w-Box-Wood-i38033.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Squat Tomato w. Box Wood",
+    "displayNameEn": "Peter Heding, Squat Tomato w. Box Wood",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Squat Tomato w. Box Wood",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Tomato",
+      "shapeSlug": "tomato",
+      "shapeZhName": "番茄斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 893.46,
+      "rawText": "$ 893,46",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 6522,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198459-w500-h167.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198459-w500-h167.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198454-w500-h170.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198455-w500-h231.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198456-w500-h226.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198457-w500-h320.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198458-w500-h418.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 134,
+      "heightMm": 32,
+      "weightGrams": 69,
+      "chamberDepthMm": 27,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 56
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Squat Tomato w. Box Wood",
+      "keywords": [
+        "ph295",
+        "新斗",
+        "Tomato",
+        "番茄斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38034",
+    "source": "danish",
+    "sourceProductId": "38034",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Slight-Bent-Tomato-w-Brass-i38034.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Slight Bent Tomato w. Brass",
+    "displayNameEn": "Peter Heding, Slight Bent Tomato w. Brass",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Slight Bent Tomato w. Brass",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Tomato",
+      "shapeSlug": "tomato",
+      "shapeZhName": "番茄斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 1168.38,
+      "rawText": "$ 1168,38",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 8529,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198460-w500-h180.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198460-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198461-w500-h189.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198462-w500-h198.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198463-w500-h217.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198464-w500-h316.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Slight-Bent-Tomato-w-Brass-The-Danish-Pipe-Shop-img-198466-w500-h489.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 152,
+      "heightMm": 45,
+      "weightGrams": 90,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 54
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Slight Bent Tomato w. Brass",
+      "keywords": [
+        "ph296",
+        "新斗",
+        "Tomato",
+        "番茄斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38035",
+    "source": "danish",
+    "sourceProductId": "38035",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Squat-Tomato-w-Box-Wood-i38035.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Squat Tomato w. Box Wood",
+    "displayNameEn": "Peter Heding, Squat Tomato w. Box Wood",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Squat Tomato w. Box Wood",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Tomato",
+      "shapeSlug": "tomato",
+      "shapeZhName": "番茄斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 1305.83,
+      "rawText": "$ 1305,83",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 9533,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198467-w500-h185.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198467-w500-h185.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198468-w500-h197.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198469-w500-h223.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198470-w500-h220.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198471-w500-h275.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Squat-Tomato-w-Box-Wood-The-Danish-Pipe-Shop-img-198472-w500-h402.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 36,
+      "weightGrams": 76,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 60
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Squat Tomato w. Box Wood",
+      "keywords": [
+        "ph297",
+        "新斗",
+        "Tomato",
+        "番茄斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38036",
+    "source": "danish",
+    "sourceProductId": "38036",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Mushroom-w-Brass-Diamond-i38036.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Mushroom w. Brass, Diamond",
+    "displayNameEn": "Peter Heding, Mushroom w. Brass, Diamond",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Mushroom w. Brass, Diamond",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 1993.11,
+      "rawText": "$ 1993,11",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 14550,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198473-w500-h210.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198473-w500-h210.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198474-w500-h196.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198475-w500-h190.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198476-w500-h185.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198477-w500-h361.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198478-w500-h413.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198479-w500-h255.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Mushroom-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198480-w500-h613.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 145,
+      "heightMm": 36,
+      "weightGrams": 63,
+      "chamberDepthMm": 35,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 48
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Mushroom w. Brass, Diamond",
+      "keywords": [
+        "ph298",
+        "新斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38037",
+    "source": "danish",
+    "sourceProductId": "38037",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Peter-Heding-Fish-w-Brass-Diamond-i38037.html",
+    "entityType": "offer",
+    "displayName": "Peter Heding, Fish w. Brass, Diamond",
+    "displayNameEn": "Peter Heding, Fish w. Brass, Diamond",
+    "displayNameZh": null,
+    "rawTitle": "Peter Heding, Fish w. Brass, Diamond",
+    "brand": {
+      "rawName": "Peter Heding",
+      "canonicalName": "Peter Heding",
+      "slug": "peter-heding",
+      "zhName": "彼得·赫丁",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 1855.66,
+      "rawText": "$ 1855,66",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 13546,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198481-w500-h223.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198481-w500-h223.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198482-w500-h258.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198483-w500-h205.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198484-w500-h228.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198485-w500-h326.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198486-w500-h512.jpg",
+        "https://www.danishpipeshop.com/img/Peter-Heding-Fish-w-Brass-Diamond-The-Danish-Pipe-Shop-img-198487-w500-h740.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 144,
+      "heightMm": 41,
+      "weightGrams": 82,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 53
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peter Heding",
+      "title": "Peter Heding, Fish w. Brass, Diamond",
+      "keywords": [
+        "ph299",
+        "新斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Peter Heding"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38038",
+    "source": "danish",
+    "sourceProductId": "38038",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-i38038.html",
+    "entityType": "offer",
+    "displayName": "Estate Savinelli, Punto Oro, Pot, Unsmoked, 6 mm.",
+    "displayNameEn": "Estate Savinelli, Punto Oro, Pot, Unsmoked, 6 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Estate Savinelli, Punto Oro, Pot, Unsmoked, 6 mm.",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Pot",
+      "shapeSlug": "pot",
+      "shapeZhName": "罐式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "Estate 未使用",
+      "canonical": "estate"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 343.64,
+      "rawText": "$ 343,64",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2509,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198491-w500-h170.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198491-w500-h170.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198492-w500-h172.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198493-w500-h163.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198494-w500-h171.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198495-w500-h275.jpg",
+        "https://www.danishpipeshop.com/img/Estate-Savinelli-Punto-Oro-Pot-Unsmoked-6-mm-The-Danish-Pipe-Shop-img-198496-w500-h466.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 141,
+      "heightMm": 40,
+      "weightGrams": 44,
+      "chamberDepthMm": 34,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Estate Savinelli, Punto Oro, Pot, Unsmoked, 6 mm.",
+      "keywords": [
+        "est15562",
+        "Estate 未使用",
+        "Pot",
+        "罐式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Savinelli"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38039",
+    "source": "danish",
+    "sourceProductId": "38039",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-NB-Max-3-items-Per-customer-order-i38039.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Brushed 86, Diplomat - 每位顾客/每笔订单限购3件。",
+    "displayNameEn": "Stanwell, København, Brushed 86, Diplomat - 每位顾客/每笔订单限购3件。",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Brushed 86, Diplomat - 每位顾客/每笔订单限购3件。",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Brushed",
+      "finishSlug": "brushed",
+      "finishZhName": "拉丝",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 130.58,
+      "rawText": "$ 130,58",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 953,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-The-Danish-Pipe-Shop-img-198504-w500-h165.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-The-Danish-Pipe-Shop-img-198504-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-The-Danish-Pipe-Shop-img-198505-w500-h164.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-The-Danish-Pipe-Shop-img-198506-w500-h179.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Brushed-86-ST-Diplomat-The-Danish-Pipe-Shop-img-198507-w500-h183.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 134,
+      "heightMm": 39,
+      "weightGrams": 45,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 42
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Brushed 86, Diplomat - 每位顾客/每笔订单限购3件。",
+      "keywords": [
+        "17916ST",
+        "新斗",
+        "Brushed",
+        "拉丝",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38045",
+    "source": "danish",
+    "sourceProductId": "38045",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38045.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198515-w500-h194.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198515-w500-h194.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198516-w500-h187.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198517-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198518-w500-h176.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198519-w500-h243.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198520-w500-h375.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 151,
+      "heightMm": 50,
+      "weightGrams": 53,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-07",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38046",
+    "source": "danish",
+    "sourceProductId": "38046",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38046.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198521-w500-h230.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198521-w500-h230.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198522-w500-h228.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198523-w500-h162.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198524-w500-h186.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198525-w500-h218.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198526-w500-h324.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 61,
+      "weightGrams": 61,
+      "chamberDepthMm": 52,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-08",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38047",
+    "source": "danish",
+    "sourceProductId": "38047",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38047.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198527-w500-h203.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198527-w500-h203.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198528-w500-h206.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198529-w500-h165.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198530-w500-h171.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198531-w500-h262.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198532-w500-h397.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 143,
+      "heightMm": 46,
+      "weightGrams": 45,
+      "chamberDepthMm": 35,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-09",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-38048",
+    "source": "danish",
+    "sourceProductId": "38048",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38048.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198533-w500-h195.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198533-w500-h195.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198534-w500-h198.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198535-w500-h164.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198536-w500-h180.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198537-w500-h247.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198538-w500-h384.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 50,
+      "weightGrams": 50,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 39
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-10",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38049",
+    "source": "danish",
+    "sourceProductId": "38049",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38049.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198539-w500-h263.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198539-w500-h263.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198540-w500-h247.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198541-w500-h152.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198542-w500-h171.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198543-w500-h238.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198544-w500-h354.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 55,
+      "weightGrams": 57,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-11",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38050",
+    "source": "danish",
+    "sourceProductId": "38050",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38050.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198545-w500-h205.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198545-w500-h205.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198546-w500-h197.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198547-w500-h158.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198548-w500-h173.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198549-w500-h235.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198550-w500-h363.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 53,
+      "weightGrams": 54,
+      "chamberDepthMm": 43,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-12",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38051",
+    "source": "danish",
+    "sourceProductId": "38051",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38051.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198551-w500-h208.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198551-w500-h208.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198552-w500-h206.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198553-w500-h160.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198554-w500-h168.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198555-w500-h234.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198556-w500-h341.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 58,
+      "weightGrams": 60,
+      "chamberDepthMm": 49,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-13",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38052",
+    "source": "danish",
+    "sourceProductId": "38052",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38052.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198557-w500-h215.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198557-w500-h215.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198558-w500-h201.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198559-w500-h166.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198560-w500-h177.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198561-w500-h241.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198562-w500-h365.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 54,
+      "weightGrams": 56,
+      "chamberDepthMm": 47,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-14",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38053",
+    "source": "danish",
+    "sourceProductId": "38053",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38053.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198563-w500-h254.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198563-w500-h254.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198564-w500-h265.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198565-w500-h163.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198566-w500-h176.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198567-w500-h234.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198568-w500-h335.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 150,
+      "heightMm": 52,
+      "weightGrams": 51,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "FG26-15",
+        "新斗",
+        "Freehand",
+        "自由式斗",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-38054",
+    "source": "danish",
+    "sourceProductId": "38054",
+    "sourceUrl": "https://www.danishpipeshop.com/d/-zh/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-i38054.html",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameEn": "Stanwell, København, Flame Grain 63, Freehand",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Flame Grain 63, Freehand",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Freehand",
+      "shapeSlug": "freehand",
+      "shapeZhName": "自由式斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "新斗",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 411.68,
+      "rawText": "$ 411,68",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3005,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198569-w500-h272.jpg",
+      "gallery": [
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198569-w500-h272.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198570-w500-h260.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198571-w500-h162.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198572-w500-h175.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198573-w500-h243.jpg",
+        "https://www.danishpipeshop.com/img/Stanwell-Koebenhavn-Flame-Grain-63-Freehand-The-Danish-Pipe-Shop-img-198574-w500-h341.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 58,
+      "weightGrams": 64,
+      "chamberDepthMm": 47,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell, København, Flame Grain 63, Freehand",
+      "keywords": [
+        "Fg26-16",
+        "新斗",
+        "Freehand",
+        "自由式斗",
         "Acrylic",
         "亚克力",
         "可购买",
