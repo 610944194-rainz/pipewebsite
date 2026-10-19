@@ -14971,16 +14971,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -19547,17 +19547,17 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Germany",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [
       "Product disappeared from the complete Smokingpipes current-list snapshot."
     ],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Product disappeared from the complete Smokingpipes current-list snapshot.",
@@ -294584,17 +294584,17 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Germany",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [
       "Product disappeared from the complete Smokingpipes current-list snapshot."
     ],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Product disappeared from the complete Smokingpipes current-list snapshot.",
@@ -307234,16 +307234,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -342744,17 +342744,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Germany",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-457-11402.6404.jpg",
     "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-457-11402.6404.jpg",
@@ -390029,16 +390031,16 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -539329,15 +539331,15 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
       "reasons": [
         "Explicit OUT OF STOCK observed in progressive list scan.",
@@ -557376,17 +557378,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-491-12144.6737.jpg",
     "mainImageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-491-12144.6737.jpg",
@@ -741700,17 +741704,19 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Ireland",
-    "inventoryStatus": "available",
-    "inventoryConfidence": "full-list-present",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": []
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ]
     },
     "imageUrl": "https://assets.smokingpipes.com/images/products/002-029-127692.7765.jpg",
     "mainImageUrl": "https://assets.smokingpipes.com/images/products/002-029-127692.7765.jpg",
@@ -1247148,20 +1247154,21 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "Italy",
-    "inventoryStatus": "needs-review",
-    "inventoryConfidence": "conflicting-signals",
+    "inventoryStatus": "sold",
+    "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "sold",
     "inventoryReviewReasons": [
       "Detail page says sold while the product remains in the active list range."
     ],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "sold",
       "reasons": [
-        "Detail page says sold while the product remains in the active list range."
+        "Detail page says sold while the product remains in the active list range.",
+        "Explicit OUT OF STOCK observed in progressive list scan."
       ]
     },
     "imageUrl": "https://c647068.ssl.cf2.rackcdn.com/products/002-1008-0342.2942.jpg",
@@ -1985456,18 +1985463,20 @@
       "calculationNotes": "V2 sample keeps source USD/MSRP/RMB text only; it does not calculate RMB reference price."
     },
     "rawCountry": "",
-    "inventoryStatus": "available",
+    "inventoryStatus": "sold",
     "inventoryConfidence": "high",
     "includedInActiveListRange": true,
-    "rawListStatus": "",
+    "rawListStatus": "OUT OF STOCK",
     "rawDetailStatus": "available",
     "inventoryReviewReasons": [],
     "inventoryWarnings": [],
     "inventoryEvidence": {
       "includedInActiveListRange": true,
-      "rawListStatus": "",
+      "rawListStatus": "OUT OF STOCK",
       "rawDetailStatus": "available",
-      "reasons": [],
+      "reasons": [
+        "Explicit OUT OF STOCK observed in progressive list scan."
+      ],
       "warnings": [],
       "soldEvidence": [],
       "availableEvidence": [
