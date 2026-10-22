@@ -141,6 +141,10 @@ def apply(data, decisions, translations):
     for b in d['blends']:
         for variant in b.get('packageImages',[]):variant['images']=unique(variant['images'])
     d['qualityRevision']=decisions['version']
+    country_rules=HERE/'brand-countries.json'
+    if country_rules.exists():
+        from apply_brand_countries import apply as apply_countries
+        d=apply_countries(d,json.loads(country_rules.read_text(encoding='utf-8')))
     validate(d,decisions)
     return d,dict(version=decisions['version'],before=before,after=profile(d),changes=changes)
 

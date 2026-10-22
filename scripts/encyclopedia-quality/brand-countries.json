@@ -1,0 +1,1811 @@
+{
+  "version": "brand-country-20261020-v2",
+  "definition": "国家/地区用于品牌历史发源地；自有系列、零售商标签按明确来源主体归类并标明依据。现制造地、烟叶产地、销售市场不直接替代品牌渊源。",
+  "brands": [
+    {
+      "id": 14,
+      "expectedName": "A&C Petersen",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://piberyger.dk/index.php/tobakken-i-horsens/",
+      "note": "丹麦烟斗协会历史记述1974-75年在Horsens成立A&C Petersen。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 15,
+      "expectedName": "Arango",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.bbb.org/us/il/northbrook/profile/tobacco-wholesale/arango-cigar-co-0654-88007968",
+      "note": "美国伊利诺伊州Arango Cigar公司的同名品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 16,
+      "expectedName": "Ashton",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.gqtobaccos.com/pipe-tobaccos/ashton-winding-road/",
+      "note": "1984年由英国Ashton烟斗品牌授权扩展斗草，早期在伦敦McConnell调配，现德国生产。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 18,
+      "expectedName": "Balkan Sobranie",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sobranie",
+      "note": "1879年创立于伦敦，保留英国品牌渊源。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 19,
+      "expectedName": "Borkum Riff",
+      "expectedOldCountry": "待补充",
+      "country": "瑞典",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.st-group.com/media/t5ba3cro/stg-annual-report-2013.pdf",
+      "note": "STG 年报明确品牌于二十世纪六十年代在瑞典开发。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 20,
+      "expectedName": "Brebbia",
+      "expectedOldCountry": "待补充",
+      "country": "意大利",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.brebbiapipe.it/it/azienda/storia/38-una-storia-iniziata-nel-1947",
+      "note": "1947年在意大利Brebbia创立的同名烟斗品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 21,
+      "expectedName": "BriarWorks",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://briarworksusa.com/pages/our-story",
+      "note": "2013年在美国田纳西州创立的烟斗品牌，后推出同名斗草。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 22,
+      "expectedName": "Butera",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/wiki/Butera",
+      "note": "美国斗师Mike Butera在Houston经营的烟斗与烟草业务。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 23,
+      "expectedName": "CAO",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigaraficionado.com/article/the-change-at-cao-6128",
+      "note": "Cano Ozgener在美国田纳西州Nashville创立的品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 24,
+      "expectedName": "Capstan",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://collection.sciencemuseumgroup.org.uk/objects/co8189297/capstan-navy-cut-tobacco-box-1921-1939",
+      "note": "英国科学博物馆的历史烟草罐明确为英国Bristol/London的Wills品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 25,
+      "expectedName": "Captain Black",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/CaptainBlack/",
+      "note": "Captain Black在Lane迁美国后出现于1956年目录；不可沿用Lane更早的德国起源。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 26,
+      "expectedName": "Captain Earle's",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/577/hermit-tobacco-works-co-captain-earles-private-stock/",
+      "note": "Hermit Tobacco Works的美国品牌，现由C&D生产。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 27,
+      "expectedName": "Carter Hall",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://novapipesandtobacco.com/pipe-tobacco/carter-hall/",
+      "note": "1895年以来的美国斗草品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 28,
+      "expectedName": "Cascadia",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "retailer_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/12627/cascadia-pipe-co-vertical-limit/",
+      "note": "Cascadia为美国PipesandCigars独家品牌线，STG在丹麦代工；按零售品牌来源归类。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 29,
+      "expectedName": "Chacom",
+      "expectedOldCountry": "待补充",
+      "country": "法国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.pipechacom.com/en/history.htm",
+      "note": "1928年在法国Saint-Claude厂建立Chacom品牌，家族历史更早。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 30,
+      "expectedName": "Charatan",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.charatanlondon.com/about",
+      "note": "1863年伦敦起源，2017年由英国Tor取得品牌并发展斗草。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 31,
+      "expectedName": "Cobblestone",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_owner_origin",
+      "sourceUrl": "https://tobaccobusiness.com/sutliff-tobacco-jeremy-mckenna-part-2/",
+      "note": "Cobblestone属于美国Sutliff品牌与分销体系；不同系列分别由美国Sutliff和德国Kopp制造，不能以个别系列产地定义整个品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 32,
+      "expectedName": "Cornell & Diehl",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://corporate.laudisi.com/news-entry.cfm?entry=17",
+      "note": "1990年在宾夕法尼亚创立，后迁北卡与南卡。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 33,
+      "expectedName": "Cult",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.qualityimporters.com/site/assets/QI/Catalogs/shop-big-easy-catalog.pdf",
+      "note": "Cult为美国Quality Importers/原Sutliff分销体系品牌；丹麦生产不表示品牌起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 34,
+      "expectedName": "Dan Tobacco",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.dantobacco.de/de/ueber-uns/",
+      "note": "1990年以来在德国劳恩堡运营。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 35,
+      "expectedName": "Daughters & Ryan",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.michigan.gov/taxes/-/media/Project/Websites/taxes/Tobacco/Participating-Manufacturers-08-11-21_747268.pdf?hash=75B54A2B58CB3EB23B8F0A3BD531CBB9&rev=b62688da3b91472b9153f31f83005129",
+      "note": "美国北卡罗来纳州Smithfield的注册烟草制造企业。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 36,
+      "expectedName": "Davidoff",
+      "expectedOldCountry": "待补充",
+      "country": "瑞士",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.oettingerdavidoff.com/history",
+      "note": "Davidoff烟草业务1911年始于日内瓦。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 37,
+      "expectedName": "Drucquer & Sons",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/tobacco/by-maker/drucquer-and-sons/moreinfo.cfm?product_id=212452",
+      "note": "1841年伦敦创立，1928年迁美国伯克利。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 38,
+      "expectedName": "Erik Stokkebye 4th Generation",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/danish-collaboration-the-birth-of-4th-generation-pipes/",
+      "note": "Erik赴美后于2012年筹划、2013年面向美国推出第四代品牌；家族丹麦渊源另记。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 39,
+      "expectedName": "Erinmore",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Murray%2C_Sons_and_Company",
+      "note": "原为贝尔法斯特Murray历史品牌，现生产地与发源地分开；北爱尔兰记在备注。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 40,
+      "expectedName": "Esoterica",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/wp-content/uploads/2023/04/PT_Final_Spring98-1.pdf",
+      "note": "1998年对Germain的采访明确由加州Stephen Richman创立，泽西为代工地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 41,
+      "expectedName": "F&K",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.importgenius.com/importers/f-k-cigar-co",
+      "note": "F&K Cigar Co为美国St.Louis品牌主体，德国Kopp为供应制造方。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 42,
+      "expectedName": "Five Brothers",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://guides.loc.gov/tobacco-industry/research-companies",
+      "note": "美国国会图书馆记录1866年Louisville的Five Brothers Tobacco Works。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 43,
+      "expectedName": "Former",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.scandpipes.com/pipes/199-former/",
+      "note": "Hans Former Nielsen的丹麦同名品牌；职业生涯曾在瑞士与德国工作。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 44,
+      "expectedName": "Fribourg & Treyer",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://discovery.nationalarchives.gov.uk/details/c/F170405",
+      "note": "英国国家档案记录为伦敦烟草商。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 45,
+      "expectedName": "G. L. Pease",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipesmagazine.com/blog/pipe-smoking-lifestyle/interview-with-greg-pease-of-g-l-pease-tobacco-part-1/",
+      "note": "美国调配师Greg Pease于2000年创立自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 47,
+      "expectedName": "Germain's",
+      "expectedOldCountry": "待补充",
+      "country": "泽西岛",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/wp-content/uploads/2023/04/PT_Final_Spring98-1.pdf",
+      "note": "泽西岛为英国王室属地，非联合王国组成部分；发源地单列为泽西岛。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 48,
+      "expectedName": "Gladora",
+      "expectedOldCountry": "待补充",
+      "country": "土耳其",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.peterheinrichs.de/en/tobacco/pipe-tobacco/gladora/",
+      "note": "2014年创立于土耳其伊兹密尔；德国Kopp为进口合作方。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 49,
+      "expectedName": "Grand Croupier",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/9493/grand-croupier-bone-yard/",
+      "note": "C&D在美国推出的Grand Croupier系列。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 50,
+      "expectedName": "Granger",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/Granger/",
+      "note": "来源将Granger说明为延续多年的美国传统白肋草品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 51,
+      "expectedName": "HU",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://kopp-tobaccos.com/tabak/serienauswahl-tabak/hu-tobacco.html",
+      "note": "品牌在2011年德国Lohmar烟斗展发布。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 52,
+      "expectedName": "Half and Half",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://download.industrydocuments.ucsf.edu/x/k/p/b/xkpb0002/xkpb0002.pdf",
+      "note": "美国American Tobacco公司的历史品牌记录。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 53,
+      "expectedName": "James J. Fox",
+      "expectedOldCountry": "待补充",
+      "country": "爱尔兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.jjfox.co.uk/heritage",
+      "note": "James J Fox于1881年在都柏林成立；1947年才到伦敦开店。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 54,
+      "expectedName": "John Aylesbury",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.john-aylesbury.de/impressum/",
+      "note": "1974年德国专业零售商联合品牌；英文名不代表英国起源。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 55,
+      "expectedName": "Kopp",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tecon-gmbh.de/info_pages.php?pages_id=102",
+      "note": "1976年创立于德国Rellingen，后以Kohlhase & Kopp、Kopp Tobaccos经营。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 56,
+      "expectedName": "Kramer's",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.kramerstobaccoshop.com/our-story-1",
+      "note": "1949年在美国比佛利山开设同名店铺，延续此前芝加哥经验。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 57,
+      "expectedName": "Lane Limited",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/lane/",
+      "note": "1890年起源于德累斯顿，1938年迁美国；不以现生产地替代发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 58,
+      "expectedName": "Larsen",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.lepipe.it/de/Biography-WO%20Larsen",
+      "note": "同名品牌源于1864年哥本哈根店铺；目录中的Larsen与W.O.Larsen均采用此渊源，身份合并不在本规则中执行。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 59,
+      "expectedName": "Low Country",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://corporate.laudisi.com/whereweare.cfm",
+      "note": "品牌来自南卡罗来纳州Little River的Low Country店铺。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 62,
+      "expectedName": "Missouri Meerschaum",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.sos.mo.gov/Archives/Bicentennial/Progress",
+      "note": "州档案记录1869年起源于美国密苏里州Washington。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 63,
+      "expectedName": "Nørding",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danishpipeshop.com/n/The-End-of-an-Era-i34623.html",
+      "note": "丹麦Nording同名品牌；仅补国家，不自动合并两条品牌ID。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 64,
+      "expectedName": "Orlik",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/wiki/Orlik",
+      "note": "1899年Louis Orlik在伦敦创立；丹麦生产企业为后续发展。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 65,
+      "expectedName": "Paladin",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.jrcigars.com/pipe-tobacco/domestic-pipe-tobacco/paladin/",
+      "note": "渠道明确为经典美国斗草品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 66,
+      "expectedName": "Per Jensen",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "founder_brand_origin",
+      "sourceUrl": "https://www.laudisi.com/moreinfo.cfm/per-jensen-tobaccos/legacy-collection-port-guardian-2oz/686074",
+      "note": "丹麦调配师Per G.Jensen的同名品牌，Legacy Collection为丹麦与美国合作，美国C&D制造；按品牌创始主体渊源归丹麦。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 67,
+      "expectedName": "Peter Heinrichs",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.peterheinrichs.de/en/information/about-us/",
+      "note": "Heinrichs家族1908年始于科隆，Peter品牌店1975年在科隆开设。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 68,
+      "expectedName": "Peter Stokkebye",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://arkiv.dk/vis/5300022",
+      "note": "丹麦城市档案记录家族1882年起在欧登塞经营，Peter于1974年在Gelsted开设工厂。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 70,
+      "expectedName": "Presbyterian",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://dutchpipesmoker.com/2013/02/27/palatable-presbyterian/",
+      "note": "一战前为苏格兰Glasgow的John White调制而起源；德国为后续生产地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 71,
+      "expectedName": "Prince Albert",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.dncr.nc.gov/blog/2024/01/08/r-j-reynolds-1850-1918-j-72",
+      "note": "美国北卡档案记录1907年由R.J.Reynolds推出。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 72,
+      "expectedName": "Rattray's",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/rattrays/",
+      "note": "1903年始于苏格兰Perth；后在德国生产，不改变发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 73,
+      "expectedName": "Reiner",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://monjureinternational.com/html/reiner_history.htm",
+      "note": "品牌由德国R.L.Will开发；Reiner部分在丹麦调配、德国包装，不作为丹麦品牌发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 74,
+      "expectedName": "Rivertown Tobacco Works",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/smokingpipesblog/single.cfm/post/introducing-rivertown-tobacco-value-tobacco-bold-flavor",
+      "note": "由美国Cornell & Diehl/Laudisi推出的Rivertown Tobacco Works品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 75,
+      "expectedName": "Robert Lewis",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.jjfox.co.uk/heritage",
+      "note": "Robert Lewis于1787年在伦敦St James Street开店。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 76,
+      "expectedName": "Royal Comfort",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.altria.com/About-Altria/Our-Heritage",
+      "note": "美国历史品牌，Altria官方历史记录1987年由Middleton购入。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 77,
+      "expectedName": "Sail",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipemuseum.nl/en/advertenties-pijptabak",
+      "note": "阿姆斯特丹烟斗博物馆将Clan与Sail列于荷兰斗草品牌广告历史。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 79,
+      "expectedName": "Savinelli",
+      "expectedOldCountry": "待补充",
+      "country": "意大利",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.savinelli.it/eu_en/our-story",
+      "note": "1876年米兰创立的同名烟斗与烟具品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 80,
+      "expectedName": "Seattle Pipe Club",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.seattlepipeclub.org/",
+      "note": "西雅图烟斗社群品牌，创立于2001年。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 81,
+      "expectedName": "Sillem's",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/Sillem/",
+      "note": "品牌历史关联德国汉堡，现权利人位于德国Kassel。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 82,
+      "expectedName": "Sir Walter Raleigh",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.encyclopedia.com/books/politics-and-business-magazines/brown-and-williamson-tobacco-corporation",
+      "note": "源自美国Brown & Williamson品牌，非按同名英国人物国籍归属。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 83,
+      "expectedName": "Smoker's Pride",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.pipesandcigars.com/category/shop-by-brand/smokers-pride/",
+      "note": "来源明确为美国市场长期经营的Smoker’s Pride品牌；不沿用Lane更早的德国公司起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 84,
+      "expectedName": "Solani",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://monjureinternational.com/html/reiner_history.htm",
+      "note": "品牌由德国R.L.Will开发；Reiner部分在丹麦调配、德国包装，不作为丹麦品牌发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 85,
+      "expectedName": "St. Bruno",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/st-bruno/",
+      "note": "品牌始于Thomas Ogden的英国利物浦烟草业务；本文已存原来源明确此历史。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 86,
+      "expectedName": "Stanwell",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://piberyger.dk/index.php/stanwell/",
+      "note": "1942年丹麦Kyringe起源；英文命名不代表英国起源。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 87,
+      "expectedName": "Sutliff",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipetobaccocouncil.org/sutliff-tobacco-company/",
+      "note": "1849年创立于旧金山；H.Sutliff为该历史品牌的目录写法，身份合并另行审核。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 88,
+      "expectedName": "Three Nuns",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipesmagazine.com/forums/threads/j-f-bell-ltd-of-glasgow-three-nuns-very-image-heavy.39128/",
+      "note": "历史罐标与档案资料对应苏格兰Glasgow的J&F Bell品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 89,
+      "expectedName": "Toscano",
+      "expectedOldCountry": "待补充",
+      "country": "意大利",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.toscanocigars.com/our-history/timeline/",
+      "note": "1815年起源于意大利佛罗伦萨的Toscano品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 90,
+      "expectedName": "Two Friends",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/two-friends/",
+      "note": "由美国Craig Tarler与Gregory Pease共同创立的品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 91,
+      "expectedName": "Vauen",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.vauen.de/unternehmen.html",
+      "note": "源于1848年纽伦堡烟斗制造企业。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 92,
+      "expectedName": "Velvet",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.law.cornell.edu/supremecourt/text/328/781",
+      "note": "1946年美国最高法院记录将Velvet列为美国Liggett & Myers的历史品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 93,
+      "expectedName": "Warped",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.warpedcigars.com/story",
+      "note": "Kyle Gellis于2007年在美国佛罗里达创立。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 94,
+      "expectedName": "Wessex",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/wiki/Wessex",
+      "note": "Wessex历史品牌与伦敦Wessex Tobacco Company关联；目前德国制造另记，不将制造地直接当品牌起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 100,
+      "expectedName": "Alsbo",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.wipo.int/edocs/madgdocs/en/1999/madrid_g_1999_10.pdf",
+      "note": "WIPO的历史商标档案记录其丹麦企业权利人。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 108,
+      "expectedName": "Amphora",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://download.industrydocuments.ucsf.edu/g/z/d/h/gzdh0028/gzdh0028.pdf",
+      "note": "历史产品资料记录Douwe Egberts的荷兰Joure品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 110,
+      "expectedName": "amsterdamer",
+      "expectedOldCountry": "待补充",
+      "country": "瑞士",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.lamalleapapa.com/marque/amsterdamer",
+      "note": "资料记载1928年由苏黎世制造商开发；Amsterdam来自原料运输港名，后转法国SEITA和丹麦企业。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 117,
+      "expectedName": "Ark Royal",
+      "expectedOldCountry": "待补充",
+      "country": "乌拉圭",
+      "basis": "brand_origin",
+      "sourceUrl": "https://trademarks.justia.com/868/43/ark-86843933.html",
+      "note": "Ark Royal为乌拉圭Monte-Paz公司品牌；斗草品类的丹麦制造与品牌起源分开。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 119,
+      "expectedName": "Ascanian",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danpipe.de/de/Pfeifentabak/8211-50_Ascanian-No-1-Riverside-Blend-50g-Dose_1762",
+      "note": "DAN PIPE官方将Ascanian列为Dan Tobacco自有品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 129,
+      "expectedName": "Bank of England",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/10240/planta-bank-of-england-happy-hour/",
+      "note": "Planta旗下Bank of England产品系列，名称不表示英国品牌起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 135,
+      "expectedName": "Bayside",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "retailer_origin",
+      "sourceUrl": "https://www.bullbrand.co.uk/pages/about-us",
+      "note": "英国Bull Brand自有Bayside烟草标签，德国von Eicken负责制造；按零售品牌来源归类。",
+      "checkedAt": "2026-10-20",
+      "additionalSources": [
+        "https://www.bullbrand.co.uk/blogs/news/pipe-tobacco-available-on-bull-brand-in-the-uk"
+      ]
+    },
+    {
+      "id": 136,
+      "expectedName": "BBB",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.gqtobaccos.com/pipe-tobacco/bbb-danish-mixture/",
+      "note": "Britains Best Briar的英国烟斗品牌，斗草在德国授权制作。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 140,
+      "expectedName": "Bellini",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pfeifentabak.ch/pfeifentabak/bellini/",
+      "note": "来源明确Bellini为柏林Planta创立，以意大利作曲家命名，不代表意大利品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 141,
+      "expectedName": "Bell´s",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipesmagazine.com/forums/threads/j-f-bell-ltd-of-glasgow-three-nuns-very-image-heavy.39128/",
+      "note": "该目录条目对应Three Nuns Green/Yellow，保留J&F Bell在苏格兰Glasgow的历史品牌归属。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 145,
+      "expectedName": "benson and hedges",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://americanhistory.si.edu/collections/object/nmah_1297883",
+      "note": "博物馆记录Benson & Hedges于1873年在伦敦成立。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 146,
+      "expectedName": "Bentley",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarjournal.com/de/bentley-pipe-company-markenlinie-im-neuen-gewand/",
+      "note": "德国Schuster家族经营的Bentley Tobacco，与汽车制造地无关。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 150,
+      "expectedName": "BILL BAILEY'S",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/tobacco/by-maker/dan-tobacco/moreinfo.cfm?product_id=9001",
+      "note": "德国Dan Tobacco的自有产品系列。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 152,
+      "expectedName": "Bjarne",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/index.php?mobileaction=toggle_view_mobile&title=Bjarne",
+      "note": "Bjarne Nielsen的丹麦同名品牌；斗草在德国DTM生产。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 157,
+      "expectedName": "Black Cavendish No.1",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.rauch-lounge.com/black-cavendish-no-1-vanille-karamell-pfeifentabak",
+      "note": "Black Cavendish No.1是STG产品标签，按丹麦品牌主体归类；并非所有Black Cavendish烟草的通称归属。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 161,
+      "expectedName": "Blenders",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.cgarsltd.co.uk/blenders-highland-mixture-ready-rubbed-pipe-tobacco-40g-pouch-p-19863.html",
+      "note": "来源将该产品归Mac Baren Highland Mixture，品牌渊源为丹麦Svendborg。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 163,
+      "expectedName": "Blue Ridge",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/4059/scandinavian-tobacco-group-stg-blue-ridge/",
+      "note": "当前目录为STG Blue Ridge的产品标签，按丹麦品牌主体归类，不按同名美国地名判断。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 172,
+      "expectedName": "Brookfield",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.poeschl-tobacco.com/wp-content/uploads/Unternehmensgruppe.pdf",
+      "note": "Pöschl官方企业资料列出德国创立历史及Brookfield、Exclusiv、Golden Blends自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 179,
+      "expectedName": "Bulldog",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danpipe.de/de/Pfeifentabak/8414-50_Bulldog-Golden-Flake-50g-Dose_7012",
+      "note": "DAN PIPE官方列为Dan Tobacco自有Bulldog系列。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 187,
+      "expectedName": "Caledonian",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarworld.de/en/caledonian",
+      "note": "品牌由丹麦A&C Petersen开发，苏格兰是风格主题。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 202,
+      "expectedName": "Century",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.gqtobaccos.com/century-loose-pipe-tobacco/",
+      "note": "渠道明确为Century USA品牌；特定产品丹麦制造不改变目录品牌归属。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 203,
+      "expectedName": "Charles Fairmorn",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarworld.de/en/charles-fairmorn",
+      "note": "品牌历史介绍称1970年代先在美国成立，后设德国分部；现德国业务不替代最初发源地。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 204,
+      "expectedName": "Charles Preston",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "historical_product_origin",
+      "sourceUrl": "https://www.tecon-gmbh.de/product_info.php?cPath=667_1089&language=en&lgcode=1&products_id=6401",
+      "note": "此旧渠道标签对应Presbyterian Mixture，按已核实的英国苏格兰配方渊源归类；不据此确认Charles Preston为独立斗草品牌。",
+      "checkedAt": "2026-10-20",
+      "additionalSources": [
+        "https://dutchpipesmoker.com/2013/02/27/palatable-presbyterian/"
+      ]
+    },
+    {
+      "id": 211,
+      "expectedName": "Chieftain",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_owner_origin",
+      "sourceUrl": "https://www.tor-imports.co.uk/products",
+      "note": "英国TOR品牌组合中的Chieftain斗草，制造方与品牌运营方分别记录。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 221,
+      "expectedName": "Clan",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipemuseum.nl/en/advertenties-pijptabak",
+      "note": "阿姆斯特丹烟斗博物馆将Clan与Sail列于荷兰斗草品牌广告历史。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 224,
+      "expectedName": "Colts",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_owner_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/5459/scandinavian-tobacco-group-stg-colts-gold-deluxe/",
+      "note": "资料记载2009年由STG推出斗草线；不同市场制造地不同，按丹麦品牌推出方归类。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 225,
+      "expectedName": "Comoy's",
+      "expectedOldCountry": "待补充",
+      "country": "法国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/smokingpipesblog/single.cfm/post/the-history-comoys-london",
+      "note": "家族品牌起源于1825年法国Saint-Claude地区，1879年Henri移至伦敦建立英国工厂；按最早品牌渊源记法国。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 228,
+      "expectedName": "Condor",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://publications.parliament.uk/pa/cm199900/cmselect/cmhealth/27/0011318.htm",
+      "note": "英国议会记录Gallaher的Condor历史品牌；北爱尔兰关联与后来生产迁移另记。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 231,
+      "expectedName": "Crue Pierre Henri",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.peterheinrichs.de/tabak/pfeifentabak/peter-heinrichs-pfeifentabak/peter-heinrichs-crue-pierre-henri-pfeifentabak/",
+      "note": "Peter Heinrichs官方自有系列，品牌来源德国科隆。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 233,
+      "expectedName": "Danish Mixture",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.pfeifenstube.de/collections/danish-mixture-hausmarke",
+      "note": "Danish Mixture Hausmarke为丹麦STG自有系列。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 234,
+      "expectedName": "Dannemann",
+      "expectedOldCountry": "待补充",
+      "country": "巴西",
+      "basis": "brand_origin",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dannemann_Cigars",
+      "note": "Gerhard/Geraldo Dannemann移居巴西后在São Félix建立品牌；创始人的德国出生地和现德国公司所在地不替代发源地。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 235,
+      "expectedName": "Danske Club",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://piberyger.dk/index.php/tobakken-i-horsens/",
+      "note": "丹麦A&C Petersen生产并推广的历史品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 237,
+      "expectedName": "Doctor Pipe",
+      "expectedOldCountry": "待补充",
+      "country": "巴西",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.portmanntabak.ch/news/296_doctor-pipe-pfeifentabak-ab-sofort-in-der-sch.html",
+      "note": "瑞士品牌合作渠道明确介绍Doctor Pipe为巴西品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 239,
+      "expectedName": "DUNHILL",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarjournal.com/new-cigar-line-1907-by-dunhill/",
+      "note": "1907年伦敦Duke Street开设烟草店的历史品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 240,
+      "expectedName": "Elwood",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tabak-brucker.de/elwood-flake-number-2-pfeifentabak-50g",
+      "note": "Elwood of London为德国Dan Tobacco系列，London属于系列名。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 242,
+      "expectedName": "Esterval's Pipe House",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "retailer_origin",
+      "sourceUrl": "https://www.tecon-gmbh.de/",
+      "note": "Esterval’s Pipe House为德国Tecon零售商自有标签，按零售品牌来源归类。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 244,
+      "expectedName": "Exclusiv",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.poeschl-tobacco.com/wp-content/uploads/Unternehmensgruppe.pdf",
+      "note": "Pöschl官方企业资料列出德国创立历史及Brookfield、Exclusiv、Golden Blends自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 245,
+      "expectedName": "Flying Dutchman",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://gmlaw.pk/Journals/1997/gmlaw-559-Aug-1997.pdf",
+      "note": "历史商标公报记载Flying Dutchman权利人为荷兰Theodorus Niemeyer。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 252,
+      "expectedName": "Gold of Mysore",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/2701/dan-tobacco-gold-of-mysore/",
+      "note": "Dan Tobacco产品系列，印度Mysore是原料产区而非品牌发源地。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 253,
+      "expectedName": "Golden Blend´s",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.poeschl-tobacco.com/wp-content/uploads/Unternehmensgruppe.pdf",
+      "note": "Pöschl官方企业资料列出德国创立历史及Brookfield、Exclusiv、Golden Blends自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 254,
+      "expectedName": "H. Sutliff.",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipetobaccocouncil.org/sutliff-tobacco-company/",
+      "note": "1849年创立于旧金山；H.Sutliff为该历史品牌的目录写法，身份合并另行审核。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 255,
+      "expectedName": "Hansa",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.poeschl-tobacco.com/unternehmen/unternehmensgeschichte/",
+      "note": "Pöschl官方历史记载1949年推出Hansa-Krüll；风格名称不改变德国起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 256,
+      "expectedName": "helsingor",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.fumeursdepipe.net/artfontilsuntabac128.htm",
+      "note": "资料明确Helsingor为德国Pöschl产品系列，Original Danish Type是风格说明。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 257,
+      "expectedName": "Holger Danske",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarworld.de/en/holger-danske",
+      "note": "明确由德国柏林Planta创立，丹麦名字为品牌风格。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 258,
+      "expectedName": "Holly´s Discovery",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1474/dan-tobacco-hollys-discovery/",
+      "note": "Holly’s Discovery为Dan Tobacco产品系列。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 259,
+      "expectedName": "Holmer Knudsen",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.knudsen-pipes.de/workshop",
+      "note": "官方工坊在德国Lauenburg；丹麦式姓名不作为丹麦发源证据。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 261,
+      "expectedName": "Ilsted",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.gqtobaccos.com/pipe-tobacco/ilsteds-own-66-aromatic-taste/",
+      "note": "丹麦斗师Poul Ilsted的同名品牌；授权调配地不替代品牌渊源。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 265,
+      "expectedName": "Jess Chonowitsch",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.scandpipes.com/pipes/215-jess-chonowitsch/",
+      "note": "Jess Chonowitsch自二十世纪七十年代在丹麦独立经营。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 266,
+      "expectedName": "Jirsa",
+      "expectedOldCountry": "待补充",
+      "country": "捷克",
+      "basis": "brand_origin",
+      "sourceUrl": "https://jirsa.cz/",
+      "note": "Oldrich Jirsa官方地址与历史均在捷克Rynholec。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 267,
+      "expectedName": "joh wilh von eicken",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Johann_Wilhelm_von_Eicken",
+      "note": "1770年Mülheim起源，后迁汉堡与吕贝克。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 268,
+      "expectedName": "Kagayaki",
+      "expectedOldCountry": "待补充",
+      "country": "日本",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://tsugepipe.co.jp/history/",
+      "note": "Kagayaki（輝）为日本东京柘製作所标签，德国代工及印度原料另记，不改变日本品牌主体归属。",
+      "checkedAt": "2026-10-20",
+      "additionalSources": [
+        "https://tsugepipe.co.jp/wp-content/themes/tsuge-template/assets/img/catalogue_goods.pdf"
+      ]
+    },
+    {
+      "id": 269,
+      "expectedName": "kapt n brammers",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danpipe.de/de/Pfeifentabak/8408-100_Kaeptn-Brammers-Alter-Friese-100g-Dose_3035",
+      "note": "DAN PIPE官方列为Dan Tobacco自有品牌，Hamburg为其系列故事背景。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 270,
+      "expectedName": "Karl Erik",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/index.php?mobileaction=toggle_view_mobile&title=Karl_Erik",
+      "note": "Karl Erik回到丹麦后以自己的名字创立品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 275,
+      "expectedName": "Kentucky Bird",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://usmarkdb.com/owner/alfred-christian-petersen-as",
+      "note": "Kentucky Bird历史商标主体为丹麦Alfred & Christian Petersen；Kentucky不是美国品牌发源地证据。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 276,
+      "expectedName": "Kleinlagel",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tabakring.de/kleinlagel",
+      "note": "1916年以来的德国Obergrombach K.Kleinlagel同名品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 277,
+      "expectedName": "Kriswill",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.eu/pipes/estate/denmark/moreinfo.cfm?product_id=128707",
+      "note": "1955年创立的丹麦Kriswill品牌，后由Dan Pipe购得名称使用权。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 278,
+      "expectedName": "Lincoln",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://trademarks.justia.com/721/10/lincoln-72110024.html",
+      "note": "1960年Lincoln Cavendish历史商标原权利人为德国Brinkmann；后续海外注册/代工不改变该渊源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 279,
+      "expectedName": "Louis Durand",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/10104/planta-marc-de-champagne/",
+      "note": "Louis Durand Elysee是柏林Planta的产品系列，法国香型及名称不代表法国品牌。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 282,
+      "expectedName": "Mayflower",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "historical_product_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/2209/scandinavian-tobacco-group-stg-mayflower-no1/",
+      "note": "来源明确原由荷兰Theodorus Niemeyer制作，后转丹麦STG；不采用当前丹麦制造地替代历史渊源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 283,
+      "expectedName": "Mc Lintock",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.hacico.de/tabak/pfeifentabak/mc-lintock-pfeifentabak-90003503",
+      "note": "来源明确原为德国柏林Planta品牌，后转Mac Baren和STG。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 285,
+      "expectedName": "Michael Apitz",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.dantobacco.de/de/ueber-uns/",
+      "note": "Michael Apitz的同名斗草来自德国Dan Tobacco/Dan Pipe团队。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 287,
+      "expectedName": "MY OWN BLEND",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://piberyger.dk/index.php/my-own-blend/",
+      "note": "1939年由哥本哈根Poul Olsen创立。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 289,
+      "expectedName": "Nording",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danishpipeshop.com/n/The-End-of-an-Era-i34623.html",
+      "note": "丹麦Nording同名品牌；仅补国家，不自动合并两条品牌ID。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 290,
+      "expectedName": "Ogdens",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://sarsfieldmemorialsliverpool.co.uk/the-grave-of-ogdens-tobacco-founder/",
+      "note": "1860年在英国利物浦Park Lane创立。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 291,
+      "expectedName": "Olaf Poulsson",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danpipe.de/de/Pfeifentabak/8304-50_Olaf-Poulsson-No-42-Special-Cut-50g-Dose_7196",
+      "note": "DAN PIPE官方自有品牌，丹麦式名字不表示丹麦起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 294,
+      "expectedName": "Peter Rasmussen",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/images/4/40/DP-2013-E.pdf",
+      "note": "原版DAN PIPE目录明确为丹麦斗师Peter Rasmussen同名系列。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 295,
+      "expectedName": "petersen and sorensen",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://piberyger.dk/index.php/tobakken-i-horsens/",
+      "note": "丹麦Horsens历史企业Petersen & Sørensen；后来丹麦工厂/德国代工与原品牌起源分开记录。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 297,
+      "expectedName": "Pfeifen Timm",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/images/4/40/DP-2013-E.pdf",
+      "note": "DAN PIPE原版目录记载汉堡Pfeifen-Timm与自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 299,
+      "expectedName": "Planta",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.falkum.de/pfeifentabak/planta.html",
+      "note": "1956年在柏林创立；后续业务并购不改变原品牌发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 301,
+      "expectedName": "poschl tabak",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.poeschl-tobacco.com/wp-content/uploads/Unternehmensgruppe.pdf",
+      "note": "Pöschl官方企业资料列出德国创立历史及Brookfield、Exclusiv、Golden Blends自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 302,
+      "expectedName": "POUL WINSLOW",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipemuseum.nl/en/collection/apm-20-189",
+      "note": "丹麦斗师Poul Winslow的同名品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 303,
+      "expectedName": "Prestige",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.pfeifen-shop-online.de/en/Prestige-Regular-Mixture-Pipe-Tobacco-50g",
+      "note": "来源明确Prestige延续荷兰烟草传统；后转Mac Baren的品牌，不将现进口商地址当发源地。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 304,
+      "expectedName": "R and M",
+      "expectedOldCountry": "待补充",
+      "country": "美国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tabakpfeife24.de/katalog/german/Pfeifentabake.pdf",
+      "note": "2009年目录记载Rum & Maple配方由美国Rum & Maple Comp开发；德国Planta后来生产并改为R&M编号名。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 305,
+      "expectedName": "Rainer Barbi",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/wiki/Rainer_Barbi",
+      "note": "1974年开始的德国手工烟斗品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 307,
+      "expectedName": "Revor",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1220/gawith-hoggarth-co-revor-plug/",
+      "note": "原为苏格兰Glasgow的SCWS自有产品，后来移至Manchester及Kendal厂。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 308,
+      "expectedName": "Richmond",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/3341/orlik-tobacco-company-as-richmond-navy-cut/",
+      "note": "当前目录对应丹麦Orlik的Richmond品牌系列；与同名卷烟品牌分开。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 309,
+      "expectedName": "Robert McConnell",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.cigarworld.de/en/tabak/pfeifentabak/robert-mcconnell-heritage-90015086",
+      "note": "1848年伦敦创立，1989年品牌权利转至德国；现制造地与发源地区分。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 310,
+      "expectedName": "Scaferlati",
+      "expectedOldCountry": "待补充",
+      "country": "法国",
+      "basis": "historical_product_origin",
+      "sourceUrl": "https://patrimoine.auvergnerhonealpes.fr/dossier/pdf/d2f12175-c6b6-4cba-92df-eb2ff717e3cb/manufacture-des-tabacs-actuellement-universite-jean-moulin-lyon-3.pdf?vignette=Aucune",
+      "note": "法国地区遗产档案记录SEITA里昂厂的Scaferlati Caporal历史生产，归法国国家烟草体系的历史产品。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 311,
+      "expectedName": "Sir Henry",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.peterheinrichs.de/tabak/pfeifentabak/peter-heinrichs-pfeifentabak/peter-heinrichs-sir-henry-pfeifentabak/",
+      "note": "Peter Heinrichs官方Sir Henry I/II系列，与其他同名Sir Henry’s品牌区分。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 314,
+      "expectedName": "ST. BERNARD",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/2761/dan-tobacco-st-bernard-flake/",
+      "note": "St.Bernard Flake为德国Dan Tobacco产品系列。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 315,
+      "expectedName": "stg",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.st-group.com/press-media/news-stories/press-releases/skandinavisk-tobakskompagni-takes-a-new-name/",
+      "note": "STG官方记载1961年由丹麦企业合并成立。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 316,
+      "expectedName": "SUNDAY’S FANTASY",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://trademarks.justia.com/790/17/thomas-radford-sunday-s-79017843.html",
+      "note": "Sunday’s Fantasy为Thomas Radford品牌系列，采用英国原品牌归属，德国Pöschl制造另记。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 317,
+      "expectedName": "sweet dublin",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.ipr.gov.ba/upload/documents/dokumenti_podstranice/glasnici/Glasnik4-18.pdf",
+      "note": "官方商标公报载Sweet Dublin品牌主体为丹麦Assens的Orlik；Dublin是名称而非爱尔兰起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 318,
+      "expectedName": "Synjeco",
+      "expectedOldCountry": "待补充",
+      "country": "瑞士",
+      "basis": "brand_origin",
+      "sourceUrl": "https://synjeco.ch/",
+      "note": "官方自述1941年创立于瑞士Brissago。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 319,
+      "expectedName": "Thomas Radford",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.uspto.gov/web/trademarks/tmog/20030520_OG.pdf",
+      "note": "USPTO历史公告记录Thomas Radford品牌主体为英国Harrow的John Brumfit & Radford；德国Pöschl为后来制造运营方。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 320,
+      "expectedName": "TIMM",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/images/4/40/DP-2013-E.pdf",
+      "note": "DAN PIPE原版目录记载汉堡Pfeifen-Timm与自有品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 321,
+      "expectedName": "Tobacco Lifestyle",
+      "expectedOldCountry": "待补充",
+      "country": "中国香港",
+      "basis": "retailer_origin",
+      "sourceUrl": "https://tobaccolifestyle.com/pages/about-us",
+      "note": "官网明确2023年设立，由香港Lucky Time Enterprises运营；目录自有配方按零售标签来源归类，不表示烟草制造地。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 323,
+      "expectedName": "Torben Dansk",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.danpipe.de/de/Pfeifentabak/8010-50_Torben-Dansk-No-10-Loose-Cut-50g-Dose_7509",
+      "note": "官方目录明确属于DAN PIPE/Dan Tobacco自有品牌；名称里的Dansk不作为丹麦发源证据。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 324,
+      "expectedName": "Tordenskjold",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1509/tordenskjold-extra-light/",
+      "note": "Dan Tobacco开发的Tordenskjold系列，北欧主题不替代品牌来源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 325,
+      "expectedName": "Treasures of Ireland",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.smokingpipes.com/pipe-tobacco/dan-tobacco/Treasures-of-Ireland%3A-Galway-50g/product_id/23139",
+      "note": "德国Dan Tobacco的系列，Ireland是主题而非品牌发源地。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 326,
+      "expectedName": "Van Halteren",
+      "expectedOldCountry": "待补充",
+      "country": "荷兰",
+      "basis": "brand_origin",
+      "sourceUrl": "https://smokeyz24.de/collections/van-halteren-pfeifentabak",
+      "note": "来源明确该品牌最初创立于荷兰，后长期由柏林Planta生产，再转Mac Baren。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 335,
+      "expectedName": "Wehde Tabak Hamburg",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tabactrennt.de/webseite/chronik-1870-1995-english/",
+      "note": "德国汉堡Wehde历史公司，1987年转让给Kohlhase & Kopp。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 337,
+      "expectedName": "White Elephant",
+      "expectedOldCountry": "待补充",
+      "country": "德国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.pfeifen-shop-online.de/en/brands/White-Elephant",
+      "note": "德国法兰肯地区Ettenstatt品牌。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 338,
+      "expectedName": "Wilsons of Sharrow",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.sheffield.gov.uk/sites/default/files/docs/libraries-and-archives/archives-and-local-studies/local-area-history/Sharrow%20community%20history%20v1-0.pdf",
+      "note": "谢菲尔德市档案记载当地Wilsons of Sharrow烟草业务。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 339,
+      "expectedName": "W.O. LARSEN",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.lepipe.it/de/Biography-WO%20Larsen",
+      "note": "同名品牌源于1864年哥本哈根店铺；目录中的Larsen与W.O.Larsen均采用此渊源，身份合并不在本规则中执行。",
+      "checkedAt": "2026-10-15"
+    },
+    {
+      "id": 340,
+      "expectedName": "Porter House",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "parent_brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1944/porter-house-double-mixture/",
+      "note": "Porter House为丹麦Orlik体系中的历史产品品牌，保留丹麦品牌渊源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 341,
+      "expectedName": "Wattson's",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1926/orlik-tobacco-company-as-wattsons-original-american-blend/",
+      "note": "Wattson’s为丹麦Orlik品牌体系，美国是调配风格而非品牌起源。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 342,
+      "expectedName": "Caminetto",
+      "expectedOldCountry": "待补充",
+      "country": "意大利",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.mpcmail.it/mpc/mpq/caminetto.htm",
+      "note": "意大利Cucciago的Ascorti/Radice创立的同名烟斗品牌，后来授权同名斗草。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 343,
+      "expectedName": "Astley's",
+      "expectedOldCountry": "待补充",
+      "country": "英国",
+      "basis": "brand_origin",
+      "sourceUrl": "https://pipedia.org/wiki/Astley%27s",
+      "note": "Astley’s为1862年伦敦Jermyn Street烟草商同名品牌；德国代工不改变历史归属。",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 344,
+      "expectedName": "Everton",
+      "expectedOldCountry": "待补充",
+      "country": "丹麦",
+      "basis": "brand_origin",
+      "sourceUrl": "https://www.tobaccoreviews.com/blend/1927/orlik-tobacco-company-as-everton/",
+      "note": "Everton为丹麦Orlik Tobacco Company的产品品牌；不因同名英国地名改列英国。",
+      "checkedAt": "2026-10-20"
+    }
+  ],
+  "review": [
+    {
+      "id": 17,
+      "reason": "英国Sasieni品牌历史、美国James B.Russell推出Balkan Sasieni斗草线与丹麦制造并存，目前证据不足以确认该独立斗草品牌的首次发源地。",
+      "sources": [
+        "https://pipesmagazine.com/blog/out-of-the-ashes/balkan-sobriety/",
+        "https://pipesmagazine.com/blog/pipe-tobacco-reviews/balkan-sasieni-pipe-tobacco-review/"
+      ],
+      "expectedName": "Balkan Sasieni",
+      "status": "review",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 236,
+      "reason": "找到历史Dixon & Hamilton Tobacco Suppliers商标主体和Burlington Blue Label资料，但品牌初始所在地未获足够独立证据；不将美国商标注册地或德国制造地直接当品牌发源地。",
+      "sources": [
+        "https://trademarks.justia.com/category/trademark/1966/december/6/",
+        "https://www.tobaccoreviews.com/blend/13600/dixon-amp-hamilton-burlington-blue-label/"
+      ],
+      "expectedName": "dixon and hamilton",
+      "status": "review",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 246,
+      "reason": "已确认英国渠道销售Fosters Shag系列，但没有可验证的创立主体与品牌历史；英国销售市场不足以证明英国发源地。",
+      "sources": [
+        "https://www.gqtobaccos.com/shag-pipe-tobacco/fosters-mixed-shag-tobacco-40g-pouch/",
+        "https://www.uktobacco.com/products/fosters-green-menthol-shag-tobacco-40g-pouch"
+      ],
+      "expectedName": "Fosters",
+      "status": "review",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": 284,
+      "reason": "历史渠道仍有McCormick Selection记录，TobaccoReviews将同系列国家列Unknown；德国进口商地址不能证明品牌发源地。",
+      "sources": [
+        "https://www.tobaccoreviews.com/blend/13068/mccormick-selection-mango/",
+        "https://www.cigarworld.de/tabak/pfeifentabak/mccormick-cherry-i-whiskey-selection-50g-90000464_7504"
+      ],
+      "expectedName": "McCormick",
+      "status": "review",
+      "checkedAt": "2026-10-20"
+    }
+  ]
+}

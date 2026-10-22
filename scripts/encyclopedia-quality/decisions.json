@@ -543,6 +543,15 @@
       "value": "ready-rubbed",
       "evidence": "同款两个来源标题/正文均明确预揉切，扩展标题明确Readdy Rubbed。",
       "expectedOld": "ribbon"
+    },
+    {
+      "id": "blendv3:fd98582ff371b816",
+      "field": "image",
+      "value": "assets/dunhill-dark-flake-cigarworld-33732.jpg",
+      "expectedOld": "assets/v31-d63b7606a0c2c079.webp",
+      "evidence": "旧主图罐面为Peterson，与Dunhill历史版本品牌不符；新图罐面Dunhill及Dark Flake均经目视核验。",
+      "source": "https://www.cigarworld.de/en/tabak/pfeifentabak/dunhill-pipes-pfeifentabak-dark-flake-50g-31000066_33732",
+      "imageSha256": "1d32e69c0f037119a80e9d702f38d605e60a95d0a0832cc498bf5e5030ee482c"
     }
   ],
   "seriesDisambiguation": [
