@@ -370058,11 +370058,11 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Product passed baseline public-readiness checks."
     },
     "price": {
@@ -370127,7 +370127,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -371345,6 +371345,128 @@
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
       "reason": "Product passed baseline public-readiness checks."
+    }
+  },
+  {
+    "id": "smokingpipes-169875",
+    "source": "smokingpipes",
+    "sourceProductId": "169875",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/Missourimeerschaum/moreinfo.cfm?product_id=169875",
+    "entityType": "offer",
+    "displayName": "Cobbit Shire Tobacco Pipe",
+    "displayNameEn": "Cobbit Shire Tobacco Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Cobbit Shire Tobacco Pipe",
+    "brand": {
+      "rawName": "Missouri Meerschaum",
+      "canonicalName": "Missouri Meerschaum",
+      "slug": "missouri-meerschaum",
+      "zhName": "密苏里海泡石",
+      "country": "United States",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Acorn/Pear",
+      "shapeSlug": "acorn-pear",
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Corn Cob",
+      "bowlMaterialSlug": "corn-cob",
+      "bowlMaterialZhName": "玉米芯",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "new",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "high",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 125,
+      "rawText": "$125",
+      "msrpAmount": 44.49,
+      "msrpRawText": "$44.49",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0022.4741.jpg",
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-543-0022.4741.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 200.66,
+      "heightMm": null,
+      "weightGrams": 39.69,
+      "chamberDepthMm": 36.07,
+      "chamberDiameterMm": 19.05,
+      "outsideDiameterMm": 40.13
+    },
+    "model": {
+      "canonicalModelKey": "missouri-meerschaum__series-cobbit-shire-tobacco-pipe__shape-acorn-pear",
+      "confidence": "medium"
+    },
+    "search": {
+      "brand": "Missouri Meerschaum",
+      "title": "Cobbit Shire Tobacco Pipe",
+      "keywords": [
+        "888-366-0345",
+        "Acorn/Pear",
+        "Other",
+        "Corn Cob",
+        "Acrylic",
+        "None",
+        "United States",
+        "其他",
+        "玉米芯",
+        "亚克力"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [
+        "estimatedCny",
+        "estimatedCnyValue",
+        "status",
+        "updatedAt",
+        "audience",
+        "comment",
+        "detail"
+      ],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -373330,7 +373452,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -373571,7 +373693,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -383021,12 +383143,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -383088,11 +383210,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -418697,7 +418819,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -437590,7 +437712,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -443371,7 +443493,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -452326,7 +452448,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -515116,7 +515238,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -521061,12 +521183,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -521130,11 +521252,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -526130,12 +526252,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -526203,11 +526325,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -533813,12 +533935,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -533883,11 +534005,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -547068,12 +547190,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -547138,11 +547260,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -550415,12 +550537,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -550486,11 +550608,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -551912,7 +552034,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -552162,7 +552284,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -552171,8 +552293,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 379.5,
-      "rawText": "$379.50",
+      "amount": 322.57,
+      "rawText": "$322.57",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -552785,12 +552907,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -552855,11 +552977,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -553655,7 +553777,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -560012,12 +560134,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -560083,11 +560205,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -561264,12 +561386,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -561334,11 +561456,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -561388,12 +561510,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -561458,11 +561580,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -561761,12 +561883,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -561831,11 +561953,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -562133,12 +562255,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -562203,11 +562325,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -565129,12 +565251,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -565199,11 +565321,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -567636,12 +567758,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
@@ -567706,11 +567828,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -609863,17 +609985,17 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     },
     "price": {
       "currency": "USD",
-      "amount": 165,
-      "rawText": "$165.00",
+      "amount": 151.3,
+      "rawText": "$151.30",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -609932,11 +610054,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes sold reference remains eligible for the public index."
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
     }
   },
   {
@@ -696599,12 +696721,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -696669,11 +696791,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -722702,12 +722824,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -722771,11 +722893,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -724557,12 +724679,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -724625,11 +724747,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -735286,7 +735408,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -774426,12 +774548,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -774495,11 +774617,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -797525,8 +797647,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 172,
+      "rawText": "$172.00",
       "msrpAmount": 215,
       "msrpRawText": "$215.00",
       "siteDisplayAmount": null,
@@ -819344,7 +819466,7 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
@@ -827336,12 +827458,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -827404,11 +827526,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -828082,8 +828204,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 131.6,
+      "rawText": "$131.60",
       "msrpAmount": 164.5,
       "msrpRawText": "$164.50",
       "siteDisplayAmount": null,
@@ -830654,12 +830776,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -830723,11 +830845,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -833846,12 +833968,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -833915,11 +834037,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -836793,12 +836915,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -836862,11 +836984,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -837408,12 +837530,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -837477,11 +837599,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -839499,12 +839621,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "full-list-present",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -839568,11 +839690,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -839622,12 +839744,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "needs-review",
-      "confidence": "conflicting-signals",
+      "status": "sold",
+      "confidence": "high",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
-      "reason": "Detail page says sold while the product remains in the active list range."
+      "reason": "Detail inventory status conflicts with the complete current-list snapshot."
     },
     "price": {
       "currency": "USD",
@@ -839683,8 +839805,7 @@
         "detail"
       ],
       "adapterWarnings": [
-        "image:missing",
-        "inventory:needs-review"
+        "image:missing"
       ]
     },
     "publication": {
@@ -839695,7 +839816,7 @@
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Detail page says sold while the product remains in the active list range."
+      "reason": "Detail inventory status conflicts with the complete current-list snapshot."
     }
   },
   {
@@ -841588,12 +841709,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -841657,11 +841778,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -849232,12 +849353,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -849302,11 +849423,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -922341,8 +922462,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -922464,8 +922585,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -922587,8 +922708,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -922710,8 +922831,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -922833,8 +922954,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -922956,8 +923077,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -923202,8 +923323,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 45,
+      "rawText": "$45.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1011238,8 +1011359,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 148,
+      "rawText": "$148.00",
       "msrpAmount": 185,
       "msrpRawText": "$185.00",
       "siteDisplayAmount": null,
@@ -1304443,12 +1304564,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "high",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "publiclySellable": false,
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     },
     "price": {
       "currency": "USD",
@@ -1304515,11 +1304636,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Smokingpipes product passed the shared public-readiness rule."
+      "reason": "Smokingpipes sold reference remains eligible for the public index."
     }
   },
   {
@@ -1419021,8 +1419142,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 405,
+      "rawText": "$405.00",
       "msrpAmount": 450,
       "msrpRawText": "$450.00",
       "siteDisplayAmount": null,
@@ -1423871,8 +1423992,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 427.5,
+      "rawText": "$427.50",
       "msrpAmount": 475,
       "msrpRawText": "$475.00",
       "siteDisplayAmount": null,
@@ -1449613,8 +1449734,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 150,
+      "rawText": "$150.00",
       "msrpAmount": 187.5,
       "msrpRawText": "$187.50",
       "siteDisplayAmount": null,
@@ -1455393,8 +1455514,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 138,
+      "rawText": "$138.00",
       "msrpAmount": 172.5,
       "msrpRawText": "$172.50",
       "siteDisplayAmount": null,
@@ -1590088,8 +1590209,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 212,
+      "rawText": "$212.00",
       "msrpAmount": 265,
       "msrpRawText": "$265.00",
       "siteDisplayAmount": null,
@@ -1590214,8 +1590335,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 344,
+      "rawText": "$344.00",
       "msrpAmount": 430,
       "msrpRawText": "$430.00",
       "siteDisplayAmount": null,
@@ -1608800,8 +1608921,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1652957,8 +1653078,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 130,
+      "rawText": "$130.00",
       "msrpAmount": 162.5,
       "msrpRawText": "$162.50",
       "siteDisplayAmount": null,
@@ -1696521,8 +1696642,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 136,
+      "rawText": "$136.00",
       "msrpAmount": 170,
       "msrpRawText": "$170.00",
       "siteDisplayAmount": null,
@@ -1702720,8 +1702841,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1706941,8 +1707062,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 240,
+      "rawText": "$240.00",
       "msrpAmount": 300,
       "msrpRawText": "$300.00",
       "siteDisplayAmount": null,
@@ -1721696,8 +1721817,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 130,
+      "rawText": "$130.00",
       "msrpAmount": 162.5,
       "msrpRawText": "$162.50",
       "siteDisplayAmount": null,
@@ -1757921,6 +1758042,132 @@
         "喷砂",
         "沼泽木",
         "亚克力"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [
+        "estimatedCny",
+        "estimatedCnyValue",
+        "status",
+        "updatedAt",
+        "audience",
+        "comment",
+        "detail"
+      ],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
+    }
+  },
+  {
+    "id": "smokingpipes-741164",
+    "source": "smokingpipes",
+    "sourceProductId": "741164",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/bruno-nuttens/moreinfo.cfm?product_id=741164",
+    "entityType": "offer",
+    "displayName": "Mini Bing Smooth (B4) (2026) Tobacco Pipe",
+    "displayNameEn": "Mini Bing Smooth (B4) (2026) Tobacco Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Mini Bing Smooth (B4) (2026) Tobacco Pipe",
+    "brand": {
+      "rawName": "Bruno Nuttens",
+      "canonicalName": "Bruno Nuttens",
+      "slug": "bruno-nuttens",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "new",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "high",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 125,
+      "rawText": "$125",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0647.4534.jpg",
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0647.4534.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0647_1.2785.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0647_2.3038.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-939-0647_3.5356.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 161.04,
+      "heightMm": null,
+      "weightGrams": 20.87,
+      "chamberDepthMm": 32.77,
+      "chamberDiameterMm": 18.03,
+      "outsideDiameterMm": 29.21
+    },
+    "model": {
+      "canonicalModelKey": "bruno-nuttens__model-b4__series-mini-bing-tobacco-pipe__shape-billiard",
+      "confidence": "high"
+    },
+    "search": {
+      "brand": "Bruno Nuttens",
+      "title": "Mini Bing Smooth (B4) (2026) Tobacco Pipe",
+      "keywords": [
+        "888-366-0345",
+        "Billiard",
+        "Smooth",
+        "Briar",
+        "Vulcanite",
+        "None",
+        "France",
+        "撞球斗",
+        "光面",
+        "石楠木",
+        "硫化橡胶"
       ]
     },
     "integration": {
@@ -1803657,8 +1803904,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 350,
+      "rawText": "$350.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1803784,8 +1804031,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 375,
+      "rawText": "$375.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1804296,8 +1804543,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 400,
+      "rawText": "$400.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1816366,8 +1816613,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 152,
+      "rawText": "$152.00",
       "msrpAmount": 190,
       "msrpRawText": "$190.00",
       "siteDisplayAmount": null,
@@ -1816490,8 +1816737,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 152,
+      "rawText": "$152.00",
       "msrpAmount": 190,
       "msrpRawText": "$190.00",
       "siteDisplayAmount": null,
@@ -1823678,8 +1823925,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 415,
+      "rawText": "$415.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1824308,8 +1824555,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 350,
+      "rawText": "$350.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1824434,8 +1824681,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 325,
+      "rawText": "$325.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1824560,8 +1824807,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 325,
+      "rawText": "$325.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1824938,8 +1825185,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 325,
+      "rawText": "$325.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1825823,8 +1826070,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 250,
+      "rawText": "$250.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1826201,8 +1826448,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 325,
+      "rawText": "$325.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1827444,8 +1827691,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 300,
+      "rawText": "$300.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1827696,8 +1827943,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 250,
+      "rawText": "$250.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1827820,8 +1828067,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 250,
+      "rawText": "$250.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1849088,6 +1849335,130 @@
     }
   },
   {
+    "id": "smokingpipes-742970",
+    "source": "smokingpipes",
+    "sourceProductId": "742970",
+    "sourceUrl": "https://www.smokingpipes.com/pipes/new/peterson/moreinfo.cfm?product_id=742970",
+    "entityType": "offer",
+    "displayName": "Irish Harp Sandblasted (608) Fishtail Tobacco Pipe",
+    "displayNameEn": "Irish Harp Sandblasted (608) Fishtail Tobacco Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Irish Harp Sandblasted (608) Fishtail Tobacco Pipe",
+    "brand": {
+      "rawName": "Peterson",
+      "canonicalName": "Peterson",
+      "slug": "peterson",
+      "zhName": "彼得森",
+      "country": "Ireland",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Pot",
+      "shapeSlug": "pot",
+      "shapeZhName": "罐式斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "new",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "high",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 125,
+      "rawText": "$125",
+      "msrpAmount": 195,
+      "msrpRawText": "$195.00",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148561.8954.jpg",
+      "gallery": [
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148561.8954.jpg",
+        "https://c647068.ssl.cf2.rackcdn.com/products/002-029-148561_1.3092.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 145.8,
+      "heightMm": null,
+      "weightGrams": 34.02,
+      "chamberDepthMm": 30.99,
+      "chamberDiameterMm": 21.59,
+      "outsideDiameterMm": 41.15
+    },
+    "model": {
+      "canonicalModelKey": "peterson__model-608__series-irish-harp-sandblasted-fishtail-tobacco__shape-pot",
+      "confidence": "high"
+    },
+    "search": {
+      "brand": "Peterson",
+      "title": "Irish Harp Sandblasted (608) Fishtail Tobacco Pipe",
+      "keywords": [
+        "888-366-0345",
+        "Pot",
+        "Sandblast",
+        "Briar",
+        "Acrylic",
+        "None",
+        "Ireland",
+        "罐式斗",
+        "喷砂",
+        "石楠木",
+        "亚克力"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [
+        "estimatedCny",
+        "estimatedCnyValue",
+        "status",
+        "updatedAt",
+        "audience",
+        "comment",
+        "detail"
+      ],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Smokingpipes product passed the shared public-readiness rule."
+    }
+  },
+  {
     "id": "smokingpipes-742971",
     "source": "smokingpipes",
     "sourceProductId": "742971",
@@ -1851388,8 +1851759,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 160,
+      "rawText": "$160.00",
       "msrpAmount": 200,
       "msrpRawText": "$200.00",
       "siteDisplayAmount": null,
@@ -1862940,8 +1863311,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 132,
+      "rawText": "$132.00",
       "msrpAmount": 165,
       "msrpRawText": "$165.00",
       "siteDisplayAmount": null,
@@ -1897006,8 +1897377,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 272,
+      "rawText": "$272.00",
       "msrpAmount": 340,
       "msrpRawText": "$340.00",
       "siteDisplayAmount": null,
@@ -1897132,8 +1897503,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 248,
+      "rawText": "$248.00",
       "msrpAmount": 310,
       "msrpRawText": "$310.00",
       "siteDisplayAmount": null,
@@ -1897258,8 +1897629,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 296,
+      "rawText": "$296.00",
       "msrpAmount": 370,
       "msrpRawText": "$370.00",
       "siteDisplayAmount": null,
@@ -1897388,8 +1897759,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 208,
+      "rawText": "$208.00",
       "msrpAmount": 260,
       "msrpRawText": "$260.00",
       "siteDisplayAmount": null,
@@ -1897514,8 +1897885,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 148,
+      "rawText": "$148.00",
       "msrpAmount": 185,
       "msrpRawText": "$185.00",
       "siteDisplayAmount": null,
@@ -1897763,8 +1898134,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 224,
+      "rawText": "$224.00",
       "msrpAmount": 280,
       "msrpRawText": "$280.00",
       "siteDisplayAmount": null,
@@ -1898015,8 +1898386,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 256,
+      "rawText": "$256.00",
       "msrpAmount": 320,
       "msrpRawText": "$320.00",
       "siteDisplayAmount": null,
@@ -1899759,8 +1900130,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1906736,8 +1907107,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 228,
+      "rawText": "$228.00",
       "msrpAmount": 285,
       "msrpRawText": "$285.00",
       "siteDisplayAmount": null,
@@ -1906863,8 +1907234,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 228,
+      "rawText": "$228.00",
       "msrpAmount": 285,
       "msrpRawText": "$285.00",
       "siteDisplayAmount": null,
@@ -1906990,8 +1907361,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 228,
+      "rawText": "$228.00",
       "msrpAmount": 285,
       "msrpRawText": "$285.00",
       "siteDisplayAmount": null,
@@ -1907117,8 +1907488,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 228,
+      "rawText": "$228.00",
       "msrpAmount": 285,
       "msrpRawText": "$285.00",
       "siteDisplayAmount": null,
@@ -1907244,8 +1907615,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 228,
+      "rawText": "$228.00",
       "msrpAmount": 285,
       "msrpRawText": "$285.00",
       "siteDisplayAmount": null,
@@ -1907371,8 +1907742,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 118,
+      "rawText": "$118.00",
       "msrpAmount": 147.5,
       "msrpRawText": "$147.50",
       "siteDisplayAmount": null,
@@ -1907495,8 +1907866,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 118,
+      "rawText": "$118.00",
       "msrpAmount": 147.5,
       "msrpRawText": "$147.50",
       "siteDisplayAmount": null,
@@ -1908239,8 +1908610,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 150,
+      "rawText": "$150.00",
       "msrpAmount": 187.5,
       "msrpRawText": "$187.50",
       "siteDisplayAmount": null,
@@ -1908363,8 +1908734,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 150,
+      "rawText": "$150.00",
       "msrpAmount": 187.5,
       "msrpRawText": "$187.50",
       "siteDisplayAmount": null,
@@ -1908487,8 +1908858,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 150,
+      "rawText": "$150.00",
       "msrpAmount": 187.5,
       "msrpRawText": "$187.50",
       "siteDisplayAmount": null,
@@ -1909844,8 +1910215,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 168,
+      "rawText": "$168.00",
       "msrpAmount": 210,
       "msrpRawText": "$210.00",
       "siteDisplayAmount": null,
@@ -1911207,8 +1911578,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 174,
+      "rawText": "$174.00",
       "msrpAmount": 217.5,
       "msrpRawText": "$217.50",
       "siteDisplayAmount": null,
@@ -1911951,8 +1912322,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 118,
+      "rawText": "$118.00",
       "msrpAmount": 147.5,
       "msrpRawText": "$147.50",
       "siteDisplayAmount": null,
@@ -1912696,8 +1913067,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 188,
+      "rawText": "$188.00",
       "msrpAmount": 235,
       "msrpRawText": "$235.00",
       "siteDisplayAmount": null,
@@ -1913319,8 +1913690,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 208,
+      "rawText": "$208.00",
       "msrpAmount": 260,
       "msrpRawText": "$260.00",
       "siteDisplayAmount": null,
@@ -1913571,8 +1913942,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 208,
+      "rawText": "$208.00",
       "msrpAmount": 260,
       "msrpRawText": "$260.00",
       "siteDisplayAmount": null,
@@ -1914577,8 +1914948,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 164,
+      "rawText": "$164.00",
       "msrpAmount": 205,
       "msrpRawText": "$205.00",
       "siteDisplayAmount": null,
@@ -1915693,8 +1916064,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 128,
+      "rawText": "$128.00",
       "msrpAmount": 160,
       "msrpRawText": "$160.00",
       "siteDisplayAmount": null,
@@ -1916440,8 +1916811,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 192,
+      "rawText": "$192.00",
       "msrpAmount": 240,
       "msrpRawText": "$240.00",
       "siteDisplayAmount": null,
@@ -1916686,8 +1917057,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 192,
+      "rawText": "$192.00",
       "msrpAmount": 240,
       "msrpRawText": "$240.00",
       "siteDisplayAmount": null,
@@ -1916809,8 +1917180,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 192,
+      "rawText": "$192.00",
       "msrpAmount": 240,
       "msrpRawText": "$240.00",
       "siteDisplayAmount": null,
@@ -1917058,8 +1917429,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 665.5,
+      "rawText": "$665.50",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1917309,8 +1917680,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 1117,
+      "rawText": "$1,117.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1917435,8 +1917806,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 760,
+      "rawText": "$760.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1917561,8 +1917932,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 550,
+      "rawText": "$550.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1917687,8 +1918058,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 405,
+      "rawText": "$405.00",
       "msrpAmount": 450,
       "msrpRawText": "$450.00",
       "siteDisplayAmount": null,
@@ -1917813,8 +1918184,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 405,
+      "rawText": "$405.00",
       "msrpAmount": 450,
       "msrpRawText": "$450.00",
       "siteDisplayAmount": null,
@@ -1917939,8 +1918310,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 670,
+      "rawText": "$670.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1918065,8 +1918436,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 795,
+      "rawText": "$795.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1918191,8 +1918562,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 710,
+      "rawText": "$710.00",
       "msrpAmount": null,
       "msrpRawText": null,
       "siteDisplayAmount": null,
@@ -1918317,8 +1918688,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 450,
+      "rawText": "$450.00",
       "msrpAmount": 500,
       "msrpRawText": "$500.00",
       "siteDisplayAmount": null,
@@ -1918443,8 +1918814,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 450,
+      "rawText": "$450.00",
       "msrpAmount": 500,
       "msrpRawText": "$500.00",
       "siteDisplayAmount": null,
@@ -1918569,8 +1918940,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 630,
+      "rawText": "$630.00",
       "msrpAmount": 700,
       "msrpRawText": "$700.00",
       "siteDisplayAmount": null,
@@ -1918821,8 +1919192,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 787.5,
+      "rawText": "$787.50",
       "msrpAmount": 875,
       "msrpRawText": "$875.00",
       "siteDisplayAmount": null,
@@ -1918946,8 +1919317,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 787.5,
+      "rawText": "$787.50",
       "msrpAmount": 875,
       "msrpRawText": "$875.00",
       "siteDisplayAmount": null,
@@ -1919072,8 +1919443,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 787.5,
+      "rawText": "$787.50",
       "msrpAmount": 875,
       "msrpRawText": "$875.00",
       "siteDisplayAmount": null,
@@ -1919198,8 +1919569,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 540,
+      "rawText": "$540.00",
       "msrpAmount": 600,
       "msrpRawText": "$600.00",
       "siteDisplayAmount": null,
@@ -1919324,8 +1919695,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 540,
+      "rawText": "$540.00",
       "msrpAmount": 600,
       "msrpRawText": "$600.00",
       "siteDisplayAmount": null,
@@ -1919454,8 +1919825,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 540,
+      "rawText": "$540.00",
       "msrpAmount": 600,
       "msrpRawText": "$600.00",
       "siteDisplayAmount": null,
@@ -1920952,8 +1921323,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1921076,8 +1921447,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1921200,8 +1921571,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1921450,8 +1921821,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1921574,8 +1921945,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1921698,8 +1922069,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1921822,8 +1922193,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1921946,8 +1922317,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1922318,8 +1922689,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1922690,8 +1923061,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 136,
+      "rawText": "$136.00",
       "msrpAmount": 170,
       "msrpRawText": "$170.00",
       "siteDisplayAmount": null,
@@ -1922938,8 +1923309,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1923062,8 +1923433,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1923186,8 +1923557,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1923310,8 +1923681,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1923434,8 +1923805,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1924308,8 +1924679,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 260,
+      "rawText": "$260.00",
       "msrpAmount": 325,
       "msrpRawText": "$325.00",
       "siteDisplayAmount": null,
@@ -1924434,8 +1924805,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 156,
+      "rawText": "$156.00",
       "msrpAmount": 195,
       "msrpRawText": "$195.00",
       "siteDisplayAmount": null,
@@ -1924806,8 +1925177,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 156,
+      "rawText": "$156.00",
       "msrpAmount": 195,
       "msrpRawText": "$195.00",
       "siteDisplayAmount": null,
@@ -1924930,8 +1925301,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1925054,8 +1925425,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1925178,8 +1925549,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1925426,8 +1925797,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 146,
+      "rawText": "$146.00",
       "msrpAmount": 182.5,
       "msrpRawText": "$182.50",
       "siteDisplayAmount": null,
@@ -1925550,8 +1925921,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1925674,8 +1926045,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1925798,8 +1926169,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1926046,8 +1926417,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1926170,8 +1926541,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1926294,8 +1926665,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1926418,8 +1926789,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 180,
+      "rawText": "$180.00",
       "msrpAmount": 225,
       "msrpRawText": "$225.00",
       "siteDisplayAmount": null,
@@ -1926666,8 +1927037,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 108,
+      "rawText": "$108.00",
       "msrpAmount": 135,
       "msrpRawText": "$135.00",
       "siteDisplayAmount": null,
@@ -1926790,8 +1927161,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 132,
+      "rawText": "$132.00",
       "msrpAmount": 165,
       "msrpRawText": "$165.00",
       "siteDisplayAmount": null,
@@ -1926913,8 +1927284,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 132,
+      "rawText": "$132.00",
       "msrpAmount": 165,
       "msrpRawText": "$165.00",
       "siteDisplayAmount": null,
@@ -1927036,8 +1927407,8 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 125,
-      "rawText": "$125",
+      "amount": 132,
+      "rawText": "$132.00",
       "msrpAmount": 165,
       "msrpRawText": "$165.00",
       "siteDisplayAmount": null,
