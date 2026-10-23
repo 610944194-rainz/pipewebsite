@@ -1929341,8 +1929341,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1944317,119 +1944317,6 @@
     }
   },
   {
-    "id": "gqtobaccos-24395",
-    "source": "gqtobaccos",
-    "sourceProductId": "24395",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-aran-rustic-06-fishtail-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - Aran Rustic 06 - Fishtail Pipe",
-    "displayNameEn": "Peterson - Aran Rustic 06 - Fishtail Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Aran Rustic 06 - Fishtail Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent",
-      "shapeSlug": "bent",
-      "shapeZhName": null,
-      "finish": "Rustic",
-      "finishSlug": "rustic",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Fishtail",
-      "stemMaterialSlug": "fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 69.99,
-      "rawText": "GBP 69.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24395/88914/fbsgfgdser__15574.1744126348.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24395/88914/fbsgfgdser__15574.1744126348.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24395/88914/fbsgfgdser__15574.1744126348.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 149,
-      "heightMm": 47,
-      "weightGrams": 42,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 36
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Aran Rustic 06 - Fishtail Pipe",
-      "keywords": [
-        "First appearing in 1965, the Aran has since become a staple of our Classic range, offering a variety of traditional, non-System Peterson shapes at an accessible price. The Aran Rusticated adds a rugged, masculine look to the series, distinguished by its craggy, hand-carved rustication and earthy walnut stain. Charles Peterson was armed with an imaginative flair and a craftsman&rsquo;s background when he took on the mission to make a better pipe. Inspired by his singular vision, Charles created the Peterson 'System' pipe in 1865 and together with brothers George and Fredrick Kapp, they pioneered a new standard of Pipes. Back in the 1890's these first patents would revolutionise the pipe-making world and transform a fledging idea into what's become the oldest continuously operating pipe-marker in the world. Peterson Pipes are a traditional shape with modern lines. Heritage and tradition are essential for the Peterson brand and their commitment to their origins results in world-class pipe making. The Peterson Pipes selection has something for everyone, from the Iconic System Range, the big Sherlock Holmes collection too 9mm filter pipes. Pipe Details Pipe Material : Briar Shape : Bent Finish : Rustic Colour : Brown Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 149 mm Bowl Height : 47 mm Pipe Width : 36 mm Chamber Width : 20 mm Pipe Weight : 42 grams",
-        "Briar",
-        "Bent",
-        "Rustic",
-        "Fishtail",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-24396",
     "source": "gqtobaccos",
     "sourceProductId": "24396",
@@ -1946761,120 +1946648,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25017",
-    "source": "gqtobaccos",
-    "sourceProductId": "25017",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/neerup-classic-series-gr-2-sandblast-billiard-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Neerup - Classic Series - Gr 2 - Sandblast Billiard - 9mm Filter Pipe",
-    "displayNameEn": "Neerup - Classic Series - Gr 2 - Sandblast Billiard - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Neerup - Classic Series - Gr 2 - Sandblast Billiard - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Neerup",
-      "canonicalName": "Neerup",
-      "slug": "neerup",
-      "zhName": "尼鲁普",
-      "country": "Denmark",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 105.99,
-      "rawText": "GBP 105.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25017/89892/uhiui__91408.1760023541.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25017/89892/uhiui__91408.1760023541.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25017/89892/uhiui__91408.1760023541.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25017/89893/9qy3w4wet3w__55073.1760023541.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 149,
-      "heightMm": 56,
-      "weightGrams": 54,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 47
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Neerup",
-      "title": "Neerup - Classic Series - Gr 2 - Sandblast Billiard - 9mm Filter Pipe",
-      "keywords": [
-        "Peder Jeppsen is the mastmind behind Neerup pipes, he started carving pipes as soon as he left school in 1977. Iniitally he worked with Karl Erik Ottendahl and after that he worked for almost 18 years with Erik Nording. In 2002 he set up his own workshop and started his own brand of pipes, Neerup. The Neerup workshop is in Denmark in a small villiage named Lejre, just half an hour&rsquo;s drive from Copenhagen. Lejre is famous for its beautiful landscape and for the many fascinating remains of Vikings and Stone Age settlements. Neerup pipes are made to the highest of quality and all have a Danish flare about them. All the Jeppesen pipes are one offs and the one you see in the pictures is the one you get. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 149mm Pipe Height :56 mm Pipe Width : 47 mm Chamber Width : 22mm Pipe Weight : 54grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Acrylic",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25030",
     "source": "gqtobaccos",
     "sourceProductId": "25030",
@@ -1948156,11 +1947929,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1948214,7 +1947987,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1951542,118 +1951315,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25814",
-    "source": "gqtobaccos",
-    "sourceProductId": "25814",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-churchwarden-smooth-404-dublin-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Churchwarden Smooth 404 - Dublin Pipe",
-    "displayNameEn": "Savinelli - Churchwarden Smooth 404 - Dublin Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Churchwarden Smooth 404 - Dublin Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight Billiard",
-      "shapeSlug": "straight-billiard",
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Saddle Ebonite (Vulcanite) (Fishtail)",
-      "stemMaterialSlug": "saddle-ebonite-vulcanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm Balsa Filters",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 114.99,
-      "rawText": "GBP 114.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25814/91384/erarg__21231.1791902371.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25814/91384/erarg__21231.1791902371.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25814/91384/erarg__21231.1791902371.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 260,
-      "heightMm": 47,
-      "weightGrams": 46,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 35
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Churchwarden Smooth 404 - Dublin Pipe",
-      "keywords": [
-        "Churchwarden is a pipe of many virtues. Thanks to the long section to go through, the smoke has all the necessary time to burn off the heat giving a very fresh smoke which no other standard pipe can offer. It is also very easy to smoke while busy in activities like reading or watching Tv. That's why it is sometime referred to as \"reading pipe\" or \"armchair pipe\". Thanks to the long acrylic tapered stem it is not necessary to raise your hand to take the pipe to your mouth. This feature makes the smoke particularly relaxing and comforting. Model 404 is a very particular model known in Italy with the name cornet, while abroad is called Zulu or Woodstock. The bowl is a typical conical Dublin, the shank is very thin with an elliptical shape. Pipe Details Pipe Material : Briar Shape : Straight Billiard Mouthpiece : Saddle Ebonite (Vulcanite) (Fishtail) Filter : 6mm Balsa Filters Dimensions Pipe Length :260mm Pipe Height : 47mm Pipe Width : 35mm Chamber Width : 20mm Pipe Weight : 46 grams",
-        "Briar",
-        "Straight Billiard",
-        "Saddle Ebonite (Vulcanite) (Fishtail)",
-        "6mm Balsa Filters"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
