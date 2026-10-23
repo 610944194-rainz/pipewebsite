@@ -702,12 +702,19 @@ export async function waitForSmokingpipesManualRecovery(
       const detection = await detectVerification(page);
       if (detection.verificationBlocked) continue;
 
-      await restoreTargetPage(page);
-      const confirmationDetection =
-        await detectVerification(page);
-      if (confirmationDetection.verificationBlocked) continue;
+      // A challenge may auto-redirect back to the normal List. Preserve that
+      // recovered page instead of navigating again and risking a new challenge.
+      let parsed = pageKind === "list"
+        ? await verifyNormalContent(page)
+        : null;
+      let confirmationDetection = detection;
+      if (parsed?.valid !== true) {
+        await restoreTargetPage(page);
+        confirmationDetection = await detectVerification(page);
+        if (confirmationDetection.verificationBlocked) continue;
+        parsed = await verifyNormalContent(page);
+      }
 
-      const parsed = await verifyNormalContent(page);
       if (parsed?.valid === true) {
         return {
           recovered: true,

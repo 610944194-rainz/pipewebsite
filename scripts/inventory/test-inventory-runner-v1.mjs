@@ -4087,6 +4087,47 @@ assert.equal(
 );
 
 recoveryClock = 0;
+// Reuse the real recovery helper offline: successful auto-redirects must not
+// navigate again; a still-blocked page must never be accepted.
+for (const scenario of [
+  { name: "list auto-redirect", kind: "list", validInitially: true, recovered: true, restores: 0 },
+  { name: "list restore required", kind: "list", validInitially: false, recovered: true, restores: 1 },
+  { name: "list strong verification", kind: "list", blocked: true, recovered: false, restores: 0 },
+  { name: "list invalid after restore", kind: "list", invalid: true, recovered: false, restores: 4 },
+  { name: "list restore triggers challenge", kind: "list", rechallenge: true, recovered: false, restores: 1 },
+  { name: "detail restore unchanged", kind: "detail", validInitially: true, recovered: true, restores: 1 },
+]) {
+  let clock = 0;
+  let restores = 0;
+  let parses = 0;
+  let challenged = Boolean(scenario.blocked);
+  const result = await waitForSmokingpipesManualRecovery(recoveryPage, {
+    pageKind: scenario.kind,
+    timeoutMs: 20,
+    pollMs: 5,
+    nowMs: () => clock,
+    wait: async () => { clock += 5; },
+    waitForEnter: false,
+    verbose: false,
+    detectVerification: async () => ({ verificationBlocked: challenged }),
+    restoreTargetPage: async () => {
+      restores += 1;
+      if (scenario.rechallenge || scenario.validInitially && scenario.kind === "list") challenged = true;
+    },
+    verifyNormalContent: async () => {
+      parses += 1;
+      return {
+        valid: !challenged && !scenario.invalid && (scenario.validInitially || restores > 0),
+        parsedValue: [{ sourceProductId: "100", sourceUrl: "https://example.invalid/100" }],
+      };
+    },
+  });
+  assert.equal(result.recovered, scenario.recovered, scenario.name);
+  assert.equal(restores, scenario.restores, `${scenario.name}: restore count`);
+  if (scenario.blocked) assert.equal(parses, 0, "strong verification must not parse/accept products");
+  if (scenario.recovered) assert.equal(result.parsedValue[0].sourceProductId, "100");
+  else assert.equal(result.timedOut, true, scenario.name);
+}
 const unrecoveredManualVerification =
   await waitForSmokingpipesManualRecovery(recoveryPage, {
     pageKind: "detail",
