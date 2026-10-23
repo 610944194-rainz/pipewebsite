@@ -2882,6 +2882,7 @@ async function waitForAgeLanguageGateDismissal(
   {
     requireList = true,
     timeoutMs = pageReadyTimeoutMs,
+    returnOnGate = false,
   } = {}
 ) {
   const deadline = Date.now() + timeoutMs;
@@ -2890,6 +2891,10 @@ async function waitForAgeLanguageGateDismissal(
 
   while (Date.now() < deadline) {
     lastState = await inspectAgeLanguageGateSafely(tab);
+
+    // The site can render its language modal after DOMContentLoaded. Return
+    // control to automatic selection instead of waiting behind that modal.
+    if (returnOnGate && lastState.gatePresent) return { ready: false, state: lastState };
 
     const listReady =
       !requireList ||
@@ -2928,7 +2933,7 @@ export async function ensureAgeLanguageGateHandled(
   // unattended jobs for manual input or allow a stuck CDP operation to hang.
   try {
     return await boundedPromise(handleAgeLanguageGateAutomatically(tab, options),
-      options.timeoutMs ?? 45000, "age-language-auto-selection");
+      options.timeoutMs ?? (pageReadyTimeoutMs + 45000), "age-language-auto-selection");
   } catch (error) {
     collectorLog("age-language-auto-selection-failed", { url: tab.url?.(), reason: String(error?.message || error) });
     await boundedPromise(Promise.resolve().then(() => tab.close()), 2000, "age-language-close").catch(() => {});
@@ -2944,14 +2949,16 @@ async function handleAgeLanguageGateAutomatically(
   } = {}
 ) {
   let state = await inspectAgeLanguageGateSafely(tab);
+  collectorLog("age-language-page-state", state);
 
   if (!state.gatePresent) {
     const readyResult = await waitForAgeLanguageGateDismissal(tab, {
       requireList,
       timeoutMs: pageReadyTimeoutMs,
+      returnOnGate: true,
     });
 
-    if (!readyResult.ready) {
+    if (!readyResult.ready && !readyResult.state?.gatePresent) {
       throw new Error(
         requireList
           ? "Danish page did not become ready after verification."
@@ -2959,11 +2966,15 @@ async function handleAgeLanguageGateAutomatically(
       );
     }
 
-    return {
-      detected: false,
-      selectedText: "",
-      automatic: false,
-    };
+    if (readyResult.ready) {
+      return {
+        detected: false,
+        selectedText: "",
+        automatic: false,
+      };
+    }
+    state = readyResult.state;
+    collectorLog("age-language-late-gate-detected", state);
   }
 
   console.log("[INFO] Danish age/language gate detected");

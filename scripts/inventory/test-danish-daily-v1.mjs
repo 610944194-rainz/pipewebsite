@@ -241,6 +241,19 @@ function readyListGateState(overrides = {}) {
   assert.deepEqual(calls.clicks, ["CLICK HERE TO CHOOSE ENGLISH"]);
 }
 
+// A modal injected after the first inspection must be clicked, not waited out.
+{
+  const loading = readyListGateState({ listContainerVisible: false, listItemCount: 0 });
+  const gate = readyListGateState({ gatePresent: true, chinesePresent: true, listContainerVisible: false, listItemCount: 0 });
+  const { page, calls } = ageLanguageGatePage([
+    loading, loading, gate, gate, gate, readyListGateState(), readyListGateState(),
+  ]);
+  const result = await ensureAgeLanguageGateHandled(page);
+  assert.equal(result.detected, true);
+  assert.equal(result.automatic, true);
+  assert.deepEqual(calls.clicks, ["请点击这里选择中文"]);
+}
+
 // A real evaluate failure is not classified as navigation and must be thrown immediately.
 {
   const { page, calls } = ageLanguageGatePage([
