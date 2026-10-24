@@ -1935211,11 +1935211,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1935273,7 +1935273,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1942609,8 +1942609,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1947883,118 +1947883,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25338",
-    "source": "gqtobaccos",
-    "sourceProductId": "25338",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/genod-brule-gueule-natural-briar-pipe/",
-    "entityType": "offer",
-    "displayName": "Genod - Brule- Gueule - Natural Briar Pipe",
-    "displayNameEn": "Genod - Brule- Gueule - Natural Briar Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Genod - Brule- Gueule - Natural Briar Pipe",
-    "brand": {
-      "rawName": "Genod",
-      "canonicalName": "Genod",
-      "slug": "genod",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Semi Bent",
-      "shapeSlug": "semi-bent",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 60.99,
-      "rawText": "GBP 60.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25338/90448/genod_natural_pipe_1__37318.1772118489.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 106,
-      "heightMm": 41,
-      "weightGrams": 38,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 32
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Genod",
-      "title": "Genod - Brule- Gueule - Natural Briar Pipe",
-      "keywords": [
-        "Genod briar dates back to the 1960s. The briar, particularly Algerian that we use, has been matured at least ten years after extraction, and up to more fifty years old. This explains the exceptional smoothness of their pipes. The 19th century family workshop is the oldest in the city and remains the essential place for visitors who wish to discover the making of a briar pipe. Pipe Details Pipe Material : Briar Shape : Semi Bent Finish : smooth Colour : Brown Filter : None Dimensions Pipe Length : 106mm Pipe Height : 41mm Pipe Width : 32mm Chamber Width : 20mm Pipe Weight : 38 grams",
-        "Briar",
-        "Semi Bent",
-        "smooth",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25343",
     "source": "gqtobaccos",
     "sourceProductId": "25343",
@@ -1951034,11 +1950922,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1951088,7 +1950976,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
