@@ -1934205,8 +1934205,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1935158,122 +1935158,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-15083",
-    "source": "gqtobaccos",
-    "sourceProductId": "15083",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-dry-system-621-rustic-6mm-filter/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Dry System 621 Rustic (6mm Filter)",
-    "displayNameEn": "Savinelli - Dry System 621 Rustic (6mm Filter)",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Dry System 621 Rustic (6mm Filter)",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight",
-      "shapeSlug": "straight",
-      "shapeZhName": null,
-      "finish": "Rustic",
-      "finishSlug": "rustic",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 87.99,
-      "rawText": "GBP 87.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/15083/70544/dry_system_621_rustic_photo_1__75911__03571__65572.1728567317.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70545/stem__19397__69096__04166.1728567317.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70546/dry_system_621_rustic_photo_3__64559__45141__05093.1728567317.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15083/70547/dry_system_621_rustic_photo_2__29861__01233__45595.1728567317.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 125,
-      "heightMm": 47,
-      "weightGrams": 46,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Dry System 621 Rustic (6mm Filter)",
-      "keywords": [
-        "New from Savinelli we have the Dry System, the dry system has been developed to stop wet smoking. Savinelli have developed a moisture trap which is similar to that of the Peterson standard system. The dry system is effective with or without the 6mm Balsa filter. As with all Savinelli pipes this is made from the finest Italian briar. The mouthpiece on these pipes is also different to normal Savinellis it almost like a wide P Lip. This mouthpiece give an even spread of the smoke and prevents tongue bite, it also stop juices entering the mouth via the stem. The result of all these innovations is an exception dry and smooth smoke. A pipe like this is definitely worth having in the collection as it allows you to enjoys tobaccos that in other pipes you may have found previously too harsh or damp. The pipe is also ideal for beginners. Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown / Black Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length :125mm Bowl Height : 47mm Bowl Width : 36 mm Chamber Width : 20 mm Pipe Weight : 46 grams",
-        "Briar",
-        "Straight",
-        "Rustic",
-        "Acrylic",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1939397,11 +1939281,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1939457,7 +1939341,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1942560,113 +1942444,6 @@
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-22911",
-    "source": "gqtobaccos",
-    "sourceProductId": "22911",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-coolway-6mm-filter-pipe-22/",
-    "entityType": "excluded-brand",
-    "displayName": "Falcon - Coolway - 6mm Filter Pipe - 22",
-    "displayNameEn": "Falcon - Coolway - 6mm Filter Pipe - 22",
-    "displayNameZh": null,
-    "rawTitle": "Falcon - Coolway - 6mm Filter Pipe - 22",
-    "brand": {
-      "rawName": "Falcon Pipes",
-      "canonicalName": "Falcon Pipes",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 34.99,
-      "rawText": "GBP 34.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22911/86400/oigseigh__80418__39575__63244.1728569774.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22911/86400/oigseigh__80418__39575__63244.1728569774.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Falcon Pipes",
-      "title": "Falcon - Coolway - 6mm Filter Pipe - 22",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Falcon is globally excluded before the detail queue."
     }
   },
   {
@@ -1950869,114 +1950646,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25811",
-    "source": "gqtobaccos",
-    "sourceProductId": "25811",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-pipe-of-the-year-2026-sandblast-p-lip/",
-    "entityType": "offer",
-    "displayName": "Peterson - Pipe of the Year 2026 - Sandblast - P Lip",
-    "displayNameEn": "Peterson - Pipe of the Year 2026 - Sandblast - P Lip",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Pipe of the Year 2026 - Sandblast - P Lip",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 145.99,
-      "rawText": "GBP 145.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25811/91381/eigh3egq__41862.1791900559.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25811/91381/eigh3egq__41862.1791900559.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25811/91381/eigh3egq__41862.1791900559.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 146,
-      "heightMm": 40,
-      "weightGrams": 65,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 45
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Pipe of the Year 2026 - Sandblast - P Lip",
-      "keywords": [
-        "Peterson&rsquo;s Pipe of the Year for 2026 commemorates 30 years of the marque&rsquo;s most anticipated annual series with a 493 Squat &ldquo;Cad&rdquo; Bulldog, inspired by one of Peterson&rsquo;s oldest and most distinctive shapes, appearing in catalogues as early as 1896. The Pipe of the Year is a celebration of the Irish marque&rsquo;s legacy and pipe-making prowess, and this edition features a broad, low-slung, horizontal bowl, its breadth and stoutness reflecting Peterson&rsquo;s characteristically muscular shaping aesthetic. Each piece is fitted with a patented P-Lip mouthpiece and a bright silver accent, honouring the Irish firm&rsquo;s celebrated engineering and silverwork. Individually serialised and limited to 1,100 pieces globally, the Pipe of the Year is dressed in various finishes and is available now in limited quantities. This pipe is 748/1100 Dimensions Pipe Length : 146mm Bowl Height : 40 mm Pipe Width : 45mm Chamber Width : 19 mm Pipe Weight : 65 grams"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
