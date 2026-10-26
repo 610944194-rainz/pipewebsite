@@ -1934205,8 +1934205,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -1939235,120 +1939235,6 @@
     }
   },
   {
-    "id": "gqtobaccos-21358",
-    "source": "gqtobaccos",
-    "sourceProductId": "21358",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-miele-670-rustic-brownblast-6mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Miele 670 - Rustic Brownblast - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Miele 670 - Rustic Brownblast - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Miele 670 - Rustic Brownblast - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Curved Dublin",
-      "shapeSlug": "curved-dublin",
-      "shapeZhName": null,
-      "finish": "Rustic brownblast",
-      "finishSlug": "rustic-brownblast",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Acrylic (Fishtail)",
-      "stemMaterialSlug": "tapered-acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm Baslsa Filters",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 124.99,
-      "rawText": "GBP 124.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21358/83647/miele_670__29316__31795__56974.1728569267.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21358/83647/miele_670__29316__31795__56974.1728569267.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/21358/83647/miele_670__29316__31795__56974.1728569267.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21358/83648/scatola_miele_4__22580__71404__07587__06387.1728569267.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 148,
-      "heightMm": 52,
-      "weightGrams": 53,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 17,
-      "outsideDiameterMm": 40
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Miele 670 - Rustic Brownblast - 6mm Filter Pipe",
-      "keywords": [
-        "Not much needs to be said about this pipe, every aspect from the packaging, to the tamper and of course the main show. A stunning squat Dublin, with a wide chamber and bowl. The oval shank follows through into the mouthpiece, with sports a gentle curve. An excellent example of the Savinelli attention to detail and exquisite quality. Ever since Archille Savinelli Jr opened his own factory in Italy back in 1958 the attention has alway been on high quality pipes. The Savienlli Miele(Honey) series is a great example of why the family run brand is one of the biggest selling in Italy. Made using beautiful flawless briar, with a highly polished golden (honey) finish. The Polymethyl Methacrylate (Acrylic) just finishes the pipe beautifully. If that wasn't enough of a Honey connection, the bowl is lightly seasoned with honey to a give a sweet smoke and also comes with a honey dipper tamper. A stunning example of why Savinelli not only produce their own pipes, but also now manufacture Stanwell and many other big names. The Miele pipes come in a display box with tamper, filters and a soft pipe bag. Other shapes may be available upon request Pipe Details Pipe Material : Briar Shape : Curved Dublin Finish : Rustic brownblast Colour : Golden Mouthpiece : Tapered Acrylic (Fishtail) Filter : 6mm Baslsa Filters Dimensions Pipe Length : 148mm Pipe Height : 52mm Pipe Width : 40mm Chamber Width : 17mm Pipe Weight : 53grams",
-        "Briar",
-        "Curved Dublin",
-        "Rustic brownblast",
-        "Tapered Acrylic (Fishtail)",
-        "6mm Baslsa Filters"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-21387",
     "source": "gqtobaccos",
     "sourceProductId": "21387",
@@ -1939939,11 +1939825,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1939997,7 +1939883,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1946243,11 +1946129,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1946303,7 +1946189,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1949703,11 +1949589,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1949760,7 +1949646,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
