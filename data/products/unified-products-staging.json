@@ -1929937,6 +1929937,113 @@
     }
   },
   {
+    "id": "gqtobaccos-13717",
+    "source": "gqtobaccos",
+    "sourceProductId": "13717",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-hunter-stem-bent-standard-fishtail-bit/",
+    "entityType": "excluded-brand",
+    "displayName": "Falcon Hunter Stem - Bent (Standard Bit)",
+    "displayNameEn": "Falcon Hunter Stem - Bent (Standard Bit)",
+    "displayNameZh": null,
+    "rawTitle": "Falcon Hunter Stem - Bent (Standard Bit)",
+    "brand": {
+      "rawName": "Falcon Pipes",
+      "canonicalName": "Falcon Pipes",
+      "slug": null,
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": false
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 27.5,
+      "rawText": "GBP 27.50",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13717/66633/Falcon_Hunter_Stem_Bent_Fishtail_2__66357__09520__81524.1728566797.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13717/66633/Falcon_Hunter_Stem_Bent_Fishtail_2__66357__09520__81524.1728566797.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Falcon Pipes",
+      "title": "Falcon Hunter Stem - Bent (Standard Bit)",
+      "keywords": []
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "brand:not-index-eligible"
+      ]
+    },
+    "publication": {
+      "status": "excluded",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "brandIndexEligible": false,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    }
+  },
+  {
     "id": "gqtobaccos-13718",
     "source": "gqtobaccos",
     "sourceProductId": "13718",
@@ -1934245,6 +1934352,113 @@
     "search": {
       "brand": "Falcon Pipes",
       "title": "Falcon - Coolway - 6mm Filter - 21",
+      "keywords": []
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "brand:not-index-eligible"
+      ]
+    },
+    "publication": {
+      "status": "excluded",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "brandIndexEligible": false,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    }
+  },
+  {
+    "id": "gqtobaccos-14385",
+    "source": "gqtobaccos",
+    "sourceProductId": "14385",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-coolway-6mm-filter-13/",
+    "entityType": "excluded-brand",
+    "displayName": "Falcon - Coolway - 6mm Filter - 13",
+    "displayNameEn": "Falcon - Coolway - 6mm Filter - 13",
+    "displayNameZh": null,
+    "rawTitle": "Falcon - Coolway - 6mm Filter - 13",
+    "brand": {
+      "rawName": "Falcon Pipes",
+      "canonicalName": "Falcon Pipes",
+      "slug": null,
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": false
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 34.99,
+      "rawText": "GBP 34.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14385/68754/coolway_13_1__88662__99322__27823.1728567121.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14385/68754/coolway_13_1__88662__99322__27823.1728567121.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Falcon Pipes",
+      "title": "Falcon - Coolway - 6mm Filter - 13",
       "keywords": []
     },
     "integration": {
@@ -1939779,118 +1939993,6 @@
     }
   },
   {
-    "id": "gqtobaccos-21790",
-    "source": "gqtobaccos",
-    "sourceProductId": "21790",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-monsieur-111-sandblast-6mm-filter/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
-    "displayNameEn": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Sandblast",
-      "finishSlug": "sandblast",
-      "finishZhName": "喷砂",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": 124.99,
-      "msrpRawText": "GBP 124.99",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/21790/84423/111_mon__29379__42737__05468.1728569407.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 150,
-      "heightMm": 51,
-      "weightGrams": 43,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 39
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Monsieur - 111 - Sandblast - 6mm Filter",
-      "keywords": [
-        "Every slow smoke lover cannot help having a sandblast pipe. Savinelli keeps this type of process only to carefully selected briar because of its typical streaks. The sand, literally shot at a high pressure onto the bowl, removes the softest material leaving in relief the most resistant parts of the wood. Model 645 KS belongs to Brandy style. The substantial full-bodied rounded bowl boasts a high and spacious burning chamber. The thick cylindrical shank ends with a classic black tapered stem decorated with two aluminum streaks. Monsieur series is equipped with a useful black, shiny pipe cap which preserves the unfinished smoke. Pipe Details Pipe Material : Briar Finish : Sandblast Colour : Brown Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 150mm Pipe Height : 51mm Pipe Width : 39mm Chamber Width : 20mm Pipe Weight : 43grams",
-        "Briar",
-        "Sandblast",
-        "Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-21850",
     "source": "gqtobaccos",
     "sourceProductId": "21850",
@@ -1942330,6 +1942432,113 @@
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-22911",
+    "source": "gqtobaccos",
+    "sourceProductId": "22911",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-coolway-6mm-filter-pipe-22/",
+    "entityType": "excluded-brand",
+    "displayName": "Falcon - Coolway - 6mm Filter Pipe - 22",
+    "displayNameEn": "Falcon - Coolway - 6mm Filter Pipe - 22",
+    "displayNameZh": null,
+    "rawTitle": "Falcon - Coolway - 6mm Filter Pipe - 22",
+    "brand": {
+      "rawName": "Falcon Pipes",
+      "canonicalName": "Falcon Pipes",
+      "slug": null,
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": false
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 34.99,
+      "rawText": "GBP 34.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22911/86400/oigseigh__80418__39575__63244.1728569774.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22911/86400/oigseigh__80418__39575__63244.1728569774.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Falcon Pipes",
+      "title": "Falcon - Coolway - 6mm Filter Pipe - 22",
+      "keywords": []
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "brand:not-index-eligible"
+      ]
+    },
+    "publication": {
+      "status": "excluded",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "brandIndexEligible": false,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Falcon is globally excluded before the detail queue."
     }
   },
   {
@@ -1946083,120 +1946292,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25014",
-    "source": "gqtobaccos",
-    "sourceProductId": "25014",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/neerup-classic-series-gr-2-sandblast-squat-dublin-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Neerup - Classic Series - Gr 2 - Sandblast Squat Dublin - 9mm Filter Pipe",
-    "displayNameEn": "Neerup - Classic Series - Gr 2 - Sandblast Squat Dublin - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Neerup - Classic Series - Gr 2 - Sandblast Squat Dublin - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Neerup",
-      "canonicalName": "Neerup",
-      "slug": "neerup",
-      "zhName": "尼鲁普",
-      "country": "Denmark",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 105.99,
-      "rawText": "GBP 105.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25014/89886/erfveguqiv__78126.1760022572.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25014/89886/erfveguqiv__78126.1760022572.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25014/89886/erfveguqiv__78126.1760022572.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25014/89887/newkvkjgewr__51945.1760022572.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 131,
-      "heightMm": 42,
-      "weightGrams": 48,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 53
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Neerup",
-      "title": "Neerup - Classic Series - Gr 2 - Sandblast Squat Dublin - 9mm Filter Pipe",
-      "keywords": [
-        "Peder Jeppsen is the mastmind behind Neerup pipes, he started carving pipes as soon as he left school in 1977. Iniitally he worked with Karl Erik Ottendahl and after that he worked for almost 18 years with Erik Nording. In 2002 he set up his own workshop and started his own brand of pipes, Neerup. The Neerup workshop is in Denmark in a small villiage named Lejre, just half an hour&rsquo;s drive from Copenhagen. Lejre is famous for its beautiful landscape and for the many fascinating remains of Vikings and Stone Age settlements. Neerup pipes are made to the highest of quality and all have a Danish flare about them. All the Jeppesen pipes are one offs and the one you see in the pictures is the one you get. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 131mm Pipe Height :42 mm Pipe Width : 53 mm Chamber Width : 22mm Pipe Weight : 48grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Acrylic",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25016",
     "source": "gqtobaccos",
     "sourceProductId": "25016",
@@ -1949536,117 +1949631,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25794",
-    "source": "gqtobaccos",
-    "sourceProductId": "25794",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/morgan-pipes-bones-bent-apple-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Morgan Pipes - Bones - Bent Apple - 9mm Filter Pipe",
-    "displayNameEn": "Morgan Pipes - Bones - Bent Apple - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Morgan Pipes - Bones - Bent Apple - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Morgan Pipes",
-      "canonicalName": "Morgan Pipes",
-      "slug": "morgan-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Apple",
-      "shapeSlug": "bent-apple",
-      "shapeZhName": "弯式苹果斗",
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 44.99,
-      "rawText": "GBP 44.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25794/91348/morgan_bones_bent_apple_pipe_9mm__74088.1789922962.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25794/91348/morgan_bones_bent_apple_pipe_9mm__74088.1789922962.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25794/91348/morgan_bones_bent_apple_pipe_9mm__74088.1789922962.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 133,
-      "heightMm": 41,
-      "weightGrams": 35,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 40
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Morgan Pipes",
-      "title": "Morgan Pipes - Bones - Bent Apple - 9mm Filter Pipe",
-      "keywords": [
-        "Bones is Morgan Pipes' economy line, launched in 2015. Developed from early conversations with the late Chris Chopin, the goal was to offer an affordable pipe that embraced flaws rather than hiding them with putty. Morgan wanted pits and imperfections to be seen as part of the pipe&rsquo;s unique character. Working with Italian partners, Chris Morgan discovered tens of thousands of forgotten stummels&mdash;originally destined for low-cost, heavily filled pipes&mdash;stored in old buildings on the historic Rossi campus in Northern Italy. These were repurposed to create the raw, honest look that defines the Bones line, which has since become one of the brand&rsquo;s most popular offerings. The pipe photographed may not be the pipe that you will receive as each one may have minor differences. Pipe Details Pipe Material : Briar Shape : Bent Apple Filter : 9mm Dimensions Pipe Length : 133 mm Bowl Height : 41 mm Pipe Width : 40 mm Chamber Width : 19 mm Pipe Weight : 35 grams",
-        "Briar",
-        "Bent Apple",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
