@@ -926,12 +926,26 @@ async function writeOutOfStockTailCache(
   );
 }
 
-async function waitForListProducts(page) {
+async function waitForListProducts(page, timeoutMs = 15000) {
   await page.waitForSelector(
     LIST_PRODUCT_SELECTOR,
-    { timeout: 15000 }
+    { timeout: timeoutMs }
   );
   await page.waitForTimeout(500);
+}
+
+function isTargetListPage(page, targetUrl) {
+  try {
+    const current = new URL(page.url());
+    const target = new URL(targetUrl);
+    return current.origin === target.origin &&
+      current.pathname === target.pathname &&
+      [...target.searchParams].every(([key, value]) =>
+        current.searchParams.get(key) === value
+      );
+  } catch {
+    return false;
+  }
 }
 
 async function gotoSmokingpipesListPageWithRetry({ page, url }) {
@@ -946,6 +960,15 @@ async function gotoSmokingpipesListPageWithRetry({ page, url }) {
       });
     } catch (error) {
       lastError = error;
+      // A navigation timeout/abort can leave a live challenge in this tab.
+      // Hand it to the passive wait below instead of restarting verification.
+      const detection = await detectSmokingpipesVerification(page, {
+        pageKind: "list",
+      });
+      if (detection.verificationBlocked ||
+          (isTargetListPage(page, url) && detection.reasons.productLinkCount > 0)) {
+        return null;
+      }
       if (retry === maxRetries) break;
 
       const retryDelayMs = randomDelayMs(2000, 5000);
@@ -1160,69 +1183,32 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
         await page.waitForTimeout(warmupDelayMs);
       }
 
-      const paginationDetection =
-        await detectSmokingpipesTotalPagesFromPage(page).catch(() => ({
-          detectedTotalPages: null,
-          detectionConfidence: "low",
-          paginationLinksFound: 0,
-          paginationMaxPageParam: null,
-        }));
-      detectionConfidence = paginationDetection.detectionConfidence || "low";
-      paginationLinksFound = Number(paginationDetection.paginationLinksFound || 0);
-      paginationMaxPageParam =
-        paginationDetection.paginationMaxPageParam ?? null;
-      if (
-        paginationDetection.detectedTotalPages &&
-        paginationDetection.detectedTotalPages !== detectedTotalPages
-      ) {
-        detectedTotalPages = paginationDetection.detectedTotalPages;
-        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
-          requestedMaxPages: maxPages,
-          expectedPages,
-          detectedTotalPages,
-          detectionConfidence,
-          paginationLinksFound,
-          paginationMaxPageParam,
-          startPage: pageNumber,
-          tailCache: outOfStockTailCache,
-          now: new Date().toISOString(),
-          tailCacheMaxAgeHours: nonNegativeInteger(
-            options.outOfStockTailCacheMaxAgeHours,
-            24
-          ),
-        });
-        effectiveMaxPages = adaptivePlan.effectiveLastPageToVisit;
-        firstOutOfStockOnlyPage = adaptivePlan.firstOutOfStockOnlyPage;
-        skippedOutOfStockTailPages =
-          adaptivePlan.skippedOutOfStockTailPages;
-        tailCacheUsed = adaptivePlan.tailCacheUsed;
-        tailCacheReason = adaptivePlan.tailCacheReason;
-        if (verbose) {
-          console.log(
-            `detected pagination total pages: ${detectedTotalPages}; effective last page: ${effectiveMaxPages}; tail cache: ${tailCacheReason}`
-          );
-        }
-      } else if (!detectedTotalPages) {
-        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
-          requestedMaxPages: maxPages,
-          expectedPages,
-          detectedTotalPages: 0,
-          detectionConfidence,
-          paginationLinksFound,
-          paginationMaxPageParam,
-          startPage: pageNumber,
-        });
-      }
-
-      const detection = await detectSmokingpipesVerification(page, {
+      let detection = await detectSmokingpipesVerification(page, {
         pageKind: "list",
         httpStatus: response?.status() || 0,
       });
 
+      // Automatic verification needs time in the same document even when
+      // interactive/manual verification is disabled.
+      const passiveWaitMs = detection.verificationBlocked ? 60000 : 15000;
+      const remainingMs = remainingDeadlineMs();
+      if (remainingMs !== null && remainingMs <= 0) {
+        await writeCurrentCheckpoint();
+        throw deadlineError("before list wait for", pageNumber);
+      }
       let waitError = null;
-      await waitForListProducts(page).catch((error) => {
+      await waitForListProducts(page,
+        remainingMs === null ? passiveWaitMs : Math.min(passiveWaitMs, remainingMs)
+      ).catch((error) => {
         waitError = error;
       });
+      if (deadlineExpired()) {
+        await writeCurrentCheckpoint();
+        throw deadlineError("after list wait for", pageNumber);
+      }
+      // The document may have changed while waiting; do not classify it using
+      // challenge signals captured before the automatic redirect.
+      detection = await detectSmokingpipesVerification(page, { pageKind: "list" });
       let extracted = await extractListProducts(page, url, "new").catch(
         () => []
       );
@@ -1264,6 +1250,7 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
                   : Math.min(manualVerificationTimeoutMs, remainingMs),
               verbose,
               restoreTargetPage: async (targetPage) => {
+                if (isTargetListPage(targetPage, url)) return;
                 await targetPage.goto(url, {
                   waitUntil: "domcontentloaded",
                   timeout: 60000,
@@ -1362,6 +1349,60 @@ export async function fetchSmokingpipesCurrentList(options = {}) {
           );
           throw error;
         }
+      }
+
+      const paginationDetection =
+        await detectSmokingpipesTotalPagesFromPage(page).catch(() => ({
+          detectedTotalPages: null,
+          detectionConfidence: "low",
+          paginationLinksFound: 0,
+          paginationMaxPageParam: null,
+        }));
+      detectionConfidence = paginationDetection.detectionConfidence || "low";
+      paginationLinksFound = Number(paginationDetection.paginationLinksFound || 0);
+      paginationMaxPageParam =
+        paginationDetection.paginationMaxPageParam ?? null;
+      if (
+        paginationDetection.detectedTotalPages &&
+        paginationDetection.detectedTotalPages !== detectedTotalPages
+      ) {
+        detectedTotalPages = paginationDetection.detectedTotalPages;
+        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
+          requestedMaxPages: maxPages,
+          expectedPages,
+          detectedTotalPages,
+          detectionConfidence,
+          paginationLinksFound,
+          paginationMaxPageParam,
+          startPage: pageNumber,
+          tailCache: outOfStockTailCache,
+          now: new Date().toISOString(),
+          tailCacheMaxAgeHours: nonNegativeInteger(
+            options.outOfStockTailCacheMaxAgeHours,
+            24
+          ),
+        });
+        effectiveMaxPages = adaptivePlan.effectiveLastPageToVisit;
+        firstOutOfStockOnlyPage = adaptivePlan.firstOutOfStockOnlyPage;
+        skippedOutOfStockTailPages =
+          adaptivePlan.skippedOutOfStockTailPages;
+        tailCacheUsed = adaptivePlan.tailCacheUsed;
+        tailCacheReason = adaptivePlan.tailCacheReason;
+        if (verbose) {
+          console.log(
+            `detected pagination total pages: ${detectedTotalPages}; effective last page: ${effectiveMaxPages}; tail cache: ${tailCacheReason}`
+          );
+        }
+      } else if (!detectedTotalPages) {
+        adaptivePlan = buildSmokingpipesAdaptiveScanPlan({
+          requestedMaxPages: maxPages,
+          expectedPages,
+          detectedTotalPages: 0,
+          detectionConfidence,
+          paginationLinksFound,
+          paginationMaxPageParam,
+          startPage: pageNumber,
+        });
       }
 
       if (extracted.length === 0) {
