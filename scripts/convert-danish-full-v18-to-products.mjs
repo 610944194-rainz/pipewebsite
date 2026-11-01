@@ -50,7 +50,7 @@ function dedupe(values) {
 }
 
 function getProductIdFromUrl(url) {
-  const match = String(url || "").match(/-i(\d+)\.html/i);
+  const match = String(url || "").match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i);
   return match ? Number(match[1]) : 0;
 }
 

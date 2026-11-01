@@ -26,9 +26,9 @@ function Invoke-FixtureGit {
 }
 
 function Assert-PreflightBlocked {
-    param([string]$RepositoryRoot, [string]$ExpectedPattern)
+    param([string]$RepositoryRoot, [string]$ExpectedPattern, [switch]$AllowCachedCode)
     try {
-        Invoke-DanishGitPreflight -RepositoryRoot $RepositoryRoot
+        Invoke-DanishGitPreflight -RepositoryRoot $RepositoryRoot -FetchRetryDelays @(0, 0) -AllowCachedCode:$AllowCachedCode
         throw "Expected git preflight to block $RepositoryRoot"
     }
     catch {
@@ -79,7 +79,8 @@ try {
     Invoke-DanishGitPreflight -RepositoryRoot $currentRoot
 
     Invoke-FixtureGit -RepositoryRoot $currentRoot -GitArguments @("remote", "set-url", "origin", "file:///fixture-fetch-unavailable") | Out-Null
-    $degraded = Invoke-DanishGitPreflight -RepositoryRoot $currentRoot -FetchRetryDelays @(0, 0)
+    Assert-PreflightBlocked -RepositoryRoot $currentRoot -ExpectedPattern "latest-code-required"
+    $degraded = Invoke-DanishGitPreflight -RepositoryRoot $currentRoot -FetchRetryDelays @(0, 0) -AllowCachedCode
     if (-not $degraded.gitSyncDegraded) {
         throw "Trusted clean cached main did not enter degraded mode"
     }
@@ -117,7 +118,7 @@ try {
     Assert-PreflightBlocked -RepositoryRoot $divergedRoot -ExpectedPattern "merge --ff-only origin/main failed"
 
     Invoke-FixtureGit -RepositoryRoot $divergedRoot -GitArguments @("remote", "set-url", "origin", "file:///fixture-fetch-unavailable") | Out-Null
-    Assert-PreflightBlocked -RepositoryRoot $divergedRoot -ExpectedPattern "cached main is unsafe"
+    Assert-PreflightBlocked -RepositoryRoot $divergedRoot -ExpectedPattern "cached main is unsafe" -AllowCachedCode
 
     Write-Output "Danish Git preflight fixture tests passed"
 }

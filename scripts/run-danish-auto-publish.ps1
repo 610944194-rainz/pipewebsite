@@ -5,6 +5,7 @@ param(
   [switch]$Daily,
   [switch]$Publish,
   [switch]$ShadowBotPreflightOnly,
+  [switch]$AllowCachedCode,
   [switch]$ShutdownAfterRun,
   [ValidateRange(30, 86400)]
   [int]$DailyTimeoutSeconds = 14400,
@@ -179,7 +180,8 @@ function Invoke-DanishGitPreflight {
     param(
         [Parameter(Mandatory = $true)]
         [string]$RepositoryRoot,
-        [int[]]$FetchRetryDelays = @(2, 5)
+        [int[]]$FetchRetryDelays = @(2, 5),
+        [switch]$AllowCachedCode
     )
 
     $runGit = {
@@ -231,6 +233,9 @@ function Invoke-DanishGitPreflight {
     }
 
     if (-not $fetchSucceeded) {
+        if (-not $AllowCachedCode) {
+            throw "git-preflight latest-code-required: fetch origin failed after 3 attempts; collector was not started. $($fetch.Output)"
+        }
         $cachedHead = & $runGit @("rev-parse", "HEAD")
         $cachedOrigin = & $runGit @("rev-parse", "origin/main")
         if ($cachedHead.ExitCode -ne 0 -or $cachedOrigin.ExitCode -ne 0) {
@@ -267,7 +272,7 @@ function Invoke-DanishGitPreflight {
 
     return [pscustomobject]@{
         gitSyncDegraded = $false
-        gitFetchAttempts = 1
+        gitFetchAttempts = $attempt
         gitFetchError = ""
         head = $head.Output
         cachedOriginMain = $upstream.Output
@@ -517,11 +522,12 @@ if ($ShadowBotPreflightOnly) {
     catch { Write-Warning "ShadowBot preflight-only failed; see launch log."; exit 1 }
 }
 
-if ($mode -in @("daily", "publish")) {
+if ($mode -in @("daily", "publish", "collect-only")) {
     $gitSyncDegraded = $false
     $gitSyncDegradedReason = ""
     try {
-        $gitPreflight = Invoke-DanishGitPreflight -RepositoryRoot $root
+        $gitPreflight = Invoke-DanishGitPreflight -RepositoryRoot $root -AllowCachedCode:$AllowCachedCode
+        Write-DanishSchedulerLaunchLog -EventName "git-sync-completed" -Details ($gitPreflight | ConvertTo-Json -Compress)
         $gitSyncDegraded = [bool]$gitPreflight.gitSyncDegraded
         if ($gitSyncDegraded) {
             $gitSyncDegradedReason = [string]$gitPreflight.gitFetchError
@@ -533,6 +539,7 @@ if ($mode -in @("daily", "publish")) {
     }
     catch {
         $preflightFailure = $_.Exception.Message
+        Write-DanishSchedulerLaunchLog -EventName "git-sync-failed" -Details $preflightFailure
         Write-Host "Danish Git preflight failed: $preflightFailure" -ForegroundColor Red
         Send-DanishPushDeer `
             -Title "Danish｜启动失败" `
@@ -565,7 +572,7 @@ if (-not $nodeCommand) {
   Write-DanishSchedulerLaunchLog -EventName "node-start-failed"
   throw "Node executable not found on PATH."
 }
-Write-DanishSchedulerLaunchLog -EventName "node-started"
+Write-DanishSchedulerLaunchLog -EventName "node-started" -Details "codeRevision=$($gitPreflight.head) mode=$mode"
 & node @arguments
 $nodeExitCode = $LASTEXITCODE
 

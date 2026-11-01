@@ -191,7 +191,7 @@ export function getDanishId(item) {
   const direct = compact(item?.sourceProductId || item?.id).replace(/^danish-/i, "");
   if (/^\d+$/.test(direct)) return direct;
   return compact(item?.sourceUrl || item?.href || item?.originalUrl)
-    .match(/-i(\d+)\.html/i)?.[1] || "";
+    .match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i)?.[1] || "";
 }
 
 function normalizedListUrl(value) {
@@ -270,7 +270,7 @@ function priceValuesEquivalent(listPrice, productionItem) {
 }
 
 function urlProductId(value) {
-  return compact(value).match(/-i(\d+)\.html/i)?.[1] || "";
+  return compact(value).match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i)?.[1] || "";
 }
 
 function getIdentityOrUrlAnomaly(listItem, productionItem) {
@@ -477,8 +477,30 @@ export function buildIncrementalDetailQueue({
     }
   }
 
+  // Migrate retired /img media gradually within the existing daily queue limit.
+  const queuedIds = new Set(products.map((item) => item.id));
+  const migrationLimit = Math.max(0, Math.min(100,
+    Math.floor(eligibleListCount * DETAIL_QUEUE_MAX_RATIO) - products.length,
+    reusedProductionCount - 1));
+  let mediaMigrationCount = 0;
+  for (const listItem of listProducts) {
+    if (mediaMigrationCount >= migrationLimit) break;
+    const id = getDanishId(listItem);
+    const old = productionById.get(id);
+    if (!old || queuedIds.has(id) || isFalcon(listItem) || isBpk32447(listItem) || nonPublicComponentIds.has(id)) continue;
+    if (!/^https:\/\/dps-media\.aperi\.io\//i.test(compact(listItem.imageUrl))) continue;
+    const images = [old.imageUrl, old.detailImageUrl, ...(old.galleryImages || [])];
+    if (!images.some((url) => /^https?:\/\/(?:www\.)?danishpipeshop\.com\/img\//i.test(compact(url)))) continue;
+    products.push({ id, name: compact(listItem.name), href: productListUrl(listItem),
+      url: productListUrl(listItem), reason: "storefront-media-migration" });
+    queuedIds.add(id);
+    mediaMigrationCount += 1;
+    reusedProductionCount -= 1;
+  }
+
   return {
     generatedAt,
+    mediaMigrationCount,
     listCount: listProducts.length,
     eligibleListCount,
     newCount,

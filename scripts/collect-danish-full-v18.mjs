@@ -7,6 +7,8 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 import { parsePipeCondition } from "./collect-danish-details-v16.mjs";
 
+import { collectModernDanishList, readModernDanishDetail, isModernDanishUrl, danishProductId } from "./lib/danish-modern-site.mjs";
+
 const defaultStartUrl = "https://www.danishpipeshop.com/l/-zh/Pipes1";
 const defaultListOutputPath = path.join(process.cwd(), "data", "danish-list-full.json");
 const defaultOutputPath = path.join(process.cwd(), "data", "danish-details-full.json");
@@ -744,7 +746,7 @@ function normalizeSlug(text) {
 }
 
 function getProductIdFromUrl(url) {
-  const match = String(url || "").match(/-i(\d+)\.html/i);
+  const match = String(url || "").match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i);
   return match ? match[1] : "";
 }
 
@@ -2481,13 +2483,13 @@ async function inspectVerificationPage(tab) {
     return {
       title,
       challenge,
-      hasListContainer: Boolean(document.querySelector("#list-container-inner")),
-      listItemCount: document.querySelectorAll("#list-container-inner .list-item").length,
+      hasListContainer: Boolean(document.querySelector("#list-container-inner, main article.product-card")),
+      listItemCount: document.querySelectorAll("#list-container-inner .list-item, main article.product-card").length,
     };
   });
     const url = tab.url();
     let danishHost = false;
-    try { danishHost = new URL(url).hostname.toLowerCase().endsWith("danishpipeshop.com"); } catch {}
+    try { danishHost = /^(?:www\.)?danishpipeshop\.(?:com|cn)$/.test(new URL(url).hostname.toLowerCase()); } catch {}
     return { ...state, url, danishHost };
   } catch (error) {
     const message = String(error?.message || error || "").toLowerCase();
@@ -3498,7 +3500,7 @@ async function clickLoadMoreAndWait(tab, beforeCount) {
 
   if (loadMoreDelayMs > 0) {
     await tab.waitForFunction(
-      (count) => document.querySelectorAll("#list-container-inner .list-item").length > count,
+      (count) => document.querySelectorAll("#list-container-inner .list-item, main article.product-card").length > count,
       beforeCount,
       { timeout: loadMoreDelayMs }
     ).catch(() => {});
@@ -3652,6 +3654,14 @@ async function discoverProducts(context, options = {}) {
       );
     }
 
+    if (isModernDanishUrl(tab.url())) {
+      const modern = await collectModernDanishList(tab, { targetCount, minimumExpectedCount,
+        maxPages: readIntegerEnv("DANISH_MODERN_MAX_LIST_PAGES", 200, { min: 1 }), log: collectorLog,
+        recoverPage: (targetUrl) => ensureManualVerificationIfNeeded(tab, { targetUrl, requireList: true }),
+      });
+      lastListIntegrityReport = modern.report;
+      return modern.products;
+    }
     await ensureAgeLanguageGateHandled(tab, {
       requireList: true,
     });
@@ -4179,6 +4189,16 @@ async function collectDetail(context, product, index) {
       throw new Error("Robot / verification page remained during detail collection.");
     }
 
+    if (isModernDanishUrl(tab.url())) {
+      const normalizedDetail = await readModernDanishDetail(tab, product.href);
+      Object.assign(normalizedDetail, parsePipeCondition([
+        { source: "title", text: normalizedDetail.title },
+        { source: "specsText", text: normalizedDetail.specsText.join("\n") },
+        { source: "description", text: normalizedDetail.description },
+      ]));
+      return normalizeProductOutput({ product: { ...product, href: normalizedDetail.sourceUrl }, normalizedDetail,
+        stableFieldReport: buildStableFieldReport(normalizedDetail), extra: { detailPageUrl: tab.url() } });
+    }
     await ensureAgeLanguageGateHandled(tab, {
       requireList: false,
     });
@@ -4552,9 +4572,7 @@ function buildListOutputPayload({
 }) {
   const invalidLinkCount = products.filter(
     (product) =>
-      !/\/d\/(?:-zh\/)?.*-i\d+\.html(?:[?#].*)?$/i.test(
-        product.href || ""
-      )
+      !danishProductId(product.href)
   ).length;
 
   const dedupedCount = new Set(
