@@ -1929224,11 +1929224,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1929287,7 +1929287,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1931064,6 +1931064,123 @@
     }
   },
   {
+    "id": "gqtobaccos-13777",
+    "source": "gqtobaccos",
+    "sourceProductId": "13777",
+    "sourceUrl": "https://www.gqtobaccos.com/john-brumfit-great-british-classics-canadian/",
+    "entityType": "offer",
+    "displayName": "John Brumfit - Great British Classics \"Canadian\"",
+    "displayNameEn": "John Brumfit - Great British Classics \"Canadian\"",
+    "displayNameZh": null,
+    "rawTitle": "John Brumfit - Great British Classics \"Canadian\"",
+    "brand": {
+      "rawName": "John Brumfit",
+      "canonicalName": "John Brumfit",
+      "slug": "john-brumfit",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Canadian",
+      "shapeSlug": "canadian",
+      "shapeZhName": "加拿大斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialSlug": "tapered-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 42.99,
+      "rawText": "GBP 42.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66836/IMG_0953__01482__67628__00223.1728566829.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66836/IMG_0953__01482__67628__00223.1728566829.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13777/66836/IMG_0953__01482__67628__00223.1728566829.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66837/IMG_0954__78967__76648__71688.1728566829.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66838/IMG_0956__95495__38612__04083.1728566829.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66839/IMG_0955__24554__57600__88916.1728566829.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13777/66840/IMG_0958__25042__09306__04329.1728566829.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 145,
+      "heightMm": 41,
+      "weightGrams": 37,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 30
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "John Brumfit",
+      "title": "John Brumfit - Great British Classics \"Canadian\"",
+      "keywords": [
+        "The long oval shank gives the Canadian its distinguishing shape. Highly favoured among Virginia smokers, along with the Liverpool variation. The longer shank allows for a little cooling of the tobacco and allows the smoker to sup slowly. The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Canadian Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 145mm Pipe Height : 41mm Pipe Width : 30mm Chamber Width : 18mm Chamber Depth : 40mm Pipe Weight : 37grams",
+        "Briar",
+        "Canadian",
+        "Smooth",
+        "Tapered (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-13801",
     "source": "gqtobaccos",
     "sourceProductId": "13801",
@@ -1932036,11 +1932153,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1932098,7 +1932215,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
