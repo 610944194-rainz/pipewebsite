@@ -1929178,123 +1929178,6 @@
     }
   },
   {
-    "id": "gqtobaccos-13636",
-    "source": "gqtobaccos",
-    "sourceProductId": "13636",
-    "sourceUrl": "https://www.gqtobaccos.com/savinelli-roma-128-6mm/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Roma 128 - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Roma 128 - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Roma 128 - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Rusticated with smooth Rim",
-      "finishSlug": "rusticated-with-smooth-rim",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Ebonite (Vulcanite) (Fishtail)",
-      "stemMaterialSlug": "tapered-ebonite-vulcanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm Balsa Filters",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 89,
-      "rawText": "GBP 89.00",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66468/IMG_0225__02109__97505__59364.1728566765.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66468/IMG_0225__02109__97505__59364.1728566765.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13636/66468/IMG_0225__02109__97505__59364.1728566765.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66469/IMG_0209__01729__08014__98716.1728566765.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66470/IMG_0208__17358__77537__96721.1728566765.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66471/IMG_0211__67608__78964__42984.1728566765.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13636/66472/IMG_0212__43427__74107__46112.1728566765.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 145,
-      "heightMm": 48,
-      "weightGrams": 39,
-      "chamberDepthMm": 40,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 33
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Roma 128 - 6mm Filter Pipe",
-      "keywords": [
-        "An eye catching and well proportioned Billiard. The Roma are very good looking pipes in the Savinelli range, classic shapes with a deep rusticated finish. Made from Mediterranean briar these pipes are all solid and well made. The bowl is stained black and given a light polish, the rim however is stained a deep red, for a great contrasting look. Like most of the Savinelli pipes, the Roma make use of the 6mm Balsa filter, inside an Ebonite, tapered stem. Other shapes may be available upon request Pipe Details Pipe Material : Briar Shape : Billiard Finish : Rusticated with smooth Rim Colour : Black & Red (rim) Mouthpiece : Tapered Ebonite (Vulcanite) (Fishtail) Filter : 6mm Balsa Filters Dimensions Pipe Length :145mm Pipe Height : 48mm Pipe Width : 33mm Chamber Width : 20mm Chamber Depth : 40mm Pipe Weight : 39 grams",
-        "Briar",
-        "Billiard",
-        "Rusticated with smooth Rim",
-        "Tapered Ebonite (Vulcanite) (Fishtail)",
-        "6mm Balsa Filters"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-13681",
     "source": "gqtobaccos",
     "sourceProductId": "13681",
@@ -1932100,122 +1931983,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-14043",
-    "source": "gqtobaccos",
-    "sourceProductId": "14043",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-general-curved/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - General (Straight)",
-    "displayNameEn": "Missouri Meerschaum - General (Straight)",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - General (Straight)",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Chimney",
-      "shapeSlug": "chimney",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Corn Cob",
-      "bowlMaterialSlug": "corn-cob",
-      "bowlMaterialZhName": "玉米芯",
-      "stemMaterial": "Tapered with Fishtail (Plastic)",
-      "stemMaterialSlug": "tapered-with-fishtail-plastic",
-      "stemMaterialZhName": null,
-      "filter": "6mm (not included)",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 14.49,
-      "rawText": "GBP 14.49",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14043/67770/MM_Corn_Cob_General_2__15880__83937__08234.1728566976.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67771/MM_Corn_Cob_General_4__14840__87700__07019.1728566976.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67772/MM_Corn_Cob_General_3__55029__60895__80719.1728566976.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14043/67773/MM_Corn_Cob_General_1__72382__67024__77386.1728566976.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 146,
-      "heightMm": 74,
-      "weightGrams": 63,
-      "chamberDepthMm": 50,
-      "chamberDiameterMm": 21,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - General (Straight)",
-      "keywords": [
-        "The General offers the largest chamber in all of the standard Missouri Meerschaum range. You could consider this as the smaller brother to the General MacArthur, the short shank makes it easier to smoke hand free. The smooth finish is achieved by first sealing the cob, sanding smooth and given a polished surface. Unlike the cheaper cobs, the General is fitted with a longer lasting hardwood plug and can be used with or without 6mm filters (not included) Corn cobs have a slightly bad reputation, they are seen as the disposable pipe. A cheap alternative to briar and therefore inferior too, but thats not fair at all. The Missouri Meerschaum pipes are made by hand, using specifically bread corn. The porous husk allows for a dryer smoke, absorbing the moisture and like Clay & Meerschaum smokes very cool. Unlike Briar and other wooden pipes, a carbon cake is not required. The first few smokes have a sweet, nutty taste but after that the pipe holds no background flavours and always gives a pure taste to the tobacco. Many blenders (our self's included) use Missouri Meerschaum Corn Cob pipes to sample blends, for the neutral taste. Read our Interview with Bob \"Knightdor\" Carter (MM Corn Cob Advocate) Pipe Details Pipe Material : Corn Cob Shape : Chimney Finish : Smooth Colour : Natural Mouthpiece : Tapered with Fishtail (Plastic) Filter : 6mm (not included) Dimensions Pipe Length : 146mm Pipe Height : 74mm Pipe Width : 38mm Chamber Width : 21mm Chamber Depth : 50mm Weight : 63grams *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight.",
-        "Corn Cob",
-        "Chimney",
-        "Smooth",
-        "Tapered with Fishtail (Plastic)",
-        "6mm (not included)"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1939053,11 +1938820,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1939113,7 +1938880,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1945467,11 +1945234,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1945526,7 +1945293,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
