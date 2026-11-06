@@ -1934690,6 +1934690,121 @@
     }
   },
   {
+    "id": "gqtobaccos-15021",
+    "source": "gqtobaccos",
+    "sourceProductId": "15021",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-338-donegal-rocky/",
+    "entityType": "offer",
+    "displayName": "Peterson - 338 - Donegal Rocky",
+    "displayNameEn": "Peterson - 338 - Donegal Rocky",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - 338 - Donegal Rocky",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "bent",
+      "shapeSlug": "bent",
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialSlug": "fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 78.99,
+      "rawText": "GBP 78.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15021/70319/donegal_rocky_338_photo_1__20716__93385__48334.1728567298.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15021/70319/donegal_rocky_338_photo_1__20716__93385__48334.1728567298.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/15021/70319/donegal_rocky_338_photo_1__20716__93385__48334.1728567298.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15021/70320/donegal_rocky_338_photo_2__97308__85817__91471.1728567298.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15021/70321/donegal_rocky_338_phto_3__28440__30804__80065.1728567298.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 135,
+      "heightMm": 43.5,
+      "weightGrams": 44,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 30.3
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - 338 - Donegal Rocky",
+      "keywords": [
+        "The Peterson Donegal Rocky Pipes are a fantastic range and one of the best selling lines of Peterson's. They have a rustic red/black finish with a nice Nickel band and a fishtail stem. A cracking smoke at a great price! Not to be missed!! Pipe Details Pipe Material : Briar Shape : bent Finish : Rustic Colour : Brown/Red/Black Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 135 mm Bowl Height : 43.5 mm Pipe Width : 30.3 mm Chamber Width : 17 mm Pipe Weight : 44 grams",
+        "Briar",
+        "bent",
+        "Rustic",
+        "Fishtail",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-15059",
     "source": "gqtobaccos",
     "sourceProductId": "15059",
@@ -1937132,11 +1937247,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1937193,7 +1937308,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1937884,6 +1937999,120 @@
     }
   },
   {
+    "id": "gqtobaccos-18055",
+    "source": "gqtobaccos",
+    "sourceProductId": "18055",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-derry-rustic-999-9mm-filter-bent-bulldog-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Derry Rustic 999 - 9mm Filter Bent Bulldog Pipe",
+    "displayNameEn": "Peterson - Derry Rustic 999 - 9mm Filter Bent Bulldog Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Derry Rustic 999 - 9mm Filter Bent Bulldog Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent",
+      "shapeSlug": "bent",
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialSlug": "fishtail",
+      "stemMaterialZhName": null,
+      "filter": "9mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 78.99,
+      "rawText": "GBP 78.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18055/77424/derry_999_1__50314__42106__77909.1728568171.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18055/77424/derry_999_1__50314__42106__77909.1728568171.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18055/77424/derry_999_1__50314__42106__77909.1728568171.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18055/77425/derry_999_2__79437__28195__95869.1728568171.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 143,
+      "heightMm": 40,
+      "weightGrams": 44,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 42
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Derry Rustic 999 - 9mm Filter Bent Bulldog Pipe",
+      "keywords": [
+        "The Derry Rustic range has a dark brown rustic finish and a nickel mount which is paired with the light coffee two tone stem. The stem has a marble effect and a fishtail mouthpiece. This pipe as a 9mm filter. Pipe Details Pipe Material : Briar Shape : Bent Finish : Rustic Colour : Brown Mouthpiece : Fishtail Filter : 9mm Dimensions Pipe Length : 143mm Bowl Height : 40 mm Pipe Width : 42 mm Chamber Width : 19 mm Pipe Weight : 44 grams",
+        "Briar",
+        "Bent",
+        "Rustic",
+        "Fishtail",
+        "9mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-18059",
     "source": "gqtobaccos",
     "sourceProductId": "18059",
@@ -1937976,6 +1938205,120 @@
         "The Derry Rustic range has a dark brown rustic finish and a nickel mount which is paired with the light coffee two tone stem. The stem has a marble effect and a fishtail mouthpiece. This pipe as a 9mm filter. Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown Mouthpiece : Fishtail Filter : 9mm Dimensions Pipe Length : 154 mm Bowl Height : 47 mm Pipe Width : 36 mm Chamber Width : 20 mm Pipe Weight : 37 grams",
         "Briar",
         "Straight",
+        "Rustic",
+        "Fishtail",
+        "9mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-18060",
+    "source": "gqtobaccos",
+    "sourceProductId": "18060",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-derry-rustic-03-9mm-filter-bent-apple-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Derry Rustic 03 - 9mm Filter Bent Apple Pipe",
+    "displayNameEn": "Peterson - Derry Rustic 03 - 9mm Filter Bent Apple Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Derry Rustic 03 - 9mm Filter Bent Apple Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent",
+      "shapeSlug": "bent",
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialSlug": "fishtail",
+      "stemMaterialZhName": null,
+      "filter": "9mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 78.99,
+      "rawText": "GBP 78.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18060/77434/derry_03_2__58031__42521__10449.1728568172.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18060/77434/derry_03_2__58031__42521__10449.1728568172.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18060/77434/derry_03_2__58031__42521__10449.1728568172.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18060/77435/derry_03_1__27452__82615__06328.1728568172.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 138,
+      "heightMm": 40,
+      "weightGrams": 41,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 38
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Derry Rustic 03 - 9mm Filter Bent Apple Pipe",
+      "keywords": [
+        "The Derry Rustic range has a dark brown rustic finish and a nickel mount which is paired with the light coffee two tone stem. The stem has a marble effect and a fishtail mouthpiece. This pipe as a 9mm filter. Pipe Details Pipe Material : Briar Shape : Bent Finish : Rustic Colour : Brown Mouthpiece : Fishtail Filter : 9mm Dimensions Pipe Length : 138 mm Bowl Height : 40 mm Pipe Width : 38 mm Chamber Width : 18 mm Pipe Weight : 41 grams",
+        "Briar",
+        "Bent",
         "Rustic",
         "Fishtail",
         "9mm"
@@ -1946303,11 +1946646,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1946361,7 +1946704,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1950601,11 +1950944,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1950655,7 +1950998,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1951314,6 +1951657,232 @@
       "keywords": [
         "This refined pipe showcases a rich, mahogany-toned sandblasted finish that highlights the briar&rsquo;s natural grain, complemented by an ivory-marbled acrylic stem and a tasteful brass-and-acrylic accent band. Built for adaptable use, it&rsquo;s equipped with a 9mm filter and also includes an adapter for those who enjoy an unrestricted draw. Offering a smooth, relaxing smoking experience and plenty of display appeal, the Christmas Pipe 2025 makes a perfect companion for chilly winter nights and a memorable addition to any enthusiast&rsquo;s collection. Specifications: Dimensions: 147 mm (L) x 56 mm (H) Chamber Diameter: 21 mm Weight: 50 g Mouthpiece Material: Acrylic Filter: 9 mm filter pipe (includes adapter and metal system)",
         "9 mm filter pipe (includes adapter and metal system)"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25230",
+    "source": "gqtobaccos",
+    "sourceProductId": "25230",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-derry-rustic-05-9mm-filter-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Derry Rustic - 05 - 9mm Filter Pipe",
+    "displayNameEn": "Peterson - Derry Rustic - 05 - 9mm Filter Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Derry Rustic - 05 - 9mm Filter Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent",
+      "shapeSlug": "bent",
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialSlug": "fishtail",
+      "stemMaterialZhName": null,
+      "filter": "9mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 78.99,
+      "rawText": "GBP 78.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25230/90477/lknblkdf__01288.1773241458.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25230/90477/lknblkdf__01288.1773241458.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25230/90477/lknblkdf__01288.1773241458.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 125,
+      "heightMm": 39,
+      "weightGrams": 47,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Derry Rustic - 05 - 9mm Filter Pipe",
+      "keywords": [
+        "The Derry Rustic range has a dark brown rustic finish and a nickel mount which is paired with the light coffee two tone stem. The stem has a marble effect and a fishtail mouthpiece. This pipe as a 9mm filter. Pipe Details Pipe Material : Briar Shape : Bent Finish : Rustic Colour : Brown Mouthpiece : Fishtail Filter : 9mm Dimensions Pipe Length : 125 mm Bowl Height : 39 mm Pipe Width : 40mm Chamber Width : 20mm Pipe Weight : 47 grams",
+        "Briar",
+        "Bent",
+        "Rustic",
+        "Fishtail",
+        "9mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25233",
+    "source": "gqtobaccos",
+    "sourceProductId": "25233",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-xl90-donegal-rocky-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
+    "displayNameEn": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Straight",
+      "shapeSlug": "straight",
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Fishtail",
+      "stemMaterialSlug": "fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 68.99,
+      "rawText": "GBP 68.99",
+      "msrpAmount": 76.5,
+      "msrpRawText": "GBP 76.50",
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 142,
+      "heightMm": 53,
+      "weightGrams": 72,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
+      "keywords": [
+        "The Peterson Donegal Rocky Pipes are a fantastic range and one of the best selling lines of Peterson's. They have a rustic red/black finish with a nice Nickel band and a fishtail stem. A cracking smoke at a great price! Not to be missed!! Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown/Red/Black Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 142mm Bowl Height : 53 mm Pipe Width : 41 mm Chamber Width : 20mm Pipe Weight : 72 grams",
+        "Briar",
+        "Straight",
+        "Rustic",
+        "Fishtail",
+        "None"
       ]
     },
     "integration": {
@@ -1952905,113 +1953474,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25653",
-    "source": "gqtobaccos",
-    "sourceProductId": "25653",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-big-boy-blue-mouthpiece-corn-cob-pipe/",
-    "entityType": "component",
-    "displayName": "Missouri Meerschaum - Big Boy - Blue Mouthpiece - Corn Cob Pipe",
-    "displayNameEn": "Missouri Meerschaum - Big Boy - Blue Mouthpiece - Corn Cob Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Big Boy - Blue Mouthpiece - Corn Cob Pipe",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Explicit pipe component is excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 24.49,
-      "rawText": "GBP 24.49",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25653/91066/corn_cob_pipe_blue_bit_big_boy_1__10047.1782313729.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25653/91066/corn_cob_pipe_blue_bit_big_boy_1__10047.1782313729.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Big Boy - Blue Mouthpiece - Corn Cob Pipe",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Explicit pipe component is excluded before the detail queue."
-    }
-  },
-  {
     "id": "gqtobaccos-25654",
     "source": "gqtobaccos",
     "sourceProductId": "25654",
@@ -1953723,11 +1954185,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1953780,7 +1954242,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1954114,117 +1954576,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25797",
-    "source": "gqtobaccos",
-    "sourceProductId": "25797",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/morgan-pipes-bones-nosewarmer-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Morgan Pipes - Bones - Nosewarmer - 9mm Filter Pipe",
-    "displayNameEn": "Morgan Pipes - Bones - Nosewarmer - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Morgan Pipes - Bones - Nosewarmer - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Morgan Pipes",
-      "canonicalName": "Morgan Pipes",
-      "slug": "morgan-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Apple",
-      "shapeSlug": "apple",
-      "shapeZhName": "苹果斗",
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 44.99,
-      "rawText": "GBP 44.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25797/91351/nosewarmer_9mm_bones_pipe__80254.1789927160.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25797/91351/nosewarmer_9mm_bones_pipe__80254.1789927160.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25797/91351/nosewarmer_9mm_bones_pipe__80254.1789927160.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 110,
-      "heightMm": 42,
-      "weightGrams": 25,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 36
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Morgan Pipes",
-      "title": "Morgan Pipes - Bones - Nosewarmer - 9mm Filter Pipe",
-      "keywords": [
-        "Bones is Morgan Pipes' economy line, launched in 2015. Developed from early conversations with the late Chris Chopin, the goal was to offer an affordable pipe that embraced flaws rather than hiding them with putty. Morgan wanted pits and imperfections to be seen as part of the pipe&rsquo;s unique character. Working with Italian partners, Chris Morgan discovered tens of thousands of forgotten stummels&mdash;originally destined for low-cost, heavily filled pipes&mdash;stored in old buildings on the historic Rossi campus in Northern Italy. These were repurposed to create the raw, honest look that defines the Bones line, which has since become one of the brand&rsquo;s most popular offerings. The pipe photographed may not be the pipe that you will receive as each one may have minor differences. Pipe Details Pipe Material : Briar Shape : Apple Filter : 9mm Dimensions Pipe Length : 110mm Bowl Height : 42 mm Pipe Width : 36 mm Chamber Width : 20 mm Pipe Weight : 25 grams",
-        "Briar",
-        "Apple",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1954943,11 +1955294,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1955002,7 +1955353,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
