@@ -1931876,120 +1931876,6 @@
     }
   },
   {
-    "id": "gqtobaccos-14042",
-    "source": "gqtobaccos",
-    "sourceProductId": "14042",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-cobbit-dwarf/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - Cobbit \"Dwarf\"",
-    "displayNameEn": "Missouri Meerschaum - Cobbit \"Dwarf\"",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Cobbit \"Dwarf\"",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Apple",
-      "shapeSlug": "apple",
-      "shapeZhName": "苹果斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Corn Cob",
-      "bowlMaterialSlug": "corn-cob",
-      "bowlMaterialZhName": "玉米芯",
-      "stemMaterial": "Vulcanite",
-      "stemMaterialSlug": "vulcanite",
-      "stemMaterialZhName": "硫化橡胶",
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 26.99,
-      "rawText": "GBP 26.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14042/67768/PhotoRoom-20230223_123923__86438__60739__30070.1728566975.png?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14042/67768/PhotoRoom-20230223_123923__86438__60739__30070.1728566975.png?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14042/67768/PhotoRoom-20230223_123923__86438__60739__30070.1728566975.png?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14042/67769/PhotoRoom-20230223_123857__67295__51851__84897.1728566975.png?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 190,
-      "heightMm": 35,
-      "weightGrams": null,
-      "chamberDepthMm": 25,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Cobbit \"Dwarf\"",
-      "keywords": [
-        "The Dwarf has the smallest bowl from all of the Cobbit pipes and shares a lot of its properties with the Morgan cob. The pipe is fitted with a hard wood bung in the base and finished with the black wash. One thing which has been missing from the Missouri Meerschaum range for years is a Churchwarden and after many suggestions from smokers all over the world, they are now a reality. Fitted with long and curved vulcanite mouthpieces, ideal for sitting back and enjoying your favourite book. Smooth, varnished finish with a curved stem. A little harder wearing compared to the natural model. Corn cobs have a slightly bad reputation, they are seen as the disposable pipe. A cheap alternative to briar and therefore inferior too, but thats not fair at all. The Missouri Meerschaum pipes are made by hand, using specifically bread corn. The porous husk allows for a dryer smoke, absorbing the moisture and like Clay & Meerschaum smokes very cool. Unlike Briar and other wooden pipes, a carbon cake is not required. The first few smokes have a sweet, nutty taste but after that the pipe holds no background flavours and always gives a pure taste to the tobacco. Many blenders (our self's included) use Missouri Meerschaum Corn Cob pipes to sample blends, for the neutral taste. Read our Interview with Bob \"Knightdor\" Carter (MM Corn Cob Advocate) Pipe Details Pipe Material : Corn Cob Shape : Apple Finish : Smooth Colour : Natural Mouthpiece : Vulcanite Filter : None Dimensions Pipe Length : 190mm Pipe Height : 35mm Pipe Width : Chamber Width : 19mm Chamber Depth : 25mm Weight : *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight.",
-        "Corn Cob",
-        "Apple",
-        "Smooth",
-        "Vulcanite",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-14045",
     "source": "gqtobaccos",
     "sourceProductId": "14045",
@@ -1937930,11 +1937816,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1937990,7 +1937876,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1951454,119 +1951340,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25233",
-    "source": "gqtobaccos",
-    "sourceProductId": "25233",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-xl90-donegal-rocky-rustic-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
-    "displayNameEn": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight",
-      "shapeSlug": "straight",
-      "shapeZhName": null,
-      "finish": "Rustic",
-      "finishSlug": "rustic",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Fishtail",
-      "stemMaterialSlug": "fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 68.99,
-      "rawText": "GBP 68.99",
-      "msrpAmount": 76.5,
-      "msrpRawText": "GBP 76.50",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25233/90269/dngyrsjn__79450.1769700944.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 142,
-      "heightMm": 53,
-      "weightGrams": 72,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 41
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - XL90 - Donegal Rocky - Rustic Pipe",
-      "keywords": [
-        "The Peterson Donegal Rocky Pipes are a fantastic range and one of the best selling lines of Peterson's. They have a rustic red/black finish with a nice Nickel band and a fishtail stem. A cracking smoke at a great price! Not to be missed!! Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown/Red/Black Mouthpiece : Fishtail Filter : None Dimensions Pipe Length : 142mm Bowl Height : 53 mm Pipe Width : 41 mm Chamber Width : 20mm Pipe Weight : 72 grams",
-        "Briar",
-        "Straight",
-        "Rustic",
-        "Fishtail",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25257",
     "source": "gqtobaccos",
     "sourceProductId": "25257",
@@ -1952555,6 +1952328,118 @@
       "title": "Peterson - St Patricks Day 2026 - Sandblasted 107 - Pipe",
       "keywords": [
         "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Sandblasted Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 151 mm Bowl Height : 51 mm Pipe Width : 38 mm Chamber Width : 20 mm Pipe Weight : 57 grams",
+        "Briar",
+        "Sandblasted",
+        "Acrylic",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25361",
+    "source": "gqtobaccos",
+    "sourceProductId": "25361",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-sandblasted-15-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - St Patricks Day 2026 - Sandblasted 15 - Pipe",
+    "displayNameEn": "Peterson - St Patricks Day 2026 - Sandblasted 15 - Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - St Patricks Day 2026 - Sandblasted 15 - Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Sandblasted",
+      "finishSlug": "sandblasted",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 99.99,
+      "rawText": "GBP 99.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25361/90473/peterson_sandblast_2026_patrick_15__02537.1772789225.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25361/90473/peterson_sandblast_2026_patrick_15__02537.1772789225.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25361/90473/peterson_sandblast_2026_patrick_15__02537.1772789225.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 44,
+      "weightGrams": 39,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 35
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - St Patricks Day 2026 - Sandblasted 15 - Pipe",
+      "keywords": [
+        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Sandblasted Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 153 mm Bowl Height : 44 mm Pipe Width : 35 mm Chamber Width : 21 mm Pipe Weight : 39 grams",
         "Briar",
         "Sandblasted",
         "Acrylic",
@@ -1953850,11 +1953735,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -1953907,7 +1953792,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -1955902,6 +1955787,454 @@
         "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 145mm Bowl Height : 49 mm Pipe Width : 47 mm Chamber Width : 20 mm Pipe Weight : 50 grams",
         "Briar",
         "Vuclanite (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25911",
+    "source": "gqtobaccos",
+    "sourceProductId": "25911",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-rustic-120-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - St Patricks Day 2026 - Rustic 120 - Pipe",
+    "displayNameEn": "Peterson - St Patricks Day 2026 - Rustic 120 - Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - St Patricks Day 2026 - Rustic 120 - Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 89.99,
+      "rawText": "GBP 89.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25911/91565/peterson_rusticated_120_pipe__59868.1794326591.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25911/91565/peterson_rusticated_120_pipe__59868.1794326591.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25911/91565/peterson_rusticated_120_pipe__59868.1794326591.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - St Patricks Day 2026 - Rustic 120 - Pipe",
+      "keywords": [
+        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Rustic Mouthpiece : Acrylic Filter : None Dimensions Overall length 145&ndash;150 mm Bowl height 48&ndash;52 mm Bowl outside diameter 35&ndash;38 mm Chamber diameter 19&ndash;20 mm Chamber depth 38&ndash;42 mm Weight 45&ndash;55 g",
+        "Briar",
+        "Rustic",
+        "Acrylic",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25912",
+    "source": "gqtobaccos",
+    "sourceProductId": "25912",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-rustic-15-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - St Patricks Day 2026 - Rustic 15 - Pipe",
+    "displayNameEn": "Peterson - St Patricks Day 2026 - Rustic 15 - Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - St Patricks Day 2026 - Rustic 15 - Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 89.99,
+      "rawText": "GBP 89.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25912/91566/peterson_rustic_15_pipe___50842.1794326800.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25912/91566/peterson_rustic_15_pipe___50842.1794326800.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25912/91566/peterson_rustic_15_pipe___50842.1794326800.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 44,
+      "weightGrams": 39,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 35
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - St Patricks Day 2026 - Rustic 15 - Pipe",
+      "keywords": [
+        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Rustic Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 153 mm Bowl Height : 44 mm Pipe Width : 35 mm Chamber Width : 21 mm Pipe Weight : 39 grams",
+        "Briar",
+        "Rustic",
+        "Acrylic",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25913",
+    "source": "gqtobaccos",
+    "sourceProductId": "25913",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-sandblasted-53-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - St Patricks Day 2026 - Sandblasted 53 - Pipe",
+    "displayNameEn": "Peterson - St Patricks Day 2026 - Sandblasted 53 - Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - St Patricks Day 2026 - Sandblasted 53 - Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Sandblasted",
+      "finishSlug": "sandblasted",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 99.99,
+      "rawText": "GBP 99.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25913/91567/peterson_sandblasted_53_pipe__60755.1794326978.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25913/91567/peterson_sandblasted_53_pipe__60755.1794326978.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25913/91567/peterson_sandblasted_53_pipe__60755.1794326978.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 138,
+      "heightMm": 46,
+      "weightGrams": 35,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 35
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - St Patricks Day 2026 - Sandblasted 53 - Pipe",
+      "keywords": [
+        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Sandblasted Mouthpiece : Acrylic Filter : None Dimensions Pipe Length : 138 mm Bowl Height : 46 mm Pipe Width : 35 mm Chamber Width :18 mm Pipe Weight : 35 grams",
+        "Briar",
+        "Sandblasted",
+        "Acrylic",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25914",
+    "source": "gqtobaccos",
+    "sourceProductId": "25914",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-sandblasted-x220-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
+    "displayNameEn": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Sandblasted",
+      "finishSlug": "sandblasted",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 99.99,
+      "rawText": "GBP 99.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
+      "keywords": [
+        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Sandblasted Mouthpiece : Acrylic Filter : None Dimensions Overall length 126 mm Bowl height 50 mm Bowl outside diameter 36 mm Chamber diameter 19 mm Chamber depth 37&ndash;42 mm Weight 60 g",
+        "Briar",
+        "Sandblasted",
+        "Acrylic",
         "None"
       ]
     },
