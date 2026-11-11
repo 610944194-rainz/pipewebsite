@@ -382243,6 +382243,126 @@
     }
   },
   {
+    "id": "danish-189002842593979",
+    "source": "danish",
+    "sourceProductId": "189002842593979",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/savinelli-150-anni-giancarlo-billard-rust-4",
+    "entityType": "offer",
+    "displayName": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "displayNameEn": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Rusticated",
+      "finishSlug": "rusticated",
+      "finishZhName": "锈刻",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "6mm",
+      "filterSizeMm": 6,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 181.25,
+      "rawText": "USD 181.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1323,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B110016-4f424101-222c-4962-ae30-b0a73d59634b.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B110016-4f424101-222c-4962-ae30-b0a73d59634b.JPG",
+        "https://dps-media.aperi.io/_B110017-1390cf86-d906-439e-bc79-d0b45ecb08c9.JPG",
+        "https://dps-media.aperi.io/_B110018-fd542170-36c4-4f1f-a4f0-8e8241c12007.JPG",
+        "https://dps-media.aperi.io/_B110019-964d7981-179b-4fee-a24e-b7716fe50699.JPG",
+        "https://dps-media.aperi.io/_B110020-328b4678-df29-4885-819c-f41fbe4eeac4.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 156,
+      "heightMm": 41,
+      "weightGrams": 37,
+      "chamberDepthMm": 35,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+      "keywords": [
+        "savi26-81",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Rusticated",
+        "锈刻",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Savinelli"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-197436444515415",
     "source": "danish",
     "sourceProductId": "197436444515415",
@@ -382828,6 +382948,126 @@
         "硫化橡胶",
         "可购买",
         "Tom Eltang"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-233804360991128",
+    "source": "danish",
+    "sourceProductId": "233804360991128",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/savinelli-150-anni-giancarlo-billard-rust-3",
+    "entityType": "offer",
+    "displayName": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "displayNameEn": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Rusticated",
+      "finishSlug": "rusticated",
+      "finishZhName": "锈刻",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "6mm",
+      "filterSizeMm": 6,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 181.25,
+      "rawText": "USD 181.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1323,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B110011-4de4a87b-6f69-4417-9d62-dacfb834cedd.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B110011-4de4a87b-6f69-4417-9d62-dacfb834cedd.JPG",
+        "https://dps-media.aperi.io/_B110012-c8ece7cb-2418-40dc-85d8-4c2b8bbc55f8.JPG",
+        "https://dps-media.aperi.io/_B110013-56211748-29a1-4ac7-a21d-865754a99e31.JPG",
+        "https://dps-media.aperi.io/_B110014-1cdd6a9d-3dd2-4ee4-92e6-2eb9b04b4dc9.JPG",
+        "https://dps-media.aperi.io/_B110015-1d0bf297-a069-40cf-b123-8c11d427e695.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 157,
+      "heightMm": 40,
+      "weightGrams": 39,
+      "chamberDepthMm": 36,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli, 150 Anni, Giancarlo, Billard, Rust.",
+      "keywords": [
+        "savi26-80",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Rusticated",
+        "锈刻",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Savinelli"
       ]
     },
     "integration": {
