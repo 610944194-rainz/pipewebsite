@@ -120318,12 +120318,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -120385,11 +120385,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -215846,12 +215846,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -215917,11 +215917,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -220470,12 +220470,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -220541,11 +220541,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -222461,12 +222461,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -222532,11 +222532,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -223083,12 +223083,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -223153,11 +223153,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -252753,12 +252753,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -252821,11 +252821,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -350168,12 +350168,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -350235,11 +350235,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -361776,12 +361776,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -361843,11 +361843,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362018,12 +362018,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -362085,11 +362085,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -379343,6 +379343,125 @@
     }
   },
   {
+    "id": "danish-46751230409212",
+    "source": "danish",
+    "sourceProductId": "46751230409212",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/stanwell-koebenhavn-brown-13-saddle-stem-billard-9-mm",
+    "entityType": "offer",
+    "displayName": "Stanwell, København, Brown 13, Saddle Stem Billard, 9 mm",
+    "displayNameEn": "Stanwell, København, Brown 13, Saddle Stem Billard, 9 mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, København, Brown 13, Saddle Stem Billard, 9 mm",
+    "brand": {
+      "rawName": "Stanwell Pipes",
+      "canonicalName": "Stanwell Pipes",
+      "slug": "stanwell-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "9mm",
+      "filterSizeMm": 9,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 143.75,
+      "rawText": "USD 143.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1049,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B120037-1760036d-e4b6-4f08-89ea-06c1dfeb2219.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B120037-1760036d-e4b6-4f08-89ea-06c1dfeb2219.JPG",
+        "https://dps-media.aperi.io/_B120038-1e4ef693-37af-41aa-b81a-01b54a293923.JPG",
+        "https://dps-media.aperi.io/_B120039-f884c1d4-1e97-4da6-8a44-cbe3762cb3dc.JPG",
+        "https://dps-media.aperi.io/_B120040-3434aaab-d4b3-4ad6-9325-8b33c83f4419.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 151,
+      "heightMm": 54,
+      "weightGrams": 61,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell Pipes",
+      "title": "Stanwell, København, Brown 13, Saddle Stem Billard, 9 mm",
+      "keywords": [
+        "17745",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-61333659831586",
     "source": "danish",
     "sourceProductId": "61333659831586",
@@ -382242,6 +382361,126 @@
     }
   },
   {
+    "id": "danish-179362366255011",
+    "source": "danish",
+    "sourceProductId": "179362366255011",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/stanwell-vario-13-saddle-stem-billard-9-mm",
+    "entityType": "offer",
+    "displayName": "Stanwell, Vario 13, Saddle Stem Billard, 9 mm",
+    "displayNameEn": "Stanwell, Vario 13, Saddle Stem Billard, 9 mm",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, Vario 13, Saddle Stem Billard, 9 mm",
+    "brand": {
+      "rawName": "Stanwell Pipes",
+      "canonicalName": "Stanwell Pipes",
+      "slug": "stanwell-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "9mm",
+      "filterSizeMm": 9,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 106.25,
+      "rawText": "USD 106.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 776,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B120032-2616c0a4-976d-4ab4-99a1-9a17b2b25725.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B120032-2616c0a4-976d-4ab4-99a1-9a17b2b25725.JPG",
+        "https://dps-media.aperi.io/_B120033-eefbcbd4-528b-4132-b575-f1f718fdedd1.JPG",
+        "https://dps-media.aperi.io/_B120034-43293731-a692-403d-b4da-dcf472ea0ff0.JPG",
+        "https://dps-media.aperi.io/_B120035-f781d51b-6cd4-4107-8a14-80cc24e58f2b.JPG",
+        "https://dps-media.aperi.io/_B120036-de48a095-38b1-4c39-b31a-5464f6a8c4ef.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 152,
+      "heightMm": 54,
+      "weightGrams": 53,
+      "chamberDepthMm": 44,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell Pipes",
+      "title": "Stanwell, Vario 13, Saddle Stem Billard, 9 mm",
+      "keywords": [
+        "17709",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Stanwell Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-184107445184098",
     "source": "danish",
     "sourceProductId": "184107445184098",
@@ -383088,6 +383327,129 @@
     }
   },
   {
+    "id": "danish-212228742084523",
+    "source": "danish",
+    "sourceProductId": "212228742084523",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/stanwell-h-c-andersen-model-7-smooth-9-mm",
+    "entityType": "offer",
+    "displayName": "Stanwell, H. C. Andersen, Model 7 Smooth, 9 mm.",
+    "displayNameEn": "Stanwell, H. C. Andersen, Model 7 Smooth, 9 mm.",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell, H. C. Andersen, Model 7 Smooth, 9 mm.",
+    "brand": {
+      "rawName": "Stanwell Pipes",
+      "canonicalName": "Stanwell Pipes",
+      "slug": "stanwell-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Brandy",
+      "shapeSlug": "brandy",
+      "shapeZhName": "白兰地斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "9mm",
+      "filterSizeMm": 9,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 249.38,
+      "rawText": "USD 249.38",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1820,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B120041-62e589cc-d0ba-40fe-8222-b078b93a3d56.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B120041-62e589cc-d0ba-40fe-8222-b078b93a3d56.JPG",
+        "https://dps-media.aperi.io/_B120042-0d2509c5-207e-4e38-af32-31c901970f02.JPG",
+        "https://dps-media.aperi.io/_B120043-add6ea18-4a89-403a-90cf-5eb7acc360ea.JPG",
+        "https://dps-media.aperi.io/_B120044-f4fbae5e-6e1e-4412-bc35-83547c3c01e4.JPG",
+        "https://dps-media.aperi.io/_B120045-41227fb2-80cd-45ba-83bb-188738e5f3b4.JPG",
+        "https://dps-media.aperi.io/_B120046-0d035105-946c-4ba5-97d8-d9b336cc1145.JPG",
+        "https://dps-media.aperi.io/_B120047-6b5191ff-e935-40b1-b388-d9b49e95210f.JPG",
+        "https://dps-media.aperi.io/_B120048-5a4d35ea-cb0c-4a27-bb70-6ee20b1819bb.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 49,
+      "weightGrams": 25,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 43
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell Pipes",
+      "title": "Stanwell, H. C. Andersen, Model 7 Smooth, 9 mm.",
+      "keywords": [
+        "17983",
+        "全新未使用",
+        "Brandy",
+        "白兰地斗",
+        "Smooth",
+        "光面",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Stanwell Pipes"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-212347112023604",
     "source": "danish",
     "sourceProductId": "212347112023604",
@@ -383496,12 +383858,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -383562,11 +383924,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
