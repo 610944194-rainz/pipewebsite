@@ -2013999,11 +2013999,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2014058,7 +2014058,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2014225,11 +2014225,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2014284,7 +2014284,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2020942,118 +2020942,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25379",
-    "source": "gqtobaccos",
-    "sourceProductId": "25379",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr5-bent-dublin-pipe/",
-    "entityType": "offer",
-    "displayName": "Northern Briars - Bruyere Premier (Gr5) - Bent Dublin Pipe",
-    "displayNameEn": "Northern Briars - Bruyere Premier (Gr5) - Bent Dublin Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Northern Briars - Bruyere Premier (Gr5) - Bent Dublin Pipe",
-    "brand": {
-      "rawName": "Northern Briars",
-      "canonicalName": "Northern Briars",
-      "slug": "northern-briars",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Vuclanite (Fishtail)",
-      "stemMaterialSlug": "vuclanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 172.99,
-      "rawText": "GBP 172.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25379/90507/__64772.1774453629.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25379/90507/__64772.1774453629.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25379/90507/__64772.1774453629.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25379/90508/wgkjdfsw__93847.1774453629.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 158,
-      "heightMm": 564,
-      "weightGrams": 70,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 24,
-      "outsideDiameterMm": 50
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Northern Briars",
-      "title": "Northern Briars - Bruyere Premier (Gr5) - Bent Dublin Pipe",
-      "keywords": [
-        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 158 mm Bowl Height : 564 mm Pipe Width : 50 mm Chamber Width : 24 mm Pipe Weight : 70 grams",
-        "Briar",
-        "Vuclanite (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25422",
     "source": "gqtobaccos",
     "sourceProductId": "25422",
@@ -2023384,118 +2023272,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25825",
-    "source": "gqtobaccos",
-    "sourceProductId": "25825",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-rox-cut-regal-gr4-panelled-square-pipe/",
-    "entityType": "offer",
-    "displayName": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
-    "displayNameEn": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
-    "brand": {
-      "rawName": "Northern Briars",
-      "canonicalName": "Northern Briars",
-      "slug": "northern-briars",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Vuclanite (Fishtail)",
-      "stemMaterialSlug": "vuclanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 154.99,
-      "rawText": "GBP 154.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25825/91400/snbjbsne__39885.1792157824.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25825/91401/osergoeghoeagr__26227.1792157824.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 154,
-      "heightMm": 57,
-      "weightGrams": 70,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 37
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Northern Briars",
-      "title": "Northern Briars - Rox Cut Regal (Gr4) - Panelled Square Pipe",
-      "keywords": [
-        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 154mm Bowl Height : 57 mm Pipe Width :37 mm Chamber Width : 22 mm Pipe Weight : 70 grams",
-        "Briar",
-        "Vuclanite (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
