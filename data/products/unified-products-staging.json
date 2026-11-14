@@ -295,11 +295,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -415,11 +415,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -533,11 +533,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -653,11 +653,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -773,11 +773,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -17922,12 +17922,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -17987,11 +17987,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -26890,11 +26890,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -27735,11 +27735,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -27855,11 +27855,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -27973,11 +27973,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -28093,11 +28093,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -28213,11 +28213,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -28451,11 +28451,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 90.62,
-      "rawText": "USD 90.62",
+      "amount": 93.75,
+      "rawText": "USD 93.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 662,
+      "siteDisplayAmount": 684,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -37303,12 +37303,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -37353,7 +37353,7 @@
         "Smooth",
         "光面",
         "unknown",
-        "已售",
+        "可购买",
         "Vauen"
       ]
     },
@@ -37368,11 +37368,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -42111,12 +42111,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -42177,11 +42177,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -67646,12 +67646,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -67695,7 +67695,7 @@
         "unknown",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Vauen"
       ]
     },
@@ -67711,11 +67711,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -186976,12 +186976,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -187044,11 +187044,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -273672,12 +273672,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -273737,11 +273737,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -281683,12 +281683,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -281748,11 +281748,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -374374,12 +374374,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -374437,11 +374437,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
