@@ -90037,11 +90037,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 568.75,
-      "rawText": "USD 568.75",
+      "amount": 483.5,
+      "rawText": "USD 483.50",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 4152,
+      "siteDisplayAmount": 3530,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -90159,11 +90159,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 593.75,
-      "rawText": "USD 593.75",
+      "amount": 504.75,
+      "rawText": "USD 504.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 4334,
+      "siteDisplayAmount": 3685,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -183241,11 +183241,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 418.75,
-      "rawText": "USD 418.75",
+      "amount": 374.38,
+      "rawText": "USD 374.38",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 3057,
+      "siteDisplayAmount": 2733,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -183363,11 +183363,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 443.75,
-      "rawText": "USD 443.75",
+      "amount": 374.38,
+      "rawText": "USD 374.38",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 3239,
+      "siteDisplayAmount": 2733,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -183730,11 +183730,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 593.75,
-      "rawText": "USD 593.75",
+      "amount": 504.75,
+      "rawText": "USD 504.75",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 4334,
+      "siteDisplayAmount": 3685,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -183852,11 +183852,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 568.75,
-      "rawText": "USD 568.75",
+      "amount": 483.5,
+      "rawText": "USD 483.50",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 4152,
+      "siteDisplayAmount": 3530,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -297868,12 +297868,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -297935,11 +297935,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -345621,12 +345621,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -345686,11 +345686,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -360811,12 +360811,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -360878,11 +360878,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -365151,12 +365151,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -365217,11 +365217,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -366938,12 +366938,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -367002,11 +367002,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -378621,6 +378621,127 @@
     }
   },
   {
+    "id": "danish-11500070586028",
+    "source": "danish",
+    "sourceProductId": "11500070586028",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-smooth-4",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 293.75,
+      "rawText": "USD 293.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2144,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140019-c622e31b-4051-4247-ad1a-e6f09332b483.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140019-c622e31b-4051-4247-ad1a-e6f09332b483.JPG",
+        "https://dps-media.aperi.io/_B140020-aa30a388-c7ce-4407-b4f8-9c17e8e53ebc.JPG",
+        "https://dps-media.aperi.io/_B140021-0eb8fad5-462c-4591-afb1-62227de0a732.JPG",
+        "https://dps-media.aperi.io/_B140022-a98573bd-ecbf-4cb8-b92c-3466c813cbca.JPG",
+        "https://dps-media.aperi.io/_B140023-252aaf54-4b1b-4a36-bebc-3f73e7b35468.JPG",
+        "https://dps-media.aperi.io/_B140024-fea3bb47-8e95-46b7-a137-f60cf59fcc74.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 45,
+      "weightGrams": 29,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 31
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Smooth",
+      "keywords": [
+        "GBP139",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-14500431075831",
     "source": "danish",
     "sourceProductId": "14500431075831",
@@ -379223,6 +379344,127 @@
     }
   },
   {
+    "id": "danish-41507495666141",
+    "source": "danish",
+    "sourceProductId": "41507495666141",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-rs-brandy-w-blue-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. RS, Brandy w. Blue Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. RS, Brandy w. Blue Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. RS, Brandy w. Blue Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Brandy",
+      "shapeSlug": "brandy",
+      "shapeZhName": "白兰地斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 499.38,
+      "rawText": "USD 499.38",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3645,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140043-d5883981-9617-4709-94ff-66ce4b9a3917.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140043-d5883981-9617-4709-94ff-66ce4b9a3917.JPG",
+        "https://dps-media.aperi.io/_B140044-7ff1f6fa-8d3b-4779-a206-ac263f903137.JPG",
+        "https://dps-media.aperi.io/_B140045-04f1a8ec-c901-4b01-8b6c-a80816edc9b4.JPG",
+        "https://dps-media.aperi.io/_B140046-fb937797-6c23-42ed-a45d-949eed32df36.JPG",
+        "https://dps-media.aperi.io/_B140047-a6dcc45b-1533-48d6-8614-c9ae27434345.JPG",
+        "https://dps-media.aperi.io/_B140048-7eb332f2-adcd-4bb0-9a0e-329b5923740c.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 144,
+      "heightMm": 44,
+      "weightGrams": 47,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. RS, Brandy w. Blue Elforyn",
+      "keywords": [
+        "GBP143",
+        "全新未使用",
+        "Brandy",
+        "白兰地斗",
+        "Sandblast",
+        "喷砂",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-45191369383227",
     "source": "danish",
     "sourceProductId": "45191369383227",
@@ -379328,6 +379570,126 @@
       "legacyPipeCompatible": true,
       "legacyMissingFields": [],
       "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-45213921059888",
+    "source": "danish",
+    "sourceProductId": "45213921059888",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-b-rhodesian-dublin-w-horn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. B, Rhodesian Dublin w. Horn",
+    "displayNameEn": "George Boyadjiev, Gr. B, Rhodesian Dublin w. Horn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. B, Rhodesian Dublin w. Horn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Rhodesian",
+      "shapeSlug": "rhodesian",
+      "shapeZhName": "牛头斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 531.25,
+      "rawText": "USD 531.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3878,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140061-c1f5dfe9-ad71-42cf-9b55-011669434e4c.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140061-c1f5dfe9-ad71-42cf-9b55-011669434e4c.JPG",
+        "https://dps-media.aperi.io/_B140062-b4d278ce-6411-47c5-ace9-4d9f42382eb9.JPG",
+        "https://dps-media.aperi.io/_B140063-74f5ee45-c2ee-4078-97bc-2cbebc5793db.JPG",
+        "https://dps-media.aperi.io/_B140064-42db58fb-8555-4bff-848f-fcedc532d926.JPG",
+        "https://dps-media.aperi.io/_B140065-219f16bd-c98f-40a5-a9dd-98cfadbebf4b.JPG",
+        "https://dps-media.aperi.io/_B140066-17a2008e-6052-4267-a70c-54904c0a09f7.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 151,
+      "heightMm": 38,
+      "weightGrams": 45,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. B, Rhodesian Dublin w. Horn",
+      "keywords": [
+        "GBP146",
+        "全新未使用",
+        "Rhodesian",
+        "牛头斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
         "bowlMaterial:null"
       ]
     },
@@ -379583,6 +379945,248 @@
     }
   },
   {
+    "id": "danish-65552155727740",
+    "source": "danish",
+    "sourceProductId": "65552155727740",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-smooth",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 312.5,
+      "rawText": "USD 312.50",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2281,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140001-a4c482d0-6d40-4d62-b1d9-3f60212de9e9.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140001-a4c482d0-6d40-4d62-b1d9-3f60212de9e9.JPG",
+        "https://dps-media.aperi.io/_B140002-847650c5-f514-4b91-92b9-85da8aa92307.JPG",
+        "https://dps-media.aperi.io/_B140003-6cbcb7b1-15a5-4d5b-9a89-fbbf2eeb33dc.JPG",
+        "https://dps-media.aperi.io/_B140004-53ae8c2e-5f7f-4946-ace0-318b8f223ffa.JPG",
+        "https://dps-media.aperi.io/_B140005-68e489cb-95b3-4851-bd73-3c234b193967.JPG",
+        "https://dps-media.aperi.io/_B140006-e2867ee2-36f6-44f6-a9ac-171ad68962c2.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 142,
+      "heightMm": 44,
+      "weightGrams": 30,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 32
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Smooth",
+      "keywords": [
+        "Gbp136",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-68282819308755",
+    "source": "danish",
+    "sourceProductId": "68282819308755",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-smooth-3",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "sold",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 293.75,
+      "rawText": "USD 293.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2144,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140013-c4874de7-2654-4e9b-8275-85f3bdd93184.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140013-c4874de7-2654-4e9b-8275-85f3bdd93184.JPG",
+        "https://dps-media.aperi.io/_B140014-17f0de92-0c98-4483-a18b-a9f3e48c0dca.JPG",
+        "https://dps-media.aperi.io/_B140015-28873b11-1a6f-42ef-980c-89069b0a4bb0.JPG",
+        "https://dps-media.aperi.io/_B140016-21ff2e94-6aca-423f-bae9-abc8b75dfe32.JPG",
+        "https://dps-media.aperi.io/_B140017-0d5751b3-7371-4ee5-b90d-5e25fc1f977e.JPG",
+        "https://dps-media.aperi.io/_B140018-7c03ec9d-da72-4cf8-b688-d3b9e1d43a2f.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 45,
+      "weightGrams": 29,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 32
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Smooth",
+      "keywords": [
+        "GBP138",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "已售",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
     "id": "danish-70957320886859",
     "source": "danish",
     "sourceProductId": "70957320886859",
@@ -379811,6 +380415,126 @@
       "legacyPipeCompatible": true,
       "legacyMissingFields": [],
       "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-82447512141706",
+    "source": "danish",
+    "sourceProductId": "82447512141706",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-rs-two-face-brandy-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. RS, Two Face Brandy w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. RS, Two Face Brandy w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. RS, Two Face Brandy w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Brandy",
+      "shapeSlug": "brandy",
+      "shapeZhName": "白兰地斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 581.25,
+      "rawText": "USD 581.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 4243,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140055-bcba4279-4359-4a70-972c-ee7d66acba9c.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140055-bcba4279-4359-4a70-972c-ee7d66acba9c.JPG",
+        "https://dps-media.aperi.io/_B140056-66dd306d-5eb3-487c-afbb-19d3246d880e.JPG",
+        "https://dps-media.aperi.io/_B140057-2ff7ba12-11cc-4715-8acf-cf70ba6fff50.JPG",
+        "https://dps-media.aperi.io/_B140058-2cc9d0cf-0234-497a-97f5-6ec802031f6e.JPG",
+        "https://dps-media.aperi.io/_B140059-f6569e49-a99f-46cc-947f-551c940e6ebf.JPG",
+        "https://dps-media.aperi.io/_B140060-58e47b26-e07a-42b6-8545-0aea15eda450.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 141,
+      "heightMm": 43,
+      "weightGrams": 59,
+      "chamberDepthMm": 34,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 50
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. RS, Two Face Brandy w. Elforyn",
+      "keywords": [
+        "GBP145",
+        "全新未使用",
+        "Brandy",
+        "白兰地斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
         "bowlMaterial:null"
       ]
     },
@@ -380430,6 +381154,127 @@
     }
   },
   {
+    "id": "danish-100522954353938",
+    "source": "danish",
+    "sourceProductId": "100522954353938",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-aa-blowfish-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. AA, Blowfish w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. AA, Blowfish w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. AA, Blowfish w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 943.75,
+      "rawText": "USD 943.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 6889,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140073-c4f4d855-14f1-4f55-8f40-9e9388f3ee10.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140073-c4f4d855-14f1-4f55-8f40-9e9388f3ee10.JPG",
+        "https://dps-media.aperi.io/_B140074-dddba1b1-1c1f-4c62-8111-b3bc6606b2ec.JPG",
+        "https://dps-media.aperi.io/_B140075-e5098d51-3134-472b-86c4-d66877d2e9dd.JPG",
+        "https://dps-media.aperi.io/_B140076-5249683c-5276-41b1-a050-4f4af69b3eed.JPG",
+        "https://dps-media.aperi.io/_B140077-c2b9648f-08a8-4a69-9569-f72ba8516b52.JPG",
+        "https://dps-media.aperi.io/_B140078-10135485-4bdf-430d-9018-6ade880832d3.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 50,
+      "weightGrams": 60,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 40
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. AA, Blowfish w. Elforyn",
+      "keywords": [
+        "GBP148",
+        "全新未使用",
+        "Blowfish",
+        "河豚斗",
+        "Smooth",
+        "光面",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-107259711148244",
     "source": "danish",
     "sourceProductId": "107259711148244",
@@ -380535,6 +381380,127 @@
       "legacyMissingFields": [],
       "adapterWarnings": [
         "shape:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-110109993297931",
+    "source": "danish",
+    "sourceProductId": "110109993297931",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-aa-bent-brandy-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. AA, Bent Brandy w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. AA, Bent Brandy w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. AA, Bent Brandy w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Brandy",
+      "shapeSlug": "brandy",
+      "shapeZhName": "白兰地斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 918.75,
+      "rawText": "USD 918.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 6707,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140085-81382a9f-cc05-49e7-91ff-abf64dbab7e7.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140085-81382a9f-cc05-49e7-91ff-abf64dbab7e7.JPG",
+        "https://dps-media.aperi.io/_B140086-0d16c84b-a4ad-432d-9ed8-3bf6317d0901.JPG",
+        "https://dps-media.aperi.io/_B140087-a3e64b11-a95c-4120-a45c-3ee76ce22ddc.JPG",
+        "https://dps-media.aperi.io/_B140088-e0ea43ae-b65d-4e34-bb58-ab9af00f1733.JPG",
+        "https://dps-media.aperi.io/_B140089-5946dff9-35f5-44b4-99b6-9c3da17edc8c.JPG",
+        "https://dps-media.aperi.io/_B140090-70100443-033b-4a49-add7-8b8e265a3136.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 133,
+      "heightMm": 51,
+      "weightGrams": 61,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 46
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. AA, Bent Brandy w. Elforyn",
+      "keywords": [
+        "GBP150",
+        "全新未使用",
+        "Brandy",
+        "白兰地斗",
+        "Smooth",
+        "光面",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
         "bowlMaterial:null"
       ]
     },
@@ -382120,6 +383086,127 @@
     }
   },
   {
+    "id": "danish-168695404171388",
+    "source": "danish",
+    "sourceProductId": "168695404171388",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-sand",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 275,
+      "rawText": "USD 275.00",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2008,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140025-6138a695-b0e7-4d29-a85e-99a7c87e8709.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140025-6138a695-b0e7-4d29-a85e-99a7c87e8709.JPG",
+        "https://dps-media.aperi.io/_B140026-561eaad5-4dfd-494c-82f8-1cc26ef7c46a.JPG",
+        "https://dps-media.aperi.io/_B140027-6ed173f9-1a9e-4652-b4d6-da16bf9ef6ee.JPG",
+        "https://dps-media.aperi.io/_B140028-92d0d4c1-7471-4277-8a39-538ba6d55af6.JPG",
+        "https://dps-media.aperi.io/_B140029-a2555bd0-96b1-4e1a-8562-48262b24cdfe.JPG",
+        "https://dps-media.aperi.io/_B140030-2c76017d-060d-4794-a1bb-4a7b89e88890.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 153,
+      "heightMm": 45,
+      "weightGrams": 27,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 30
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Sand",
+      "keywords": [
+        "GBP140",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Sandblast",
+        "喷砂",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-172444159276824",
     "source": "danish",
     "sourceProductId": "172444159276824",
@@ -382842,6 +383929,126 @@
     }
   },
   {
+    "id": "danish-194028760901082",
+    "source": "danish",
+    "sourceProductId": "194028760901082",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-rs-bowfish-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. RS, Two-Face Blowfish w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. RS, Two-Face Blowfish w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. RS, Two-Face Blowfish w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 581.25,
+      "rawText": "USD 581.25",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 4243,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140049-9dbcf32b-0cec-4e16-afd8-8b54c1430f36.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140049-9dbcf32b-0cec-4e16-afd8-8b54c1430f36.JPG",
+        "https://dps-media.aperi.io/_B140050-1b12d6d1-723e-4f50-9017-5ddd27c903fd.JPG",
+        "https://dps-media.aperi.io/_B140051-d10c2e7e-972f-4413-858d-48f06c319409.JPG",
+        "https://dps-media.aperi.io/_B140052-6a0541fc-fcb3-432f-9a0d-8d0485ed2f97.JPG",
+        "https://dps-media.aperi.io/_B140053-215feab4-edf2-4c09-b8f5-06e8e97a30c0.JPG",
+        "https://dps-media.aperi.io/_B140054-e1aef965-c477-4e8e-9010-033b42bec5fa.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 143,
+      "heightMm": 45,
+      "weightGrams": 50,
+      "chamberDepthMm": 39,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. RS, Two-Face Blowfish w. Elforyn",
+      "keywords": [
+        "GBP144",
+        "全新未使用",
+        "Blowfish",
+        "河豚斗",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "finish:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-197436444515415",
     "source": "danish",
     "sourceProductId": "197436444515415",
@@ -383327,6 +384534,127 @@
     }
   },
   {
+    "id": "danish-212057255762941",
+    "source": "danish",
+    "sourceProductId": "212057255762941",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-a-blowfish",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. A, Blowfish",
+    "displayNameEn": "George Boyadjiev, Gr. A, Blowfish",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. A, Blowfish",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 687.5,
+      "rawText": "USD 687.50",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 5019,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140067-c7050b02-1571-4944-aaad-133d0b6e43ef.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140067-c7050b02-1571-4944-aaad-133d0b6e43ef.JPG",
+        "https://dps-media.aperi.io/_B140068-6a43fba1-0f31-45f5-b334-d4778713cb69.JPG",
+        "https://dps-media.aperi.io/_B140069-b2f9535c-6e85-42f8-992a-ad3d7121178f.JPG",
+        "https://dps-media.aperi.io/_B140070-6c0c8fc0-6d66-4d6c-b6d2-a7e9a97fb9e8.JPG",
+        "https://dps-media.aperi.io/_B140072-b2e20b43-a960-4ba9-aa12-bc646635e520.JPG",
+        "https://dps-media.aperi.io/B140071-d66ca8ee-1f94-4ca2-9d62-319cd02c1ded.jpg"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 138,
+      "heightMm": 52,
+      "weightGrams": 58,
+      "chamberDepthMm": 42,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 44
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. A, Blowfish",
+      "keywords": [
+        "GBP147",
+        "全新未使用",
+        "Blowfish",
+        "河豚斗",
+        "Smooth",
+        "光面",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-212228742084523",
     "source": "danish",
     "sourceProductId": "212228742084523",
@@ -383550,6 +384878,248 @@
         "硫化橡胶",
         "可购买",
         "Tom Eltang"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-228090431261611",
+    "source": "danish",
+    "sourceProductId": "228090431261611",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-smooth-2",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Smooth",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 293.75,
+      "rawText": "USD 293.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2144,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140007-3d93852e-c092-4879-8e71-041a18aa98b9.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140007-3d93852e-c092-4879-8e71-041a18aa98b9.JPG",
+        "https://dps-media.aperi.io/_B140008-9e01ee2b-42ac-41b8-8308-899fd16f1bf3.JPG",
+        "https://dps-media.aperi.io/_B140009-c366b4b3-cde3-4409-933b-99040dba15ae.JPG",
+        "https://dps-media.aperi.io/_B140010-819a260b-fc77-45a8-913e-8e221a2aec39.JPG",
+        "https://dps-media.aperi.io/_B140011-4e139137-1134-4b5e-80d0-137529434335.JPG",
+        "https://dps-media.aperi.io/_B140012-8539c1d9-7a73-4c2b-b047-1599b28b91d5.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 146,
+      "heightMm": 45,
+      "weightGrams": 29,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 32
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Smooth",
+      "keywords": [
+        "GBP137",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Smooth",
+        "光面",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-228663303833791",
+    "source": "danish",
+    "sourceProductId": "228663303833791",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-aa-pointy-blowfish-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. AA, Pointy Blowfish w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. AA, Pointy Blowfish w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. AA, Pointy Blowfish w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Blowfish",
+      "shapeSlug": "blowfish",
+      "shapeZhName": "河豚斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 918.75,
+      "rawText": "USD 918.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 6707,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140079-9caa3e3e-022d-4721-b207-6da02e6dd602.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140079-9caa3e3e-022d-4721-b207-6da02e6dd602.JPG",
+        "https://dps-media.aperi.io/_B140080-3529b91f-b255-456e-b09b-f2257b6cfe1f.JPG",
+        "https://dps-media.aperi.io/_B140081-393c02ec-a74b-458f-8179-55550268d1c3.JPG",
+        "https://dps-media.aperi.io/_B140082-08264032-09ed-4ebb-ab41-61b381411b36.JPG",
+        "https://dps-media.aperi.io/_B140083-2ae7326e-1639-4d5b-9754-21c1fec5cd71.JPG",
+        "https://dps-media.aperi.io/_B140084-1d8ccd76-944d-4314-ad69-d504a6eb1830.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 149,
+      "heightMm": 49,
+      "weightGrams": 63,
+      "chamberDepthMm": 41,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 43
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. AA, Pointy Blowfish w. Elforyn",
+      "keywords": [
+        "GBP149",
+        "全新未使用",
+        "Blowfish",
+        "河豚斗",
+        "Smooth",
+        "光面",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
       ]
     },
     "integration": {
