@@ -884,12 +884,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -935,7 +935,7 @@
         "Briar",
         "石楠木",
         "unknown",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -948,11 +948,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -2366,10 +2366,10 @@
     "sourceProductId": "341",
     "sourceUrl": "https://www.danishpipeshop.com/en/products/bpk-brushed-churchwarden-pipe-acorn-i341",
     "entityType": "offer",
-    "displayName": "BPK Brushed Churchwarden Pipe, Acorn",
-    "displayNameEn": "BPK Brushed Churchwarden Pipe, Acorn",
+    "displayName": "BPK Brushed Churchwarden Pipe, Acorn, Rusticated",
+    "displayNameEn": "BPK Brushed Churchwarden Pipe, Acorn, Rusticated",
     "displayNameZh": null,
-    "rawTitle": "BPK Brushed Churchwarden Pipe, Acorn",
+    "rawTitle": "BPK Brushed Churchwarden Pipe, Acorn, Rusticated",
     "brand": {
       "rawName": "BPK",
       "canonicalName": "BPK",
@@ -2407,12 +2407,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -2445,7 +2445,7 @@
     },
     "search": {
       "brand": "BPK",
-      "title": "BPK Brushed Churchwarden Pipe, Acorn",
+      "title": "BPK Brushed Churchwarden Pipe, Acorn, Rusticated",
       "keywords": [
         "69-679",
         "全新未使用",
@@ -2456,7 +2456,7 @@
         "Briar",
         "石楠木",
         "unknown",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -2469,11 +2469,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -13643,12 +13643,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -13694,7 +13694,7 @@
         "Briar",
         "石楠木",
         "unknown",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -13707,11 +13707,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -19835,12 +19835,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -19886,7 +19886,7 @@
         "Briar",
         "石楠木",
         "unknown",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -19899,11 +19899,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -94361,12 +94361,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -94427,11 +94427,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -98480,12 +98480,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -98529,7 +98529,7 @@
         "unknown",
         "Vulcanite",
         "硫化橡胶",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -98544,11 +98544,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -98716,12 +98716,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -98765,7 +98765,7 @@
         "unknown",
         "Vulcanite",
         "硫化橡胶",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -98780,11 +98780,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -99424,12 +99424,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -99473,7 +99473,7 @@
         "unknown",
         "Vulcanite",
         "硫化橡胶",
-        "已售",
+        "可购买",
         "BPK"
       ]
     },
@@ -99488,11 +99488,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -124681,12 +124681,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -124748,11 +124748,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -189513,12 +189513,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -189580,11 +189580,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -189753,12 +189753,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -189820,11 +189820,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -212153,12 +212153,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -212221,11 +212221,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -227622,12 +227622,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -227689,11 +227689,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -246860,12 +246860,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -246930,11 +246930,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -265319,12 +265319,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -265388,11 +265388,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -333459,12 +333459,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -333524,11 +333524,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -358785,12 +358785,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -358850,11 +358850,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -379224,6 +379224,126 @@
     }
   },
   {
+    "id": "danish-36836241561746",
+    "source": "danish",
+    "sourceProductId": "36836241561746",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-gr-rs-acorn-w-elforyn",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, Gr. RS, Acorn w. Elforyn",
+    "displayNameEn": "George Boyadjiev, Gr. RS, Acorn w. Elforyn",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, Gr. RS, Acorn w. Elforyn",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 499.38,
+      "rawText": "USD 499.38",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 3645,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140037-4eb1f52b-421f-4c2f-b624-9a50d7c07bdd.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140037-4eb1f52b-421f-4c2f-b624-9a50d7c07bdd.JPG",
+        "https://dps-media.aperi.io/_B140038-18380441-0eb3-4ccc-8ccc-2f28ac2caacc.JPG",
+        "https://dps-media.aperi.io/_B140039-516537c9-1ba2-406a-9d49-c1674758e937.JPG",
+        "https://dps-media.aperi.io/_B140040-a34ebc01-718c-4827-a77c-20c18effb7e3.JPG",
+        "https://dps-media.aperi.io/_B140041-67e29677-8d00-4785-8220-9e0cdc86e11e.JPG",
+        "https://dps-media.aperi.io/_B140042-84b22ee4-0c2f-422a-9a9f-8bdc54f119a3.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 142,
+      "heightMm": 49,
+      "weightGrams": 43,
+      "chamberDepthMm": 35,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 46
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, Gr. RS, Acorn w. Elforyn",
+      "keywords": [
+        "GBP142",
+        "全新未使用",
+        "Sandblast",
+        "喷砂",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "shape:null",
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-37310572753072",
     "source": "danish",
     "sourceProductId": "37310572753072",
@@ -379270,12 +379390,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -379336,11 +379456,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -379390,12 +379510,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -379457,11 +379577,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -380838,12 +380958,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -380891,6 +381011,127 @@
         "亚克力",
         "可购买",
         "Savinelli"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": false,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+    }
+  },
+  {
+    "id": "danish-93802324008426",
+    "source": "danish",
+    "sourceProductId": "93802324008426",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/george-boyadjiev-nomad-liverpool-sand-2",
+    "entityType": "offer",
+    "displayName": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "displayNameEn": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "displayNameZh": null,
+    "rawTitle": "George Boyadjiev, NomaD, Liverpool, Sand",
+    "brand": {
+      "rawName": "GBP Pipes, George Boyadjiev",
+      "canonicalName": "GBP Pipes, George Boyadjiev",
+      "slug": "gbp-pipes-george-boyadjiev",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Liverpool",
+      "shapeSlug": "liverpool",
+      "shapeZhName": "利物浦斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 275,
+      "rawText": "USD 275.00",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 2008,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B140031-78e8d8de-d9ae-4ce3-9637-b6436ef7e6fb.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B140031-78e8d8de-d9ae-4ce3-9637-b6436ef7e6fb.JPG",
+        "https://dps-media.aperi.io/_B140032-53fae0c3-d4a0-41fc-a9f3-a1cbe2846a7d.JPG",
+        "https://dps-media.aperi.io/_B140033-37e8d69b-752a-4081-b105-7c2e6342a9e8.JPG",
+        "https://dps-media.aperi.io/_B140034-0185f784-5fc8-45a7-bd1a-c342112fd7b3.JPG",
+        "https://dps-media.aperi.io/_B140035-8cbbb53d-6b45-4738-9773-f5309510eb07.JPG",
+        "https://dps-media.aperi.io/_B140036-fef15eeb-c1a8-4b84-a8a8-82717cd81d61.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 46,
+      "weightGrams": 27,
+      "chamberDepthMm": 40,
+      "chamberDiameterMm": 17,
+      "outsideDiameterMm": 31
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "GBP Pipes, George Boyadjiev",
+      "title": "George Boyadjiev, NomaD, Liverpool, Sand",
+      "keywords": [
+        "GBP141",
+        "全新未使用",
+        "Liverpool",
+        "利物浦斗",
+        "Sandblast",
+        "喷砂",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "GBP Pipes, George Boyadjiev"
       ]
     },
     "integration": {
@@ -385187,12 +385428,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -385253,11 +385494,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
