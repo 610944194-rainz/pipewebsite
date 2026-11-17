@@ -1999467,6 +1999467,122 @@
     }
   },
   {
+    "id": "gqtobaccos-13599",
+    "source": "gqtobaccos",
+    "sourceProductId": "13599",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson/system-pipes/peterson-302-system-standard-rustic/",
+    "entityType": "offer",
+    "displayName": "Peterson - 302 System Standard Rustic",
+    "displayNameEn": "Peterson - 302 System Standard Rustic",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - 302 System Standard Rustic",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Apple",
+      "shapeSlug": "bent-apple",
+      "shapeZhName": "弯式苹果斗",
+      "finish": "Rustic",
+      "finishSlug": "rustic",
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "P-Lip",
+      "stemMaterialSlug": "p-lip",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 83.99,
+      "rawText": "GBP 83.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13599/66376/IMG_3545__54581__81907__30453.1728566748.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13599/66376/IMG_3545__54581__81907__30453.1728566748.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/13599/66376/IMG_3545__54581__81907__30453.1728566748.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13599/66377/IMG_3546__93993__55836__69732.1728566748.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13599/66378/IMG_3547__59783__84343__80040.1728566748.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/13599/66379/IMG_3548__99183__76199__76521.1728566748.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 47,
+      "weightGrams": 68,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 46
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - 302 System Standard Rustic",
+      "keywords": [
+        "The big brother of the 303, this large bent apple is one of the best balanced bent System pipes. Finished off with the Reddy/Brown & Black Rusticated look, complete with Nickel band and army mount. The Peterson system range has been one of the biggest sellers for Peterson, since it was invented by Charles Peterson at the end of 19th Century. This amazing innovation, results in a cool and dry smoke from a bent pipe. The moisture trap between the bowl and mouthpiece keeps the tobacco dry, cool and reduces the dottle left in the bowl. Charles Peterson also created the P Lip 7 years later; this directs the smoke to the roof of the mouth and avoids painful tongue bite. The Peterson system range uses both the Moisture Trap (System) and P Lip mouthpieces, to which the design has never changed since 1898. Pipe Details Pipe Material : Briar Shape : Bent Apple Finish : Rustic Colour : Brown/Black Mouthpiece : P-Lip Filter : None Dimensions Pipe Length : 148mm Pipe Height : 47mm Pipe Width : 46mm Chamber Width : 21mm Chamber Depth : 37mm Pipe Weight : 68grams",
+        "Briar",
+        "Bent Apple",
+        "Rustic",
+        "P-Lip",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-13635",
     "source": "gqtobaccos",
     "sourceProductId": "13635",
@@ -2018517,118 +2018633,6 @@
     }
   },
   {
-    "id": "gqtobaccos-24462",
-    "source": "gqtobaccos",
-    "sourceProductId": "24462",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-aran-608-smooth-fishtail-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - Aran 608 Smooth - Fishtail Pipe",
-    "displayNameEn": "Peterson - Aran 608 Smooth - Fishtail Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Aran 608 Smooth - Fishtail Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered (Fishtail)",
-      "stemMaterialSlug": "tapered-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 82.99,
-      "rawText": "GBP 82.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24462/88989/qoeifyhqaeg__57809.1744646357.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24462/88989/qoeifyhqaeg__57809.1744646357.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24462/88989/qoeifyhqaeg__57809.1744646357.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 135,
-      "heightMm": 32,
-      "weightGrams": 26,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": 28
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Aran 608 Smooth - Fishtail Pipe",
-      "keywords": [
-        "First appearing in 1965, the Aran has since become a staple of our Classic range, offering a variety of traditional, non-System Peterson shapes at an accessible price. The Aran Smooth underlines that classic aesthetic with a warm, medium walnut stain. The Peterson System is still the most popular line Peterson produce, along with the P-Lip mouthpiece. Each briar pipe is made in the Dublin factory by skilled craftsmen and enjoyed the world over. Over 100,000 pipes are made every year at the Peterson factory; traditionally most are smoked in the UK & Europe, but increasingly more are being enjoyed by smoker&rsquo;s worldwide. Browse GQ Tobaccos&rsquo; range of Peterson pipes below and get in touch if you have any questions about any of our products. Pipe Details Pipe Material : Briar Finish : Smooth Colour : Matte Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 135mm Pipe Height : 32mm Pipe Width : 28mm Chamber Width : 18mm Pipe Weight : 26grams",
-        "Briar",
-        "Smooth",
-        "Tapered (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-24470",
     "source": "gqtobaccos",
     "sourceProductId": "24470",
@@ -2021397,119 +2021401,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25257",
-    "source": "gqtobaccos",
-    "sourceProductId": "25257",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/dr-plumb-meerschaum-lined-bent-billiard-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Dr Plumb - Meerschaum Lined - Bent Billiard - 9mm Filter Pipe",
-    "displayNameEn": "Dr Plumb - Meerschaum Lined - Bent Billiard - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Dr Plumb - Meerschaum Lined - Bent Billiard - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Dr Plumb",
-      "canonicalName": "Dr Plumb",
-      "slug": "dr-plumb",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Billiard",
-      "shapeSlug": "bent-billiard",
-      "shapeZhName": "弯式撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Vuclanite (Fishtail)",
-      "stemMaterialSlug": "vuclanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 69.99,
-      "rawText": "GBP 69.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25257/90314/4598S_H__44794.1770285752.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25257/90314/4598S_H__44794.1770285752.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25257/90314/4598S_H__44794.1770285752.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 134,
-      "heightMm": 46,
-      "weightGrams": 50,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 16,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Dr Plumb",
-      "title": "Dr Plumb - Meerschaum Lined - Bent Billiard - 9mm Filter Pipe",
-      "keywords": [
-        "The Dr Plumb Meerschaum Lined 9mm Filter Pipe is a superb choice for smokers who value smoothness, comfort, and classic craftsmanship. Designed with both performance and practicality in mind, this pipe combines traditional styling with modern smoking refinement&mdash;making it ideal for everyday enjoyment. At its core is a meerschaum-lined bowl , prized for its natural ability to absorb moisture and impurities. This lining helps deliver a cooler, drier smoke while enhancing flavour clarity over time. The pipe is also engineered to accept a 9mm filter , offering added filtration to reduce harshness and create a cleaner, smoother smoking experience&mdash;particularly appreciated by those who enjoy longer or more frequent sessions. Finished with Dr Plumb&rsquo;s hallmark attention to detail, the pipe features balanced proportions, a comfortable mouthpiece, and reliable construction designed for consistent performance. Whether paired with aromatic or traditional pipe tobaccos, it provides an easy, refined smoke with minimal maintenance. Well-suited to both experienced pipe smokers and those seeking a more forgiving, filtered smoke, the Dr Plumb Meerschaum Lined 9mm Filter Pipe is a dependable and elegant addition to any pipe collection. A classic pipe with modern refinement&mdash;available now at GQ Tobaccos . Pipe Details Pipe Material : Briar Shape : Bent Billiard Finish : Smooth Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : 9mm Dimensions Pipe Length : 134mm Pipe Height : 46mm Pipe Width : 38mm Chamber Width : 16mm Pipe Weight : 50grams",
-        "Briar",
-        "Bent Billiard",
-        "Smooth",
-        "Vuclanite (Fishtail)",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2025753,118 +2025644,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25914",
-    "source": "gqtobaccos",
-    "sourceProductId": "25914",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-st-patricks-day-2026-sandblasted-x220-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
-    "displayNameEn": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Sandblasted",
-      "finishSlug": "sandblasted",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25914/91568/peterson_x220_sandblasted_pipe__94751.1794327350.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - St Patricks Day 2026 - Sandblasted X220 - Pipe",
-      "keywords": [
-        "Expertly crafted in Dublin from high-quality briar, the St Patrick&rsquo;s Day 2026 pipe showcases Peterson&rsquo;s renowned engineering and attention to detail. The bowl is finished in a rich emerald-inspired stain, complemented by a polished nickel band engraved with Peterson&rsquo;s iconic branding. A sleek acrylic mouthpiece completes the design, offering both durability and a comfortable smoking experience. Available in a range of Peterson&rsquo;s classic shapes, each pipe combines timeless aesthetics with the dependable performance that has made Peterson a favourite among pipe smokers for generations. Whether you&rsquo;re adding to your collection or looking for a pipe to mark the occasion, the Peterson St Patrick&rsquo;s Day 2026 is a fitting tribute to Ireland&rsquo;s most famous celebration. Pipe Details Pipe Material : Briar Finish : Sandblasted Mouthpiece : Acrylic Filter : None Dimensions Overall length 126 mm Bowl height 50 mm Bowl outside diameter 36 mm Chamber diameter 19 mm Chamber depth 37&ndash;42 mm Weight 60 g",
-        "Briar",
-        "Sandblasted",
-        "Acrylic",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
