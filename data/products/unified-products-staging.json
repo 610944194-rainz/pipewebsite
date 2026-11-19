@@ -176231,12 +176231,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -176297,11 +176297,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -188428,12 +188428,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -188495,11 +188495,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -207417,12 +207417,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -207468,7 +207468,7 @@
         "unknown",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Savinelli"
       ]
     },
@@ -207483,11 +207483,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -361655,12 +361655,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -361722,11 +361722,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -362742,12 +362742,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -362809,11 +362809,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -364192,12 +364192,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -364259,11 +364259,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -367886,12 +367886,12 @@
       "canonical": "estate"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -367952,11 +367952,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -379944,6 +379944,127 @@
     }
   },
   {
+    "id": "danish-50342215679632",
+    "source": "danish",
+    "sourceProductId": "50342215679632",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/chacom-corsica-army-mount-billard-smooth-88-200",
+    "entityType": "offer",
+    "displayName": "Chacom, Corsica, Army Mount Billard, Smooth, 88/200",
+    "displayNameEn": "Chacom, Corsica, Army Mount Billard, Smooth, 88/200",
+    "displayNameZh": null,
+    "rawTitle": "Chacom, Corsica, Army Mount Billard, Smooth, 88/200",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 211.87,
+      "rawText": "USD 211.87",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1547,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180013-a2d3efe2-601a-4416-9480-e2c0491da08a.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180013-a2d3efe2-601a-4416-9480-e2c0491da08a.JPG",
+        "https://dps-media.aperi.io/_B180014-d190eea1-634e-4a32-979a-839ae324af12.JPG",
+        "https://dps-media.aperi.io/_B180015-c284b958-1c9a-421d-8c3d-ff25d1c85e87.JPG",
+        "https://dps-media.aperi.io/_B180016-1cae2e04-7622-4dd4-8985-0b111bb21331.JPG",
+        "https://dps-media.aperi.io/_B180017-987acadf-52ff-425e-8563-5ec4b20b34ab.JPG",
+        "https://dps-media.aperi.io/_B180018-2f7f8a35-f52f-4b98-bf82-ba29b9e3e492.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 43,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "Chacom, Corsica, Army Mount Billard, Smooth, 88/200",
+      "keywords": [
+        "cors12",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Smooth",
+        "光面",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Chacom"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-61333659831586",
     "source": "danish",
     "sourceProductId": "61333659831586",
@@ -380173,6 +380294,127 @@
       "adapterWarnings": [
         "bowlMaterial:null"
       ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-66472980500502",
+    "source": "danish",
+    "sourceProductId": "66472980500502",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/chacom-corsica-army-mount-billard-smooth",
+    "entityType": "offer",
+    "displayName": "Chacom, Corsica, Army Mount Billard, Smooth, 86/200",
+    "displayNameEn": "Chacom, Corsica, Army Mount Billard, Smooth, 86/200",
+    "displayNameZh": null,
+    "rawTitle": "Chacom, Corsica, Army Mount Billard, Smooth, 86/200",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 211.87,
+      "rawText": "USD 211.87",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1547,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180007-b101e51e-064f-4cbb-9188-2ea178d23d8d.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180007-b101e51e-064f-4cbb-9188-2ea178d23d8d.JPG",
+        "https://dps-media.aperi.io/_B180008-ee55dcdd-e29e-468a-adeb-ce924560e571.JPG",
+        "https://dps-media.aperi.io/_B180009-c2266362-5745-47f0-8ae6-a5b6818c8252.JPG",
+        "https://dps-media.aperi.io/_B180010-944c6a47-28e4-4764-9ebe-66aa5411383d.JPG",
+        "https://dps-media.aperi.io/_B180011-12711b18-88eb-4163-9fa1-238749ed7f8b.JPG",
+        "https://dps-media.aperi.io/_B180012-70729aa5-f0da-45e4-a076-6d5575d04896.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 46,
+      "weightGrams": 42,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "Chacom, Corsica, Army Mount Billard, Smooth, 86/200",
+      "keywords": [
+        "cors11",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Smooth",
+        "光面",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Chacom"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
     },
     "publication": {
       "status": "eligible",
@@ -380429,6 +380671,124 @@
     }
   },
   {
+    "id": "danish-75809443709929",
+    "source": "danish",
+    "sourceProductId": "75809443709929",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/ropp-ecume-neogene-prince-w-meerschaum",
+    "entityType": "offer",
+    "displayName": "ROPP, Écume, Prince w. meerschaum",
+    "displayNameEn": "ROPP, Écume, Prince w. meerschaum",
+    "displayNameZh": null,
+    "rawTitle": "ROPP, Écume, Prince w. meerschaum",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Prince",
+      "shapeSlug": "prince",
+      "shapeZhName": "王子斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Meerschaum",
+      "bowlMaterialSlug": "meerschaum",
+      "bowlMaterialZhName": "海泡石",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 150,
+      "rawText": "USD 150.00",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1095,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180026-5bee2ca3-c748-4bbb-9d84-c5af7be13611.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180026-5bee2ca3-c748-4bbb-9d84-c5af7be13611.JPG",
+        "https://dps-media.aperi.io/_B180027-8d097522-29d8-4867-ab69-19c43ea6ecdf.JPG",
+        "https://dps-media.aperi.io/_B180028-6011b908-0f0f-4fb1-9d13-10cffda9896a.JPG",
+        "https://dps-media.aperi.io/_B180029-117f0cbc-b973-45ca-aef3-e0317a0c3f7c.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 35,
+      "weightGrams": 37,
+      "chamberDepthMm": 26,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "ROPP, Écume, Prince w. meerschaum",
+      "keywords": [
+        "全新未使用",
+        "Prince",
+        "王子斗",
+        "Smooth",
+        "光面",
+        "Meerschaum",
+        "海泡石",
+        "Vulcanite",
+        "硫化橡胶",
+        "可购买",
+        "Chacom"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-75935940735877",
     "source": "danish",
     "sourceProductId": "75935940735877",
@@ -380529,6 +380889,125 @@
         "硫化橡胶",
         "可购买",
         "Tom Eltang"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-79964368140700",
+    "source": "danish",
+    "sourceProductId": "79964368140700",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/chacom-christmas-pipe-2026-billard",
+    "entityType": "offer",
+    "displayName": "Chacom Christmas Pipe, 2026, Billard",
+    "displayNameEn": "Chacom Christmas Pipe, 2026, Billard",
+    "displayNameZh": null,
+    "rawTitle": "Chacom Christmas Pipe, 2026, Billard",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "9mm",
+      "filterSizeMm": 9,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 143.75,
+      "rawText": "USD 143.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1049,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180036-0e13fc2c-4bd3-4c64-882c-845d941fb53a.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180036-0e13fc2c-4bd3-4c64-882c-845d941fb53a.JPG",
+        "https://dps-media.aperi.io/_B180037-9fb178ba-d128-4dcb-9607-9f8d0b78e506.JPG",
+        "https://dps-media.aperi.io/_B180038-d57c47e4-4ead-4a3e-9bef-90617b3329ca.JPG",
+        "https://dps-media.aperi.io/_B180039-56496a05-08c6-4e86-b983-3593fb38a927.JPG",
+        "https://dps-media.aperi.io/_B180035-d4b5d291-d844-4edf-8358-159f76f5c335.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 145,
+      "heightMm": 46,
+      "weightGrams": 44,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "Chacom Christmas Pipe, 2026, Billard",
+      "keywords": [
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Sandblast",
+        "喷砂",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Chacom"
       ]
     },
     "integration": {
@@ -381516,6 +381995,125 @@
     }
   },
   {
+    "id": "danish-105295570166543",
+    "source": "danish",
+    "sourceProductId": "105295570166543",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/chacom-christmas-pipe-2026-bent-billard",
+    "entityType": "offer",
+    "displayName": "Chacom Christmas Pipe, 2026, Bent Billard",
+    "displayNameEn": "Chacom Christmas Pipe, 2026, Bent Billard",
+    "displayNameZh": null,
+    "rawTitle": "Chacom Christmas Pipe, 2026, Bent Billard",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "9mm",
+      "filterSizeMm": 9,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": false,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 143.75,
+      "rawText": "USD 143.75",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1049,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180031-a8e997ad-5b36-475d-9b83-dc1cf5825e69.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180031-a8e997ad-5b36-475d-9b83-dc1cf5825e69.JPG",
+        "https://dps-media.aperi.io/_B180032-db3d5668-c4d4-4abe-a373-0bc2fc169a08.JPG",
+        "https://dps-media.aperi.io/_B180033-0567bc61-16a9-4031-8c0a-631a6d9995f0.JPG",
+        "https://dps-media.aperi.io/_B180034-c59a84ff-1a5f-48ea-9d1b-dd3bb6a945d7.JPG",
+        "https://dps-media.aperi.io/_B180030-8aeb9893-64c2-4909-b2f1-42a44bb077ac.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 133,
+      "heightMm": 49,
+      "weightGrams": 47,
+      "chamberDepthMm": 37,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "Chacom Christmas Pipe, 2026, Bent Billard",
+      "keywords": [
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Sandblast",
+        "喷砂",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Chacom"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "bowlMaterial:null"
+      ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
     "id": "danish-107259711148244",
     "source": "danish",
     "sourceProductId": "107259711148244",
@@ -382227,6 +382825,127 @@
       "adapterWarnings": [
         "bowlMaterial:null"
       ]
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Danish source status indicates available."
+    }
+  },
+  {
+    "id": "danish-131025628058246",
+    "source": "danish",
+    "sourceProductId": "131025628058246",
+    "sourceUrl": "https://www.danishpipeshop.com/en/products/chacom-corsica-army-mount-billard-smooth-87-200",
+    "entityType": "offer",
+    "displayName": "Chacom, Corsica, Army Mount Billard, Smooth, 87/200",
+    "displayNameEn": "Chacom, Corsica, Army Mount Billard, Smooth, 87/200",
+    "displayNameZh": null,
+    "rawTitle": "Chacom, Corsica, Army Mount Billard, Smooth, 87/200",
+    "brand": {
+      "rawName": "Chacom",
+      "canonicalName": "Chacom",
+      "slug": "chacom",
+      "zhName": "查科姆",
+      "country": "France",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Billiard",
+      "shapeSlug": "billiard",
+      "shapeZhName": "撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": "全新未使用",
+      "canonical": "new"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "source-status",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
+    },
+    "price": {
+      "currency": "USD",
+      "amount": 211.87,
+      "rawText": "USD 211.87",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "siteDisplayAmount": 1547,
+      "siteDisplayCurrency": "CNY",
+      "siteDisplayReady": true
+    },
+    "images": {
+      "main": "https://dps-media.aperi.io/_B180019-c4e54343-506a-4b93-a220-9161e738d277.JPG",
+      "gallery": [
+        "https://dps-media.aperi.io/_B180019-c4e54343-506a-4b93-a220-9161e738d277.JPG",
+        "https://dps-media.aperi.io/_B180020-f179b801-17ef-4f0a-8f36-93df780e4430.JPG",
+        "https://dps-media.aperi.io/_B180021-64689b11-089a-41b7-bdea-4b1310a34368.JPG",
+        "https://dps-media.aperi.io/_B180022-73eb1070-7ce0-42f0-95bb-3c1115d3b86c.JPG",
+        "https://dps-media.aperi.io/_B180023-dc231c0b-36a3-4aa5-93ab-e6bea91da863.JPG",
+        "https://dps-media.aperi.io/_B180024-f4162e99-7ed8-4675-8e12-17239b1990bf.JPG"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 148,
+      "heightMm": 46,
+      "weightGrams": 44,
+      "chamberDepthMm": 38,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Chacom",
+      "title": "Chacom, Corsica, Army Mount Billard, Smooth, 87/200",
+      "keywords": [
+        "cors13",
+        "全新未使用",
+        "Billiard",
+        "撞球斗",
+        "Smooth",
+        "光面",
+        "Briar",
+        "石楠木",
+        "Acrylic",
+        "亚克力",
+        "可购买",
+        "Chacom"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": true,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
     },
     "publication": {
       "status": "eligible",
@@ -384096,12 +384815,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -384162,11 +384881,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
