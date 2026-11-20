@@ -2003275,11 +2003275,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2003338,7 +2003338,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2005360,120 +2005360,6 @@
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
       "reason": "Falcon is globally excluded before the detail queue."
-    }
-  },
-  {
-    "id": "gqtobaccos-14560",
-    "source": "gqtobaccos",
-    "sourceProductId": "14560",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-bings-favourite-brown-blast/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Bing's Favourite - Brown Blast",
-    "displayNameEn": "Savinelli - Bing's Favourite - Brown Blast",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Bing's Favourite - Brown Blast",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Sandblast",
-      "finishSlug": "sandblast",
-      "finishZhName": "喷砂",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69158/savinelli_bings_favourite_brownblast_p165zb_3__34112__60877__75522.1728567170.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69159/SAVINELLI_BINGS_favourite_brown_blast_p165zb_1__66843__63854__86488.1728567170.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 168.6,
-      "heightMm": 46,
-      "weightGrams": 36.4,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 16.9,
-      "outsideDiameterMm": 34
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Bing's Favourite - Brown Blast",
-      "keywords": [
-        "Bing's favourite is a new beautiful range which is in between a Churchwarden and a normal pipe. Pipe Details Pipe Material : Briar Finish : Sandblast Colour : Brown Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 168.6mm Bowl Height : 46 mm Pipe Width : 34 mm Chamber Width : 16.9 mm Pipe Weight : 36.4 grams",
-        "Briar",
-        "Sandblast",
-        "Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     }
   },
   {
@@ -2013443,8 +2013329,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
@@ -2017155,119 +2017041,6 @@
     }
   },
   {
-    "id": "gqtobaccos-23017",
-    "source": "gqtobaccos",
-    "sourceProductId": "23017",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-desigual-rusticated-628-6mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Desigual Rusticated - 628 - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Desigual Rusticated - 628 - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Desigual Rusticated - 628 - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Acrylic (Fishtail)",
-      "stemMaterialSlug": "tapered-acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 64.99,
-      "rawText": "GBP 64.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23017/86554/dsklgsdg__59911__45153__69978.1728569809.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23017/86554/dsklgsdg__59911__45153__69978.1728569809.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/23017/86554/dsklgsdg__59911__45153__69978.1728569809.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23017/86555/siudhjg__57480__52701__81895.1728569809.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 139,
-      "heightMm": 51,
-      "weightGrams": 49,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Desigual Rusticated - 628 - 6mm Filter Pipe",
-      "keywords": [
-        "Pipe with aluminum band that wear at the center a black silicon ring and equipped with additional colored silicon rings to dress the pipe of different colors every day. Available in two finishes: smooth brown and brown rusticated. Acrylic stem, 6 mm hole. Model 628 has a masculine line. The cylindrical bowl is slightly conical, typical of Brandy style. The black tapered stem bend is less pronounced compared to the standard bends. Pipe Details Pipe Material : Briar Shape : Billiard Colour : Brown Mouthpiece : Tapered Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 139mm Bowl Height : 51 mm Bowl Width : 40 mm Chamber Width : 19mm Pipe Weight : 49 grams",
-        "Briar",
-        "Billiard",
-        "Tapered Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-23022",
     "source": "gqtobaccos",
     "sourceProductId": "23022",
@@ -2019833,11 +2019606,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2019891,7 +2019664,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
