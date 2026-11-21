@@ -2003229,123 +2003229,6 @@
     }
   },
   {
-    "id": "gqtobaccos-14075",
-    "source": "gqtobaccos",
-    "sourceProductId": "14075",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-bulldog/",
-    "entityType": "offer",
-    "displayName": "John Brumfit - Great British Classics \" Bulldog\"",
-    "displayNameEn": "John Brumfit - Great British Classics \" Bulldog\"",
-    "displayNameZh": null,
-    "rawTitle": "John Brumfit - Great British Classics \" Bulldog\"",
-    "brand": {
-      "rawName": "John Brumfit",
-      "canonicalName": "John Brumfit",
-      "slug": "john-brumfit",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bulldog",
-      "shapeSlug": "bulldog",
-      "shapeZhName": "斗牛犬斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered (Fishtail)",
-      "stemMaterialSlug": "tapered-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 42.99,
-      "rawText": "GBP 42.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67890/John_Brumfit_Bulldog_3__87613__22581__62212.1728566994.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67891/John_Brumfit_Bulldog_2__80387__35035__29282.1728566994.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67892/John_Brumfit_Bulldog_4__64337__97439__12433.1728566994.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67893/John_Brumfit_Bulldog_6__75676__27240__92336.1728566994.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 140,
-      "heightMm": 39,
-      "weightGrams": 35,
-      "chamberDepthMm": 31,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 41
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "John Brumfit",
-      "title": "John Brumfit - Great British Classics \" Bulldog\"",
-      "keywords": [
-        "A squat and straight bulldog, which has an almost Bullscap feel to it. The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Bulldog Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 140mm Pipe Height : 39mm Pipe Width : 41mm Chamber Width : 22mm Chamber Depth : 31mm Pipe Weight : 35grams",
-        "Briar",
-        "Bulldog",
-        "Smooth",
-        "Tapered (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-14076",
     "source": "gqtobaccos",
     "sourceProductId": "14076",
@@ -2004183,11 +2004066,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2004243,7 +2004126,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2013283,113 +2013166,6 @@
     }
   },
   {
-    "id": "gqtobaccos-21586",
-    "source": "gqtobaccos",
-    "sourceProductId": "21586",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-coolway-churchwarden-6mm-filter-no-81/",
-    "entityType": "excluded-brand",
-    "displayName": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
-    "displayNameEn": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
-    "displayNameZh": null,
-    "rawTitle": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
-    "brand": {
-      "rawName": "Falcon Pipes",
-      "canonicalName": "Falcon Pipes",
-      "slug": null,
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": false
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 66.99,
-      "rawText": "GBP 66.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21586/84046/coolway_81__62078__81073__31148.1728569339.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21586/84046/coolway_81__62078__81073__31148.1728569339.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Falcon Pipes",
-      "title": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
-      "keywords": []
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
-    },
-    "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Falcon is globally excluded before the detail queue."
-    }
-  },
-  {
     "id": "gqtobaccos-21587",
     "source": "gqtobaccos",
     "sourceProductId": "21587",
@@ -2019553,118 +2019329,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-24633",
-    "source": "gqtobaccos",
-    "sourceProductId": "24633",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/rattrays-newcastle-sandblast-5-pipe/",
-    "entityType": "offer",
-    "displayName": "Rattrays - Newcastle Sandblast 5 - 9mm Filter Pipe",
-    "displayNameEn": "Rattrays - Newcastle Sandblast 5 - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Rattrays - Newcastle Sandblast 5 - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Rattrays",
-      "canonicalName": "Rattray's",
-      "slug": "rattrays",
-      "zhName": "拉特雷",
-      "country": "Scotland",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 95.99,
-      "rawText": "GBP 95.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24633/89275/rsjghegio__35516.1750692141.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24633/89275/rsjghegio__35516.1750692141.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24633/89275/rsjghegio__35516.1750692141.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 140,
-      "heightMm": 50,
-      "weightGrams": 55,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 22,
-      "outsideDiameterMm": 48
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Rattray's",
-      "title": "Rattrays - Newcastle Sandblast 5 - 9mm Filter Pipe",
-      "keywords": [
-        "Newcastle upon Tyne, known for its historic architecture and vibrant culture, combines industrial charm with timeless elegance. This is exactly the character captured by our Rattray&rsquo;s Newcastle Series. The design is simple, yet powerful through the substantial metal application. Pipe Details Pipe Material : Briar Finish : Smooth Mouthpiece : Acrylic (Fishtail) Filter : 9mm Dimensions Pipe Length : 140mm Pipe Height : 50 mm Pipe Width : 48 mm Chamber Width : 22 mm Pipe Weight : 55grams",
-        "Briar",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
