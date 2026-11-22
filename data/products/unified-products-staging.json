@@ -2004020,120 +2004020,6 @@
     }
   },
   {
-    "id": "gqtobaccos-14368",
-    "source": "gqtobaccos",
-    "sourceProductId": "14368",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-bent-billiard-1/",
-    "entityType": "offer",
-    "displayName": "John Brumfit - Great British Classics \"Billiard\"",
-    "displayNameEn": "John Brumfit - Great British Classics \"Billiard\"",
-    "displayNameZh": null,
-    "rawTitle": "John Brumfit - Great British Classics \"Billiard\"",
-    "brand": {
-      "rawName": "John Brumfit",
-      "canonicalName": "John Brumfit",
-      "slug": "john-brumfit",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight Billiard",
-      "shapeSlug": "straight-billiard",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered (Fishtail)",
-      "stemMaterialSlug": "tapered-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 42.99,
-      "rawText": "GBP 42.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68725/billiard_2__17790__19322__45911.1728567117.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 134,
-      "heightMm": 44,
-      "weightGrams": 35,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": 33
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "John Brumfit",
-      "title": "John Brumfit - Great British Classics \"Billiard\"",
-      "keywords": [
-        "The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Straight Billiard Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 134mm Bowl Height : 44mm Pipe Width : 33 mm Chamber Width : 18 mm Pipe Weight : 35grams",
-        "Briar",
-        "Straight Billiard",
-        "Smooth",
-        "Tapered (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-14369",
     "source": "gqtobaccos",
     "sourceProductId": "14369",
@@ -2023394,11 +2023280,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2023451,7 +2023337,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2025959,8 +2025845,8 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": false,
       "publicIndexEligible": false,
       "publiclySellable": false,
