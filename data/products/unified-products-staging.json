@@ -2003229,6 +2003229,123 @@
     }
   },
   {
+    "id": "gqtobaccos-14075",
+    "source": "gqtobaccos",
+    "sourceProductId": "14075",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-bulldog/",
+    "entityType": "offer",
+    "displayName": "John Brumfit - Great British Classics \" Bulldog\"",
+    "displayNameEn": "John Brumfit - Great British Classics \" Bulldog\"",
+    "displayNameZh": null,
+    "rawTitle": "John Brumfit - Great British Classics \" Bulldog\"",
+    "brand": {
+      "rawName": "John Brumfit",
+      "canonicalName": "John Brumfit",
+      "slug": "john-brumfit",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bulldog",
+      "shapeSlug": "bulldog",
+      "shapeZhName": "斗牛犬斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialSlug": "tapered-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 42.99,
+      "rawText": "GBP 42.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14075/67889/John_Brumfit_Bulldog_1__31366__65181__36069.1728566994.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67890/John_Brumfit_Bulldog_3__87613__22581__62212.1728566994.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67891/John_Brumfit_Bulldog_2__80387__35035__29282.1728566994.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67892/John_Brumfit_Bulldog_4__64337__97439__12433.1728566994.JPG?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14075/67893/John_Brumfit_Bulldog_6__75676__27240__92336.1728566994.JPG?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 140,
+      "heightMm": 39,
+      "weightGrams": 35,
+      "chamberDepthMm": 31,
+      "chamberDiameterMm": 22,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "John Brumfit",
+      "title": "John Brumfit - Great British Classics \" Bulldog\"",
+      "keywords": [
+        "A squat and straight bulldog, which has an almost Bullscap feel to it. The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Bulldog Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 140mm Pipe Height : 39mm Pipe Width : 41mm Chamber Width : 22mm Chamber Depth : 31mm Pipe Weight : 35grams",
+        "Briar",
+        "Bulldog",
+        "Smooth",
+        "Tapered (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-14076",
     "source": "gqtobaccos",
     "sourceProductId": "14076",
@@ -2003906,6 +2004023,120 @@
     }
   },
   {
+    "id": "gqtobaccos-14366",
+    "source": "gqtobaccos",
+    "sourceProductId": "14366",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-table-pipe/",
+    "entityType": "offer",
+    "displayName": "John Brumfit - Great British Classics \"Bent Billiard\"",
+    "displayNameEn": "John Brumfit - Great British Classics \"Bent Billiard\"",
+    "displayNameZh": null,
+    "rawTitle": "John Brumfit - Great British Classics \"Bent Billiard\"",
+    "brand": {
+      "rawName": "John Brumfit",
+      "canonicalName": "John Brumfit",
+      "slug": "john-brumfit",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Billiard",
+      "shapeSlug": "bent-billiard",
+      "shapeZhName": "弯式撞球斗",
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialSlug": "tapered-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 42.99,
+      "rawText": "GBP 42.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14366/68720/JB_bent_billiard_1__33468__72913__29887.1728567117.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14366/68720/JB_bent_billiard_1__33468__72913__29887.1728567117.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14366/68720/JB_bent_billiard_1__33468__72913__29887.1728567117.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14366/68721/JB_bent_billiard_2__75563__61207__18408.1728567117.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 130,
+      "heightMm": 41,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 32
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "John Brumfit",
+      "title": "John Brumfit - Great British Classics \"Bent Billiard\"",
+      "keywords": [
+        "The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Bent Billiard Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 130mm Bowl Height : 41mm Pipe Width : 32mm Chamber Width : 20 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Bent Billiard",
+        "Smooth",
+        "Tapered (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-14367",
     "source": "gqtobaccos",
     "sourceProductId": "14367",
@@ -2003998,6 +2004229,120 @@
         "The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Straight Pot Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 148mm Bowl Height : 46mm Pipe Width : 39mm Chamber Width : 19 mm Pipe Weight : 38 grams",
         "Briar",
         "Straight Pot",
+        "Smooth",
+        "Tapered (Fishtail)",
+        "None"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-14368",
+    "source": "gqtobaccos",
+    "sourceProductId": "14368",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/john-brumfit-great-british-classics-bent-billiard-1/",
+    "entityType": "offer",
+    "displayName": "John Brumfit - Great British Classics \"Billiard\"",
+    "displayNameEn": "John Brumfit - Great British Classics \"Billiard\"",
+    "displayNameZh": null,
+    "rawTitle": "John Brumfit - Great British Classics \"Billiard\"",
+    "brand": {
+      "rawName": "John Brumfit",
+      "canonicalName": "John Brumfit",
+      "slug": "john-brumfit",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Straight Billiard",
+      "shapeSlug": "straight-billiard",
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Tapered (Fishtail)",
+      "stemMaterialSlug": "tapered-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "None",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 42.99,
+      "rawText": "GBP 42.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14368/68724/JB_Billiard_1__77258__41951__08144.1728567117.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14368/68725/billiard_2__17790__19322__45911.1728567117.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 134,
+      "heightMm": 44,
+      "weightGrams": 35,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 33
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "John Brumfit",
+      "title": "John Brumfit - Great British Classics \"Billiard\"",
+      "keywords": [
+        "The John Brumfit pipes are made in Italy for Gawith Hoggarth. These low/mid range pipes are made at the briars source in Italy the western world&rsquo;s largest producer of Briar pipes. The &ldquo;Great British Classics&rdquo; are a collection of traditional shapes, in a matte walnut brown finish. Unlike many other Italian pipes, these are made without filters and using Acrylic/Lucite, just good old fashioned Vulcanite. Pipe Details Pipe Material : Briar Shape : Straight Billiard Finish : Smooth Colour : Brown Mouthpiece : Tapered (Fishtail) Filter : None Dimensions Pipe Length : 134mm Bowl Height : 44mm Pipe Width : 33 mm Chamber Width : 18 mm Pipe Weight : 35grams",
+        "Briar",
+        "Straight Billiard",
         "Smooth",
         "Tapered (Fishtail)",
         "None"
@@ -2005187,10 +2005532,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 66.99,
-      "rawText": "GBP 66.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 57.99,
+      "rawText": "GBP 57.99",
+      "msrpAmount": 74.99,
+      "msrpRawText": "GBP 74.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2005988,8 +2006333,8 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 95.99,
-      "rawText": "GBP 95.99",
+      "amount": 79.99,
+      "rawText": "GBP 79.99",
       "msrpAmount": 108.45,
       "msrpRawText": "GBP 108.45",
       "internationalShippingAmount": 20,
@@ -2009403,8 +2009748,8 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 83.99,
-      "rawText": "GBP 83.99",
+      "amount": 65.99,
+      "rawText": "GBP 65.99",
       "msrpAmount": 92.95,
       "msrpRawText": "GBP 92.95",
       "internationalShippingAmount": 20,
@@ -2009444,6 +2009789,121 @@
         "Smooth",
         "Acrylic (Fishtail)",
         "6mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-18955",
+    "source": "gqtobaccos",
+    "sourceProductId": "18955",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/stanwell-brushed-black-185-9mm-filter-pipe/",
+    "entityType": "offer",
+    "displayName": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
+    "displayNameEn": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
+    "brand": {
+      "rawName": "Stanwell",
+      "canonicalName": "Stanwell",
+      "slug": "stanwell",
+      "zhName": "史丹威",
+      "country": "Denmark",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": "Bent Apple",
+      "shapeSlug": "bent-apple",
+      "shapeZhName": "弯式苹果斗",
+      "finish": "Brushed",
+      "finishSlug": "brushed",
+      "finishZhName": "拉丝",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Vulcanite",
+      "stemMaterialSlug": "vulcanite",
+      "stemMaterialZhName": "硫化橡胶",
+      "filter": "9mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": true,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 49.99,
+      "rawText": "GBP 49.99",
+      "msrpAmount": 89.99,
+      "msrpRawText": "GBP 89.99",
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79368/stanwell_185_9mm_filter_pipe_3__65934__95319__18539.1728568423.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79369/stanwell_185_9mm_filter_pipe_2__25305__20934__68694.1728568423.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 139,
+      "heightMm": 54,
+      "weightGrams": 71,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 48
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Stanwell",
+      "title": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
+      "keywords": [
+        "The brushed black range from Stanwell is a rusticated pipe with a lined brushed effect rustication. The pipes are finished with a smooth brown top. Stanwells History Whereas most of these stories start with either an inspired young carver or a veteran leaving one of the big manufactures. Stanwell however a slightly different background Poul Nielsen has produced a range of wooden goods and with the outbreak of WWII he began making beech pipes. The English made briar smoked in Denmark became unobtainable during the war, as was Mediterranean briar. These pipes became popular with local smokers and Nielsen soon stopped producing other wooden goods. At the end of the war, briar soon became available and Nielsen quickly moved to important material. During this time Danish pipes had no real history to call upon, so Poul changed not the only the companies identity, but eventually his own. Gone was the Nielsen name and Stanwell, complete with the Horse & Cart logo was born. Thanks to his history working with wood and mass productions, Poul realised with moulds and guides he could reproduce even the most complex of shapes and drive down the price. All this technology and innovation was no good without designers, so Poul worked closely with some of Denmarks finest carvers to produce the designs. First came Sixten Ivarsson , who justifiably is seen as the father of Danish Makers. The factory was relocated to Borup in 1969, to be closer to Ivarsson and then it all started. The unique flare on traditional shapes and the now ironically Danish freehands help not only kick start the Stanwell story but also that of Danish pipe makers. By working with artisan carvers and the mass production methods used by Nielsen, saw Stanwell offering pipes for a fraction of the price you would pay for a handmade version. This allowed beautiful and often complex shapes, be affordable to the masses. What began with Ivarsson designing soon expanded with a resurgence of Danish pipe making. Tom Eltang , Jess Chonowitsch, Poul Winslow, Anne Julie, Bang and Poul Ilsted have all worked for Stanwell over the years. This now leaves Stanwell with one of the most diverse range of factory made pipes in the world. Later on his life, Nielsen changed his name to &ldquo;Poul Stanwell&rdquo; and is considered as a very important player in the creation of the Danish pipe market. While many of the artisanal carvers who worked with Poul mainly produce pipes in their own workshops, some still do new designs for Stanwell. In 2010 the Danish factory was closed and all production was moved to Italy, who over the years has become the largest pipe producing nation in Europe. Thanks to the systems used by Poul Stanwell has ensure that very little has changed since this switch and they still offer the best quality for the money today. Pipe Details Pipe Material : Briar Shape : Bent Apple Finish : Brushed Colour : Black Mouthpiece : Vulcanite Filter : 9mm Dimensions Pipe Length : 139 mm Pipe Height : 54 mm Pipe Width : 48 mm Chamber Width : 19 mm Pipe Weight : 71 grams",
+        "Briar",
+        "Bent Apple",
+        "Brushed",
+        "Vulcanite",
+        "9mm"
       ]
     },
     "integration": {
@@ -2010522,11 +2010982,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2010581,7 +2011041,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2013107,10 +2013567,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 66.99,
-      "rawText": "GBP 66.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 57.99,
+      "rawText": "GBP 57.99",
+      "msrpAmount": 74.99,
+      "msrpRawText": "GBP 74.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2013214,10 +2013674,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 66.99,
-      "rawText": "GBP 66.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 57.99,
+      "rawText": "GBP 57.99",
+      "msrpAmount": 74.99,
+      "msrpRawText": "GBP 74.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2016532,10 +2016992,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 69.99,
-      "rawText": "GBP 69.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 59.99,
+      "rawText": "GBP 59.99",
+      "msrpAmount": 99.99,
+      "msrpRawText": "GBP 99.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2016758,10 +2017218,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 112.99,
-      "rawText": "GBP 112.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 89.99,
+      "rawText": "GBP 89.99",
+      "msrpAmount": 167.45,
+      "msrpRawText": "GBP 167.45",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2016983,10 +2017443,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 86.99,
-      "rawText": "GBP 86.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 74.99,
+      "rawText": "GBP 74.99",
+      "msrpAmount": 118.45,
+      "msrpRawText": "GBP 118.45",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2020603,11 +2021063,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2020657,7 +2021117,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2021502,10 +2021962,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 128.99,
-      "rawText": "GBP 128.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 99.99,
+      "rawText": "GBP 99.99",
+      "msrpAmount": 149.99,
+      "msrpRawText": "GBP 149.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2021726,10 +2022186,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 128.99,
-      "rawText": "GBP 128.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 99.99,
+      "rawText": "GBP 99.99",
+      "msrpAmount": 149.99,
+      "msrpRawText": "GBP 149.99",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2022062,10 +2022522,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 84.99,
+      "rawText": "GBP 84.99",
+      "msrpAmount": 115,
+      "msrpRawText": "GBP 115.00",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2022174,10 +2022634,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 84.99,
+      "rawText": "GBP 84.99",
+      "msrpAmount": 115,
+      "msrpRawText": "GBP 115.00",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2023227,117 +2023687,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25776",
-    "source": "gqtobaccos",
-    "sourceProductId": "25776",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-saint-nicholas-2026-111-6mm-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Saint Nicholas 2026 - 111 - 6mm Pipe",
-    "displayNameEn": "Savinelli - Saint Nicholas 2026 - 111 - 6mm Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Saint Nicholas 2026 - 111 - 6mm Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "111 KS Billiard",
-      "shapeSlug": "111-ks-billiard",
-      "shapeZhName": null,
-      "finish": "Brown Rusticated",
-      "finishSlug": "brown-rusticated",
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 96.99,
-      "rawText": "GBP 96.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25776/91329/savinelli_st_nicholas_2026_111_pipe__65253.1789565034.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25776/91329/savinelli_st_nicholas_2026_111_pipe__65253.1789565034.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25776/91329/savinelli_st_nicholas_2026_111_pipe__65253.1789565034.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": 51,
-      "weightGrams": 43,
-      "chamberDepthMm": 44,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Saint Nicholas 2026 - 111 - 6mm Pipe",
-      "keywords": [
-        "Savinelli St. Nicholas 2026 111 KS 6mm Pipe The Savinelli St. Nicholas 2026 111 KS combines one of Savinelli's most iconic straight shapes with the distinctive festive styling of the annual St. Nicholas collection. Handcrafted in Italy, this seasonal edition is an attractive choice for both Savinelli collectors and anyone looking for a traditional straight pipe with a little extra character. The 111 KS is a classic King Size straight Billiard , featuring a tall cylindrical bowl and straight shank. Its generously proportioned tobacco chamber provides plenty of capacity for a longer smoke, while the clean, traditional lines make the 111 one of Savinelli's most recognisable and versatile shapes. Savinelli describes the model as suitable for virtually any type of pipe smoker. For the 2026 St. Nicholas edition, the briar is finished in a handsome brown rustication , giving the bowl and shank a rich, tactile appearance. The warm brown briar is contrasted by a red acrylic accent band framed by two slim aluminium rings , bringing a subtle touch of traditional Christmas colour to the design. Completing the pipe is the collection's striking pearlescent green acrylic stem . Combined with the red accent and darker rusticated briar, it creates a distinctive festive appearance while retaining the elegant proportions of the classic 111 KS. The pipe is designed to accept 6mm filters and is made in Italy to Savinelli's usual high standards. Dimensions & Details Shape: 111 KS Billiard Length: 150mm Bowl Height: 51mm Outside Bowl Diameter: 39mm Chamber Diameter: 20mm Chamber Depth: 44mm Weight: 43g Finish: Brown Rusticated Stem: Pearlescent Green Acrylic Filter: 6mm Country of Manufacture: Italy",
-        "111 KS Billiard",
-        "Brown Rusticated",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2025183,10 +2025532,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 74.99,
+      "rawText": "GBP 74.99",
+      "msrpAmount": 101,
+      "msrpRawText": "GBP 101.00",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2025295,10 +2025644,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 74.99,
+      "rawText": "GBP 74.99",
+      "msrpAmount": 101,
+      "msrpRawText": "GBP 101.00",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2025407,10 +2025756,10 @@
     },
     "price": {
       "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
+      "amount": 84.99,
+      "rawText": "GBP 84.99",
+      "msrpAmount": 115,
+      "msrpRawText": "GBP 115.00",
       "internationalShippingAmount": 20,
       "internationalShippingCurrency": "GBP",
       "siteDisplayAmount": null,
@@ -2025799,23 +2026148,23 @@
     }
   },
   {
-    "id": "gqtobaccos-25927",
+    "id": "gqtobaccos-25931",
     "source": "gqtobaccos",
-    "sourceProductId": "25927",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr5-double-barrel-dual-bowl-pipe/",
-    "entityType": "component",
-    "displayName": "Northern Briars - Bruyere Premier (Gr5) - Double Barrel Dual Bowl Pipe",
-    "displayNameEn": "Northern Briars - Bruyere Premier (Gr5) - Double Barrel Dual Bowl Pipe",
+    "sourceProductId": "25931",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-1s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 1s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 1s - Deluxe System Rustic Pipe",
     "displayNameZh": null,
-    "rawTitle": "Northern Briars - Bruyere Premier (Gr5) - Double Barrel Dual Bowl Pipe",
+    "rawTitle": "Peterson - Christmas 2026 - 1s - Deluxe System Rustic Pipe",
     "brand": {
-      "rawName": "Northern Briars",
-      "canonicalName": "Northern Briars",
-      "slug": null,
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
       "zhName": null,
       "country": null,
       "reviewStatus": "confirmed",
-      "indexEligible": false
+      "indexEligible": true
     },
     "classification": {
       "shape": null,
@@ -2025824,20 +2026173,20 @@
       "finish": null,
       "finishSlug": null,
       "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
       "stemMaterial": null,
       "stemMaterialSlug": null,
       "stemMaterialZhName": null,
-      "filter": null,
+      "filter": "none",
       "filterSizeMm": null,
       "eligibility": {
         "shape": false,
         "finish": false,
-        "bowlMaterial": false,
+        "bowlMaterial": true,
         "stemMaterial": false,
-        "filter": false
+        "filter": true
       }
     },
     "condition": {
@@ -2025845,17 +2026194,17 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "reason": "Explicit pipe component is excluded before the detail queue."
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
       "currency": "GBP",
-      "amount": 332.99,
-      "rawText": "GBP 332.99",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
       "msrpAmount": null,
       "msrpRawText": null,
       "internationalShippingAmount": 20,
@@ -2025865,44 +2026214,1391 @@
       "siteDisplayReady": false
     },
     "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25927/91595/droihdr__00421.1794412010.jpg?c=2",
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25931/91605/kbhoisegegs__66366.1795444962.jpg?c=2",
       "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25927/91595/droihdr__00421.1794412010.jpg?c=2"
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25931/91605/kbhoisegegs__66366.1795444962.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25931/91605/kbhoisegegs__66366.1795444962.jpg?c=2"
       ]
     },
     "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
+      "lengthMm": 137,
+      "heightMm": 46,
+      "weightGrams": 61,
       "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 38
     },
     "model": {
       "canonicalModelKey": null,
       "confidence": null
     },
     "search": {
-      "brand": "Northern Briars",
-      "title": "Northern Briars - Bruyere Premier (Gr5) - Double Barrel Dual Bowl Pipe",
-      "keywords": []
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 1s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 137mm Pipe Height : 46mm Pipe Width : 38mm Chamber Width : 19mm Pipe Weight : 61 grams",
+        "Briar",
+        "none"
+      ]
     },
     "integration": {
       "legacyPipeCompatible": false,
       "legacyMissingFields": [],
-      "adapterWarnings": [
-        "brand:not-index-eligible"
-      ]
+      "adapterWarnings": []
     },
     "publication": {
-      "status": "excluded",
-      "listingEligible": false,
-      "publicIndexEligible": false,
-      "publiclySellable": false,
-      "brandIndexEligible": false,
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Explicit pipe component is excluded before the detail queue."
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25932",
+    "source": "gqtobaccos",
+    "sourceProductId": "25932",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-2s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 129,
+      "heightMm": 45,
+      "weightGrams": 50,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 129mm Pipe Height : 45mm Pipe Width : 36mm Chamber Width : 19mm Pipe Weight : 50 grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25933",
+    "source": "gqtobaccos",
+    "sourceProductId": "25933",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-3s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 3s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 3s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - 3s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25933/91607/odsjesgjseb__34286.1795445231.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25933/91607/odsjesgjseb__34286.1795445231.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25933/91607/odsjesgjseb__34286.1795445231.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 145,
+      "heightMm": 41,
+      "weightGrams": 60,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 3s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 145mm Pipe Height : 41mm Pipe Width : 41mm Chamber Width : 20mm Pipe Weight : 60 grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25934",
+    "source": "gqtobaccos",
+    "sourceProductId": "25934",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-5s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 5s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 5s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - 5s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25934/91608/hshbgrsgl__97376.1795445361.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25934/91608/hshbgrsgl__97376.1795445361.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25934/91608/hshbgrsgl__97376.1795445361.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 138,
+      "heightMm": 46,
+      "weightGrams": 52,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 20,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 5s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 138mm Pipe Height : 46mm Pipe Width : 34mm Chamber Width : 20mm Pipe Weight : 52 grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25935",
+    "source": "gqtobaccos",
+    "sourceProductId": "25935",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-11s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 11s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 11s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - 11s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25935/91609/eksahgraegrhegr__25094.1795445535.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25935/91609/eksahgraegrhegr__25094.1795445535.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25935/91609/eksahgraegrhegr__25094.1795445535.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 140,
+      "heightMm": 51,
+      "weightGrams": 58,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 37
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 11s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 140mm Pipe Height : 51mm Pipe Width : 37mm Chamber Width : 19mm Pipe Weight : 58 grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25937",
+    "source": "gqtobaccos",
+    "sourceProductId": "25937",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-xl5s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - XL5s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - XL5s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - XL5s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25937/91611/oehaeorghae__08876.1795445856.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25937/91611/oehaeorghae__08876.1795445856.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25937/91611/oehaeorghae__08876.1795445856.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 58,
+      "weightGrams": 72,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 21,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - XL5s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 154mm Pipe Height : 58mm Pipe Width : 41mm Chamber Width : 21mm Pipe Weight : 72grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25938",
+    "source": "gqtobaccos",
+    "sourceProductId": "25938",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-9s-deluxe-system-rustic-pipe/",
+    "entityType": "offer",
+    "displayName": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
+    "displayNameEn": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
+    "displayNameZh": null,
+    "rawTitle": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
+    "brand": {
+      "rawName": "Peterson Pipes",
+      "canonicalName": "Peterson Pipes",
+      "slug": "peterson-pipes",
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": "none",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": true,
+        "stemMaterial": false,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 106.99,
+      "rawText": "GBP 106.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 154,
+      "heightMm": 53,
+      "weightGrams": 58,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 19,
+      "outsideDiameterMm": 41
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Peterson Pipes",
+      "title": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
+      "keywords": [
+        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 154mm Pipe Height : 53mm Pipe Width : 41mm Chamber Width : 19mm Pipe Weight : 58 grams",
+        "Briar",
+        "none"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25939",
+    "source": "gqtobaccos",
+    "sourceProductId": "25939",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-6mm-pipe-326-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 326/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 326/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 326/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "6mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25939/91613/hgdrijhseh__22414.1795446941.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25939/91613/hgdrijhseh__22414.1795446941.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25939/91613/hgdrijhseh__22414.1795446941.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25939/91615/drokthjdRHT__26747.1795446942.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25939/91614/roghsgh__26915.1795446942.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 326/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 326/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "6mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25940",
+    "source": "gqtobaccos",
+    "sourceProductId": "25940",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-6mm-pipe-330-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 330/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 330/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 330/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "6mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25940/91616/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25940/91616/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25940/91616/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25940/91617/drokthjdRHT__26747.1795446942.1280.1280__26528.1795447024.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25940/91618/roghsgh__26915.1795446942.1280.1280__62778.1795447024.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 330/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 330/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "6mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25941",
+    "source": "gqtobaccos",
+    "sourceProductId": "25941",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-6mm-pipe-329-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 329/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 329/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 329/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "6mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25941/91621/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.1280.1280__66137.1795447114.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25941/91621/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.1280.1280__66137.1795447114.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25941/91621/hgdrijhseh__22414.1795446941.1280.1280__22028.1795447024.1280.1280__66137.1795447114.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25941/91619/drokthjdRHT__26747.1795446942.1280.1280__26528.1795447024.1280.1280__71420.1795447114.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25941/91620/roghsgh__26915.1795446942.1280.1280__62778.1795447024.1280.1280__39087.1795447114.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 6mm Pipe - 329/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 329/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "6mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25942",
+    "source": "gqtobaccos",
+    "sourceProductId": "25942",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-3mm-pipe-152-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 152/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 152/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 152/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "3mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25942/91624/1795447114.1280.1280__52103.1795447230.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25942/91624/1795447114.1280.1280__52103.1795447230.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25942/91624/1795447114.1280.1280__52103.1795447230.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25942/91623/1795447114.1280.1280__53660.1795447230.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25942/91622/1795447114.1280.1280__34845.1795447230.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 152/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 152/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 3mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "3mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25943",
+    "source": "gqtobaccos",
+    "sourceProductId": "25943",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-3mm-pipe-14-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 14/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 14/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 14/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "3mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25943/91627/1795447114.1280.1280__52103.1795447230.1280.1280__39985.1795447289.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25943/91627/1795447114.1280.1280__52103.1795447230.1280.1280__39985.1795447289.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25943/91627/1795447114.1280.1280__52103.1795447230.1280.1280__39985.1795447289.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25943/91626/1795447114.1280.1280__53660.1795447230.1280.1280__18798.1795447289.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25943/91625/1795447114.1280.1280__34845.1795447230.1280.1280__45222.1795447289.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 14/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 14/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 3mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "3mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
+    "id": "gqtobaccos-25944",
+    "source": "gqtobaccos",
+    "sourceProductId": "25944",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pirandello-812-smooth-3mm-pipe-321-900/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 321/900",
+    "displayNameEn": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 321/900",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 321/900",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Smooth",
+      "finishSlug": "smooth",
+      "finishZhName": "光面",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic",
+      "stemMaterialSlug": "acrylic",
+      "stemMaterialZhName": "亚克力",
+      "filter": "3mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 134.99,
+      "rawText": "GBP 134.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25944/91629/1795447289.1280.1280__57586.1795447369.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25944/91629/1795447289.1280.1280__57586.1795447369.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25944/91629/1795447289.1280.1280__57586.1795447369.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25944/91630/1795447289.1280.1280__82542.1795447369.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25944/91628/1795447289.1280.1280__51477.1795447369.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 147,
+      "heightMm": 46,
+      "weightGrams": 40,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 18,
+      "outsideDiameterMm": 36
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Pirandello 812 - Smooth - 3mm Pipe - 321/900",
+      "keywords": [
+        "Named for and inspired by Italian dramatist, author, poet, and Nobel Laureate Luigi Pirandello, Savinelli's eponymous series comprises the Italian marque's \"812\" semi-bent Canadian shape across 900 serialized pieces. This limited-edition line most notably features a special, plaque accent along the shank &ndash; fitting into such collectible Savinelli series as Leonardo Da Vinci and Venezia &ndash; here depicting the iconic comedy and tragedy masks associated with the theater; crafted from aluminum, the accent depicts Comedy on one half in a smooth finish, while Tragedy's half offers a contrasting satin finish. Each Pirandello pipe bears a smooth finish and dark stain for a timeless aesthetic that draws attention to the shank's plaque, and they're presented in a thematic box and completed by an accompanying lanyard featuring each theatrical mask. This pipe is 321/900 Pipe Details Pipe Material : Briar Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 3mm Dimensions Pipe Length : 147 mm Bowl Height : 46mm Pipe Width : 36 mm Chamber Width : 18 mm Pipe Weight : 40 grams",
+        "Briar",
+        "Smooth",
+        "Acrylic",
+        "3mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     }
   }
 ]
