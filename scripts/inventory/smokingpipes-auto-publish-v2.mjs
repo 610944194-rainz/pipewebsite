@@ -4,12 +4,14 @@ import process from "node:process";
 import {
   acquireOwnerTokenLock,
   cleanupRetention,
+  hashJson,
   readCycle,
   readJson,
   recordPublishedBundle,
   releaseOwnerTokenLock,
   resolveActiveSmokingpipesCycle,
   transitionCycle,
+  writeJsonAtomic,
 } from "./smokingpipes-cycle-store-v2.mjs";
 import {
   sendPushDeerNotification,
@@ -464,6 +466,15 @@ export async function runSmokingpipesAutoPublishV2({
         networkAccessed: false,
       });
     }
+    if (active.prunedLatest) {
+      const backup = path.join(
+        stateRoot,
+        "recovery",
+        `latest-${active.prunedLatest.cycleId}-${hashJson(active.prunedLatest)}.json`
+      );
+      await writeJsonAtomic(backup, active.prunedLatest);
+      console.warn(`Smokingpipes archived the missing completed cycle index ${active.prunedLatest.cycleId}; starting ${activeCycleId}`);
+    }
     console.error("SCHEDULER_STAGE collection");
     const collection = await collector({
       stateRoot,
@@ -687,8 +698,11 @@ export async function runSmokingpipesAutoPublishV2({
       networkAccessed: collection.networkAccessed,
     });
   } finally {
-    await releaseOwnerTokenLock({ stateRoot, ownerToken: lock.ownerToken });
-    await cleanupRetention({ stateRoot }).catch(() => {});
+    try {
+      if (!preflightOnly) await cleanupRetention({ stateRoot }).catch(() => {});
+    } finally {
+      await releaseOwnerTokenLock({ stateRoot, ownerToken: lock.ownerToken });
+    }
   }
 }
 

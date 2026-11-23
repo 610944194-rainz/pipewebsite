@@ -251,10 +251,41 @@ export async function readCycle(stateRoot, cycleId) {
   return cycle;
 }
 
+async function canRecoverPrunedCycle(stateRoot, latest, cycleId, now) {
+  const updatedAt = Date.parse(latest.updatedAt || "");
+  if (
+    latest.schemaVersion !== SMOKINGPIPES_STATE_SCHEMA_V2 ||
+    !TERMINAL_PHASES.has(LEGACY_PHASES[latest.phase] || latest.phase) ||
+    cycleId >= cycleIdForDate(now) ||
+    !Number.isFinite(updatedAt) ||
+    asiaShanghaiDateKey(updatedAt) >= asiaShanghaiDateKey(now)
+  ) {
+    return false;
+  }
+
+  // Retention removes the whole directory. A remaining directory can contain
+  // a snapshot, queue or bundle that still needs operator review.
+  try {
+    await fs.promises.lstat(cycleDirectory(stateRoot, cycleId));
+    return false;
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+
+  const entries = await fs.promises.readdir(path.join(stateRoot, "cycles")).catch((error) => {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  });
+  for (const entry of entries) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(entry)) continue;
+    if (!isTerminalCycle(await readCycle(stateRoot, entry))) return false;
+  }
+  return true;
+}
+
 /**
  * Resolve the one cycle a normal Daily invocation is allowed to operate on.
- * latest.json is deliberately the only historical entrypoint: scanning old
- * cycles would turn a damaged state pointer into an unsafe implicit resume.
+ * Only latest.json or an explicit cycle ID can select a historical cycle.
  */
 export async function resolveActiveSmokingpipesCycle({
   stateRoot,
@@ -277,6 +308,14 @@ export async function resolveActiveSmokingpipesCycle({
   }
   const cycle = await readCycle(stateRoot, latestCycleId);
   if (!cycle) {
+    if (await canRecoverPrunedCycle(stateRoot, latest, latestCycleId, now)) {
+      return {
+        cycleId: cycleIdForDate(now),
+        source: "current-date",
+        cycle: null,
+        prunedLatest: latest,
+      };
+    }
     throw new Error(`latest.json points to a missing cycle: ${latestCycleId}`);
   }
   if (latest.phase && canonicalSmokingpipesCyclePhase(latest.phase) !== cycle.phase) {
@@ -460,6 +499,7 @@ export async function cleanupRetention({
   keepPublishedBundles = 10,
   now = Date.now(),
 } = {}) {
+  const latest = await readJson(path.join(stateRoot, "latest.json"), null);
   const cyclesRoot = path.join(stateRoot, "cycles");
   const names = await fs.promises.readdir(cyclesRoot).catch((error) => {
     if (error?.code === "ENOENT") return [];
@@ -467,7 +507,7 @@ export async function cleanupRetention({
   });
   const removedCycles = [];
   for (const name of names) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(name)) continue;
+    if (name === latest?.cycleId || !/^\d{4}-\d{2}-\d{2}$/.test(name)) continue;
     const cycle = await readCycle(stateRoot, name);
     const ageMs = now - Date.parse(`${name}T00:00:00.000Z`);
     if (isTerminalCycle(cycle) && ageMs > keepDays * 24 * 60 * 60 * 1000) {

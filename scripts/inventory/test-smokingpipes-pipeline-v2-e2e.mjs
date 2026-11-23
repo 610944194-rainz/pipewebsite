@@ -7,6 +7,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import {
   acquireOwnerTokenLock,
+  cleanupRetention,
   createCycle,
   cyclePaths,
   loadOrCreateCycle,
@@ -1655,6 +1656,45 @@ async function main() {
     });
     assert.equal(historicalNextDayRun.cycle.cycleId, "2026-09-03");
     assert.equal(historicalNextDayRun.networkAccessed, false);
+
+    const recoveryStateRoot = path.join(temporaryRoot, "pruned-completed-cycle-state");
+    const prunedCycle = await writeCycle(recoveryStateRoot, {
+      ...createCycle({ cycleId: "2026-10-23", now: "2026-10-23T00:00:00.000Z" }),
+      phase: "done",
+    });
+    const recoveryNow = new Date("2026-11-24T02:30:00.000Z");
+    const cleanup = await cleanupRetention({ stateRoot: recoveryStateRoot, now: +recoveryNow });
+    assert.deepEqual(cleanup.removedCycles, []);
+    const prunedPaths = cyclePaths(recoveryStateRoot, prunedCycle.cycleId);
+    assert.equal(fs.existsSync(prunedPaths.cycle), true);
+    await fs.promises.rm(prunedPaths.root, { recursive: true });
+    const recoveryLatestPath = path.join(recoveryStateRoot, "latest.json");
+    const staleIndex = await readJson(recoveryLatestPath);
+    const recovery = await resolveActiveSmokingpipesCycle({ stateRoot: recoveryStateRoot, now: recoveryNow });
+    assert.equal(recovery.cycleId, "2026-11-24");
+    assert.deepEqual(recovery.prunedLatest, staleIndex);
+    const recoveryRun = await runSmokingpipesAutoPublishV2({
+      stateRoot: recoveryStateRoot,
+      runtimeRoot,
+      now: recoveryNow,
+      skipSync: true,
+      listInputPath: catchupListPath,
+      detailLimit: 1,
+      processDetail: detailProcessor,
+      noPublish: true,
+    });
+    assert.equal(recoveryRun.cycleId, "2026-11-24");
+    assert.equal(recoveryRun.networkAccessed, false);
+    assert.equal((await readJson(recoveryLatestPath)).cycleId, recoveryRun.cycleId);
+    const recoveryBackupRoot = path.join(recoveryStateRoot, "recovery");
+    const [recoveryBackup] = await fs.promises.readdir(recoveryBackupRoot);
+    assert.deepEqual(await readJson(path.join(recoveryBackupRoot, recoveryBackup)), staleIndex);
+
+    await writeJsonAtomic(recoveryLatestPath, { ...staleIndex, phase: "details" });
+    await assert.rejects(
+      resolveActiveSmokingpipesCycle({ stateRoot: recoveryStateRoot, now: recoveryNow }),
+      /latest\.json points to a missing cycle: 2026-10-23/
+    );
 
     const noChangeSameDayStateRoot = path.join(temporaryRoot, "no-change-same-day-state");
     const noChangeSameDayCycle = createCycle({
