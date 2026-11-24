@@ -64631,20 +64631,20 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
-      "amount": 174.38,
-      "rawText": "USD 174.38",
+      "amount": 186.87,
+      "rawText": "USD 186.87",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 1273,
+      "siteDisplayAmount": 1364,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -64682,7 +64682,7 @@
         "unknown",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Savinelli"
       ]
     },
@@ -64697,11 +64697,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -94241,12 +94241,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -94307,11 +94307,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -134657,10 +134657,10 @@
     "sourceProductId": "34295",
     "sourceUrl": "https://www.danishpipeshop.com/en/products/savinelli-siena-320-ks-author-smooth-i34295",
     "entityType": "offer",
-    "displayName": "Savinelli, Siena 320 KS, Author, Smooth",
-    "displayNameEn": "Savinelli, Siena 320 KS, Author, Smooth",
+    "displayName": "Savinelli, Siena 320 KS, Author, Smooth, 9 mm.",
+    "displayNameEn": "Savinelli, Siena 320 KS, Author, Smooth, 9 mm.",
     "displayNameZh": null,
-    "rawTitle": "Savinelli, Siena 320 KS, Author, Smooth",
+    "rawTitle": "Savinelli, Siena 320 KS, Author, Smooth, 9 mm.",
     "brand": {
       "rawName": "Savinelli",
       "canonicalName": "Savinelli",
@@ -134683,8 +134683,8 @@
       "stemMaterial": "Acrylic",
       "stemMaterialSlug": "acrylic",
       "stemMaterialZhName": "亚克力",
-      "filter": "6mm",
-      "filterSizeMm": 6,
+      "filter": "9mm",
+      "filterSizeMm": 9,
       "eligibility": {
         "shape": true,
         "finish": true,
@@ -134698,20 +134698,20 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
-      "amount": 134.38,
-      "rawText": "USD 134.38",
+      "amount": 137.5,
+      "rawText": "USD 137.50",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 981,
+      "siteDisplayAmount": 1004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -134740,7 +134740,7 @@
     },
     "search": {
       "brand": "Savinelli",
-      "title": "Savinelli, Siena 320 KS, Author, Smooth",
+      "title": "Savinelli, Siena 320 KS, Author, Smooth, 9 mm.",
       "keywords": [
         "Siena 320 KS",
         "全新未使用",
@@ -134751,7 +134751,7 @@
         "unknown",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Savinelli"
       ]
     },
@@ -134766,11 +134766,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -148891,11 +148891,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 134.38,
-      "rawText": "USD 134.38",
+      "amount": 137.5,
+      "rawText": "USD 137.50",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 981,
+      "siteDisplayAmount": 1004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -149004,12 +149004,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -149055,7 +149055,7 @@
         "unknown",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Savinelli"
       ]
     },
@@ -149070,11 +149070,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -190955,12 +190955,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -191021,11 +191021,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -227984,12 +227984,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -228051,11 +228051,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -259543,12 +259543,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "available",
+      "status": "sold",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
-      "reason": "Danish source status indicates available."
+      "publiclySellable": false,
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     },
     "price": {
       "currency": "USD",
@@ -259609,11 +259609,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish source status indicates available."
+      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
     }
   },
   {
@@ -268328,12 +268328,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -268346,9 +268346,9 @@
       "siteDisplayReady": true
     },
     "images": {
-      "main": "https://dps-media.aperi.io/catalog/xml-20261015/a4690e92fdeaac1737e8bae6222d22f7c950a9fb8eb4ee8de9031a5d89f70a1c.jpg",
+      "main": "https://dps-media.aperi.io/6200111-fd73c2c4-dae7-4958-8973-f1b17fec4d54.jpg",
       "gallery": [
-        "https://dps-media.aperi.io/catalog/xml-20261015/a4690e92fdeaac1737e8bae6222d22f7c950a9fb8eb4ee8de9031a5d89f70a1c.jpg",
+        "https://dps-media.aperi.io/6200111-fd73c2c4-dae7-4958-8973-f1b17fec4d54.jpg",
         "https://dps-media.aperi.io/catalog/xml-20261015/29ce2ee80cf058fe3eb164131ab8a4ec0e2092ccdaacb9426356088644fb648c.jpg",
         "https://dps-media.aperi.io/catalog/xml-20261015/3b8c982bb54baca388133cc407a63d1fff4bfb10ef619286fbe6057d0308a589.jpg",
         "https://dps-media.aperi.io/catalog/xml-20261015/6229cda2e53a24c212d8919af0b0b4f0c0284e5c2647365e85760efcfa1d6c3b.jpg"
@@ -268378,7 +268378,7 @@
         "光面",
         "Acrylic",
         "亚克力",
-        "已售",
+        "可购买",
         "Savinelli"
       ]
     },
@@ -268393,11 +268393,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
@@ -298963,11 +298963,11 @@
     },
     "price": {
       "currency": "USD",
-      "amount": 134.38,
-      "rawText": "USD 134.38",
+      "amount": 137.5,
+      "rawText": "USD 137.50",
       "msrpAmount": null,
       "msrpRawText": null,
-      "siteDisplayAmount": 981,
+      "siteDisplayAmount": 1004,
       "siteDisplayCurrency": "CNY",
       "siteDisplayReady": true
     },
@@ -333459,12 +333459,12 @@
       "canonical": "new"
     },
     "inventory": {
-      "status": "sold",
+      "status": "available",
       "confidence": "source-status",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "publiclySellable": true,
+      "reason": "Danish source status indicates available."
     },
     "price": {
       "currency": "USD",
@@ -333524,11 +333524,11 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
-      "reason": "Danish sold-reference products are retained; frontend sold filter decides visibility."
+      "reason": "Danish source status indicates available."
     }
   },
   {
