@@ -2004069,11 +2004069,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2004129,7 +2004129,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2005477,6 +2005477,120 @@
     }
   },
   {
+    "id": "gqtobaccos-14560",
+    "source": "gqtobaccos",
+    "sourceProductId": "14560",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-bings-favourite-brown-blast/",
+    "entityType": "offer",
+    "displayName": "Savinelli - Bing's Favourite - Brown Blast",
+    "displayNameEn": "Savinelli - Bing's Favourite - Brown Blast",
+    "displayNameZh": null,
+    "rawTitle": "Savinelli - Bing's Favourite - Brown Blast",
+    "brand": {
+      "rawName": "Savinelli",
+      "canonicalName": "Savinelli",
+      "slug": "savinelli",
+      "zhName": "沙芬",
+      "country": "Italy",
+      "reviewStatus": "confirmed",
+      "indexEligible": true
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": "Sandblast",
+      "finishSlug": "sandblast",
+      "finishZhName": "喷砂",
+      "bowlMaterial": "Briar",
+      "bowlMaterialSlug": "briar",
+      "bowlMaterialZhName": "石楠木",
+      "stemMaterial": "Acrylic (Fishtail)",
+      "stemMaterialSlug": "acrylic-fishtail",
+      "stemMaterialZhName": null,
+      "filter": "6mm",
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": true,
+        "bowlMaterial": true,
+        "stemMaterial": true,
+        "filter": true
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 89.99,
+      "rawText": "GBP 89.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14560/69157/bings_favourite_brownblast_p165zb_2__33188__10420__75228.1728567170.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69158/savinelli_bings_favourite_brownblast_p165zb_3__34112__60877__75522.1728567170.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14560/69159/SAVINELLI_BINGS_favourite_brown_blast_p165zb_1__66843__63854__86488.1728567170.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": 168.6,
+      "heightMm": 46,
+      "weightGrams": 36.4,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": 16.9,
+      "outsideDiameterMm": 34
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Savinelli",
+      "title": "Savinelli - Bing's Favourite - Brown Blast",
+      "keywords": [
+        "Bing's favourite is a new beautiful range which is in between a Churchwarden and a normal pipe. Pipe Details Pipe Material : Briar Finish : Sandblast Colour : Brown Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 168.6mm Bowl Height : 46 mm Pipe Width : 34 mm Chamber Width : 16.9 mm Pipe Weight : 36.4 grams",
+        "Briar",
+        "Sandblast",
+        "Acrylic (Fishtail)",
+        "6mm"
+      ]
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": []
+    },
+    "publication": {
+      "status": "eligible",
+      "listingEligible": true,
+      "publicIndexEligible": true,
+      "publiclySellable": true,
+      "brandIndexEligible": true,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
+    }
+  },
+  {
     "id": "gqtobaccos-14829",
     "source": "gqtobaccos",
     "sourceProductId": "14829",
@@ -2005860,11 +2005974,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2005922,7 +2006036,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2009739,11 +2009853,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2009800,7 +2009914,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2009854,11 +2009968,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2009915,7 +2010029,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2010929,119 +2011043,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-20459",
-    "source": "gqtobaccos",
-    "sourceProductId": "20459",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-lancelot-smooth-natural-207-6mm/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Lancelot Smooth Natural - 207 - 6mm",
-    "displayNameEn": "Savinelli - Lancelot Smooth Natural - 207 - 6mm",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Lancelot Smooth Natural - 207 - 6mm",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Prince",
-      "shapeSlug": "prince",
-      "shapeZhName": "王子斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Acrylic (Fishtail)",
-      "stemMaterialSlug": "tapered-acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 82.99,
-      "rawText": "GBP 82.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20459/82229/savinelli_lancelot_207_pipe_1_smooth__23415__50953__33264.1728568983.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20459/82229/savinelli_lancelot_207_pipe_1_smooth__23415__50953__33264.1728568983.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/20459/82229/savinelli_lancelot_207_pipe_1_smooth__23415__50953__33264.1728568983.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 143,
-      "heightMm": 45,
-      "weightGrams": 40,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Lancelot Smooth Natural - 207 - 6mm",
-      "keywords": [
-        "If we would imagine a medieval knight smoking a pipe, that pipe would be for sure the Savinelli Lancelot pipe. The attractive band is made by acrylic material and aluminum, a very light metal for not adding weight to pipe. The band's design reminds the lances used by horsemen during medieval Tournament. Takes a 6mm filter. Pipe Details Pipe Material : Briar Shape : Prince Finish : Smooth Colour : Brown Mouthpiece : Tapered Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length :143mm Bowl Height : 45 mm Bowl Width : 38 mm Chamber Width : 20 mm Pipe Weight : 40 grams",
-        "Briar",
-        "Prince",
-        "Smooth",
-        "Tapered Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2013512,6 +2013513,113 @@
     }
   },
   {
+    "id": "gqtobaccos-21586",
+    "source": "gqtobaccos",
+    "sourceProductId": "21586",
+    "sourceUrl": "https://www.gqtobaccos.com/pipes/falcon-coolway-churchwarden-6mm-filter-no-81/",
+    "entityType": "excluded-brand",
+    "displayName": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
+    "displayNameEn": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
+    "displayNameZh": null,
+    "rawTitle": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
+    "brand": {
+      "rawName": "Falcon Pipes",
+      "canonicalName": "Falcon Pipes",
+      "slug": null,
+      "zhName": null,
+      "country": null,
+      "reviewStatus": "confirmed",
+      "indexEligible": false
+    },
+    "classification": {
+      "shape": null,
+      "shapeSlug": null,
+      "shapeZhName": null,
+      "finish": null,
+      "finishSlug": null,
+      "finishZhName": null,
+      "bowlMaterial": null,
+      "bowlMaterialSlug": null,
+      "bowlMaterialZhName": null,
+      "stemMaterial": null,
+      "stemMaterialSlug": null,
+      "stemMaterialZhName": null,
+      "filter": null,
+      "filterSizeMm": null,
+      "eligibility": {
+        "shape": false,
+        "finish": false,
+        "bowlMaterial": false,
+        "stemMaterial": false,
+        "filter": false
+      }
+    },
+    "condition": {
+      "raw": null,
+      "canonical": "unknown"
+    },
+    "inventory": {
+      "status": "available",
+      "confidence": "complete-current-list",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    },
+    "price": {
+      "currency": "GBP",
+      "amount": 66.99,
+      "rawText": "GBP 66.99",
+      "msrpAmount": null,
+      "msrpRawText": null,
+      "internationalShippingAmount": 20,
+      "internationalShippingCurrency": "GBP",
+      "siteDisplayAmount": null,
+      "siteDisplayCurrency": null,
+      "siteDisplayReady": false
+    },
+    "images": {
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21586/84046/coolway_81__62078__81073__31148.1728569339.jpg?c=2",
+      "gallery": [
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21586/84046/coolway_81__62078__81073__31148.1728569339.jpg?c=2"
+      ]
+    },
+    "measurements": {
+      "lengthMm": null,
+      "heightMm": null,
+      "weightGrams": null,
+      "chamberDepthMm": null,
+      "chamberDiameterMm": null,
+      "outsideDiameterMm": null
+    },
+    "model": {
+      "canonicalModelKey": null,
+      "confidence": null
+    },
+    "search": {
+      "brand": "Falcon Pipes",
+      "title": "Falcon - Coolway - Churchwarden - 6mm Filter - No 81",
+      "keywords": []
+    },
+    "integration": {
+      "legacyPipeCompatible": false,
+      "legacyMissingFields": [],
+      "adapterWarnings": [
+        "brand:not-index-eligible"
+      ]
+    },
+    "publication": {
+      "status": "excluded",
+      "listingEligible": false,
+      "publicIndexEligible": false,
+      "publiclySellable": false,
+      "brandIndexEligible": false,
+      "filterEligible": true,
+      "countsTowardAnomalyRate": false,
+      "reason": "Falcon is globally excluded before the detail queue."
+    }
+  },
+  {
     "id": "gqtobaccos-21587",
     "source": "gqtobaccos",
     "sourceProductId": "21587",
@@ -2015855,11 +2015963,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2015914,7 +2016022,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2016983,11 +2017091,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2017042,7 +2017150,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2017434,11 +2017542,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2017493,7 +2017601,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2021017,114 +2021125,6 @@
     }
   },
   {
-    "id": "gqtobaccos-24989",
-    "source": "gqtobaccos",
-    "sourceProductId": "24989",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-pannocchia-rusticated-122-6mm-filter/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Pannocchia - Rusticated - 122 - 6mm Filter",
-    "displayNameEn": "Savinelli - Pannocchia - Rusticated - 122 - 6mm Filter",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Pannocchia - Rusticated - 122 - 6mm Filter",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 94.99,
-      "rawText": "GBP 94.99",
-      "msrpAmount": 124.99,
-      "msrpRawText": "GBP 124.99",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24989/89840/doxfjhrst__33232.1759848161.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24989/89840/doxfjhrst__33232.1759848161.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24989/89840/doxfjhrst__33232.1759848161.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": null,
-      "weightGrams": null,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": null,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Pannocchia - Rusticated - 122 - 6mm Filter",
-      "keywords": [
-        "DESCRIPTION 2017 Natural series. It is a completely flawless pipe, left uncolored and unpolished like all our other Natural series. This pipe is manually rusticated in order to resemble the corn cob. The pipe is adorned with a small acrylic green ring, and a yellow striped acrylic mouthpiece, to recall all the corn cob colors. Model 122 is a half-bent Pot style pipe. One of the most classical styles which comes from the well-known Billiard ones. The flattened and cylindrical bowl boasts a low burning chamber with good capacity. This model ends with an elegant saddle stem which perfectly welcomes the light bend."
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-24998",
     "source": "gqtobaccos",
     "sourceProductId": "24998",
@@ -2021953,11 +2021953,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2022011,7 +2022011,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2026324,10 +2026324,11 @@
       "siteDisplayReady": false
     },
     "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
+      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91632/CHR2S----SR--P-.3448__35871.1795536448.jpg?c=2",
       "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2"
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91632/CHR2S----SR--P-.3448__35871.1795536448.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
+        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2"
       ]
     },
     "measurements": {
