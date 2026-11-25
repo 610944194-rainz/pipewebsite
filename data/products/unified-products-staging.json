@@ -2004069,11 +2004069,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2004129,7 +2004129,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2005921,122 +2005921,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-15059",
-    "source": "gqtobaccos",
-    "sourceProductId": "15059",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-dry-system-620-rusticated-6mm-filter-freestanding/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Dry System 620 Rusticated (6mm Filter) Freestanding",
-    "displayNameEn": "Savinelli - Dry System 620 Rusticated (6mm Filter) Freestanding",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Dry System 620 Rusticated (6mm Filter) Freestanding",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Straight",
-      "shapeSlug": "straight",
-      "shapeZhName": null,
-      "finish": "Rustic",
-      "finishSlug": "rustic",
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 87.99,
-      "rawText": "GBP 87.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15059/70460/dry_system_rustic_620_phto_1__78967__61015__33563.1728567310.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15059/70460/dry_system_rustic_620_phto_1__78967__61015__33563.1728567310.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/15059/70460/dry_system_rustic_620_phto_1__78967__61015__33563.1728567310.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15059/70461/stem__32517__34278__97736.1728567310.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15059/70462/dry_system_rustic_620_photo_3__55747__44917__77912.1728567310.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/15059/70463/dry_system_rustic_620_photo_2__30974__21302__34378.1728567310.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 121,
-      "heightMm": 47,
-      "weightGrams": 43,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Dry System 620 Rusticated (6mm Filter) Freestanding",
-      "keywords": [
-        "New from Savinelli we have the Dry System, the dry system has been developed to stop wet smoking. Savinelli have developed a moisture trap which is similar to that of the Peterson standard system. The dry system is effective with or without the 6mm Balsa filter. As with all Savinelli pipes this is made from the finest Italian briar. The mouthpiece on these pipes is also different to normal Savinellis it almost like a wide P Lip. This mouthpiece give an even spread of the smoke and prevents tongue bite, it also stop juices entering the mouth via the stem. The result of all these innovations is an exception dry and smooth smoke. A pipe like this is definitely worth having in the collection as it allows you to enjoys tobaccos that in other pipes you may have found previously too harsh or damp. The pipe is also ideal for beginners. Pipe Details Pipe Material : Briar Shape : Straight Finish : Rustic Colour : Brown / Black Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length :121mm Bowl Height : 47mm Bowl Width : 32 mm Chamber Width : 18 mm Pipe Weight : 43 grams",
-        "Briar",
-        "Straight",
-        "Rustic",
-        "Acrylic",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2009807,236 +2009691,6 @@
     }
   },
   {
-    "id": "gqtobaccos-18705",
-    "source": "gqtobaccos",
-    "sourceProductId": "18705",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-bacco-rusticated-602-pipe-9mm-filter/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Bacco Rusticated - 602 Pipe - 6mm Filter",
-    "displayNameEn": "Savinelli - Bacco Rusticated - 602 Pipe - 6mm Filter",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Bacco Rusticated - 602 Pipe - 6mm Filter",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Billiard",
-      "shapeSlug": "bent-billiard",
-      "shapeZhName": "弯式撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 65.99,
-      "rawText": "GBP 65.99",
-      "msrpAmount": 92.95,
-      "msrpRawText": "GBP 92.95",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18705/78807/savinelli_bacco_rustic_602_pipe_1__09619__59712__70990.1728568350.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18705/78807/savinelli_bacco_rustic_602_pipe_1__09619__59712__70990.1728568350.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18705/78807/savinelli_bacco_rustic_602_pipe_1__09619__59712__70990.1728568350.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18705/78808/savinelli_bacco_riustic_606_pipe_3__90440__74182__94119.1728568350.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18705/78809/savinelli_bacco_rustic_606_pipe_2__71258__90100__33116.1728568350.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 142,
-      "heightMm": 47,
-      "weightGrams": 50,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 39
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Bacco Rusticated - 602 Pipe - 6mm Filter",
-      "keywords": [
-        "This series of pipes is dedicated to Bacco; God of wine and the grape harvest, a tribute to all Italian red wines. The range is available in two finishes, smooth natural and rusticated burgundy color and in 8 different models. Burgundy variegated stem that recalls the color of red wine accompanied by a large band and a thinner one in aluminum to highlight the color of the stem. Savinelli Tobacco Pipes started in 1876, by Achille Savinelli Sr, who in the centre of Milan, opened one of the world&rsquo;s first tobacco shops. To this day passionate smokers still meet at the store location to share their love of his brilliant tobacco pipes. Savinelli has stayed a family business from its inception, with the shop and brand passing down generations. At a time where Italy was mass producing poor quality pipes, the Savinelli name was at the forefront of innovation and quality, combining family tradition with quality materials. Today, the Savinelli tobacco pipe range is thriving and here at GQ Tobaccos , we have a huge collection of authentic Savinelli pipes and pipe tobacco for customers to order. For any more information on these or any of our other traditional and historical tobacco pipes, get in touch with our team. Pipe Details Pipe Material : Briar Shape :Bent Billiard Finish : Smooth Colour : Rusticated Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 142 mm Pipe Height : 47 mm Pipe Width : 39 mm Chamber Width : 20 mm Pipe Weight : 50 grams",
-        "Briar",
-        "Bent Billiard",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-18955",
-    "source": "gqtobaccos",
-    "sourceProductId": "18955",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/stanwell-brushed-black-185-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
-    "displayNameEn": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Stanwell",
-      "canonicalName": "Stanwell",
-      "slug": "stanwell",
-      "zhName": "史丹威",
-      "country": "Denmark",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Apple",
-      "shapeSlug": "bent-apple",
-      "shapeZhName": "弯式苹果斗",
-      "finish": "Brushed",
-      "finishSlug": "brushed",
-      "finishZhName": "拉丝",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Vulcanite",
-      "stemMaterialSlug": "vulcanite",
-      "stemMaterialZhName": "硫化橡胶",
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 49.99,
-      "rawText": "GBP 49.99",
-      "msrpAmount": 89.99,
-      "msrpRawText": "GBP 89.99",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/18955/79367/stanwell_185_9mm_pipe_1__31347__57055__38685.1728568423.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79368/stanwell_185_9mm_filter_pipe_3__65934__95319__18539.1728568423.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/18955/79369/stanwell_185_9mm_filter_pipe_2__25305__20934__68694.1728568423.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 139,
-      "heightMm": 54,
-      "weightGrams": 71,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 48
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Stanwell",
-      "title": "Stanwell - Brushed Black - 185 - 9mm Filter Pipe",
-      "keywords": [
-        "The brushed black range from Stanwell is a rusticated pipe with a lined brushed effect rustication. The pipes are finished with a smooth brown top. Stanwells History Whereas most of these stories start with either an inspired young carver or a veteran leaving one of the big manufactures. Stanwell however a slightly different background Poul Nielsen has produced a range of wooden goods and with the outbreak of WWII he began making beech pipes. The English made briar smoked in Denmark became unobtainable during the war, as was Mediterranean briar. These pipes became popular with local smokers and Nielsen soon stopped producing other wooden goods. At the end of the war, briar soon became available and Nielsen quickly moved to important material. During this time Danish pipes had no real history to call upon, so Poul changed not the only the companies identity, but eventually his own. Gone was the Nielsen name and Stanwell, complete with the Horse & Cart logo was born. Thanks to his history working with wood and mass productions, Poul realised with moulds and guides he could reproduce even the most complex of shapes and drive down the price. All this technology and innovation was no good without designers, so Poul worked closely with some of Denmarks finest carvers to produce the designs. First came Sixten Ivarsson , who justifiably is seen as the father of Danish Makers. The factory was relocated to Borup in 1969, to be closer to Ivarsson and then it all started. The unique flare on traditional shapes and the now ironically Danish freehands help not only kick start the Stanwell story but also that of Danish pipe makers. By working with artisan carvers and the mass production methods used by Nielsen, saw Stanwell offering pipes for a fraction of the price you would pay for a handmade version. This allowed beautiful and often complex shapes, be affordable to the masses. What began with Ivarsson designing soon expanded with a resurgence of Danish pipe making. Tom Eltang , Jess Chonowitsch, Poul Winslow, Anne Julie, Bang and Poul Ilsted have all worked for Stanwell over the years. This now leaves Stanwell with one of the most diverse range of factory made pipes in the world. Later on his life, Nielsen changed his name to &ldquo;Poul Stanwell&rdquo; and is considered as a very important player in the creation of the Danish pipe market. While many of the artisanal carvers who worked with Poul mainly produce pipes in their own workshops, some still do new designs for Stanwell. In 2010 the Danish factory was closed and all production was moved to Italy, who over the years has become the largest pipe producing nation in Europe. Thanks to the systems used by Poul Stanwell has ensure that very little has changed since this switch and they still offer the best quality for the money today. Pipe Details Pipe Material : Briar Shape : Bent Apple Finish : Brushed Colour : Black Mouthpiece : Vulcanite Filter : 9mm Dimensions Pipe Length : 139 mm Pipe Height : 54 mm Pipe Width : 48 mm Chamber Width : 19 mm Pipe Weight : 71 grams",
-        "Briar",
-        "Bent Apple",
-        "Brushed",
-        "Vulcanite",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-19602",
     "source": "gqtobaccos",
     "sourceProductId": "19602",
@@ -2012324,11 +2011978,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2012383,7 +2012037,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2015917,119 +2015571,6 @@
     }
   },
   {
-    "id": "gqtobaccos-22496",
-    "source": "gqtobaccos",
-    "sourceProductId": "22496",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-vigna-804-smooth-marrone-6mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Vigna 804 - Smooth Marrone - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Vigna 804 - Smooth Marrone - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Vigna 804 - Smooth Marrone - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 134.99,
-      "rawText": "GBP 134.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22496/85605/sjkg__60259__10745__56992.1728569631.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22496/85605/sjkg__60259__10745__56992.1728569631.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/22496/85605/sjkg__60259__10745__56992.1728569631.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/22496/85606/xfjrgjf__07533__75483__12721.1728569631.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 160,
-      "heightMm": 51,
-      "weightGrams": 49,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Vigna 804 - Smooth Marrone - 6mm Filter Pipe",
-      "keywords": [
-        "The Vigna series, available in smooth burgundy and rusticated burgundy finishing, recalls the colors of Italian red wine. Its particular acrylic stem is made up of a nuance of different shades ranging from red/burgundy to dark purple. The pipe is enriched by a thin gold color band, which gives it elegance and class. The series is offered in seven different models. Here we propose you a splendid Canadian, model 804 KS. Style which has as main feature an extremely long and elliptical shank. The shank length allows the smoke to cool down, making it fresh and pleasant. Pipe Details Pipe Material : Briar Finish : Smooth Colour : Black / brown Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 160 mm Bowl Height : 51 mm Pipe Width : 38 mm Chamber Width : 20 mm Pipe Weight : 49 grams",
-        "Briar",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-22784",
     "source": "gqtobaccos",
     "sourceProductId": "22784",
@@ -2017045,119 +2016586,6 @@
     }
   },
   {
-    "id": "gqtobaccos-23012",
-    "source": "gqtobaccos",
-    "sourceProductId": "23012",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-desigual-rusticated-127-6mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Desigual Rusticated - 127 - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Desigual Rusticated - 127 - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Desigual Rusticated - 127 - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Acrylic (Fishtail)",
-      "stemMaterialSlug": "tapered-acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 59.99,
-      "rawText": "GBP 59.99",
-      "msrpAmount": 99.99,
-      "msrpRawText": "GBP 99.99",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23012/86544/algkrwhagrk__13633__04887__60758.1728569808.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23012/86544/algkrwhagrk__13633__04887__60758.1728569808.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/23012/86544/algkrwhagrk__13633__04887__60758.1728569808.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23012/86545/awrglksg__07510__52585__98704.1728569808.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 147,
-      "heightMm": 47,
-      "weightGrams": 42,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Desigual Rusticated - 127 - 6mm Filter Pipe",
-      "keywords": [
-        "Pipe with aluminum band that wear at the center a black silicon ring and equipped with additional colored silicon rings to dress the pipe of different colors every day. Available in two finishes: smooth brown and brown rusticated. Acrylic stem, 6 or 9 mm hole. Model 127 is a very well-proportioned model. As typical in Billiard Style, the height of the bowl corresponds to the length of the shank. The pipe ends with an elegant saddle stem that gives slenderness to the whole pipe. Pipe Details Pipe Material : Briar Shape : Billiard Colour : Brown Mouthpiece : Tapered Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 147mm Bowl Height : 47 mm Bowl Width : 37 mm Chamber Width : 20 mm Pipe Weight : 42 grams",
-        "Briar",
-        "Billiard",
-        "Tapered Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-23013",
     "source": "gqtobaccos",
     "sourceProductId": "23013",
@@ -2017489,119 +2016917,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-23026",
-    "source": "gqtobaccos",
-    "sourceProductId": "23026",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-camouflage-smooth-111-pipe-6mm-filter/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Camouflage Smooth - 111 Pipe - 6mm Filter",
-    "displayNameEn": "Savinelli - Camouflage Smooth - 111 Pipe - 6mm Filter",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Camouflage Smooth - 111 Pipe - 6mm Filter",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent Author",
-      "shapeSlug": "bent-author",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 74.99,
-      "rawText": "GBP 74.99",
-      "msrpAmount": 118.45,
-      "msrpRawText": "GBP 118.45",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23026/86567/aogaweh__10668__60999__58076.1728569811.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/23026/86567/aogaweh__10668__60999__58076.1728569811.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/23026/86567/aogaweh__10668__60999__58076.1728569811.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 150,
-      "heightMm": 51,
-      "weightGrams": 43,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 39
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Camouflage Smooth - 111 Pipe - 6mm Filter",
-      "keywords": [
-        "When I first received this pipe I thought Savinelli had sent me a pipe without a stem!! After examining this a little closer I realised it was just a camouflage stem. Jokes aside Savinelli make some fantastic quality pipes that really do smoke exceptionally well, as you can expect the briar is top quality and the latest stem looks great and is ideal for an outdoor pipe. Savinelli Tobacco Pipes started in 1876, by Achille Savinelli Sr, who in the centre of Milan, opened one of the world&rsquo;s first tobacco shops. To this day passionate smokers still meet at the store location to share their love of his brilliant tobacco pipes. Savinelli has stayed a family business from its inception, with the shop and brand passing down generations. At a time where Italy was mass producing poor quality pipes, the Savinelli name was at the forefront of innovation and quality, combining family tradition with quality materials. Today, the Savinelli tobacco pipe range is thriving and here at GQ Tobaccos , we have a huge collection of authentic Savinelli pipes and pipe tobacco for customers to order. For any more information on these or any of our other traditional and historical tobacco pipes, get in touch with our team. Pipe Details Pipe Material : Briar Shape :Bent Author Finish : Smooth Colour : Brown Mouthpiece : Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length : 150 mm Pipe Height : 51mm Pipe Width : 39 mm Chamber Width :20 mm Pipe Weight : 43 grams",
-        "Briar",
-        "Bent Author",
-        "Smooth",
-        "Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2020394,11 +2019709,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2020451,7 +2019766,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2021900,118 +2021215,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25292",
-    "source": "gqtobaccos",
-    "sourceProductId": "25292",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-lunaria-smooth-670-6mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Lunaria Smooth 670 - 6mm Filter Pipe",
-    "displayNameEn": "Savinelli - Lunaria Smooth 670 - 6mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Lunaria Smooth 670 - 6mm Filter Pipe",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic (Fishtail)",
-      "stemMaterialSlug": "acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": null,
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": false
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 99.99,
-      "rawText": "GBP 99.99",
-      "msrpAmount": 149.99,
-      "msrpRawText": "GBP 149.99",
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25292/90373/iusdhvbijsvgjeiw__18647.1771342123.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25292/90373/iusdhvbijsvgjeiw__18647.1771342123.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25292/90373/iusdhvbijsvgjeiw__18647.1771342123.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 137,
-      "heightMm": 49,
-      "weightGrams": 45,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": 38
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Lunaria Smooth 670 - 6mm Filter Pipe",
-      "keywords": [
-        "DESCRIPTION The Lunaria series is crafted in two finishes, both in burgundy color: smooth and rusticated. The acrylic stem, which evokes the colors of the moon, features shades ranging from light gray to dark gray, perfectly harmonizing with the pipe&rsquo;s color. Completing the aesthetic balance is an aluminum ring that adds a touch of brightness and shine. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Acrylic (Fishtail) Dimensions Pipe Length : 137mm Pipe Height : 49mm Pipe Width : 38mm Chamber Width : 18mm Pipe Weight : 45grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Acrylic (Fishtail)"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2024851,11 +2024054,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2024909,7 +2024112,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2026415,11 +2025618,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2026471,7 +2025674,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
