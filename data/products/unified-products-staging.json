@@ -2101365,11 +2101365,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2101426,7 +2101426,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2103458,10 +2103458,10 @@
     "sourceProductId": "15060",
     "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-dry-system-620-smooth-6mm-filter-freestanding/",
     "entityType": "offer",
-    "displayName": "Savinelli - Dry System 620 Smooth (6mm Filter) Freestanding",
-    "displayNameEn": "Savinelli - Dry System 620 Smooth (6mm Filter) Freestanding",
+    "displayName": "Savinelli - Dry System 620 Smooth (6mm Filter) Pipe",
+    "displayNameEn": "Savinelli - Dry System 620 Smooth (6mm Filter) Pipe",
     "displayNameZh": null,
-    "rawTitle": "Savinelli - Dry System 620 Smooth (6mm Filter) Freestanding",
+    "rawTitle": "Savinelli - Dry System 620 Smooth (6mm Filter) Pipe",
     "brand": {
       "rawName": "Savinelli",
       "canonicalName": "Savinelli",
@@ -2103542,7 +2103542,7 @@
     },
     "search": {
       "brand": "Savinelli",
-      "title": "Savinelli - Dry System 620 Smooth (6mm Filter) Freestanding",
+      "title": "Savinelli - Dry System 620 Smooth (6mm Filter) Pipe",
       "keywords": [
         "New from Savinelli we have the Dry System, the dry system has been developed to stop wet smoking. Savinelli have developed a moisture trap which is similar to that of the Peterson standard system. The dry system is effective with or without the 6mm Balsa filter. As with all Savinelli pipes this is made from the finest Italian briar. The mouthpiece on these pipes is also different to normal Savinellis it almost like a wide P Lip. This mouthpiece give an even spread of the smoke and prevents tongue bite, it also stop juices entering the mouth via the stem. The result of all these innovations is an exception dry and smooth smoke. A pipe like this is definitely worth having in the collection as it allows you to enjoys tobaccos that in other pipes you may have found previously too harsh or damp. The pipe is also ideal for beginners. Pipe Details Pipe Material : Briar Shape : Straight Finish : Smooth Colour : Brown / Black Mouthpiece : Acrylic Filter : 6mm Dimensions Pipe Length :121mm Bowl Height : 47mm Bowl Width : 32 mm Chamber Width : 18 mm Pipe Weight : 44 grams",
         "Briar",
@@ -2108047,11 +2108047,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2108107,7 +2108107,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2108610,11 +2108610,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2108665,7 +2108665,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2109450,119 +2109450,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-21015",
-    "source": "gqtobaccos",
-    "sourceProductId": "21015",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/ser-jacopo-spongia-s3-picta-picasso-24-9mm-filter-pipe/",
-    "entityType": "offer",
-    "displayName": "Ser Jacopo - Imago Panelled L1 B - 9mm Filter Pipe",
-    "displayNameEn": "Ser Jacopo - Imago Panelled L1 B - 9mm Filter Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Ser Jacopo - Imago Panelled L1 B - 9mm Filter Pipe",
-    "brand": {
-      "rawName": "Ser Jacopo",
-      "canonicalName": "Ser Jacopo",
-      "slug": "ser-jacopo",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Panelled",
-      "shapeSlug": "panelled",
-      "shapeZhName": null,
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Acrylic",
-      "stemMaterialSlug": "acrylic",
-      "stemMaterialZhName": "亚克力",
-      "filter": "9mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 329.99,
-      "rawText": "GBP 329.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21015/83054/ser_jacopo_imago_pipe_1__71370__48683__49085.1728569156.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/21015/83054/ser_jacopo_imago_pipe_1__71370__48683__49085.1728569156.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/21015/83054/ser_jacopo_imago_pipe_1__71370__48683__49085.1728569156.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 151,
-      "heightMm": 58,
-      "weightGrams": 47,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 37
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Ser Jacopo",
-      "title": "Ser Jacopo - Imago Panelled L1 B - 9mm Filter Pipe",
-      "keywords": [
-        "The Ser Jacopo dalla Gemma story starts with Giancarlos Guidi. Giancarlos carear started back in 1970 when he began working with Moretti and Raganella . After quickly mastering the process of production line manufacture, he set his eyes on working on hand made pipes. Seeing beautiful grain wasted on a predesigned shape, when with carful hand carving could result in eye watering pieces. By 1972 Guidi co-founded Master de Paja and he soon became renowned for his artistic interpretation of classic shape. Reading the briar and shaping your pipe based on grain. This saw Master de Paja and Giancarlos pipes become synonymous with the region and the &ldquo;Pesaro School&rdquo; was born. By 1982 Guidi fancied another challenge and left Master de Paja with Bruto Sordini . The pair established The Ser Jacopo dalla Gemma , firmly following the Pesaro style of design and quality. Giancarlos set about marrying up seasoned briar with use of different mounts; from exotic woods, Horn, bone, precious metals and gems. Some of the early examples of Ser Jacopo have fetched over $10,000 at auctions and are highly collectable. The pair took on apprentice carvers and taught the ins and outs to many of Italy&rsquo;s finest artisan carvers today, including Massimo Palazzi (L&rsquo;Anatra), Franco Rossi (Il Ceppo). To this day the factory employs five fulltime carvers and produces around 6,000 pipes a year. Sadly Gincarlos passed away in 2012, leaving behind him a legacy which insipired artisan carvers the world over to listen to their briar and carve from the heart, not a shape chart. All the Ser Jacopo dalla Gemma pipes are one offs and the one you see in the pictures is the one you get. Pipe Details Pipe Material : Briar Shape : Panelled Finish : Smooth Colour : Brown Mouthpiece : Acrylic Filter : 9mm Dimensions Pipe Length : 151mm Pipe Height : 58 mm Pipe Width : 37 mm Chamber Width : 20 mm Pipe Weight : 47 grams",
-        "Briar",
-        "Panelled",
-        "Smooth",
-        "Acrylic",
-        "9mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2117188,117 +2117075,6 @@
     }
   },
   {
-    "id": "gqtobaccos-24707",
-    "source": "gqtobaccos",
-    "sourceProductId": "24707",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/morgan-pipes-blackjack-31-panelled-horn-pipe/",
-    "entityType": "offer",
-    "displayName": "Morgan Pipes - Blackjack 31 - Panelled Horn Pipe",
-    "displayNameEn": "Morgan Pipes - Blackjack 31 - Panelled Horn Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Morgan Pipes - Blackjack 31 - Panelled Horn Pipe",
-    "brand": {
-      "rawName": "Morgan Pipes",
-      "canonicalName": "Morgan Pipes",
-      "slug": "morgan-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Bent",
-      "shapeSlug": "bent",
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 89.99,
-      "rawText": "GBP 89.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24707/89399/gkswlj__66043.1752591861.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/24707/89399/gkswlj__66043.1752591861.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/24707/89399/gkswlj__66043.1752591861.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 130,
-      "heightMm": 48,
-      "weightGrams": 52,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 34
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Morgan Pipes",
-      "title": "Morgan Pipes - Blackjack 31 - Panelled Horn Pipe",
-      "keywords": [
-        "In 2014, Morgan Pipes introduced the Blackjack line. At the time, the handmade pipe boom was beginning to decline, and many potential customers were seeking unique American designs at more accessible prices than the $500+ typically associated with Morgan's handmade offerings. To meet this demand, the Blackjack line was created&mdash;highlighting key elements of Morgan's design and engineering in a serially produced, Italian-made format. The result was an affordable pipe that quickly gained popularity. Over the years, the line has featured a variety of shapes. The Paneled Horn is a new Blackjack shape. This is a nice chunky , but not too short shape. The bowl is generous and is sure to perform well. The sleek black blast pairs well with the polished nickel band. The pipe photographed may not be the pipe that you will receive as each one may have minor differences. Pipe Details Pipe Material : Briar Shape : Bent Filter : None Dimensions Pipe Length : 130 mm Bowl Height : 48 mm Pipe Width : 34 mm Chamber Width : 20 mm Pipe Weight : 52 grams",
-        "Briar",
-        "Bent",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-24748",
     "source": "gqtobaccos",
     "sourceProductId": "24748",
@@ -2121533,118 +2121309,6 @@
     }
   },
   {
-    "id": "gqtobaccos-25823",
-    "source": "gqtobaccos",
-    "sourceProductId": "25823",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/northern-briars-bruyere-premier-gr4-oval-facet-pipe/",
-    "entityType": "offer",
-    "displayName": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
-    "displayNameEn": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
-    "brand": {
-      "rawName": "Northern Briars",
-      "canonicalName": "Northern Briars",
-      "slug": "northern-briars",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Vuclanite (Fishtail)",
-      "stemMaterialSlug": "vuclanite-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 207.99,
-      "rawText": "GBP 207.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25823/91396/aosvbgioefgoa__16645.1792156550.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25823/91397/eihrapga__44248.1792156550.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 150,
-      "heightMm": 51,
-      "weightGrams": 70,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": 44
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Northern Briars",
-      "title": "Northern Briars - Bruyere Premier (Gr4) - Panelled Oval Facet Pipe",
-      "keywords": [
-        "Every Northern Briar's pipe is made by hand on a 70 foot traditional British narrow boat. Originally these boats transported Coal, Lumber and other materials / products around the UK. Now converted with a very small work shop, Ian works and lives on board. Ever pipe Ian creates is based in the grain, shape and size of the briar, giving each pipe its own unique quality. Ian is a third generation pipe maker and been involved in pipe making since he was young boy. Like all family business, Ian started off polishing and worked his way up, over the years he was taught silversmithing from his grandfather and stem production by his father. Before his father stopped making pipes, Ian's main role was repairs and stem manufacture. Now Northern Briar's are one of the biggest selling Artisan pips produced in the UK, with many going around the world. With his history and attention to detail Northern Briar pipes offer the smoker the chance to own a piece of classic English manufacture, without the production line attitude found with the remaining UK factories. Ever pipe is made form Mediterranean briar and using German rods for Vulcanite & acrylic stems. This pipes comes in a leather pipe bag and gilted/maroon box. Due to the nature of these pipe, we only have the model shown/described on this page, once its gone, its gone. Pipe Details Pipe Material : Briar Colour : Brown Mouthpiece : Vuclanite (Fishtail) Filter : None Dimensions Pipe Length : 150 mm Bowl Height : 51 mm Pipe Width : 44 mm Chamber Width : 20 mm Pipe Weight : 70 grams",
-        "Briar",
-        "Vuclanite (Fishtail)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-25827",
     "source": "gqtobaccos",
     "sourceProductId": "25827",
@@ -2123032,11 +2122696,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2123089,7 +2122753,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2123143,11 +2122807,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
+      "status": "available",
+      "confidence": "complete-current-list",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2123199,7 +2122863,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": false,
+      "publiclySellable": true,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2123583,11 +2123247,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2123639,7 +2123303,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
