@@ -3,6 +3,14 @@ export function danishProductId(value) {
   return String(value || '').match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i)?.[1] || '';
 }
 
+export function isDanishNativeProductId(value) {
+  return /^prod_[a-z0-9]{26,32}$/i.test(value);
+}
+
+export function isDanishProductImageUrl(value) {
+  return /^https:\/\/(?:dps-media\.aperi\.io\/|www\.danishpipeshop\.(?:com|cn)\/_v\/o\/)/i.test(value);
+}
+
 export function isModernDanishUrl(value) {
   try { return /^\/(?:zh\/|en\/|da\/)?(?:categories|products)\//.test(new URL(value).pathname); }
   catch { return false; }
@@ -14,14 +22,36 @@ export async function readModernDanishList(tab) {
     const text = (el) => (el?.textContent || '').replace(/\s+/g, ' ').trim();
     const root = document.querySelector('main article.product-card')?.closest('main') || document.querySelector('main');
     const total = text(root).match(/([\d,\.]+)\s*(?:件商品|products?|produkter)/i);
+    // Card action data associates each native product ID with its product link.
+    const cardActionData = [...document.scripts].map(script => {
+      const payload = script.textContent.match(/^self\.__next_f\.push\((.*)\)\s*;?$/s)?.[1];
+      if (!payload) return '';
+      try {
+        const [kind, chunk] = JSON.parse(payload);
+        return kind === 1 && typeof chunk === 'string' ? chunk : '';
+      } catch {
+        return '';
+      }
+    }).join('');
+    const nativeIdByPath = new Map();
+    for (const [, id, path] of cardActionData.matchAll(/"productId":"(prod_[a-z0-9]{26,32})","returnTo":"(\/products\/[^"]+)"/gi)) {
+      if (!nativeIdByPath.has(path)) nativeIdByPath.set(path, id);
+      else if (nativeIdByPath.get(path) !== id) nativeIdByPath.set(path, '');
+    }
     const products = [...root.querySelectorAll('article.product-card')].map(card => {
       const a = card.querySelector('h3 a[href]');
-      const price = text(card.querySelector('h3 + p span.font-semibold'));
+      const taxFreePrice = card.querySelector('[data-testid="tax-free-price"]');
+      const price = taxFreePrice
+        ? text(taxFreePrice).match(/US\$[\d,.]+$/)?.[0] || ''
+        : text(card.querySelector('h3 + p span.font-semibold'));
+      const path = a?.pathname.replace(/^\/(?:zh|en|da)\//, '/');
+      const sourceProductId = nativeIdByPath.get(path);
       return {
         href: a?.href, name: text(a), imageAlt: card.querySelector('img')?.alt || '',
         imageUrl: card.querySelector('img')?.src || '',
         brand: text(card.querySelector('div.space-y-1\\.5 > p')),
         price, status: /售罄|已售出|sold out|udsolgt/i.test(text(card)) ? '已售' : '可购买', rawText: text(card),
+        ...(!/-i\d+\/?$/i.test(path) && sourceProductId ? { sourceProductId } : {}),
       };
     });
     const current = new URL(location.href);
@@ -52,7 +82,7 @@ export async function collectModernDanishList(tab, { targetCount, minimumExpecte
     total = page.totalCount;
     if (!page.products.length) throw new Error('modern-list-empty-page');
     for (const item of page.products) {
-      const id = danishProductId(item.href);
+      const id = danishProductId(item.href) || (isDanishNativeProductId(item.sourceProductId) ? item.sourceProductId : '');
       if (!id || seen.has(id) || !item.name || !item.imageUrl || !/^US\$[\d,.]+$/.test(item.price)) throw new Error('modern-list-invalid-or-duplicate-product');
       seen.add(id);
       products.push({ ...item, listPageUrl: next, listPageIndex: pages.size, listPosition: products.length + 1 });
@@ -67,9 +97,19 @@ export async function collectModernDanishList(tab, { targetCount, minimumExpecte
     completionReason: 'modern-pagination-exhausted', integrityFailureReason: '', fallbackPagesVisited: pages.size } };
 }
 
-export async function readModernDanishDetail(tab, expectedUrl) {
+function sameDanishProductPath(left, right) {
+  try {
+    const path = value => new URL(value).pathname.replace(/^\/(?:zh|en|da)\//, '/').replace(/\/$/, '');
+    return path(left).startsWith('/products/') && path(left) === path(right);
+  } catch {
+    return false;
+  }
+}
+
+export async function readModernDanishDetail(tab, expectedUrl, sourceProductId) {
   await tab.waitForSelector('main h1', { state: 'attached', timeout: 60000 });
   await tab.waitForFunction(() => [...document.querySelectorAll('script[type="application/ld+json"]')].some(s => s.textContent.includes('"Product"')));
+  await tab.waitForSelector('main table tr td', { state: 'attached', timeout: 10000 });
   const result = await tab.evaluate(() => {
     const nodes = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s => {
       try { const j = JSON.parse(s.textContent); return j['@graph'] || [j]; } catch { return []; }
@@ -79,17 +119,19 @@ export async function readModernDanishDetail(tab, expectedUrl) {
     return { product, specs, url: location.href, title: document.querySelector('h1')?.textContent?.trim() };
   });
   const p = result.product, offer = Array.isArray(p?.offers) ? p.offers[0] : p?.offers;
-  if (!p || !danishProductId(expectedUrl) || danishProductId(result.url) !== danishProductId(expectedUrl) || danishProductId(p.url) !== danishProductId(expectedUrl)) throw new Error('modern-detail-id-mismatch');
+  const numericId = danishProductId(expectedUrl);
+  const matches = numericId
+    ? danishProductId(result.url) === numericId && danishProductId(p?.url) === numericId
+    : isDanishNativeProductId(sourceProductId) && sourceProductId === p?.productID && sameDanishProductPath(result.url, p.url);
+  if (!matches) throw new Error('modern-detail-id-mismatch');
   if (!offer || offer.priceCurrency !== 'USD' || !(Number(offer.price) > 0)) throw new Error('modern-detail-invalid-price-context');
   const status = /\/(?:OutOfStock|SoldOut|Discontinued)$/.test(offer.availability) ? '已售' : /\/InStock$/.test(offer.availability) ? '可购买' : '';
-  const galleryImages = [...new Set((Array.isArray(p.image) ? p.image : [p.image]).filter(u => {
-    try { return new URL(u).hostname === 'dps-media.aperi.io'; } catch { return false; }
-  }))];
+  const galleryImages = [...new Set((Array.isArray(p.image) ? p.image : [p.image]).filter(isDanishProductImageUrl))];
   const labels = { '烟斗高度': 'Height', '烟斗长度': 'Length', '烟膛深度': 'Chamber depth', '烟膛内径': 'Chamber diameter', '烟嘴宽度': 'Button width', '烟嘴厚度': 'Bit thickness', '斗钵外径': 'Bowl diameter', '重量': 'Weight', '滤芯规格': 'Filter', '全新 / 二手': 'Condition', '款式': 'Shape', '斗型': 'Bend', '表面处理': 'Finish', '烟嘴': 'Mouthpiece' };
   const specsText = result.specs.map(([key, value]) => `${labels[key] || key}: ${value === '无滤芯' ? 'No filter' : value === '全新' ? 'New pipe' : value === '二手' ? 'Estate pipe' : value.replace(/(\d)(mm|g)\b/g, '$1 $2')}`);
   if (!status || !galleryImages.length || !specsText.length || !p.brand?.name || !p.name) throw new Error('modern-detail-required-fields-missing');
   return { title: p.name, brand: p.brand.name, productCode: p.sku || '', price: `$${Number(offer.price).toFixed(2)}`,
     status, mainImage: galleryImages[0], listImageUrl: galleryImages[0], galleryImages, specsText,
     sourceUrl: result.url, description: p.description || '', productDetailText: [p.description, ...specsText].filter(Boolean).join('\n'),
-    rawText: specsText.join('\n'), imageMatchStatus: 'matched', imageMatchNotes: 'Product JSON-LD gallery; stable numeric ID verified', qualityWarnings: [] };
+    rawText: specsText.join('\n'), imageMatchStatus: 'matched', imageMatchNotes: 'Product JSON-LD gallery; stable ID verified', qualityWarnings: [] };
 }

@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
+import { danishProductId, isDanishNativeProductId, isDanishProductImageUrl } from "../lib/danish-modern-site.mjs";
 
 const ROOT = process.cwd();
 const MODES = new Set(["dry-run", "collect-only", "daily", "publish"]);
@@ -189,9 +190,8 @@ function payloadProducts(payload) {
 
 export function getDanishId(item) {
   const direct = compact(item?.sourceProductId || item?.id).replace(/^danish-/i, "");
-  if (/^\d+$/.test(direct)) return direct;
-  return compact(item?.sourceUrl || item?.href || item?.originalUrl)
-    .match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i)?.[1] || "";
+  if (/^\d+$/.test(direct) || isDanishNativeProductId(direct)) return direct;
+  return danishProductId(compact(item?.sourceUrl || item?.href || item?.originalUrl));
 }
 
 function normalizedListUrl(value) {
@@ -269,14 +269,13 @@ function priceValuesEquivalent(listPrice, productionItem) {
     && current.originalPriceValue > 0;
 }
 
-function urlProductId(value) {
-  return compact(value).match(/-i(\d+)(?:\.html)?\/?(?:[?#].*)?$/i)?.[1] || "";
-}
-
 function getIdentityOrUrlAnomaly(listItem, productionItem) {
   const stableId = getDanishId(listItem);
-  const listUrlId = urlProductId(productListUrl(listItem));
-  const productionUrlId = urlProductId(productListUrl(productionItem));
+  const listUrlId = danishProductId(productListUrl(listItem));
+  const productionUrlId = danishProductId(productListUrl(productionItem));
+  if (isDanishNativeProductId(stableId)) {
+    return listUrlId || productionUrlId ? "native-id-with-legacy-url-id" : "";
+  }
   if (!stableId || !listUrlId) return "list-url-stable-id-missing";
   if (stableId !== listUrlId) return "list-id-url-mismatch";
   if (productionUrlId && getDanishId(productionItem) !== productionUrlId) return "production-id-url-mismatch";
@@ -488,7 +487,7 @@ export function buildIncrementalDetailQueue({
     const id = getDanishId(listItem);
     const old = productionById.get(id);
     if (!old || queuedIds.has(id) || isFalcon(listItem) || isBpk32447(listItem) || nonPublicComponentIds.has(id)) continue;
-    if (!/^https:\/\/dps-media\.aperi\.io\//i.test(compact(listItem.imageUrl))) continue;
+    if (!isDanishProductImageUrl(compact(listItem.imageUrl))) continue;
     const images = [old.imageUrl, old.detailImageUrl, ...(old.galleryImages || [])];
     if (!images.some((url) => /^https?:\/\/(?:www\.)?danishpipeshop\.com\/img\//i.test(compact(url)))) continue;
     products.push({ id, name: compact(listItem.name), href: productListUrl(listItem),

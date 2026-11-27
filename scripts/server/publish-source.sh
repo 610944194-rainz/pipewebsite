@@ -118,7 +118,7 @@ if (!compact(publish?.runId)) fail("publish.runId missing");
 if (!Array.isArray(candidate) || candidate.length === 0) fail("candidate products missing");
 if (!Number.isInteger(publish?.productCount) || publish.productCount !== candidate.length) fail("productCount mismatch");
 const ids = candidate.map((product) => compact(product?.sourceProductId || product?.id).replace(/^danish-/i, ""));
-if (ids.some((id) => !/^\d+$/.test(id) || Number(id) < 1)) fail("invalid Danish stable ID");
+if (ids.some((id) => !(/^\d+$/.test(id) && Number(id) >= 1) && !/^prod_[a-z0-9]{26,32}$/i.test(id))) fail("invalid Danish stable ID");
 if (new Set(ids).size !== ids.length) fail("duplicate Danish stable ID");
 if (candidate.some((product) => !/\bdanish\b/i.test(compact(product?.source)))) fail("non-Danish candidate product");
 if (ids.includes("32447")) fail("BPK 32447 must remain excluded");

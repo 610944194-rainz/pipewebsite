@@ -7,7 +7,7 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 import { parsePipeCondition } from "./collect-danish-details-v16.mjs";
 
-import { collectModernDanishList, readModernDanishDetail, isModernDanishUrl, danishProductId } from "./lib/danish-modern-site.mjs";
+import { collectModernDanishList, readModernDanishDetail, isModernDanishUrl, danishProductId, isDanishNativeProductId } from "./lib/danish-modern-site.mjs";
 
 const defaultStartUrl = "https://www.danishpipeshop.com/l/-zh/Pipes1";
 const defaultListOutputPath = path.join(process.cwd(), "data", "danish-list-full.json");
@@ -4190,7 +4190,7 @@ async function collectDetail(context, product, index) {
     }
 
     if (isModernDanishUrl(tab.url())) {
-      const normalizedDetail = await readModernDanishDetail(tab, product.href);
+      const normalizedDetail = await readModernDanishDetail(tab, product.href, product.sourceProductId || product.id);
       Object.assign(normalizedDetail, parsePipeCondition([
         { source: "title", text: normalizedDetail.title },
         { source: "specsText", text: normalizedDetail.specsText.join("\n") },
@@ -4572,7 +4572,7 @@ function buildListOutputPayload({
 }) {
   const invalidLinkCount = products.filter(
     (product) =>
-      !danishProductId(product.href)
+      !danishProductId(product.href) && !isDanishNativeProductId(product.sourceProductId)
   ).length;
 
   const dedupedCount = new Set(

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseDanishSpecs } from "./inventory/danish-specs-parser-v1.mjs";
+import { isDanishNativeProductId } from "./lib/danish-modern-site.mjs";
 
 const preferredDefaultInputPath = path.join(process.cwd(), "data", "danish-details-full.json");
 const legacyDefaultInputPath = path.join(process.cwd(), "data", "danish-full-v17-test-500.json");
@@ -453,7 +454,9 @@ function buildDisplayTags(product, status, brand) {
 }
 
 function mapProduct(product, collectedAt, suspiciousBrandWarnings) {
-  const id = getProductIdFromUrl(product.href || product.sourceUrl);
+  const sourceProductId = product.sourceProductId || product.id;
+  const id = getProductIdFromUrl(product.href || product.sourceUrl)
+    || (isDanishNativeProductId(sourceProductId) ? sourceProductId : 0);
   const brandInfo = normalizeConvertedBrand(product);
   const brand = brandInfo.brand;
   suspiciousBrandWarnings.push(
@@ -541,7 +544,8 @@ function createOutputFile(products) {
 
   return `import type { PipeProduct } from "./pipes";
 
-export type DanishPipeProduct = PipeProduct & {
+export type DanishPipeProduct = Omit<PipeProduct, "id"> & {
+  id: number | string;
   detailImageUrl: string;
   productCode: string;
   originalUrl: string;
@@ -570,8 +574,8 @@ export const danishProducts: DanishPipeProduct[] = ${serializedProducts};
 function assertSafeOutput(products) {
   const invalidIdProducts = products.filter(
     (product) =>
-      !Number.isInteger(product.id) ||
-      product.id <= 0
+      !(Number.isInteger(product.id) && product.id > 0) &&
+      !isDanishNativeProductId(product.id)
   );
 
   if (invalidIdProducts.length > 0) {

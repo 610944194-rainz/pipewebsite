@@ -39,11 +39,19 @@ try {
   const page = await browser.newPage();
   const base = 'https://www.danishpipeshop.cn/zh/categories/piber';
   const card = (id, sold = false) => `<article class="product-card"><span class="font-semibold">独一无二</span><img src="https://dps-media.aperi.io/${id}.jpg"><div class="space-y-1.5"><p>Test Brand</p><h3><a href="/zh/products/pipe-i${id}">Pipe ${id}</a></h3><p><span class="font-semibold">US$120.00</span><del>US$150.00</del></p>${sold ? '<span class="font-semibold">已售出</span>' : ''}</div></article>`;
+  const nativeId = 'prod_01M7Q00BTYM7N8VQ2KY3RSSP7V';
+  const nativeCard = card(2, true)
+    .replace('pipe-i2', 'new-pipe')
+    .replace('<p><span class="font-semibold">US$120.00</span><del>US$150.00</del></p>',
+      '<div><p data-testid="tax-free-price">免增值税价格 US$120.00</p><p>US$150.00</p></div>');
+  const cardAction = JSON.stringify({ productId: nativeId, returnTo: '/products/new-pipe' });
+  const nativePage = nativeCard + '<script>self.__next_f = [];</script><script>self.__next_f.push('
+    + JSON.stringify([1, cardAction]) + ')</script>';
   let broken = false;
   await page.route('**/*', route => {
     const u = new URL(route.request().url());
     const second = u.searchParams.get('page') === '2';
-    route.fulfill({ contentType: 'text/html; charset=utf-8', body: `<main><p>2 件商品</p>${card(second && !broken ? 2 : 1, second)}${second ? '' : '<a href="?per=96&page=2">下一页</a>'}</main>` });
+    route.fulfill({ contentType: 'text/html; charset=utf-8', body: `<main><p>2 件商品</p>${(second && !broken ? nativePage : card(1, second))}${second ? '' : '<a href="?per=96&page=2">下一页</a>'}</main>` });
   });
   await page.goto(base);
   const first = await readModernDanishList(page);
@@ -52,12 +60,15 @@ try {
   const complete = await collectModernDanishList(page, { targetCount: 10, minimumExpectedCount: 2, delayMs: 0 });
   assert.equal(complete.products.length, 2);
   assert.equal(complete.products[1].status, '已售');
+  assert.equal(complete.products[1].price, 'US$120.00');
+  assert.equal(complete.products[1].sourceProductId, nativeId);
   const production = [{ id: 1, sourceUrl: 'https://www.danishpipeshop.com/d/-zh/pipe-i1.html', status: '可购买', specsText: ['Length: 120 mm'], imageUrl: 'https://example.com/a.jpg' }];
   const patch = buildDanishListPatch({ listProducts: complete.products, productionProducts: production });
   assert.equal(patch.identityAnomalyCount, 0);
   assert.equal(patch.sourceUrlChangedCount, 1);
   const queue = buildIncrementalDetailQueue({ listProducts: complete.products, productionProducts: production });
   assert.equal(queue.identityAnomalyCount, 0);
+  assert.equal(queue.products[0].id, nativeId);
   broken = true;
   await assert.rejects(collectModernDanishList(page, { targetCount: 10, minimumExpectedCount: 2, delayMs: 0 }), /duplicate/);
   // Captured live pages can be supplied for reproducible full-storefront regression checks.

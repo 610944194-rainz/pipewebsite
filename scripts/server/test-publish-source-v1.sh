@@ -146,4 +146,12 @@ test -f "${INBOX_DIR}/publish.json"
 test -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)"
 git --git-dir="$REMOTE_DIR" show main:data/products/danish-products.json | grep -q 'newer remote Danish'
 
+write_inbox 'mixed storefront IDs'
+sed -i 's/"productCount":1/"productCount":2/' "$INBOX_DIR/publish.json"
+cat > "$INBOX_DIR/danish-products.json" <<'EOF'
+[{"id":1001,"source":"The Danish Pipe Shop"},{"id":"prod_01M7Q00BTYM7N8VQ2KY3RSSP7V","source":"The Danish Pipe Shop"}]
+EOF
+run_publisher
+git --git-dir="$REMOTE_DIR" show main:data/products/danish-products.json | grep -q 'prod_01M7Q00BTYM7N8VQ2KY3RSSP7V'
+
 echo "Danish server publisher V1 fixture tests passed (concurrent push / bounded retry / newer source protection)."
