@@ -2101319,121 +2101319,6 @@
     }
   },
   {
-    "id": "gqtobaccos-14223",
-    "source": "gqtobaccos",
-    "sourceProductId": "14223",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-5th-avenue-bent-diplomat/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - 5th Avenue Straight (Diplomat)",
-    "displayNameEn": "Missouri Meerschaum - 5th Avenue Straight (Diplomat)",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - 5th Avenue Straight (Diplomat)",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Corn Cob",
-      "bowlMaterialSlug": "corn-cob",
-      "bowlMaterialZhName": "玉米芯",
-      "stemMaterial": "Tapered with Fishtail (Plastic)",
-      "stemMaterialSlug": "tapered-with-fishtail-plastic",
-      "stemMaterialZhName": null,
-      "filter": "None",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 13.99,
-      "rawText": "GBP 13.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14223/68398/IMG_2932__25408__54161__88172.1728567076.JPG?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14223/68398/IMG_2932__25408__54161__88172.1728567076.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/14223/68398/IMG_2932__25408__54161__88172.1728567076.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14223/68399/IMG_2933__53723__60832__04612.1728567076.JPG?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/14223/68400/IMG_2934__91547__95852__52081.1728567076.JPG?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 145,
-      "heightMm": 51,
-      "weightGrams": 41,
-      "chamberDepthMm": 34,
-      "chamberDiameterMm": 18,
-      "outsideDiameterMm": 34
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - 5th Avenue Straight (Diplomat)",
-      "keywords": [
-        "The 5th Avenue is the classic tall Billiard shape, like the Legend but made from a higher grade cob, a little taller and with a hardwood plug. Fitted with a thicker stem and can be used with or without the 6mm filters. Sealed with plaster and given a glossy finish. Corn cobs have a slightly bad reputation, they are seen as the disposable pipe. A cheap alternative to briar and therefore inferior too, but thats not fair at all. The Missouri Meerschaum pipes are made by hand, using specifically bread corn. The porous husk allows for a dryer smoke, absorbing the moisture and like Clay & Meerschaum smokes very cool. Unlike Briar and other wooden pipes, a carbon cake is not required. The first few smokes have a sweet, nutty taste but after that the pipe holds no background flavours and always gives a pure taste to the tobacco. Many blenders (our self's included) use Missouri Meerschaum Corn Cob pipes to sample blends, for the neutral taste. Read our Interview with Bob \"Knightdor\" Carter (MM Corn Cob Advocate) Pipe Details Pipe Material : Corn Cob Shape : Billiard Finish : Smooth Colour : Natural Mouthpiece : Tapered with Fishtail (Plastic) Filter : None Dimensions Pipe Length : 145mm Pipe Height : 51mm Pipe Width : 34mm Chamber Width : 18mm Chamber Depth : 34mm Weight : 41grams *All Missouri Meerschaum Pipes are made by hand and differ in size slightly and weight.",
-        "Corn Cob",
-        "Billiard",
-        "Smooth",
-        "Tapered with Fishtail (Plastic)",
-        "None"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-14365",
     "source": "gqtobaccos",
     "sourceProductId": "14365",
@@ -2102392,11 +2102277,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2102452,7 +2102337,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2108001,120 +2107886,6 @@
     }
   },
   {
-    "id": "gqtobaccos-20446",
-    "source": "gqtobaccos",
-    "sourceProductId": "20446",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/savinelli-desigual-smooth-140-6mm/",
-    "entityType": "offer",
-    "displayName": "Savinelli - Desigual Smooth - 140 - 6mm",
-    "displayNameEn": "Savinelli - Desigual Smooth - 140 - 6mm",
-    "displayNameZh": null,
-    "rawTitle": "Savinelli - Desigual Smooth - 140 - 6mm",
-    "brand": {
-      "rawName": "Savinelli",
-      "canonicalName": "Savinelli",
-      "slug": "savinelli",
-      "zhName": "沙芬",
-      "country": "Italy",
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": "Billiard",
-      "shapeSlug": "billiard",
-      "shapeZhName": "撞球斗",
-      "finish": "Smooth",
-      "finishSlug": "smooth",
-      "finishZhName": "光面",
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": "Tapered Acrylic (Fishtail)",
-      "stemMaterialSlug": "tapered-acrylic-fishtail",
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": true,
-        "finish": true,
-        "bowlMaterial": true,
-        "stemMaterial": true,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 96.99,
-      "rawText": "GBP 96.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20446/82203/savinelli_desigual_140_pipe_1__59027__24182__43531.1728568979.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20446/82203/savinelli_desigual_140_pipe_1__59027__24182__43531.1728568979.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/20446/82203/savinelli_desigual_140_pipe_1__59027__24182__43531.1728568979.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20446/82204/savinelli_desigual_140_pipe_2__42898__26614__36888.1728568979.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 151,
-      "heightMm": 53,
-      "weightGrams": 48,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 20,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Savinelli",
-      "title": "Savinelli - Desigual Smooth - 140 - 6mm",
-      "keywords": [
-        "This range of Savinelli's is available in a smooth brown or a rusticated brown finish. The pipe has an aluminium band with a black silicon ring in the centre, there are two spaces either side to add affectional coloured silicon rings (included) so that you can customise your pipe. Takes a 6mm filter. Pipe Details Pipe Material : Briar Shape : Billiard Finish : Smooth Colour : Brown Mouthpiece : Tapered Acrylic (Fishtail) Filter : 6mm Dimensions Pipe Length :151mm Bowl Height : 53 mm Bowl Width : 35 mm Chamber Width : 20 mm Pipe Weight : 48 grams",
-        "Briar",
-        "Billiard",
-        "Smooth",
-        "Tapered Acrylic (Fishtail)",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
     "id": "gqtobaccos-20458",
     "source": "gqtobaccos",
     "sourceProductId": "20458",
@@ -2108275,11 +2108046,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2108334,7 +2108105,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2108557,115 +2108328,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-20665",
-    "source": "gqtobaccos",
-    "sourceProductId": "20665",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/missouri-meerschaum-zenon-straight-corn-cob-pipe/",
-    "entityType": "offer",
-    "displayName": "Missouri Meerschaum - Zenon Straight - Corn Cob Pipe",
-    "displayNameEn": "Missouri Meerschaum - Zenon Straight - Corn Cob Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Missouri Meerschaum - Zenon Straight - Corn Cob Pipe",
-    "brand": {
-      "rawName": "MM Corn Cobs",
-      "canonicalName": "MM Corn Cobs",
-      "slug": "mm-corn-cobs",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": null,
-      "bowlMaterialSlug": null,
-      "bowlMaterialZhName": null,
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "6mm",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": false,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 16.49,
-      "rawText": "GBP 16.49",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20665/82542/zenon_coron_cob_straight_pipe_1__17454__94103__45354.1728569046.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/20665/82542/zenon_coron_cob_straight_pipe_1__17454__94103__45354.1728569046.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/20665/82542/zenon_coron_cob_straight_pipe_1__17454__94103__45354.1728569046.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": null,
-      "heightMm": 1.7544,
-      "weightGrams": null,
-      "chamberDepthMm": 1.538,
-      "chamberDiameterMm": 0.7519,
-      "outsideDiameterMm": null
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "MM Corn Cobs",
-      "title": "Missouri Meerschaum - Zenon Straight - Corn Cob Pipe",
-      "keywords": [
-        "The new Back to Our Roots line features the Zenon . This sturdy, filtered, feel good in your hand, Maple Harwood Apple Diplomat features a nickel ferrule and our new rich green Danish bit! Named in honor of the Lieutenant-governor of what would be the state of Missouri, the Zenon is a pipe ahead of its time. Corn cobs have a slightly bad reputation, they are seen as the disposable pipe. A cheap alternative to briar and therefore inferior too, but thats not fair at all. The Missouri Meerschaum pipes are made by hand, using specifically bread corn. The porous husk allows for a dryer smoke, absorbing the moisture and like Clay & Meerschaum smokes very cool. Unlike Briar and other wooden pipes, a carbon cake is not required. The first few smokes have a sweet, nutty taste but after that the pipe holds no background flavours and always gives a pure taste to the tobacco. Many blenders (our self's included) use Missouri Meerschaum Corn Cob pipes to sample blends, for the neutral taste. Read our Interview with Bob \"Knightdor\" Carter (MM Corn Cob Advocate) Pipe Details Filter : 6mm Dimensions Straight Length: 6.25 in / 158.75 mm Bent Length: 6.14 in / 156 mm Bowl Height: 1.75 in / 44.45 mm Chamber Diameter: .75 in / 19.05 mm Chamber Depth: 1.5 in / 38.1 mm",
-        "6mm"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2114157,11 +2113819,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2114215,7 +2113877,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2121803,11 +2121465,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2121861,7 +2121523,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2121915,11 +2121577,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2121973,7 +2121635,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2122586,11 +2122248,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2122629,117 +2122291,6 @@
       "title": "Peterson - Christmas 2026 - 1s - Deluxe System Rustic Pipe",
       "keywords": [
         "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 137mm Pipe Height : 46mm Pipe Width : 38mm Chamber Width : 19mm Pipe Weight : 61 grams",
-        "Briar",
-        "none"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25932",
-    "source": "gqtobaccos",
-    "sourceProductId": "25932",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-2s-deluxe-system-rustic-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
-    "displayNameEn": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "none",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 106.99,
-      "rawText": "GBP 106.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91632/CHR2S----SR--P-.3448__35871.1795536448.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91632/CHR2S----SR--P-.3448__35871.1795536448.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25932/91606/dhfgalghw__09210.1795445127.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 129,
-      "heightMm": 45,
-      "weightGrams": 50,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 36
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Christmas 2026 - 2s - Deluxe System Rustic Pipe",
-      "keywords": [
-        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 129mm Pipe Height : 45mm Pipe Width : 36mm Chamber Width : 19mm Pipe Weight : 50 grams",
         "Briar",
         "none"
       ]
@@ -2122807,11 +2122358,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2122863,7 +2122414,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2123027,11 +2122578,11 @@
       "canonical": "unknown"
     },
     "inventory": {
-      "status": "available",
-      "confidence": "complete-current-list",
+      "status": "sold",
+      "confidence": "complete-current-list-disappearance",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "reason": "Current complete GQ pipes list contains an eligible pipe offer."
     },
     "price": {
@@ -2123083,7 +2122634,7 @@
       "status": "eligible",
       "listingEligible": true,
       "publicIndexEligible": true,
-      "publiclySellable": true,
+      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
@@ -2123194,116 +2122745,6 @@
       "listingEligible": true,
       "publicIndexEligible": true,
       "publiclySellable": true,
-      "brandIndexEligible": true,
-      "filterEligible": true,
-      "countsTowardAnomalyRate": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    }
-  },
-  {
-    "id": "gqtobaccos-25938",
-    "source": "gqtobaccos",
-    "sourceProductId": "25938",
-    "sourceUrl": "https://www.gqtobaccos.com/pipes/peterson-christmas-2026-9s-deluxe-system-rustic-pipe/",
-    "entityType": "offer",
-    "displayName": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
-    "displayNameEn": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
-    "displayNameZh": null,
-    "rawTitle": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
-    "brand": {
-      "rawName": "Peterson Pipes",
-      "canonicalName": "Peterson Pipes",
-      "slug": "peterson-pipes",
-      "zhName": null,
-      "country": null,
-      "reviewStatus": "confirmed",
-      "indexEligible": true
-    },
-    "classification": {
-      "shape": null,
-      "shapeSlug": null,
-      "shapeZhName": null,
-      "finish": null,
-      "finishSlug": null,
-      "finishZhName": null,
-      "bowlMaterial": "Briar",
-      "bowlMaterialSlug": "briar",
-      "bowlMaterialZhName": "石楠木",
-      "stemMaterial": null,
-      "stemMaterialSlug": null,
-      "stemMaterialZhName": null,
-      "filter": "none",
-      "filterSizeMm": null,
-      "eligibility": {
-        "shape": false,
-        "finish": false,
-        "bowlMaterial": true,
-        "stemMaterial": false,
-        "filter": true
-      }
-    },
-    "condition": {
-      "raw": null,
-      "canonical": "unknown"
-    },
-    "inventory": {
-      "status": "sold",
-      "confidence": "complete-current-list-disappearance",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
-      "reason": "Current complete GQ pipes list contains an eligible pipe offer."
-    },
-    "price": {
-      "currency": "GBP",
-      "amount": 106.99,
-      "rawText": "GBP 106.99",
-      "msrpAmount": null,
-      "msrpRawText": null,
-      "internationalShippingAmount": 20,
-      "internationalShippingCurrency": "GBP",
-      "siteDisplayAmount": null,
-      "siteDisplayCurrency": null,
-      "siteDisplayReady": false
-    },
-    "images": {
-      "main": "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2",
-      "gallery": [
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/500x659/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2",
-        "https://cdn11.bigcommerce.com/s-6ihhxuk/images/stencil/1280x1280/products/25938/91612/ejsgleo__68717.1795445988.jpg?c=2"
-      ]
-    },
-    "measurements": {
-      "lengthMm": 154,
-      "heightMm": 53,
-      "weightGrams": 58,
-      "chamberDepthMm": null,
-      "chamberDiameterMm": 19,
-      "outsideDiameterMm": 41
-    },
-    "model": {
-      "canonicalModelKey": null,
-      "confidence": null
-    },
-    "search": {
-      "brand": "Peterson Pipes",
-      "title": "Peterson - Christmas 2026 - 9s - Deluxe System Rustic Pipe",
-      "keywords": [
-        "2026&rsquo;s Peterson Christmas pipes continue one of the Irish marque&rsquo;s longest-standing annual traditions with classic Yuletide spirit shining through a timeless crimson rustication dressing Deluxe System shapes. Each pipe is equipped with a P-Lip stem and adorned with a broad shining copper mount, a decoration fitting for the most wonderful time of the year. Pipe Details Pipe Material : Briar Filter : none Dimensions Pipe Length : 154mm Pipe Height : 53mm Pipe Width : 41mm Chamber Width : 19mm Pipe Weight : 58 grams",
-        "Briar",
-        "none"
-      ]
-    },
-    "integration": {
-      "legacyPipeCompatible": false,
-      "legacyMissingFields": [],
-      "adapterWarnings": []
-    },
-    "publication": {
-      "status": "eligible",
-      "listingEligible": true,
-      "publicIndexEligible": true,
-      "publiclySellable": false,
       "brandIndexEligible": true,
       "filterEligible": true,
       "countsTowardAnomalyRate": false,
